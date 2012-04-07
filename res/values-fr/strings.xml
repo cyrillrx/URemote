@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">URemote</string>
+    
+    <string name="title_home">URemote Home</string>
+    
+    <string name="title_tv">Contrôle de la TV</string>
+    <string name="title_robots">Contrôle des robots</string>
+    <string name="title_lights">Contrôle des éclairages</string>
+    <string name="title_hifi">Hifi</string>
+    <string name="title_settings">Paramètres</string>
+    <string name="title_server_dashboard">Dashboard</string>
+    
+    <string name="title_application_launcher">Applications</string>
+    <string name="title_filemanager">Explorateur de fichiers</string>
+    
+    <string name="tv">TV</string>
+    <string name="robot">Robots</string>
+    <string name="home">Home</string>
+    
+    <string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>
+    <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
+    <string name="msg_settings_control_not_available">Paramètres n\'est pas encore disponible</string>
+    
+    <string name="command_succeeded">Commande effectuée</string>
+    <string name="command_running">Commande en cours&#8230;</string>
+    <string name="command_failed">La commande a échouée</string>
+    
+    <string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
+    <string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
+</resources>

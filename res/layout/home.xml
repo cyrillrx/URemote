@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@null"
+    android:gravity="center"
+    android:stretchColumns="*" >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/btnLights"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_lights"
+            android:src="@drawable/home_light" />
+
+        <ImageButton
+            android:id="@+id/btnTv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_tv"
+            android:src="@drawable/home_tv" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/btnRobot"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_robots"
+            android:src="@drawable/home_robot" />
+
+        <ImageButton
+            android:id="@+id/btnMediaCenter"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_server_dashboard"
+            android:src="@drawable/home_media_center" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:id="@+id/btnHifi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_server_dashboard"
+            android:src="@drawable/home_hifi" />
+
+        <ImageButton
+            android:id="@+id/btnTools"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/title_settings"
+            android:src="@drawable/home_tools" />
+    </TableRow>
+
+</TableLayout>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <!-- Statut du serveur -->
+
+                <TextView
+                    android:id="@+id/tvServerInfos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:id="@+id/ivServerState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/presence_invisible" />
+
+                    <TextView
+                        android:id="@+id/tvServerState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/command_failed" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/cmdKillServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Kill server" />
+        </LinearLayout>
+
+		<TableLayout 
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<TableRow>
+				<Button android:id="@+id/cmdAltF4" 
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:text="Alt+F4" />
+					
+				<Button android:id="@+id/cmdTest" 
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:text="test cmd" />
+			</TableRow>
+			
+			<TableRow>
+	            <Button
+	                android:id="@+id/cmdGomStretch"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="5dp"
+	                android:text="Stretch" />
+					
+				<Button android:id="@+id/cmdAltV" 
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:text="switch" />
+			</TableRow>
+			
+			<TableRow>
+				<Button
+	                android:id="@+id/cmdSpace"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="5dp"
+	                android:text="Space" />
+	
+	            <Button
+	                android:id="@+id/cmdEnter"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_margin="5dp"
+	                android:text="Enter" />
+			</TableRow>
+		</TableLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/cmdPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding_top="5dp"
+                android:padding_bottom="5dp"
+                android:padding_left="10dp"
+                android:padding_right="10dp"
+                android:src="@drawable/media_previous" />
+
+            <ImageButton
+                android:id="@+id/cmdPlayPause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="15dp"
+                android:src="@drawable/media_play" />
+
+            <ImageButton
+                android:id="@+id/cmdStop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="15dp"
+                android:src="@drawable/media_stop" />
+
+            <ImageButton
+                android:id="@+id/cmdNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="15dp"
+                android:src="@drawable/media_next" />
+
+            <ImageButton
+                android:id="@+id/cmdMute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:padding="15dp"
+                android:src="@drawable/volume_on" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ProgressBar
+                android:id="@+id/pbConnection"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible" />
+        </LinearLayout>
+ 		
+ 		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+	        <ImageButton
+	            android:id="@+id/btnAppLauncher"
+	            android:layout_width="90dp"
+	            android:layout_height="90dp"
+	            android:layout_gravity="center"
+	            android:layout_margin="5dp"
+	            android:background="@null"
+	            android:src="@drawable/app_launcher" />
+	        <ImageButton
+	            android:id="@+id/btnFileManager"
+	            android:layout_width="90dp"
+	            android:layout_height="90dp"
+	            android:layout_gravity="center"
+	            android:layout_margin="5dp"
+	            android:background="@null"
+	            android:src="@drawable/filemanager" />
+		</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

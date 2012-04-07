@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">URemote</string>
+    
+    <string name="title_home">URemote Home</string>
+    
+    <string name="title_tv">Tv remote</string>
+    <string name="title_robots">Robot control</string>
+    <string name="title_lights">Light control</string>
+    <string name="title_hifi">Hifi</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_server_dashboard">Dashboard</string>
+    
+    <string name="title_application_launcher">Applications</string>
+    <string name="title_filemanager">File Explorer</string>
+    
+    <string name="msg_light_control_not_available">Lights control is not available yet</string>
+    <string name="msg_hifi_control_not_available">Hifi control is not available yet</string>
+    <string name="msg_settings_control_not_available">Settings control is not available yet</string>
+    
+    <string name="command_succeeded">Command succeeded</string>
+    <string name="command_running">Command is running&#8230;</string>
+    <string name="command_failed">Command failed</string>
+    
+    <string name="filemanager_image_description">Image that represents the file or folder</string>
+    <string name="filemanager_empty_directory">This directory is empty.</string>
+</resources>
