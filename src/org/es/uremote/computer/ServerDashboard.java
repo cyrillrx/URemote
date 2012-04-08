@@ -19,6 +19,8 @@ import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.Message;
 import org.es.utils.ConnectionUtils;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -65,12 +67,19 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		
-//		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//		Tab tab1 = getActionBar().newTab().setText("tab1");
-//		Tab tab2 = getActionBar().newTab().setText("tab2");
-//		getActionBar().addTab(tab1);
+		
+		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		/*
+		final Tab tab1 = getActionBar().newTab();
+		tab1.setText("tab1");
+		tab1.setIcon(R.drawable.app_gom_player);
+		
+		final Tab tab2 = getActionBar().newTab();
+		tab2.setText("tab2");
+		
+		getActionBar().addTab(tab1);
 //		getActionBar().addTab(tab2);
+		*/
 
 		setContentView(R.layout.server_dashboard);
 		mTvServerState = (TextView) findViewById(R.id.tvServerState);
@@ -79,13 +88,13 @@ public class ServerDashboard extends Activity implements OnClickListener {
 
 
 		((Button) findViewById(R.id.cmdTest)).setOnClickListener(this);
-		((Button) findViewById(R.id.cmdKillServer)).setOnClickListener(this);
+		((ImageButton) findViewById(R.id.cmdKillServer)).setOnClickListener(this);
 		
 		((Button) findViewById(R.id.cmdAltF4)).setOnClickListener(this);
 		((Button) findViewById(R.id.cmdAltV)).setOnClickListener(this);
 		((Button) findViewById(R.id.cmdSpace)).setOnClickListener(this);
 		((Button) findViewById(R.id.cmdEnter)).setOnClickListener(this);
-		((Button) findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
+		((ImageButton) findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
 		
 		((ImageButton) findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnFileManager)).setOnClickListener(this);
@@ -277,7 +286,7 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	 * Classe asynchrone de gestion d'envoi des messages
 	 * @author cyril.leroux
 	 */
-	public class AsyncMessageMgr extends AsyncTask<String, byte[], Boolean> {
+	private class AsyncMessageMgr extends AsyncTask<String, byte[], Boolean> {
 		private static final int CONNECTION_TIMEOUT = 500;
 
 		//		private int mConnectionState;
