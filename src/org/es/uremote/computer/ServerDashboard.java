@@ -22,6 +22,8 @@ import org.es.utils.ConnectionUtils;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -68,7 +70,7 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		//getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		/*
 		final Tab tab1 = getActionBar().newTab();
 		tab1.setText("tab1");
@@ -447,4 +449,53 @@ public class ServerDashboard extends Activity implements OnClickListener {
 		} 
 	}
 
+	
+	public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
+	    private Fragment mFragment;
+	    private final Activity mActivity;
+	    private final String mTag;
+	    private final Class<T> mClass;
+
+	    /** Constructeur utilisé chaque fois qu'un nouvel onglet est créé.
+	      * @param _activity L'activité hôte, utilisée pour instancier le fragment.
+	      * @param _tag L'id du tag pour le fragment.
+	      * @param _class La classe de fragment, utilisée pour instancier le fragment.
+	      */
+	    public TabListener(Activity _activity, String _tag, Class<T> _class) {
+	        mActivity = _activity;
+	        mTag = _tag;
+	        mClass = _class;
+	    }
+
+	    /* Les trois fonctions qui suivent correspondent aux callbacks de l'ActionBar.TabListener. */
+	    
+	    @Override
+	    public void onTabSelected(Tab _tab, FragmentTransaction _ft) {
+	        // On vérifie si le fragment est déjà initialisé
+	        if (mFragment == null) { // Si ce n'est pas le cas, on l'instancie et on l'ajoute à l'activité
+	            mFragment = Fragment.instantiate(mActivity, mClass.getName());
+	            _ft.add(android.R.id.content, mFragment, mTag);
+	        } else {
+	            // Si il existe, on l'attache simplement afin de l'afficher
+	            _ft.attach(mFragment);
+	        }
+	    }
+
+	    @Override
+	    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	        if (mFragment != null) {
+	            // Détache le fragment actuel pour attacher le nouveau
+	            ft.detach(mFragment);
+	        }
+	    }
+
+	    @Override
+	    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	        /* 
+	         * Reselection de l'onglet selectionné.
+	         * On ne fait rien...
+	         */
+	    }
+	}
+	
 }
