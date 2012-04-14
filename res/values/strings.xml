@@ -18,10 +18,28 @@
     <string name="msg_hifi_control_not_available">Hifi control is not available yet</string>
     <string name="msg_settings_control_not_available">Settings control is not available yet</string>
     
-    <string name="command_succeeded">Command succeeded</string>
-    <string name="command_running">Command is running&#8230;</string>
-    <string name="command_failed">Command failed</string>
+    <string name="msg_command_succeeded">Command succeeded</string>
+    <string name="msg_command_running">Command is running&#8230;</string>
+    <string name="msg_command_failed">Command failed</string>
     
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
+    
+    <string name="cmd_kill_server">Kill server</string>
+    <string name="cmd_altf4">Alt + F4</string>
+    <string name="cmd_test">Test</string>
+    <string name="cmd_enter">Enter</string>
+    <string name="cmd_space">Space</string>
+    <string name="cmd_switch_window">Switch</string>
+    <string name="cmd_gom_stretch">Stretch</string>
+    
+    <string name="cmd_play_pause">Play/Pause</string>
+    <string name="cmd_stop">Stop</string>
+    <string name="cmd_preview">Preview</string>
+    <string name="cmd_next">Next</string>
+    <string name="cmd_mute">Mute</string>
+    
+    <string name="cmd_app_launcher">App Launcher</string>
+    <string name="cmd_file_manager">File manager</string>
+    
 </resources>

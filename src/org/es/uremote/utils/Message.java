@@ -12,7 +12,6 @@ public class Message {
 	public static final String KEYBOARD_SPACE	= "keyboard_space";
 	public static final String KEYBOARD_ENTER	= "keyboard_enter";
 	public static final String KEYBOARD_ALTF4	= "keyboard_altf4";
-	public static final String KEYBOARD_ALTV	= "keyboard_altv";
 	
 	// Gestion du multi-media
 	public static final String MEDIA_PLAY_PAUSE	= "media_play_pause";
@@ -26,6 +25,8 @@ public class Message {
 	public static final String VOLUME_DOWN	= "volume_down";
 	
 	// Gestion des fenêtres et applications
+	public static final String MONITOR_SWITCH_WINDOW = "switch_window";
+
 	public static final String KILL_APP			= "kill_app";
 	public static final String APP_GOM_PLAYER	= "app_gom_player";
 	public static final String KILL_GOM_PLAYER	= "kill_gom_player";

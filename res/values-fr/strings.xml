@@ -22,9 +22,9 @@
     <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
     <string name="msg_settings_control_not_available">Paramètres n\'est pas encore disponible</string>
     
-    <string name="command_succeeded">Commande effectuée</string>
-    <string name="command_running">Commande en cours&#8230;</string>
-    <string name="command_failed">La commande a échouée</string>
+    <string name="msg_command_succeeded">Commande effectuée</string>
+    <string name="msg_command_running">Commande en cours&#8230;</string>
+    <string name="msg_command_failed">La commande a échouée</string>
     
     <string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
     <string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>

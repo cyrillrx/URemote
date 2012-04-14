@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,7 +60,6 @@ public class ServerDashboard extends Activity implements OnClickListener {
 
 	private AsyncMessageMgr mMessageManager = null;
 	private TextView mTvServerState;
-	private ImageView mIvServerState;
 	private ProgressBar mPbConnection;
 
 	/** 
@@ -85,7 +84,7 @@ public class ServerDashboard extends Activity implements OnClickListener {
 
 		setContentView(R.layout.server_dashboard);
 		mTvServerState = (TextView) findViewById(R.id.tvServerState);
-		mIvServerState = (ImageView) findViewById(R.id.ivServerState);
+		//mIvServerState = (ImageView) findViewById(R.id.ivServerState);
 		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
 
@@ -93,7 +92,7 @@ public class ServerDashboard extends Activity implements OnClickListener {
 		((ImageButton) findViewById(R.id.cmdKillServer)).setOnClickListener(this);
 		
 		((Button) findViewById(R.id.cmdAltF4)).setOnClickListener(this);
-		((Button) findViewById(R.id.cmdAltV)).setOnClickListener(this);
+		((Button) findViewById(R.id.cmdSwitch)).setOnClickListener(this);
 		((Button) findViewById(R.id.cmdSpace)).setOnClickListener(this);
 		((Button) findViewById(R.id.cmdEnter)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
@@ -152,8 +151,8 @@ public class ServerDashboard extends Activity implements OnClickListener {
 			sendAsyncMessage(Message.KEYBOARD_ALTF4);
 			break;
 			
-		case R.id.cmdAltV :
-			sendAsyncMessage(Message.KEYBOARD_ALTV);
+		case R.id.cmdSwitch :
+			sendAsyncMessage(Message.MONITOR_SWITCH_WINDOW);
 			break;
 
 		case R.id.cmdSpace :
@@ -236,8 +235,10 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	 * Connexion/Commande valide
 	 */
 	private void updateConnectionStateOK() {
-		mIvServerState.setImageResource(android.R.drawable.presence_online);
-		mTvServerState.setText(R.string.command_succeeded);
+		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_online);
+		imgLeft.setBounds(0, 0, 24, 24);
+		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
+		mTvServerState.setText(R.string.msg_command_succeeded);
 		mPbConnection.setVisibility(INVISIBLE);
 	}
 
@@ -246,8 +247,10 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	 * Connexion/Commande en erreur
 	 */
 	private void updateConnectionStateKO() {
-		mIvServerState.setImageResource(android.R.drawable.presence_offline);
-		mTvServerState.setText(R.string.command_failed);
+		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_offline);
+		imgLeft.setBounds(0, 0, 24, 24);
+		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
+		mTvServerState.setText(R.string.msg_command_failed);
 		mPbConnection.setVisibility(INVISIBLE);
 	}
 
@@ -256,8 +259,10 @@ public class ServerDashboard extends Activity implements OnClickListener {
 	 * Connexion/Commande en cours
 	 */
 	private void updateConnectionStateConnecting() {
-		mIvServerState.setImageResource(android.R.drawable.presence_away);
-		mTvServerState.setText(R.string.command_running);
+		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_away);
+		imgLeft.setBounds(0, 0, 24, 24);
+		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
+		mTvServerState.setText(R.string.msg_command_running);
 		mPbConnection.setVisibility(VISIBLE);
 	}
 
