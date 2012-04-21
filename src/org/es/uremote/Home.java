@@ -3,6 +3,7 @@ package org.es.uremote;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 
 import org.es.uremote.computer.ServerDashboard;
+import org.es.uremote.computer.ServerTabHost;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -60,7 +61,8 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnHifi:
-			Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+			startServerTabHost();
+			//Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
 		case R.id.btnTools:
@@ -88,7 +90,6 @@ public class Home extends Activity implements OnClickListener {
 		if (!wifiMgr.isWifiEnabled()) {
 			Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
 			startActivityForResult(enableIntent, RC_ENABLE_WIFI);
-
 			//            Intent enableIntent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
 			//            startActivityForResult(enableIntent, REQUEST_ENABLE_WIFI);
 		} else {
@@ -96,6 +97,16 @@ public class Home extends Activity implements OnClickListener {
 		}
 	}
 
+	private void startServerTabHost() {
+		// Si le Wifi n'est pas activé, demander son activation.
+		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+		if (!wifiMgr.isWifiEnabled()) {
+			Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+			startActivityForResult(enableIntent, RC_ENABLE_WIFI);
+		} else {
+			startActivity(new Intent(getApplicationContext(), ServerTabHost.class));	
+		}
+	}
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (requestCode) {

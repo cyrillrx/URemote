@@ -22,6 +22,8 @@
     <string name="msg_command_running">Command is running&#8230;</string>
     <string name="msg_command_failed">Command failed</string>
     
+    <string name="confirm_kill_server">You are about to kill the server. Would you like to continue ?</string>
+    
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
     
@@ -32,6 +34,8 @@
     <string name="cmd_space">Space</string>
     <string name="cmd_switch_window">Switch</string>
     <string name="cmd_gom_stretch">Stretch</string>
+    <string name="cmd_gom_start">Start Gom Player</string>
+    <string name="cmd_gom_kill">Kill Gom Player</string>
     
     <string name="cmd_play_pause">Play/Pause</string>
     <string name="cmd_stop">Stop</string>
