@@ -253,8 +253,7 @@ public class FragFileManager extends ListFragment {
 					Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 				}
 
-			} else {
-			}
+			} 
 
 			sSemaphore.release();
 			mMessageManager = null;
@@ -285,7 +284,6 @@ public class FragFileManager extends ListFragment {
 
 			return socket;
 		}
-
 
 		/**
 		 * Cette fonction est appelée depuis le thread principal
