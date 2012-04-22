@@ -43,7 +43,7 @@ import android.widget.Toast;
  * Classe permettant de se connecter et d'envoyer des commandes à un serveur distant via une AsyncTask.
  *
  */
-public class DashboardFrag extends Fragment implements OnClickListener {
+public class FragKeyboard extends Fragment implements OnClickListener {
 	private static final String TAG = "ServerDashboard";
 
 	// Liste des RequestCodes pour les ActivityForResults

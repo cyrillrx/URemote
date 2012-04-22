@@ -35,8 +35,8 @@ public class ServerTabHost extends Activity {
 		Tab tabExplorer = mBar.newTab().setText("Explorer");
 		
 		// Création des fragments à utiliser dans chacun des onglets
-		Fragment fragDashboard = new DashboardFrag();
-		Fragment fragExplorer = new ExplorerFrag();;
+		Fragment fragDashboard = new FragDashboard();
+		Fragment fragExplorer = new FragFileManager();
 		
 		// Listener sur les onglets
 		tabDashboard.setTabListener(new MyTabsListener(fragDashboard));

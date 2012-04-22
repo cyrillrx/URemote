@@ -31,7 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ExplorerFrag extends ListFragment {
+public class FragFileManager extends ListFragment {
 	private static final String TAG = "FileManager";
 
 	private static Semaphore sSemaphore = new Semaphore(1);
@@ -156,7 +156,7 @@ public class ExplorerFrag extends ListFragment {
 
 	private void openDirectory(String _dirPath, String _dirContent) {
 		// Afficher le contenu du répertoire
-		Intent intent = new Intent(getActivity().getApplicationContext(), ExplorerFrag.class);
+		Intent intent = new Intent(getActivity().getApplicationContext(), FragFileManager.class);
 		intent.putExtra(IntentKeys.DIR_PATH,	_dirPath);
 		intent.putExtra(IntentKeys.DIR_CONTENT,	_dirContent);
 		startActivity(intent);	

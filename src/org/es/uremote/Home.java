@@ -61,12 +61,12 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnHifi:
-			startServerTabHost();
-			//Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+			Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
 		case R.id.btnTools:
-			Toast.makeText(Home.this, getString(R.string.msg_settings_control_not_available), Toast.LENGTH_SHORT).show();
+			startServerTabHost();
+//			Toast.makeText(Home.this, getString(R.string.msg_settings_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
 		default:
