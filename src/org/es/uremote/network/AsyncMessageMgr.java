@@ -23,7 +23,7 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 	public static Semaphore sSemaphore = new Semaphore(1);
 	private static final String TAG = "AsyncMessageMgr";
 	private static final int PORT = 8082;
-	private static final String HOST = "192.168.0.48";
+	private static final String HOST = "192.168.0.1";
 	private static final int CONNECTION_TIMEOUT = 500;
 	
 // TODO
@@ -53,6 +53,8 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 
 	/**
 	 * Cette fonction est exécutée sur un thread différent du thread principal
+	 * @param _params le tableau de string contenant les paramètres (commande et paramètre de la commande).
+	 * @return La réponse du serveur.
 	 */
 	@Override
 	protected String doInBackground(String... _params) {
@@ -76,7 +78,7 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 			if (DEBUG)
 				Log.e(TAG, serverReply);
 
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			mCommand = Message.ERROR;
 			serverReply = "IOException" + e.getMessage();
 			if (DEBUG) 
@@ -97,36 +99,36 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 	@Override
 	protected void onPostExecute(String _serverReply) {
 
-		if (_serverReply != null && !_serverReply.isEmpty()) {
-						
-			if (DEBUG)
-				Log.i(TAG, "Get a reply : " + _serverReply);
-
-			// TODO notifier que la commande a été reçue
-			//updateConnectionStateOK();
-			
-			// TODO Traitement du message de retour
-			if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
-				// TODO Update mute image
-				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_muted);
-			} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
-				// TODO Update mute image
-				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_on);
-			} else if (Message.OPEN_DIR.equals(mCommand)) {
-				//openDirectory(mParam, _serverReply);
-
-			} else if (Message.ERROR.equals(mCommand)) {
-				// TODO Toast erreur
-				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			// TODO notifier d'un problème lors de l'envoi
-			//updateConnectionStateKO();
-		}
-		
 		sSemaphore.release();
 		if (DEBUG)
 			Log.i(TAG, "Semaphore release");
+		
+//		if (_serverReply != null && !_serverReply.isEmpty()) {
+//						
+//			if (DEBUG)
+//				Log.i(TAG, "Get a reply : " + _serverReply);
+//
+//			// TODO notifier que la commande a été reçue
+//			//updateConnectionStateOK();
+//			
+//			// TODO Traitement du message de retour
+//			if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
+//				// TODO Update mute image
+//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_muted);
+//			} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
+//				// TODO Update mute image
+//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_on);
+//			} else if (Message.OPEN_DIR.equals(mCommand)) {
+//				//openDirectory(mParam, _serverReply);
+//
+//			} else if (Message.ERROR.equals(mCommand)) {
+//				// TODO Toast erreur
+//				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+//			}
+//		} else {
+//			// TODO notifier d'un problème lors de l'envoi
+//			//updateConnectionStateKO();
+//		}
 	}
 
 	@Override
@@ -134,7 +136,6 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 		super.onCancelled();
 		closeSocketIO();
 	}
-
 	
 	/**
 	 * Fonction de connexion à un socket disant.
