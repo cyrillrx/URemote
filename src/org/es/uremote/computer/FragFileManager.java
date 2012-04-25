@@ -13,7 +13,6 @@ import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.Message;
 
 import android.app.ListFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -146,10 +145,13 @@ public class FragFileManager extends ListFragment {
 
 	private void openDirectory(String _dirPath, String _dirContent) {
 		// Afficher le contenu du répertoire
-		Intent intent = new Intent(getActivity().getApplicationContext(), FragFileManager.class);
-		intent.putExtra(IntentKeys.DIR_PATH,	_dirPath);
-		intent.putExtra(IntentKeys.DIR_CONTENT,	_dirContent);
-		startActivity(intent);	
+//		Intent intent = new Intent(getActivity().getApplicationContext(), FragFileManager.class);
+//		intent.putExtra(IntentKeys.DIR_PATH,	_dirPath);
+//		intent.putExtra(IntentKeys.DIR_CONTENT,	_dirContent);
+		mDirectoryPath = _dirPath;
+		mDirectoryContent = _dirContent;
+		updateView(mDirectoryContent);
+//		startActivity(intent);	
 	}
 
 	private void openFile(String _filename) {
@@ -162,8 +164,8 @@ public class FragFileManager extends ListFragment {
 	 */
 	public class FileMessageMgr extends AsyncMessageMgr {
 		private static final String TAG = "AsyncMessageMgr";
-		private String mCommand;
-		private String mParam;
+//		private String mCommand;
+//		private String mParam;
 
 		@Override
 		protected void onPostExecute(String _serverReply) {
@@ -171,8 +173,11 @@ public class FragFileManager extends ListFragment {
 
 			if (_serverReply != null && !_serverReply.isEmpty()) {
 
-				if (DEBUG)
+				if (DEBUG) {
 					Log.i(TAG, "Get a reply : " + _serverReply);
+					Log.i(TAG, "mCommand  : " + mCommand);
+					Log.i(TAG, "mParam  : " + mParam);
+				}
 
 				if (Message.OPEN_DIR.equals(mCommand)) {
 					openDirectory(mParam, _serverReply);

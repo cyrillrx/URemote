@@ -168,7 +168,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	private void askToKillServer() {
 		//TODO Empecher le plantage sur cette fonction
 		final String message = getString(R.string.confirm_kill_server);
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
 		builder.setMessage(message);
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

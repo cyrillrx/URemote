@@ -19,7 +19,7 @@ import android.util.Log;
  * Classe asynchrone de gestion d'envoi de command avec paramètres au serveur.
  * @author cyril.leroux
  */
-public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
+public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	public static Semaphore sSemaphore = new Semaphore(1);
 	private static final String TAG = "AsyncMessageMgr";
 	private static final int PORT = 8082;
@@ -28,8 +28,8 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 	
 // TODO
 	private Socket mSocket		= null;
-	private String mCommand;
-	private String mParam;
+	protected String mCommand;
+	protected String mParam;
 //	private OutputStream mOut	= null;
 //	private InputStream mIn		= null;
 //	private String mReply		= null;
