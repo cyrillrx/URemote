@@ -1,11 +1,14 @@
 package org.es.uremote.computer;
 
 
+import static android.app.Activity.RESULT_OK;
+import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.Message;
 
 import android.app.AlertDialog;
@@ -33,10 +36,11 @@ import android.widget.Toast;
 public class FragDashboard extends Fragment implements OnClickListener {
 	// Liste des RequestCodes pour les ActivityForResults
 	private static final int RC_APP_LAUNCHER	= 0;
-
+	private static final int STATE_KO	= 0;
+	private static final int STATE_OK	= 1;
+	private static final int STATE_CONNECTING	= 2;
 	private ImageButton mCmdMute;
 
-	private DashboardMessageMgr mMessageManager = null;
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
 
@@ -48,94 +52,47 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		View view = inflater.inflate(R.layout.server_dashboard_frag, container, false);
 
 		mTvServerState = (TextView) view.findViewById(R.id.tvServerState);
-		//mIvServerState = (ImageView) view.findViewById(R.id.ivServerState);
 		mPbConnection = (ProgressBar) view.findViewById(R.id.pbConnection);
 
-
-		((ImageButton) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
-
-		((Button) view.findViewById(R.id.cmdAltF4)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdSpace)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdEnter)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
-
-		((ImageButton) view.findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
 
 		((ImageButton) view.findViewById(R.id.cmdPrevious)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdPlayPause)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
-
 		mCmdMute = (ImageButton) view.findViewById(R.id.cmdMute);
 		mCmdMute.setOnClickListener(this);
-
-		// Affichage d'un message si on a pas l'accès au serveur
-		//		ConnectivityManager connectMgr = ConnectionUtils.getConnectivityManager(getActivity().getApplicationContext());
-
-		//		for (int i = 1; i < 256; i++) {
-		//			mCurrentHost = PARTIAL_HOST + i;
-		//			//			if (mConnected) {
-		//			if (ConnectionUtils.canAccessHost(connectMgr, mCurrentHost)) {
-		//				Toast.makeText(getActivity().getApplicationContext(), "Got an acces to the host " + mCurrentHost, Toast.LENGTH_SHORT).show();
-		//				//sendAsyncMessage(Messages.HELLO_SERVER);
-		//				break;
-		//			}
-		//		}
-
-		//		final String serverInfos = "Host : " + mCurrentHost + ":" + PORT;
-		//		((TextView) view.findViewById(R.id.tvServerInfos)).setText(serverInfos);
+		
+		((TextView) view.findViewById(R.id.tvServerInfos)).setText(MessageMgr.getServerInfos());
 
 		return view;
-	}
-
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		stopMessageManager();
 	}
 
 	/**
 	 * Prise en comptes des événements onClick 
 	 */
 	@Override
-	public void onClick(View _v) {
+	public void onClick(View _view) {
+		_view.performHapticFeedback(VIRTUAL_KEY);
 
-		switch (_v.getId()) {
+		switch (_view.getId()) {
 
 		case R.id.cmdKillServer :
 			askToKillServer();
 			break;
-
 		case R.id.cmdTest :
 			sendAsyncMessage(Message.TEST_COMMAND);
 			break;
-
-		case R.id.cmdAltF4 :
-			sendAsyncMessage(Message.KEYBOARD_ALTF4);
-			break;
-
 		case R.id.cmdSwitch :
 			sendAsyncMessage(Message.MONITOR_SWITCH_WINDOW);
 			break;
-
-		case R.id.cmdSpace :
-			sendAsyncMessage(Message.KEYBOARD_SPACE);
-			break;
-
-		case R.id.cmdEnter :
-			sendAsyncMessage(Message.KEYBOARD_ENTER);
-			break;
-
 		case R.id.btnAppLauncher :
 			startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
 			break;
-
-		case R.id.btnFileManager :
-			startActivity(new Intent(getActivity().getApplicationContext(), FileManager.class));
-			break;
-
 		case R.id.cmdGomStretch :
 			sendAsyncMessage(Message.GOM_PLAYER_STRETCH);
 			break;
@@ -143,19 +100,15 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		case R.id.cmdPrevious :
 			sendAsyncMessage(Message.MEDIA_PREVIOUS);
 			break;
-
 		case R.id.cmdPlayPause :
 			sendAsyncMessage(Message.MEDIA_PLAY_PAUSE);
 			break;
-
 		case R.id.cmdStop :
 			sendAsyncMessage(Message.MEDIA_STOP);
 			break;
-
 		case R.id.cmdNext :
 			sendAsyncMessage(Message.MEDIA_NEXT);
 			break;
-
 		case R.id.cmdMute :
 			sendAsyncMessage(Message.VOLUME_MUTE);
 			break;
@@ -163,14 +116,28 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			break;
 		}
 	}
-
+	
+	/** 
+	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
+	 * 
+	 * @param _requestCode Code d'identification de l'activité appelée.
+	 * @param _resultCode Code de retour de l'activité (RESULT_OK/RESULT_CANCEL).
+	 * @param _data Les données renvoyées par l'application.
+	 */
+	@Override
+	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {	// Résultat de l'activité Application Launcher
+		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
+			final String message = _data.getStringExtra(IntentKeys.APPLICATION_MESSAGE);
+			sendAsyncMessage(message);
+		} 
+	}
+	
 	/** Demande une confirmation à l'utilisateur avant de tuer le serveur */
 	private void askToKillServer() {
-		//TODO Empecher le plantage sur cette fonction
-		final String message = getString(R.string.confirm_kill_server);
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
-		builder.setMessage(message);
+		builder.setMessage(R.string.confirm_kill_server);
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
@@ -185,38 +152,37 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 	/**
 	 * Fonction de mise à jour de l'interface utilisateur
-	 * Connexion/Commande valide
+	 * @param _state L'état à mettre à jour (OK, KO, CONNECTING)
 	 */
-	private void updateConnectionStateOK() {
-		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_online);
-		imgLeft.setBounds(0, 0, 24, 24);
-		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
-		mTvServerState.setText(R.string.msg_command_succeeded);
-		mPbConnection.setVisibility(INVISIBLE);
-	}
+	private void updateConnectionState(int _state) {
+		int drawableResId;
+		int messageResId;
+		int visibility;
+		
+		switch (_state) {
+		case STATE_OK:
+			drawableResId = android.R.drawable.presence_online; 
+			messageResId = R.string.msg_command_succeeded;
+			visibility = INVISIBLE;
+			break;
+			
+		case STATE_CONNECTING:
+			drawableResId = android.R.drawable.presence_away; 
+			messageResId = R.string.msg_command_running;
+			visibility = VISIBLE;
+			break;
 
-	/**
-	 * Fonction de mise à jour de l'interface utilisateur
-	 * Connexion/Commande en erreur
-	 */
-	private void updateConnectionStateKO() {
-		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_offline);
+		default: // KO
+			drawableResId = android.R.drawable.presence_offline; 
+			messageResId = R.string.msg_command_failed;
+			visibility = INVISIBLE;
+			break;
+		}
+		final Drawable imgLeft = getResources().getDrawable(drawableResId);
 		imgLeft.setBounds(0, 0, 24, 24);
 		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
-		mTvServerState.setText(R.string.msg_command_failed);
-		mPbConnection.setVisibility(INVISIBLE);
-	}
-
-	/**
-	 * Fonction de mise à jour de l'interface utilisateur
-	 * Connexion/Commande en cours
-	 */
-	private void updateConnectionStateConnecting() {
-		final Drawable imgLeft = getResources().getDrawable(android.R.drawable.presence_away);
-		imgLeft.setBounds(0, 0, 24, 24);
-		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
-		mTvServerState.setText(R.string.msg_command_running);
-		mPbConnection.setVisibility(VISIBLE);
+		mTvServerState.setText(messageResId);
+		mPbConnection.setVisibility(visibility);
 	}
 
 	/**
@@ -225,58 +191,44 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 * @param _message Le message à envoyer.
 	 */
 	private void sendAsyncMessage(String _message) {
-		if (mMessageManager != null && DashboardMessageMgr.sSemaphore.availablePermits() > 0) { 
-			mMessageManager = null;
-		}
-		if (mMessageManager == null) {
-			mMessageManager = new DashboardMessageMgr();
-			mMessageManager.execute(_message);
+		if (MessageMgr.availablePermits() > 0) { 
+			new MessageMgr().execute(_message);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), "Already initialized", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	private void stopMessageManager() {
-		if (mMessageManager != null) {
-			mMessageManager.cancel(false);
-			mMessageManager = null;
+			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	/**
-	 * Classe asynchrone de gestion d'envoi des messages
+	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
 	 */
-	private class DashboardMessageMgr extends AsyncMessageMgr {
+	private class MessageMgr extends AsyncMessageMgr {
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			updateConnectionStateConnecting();
+			updateConnectionState(STATE_CONNECTING);
 		}
 
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
-			//			// Si le serveur n'est pas connecté et que l'on a une réponse au hello server, on passe à l'état connecté
-			//			if (!mConnected && Messages.HELLO_CLIENT.equals(mReply))
-			//				mConnected = true;
-
 
 			if (_serverReply != null && !_serverReply.isEmpty()) {
 				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 
 				if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
 					mCmdMute.setImageResource(R.drawable.volume_muted);
+					
 				} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
 					mCmdMute.setImageResource(R.drawable.volume_on);
+					
 				}
 
-				updateConnectionStateOK();
+				updateConnectionState(STATE_OK);
 			} else {
-				updateConnectionStateKO();
+				updateConnectionState(STATE_KO);
 			}
-			stopMessageManager();
 		}
 	}
 }

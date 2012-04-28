@@ -28,14 +28,14 @@
 			android:name=".computer.ServerTabHost"
 			android:label="@string/title_server_dashboard" />
 		<activity
-			android:name=".computer.ServerDashboard"
+			android:name=".computer._ServerDashboard"
 			android:label="@string/title_server_dashboard" />
 		<activity
 			android:name=".computer.AppLauncher"
 			android:label="@string/title_application_launcher"
 			android:theme="@android:style/Theme.Dialog" />
 		<activity
-			android:name=".computer.FileManager"
+			android:name=".computer._FileManager"
 			android:label="@string/title_filemanager" />
 		<activity
 			android:name=".Lights"

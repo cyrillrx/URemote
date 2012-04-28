@@ -9,17 +9,24 @@ public class Message {
 	public static final String KILL_SERVER	= "kill_server";
 
 	// Gestion des touches du clavier 
-	public static final String KEYBOARD_SPACE	= "keyboard_space";
-	public static final String KEYBOARD_ENTER	= "keyboard_enter";
-	public static final String KEYBOARD_ALTF4	= "keyboard_altf4";
+	public static final String CODE_KEYBOARD	= "code_keyboard";
+	public static final String CODE_KEYBOARD_COMBO	= "code_combo";
+	public static final String KB_ENTER		= "enter";
+	public static final String KB_SPACE		= "space";
+	public static final String KB_BACKSPACE = "backspace";
+	public static final String KB_ESCAPE	= "escape";
+	public static final String KB_ALT_F4	= "alt_f4";
+	public static final String KB_CTRL_ENTER= "ctrl_enter";
 	
 	// Gestion du multi-media
-	public static final String MEDIA_PLAY_PAUSE	= "media_play_pause";
-	public static final String MEDIA_STOP		= "media_stop";
-	public static final String MEDIA_PREVIOUS	= "media_previous";
-	public static final String MEDIA_NEXT		= "media_next";
+	public static final String CODE_MEDIA		= "code_media";
+	public static final String MEDIA_PLAY_PAUSE	= "play_pause";
+	public static final String MEDIA_STOP		= "stop";
+	public static final String MEDIA_PREVIOUS	= "previous";
+	public static final String MEDIA_NEXT		= "next";
 	
 	// Gestion du son
+	public static final String CODE_VOLUME	= "code_volume";
 	public static final String VOLUME_MUTE	= "volume_mute";
 	public static final String VOLUME_UP	= "volume_up";
 	public static final String VOLUME_DOWN	= "volume_down";

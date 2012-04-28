@@ -21,12 +21,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class FragFileManager extends ListFragment {
 	private static final String TAG = "FileManager";
-	private FileMessageMgr mMessageManager; 
 
+	private TextView mTvPath; 
 	private String mDirectoryPath;
 	private String mDirectoryContent;
 
@@ -42,17 +43,12 @@ public class FragFileManager extends ListFragment {
 			mDirectoryPath		= "L:\\Series";
 			mDirectoryContent = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 		}
-
-		//int pathLength = mDirectoryPath.length();
-		// On n'affiche que les derniers caractères
-		// TODO Gérer l'orientation
-		//		String actionBarTitle = (pathLength > 33) ? "..." + mDirectoryPath.substring(pathLength - 30, pathLength) : mDirectoryPath;
-		//		getActionBar().setTitle(actionBarTitle);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.filemanager, container, false);
+		mTvPath = (TextView) view.findViewById(R.id.tvPath);
 		return view;
 	}
 
@@ -60,29 +56,6 @@ public class FragFileManager extends ListFragment {
 	public void onStart() {
 		updateView(mDirectoryContent);
 		super.onStart();
-	}
-
-	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
-	 * puis envoie le message passé en paramètre.
-	 * @param _command La commande à envoyer
-	 * @param _param Le paramètre de la commande.
-	 */
-	private void sendAsyncCommand(String _command, String _param) {
-
-		if (mMessageManager == null) {
-			mMessageManager = new FileMessageMgr();
-			mMessageManager.execute(_command, _param);
-		} else {
-			Toast.makeText(getActivity().getApplicationContext(), "Already initialized", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	private void stopMessageManager() {
-		if (mMessageManager != null) {
-			mMessageManager.cancel(false);
-			mMessageManager = null;
-		}
 	}
 
 	/**
@@ -108,7 +81,7 @@ public class FragFileManager extends ListFragment {
 	 */
 	private void updateView(String infos){
 		final List<FileManagerEntity> fileList = directoryInfoToList(infos);
-
+		
 		if (fileList.size() == 0) {
 			if (DEBUG)
 				Log.e(TAG, "fileList is null");
@@ -132,6 +105,12 @@ public class FragFileManager extends ListFragment {
 				}
 			}
 		});
+
+		int pathLength = mDirectoryPath.length();
+		// On n'affiche que les derniers caractères
+		//TODO Gérer l'orientation
+		String path = (pathLength > 33) ? "..." + mDirectoryPath.substring(pathLength - 30, pathLength) : mDirectoryPath;
+		mTvPath.setText(path);
 	}
 
 	/**
@@ -145,40 +124,40 @@ public class FragFileManager extends ListFragment {
 
 	private void openDirectory(String _dirPath, String _dirContent) {
 		// Afficher le contenu du répertoire
-//		Intent intent = new Intent(getActivity().getApplicationContext(), FragFileManager.class);
-//		intent.putExtra(IntentKeys.DIR_PATH,	_dirPath);
-//		intent.putExtra(IntentKeys.DIR_CONTENT,	_dirContent);
 		mDirectoryPath = _dirPath;
 		mDirectoryContent = _dirContent;
 		updateView(mDirectoryContent);
-//		startActivity(intent);	
 	}
 
 	private void openFile(String _filename) {
 		sendAsyncCommand(Message.OPEN_FILE, _filename);
 	}
-
+	
 	/**
-	 * Classe asynchrone de gestion d'envoi de command avec paramètres au serveur.
+	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * puis envoie le message passé en paramètre.
+	 * @param _command La commande à envoyer
+	 * @param _param Le paramètre de la commande.
+	 */
+	private void sendAsyncCommand(String _command, String _param) {
+		if (MessageMgr.availablePermits() > 0) { 
+			new MessageMgr().execute(_command, _param);
+		} else {
+			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	/**
+	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
 	 */
-	public class FileMessageMgr extends AsyncMessageMgr {
-		private static final String TAG = "AsyncMessageMgr";
-//		private String mCommand;
-//		private String mParam;
+	public class MessageMgr extends AsyncMessageMgr {
 
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
 			if (_serverReply != null && !_serverReply.isEmpty()) {
-
-				if (DEBUG) {
-					Log.i(TAG, "Get a reply : " + _serverReply);
-					Log.i(TAG, "mCommand  : " + mCommand);
-					Log.i(TAG, "mParam  : " + mParam);
-				}
-
 				if (Message.OPEN_DIR.equals(mCommand)) {
 					openDirectory(mParam, _serverReply);
 
@@ -186,7 +165,6 @@ public class FragFileManager extends ListFragment {
 					Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 				}
 			} 
-			stopMessageManager();
 		}
 	}
 }

@@ -2,7 +2,6 @@ package org.es.uremote;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 
-import org.es.uremote.computer.ServerDashboard;
 import org.es.uremote.computer.ServerTabHost;
 
 import android.app.Activity;
@@ -18,7 +17,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class Home extends Activity implements OnClickListener {
-	public static final int BTN_LIGHTS = R.id.btnLights;
 
 	// Liste des RequestCodes pour les ActivityForResults
 	private static final int RC_ENABLE_BT	= 0;
@@ -31,7 +29,7 @@ public class Home extends Activity implements OnClickListener {
 		setContentView(R.layout.home);
 
 		// Click listener pour tous les boutons
-		((ImageButton) findViewById(BTN_LIGHTS)).setOnClickListener(this);
+		((ImageButton) findViewById(R.id.btnLights)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnTv)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnRobot)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnMediaCenter)).setOnClickListener(this);
@@ -44,7 +42,7 @@ public class Home extends Activity implements OnClickListener {
 		_view.performHapticFeedback(VIRTUAL_KEY);
 
 		switch (_view.getId()) {
-		case BTN_LIGHTS:
+		case R.id.btnLights:
 			Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
@@ -57,7 +55,7 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnMediaCenter:
-			startServerDashboard();
+			startServerTabHost();
 			break;
 
 		case R.id.btnHifi:
@@ -65,8 +63,7 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnTools:
-			startServerTabHost();
-//			Toast.makeText(Home.this, getString(R.string.msg_settings_control_not_available), Toast.LENGTH_SHORT).show();
+			Toast.makeText(Home.this, getString(R.string.msg_settings_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
 		default:
@@ -84,19 +81,6 @@ public class Home extends Activity implements OnClickListener {
 		}
 	}
 
-	private void startServerDashboard() {
-		// Si le Wifi n'est pas activé, demander son activation.
-		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		if (!wifiMgr.isWifiEnabled()) {
-			Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-			startActivityForResult(enableIntent, RC_ENABLE_WIFI);
-			//            Intent enableIntent = new Intent(WifiManager.ACTION_PICK_WIFI_NETWORK);
-			//            startActivityForResult(enableIntent, REQUEST_ENABLE_WIFI);
-		} else {
-			startActivity(new Intent(getApplicationContext(), ServerDashboard.class));	
-		}
-	}
-
 	private void startServerTabHost() {
 		// Si le Wifi n'est pas activé, demander son activation.
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -107,6 +91,7 @@ public class Home extends Activity implements OnClickListener {
 			startActivity(new Intent(getApplicationContext(), ServerTabHost.class));	
 		}
 	}
+	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (requestCode) {
@@ -127,7 +112,7 @@ public class Home extends Activity implements OnClickListener {
 			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
 			if (wifiMgr.isWifiEnabled()) {
-				startActivity(new Intent(getApplicationContext(), ServerDashboard.class));
+				startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
 			}
 			break;
 		}

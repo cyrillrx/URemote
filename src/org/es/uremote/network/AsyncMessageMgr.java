@@ -20,19 +20,15 @@ import android.util.Log;
  * @author cyril.leroux
  */
 public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
-	public static Semaphore sSemaphore = new Semaphore(1);
+	protected static Semaphore sSemaphore = new Semaphore(2);
 	private static final String TAG = "AsyncMessageMgr";
-	private static final int PORT = 8082;
 	private static final String HOST = "192.168.0.1";
+	private static final int PORT = 8082;
 	private static final int CONNECTION_TIMEOUT = 500;
-	
-// TODO
-	private Socket mSocket		= null;
+
 	protected String mCommand;
 	protected String mParam;
-//	private OutputStream mOut	= null;
-//	private InputStream mIn		= null;
-//	private String mReply		= null;
+	private Socket mSocket	= null;
 
 	/**
 	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
@@ -48,7 +44,6 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		}
 		if (DEBUG)
 			Log.i(TAG, "onPreExecute Semaphore acquire. " + sSemaphore.availablePermits() + " left");
-		// TODO Mise à jour de l'état : "Connexion en cours" 
 	}
 
 	/**
@@ -59,14 +54,13 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	@Override
 	protected String doInBackground(String... _params) {
 		String serverReply = "";
-
+		
 		mCommand	= _params[0];
 		mParam 		= (_params.length > 1) ? _params[1] : "";
 		final String message	= mCommand + "|" + mParam;
 
 		mSocket = null;
 		try {
-			
 			// Création du socket
 			mSocket = connectToRemoteSocket(HOST, PORT, message);
 			if (mSocket != null && mSocket.isConnected())
@@ -98,43 +92,21 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 */
 	@Override
 	protected void onPostExecute(String _serverReply) {
-
+		if (DEBUG) {
+			Log.i(TAG, "Got a reply : " + _serverReply);
+			Log.i(TAG, "mCommand  : " + mCommand);
+			Log.i(TAG, "mParam  : " + mParam);
+		}
 		sSemaphore.release();
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "Semaphore release");
-		
-//		if (_serverReply != null && !_serverReply.isEmpty()) {
-//						
-//			if (DEBUG)
-//				Log.i(TAG, "Get a reply : " + _serverReply);
-//
-//			// TODO notifier que la commande a été reçue
-//			//updateConnectionStateOK();
-//			
-//			// TODO Traitement du message de retour
-//			if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
-//				// TODO Update mute image
-//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_muted);
-//			} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
-//				// TODO Update mute image
-//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_on);
-//			} else if (Message.OPEN_DIR.equals(mCommand)) {
-//				//openDirectory(mParam, _serverReply);
-//
-//			} else if (Message.ERROR.equals(mCommand)) {
-//				// TODO Toast erreur
-//				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-//			}
-//		} else {
-//			// TODO notifier d'un problème lors de l'envoi
-//			//updateConnectionStateKO();
-//		}
+		}
 	}
 
 	@Override
 	protected void onCancelled() {
-		super.onCancelled();
 		closeSocketIO();
+		super.onCancelled();
 	}
 	
 	/**
@@ -206,5 +178,12 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		try { if (mSocket.getOutputStream() != null)mSocket.getOutputStream().close();	} catch(IOException e) {}
 		try { mSocket.close(); } catch(IOException e) {}
 	}
-
+	
+	public static int availablePermits() {
+		return sSemaphore.availablePermits();
+	}
+	
+	public static String getServerInfos() {
+		return HOST + ":" + PORT;
+	}
 }
