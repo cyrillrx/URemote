@@ -35,6 +35,13 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_keyboard, container, false);
 
+		((Button) view.findViewById(R.id.kbEnter)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbSpace)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbBackspace)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbEscape)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbCtrlEnter)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbAltf4)).setOnClickListener(this);
+		
 		((Button) view.findViewById(R.id.kb0)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kb1)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kb2)).setOnClickListener(this);
@@ -72,13 +79,6 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		((Button) view.findViewById(R.id.kbX)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kbY)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kbZ)).setOnClickListener(this);
-
-		((Button) view.findViewById(R.id.kbEnter)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbSpace)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbBackspace)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbEscape)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbCtrlEnter)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbAltf4)).setOnClickListener(this);
 
 		return view;
 	}
@@ -221,25 +221,6 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 			sendAsyncMessage(CODE_KEYBOARD, "X");
 			break;
 
-		case R.id.cmdPrevious :
-			sendAsyncMessage(Message.MEDIA_PREVIOUS, null);
-			break;
-
-		case R.id.cmdPlayPause :
-			sendAsyncMessage(Message.MEDIA_PLAY_PAUSE, null);
-			break;
-
-		case R.id.cmdStop :
-			sendAsyncMessage(Message.MEDIA_STOP, null);
-			break;
-
-		case R.id.cmdNext :
-			sendAsyncMessage(Message.MEDIA_NEXT, null);
-			break;
-
-		case R.id.cmdMute :
-			sendAsyncMessage(Message.VOLUME_MUTE, null);
-			break;
 		default:
 			break;
 		}
@@ -248,16 +229,15 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code de message. 
-	 * @param _message Le message à envoyer.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
 	 */
-	private void sendAsyncMessage(String _code, String _message) {
+	private void sendAsyncMessage(String _code, String _param) {
 		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr().execute(_code, _message);
+			new MessageMgr().execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
-
 	}
 	
 	/**

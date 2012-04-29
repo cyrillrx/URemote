@@ -119,7 +119,7 @@ public class FragFileManager extends ListFragment {
 	 * @param _dirPath Le chemin du répertoire à afficher. 
 	 */
 	private void getDirectoryContent(String _dirPath) {
-		sendAsyncCommand(Message.OPEN_DIR, _dirPath);
+		sendAsyncMessage(Message.OPEN_DIR, _dirPath);
 	}
 
 	private void openDirectory(String _dirPath, String _dirContent) {
@@ -130,18 +130,18 @@ public class FragFileManager extends ListFragment {
 	}
 
 	private void openFile(String _filename) {
-		sendAsyncCommand(Message.OPEN_FILE, _filename);
+		sendAsyncMessage(Message.OPEN_FILE, _filename);
 	}
 	
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
-	 * @param _command La commande à envoyer
-	 * @param _param Le paramètre de la commande.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
 	 */
-	private void sendAsyncCommand(String _command, String _param) {
-		if (MessageMgr.availablePermits() > 0) { 
-			new MessageMgr().execute(_command, _param);
+	private void sendAsyncMessage(String _code, String _param) {
+		if (MessageMgr.availablePermits() > 0) {
+			new MessageMgr().execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}

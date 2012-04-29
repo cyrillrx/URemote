@@ -5,6 +5,10 @@ import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static org.es.uremote.utils.Message.CODE_APP;
+import static org.es.uremote.utils.Message.CODE_CLASSIC;
+import static org.es.uremote.utils.Message.CODE_MEDIA;
+import static org.es.uremote.utils.Message.CODE_VOLUME;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -49,7 +53,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.server_dashboard_frag, container, false);
+		View view = inflater.inflate(R.layout.server_dashboard, container, false);
 
 		mTvServerState = (TextView) view.findViewById(R.id.tvServerState);
 		mPbConnection = (ProgressBar) view.findViewById(R.id.pbConnection);
@@ -85,32 +89,32 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			askToKillServer();
 			break;
 		case R.id.cmdTest :
-			sendAsyncMessage(Message.TEST_COMMAND);
+			sendAsyncMessage(CODE_CLASSIC, Message.TEST_COMMAND);
 			break;
 		case R.id.cmdSwitch :
-			sendAsyncMessage(Message.MONITOR_SWITCH_WINDOW);
+			sendAsyncMessage(CODE_CLASSIC, Message.MONITOR_SWITCH_WINDOW);
 			break;
 		case R.id.btnAppLauncher :
 			startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
 			break;
 		case R.id.cmdGomStretch :
-			sendAsyncMessage(Message.GOM_PLAYER_STRETCH);
+			sendAsyncMessage(CODE_APP, Message.GOM_PLAYER_STRETCH);
 			break;
 
 		case R.id.cmdPrevious :
-			sendAsyncMessage(Message.MEDIA_PREVIOUS);
+			sendAsyncMessage(CODE_MEDIA, Message.MEDIA_PREVIOUS);
 			break;
 		case R.id.cmdPlayPause :
-			sendAsyncMessage(Message.MEDIA_PLAY_PAUSE);
+			sendAsyncMessage(CODE_MEDIA, Message.MEDIA_PLAY_PAUSE);
 			break;
 		case R.id.cmdStop :
-			sendAsyncMessage(Message.MEDIA_STOP);
+			sendAsyncMessage(CODE_MEDIA, Message.MEDIA_STOP);
 			break;
 		case R.id.cmdNext :
-			sendAsyncMessage(Message.MEDIA_NEXT);
+			sendAsyncMessage(CODE_MEDIA, Message.MEDIA_NEXT);
 			break;
 		case R.id.cmdMute :
-			sendAsyncMessage(Message.VOLUME_MUTE);
+			sendAsyncMessage(CODE_VOLUME, Message.VOLUME_MUTE);
 			break;
 		default:
 			break;
@@ -128,7 +132,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {	// Résultat de l'activité Application Launcher
 		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
 			final String message = _data.getStringExtra(IntentKeys.APPLICATION_MESSAGE);
-			sendAsyncMessage(message);
+			sendAsyncMessage(CODE_APP, message);
 		} 
 	}
 	
@@ -142,7 +146,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Envoi du message si l'utilisateur confirme
-				sendAsyncMessage(Message.KILL_SERVER);
+				sendAsyncMessage(Message.KILL_SERVER, null);
 			}
 		});
 
@@ -188,11 +192,12 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
-	 * @param _message Le message à envoyer.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
 	 */
-	private void sendAsyncMessage(String _message) {
-		if (MessageMgr.availablePermits() > 0) { 
-			new MessageMgr().execute(_message);
+	private void sendAsyncMessage(String _code, String _param) {
+		if (MessageMgr.availablePermits() > 0) {
+			new MessageMgr().execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
@@ -214,7 +219,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
-			if (_serverReply != null && !_serverReply.isEmpty()) {
+			if (_serverReply != null && !_serverReply.isEmpty() && !Message.ERROR.equals(mCommand)) {
 				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 
 				if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
