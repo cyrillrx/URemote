@@ -86,7 +86,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		switch (_view.getId()) {
 
 		case R.id.cmdKillServer :
-			askToKillServer();
+			confirmCommand(CODE_CLASSIC, Message.KILL_SERVER);
 			break;
 		case R.id.cmdTest :
 			sendAsyncMessage(CODE_CLASSIC, Message.TEST_COMMAND);
@@ -135,18 +135,23 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			sendAsyncMessage(CODE_APP, message);
 		} 
 	}
-	
-	/** Demande une confirmation à l'utilisateur avant de tuer le serveur */
-	private void askToKillServer() {
+
+	/** 
+	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
+	 */
+	private void confirmCommand(final String _code, final String _param) {
+		int resId = (_param.equals(Message.KILL_SERVER)) ? R.string.confirm_kill_server : R.string.confirm_command;
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
-		builder.setMessage(R.string.confirm_kill_server);
+		builder.setMessage(resId);
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Envoi du message si l'utilisateur confirme
-				sendAsyncMessage(Message.KILL_SERVER, null);
+				sendAsyncMessage(_code, _param);
 			}
 		});
 

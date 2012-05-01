@@ -9,7 +9,9 @@ import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Message;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -105,7 +107,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ESCAPE);
 			break;
 		case R.id.kbAltf4 :
-			sendAsyncMessage(CODE_KEYBOARD_COMBO, Message.KB_ALT_F4);
+			confirmCommand(CODE_KEYBOARD_COMBO, Message.KB_ALT_F4);
 			break;
 		case R.id.kbCtrlEnter :
 			sendAsyncMessage(CODE_KEYBOARD_COMBO, Message.KB_CTRL_ENTER);
@@ -224,6 +226,28 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		default:
 			break;
 		}
+	}
+	
+	/** 
+	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
+	 */
+	private void confirmCommand(final String _code, final String _param) {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setIcon(android.R.drawable.ic_menu_more);
+		builder.setMessage(R.string.confirm_command);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// Envoi du message si l'utilisateur confirme
+				sendAsyncMessage(_code, _param);
+			}
+		});
+
+		builder.setNegativeButton(android.R.string.cancel, null);
+		builder.show();
 	}
 
 	/**
