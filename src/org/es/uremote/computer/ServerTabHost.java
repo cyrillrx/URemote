@@ -2,6 +2,7 @@ package org.es.uremote.computer;
 
 import static org.es.uremote.utils.Constants.DEFAULT_HOST;
 import static org.es.uremote.utils.Constants.DEFAULT_PORT;
+import static org.es.uremote.utils.Message.CODE_CLASSIC;
 import static org.es.uremote.utils.Message.CODE_VOLUME;
 
 import org.es.uremote.R;
@@ -55,9 +56,13 @@ public class ServerTabHost extends Activity {
 		actionBar.addTab(tabKeyboard);
 
 		if (_savedInstanceState != null) {
-			int tabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
-			actionBar.setSelectedNavigationItem(tabIndex);
-		}				
+			final int newTabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
+			if (newTabIndex != actionBar.getSelectedNavigationIndex())
+				actionBar.setSelectedNavigationItem(newTabIndex);
+		} else {
+			sendAsyncMessage(CODE_CLASSIC, Message.HELLO_SERVER);
+		}
+		
 	}
 
 	@Override

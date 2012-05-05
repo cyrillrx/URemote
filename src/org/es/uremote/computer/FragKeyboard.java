@@ -9,7 +9,9 @@ import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Message;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,7 +43,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		((Button) view.findViewById(R.id.kbEscape)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kbCtrlEnter)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kbAltf4)).setOnClickListener(this);
-		
+
 		((Button) view.findViewById(R.id.kb0)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kb1)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kb2)).setOnClickListener(this);
@@ -91,7 +93,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		_view.performHapticFeedback(VIRTUAL_KEY);
 
 		switch (_view.getId()) {
-		
+
 		case R.id.kbEnter :
 			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ENTER);
 			break;
@@ -105,12 +107,12 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ESCAPE);
 			break;
 		case R.id.kbAltf4 :
-			sendAsyncMessage(CODE_KEYBOARD_COMBO, Message.KB_ALT_F4);
+			confirmCommand(CODE_KEYBOARD_COMBO, Message.KB_ALT_F4);
 			break;
 		case R.id.kbCtrlEnter :
 			sendAsyncMessage(CODE_KEYBOARD_COMBO, Message.KB_CTRL_ENTER);
 			break;
-			
+
 		case R.id.kb0 :
 			sendAsyncMessage(CODE_KEYBOARD, "0");
 			break;
@@ -141,7 +143,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		case R.id.kb9 :
 			sendAsyncMessage(CODE_KEYBOARD, "9");
 			break;
-			
+
 		case R.id.kbA :
 			sendAsyncMessage(CODE_KEYBOARD, "A");
 			break;
@@ -226,6 +228,28 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		}
 	}
 
+	/** 
+	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
+	 */
+	private void confirmCommand(final String _code, final String _param) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setIcon(android.R.drawable.ic_menu_more);
+		builder.setMessage(R.string.confirm_command);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// Envoi du message si l'utilisateur confirme
+				sendAsyncMessage(_code, _param);
+			}
+		});
+
+		builder.setNegativeButton(android.R.string.cancel, null);
+		builder.show();
+	}
+
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
@@ -239,7 +263,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages
 	 * @author cyril.leroux

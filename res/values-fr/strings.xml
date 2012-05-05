@@ -23,6 +23,7 @@
 	<string name="msg_command_running">Commande en cours…</string>
 	<string name="msg_command_failed">La commande a échouée</string>
 	<string name="confirm_kill_server">Voulez-vous vraiment tuer le serveur ?</string>
+    <string name="confirm_command">Confirmez la commande ?</string>
 	<string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
 	<string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
 
