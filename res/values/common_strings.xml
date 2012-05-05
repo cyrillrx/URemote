@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- Divers -->
+    <string name="tv">Tv</string>
+    
+    <!-- Préférences -->
+    <string name="pref_server">pref_server</string>
+    <string name="pref_key_host">pref_key_host</string>
+    <string name="pref_key_port">pref_key_port</string>
+    
+	<!-- Dashboard -->
+	<string name="cmd_kill_server">Kill server</string>
+	<string name="cmd_test">Test</string>
+	<string name="cmd_switch_window">Switch</string>
+	<string name="cmd_gom_stretch">Stretch</string>
+	<string name="cmd_gom_start">Start Gom Player</string>
+	<string name="cmd_gom_kill">Kill Gom Player</string>
+	<string name="cmd_play_pause">Play/Pause</string>
+	<string name="cmd_stop">Stop</string>
+	<string name="cmd_preview">Preview</string>
+	<string name="cmd_next">Next</string>
+	<string name="cmd_mute">Mute</string>
+	<string name="cmd_app_launcher">App Launcher</string>
+	<string name="cmd_file_manager">File manager</string>
 	
+    <!-- Commandes clavier -->
     <string name="kb_1">1</string>
     <string name="kb_2">2</string>
     <string name="kb_3">3</string>

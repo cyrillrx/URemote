@@ -22,14 +22,15 @@ import android.util.Log;
 public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	protected static Semaphore sSemaphore = new Semaphore(2);
 	private static final String TAG = "AsyncMessageMgr";
-	private static final String HOST = "192.168.0.1";
-	private static final int PORT = 8082;
 	private static final int CONNECTION_TIMEOUT = 500;
 
+	private static String sHost;
+	private static int sPort;
+	
 	protected String mCommand;
 	protected String mParam;
 	private Socket mSocket	= null;
-
+	
 	/**
 	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
 	 * Exécutée dans le thread principal.
@@ -62,7 +63,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		mSocket = null;
 		try {
 			// Création du socket
-			mSocket = connectToRemoteSocket(HOST, PORT, message);
+			mSocket = connectToRemoteSocket(sHost, sPort, message);
 			if (mSocket != null && mSocket.isConnected())
 				serverReply = sendAsyncMessage(mSocket, message);
 			
@@ -184,6 +185,15 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	}
 	
 	public static String getServerInfos() {
-		return HOST + ":" + PORT;
+		return sHost + ":" + sPort;
 	}
+	
+	public static void setHost(String _host) {
+		sHost = _host;
+	}
+	
+	public static void setPort(int _port) {
+		sPort = _port;
+	}
+	
 }

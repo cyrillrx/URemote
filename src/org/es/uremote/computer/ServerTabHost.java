@@ -1,5 +1,7 @@
 package org.es.uremote.computer;
 
+import static org.es.uremote.utils.Constants.DEFAULT_HOST;
+import static org.es.uremote.utils.Constants.DEFAULT_PORT;
 import static org.es.uremote.utils.Message.CODE_VOLUME;
 
 import org.es.uremote.R;
@@ -12,7 +14,9 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -23,7 +27,9 @@ public class ServerTabHost extends Activity {
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
 		setContentView(R.layout.fragment_host);
-
+		
+		initServer();
+		
 		// Instanciation de l'ActionBar
 		ActionBar actionBar = getActionBar();
 		// Utilisation des onglets dans l'ActionBar
@@ -75,7 +81,15 @@ public class ServerTabHost extends Activity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
+	
+	/** Initialisation des paramètres du serveur en utilisant les préférences */
+	private void initServer() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		final String keyHost = getString(R.string.pref_key_host);
+		final String keyPort = getString(R.string.pref_key_port);
+		AsyncMessageMgr.setHost(pref.getString(keyHost, DEFAULT_HOST));
+		AsyncMessageMgr.setPort(Integer.parseInt(pref.getString(keyPort, DEFAULT_PORT)));
+	}
 
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
