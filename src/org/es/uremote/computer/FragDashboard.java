@@ -17,6 +17,7 @@ import org.es.uremote.utils.Message;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -202,7 +203,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	private void sendAsyncMessage(String _code, String _param) {
 		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr().execute(_code, _param);
+			new MessageMgr(getActivity()).execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
@@ -214,18 +215,25 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	private class MessageMgr extends AsyncMessageMgr {
 
+		private Context mContext;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			updateConnectionState(STATE_CONNECTING);
 		}
 
+		MessageMgr(Context _context) {
+			mContext = _context;
+		}
+		
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
 			if (_serverReply != null && !_serverReply.isEmpty() && !Message.ERROR.equals(mCommand)) {
-				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+				if (mContext != null)
+				Toast.makeText(mContext.getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 
 				if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
 					mCmdMute.setImageResource(R.drawable.volume_muted);

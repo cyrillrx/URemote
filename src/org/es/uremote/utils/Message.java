@@ -3,6 +3,7 @@ package org.es.uremote.utils;
 public class Message {
 
 	// Code de message
+	public static final String CODE_AI = "code_ai";
 	public static final String CODE_KEYBOARD = "code_keyboard";
 	public static final String CODE_KEYBOARD_COMBO	= "code_combo";
 	public static final String CODE_MEDIA	= "code_media";
@@ -48,6 +49,10 @@ public class Message {
 	// Reply
 	public static final String REPLY_VOLUME_ON		= "Mute : Volume is on";
 	public static final String REPLY_VOLUME_MUTED	= "Mute : Volume is off";
+	
+	// Intelligence Artificielle
+	public static final String AI_MUTE	= "ai_mute";
+	
 	public static final String ERROR		= "error";
 
 }
