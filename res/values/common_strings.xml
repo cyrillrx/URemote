@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Divers -->
+    <string name="tv">Tv</string>
+    
+    <!-- Préférences -->
+    <string name="pref_server">pref_server</string>
+    <string name="pref_key_host">pref_key_host</string>
+    <string name="pref_key_port">pref_key_port</string>
+    
+	<!-- Dashboard -->
+	<string name="cmd_kill_server">Kill server</string>
+	<string name="cmd_test">Test</string>
+	<string name="cmd_switch_window">Switch</string>
+	<string name="cmd_gom_stretch">Stretch</string>
+	<string name="cmd_gom_start">Start Gom Player</string>
+	<string name="cmd_gom_kill">Kill Gom Player</string>
+	<string name="cmd_play_pause">Play/Pause</string>
+	<string name="cmd_stop">Stop</string>
+	<string name="cmd_preview">Preview</string>
+	<string name="cmd_next">Next</string>
+	<string name="cmd_mute">Mute</string>
+	<string name="cmd_app_launcher">App Launcher</string>
+	<string name="cmd_file_manager">File manager</string>
+	
+    <!-- Commandes clavier -->
+    <string name="kb_1">1</string>
+    <string name="kb_2">2</string>
+    <string name="kb_3">3</string>
+    <string name="kb_4">4</string>
+    <string name="kb_5">5</string>
+    <string name="kb_6">6</string>
+    <string name="kb_7">7</string>
+    <string name="kb_8">8</string>
+    <string name="kb_9">9</string>
+    <string name="kb_0">0</string>
+    
+    <string name="kb_a">A</string>
+    <string name="kb_b">B</string>
+    <string name="kb_c">C</string>
+    <string name="kb_d">D</string>
+    <string name="kb_e">E</string>
+    <string name="kb_f">F</string>
+    <string name="kb_g">G</string>
+    <string name="kb_h">H</string>    
+    <string name="kb_i">I</string>
+    <string name="kb_j">J</string>
+    <string name="kb_k">K</string>
+    <string name="kb_l">L</string>
+    <string name="kb_m">M</string>
+    <string name="kb_n">N</string>
+    <string name="kb_o">O</string>
+    <string name="kb_p">P</string>
+    <string name="kb_q">Q</string>
+    <string name="kb_r">R</string>
+    <string name="kb_s">S</string>
+    <string name="kb_t">T</string>
+    <string name="kb_u">U</string>
+    <string name="kb_v">V</string>
+    <string name="kb_w">W</string>
+    <string name="kb_x">X</string>
+    <string name="kb_y">Y</string>
+    <string name="kb_z">Z</string>
+    
+    <string name="kb_enter">Enter</string>
+    <string name="kb_space">[     _____     ]</string>
+    <string name="kb_backspace">Backspace</string>
+    <string name="kb_escape">Esc</string>
+    <string name="kb_alt_f4">Alt + F4</string>
+    <string name="kb_ctrl_enter">Ctrl + Enter</string>
+</resources>

@@ -19,21 +19,18 @@ import android.util.Log;
  * Classe asynchrone de gestion d'envoi de command avec paramètres au serveur.
  * @author cyril.leroux
  */
-public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
-	public static Semaphore sSemaphore = new Semaphore(1);
+public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
+	protected static Semaphore sSemaphore = new Semaphore(2);
 	private static final String TAG = "AsyncMessageMgr";
-	private static final int PORT = 8082;
-	private static final String HOST = "192.168.0.1";
 	private static final int CONNECTION_TIMEOUT = 500;
-	
-// TODO
-	private Socket mSocket		= null;
-	private String mCommand;
-	private String mParam;
-//	private OutputStream mOut	= null;
-//	private InputStream mIn		= null;
-//	private String mReply		= null;
 
+	private static String sHost;
+	private static int sPort;
+	
+	protected String mCommand;
+	protected String mParam;
+	private Socket mSocket	= null;
+	
 	/**
 	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
 	 * Exécutée dans le thread principal.
@@ -48,7 +45,6 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 		}
 		if (DEBUG)
 			Log.i(TAG, "onPreExecute Semaphore acquire. " + sSemaphore.availablePermits() + " left");
-		// TODO Mise à jour de l'état : "Connexion en cours" 
 	}
 
 	/**
@@ -59,16 +55,15 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 	@Override
 	protected String doInBackground(String... _params) {
 		String serverReply = "";
-
+		
 		mCommand	= _params[0];
 		mParam 		= (_params.length > 1) ? _params[1] : "";
 		final String message	= mCommand + "|" + mParam;
 
 		mSocket = null;
 		try {
-			
 			// Création du socket
-			mSocket = connectToRemoteSocket(HOST, PORT, message);
+			mSocket = connectToRemoteSocket(sHost, sPort, message);
 			if (mSocket != null && mSocket.isConnected())
 				serverReply = sendAsyncMessage(mSocket, message);
 			
@@ -98,43 +93,21 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 	 */
 	@Override
 	protected void onPostExecute(String _serverReply) {
-
+		if (DEBUG) {
+			Log.i(TAG, "Got a reply : " + _serverReply);
+			Log.i(TAG, "mCommand  : " + mCommand);
+			Log.i(TAG, "mParam  : " + mParam);
+		}
 		sSemaphore.release();
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "Semaphore release");
-		
-//		if (_serverReply != null && !_serverReply.isEmpty()) {
-//						
-//			if (DEBUG)
-//				Log.i(TAG, "Get a reply : " + _serverReply);
-//
-//			// TODO notifier que la commande a été reçue
-//			//updateConnectionStateOK();
-//			
-//			// TODO Traitement du message de retour
-//			if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
-//				// TODO Update mute image
-//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_muted);
-//			} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
-//				// TODO Update mute image
-//				//((ImageButton) findViewById(R.id.btnCmdMute)).setImageResource(R.drawable.volume_on);
-//			} else if (Message.OPEN_DIR.equals(mCommand)) {
-//				//openDirectory(mParam, _serverReply);
-//
-//			} else if (Message.ERROR.equals(mCommand)) {
-//				// TODO Toast erreur
-//				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-//			}
-//		} else {
-//			// TODO notifier d'un problème lors de l'envoi
-//			//updateConnectionStateKO();
-//		}
+		}
 	}
 
 	@Override
 	protected void onCancelled() {
-		super.onCancelled();
 		closeSocketIO();
+		super.onCancelled();
 	}
 	
 	/**
@@ -206,5 +179,21 @@ public class AsyncMessageMgr extends AsyncTask<String, byte[], String> {
 		try { if (mSocket.getOutputStream() != null)mSocket.getOutputStream().close();	} catch(IOException e) {}
 		try { mSocket.close(); } catch(IOException e) {}
 	}
-
+	
+	public static int availablePermits() {
+		return sSemaphore.availablePermits();
+	}
+	
+	public static String getServerInfos() {
+		return sHost + ":" + sPort;
+	}
+	
+	public static void setHost(String _host) {
+		sHost = _host;
+	}
+	
+	public static void setPort(int _port) {
+		sPort = _port;
+	}
+	
 }

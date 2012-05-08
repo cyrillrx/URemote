@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="app_theme" 
-		parent="android:Theme">
-		<item name="android:windowBackground">@drawable/bg_repeated</item>
-		<item name="android:listViewStyle">@style/TransparentListView</item>
-		<item name="android:expandableListViewStyle">@style/TransparentExpandableListView</item>
-	</style>
-
-	<style name="TransparentListView" 
-		parent="@android:style/Widget.ListView">
-		<item name="android:cacheColorHint">@android:color/transparent</item>
+	<style name="keyboard">
+		<item name="android:layout_width">0dp</item>
+		<item name="android:layout_weight">1</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:padding">0dp</item>
 	</style>
 	
-	<style name="TransparentExpandableListView" 
-		parent="@android:style/Widget.ExpandableListView">
-		<item name="android:cacheColorHint">@android:color/transparent</item>
+	<style name="command_button">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@null</item>
+		<item name="android:padding">0dp</item>
+	</style>
+	
+	<style name="media_button" parent="@style/command_button">
+		<item name="android:padding">10dp</item>
 	</style>
 </resources>

@@ -1,7 +1,12 @@
 package org.es.uremote.computer;
 
+import static org.es.uremote.utils.Constants.DEFAULT_HOST;
+import static org.es.uremote.utils.Constants.DEFAULT_PORT;
+import static org.es.uremote.utils.Message.CODE_CLASSIC;
+import static org.es.uremote.utils.Message.CODE_VOLUME;
+
 import org.es.uremote.R;
-import org.es.uremote.utils.IntentKeys;
+import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Message;
 
 import android.app.ActionBar;
@@ -10,41 +15,61 @@ import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-public class ServerTabHost extends Activity {
-	
-	// Liste des RequestCodes pour les ActivityForResults
-	private static final int RC_APP_LAUNCHER	= 0;
-	
+public class ServerTabHost extends Activity {	
+
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+	public void onCreate(Bundle _savedInstanceState) {
+		super.onCreate(_savedInstanceState);
 		setContentView(R.layout.fragment_host);
-
+		
+		initServer();
+		
 		// Instanciation de l'ActionBar
-		ActionBar mBar = getActionBar();
+		ActionBar actionBar = getActionBar();
 		// Utilisation des onglets dans l'ActionBar
-		mBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-		Tab tabDashboard = mBar.newTab().setText("Dashboard");
-		Tab tabExplorer = mBar.newTab().setText("Explorer");
-		
+		Tab tabDashboard = actionBar.newTab().setText("Dashboard");
+		Tab tabExplorer = actionBar.newTab().setText("Explorer");
+		Tab tabKeyboard = actionBar.newTab().setText("Keyboard");
+
 		// Création des fragments à utiliser dans chacun des onglets
-		Fragment fragDashboard = new FragDashboard();
-		Fragment fragExplorer = new FragFileManager();
-		
+		Fragment fragDashboard	= new FragDashboard();
+		Fragment fragExplorer	= new FragFileManager();
+		Fragment fragKeyboard	= new FragKeyboard();
+
 		// Listener sur les onglets
 		tabDashboard.setTabListener(new MyTabsListener(fragDashboard));
 		tabExplorer.setTabListener(new MyTabsListener(fragExplorer));
-		
+		tabKeyboard.setTabListener(new MyTabsListener(fragKeyboard));
+
 		// Ajout des onglets à l'ActionBar
-		mBar.addTab(tabDashboard);
-		mBar.addTab(tabExplorer);
+		actionBar.addTab(tabDashboard);
+		actionBar.addTab(tabExplorer);
+		actionBar.addTab(tabKeyboard);
+
+		if (_savedInstanceState != null) {
+			final int newTabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
+			if (newTabIndex != actionBar.getSelectedNavigationIndex())
+				actionBar.setSelectedNavigationItem(newTabIndex);
+		} else {
+			sendAsyncMessage(CODE_CLASSIC, Message.HELLO_SERVER);
+		}
+		
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		int tabIndex = getActionBar().getSelectedNavigationIndex();
+		outState.putInt("selectedTabIndex", tabIndex);
+		super.onSaveInstanceState(outState);
 	}
 
 	/**
@@ -53,54 +78,45 @@ public class ServerTabHost extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			sendAsyncMessage(Message.VOLUME_UP);
+			sendAsyncMessage(CODE_VOLUME, Message.VOLUME_UP);
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-			sendAsyncMessage(Message.VOLUME_DOWN);
+			sendAsyncMessage(CODE_VOLUME, Message.VOLUME_DOWN);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	/** 
-	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
-	 * 
-	 * @param _requestCode Code d'identification de l'activité appelée.
-	 * @param _resultCode Code de retour de l'activité (RESULT_OK/RESULT_CANCEL).
-	 * @param _data Les données renvoyées par l'application.
-	 */
-	@Override
-	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data) {
-		// Résultat de l'activité Application Launcher
-		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
-			final String message = _data.getStringExtra(IntentKeys.APPLICATION_MESSAGE);
-			sendAsyncMessage(message);
-		} 
+	/** Initialisation des paramètres du serveur en utilisant les préférences */
+	private void initServer() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		final String keyHost = getString(R.string.pref_key_host);
+		final String keyPort = getString(R.string.pref_key_port);
+		AsyncMessageMgr.setHost(pref.getString(keyHost, DEFAULT_HOST));
+		AsyncMessageMgr.setPort(Integer.parseInt(pref.getString(keyPort, DEFAULT_PORT)));
 	}
-	
+
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
-	 * @param _message Le message à envoyer.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
 	 */
-	private void sendAsyncMessage(String _message) {
-		//@TODO
-//		if (mMessageManager == null) {
-//			mMessageManager = new AsyncMessageMgr();
-//			mMessageManager.execute(_message);
-//		} else {
-//			Toast.makeText(getActivity().getApplicationContext(), "Already initialized", Toast.LENGTH_SHORT).show();
-//		}
-
+	private void sendAsyncMessage(String _code, String _param) {
+		if (MessageMgr.availablePermits() > 0) {
+			new MessageMgr().execute(_code, _param);
+		} else {
+			Toast.makeText(getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
+		}
 	}
-	
+
 	/**
 	 * @author cyril.leroux
 	 * Listener personnalisé pour les changments d'onglets (sélection/resélection/désélection)
 	 */
 	protected class MyTabsListener implements TabListener {
 		private Fragment mFragment;
-		
+
 		public MyTabsListener(Fragment _fragment) {
 			this.mFragment = _fragment;
 		}
@@ -118,6 +134,22 @@ public class ServerTabHost extends Activity {
 		@Override
 		public void onTabUnselected(Tab _tab, FragmentTransaction _ft) {
 			_ft.remove(mFragment);
+		}
+	}
+
+	/**
+	 * Classe asynchrone de gestion d'envoi des messages
+	 * @author cyril.leroux
+	 */
+	private class MessageMgr extends AsyncMessageMgr {
+
+		@Override
+		protected void onPostExecute(String _serverReply) {
+			super.onPostExecute(_serverReply);
+
+			if (_serverReply != null && !_serverReply.isEmpty()) {
+				Toast.makeText(getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 }
