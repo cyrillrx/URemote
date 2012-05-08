@@ -16,6 +16,7 @@ public class Message {
 	public static final String HELLO_CLIENT	= "hello_client";
 	public static final String TEST_COMMAND	= "test_command";
 	public static final String KILL_SERVER	= "kill_server";
+	public static final String SHUTDOWN		= "shutdown";
 	public static final String MONITOR_SWITCH_WINDOW = "switch_window";
 
 	// Gestion des touches du clavier 
