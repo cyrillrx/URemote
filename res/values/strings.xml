@@ -29,10 +29,14 @@
 
     <!-- Préférences -->
     <string name="pref_server_settings">Server Settings</string>
-    <string name="pref_ip_address">IP Address</string>
-    <string name="pref_ip_address_summary">Server ip address</string>
-    <string name="pref_port">Port</string>
-    <string name="pref_port_summary">Server listening port</string>
+	<string name="pref_local_ip_address">Local ip address</string>
+	<string name="pref_local_ip_address_summary">Local ip address</string>
+	<string name="pref_local_port">Local listening port</string>
+	<string name="pref_local_port_summary">Local listening port</string>
+	<string name="pref_remote_ip_address">Remote ip address</string>
+	<string name="pref_remote_ip_address_summary">Remote ip address</string>
+	<string name="pref_remote_port">Remote listening port</string>
+	<string name="pref_remote_port_summary">Remote listening port</string>
     <string name="pref_other">Other</string>
     <string name="pref_author">Application Developer</string>
     <string name="pref_author_summary">Cyril Leroux</string>

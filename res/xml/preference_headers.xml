@@ -2,7 +2,6 @@
 
 	<header
 		android:fragment="org.es.uremote.AppSettings$PrefServer"
-		android:summary="@string/pref_ip_address_summary"
 		android:title="@string/pref_server_settings" />
 	<header
 		android:summary="@string/pref_author_summary"

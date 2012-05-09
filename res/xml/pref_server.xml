@@ -3,15 +3,25 @@
 
 	<PreferenceCategory android:title="@string/pref_server_settings" >
 		<EditTextPreference
-			android:defaultValue="192.168.0.1"
-			android:key="@string/pref_key_host"
-			android:summary="@string/pref_ip_address_summary"
-			android:title="@string/pref_ip_address" />
+			android:defaultValue="@string/pref_default_local_host"
+			android:key="@string/pref_key_local_host"
+			android:summary="@string/pref_local_ip_address_summary"
+			android:title="@string/pref_local_ip_address" />
 		<EditTextPreference
-			android:defaultValue="8082"
-			android:key="@string/pref_key_port"
-			android:summary="@string/pref_port_summary"
-			android:title="@string/pref_port" />
+			android:defaultValue="@string/pref_default_local_port"
+			android:key="@string/pref_key_local_port"
+			android:summary="@string/pref_local_port_summary"
+			android:title="@string/pref_local_port" />
+		<EditTextPreference
+			android:defaultValue="@string/pref_default_remote_host"
+			android:key="@string/pref_key_remote_host"
+			android:summary="@string/pref_remote_ip_address_summary"
+			android:title="@string/pref_remote_ip_address" />
+		<EditTextPreference
+			android:defaultValue="@string/pref_default_remote_port"
+			android:key="@string/pref_key_remote_port"
+			android:summary="@string/pref_remote_port_summary"
+			android:title="@string/pref_remote_port" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

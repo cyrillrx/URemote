@@ -4,10 +4,16 @@
     <string name="tv">Tv</string>
     
     <!-- Préférences -->
-    <string name="pref_server">pref_server</string>
-    <string name="pref_key_host">pref_key_host</string>
-    <string name="pref_key_port">pref_key_port</string>
+    <string name="pref_key_local_host">local_host</string>
+    <string name="pref_key_local_port">local_port</string>
+    <string name="pref_key_remote_host">remote_host</string>
+    <string name="pref_key_remote_port">remote_port</string>
     
+    <string name="pref_default_local_host">192.168.0.1</string>
+    <string name="pref_default_local_port">8082</string>
+    <string name="pref_default_remote_host">82.229.76.34</string>
+    <string name="pref_default_remote_port">9080</string>
+	
 	<!-- Dashboard -->
 	<string name="cmd_kill_server">Kill server</string>
 	<string name="cmd_test">Test</string>

@@ -1,7 +1,6 @@
 package org.es.uremote;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.utils.Constants.DEFAULT_HOST;
 
 import java.util.concurrent.ExecutionException;
 
@@ -65,10 +64,15 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnHifi:
+			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+			final boolean wifi = wifiMgr.isWifiEnabled();
+			final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
+			final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
 			
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			final String keyHost = getString(R.string.pref_key_host);
-			String host = pref.getString(keyHost, DEFAULT_HOST);
+			final String keyHost = getString(resKeyHost);
+			final String defHost = getString(resDefHost);
+			String host = pref.getString(keyHost, defHost);
 			
 			String msg = "error";
 			try {
@@ -131,12 +135,12 @@ public class Home extends Activity implements OnClickListener {
 
 		// Retour de la requête d'activation du wifi    
 		case RC_ENABLE_WIFI:
-
-			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
-			if (wifiMgr.isWifiEnabled()) {
-				startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
-			}
+			startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
+//			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+//			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
+//			if (wifiMgr.isWifiEnabled()) {
+//				startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
+//			}
 			break;
 		}
 	}
