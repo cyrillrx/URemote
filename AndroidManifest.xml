@@ -28,6 +28,9 @@
 			android:name=".AppSettings"
 			android:label="@string/title_preferences" />
 		<activity
+			android:name=".computer.ViewPagerDashboard"
+			android:label="@string/title_server_dashboard" />
+		<activity
 			android:name=".computer.ServerTabHost"
 			android:label="@string/title_server_dashboard" />
 		<activity

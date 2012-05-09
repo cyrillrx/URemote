@@ -22,6 +22,11 @@
 			android:key="@string/pref_key_remote_port"
 			android:summary="@string/pref_remote_port_summary"
 			android:title="@string/pref_remote_port" />
+		<EditTextPreference
+			android:defaultValue="@string/pref_default_timeout"
+			android:key="@string/pref_key_timeout"
+			android:summary="@string/pref_timeout_summary"
+			android:title="@string/pref_timeout" />
 	</PreferenceCategory>
 
 </PreferenceScreen>

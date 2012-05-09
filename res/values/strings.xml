@@ -37,6 +37,8 @@
 	<string name="pref_remote_ip_address_summary">Remote ip address</string>
 	<string name="pref_remote_port">Remote listening port</string>
 	<string name="pref_remote_port_summary">Remote listening port</string>
+	<string name="pref_timeout">Timeout</string>
+	<string name="pref_timeout_summary">Timeout</string>
     <string name="pref_other">Other</string>
     <string name="pref_author">Application Developer</string>
     <string name="pref_author_summary">Cyril Leroux</string>

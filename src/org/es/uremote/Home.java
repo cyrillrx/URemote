@@ -4,7 +4,7 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 
 import java.util.concurrent.ExecutionException;
 
-import org.es.uremote.computer.ServerTabHost;
+import org.es.uremote.computer.ViewPagerDashboard;
 import org.es.uremote.network.WakeOnLan;
 
 import android.app.Activity;
@@ -115,7 +115,7 @@ public class Home extends Activity implements OnClickListener {
 			Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
 			startActivityForResult(enableIntent, RC_ENABLE_WIFI);
 		} else {
-			startActivity(new Intent(getApplicationContext(), ServerTabHost.class));	
+			startActivity(new Intent(getApplicationContext(), ViewPagerDashboard.class));	
 		}
 	}
 	
@@ -135,7 +135,7 @@ public class Home extends Activity implements OnClickListener {
 
 		// Retour de la requête d'activation du wifi    
 		case RC_ENABLE_WIFI:
-			startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
+			startActivity(new Intent(getApplicationContext(), ViewPagerDashboard.class));
 //			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 //			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
 //			if (wifiMgr.isWifiEnabled()) {

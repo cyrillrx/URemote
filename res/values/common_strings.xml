@@ -8,11 +8,13 @@
     <string name="pref_key_local_port">local_port</string>
     <string name="pref_key_remote_host">remote_host</string>
     <string name="pref_key_remote_port">remote_port</string>
+    <string name="pref_key_timeout">timeout</string>
     
     <string name="pref_default_local_host">192.168.0.1</string>
     <string name="pref_default_local_port">8082</string>
     <string name="pref_default_remote_host">82.229.76.34</string>
     <string name="pref_default_remote_port">9080</string>
+    <string name="pref_default_timeout">500</string>
 	
 	<!-- Dashboard -->
 	<string name="cmd_kill_server">Kill server</string>
