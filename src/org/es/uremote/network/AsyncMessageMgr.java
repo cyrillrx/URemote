@@ -22,10 +22,10 @@ import android.util.Log;
 public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	protected static Semaphore sSemaphore = new Semaphore(2);
 	private static final String TAG = "AsyncMessageMgr";
-	private static final int CONNECTION_TIMEOUT = 500;
 
 	private static String sHost;
 	private static int sPort;
+	private static int sTimeout;
 	
 	protected String mCommand;
 	protected String mParam;
@@ -63,7 +63,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		mSocket = null;
 		try {
 			// Création du socket
-			mSocket = connectToRemoteSocket(sHost, sPort, message);
+			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout, message);
 			if (mSocket != null && mSocket.isConnected())
 				serverReply = sendAsyncMessage(mSocket, message);
 			
@@ -118,11 +118,11 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 * @return true si la connexion s'est effectuée correctement, false dans les autres cas.
 	 * @throws IOException excteption
 	 */
-	private Socket connectToRemoteSocket(String _host, int _port, String _message) throws IOException {
+	private Socket connectToRemoteSocket(String _host, int _port, int _timeout, String _message) throws IOException {
 
 		final SocketAddress socketAddress = new InetSocketAddress(_host, _port);
 		Socket socket = new Socket();
-		socket.connect(socketAddress, CONNECTION_TIMEOUT);
+		socket.connect(socketAddress, _timeout);
 
 		return socket;
 	}
@@ -194,6 +194,10 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	
 	public static void setPort(int _port) {
 		sPort = _port;
+	}
+	
+	public static void setTimeout(int _timeout) {
+		sTimeout = _timeout;
 	}
 	
 }

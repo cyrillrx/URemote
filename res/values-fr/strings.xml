@@ -44,5 +44,8 @@
 	<string name="pref_author_summary">Cyril Leroux</string>
 	<string name="pref_website">Site web du développeur</string>
 	<string name="pref_website_address">http://www.essaion-soft.com</string>
+	
+    <!-- Menu -->
+    <string name="menu_server_settings">Config serveur</string>
 
 </resources>

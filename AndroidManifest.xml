@@ -31,7 +31,7 @@
 			android:name=".computer.ViewPagerDashboard"
 			android:label="@string/title_server_dashboard" />
 		<activity
-			android:name=".computer.ServerTabHost"
+			android:name=".computer.ServerTabPager"
 			android:label="@string/title_server_dashboard" />
 		<activity
 			android:name=".computer._ServerDashboard"
