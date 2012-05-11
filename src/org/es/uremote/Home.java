@@ -2,19 +2,14 @@ package org.es.uremote;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 
-import java.util.concurrent.ExecutionException;
-
 import org.es.uremote.computer.ViewPagerDashboard;
-import org.es.uremote.network.WakeOnLan;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -64,28 +59,7 @@ public class Home extends Activity implements OnClickListener {
 			break;
 
 		case R.id.btnHifi:
-			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-			final boolean wifi = wifiMgr.isWifiEnabled();
-			final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
-			final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
-			
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			final String keyHost = getString(resKeyHost);
-			final String defHost = getString(resDefHost);
-			String host = pref.getString(keyHost, defHost);
-			
-			String msg = "error";
-			try {
-				msg = new WakeOnLan().execute(host, "00-22-15-1A-9B-B1").get();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Toast.makeText(Home.this, msg, Toast.LENGTH_SHORT).show();
-			//Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+			Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
 			break;
 
 		case R.id.btnTools:
@@ -118,7 +92,7 @@ public class Home extends Activity implements OnClickListener {
 			startActivity(new Intent(getApplicationContext(), ViewPagerDashboard.class));	
 		}
 	}
-	
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (requestCode) {
@@ -133,14 +107,15 @@ public class Home extends Activity implements OnClickListener {
 			}
 			break;
 
-		// Retour de la requête d'activation du wifi    
+			// Retour de la requête d'activation du wifi    
 		case RC_ENABLE_WIFI:
 			startActivity(new Intent(getApplicationContext(), ViewPagerDashboard.class));
-//			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-//			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
-//			if (wifiMgr.isWifiEnabled()) {
-//				startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
-//			}
+			// TODO
+			//			final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+			//			// Si l'utilisateur a activé le Wifi, on ouvre l'activité
+			//			if (wifiMgr.isWifiEnabled()) {
+			//				startActivity(new Intent(getApplicationContext(), ServerTabHost.class));
+			//			}
 			break;
 		}
 	}

@@ -1,130 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-	<TableLayout
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content" >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*" >
 
-		<TableRow>
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-			<TextView
-				android:id="@+id/tvServerInfos"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tvServerInfos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-			<TextView
-				android:id="@+id/tvServerState"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:drawableLeft="@android:drawable/presence_invisible"
-				android:text="@string/msg_command_failed" />
-		</TableRow>
+            <TextView
+                android:id="@+id/tvServerState"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@android:drawable/presence_invisible"
+                android:text="@string/msg_command_failed" />
+        </TableRow>
 
-		<TableRow>
+        <!-- Première ligne de commandes -->
 
-			<Button
-				android:id="@+id/cmdKillServer"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/force_quit"
-				android:text="@string/cmd_kill_server" />
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-			<Button
-				android:id="@+id/cmdTest"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/test"
-				android:text="@string/cmd_test" />
+            <Button
+                android:id="@+id/cmdWakeOnLan"
+                style="@style/command_button"
+                android:drawableTop="@drawable/wol"
+                android:text="@string/cmd_wake_on_lan" />
 
-			<Button
-				android:id="@+id/cmdGomStretch"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/fullscreen"
-				android:text="@string/cmd_gom_stretch" />
+            <Button
+                android:id="@+id/cmdKillServer"
+                style="@style/command_button"
+                android:drawableTop="@drawable/force_quit"
+                android:text="@string/cmd_kill_server" />
 
-			<Button
-				android:id="@+id/cmdSwitch"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/switch_window"
-				android:text="@string/cmd_switch_window" />
-		</TableRow>
+            <Button
+                android:id="@+id/cmdTest"
+                style="@style/command_button"
+                android:drawableTop="@drawable/test"
+                android:text="@string/cmd_test" />
 
-		<TableRow
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center" >
+            <Button
+                android:id="@+id/cmdGomStretch"
+                style="@style/command_button"
+                android:drawableTop="@drawable/fullscreen"
+                android:text="@string/cmd_gom_stretch" />
 
-			<ImageButton
-				android:id="@+id/cmdPrevious"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_preview"
-				android:src="@drawable/media_previous" />
+            <Button
+                android:id="@+id/cmdSwitch"
+                style="@style/command_button"
+                android:drawableTop="@drawable/switch_window"
+                android:text="@string/cmd_switch_window" />
+        </TableRow>
 
-			<ImageButton
-				android:id="@+id/cmdPlayPause"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_play_pause"
-				android:src="@drawable/media_play" />
+        <!-- Ligne de contrôle des média -->
 
-			<ImageButton
-				android:id="@+id/cmdStop"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_stop"
-				android:src="@drawable/media_stop" />
+        
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center" >
 
-			<ImageButton
-				android:id="@+id/cmdNext"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_next"
-				android:src="@drawable/media_next" />
+            <ImageButton
+                android:id="@+id/cmdPrevious"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_preview"
+                android:src="@drawable/media_previous" />
 
-			<ImageButton
-				android:id="@+id/cmdMute"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_mute"
-				android:src="@drawable/volume_on" />
-		</TableRow>
+            <ImageButton
+                android:id="@+id/cmdPlayPause"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_play_pause"
+                android:src="@drawable/media_play" />
 
-		<TableRow>
+            <ImageButton
+                android:id="@+id/cmdStop"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_stop"
+                android:src="@drawable/media_stop" />
 
-			<Button
-				android:id="@+id/btnAppLauncher"
-				style="@style/command_button"
-				android:drawableTop="@drawable/app_launcher"
-				android:text="@string/cmd_app_launcher" />
+            <ImageButton
+                android:id="@+id/cmdNext"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_next"
+                android:src="@drawable/media_next" />
 
-			<Space
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1" />
+            <ImageButton
+                android:id="@+id/cmdMute"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_mute"
+                android:src="@drawable/volume_on" />
+        </TableRow>
 
-			<ProgressBar
-				android:id="@+id/pbConnection"
-				style="?android:attr/progressBarStyleLarge"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:visibility="invisible" />
-		</TableRow>
-	</TableLayout>
+        <!-- seconde ligne de commandes -->
+
+        
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:id="@+id/cmdShutdown"
+                style="@style/command_button"
+                android:drawableTop="@drawable/shutdown"
+                android:text="@string/cmd_shutdown" />
+
+            <Button
+                android:id="@+id/btnAppLauncher"
+                style="@style/command_button"
+                android:drawableTop="@drawable/app_launcher"
+                android:text="@string/cmd_app_launcher" />
+
+            <Space android:layout_span="2" />
+
+            <ProgressBar
+                android:id="@+id/pbConnection"
+                style="?android:attr/progressBarStyleLarge"
+                android:visibility="invisible" />
+        </TableRow>
+    </TableLayout>
 
 </ScrollView>

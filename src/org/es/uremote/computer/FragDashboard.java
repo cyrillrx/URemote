@@ -10,8 +10,11 @@ import static org.es.uremote.utils.Message.CODE_CLASSIC;
 import static org.es.uremote.utils.Message.CODE_MEDIA;
 import static org.es.uremote.utils.Message.CODE_VOLUME;
 
+import java.util.concurrent.ExecutionException;
+
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.Message;
 
@@ -19,8 +22,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +65,10 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		mTvServerState = (TextView) view.findViewById(R.id.tvServerState);
 		mPbConnection = (ProgressBar) view.findViewById(R.id.pbConnection);
 
-		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdWakeOnLan)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdShutdown)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
@@ -71,7 +79,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
 		mCmdMute = (ImageButton) view.findViewById(R.id.cmdMute);
 		mCmdMute.setOnClickListener(this);
-		
+
 		((TextView) view.findViewById(R.id.tvServerInfos)).setText(MessageMgr.getServerInfos());
 
 		return view;
@@ -86,6 +94,12 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		switch (_view.getId()) {
 
+		case R.id.cmdWakeOnLan :
+			wakeOnLan();
+			break;
+		case R.id.cmdShutdown :
+			confirmCommand(CODE_CLASSIC, Message.SHUTDOWN);
+			break;
 		case R.id.cmdKillServer :
 			confirmCommand(CODE_CLASSIC, Message.KILL_SERVER);
 			break;
@@ -121,7 +135,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			break;
 		}
 	}
-	
+
 	/** 
 	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
 	 * 
@@ -144,7 +158,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	private void confirmCommand(final String _code, final String _param) {
 		int resId = (_param.equals(Message.KILL_SERVER)) ? R.string.confirm_kill_server : R.string.confirm_command;
-		
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
 		builder.setMessage(resId);
@@ -160,6 +174,31 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		builder.show();
 	}
 
+	private void wakeOnLan() {
+
+		final WifiManager wifiMgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+		final boolean wifi = wifiMgr.isWifiEnabled();
+		final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
+		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
+
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		final String keyHost = getString(resKeyHost);
+		final String defHost = getString(resDefHost);
+		String host = pref.getString(keyHost, defHost);
+
+		String msg = "error";
+		try {
+			msg = new WakeOnLan().execute(host, "00-22-15-1A-9B-B1").get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();	
+	}
+
 	/**
 	 * Fonction de mise à jour de l'interface utilisateur
 	 * @param _state L'état à mettre à jour (OK, KO, CONNECTING)
@@ -168,14 +207,14 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		int drawableResId;
 		int messageResId;
 		int visibility;
-		
+
 		switch (_state) {
 		case STATE_OK:
 			drawableResId = android.R.drawable.presence_online; 
 			messageResId = R.string.msg_command_succeeded;
 			visibility = INVISIBLE;
 			break;
-			
+
 		case STATE_CONNECTING:
 			drawableResId = android.R.drawable.presence_away; 
 			messageResId = R.string.msg_command_running;
@@ -225,22 +264,22 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		MessageMgr(Context _context) {
 			mContext = _context;
 		}
-		
+
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
 			if (_serverReply != null && !_serverReply.isEmpty() && !Message.ERROR.equals(mCommand)) {
-				//Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+
 				if (mContext != null)
-				Toast.makeText(mContext.getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext.getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 
 				if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
 					mCmdMute.setImageResource(R.drawable.volume_muted);
-					
+
 				} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
 					mCmdMute.setImageResource(R.drawable.volume_on);
-					
+
 				}
 
 				updateConnectionState(STATE_OK);
