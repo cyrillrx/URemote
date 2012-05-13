@@ -30,15 +30,10 @@
 	<!-- Préférences -->
 	<string name="pref_server_settings">Configuration du serveur</string>
 	<string name="pref_local_ip_address">Adresse ip locale</string>
-	<string name="pref_local_ip_address_summary">Adresse ip locale</string>
 	<string name="pref_local_port">Port d\'écoute local</string>
-	<string name="pref_local_port_summary">Port d\'écoute local</string>
 	<string name="pref_remote_ip_address">Adresse ip distante</string>
-	<string name="pref_remote_ip_address_summary">Adresse ip distante</string>
 	<string name="pref_remote_port">Port d\'écoute distant</string>
-	<string name="pref_remote_port_summary">Port d\'écoute distant</string>
 	<string name="pref_timeout">Timeout des appels au serveur</string>
-	<string name="pref_timeout_summary">Timeout des appels au serveur</string>
 	<string name="pref_other">Autre</string>
 	<string name="pref_author">Développeur de l\'application</string>
 	<string name="pref_author_summary">Cyril Leroux</string>

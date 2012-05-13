@@ -20,6 +20,7 @@
 	<string name="cmd_wake_on_lan">Wake</string>
 	<string name="cmd_shutdown">Shutdown</string>
 	<string name="cmd_kill_server">Kill server</string>
+	<string name="cmd_ai_mute">AI mute</string>
 	<string name="cmd_test">Test</string>
 	<string name="cmd_switch_window">Switch</string>
 	<string name="cmd_gom_stretch">Stretch</string>
@@ -30,8 +31,8 @@
 	<string name="cmd_preview">Preview</string>
 	<string name="cmd_next">Next</string>
 	<string name="cmd_mute">Mute</string>
-	<string name="cmd_app_launcher">Launcher</string>
-	<string name="cmd_file_manager">File manager</string>
+	
+	<string name="btn_app_launcher">Launcher</string>
 	
     <!-- Commandes clavier -->
     <string name="kb_1">1</string>

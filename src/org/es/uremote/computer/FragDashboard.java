@@ -6,6 +6,7 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static org.es.uremote.utils.Message.CODE_APP;
+import static org.es.uremote.utils.Message.CODE_AI;
 import static org.es.uremote.utils.Message.CODE_CLASSIC;
 import static org.es.uremote.utils.Message.CODE_MEDIA;
 import static org.es.uremote.utils.Message.CODE_VOLUME;
@@ -67,6 +68,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		((Button) view.findViewById(R.id.cmdWakeOnLan)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdShutdown)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdAiMute)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
@@ -84,6 +86,12 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		return view;
 	}
+	
+	@Override
+	public void onStart() {
+		getActivity().getActionBar().setIcon(R.drawable.ic_launcher);
+		super.onStart();
+	}
 
 	/**
 	 * Prise en comptes des événements onClick 
@@ -99,6 +107,9 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			break;
 		case R.id.cmdShutdown :
 			confirmCommand(CODE_CLASSIC, Message.SHUTDOWN);
+			break;
+		case R.id.cmdAiMute :
+			sendAsyncMessage(CODE_AI, Message.AI_MUTE);
 			break;
 		case R.id.cmdKillServer :
 			confirmCommand(CODE_CLASSIC, Message.KILL_SERVER);

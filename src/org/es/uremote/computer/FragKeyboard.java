@@ -2,17 +2,17 @@ package org.es.uremote.computer;
 
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.uremote.utils.Message.CODE_COMBO;
 import static org.es.uremote.utils.Message.CODE_KEYBOARD;
-import static org.es.uremote.utils.Message.CODE_KEYBOARD_COMBO;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Message;
 
 import android.app.AlertDialog;
-import android.support.v4.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -107,10 +107,10 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ESCAPE);
 			break;
 		case R.id.kbAltf4 :
-			confirmCommand(CODE_KEYBOARD_COMBO, Message.KB_ALT_F4);
+			confirmCommand(CODE_COMBO, Message.KB_ALT_F4);
 			break;
 		case R.id.kbCtrlEnter :
-			sendAsyncMessage(CODE_KEYBOARD_COMBO, Message.KB_CTRL_ENTER);
+			sendAsyncMessage(CODE_COMBO, Message.KB_CTRL_ENTER);
 			break;
 
 		case R.id.kb0 :

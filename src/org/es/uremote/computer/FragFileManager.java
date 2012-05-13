@@ -51,7 +51,7 @@ public class FragFileManager extends ListFragment {
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
 		return view;
 	}
-
+	
 	@Override
 	public void onStart() {
 		updateView(mDirectoryContent);
@@ -81,7 +81,7 @@ public class FragFileManager extends ListFragment {
 	 */
 	private void updateView(String infos){
 		final List<FileManagerEntity> fileList = directoryInfoToList(infos);
-		
+
 		if (fileList.size() == 0) {
 			if (DEBUG)
 				Log.e(TAG, "fileList is null");
@@ -132,7 +132,7 @@ public class FragFileManager extends ListFragment {
 	private void openFile(String _filename) {
 		sendAsyncMessage(Message.OPEN_FILE, _filename);
 	}
-	
+
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
@@ -146,7 +146,7 @@ public class FragFileManager extends ListFragment {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux

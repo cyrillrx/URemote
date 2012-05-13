@@ -181,6 +181,12 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 	@Override
 	public void onPageSelected(int _position) {
 		mCurrentPage = _position;
+		if (_position == 1)
+			getActionBar().setIcon(R.drawable.ic_filemanager);
+		else if (_position == 2)
+			getActionBar().setIcon(R.drawable.ic_keyboard);
+		else
+			getActionBar().setIcon(R.drawable.ic_launcher);
 	}
 
 	private class MyPagerAdapter extends FragmentPagerAdapter {

@@ -3,9 +3,9 @@ package org.es.uremote.utils;
 public class Message {
 
 	// Code de message
-	public static final String CODE_AI = "code_ai";
+	public static final String CODE_AI		= "code_ai";
 	public static final String CODE_KEYBOARD = "code_keyboard";
-	public static final String CODE_KEYBOARD_COMBO	= "code_combo";
+	public static final String CODE_COMBO	= "code_combo";
 	public static final String CODE_MEDIA	= "code_media";
 	public static final String CODE_VOLUME	= "code_volume";
 	public static final String CODE_APP		= "code_app";

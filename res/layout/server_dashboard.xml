@@ -129,10 +129,16 @@
             android:gravity="center|bottom" >
 
             <Button
+                android:id="@+id/cmdAiMute"
+                style="@style/command_button"
+                android:drawableTop="@drawable/ai_mute"
+                android:text="@string/cmd_ai_mute" />
+
+            <Button
                 android:id="@+id/btnAppLauncher"
                 style="@style/command_button"
                 android:drawableTop="@drawable/app_launcher"
-                android:text="@string/cmd_app_launcher" />
+                android:text="@string/btn_app_launcher" />
         </TableRow>
 
         <TableRow

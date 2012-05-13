@@ -5,7 +5,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:stretchColumns="*" >
 
         <TableRow
@@ -66,7 +66,6 @@
 
         <!-- Ligne de contrôle des média -->
 
-        
         <TableRow
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -105,7 +104,6 @@
 
         <!-- seconde ligne de commandes -->
 
-        
         <TableRow
             android:layout_height="0dp"
             android:layout_weight="1" >
@@ -117,12 +115,18 @@
                 android:text="@string/cmd_shutdown" />
 
             <Button
+                android:id="@+id/cmdAiMute"
+                style="@style/command_button"
+                android:drawableTop="@drawable/ai_mute"
+                android:text="@string/cmd_ai_mute" />
+
+            <Button
                 android:id="@+id/btnAppLauncher"
                 style="@style/command_button"
                 android:drawableTop="@drawable/app_launcher"
-                android:text="@string/cmd_app_launcher" />
+                android:text="@string/btn_app_launcher" />
 
-            <Space android:layout_span="2" />
+            <Space />
 
             <ProgressBar
                 android:id="@+id/pbConnection"
