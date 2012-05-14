@@ -27,11 +27,6 @@ public class AppLauncher extends Activity implements OnClickListener {
 		// Click listener pour tous les boutons
 		((ImageButton) findViewById(R.id.btnAppGomPlayer)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnKillGomPlayer)).setOnClickListener(this);
-		//		((ImageButton) findViewById(R.id.btnTv)).setOnClickListener(this);
-		//		((ImageButton) findViewById(R.id.btnRobot)).setOnClickListener(this);
-		//		((ImageButton) findViewById(R.id.btnMediaCenter)).setOnClickListener(this);
-		//		((ImageButton) findViewById(R.id.btnHifi)).setOnClickListener(this);
-		//		((ImageButton) findViewById(R.id.btnTools)).setOnClickListener(this);
 	}
 
 	@Override
@@ -49,22 +44,21 @@ public class AppLauncher extends Activity implements OnClickListener {
 		default:
 			break;
 		}
-
-	}
-
-	private void returnAppMessage(String _appMessage) {		
-		//overridePendingTransition(R.anim.launcher_out, R.anim.launcher_out);
-		Intent data = new Intent();
-		data.putExtra(APPLICATION_MESSAGE, _appMessage);
-		setResult(RESULT_OK, data);
-		finish();
-		overridePendingTransition(R.anim.launcher_out, R.anim.launcher_out);
 	}
 
 	@Override
 	public void onBackPressed() {
-		//overridePendingTransition(R.anim.launcher_out, R.anim.launcher_out);
 		super.onBackPressed();
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 	}
+
+	private void returnAppMessage(String _appMessage) {
+		Intent data = new Intent();
+		data.putExtra(APPLICATION_MESSAGE, _appMessage);
+		setResult(RESULT_OK, data);
+		finish();
+		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
+	}
+
+
 }

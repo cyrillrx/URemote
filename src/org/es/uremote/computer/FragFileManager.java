@@ -51,7 +51,7 @@ public class FragFileManager extends ListFragment {
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
 		return view;
 	}
-	
+
 	@Override
 	public void onStart() {
 		updateView(mDirectoryContent);
@@ -157,13 +157,10 @@ public class FragFileManager extends ListFragment {
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
-			if (_serverReply != null && !_serverReply.isEmpty()) {
-				if (Message.OPEN_DIR.equals(mCommand)) {
-					openDirectory(mParam, _serverReply);
-
-				} else if (Message.ERROR.equals(mCommand)) {
-					Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-				}
+			if (Message.RC_ERROR.equals(mReturnCode)) {
+				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+			} else if (Message.OPEN_DIR.equals(mCommand)) {
+				openDirectory(mParam, _serverReply);
 			} 
 		}
 	}

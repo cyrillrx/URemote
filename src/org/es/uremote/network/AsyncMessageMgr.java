@@ -27,6 +27,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	private static int sPort;
 	private static int sTimeout;
 	
+	protected String mReturnCode = Message.RC_SUCCES;
 	protected String mCommand;
 	protected String mParam;
 	private Socket mSocket	= null;
@@ -68,13 +69,13 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 				serverReply = sendAsyncMessage(mSocket, message);
 			
 		} catch (IOException e) {
-			mCommand = Message.ERROR;
+			mReturnCode = Message.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
 			if (DEBUG)
 				Log.e(TAG, serverReply);
 
 		} catch (Exception e) {
-			mCommand = Message.ERROR;
+			mCommand = Message.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
 			if (DEBUG) 
 				Log.e(TAG, serverReply);

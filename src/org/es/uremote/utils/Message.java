@@ -53,7 +53,8 @@ public class Message {
 	
 	// Intelligence Artificielle
 	public static final String AI_MUTE	= "ai_mute";
-	
-	public static final String ERROR		= "error";
+
+	public static final String RC_SUCCES	= "succes";
+	public static final String RC_ERROR		= "error";
 
 }

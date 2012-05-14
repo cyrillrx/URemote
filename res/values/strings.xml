@@ -29,12 +29,17 @@
 
     <!-- Préférences -->
     <string name="pref_server_settings">Server Settings</string>
+	<string name="pref_local">Local access</string>
+	<string name="pref_remote">Remote access</string>
+	<string name="pref_common">Common</string>
+    <string name="pref_other">Other</string>
+	
 	<string name="pref_local_ip_address">Local ip address</string>
 	<string name="pref_local_port">Local listening port</string>
+	<string name="pref_broadcast_address">Broadcast ip address</string>
 	<string name="pref_remote_ip_address">Remote ip address</string>
 	<string name="pref_remote_port">Remote listening port</string>
 	<string name="pref_timeout">Connection timeout</string>
-    <string name="pref_other">Other</string>
     <string name="pref_author">Application Developer</string>
     <string name="pref_author_summary">Cyril Leroux</string>
     <string name="pref_website">Developer website</string>

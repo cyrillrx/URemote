@@ -86,7 +86,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		return view;
 	}
-	
+
 	@Override
 	public void onStart() {
 		getActivity().getActionBar().setIcon(R.drawable.ic_launcher);
@@ -189,8 +189,8 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		final WifiManager wifiMgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		final boolean wifi = wifiMgr.isWifiEnabled();
-		final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
-		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
+		final int resKeyHost = wifi ? R.string.pref_key_broadcast : R.string.pref_key_remote_host;
+		final int resDefHost = wifi ? R.string.pref_default_broadcast : R.string.pref_default_remote_host;
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 		final String keyHost = getString(resKeyHost);
@@ -253,7 +253,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	private void sendAsyncMessage(String _code, String _param) {
 		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr(getActivity()).execute(_code, _param);
+			new MessageMgr().execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
@@ -265,37 +265,31 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	private class MessageMgr extends AsyncMessageMgr {
 
-		private Context mContext;
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			updateConnectionState(STATE_CONNECTING);
 		}
 
-		MessageMgr(Context _context) {
-			mContext = _context;
-		}
-
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
-			if (_serverReply != null && !_serverReply.isEmpty() && !Message.ERROR.equals(mCommand)) {
+			if (getActivity() != null)
+				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
 
-				if (mContext != null)
-					Toast.makeText(mContext.getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+			if (Message.RC_ERROR.equals(mReturnCode)) {
+				updateConnectionState(STATE_KO);
 
-				if (_serverReply.equals(Message.REPLY_VOLUME_MUTED)) {
+			} else { 
+				if (Message.REPLY_VOLUME_MUTED.equals(_serverReply)) {
 					mCmdMute.setImageResource(R.drawable.volume_muted);
 
-				} else if (_serverReply.equals(Message.REPLY_VOLUME_ON)) {
+				} else if (Message.REPLY_VOLUME_ON.equals(_serverReply)) {
 					mCmdMute.setImageResource(R.drawable.volume_on);
 
 				}
-
 				updateConnectionState(STATE_OK);
-			} else {
-				updateConnectionState(STATE_KO);
 			}
 		}
 	}

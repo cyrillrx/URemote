@@ -6,12 +6,14 @@
     <!-- Préférences -->
     <string name="pref_key_local_host">local_host</string>
     <string name="pref_key_local_port">local_port</string>
+    <string name="pref_key_broadcast">broadcast</string>
     <string name="pref_key_remote_host">remote_host</string>
     <string name="pref_key_remote_port">remote_port</string>
     <string name="pref_key_timeout">timeout</string>
     
     <string name="pref_default_local_host">192.168.0.1</string>
     <string name="pref_default_local_port">8082</string>
+    <string name="pref_default_broadcast">192.168.0.255</string>
     <string name="pref_default_remote_host">82.229.76.34</string>
     <string name="pref_default_remote_port">9080</string>
     <string name="pref_default_timeout">500</string>

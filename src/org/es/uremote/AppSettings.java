@@ -32,18 +32,22 @@ public class AppSettings extends PreferenceActivity {
 
 		private String mKeyLocalHost;
 		private String mKeyLocalPort;
+		private String mKeyBroadcast;
 		private String mKeyRemoteHost;
 		private String mKeyRemotePort;
 		private String mKeyTimeout;
 
 		private String mDefaultLocalHost;
 		private String mDefaultLocalPort;
+		private String mDefaultBroadcast;
 		private String mDefaultRemoteHost;
 		private String mDefaultRemotePort;
 		private String mDefaultTimeout;
 
 		private EditTextPreference mPrefLocalHost;
 		private EditTextPreference mPrefLocalPort;
+		private EditTextPreference mPrefBroadcast;
+		//TODO
 		private EditTextPreference mPrefRemoteHost;
 		private EditTextPreference mPrefRemotePort;
 		private EditTextPreference mPrefTimeout;
@@ -62,18 +66,21 @@ public class AppSettings extends PreferenceActivity {
 			
 			mKeyLocalHost	= getString(R.string.pref_key_local_host);
 			mKeyLocalPort	= getString(R.string.pref_key_local_port);
+			mKeyBroadcast	= getString(R.string.pref_key_broadcast);
 			mKeyRemoteHost	= getString(R.string.pref_key_remote_host);
 			mKeyRemotePort	= getString(R.string.pref_key_remote_port);
 			mKeyTimeout		= getString(R.string.pref_key_timeout);
 
 			mDefaultLocalHost	= getString(R.string.pref_key_local_host);
 			mDefaultLocalPort	= getString(R.string.pref_key_local_port);
+			mDefaultBroadcast	= getString(R.string.pref_key_broadcast);
 			mDefaultRemoteHost	= getString(R.string.pref_key_remote_host);
 			mDefaultRemotePort	= getString(R.string.pref_key_remote_port);
 			mDefaultTimeout		= getString(R.string.pref_key_timeout);
 
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
 			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);
+			mPrefBroadcast	= (EditTextPreference) findPreference(mKeyBroadcast);
 			mPrefRemoteHost	= (EditTextPreference) findPreference(mKeyRemoteHost);
 			mPrefRemotePort	= (EditTextPreference) findPreference(mKeyRemotePort);
 			mPrefTimeout	= (EditTextPreference) findPreference(mKeyTimeout);
@@ -86,6 +93,7 @@ public class AppSettings extends PreferenceActivity {
 			// Setup the initial values
 			mPrefLocalHost.setSummary(mPref.getString(mKeyLocalHost, mDefaultLocalHost));
 			mPrefLocalPort.setSummary(mPref.getString(mKeyLocalPort, mDefaultLocalPort));
+			mPrefBroadcast.setSummary(mPref.getString(mKeyBroadcast, mDefaultBroadcast));
 			mPrefRemoteHost.setSummary(mPref.getString(mKeyRemoteHost, mDefaultRemoteHost));
 			mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
 			mPrefTimeout.setSummary(mPref.getString(mKeyTimeout, mDefaultTimeout) + " ms");
