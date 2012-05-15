@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
-import org.es.uremote.utils.Message;
+import org.es.uremote.utils.ServerMessage;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -27,7 +27,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	private static int sPort;
 	private static int sTimeout;
 	
-	protected String mReturnCode = Message.RC_SUCCES;
+	protected String mReturnCode = ServerMessage.RC_SUCCES;
 	protected String mCommand;
 	protected String mParam;
 	private Socket mSocket	= null;
@@ -69,13 +69,13 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 				serverReply = sendAsyncMessage(mSocket, message);
 			
 		} catch (IOException e) {
-			mReturnCode = Message.RC_ERROR;
+			mReturnCode = ServerMessage.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
 			if (DEBUG)
 				Log.e(TAG, serverReply);
 
 		} catch (Exception e) {
-			mCommand = Message.RC_ERROR;
+			mCommand = ServerMessage.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
 			if (DEBUG) 
 				Log.e(TAG, serverReply);

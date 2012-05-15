@@ -11,7 +11,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 public class AppSettings extends PreferenceActivity {
-
+// TODO changer les commentaires
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,7 +28,7 @@ public class AppSettings extends PreferenceActivity {
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
 		protected AppSettings mActivity;
-		protected SharedPreferences mPref;
+		protected SharedPreferences mPref = null;
 
 		private String mKeyLocalHost;
 		private String mKeyLocalPort;
@@ -47,7 +47,6 @@ public class AppSettings extends PreferenceActivity {
 		private EditTextPreference mPrefLocalHost;
 		private EditTextPreference mPrefLocalPort;
 		private EditTextPreference mPrefBroadcast;
-		//TODO
 		private EditTextPreference mPrefRemoteHost;
 		private EditTextPreference mPrefRemotePort;
 		private EditTextPreference mPrefTimeout;
@@ -71,12 +70,12 @@ public class AppSettings extends PreferenceActivity {
 			mKeyRemotePort	= getString(R.string.pref_key_remote_port);
 			mKeyTimeout		= getString(R.string.pref_key_timeout);
 
-			mDefaultLocalHost	= getString(R.string.pref_key_local_host);
-			mDefaultLocalPort	= getString(R.string.pref_key_local_port);
-			mDefaultBroadcast	= getString(R.string.pref_key_broadcast);
-			mDefaultRemoteHost	= getString(R.string.pref_key_remote_host);
-			mDefaultRemotePort	= getString(R.string.pref_key_remote_port);
-			mDefaultTimeout		= getString(R.string.pref_key_timeout);
+			mDefaultLocalHost	= getString(R.string.pref_default_local_host);
+			mDefaultLocalPort	= getString(R.string.pref_default_local_port);
+			mDefaultBroadcast	= getString(R.string.pref_default_broadcast);
+			mDefaultRemoteHost	= getString(R.string.pref_default_remote_host);
+			mDefaultRemotePort	= getString(R.string.pref_default_remote_port);
+			mDefaultTimeout		= getString(R.string.pref_default_timeout);
 
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
 			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);
@@ -110,16 +109,22 @@ public class AppSettings extends PreferenceActivity {
 			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);    
 		}
 
+		/**
+		 * On change la valeur affichée d'un paramètre après l'avoir modifié. 
+		 */
+		@Override
 		public void onSharedPreferenceChanged(SharedPreferences _sharedPreferences, String _key) {
 
-			// Let's do something a preference value changes
 			if (_key.equals(mKeyLocalHost)) {
 				mPrefLocalHost.setSummary(mPref.getString(mKeyLocalHost, mDefaultLocalHost));
 
-			} else if (_key.equals(mKeyLocalHost)) {
+			} else if (_key.equals(mKeyLocalPort)) {
 				mPrefLocalPort.setSummary(mPref.getString(mKeyLocalPort, mDefaultLocalPort));
 
-			} else if (_key.equals(mKeyLocalHost)) {
+			} else if (_key.equals(mKeyBroadcast)) {
+				mPrefBroadcast.setSummary(mPref.getString(mKeyBroadcast, mDefaultBroadcast));
+
+			} else if (_key.equals(mKeyRemoteHost)) {
 				mPrefRemoteHost.setSummary(mPref.getString(mKeyRemoteHost, mDefaultRemoteHost));
 
 			} else if (_key.equals(mKeyLocalHost)) {
@@ -132,5 +137,15 @@ public class AppSettings extends PreferenceActivity {
 
 		}
 	}
-
+	
+	/**
+	 * @param _appContext Le contexte de l'application
+	 * @return La valeur de la préférence Adresse ip locale du serveur.
+	 *//*
+	private static String getLocalHost(Context _context) {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(_context.getApplicationContext());
+		final String keyLocalHost		= _context.getString(R.string.pref_key_local_host);
+		final String defaultLocalHost	= _context.getString(R.string.pref_default_local_host);
+		return pref.getString(keyLocalHost, defaultLocalHost);
+	}*/
 }

@@ -2,18 +2,17 @@ package org.es.uremote.computer;
 
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.utils.Message.CODE_COMBO;
-import static org.es.uremote.utils.Message.CODE_KEYBOARD;
+import static org.es.uremote.utils.ServerMessage.CODE_COMBO;
+import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.utils.Message;
+import org.es.uremote.utils.ServerMessage;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,7 +27,6 @@ import android.widget.Toast;
  *
  */
 public class FragKeyboard extends Fragment implements OnClickListener {
-	private static final String TAG = "FragKeyboard";
 
 	/** 
 	 * Cette fonction est appelée lors de la création de l'activité
@@ -95,22 +93,22 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		switch (_view.getId()) {
 
 		case R.id.kbEnter :
-			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ENTER);
+			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_ENTER);
 			break;
 		case R.id.kbSpace :
-			sendAsyncMessage(CODE_KEYBOARD, Message.KB_SPACE);
+			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_SPACE);
 			break;
 		case R.id.kbBackspace :
-			sendAsyncMessage(CODE_KEYBOARD, Message.KB_BACKSPACE);
+			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_BACKSPACE);
 			break;
 		case R.id.kbEscape :
-			sendAsyncMessage(CODE_KEYBOARD, Message.KB_ESCAPE);
+			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_ESCAPE);
 			break;
 		case R.id.kbAltf4 :
-			confirmCommand(CODE_COMBO, Message.KB_ALT_F4);
+			confirmCommand(CODE_COMBO, ServerMessage.KB_ALT_F4);
 			break;
 		case R.id.kbCtrlEnter :
-			sendAsyncMessage(CODE_COMBO, Message.KB_CTRL_ENTER);
+			sendAsyncMessage(CODE_COMBO, ServerMessage.KB_CTRL_ENTER);
 			break;
 
 		case R.id.kb0 :
@@ -260,6 +258,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		if (MessageMgr.availablePermits() > 0) {
 			new MessageMgr().execute(_code, _param);
 		} else {
+			// TODO Internationaliser
 			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -269,17 +268,6 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	 * @author cyril.leroux
 	 */
 	private class MessageMgr extends AsyncMessageMgr {
-
-		/**
-		 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
-		 * Exécutée dans le thread principal.
-		 */
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			Log.i(TAG, "onPreExecute");
-			//updateConnectionStateConnecting();
-		}
 
 		/**
 		 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)} 

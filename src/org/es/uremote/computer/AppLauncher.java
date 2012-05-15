@@ -1,8 +1,8 @@
 package org.es.uremote.computer;
 
 import static org.es.uremote.utils.IntentKeys.APPLICATION_MESSAGE;
-import static org.es.uremote.utils.Message.APP_GOM_PLAYER;
-import static org.es.uremote.utils.Message.KILL_GOM_PLAYER;
+import static org.es.uremote.utils.ServerMessage.APP_GOM_PLAYER;
+import static org.es.uremote.utils.ServerMessage.KILL_GOM_PLAYER;
 
 import org.es.uremote.R;
 

@@ -10,7 +10,7 @@ import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.FileManagerEntity;
 import org.es.uremote.utils.IntentKeys;
-import org.es.uremote.utils.Message;
+import org.es.uremote.utils.ServerMessage;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -119,7 +119,7 @@ public class FragFileManager extends ListFragment {
 	 * @param _dirPath Le chemin du répertoire à afficher. 
 	 */
 	private void getDirectoryContent(String _dirPath) {
-		sendAsyncMessage(Message.OPEN_DIR, _dirPath);
+		sendAsyncMessage(ServerMessage.OPEN_DIR, _dirPath);
 	}
 
 	private void openDirectory(String _dirPath, String _dirContent) {
@@ -130,7 +130,7 @@ public class FragFileManager extends ListFragment {
 	}
 
 	private void openFile(String _filename) {
-		sendAsyncMessage(Message.OPEN_FILE, _filename);
+		sendAsyncMessage(ServerMessage.OPEN_FILE, _filename);
 	}
 
 	/**
@@ -157,9 +157,9 @@ public class FragFileManager extends ListFragment {
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
-			if (Message.RC_ERROR.equals(mReturnCode)) {
+			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
 				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-			} else if (Message.OPEN_DIR.equals(mCommand)) {
+			} else if (ServerMessage.OPEN_DIR.equals(mCommand)) {
 				openDirectory(mParam, _serverReply);
 			} 
 		}

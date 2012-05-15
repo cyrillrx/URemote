@@ -1,6 +1,6 @@
 package org.es.uremote.utils;
 
-public class Message {
+public class ServerMessage {
 
 	// Code de message
 	public static final String CODE_AI		= "code_ai";

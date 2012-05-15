@@ -1,7 +1,8 @@
 package org.es.uremote.computer;
 
-import static org.es.uremote.utils.Message.CODE_CLASSIC;
-import static org.es.uremote.utils.Message.CODE_VOLUME;
+import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
+import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
+import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.es.uremote.AppSettings;
 import org.es.uremote.Home;
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.utils.Message;
+import org.es.uremote.utils.ServerMessage;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -18,6 +19,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,14 +38,15 @@ import android.widget.Toast;
 public class ViewPagerDashboard extends FragmentActivity implements OnPageChangeListener {
 
 	private static int PAGES_COUNT = 3;
+	private Handler mHandler = null;
 	private int mCurrentPage = 0;
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
 		setContentView(R.layout.fragment_pager);
-
+		
+		initHandler();
 		initServer();
 
 		// Instanciation de l'ActionBar
@@ -50,13 +54,13 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		// Utilisation des onglets dans l'ActionBar
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		// L'icone de l'application sert pour le "navigation Up"
-	    actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
 		// Création des fragments à utiliser dans chacun des onglets
-		Fragment fragDashboard	= new FragDashboard();
+		Fragment fragDashboard		= new FragDashboard(mHandler);
 		ListFragment fragExplorer	= new FragFileManager();
-		Fragment fragKeyboard	= new FragKeyboard();
+		Fragment fragKeyboard		= new FragKeyboard();
 		fragments.add(fragDashboard);
 		fragments.add(fragExplorer);
 		fragments.add(fragKeyboard);
@@ -68,11 +72,12 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		viewPager.setCurrentItem(mCurrentPage);
 
 		if (_savedInstanceState != null) {
+			// TODO Replacer par un constante
 			final int newTabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
 			if (newTabIndex != actionBar.getSelectedNavigationIndex())
 				actionBar.setSelectedNavigationItem(newTabIndex);
 		} else {
-			sendAsyncMessage(CODE_CLASSIC, Message.HELLO_SERVER);
+			sendAsyncMessage(CODE_CLASSIC, ServerMessage.HELLO_SERVER);
 		}
 
 	}
@@ -90,10 +95,10 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			sendAsyncMessage(CODE_VOLUME, Message.VOLUME_UP);
+			sendAsyncMessage(CODE_VOLUME, ServerMessage.VOLUME_UP);
 			return true;
 		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-			sendAsyncMessage(CODE_VOLUME, Message.VOLUME_DOWN);
+			sendAsyncMessage(CODE_VOLUME, ServerMessage.VOLUME_DOWN);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -123,7 +128,26 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		}
 	}
 
-	/** Initialisation des paramètres du serveur en utilisant les préférences */
+	/** Initialisation de l'handler gérant l'envoi des message Toast. */
+	private void initHandler() {
+		if (mHandler == null) {
+			mHandler = new Handler() {
+				@Override
+				public void handleMessage(Message _msg) {
+					switch (_msg.what) {
+					case MESSAGE_WHAT_TOAST:
+						Toast.makeText(ViewPagerDashboard.this, (String)_msg.obj, Toast.LENGTH_SHORT).show();
+						break;
+					default : break;
+					}
+					super.handleMessage(_msg);
+				}
+
+			};
+		}	
+	}
+
+	/** Initialisation des paramètres du serveur via les préférences */
 	private void initServer() {
 
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
@@ -162,6 +186,7 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		if (MessageMgr.availablePermits() > 0) {
 			new MessageMgr().execute(_code, _param);
 		} else {
+			// TODO Internationaliser
 			Toast.makeText(getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
 		}
 	}
