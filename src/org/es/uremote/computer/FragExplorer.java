@@ -9,13 +9,14 @@ import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.FileManagerEntity;
-import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.ServerMessage;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,30 +25,37 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class FragFileManager extends ListFragment {
+public class FragExplorer extends ListFragment {
 	private static final String TAG = "FileManager";
+	private static final int MAX_PATH_PORTRAIT = 40;
+	private static final int MAX_PATH_LANDSCAPE = 70;
+	private static final String DEFAULT_PATH = "L:\\Series";
+	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 
 	private TextView mTvPath; 
 	private String mDirectoryPath;
 	private String mDirectoryContent;
+	private ViewPagerDashboard mParent;
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// TODO recupérer le repertoire courant ici (getExtra)
-		mDirectoryPath		= getActivity().getIntent().getStringExtra(IntentKeys.DIR_PATH);
-		mDirectoryContent	= getActivity().getIntent().getStringExtra(IntentKeys.DIR_CONTENT);
-
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mParent = (ViewPagerDashboard) getActivity();
+	}
+	
+	@Override
+	public void onCreate(Bundle _savedInstanceState) {
+		super.onCreate(_savedInstanceState);
+		
 		if (mDirectoryPath == null || mDirectoryContent == null) {
-			mDirectoryPath		= "L:\\Series";
-			mDirectoryContent = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
+			mDirectoryPath		= DEFAULT_PATH;
+			mDirectoryContent	= DEFAULT_CONTENT;
 		}
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.filemanager, container, false);
+		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
 		return view;
 	}
@@ -57,7 +65,7 @@ public class FragFileManager extends ListFragment {
 		updateView(mDirectoryContent);
 		super.onStart();
 	}
-
+	
 	/**
 	 * Transforme le message séréalisé en liste de fichiers pour l'arborescence
 	 * @param dirInfo Les informations sur le dossier séréalirées
@@ -109,7 +117,10 @@ public class FragFileManager extends ListFragment {
 		int pathLength = mDirectoryPath.length();
 		// On n'affiche que les derniers caractères
 		//TODO Gérer l'orientation
-		String path = (pathLength > 33) ? "..." + mDirectoryPath.substring(pathLength - 30, pathLength) : mDirectoryPath;
+		int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
+		
+		int maxPath = (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) ? MAX_PATH_PORTRAIT : MAX_PATH_LANDSCAPE;
+		String path = (pathLength > maxPath) ? "..." + mDirectoryPath.substring(pathLength - maxPath + 3, pathLength) : mDirectoryPath;
 		mTvPath.setText(path);
 	}
 
@@ -122,7 +133,12 @@ public class FragFileManager extends ListFragment {
 		sendAsyncMessage(ServerMessage.OPEN_DIR, _dirPath);
 	}
 
-	private void openDirectory(String _dirPath, String _dirContent) {
+	/**
+	 * Mise à jour de la vue avec les nouveaux fichiers
+	 * @param _dirPath Le chemin du répertoire courant.
+	 * @param _dirContent Le contenu du répertoire courant.
+	 */
+	private void updateDirectory(String _dirPath, String _dirContent) {
 		// Afficher le contenu du répertoire
 		mDirectoryPath = _dirPath;
 		mDirectoryContent = _dirContent;
@@ -133,6 +149,10 @@ public class FragFileManager extends ListFragment {
 		sendAsyncMessage(ServerMessage.OPEN_FILE, _filename);
 	}
 
+	////////////////////////////////////////////////////////////////////
+	// *********************** Message Sender *********************** //
+	////////////////////////////////////////////////////////////////////
+	
 	/**
 	 * Cette fonction initialise le composant gérant l'envoi des messages 
 	 * puis envoie le message passé en paramètre.
@@ -140,27 +160,31 @@ public class FragFileManager extends ListFragment {
 	 * @param _param Le paramètre du message.
 	 */
 	private void sendAsyncMessage(String _code, String _param) {
-		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr().execute(_code, _param);
+		if (ExplorerMessageMgr.availablePermits() > 0) {
+			new ExplorerMessageMgr(mParent.getHandler()).execute(_code, _param);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
-
+	
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
 	 */
-	public class MessageMgr extends AsyncMessageMgr {
+	private class ExplorerMessageMgr extends AsyncMessageMgr {
+
+		public ExplorerMessageMgr(Handler _handler) {
+			super(_handler);
+		}
 
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
 
 			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
-				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+				showToast(_serverReply);
 			} else if (ServerMessage.OPEN_DIR.equals(mCommand)) {
-				openDirectory(mParam, _serverReply);
+				updateDirectory(mParam, _serverReply);
 			} 
 		}
 	}

@@ -36,6 +36,7 @@ public class AppSettings extends PreferenceActivity {
 		private String mKeyRemoteHost;
 		private String mKeyRemotePort;
 		private String mKeyTimeout;
+		private String mKeyMacAddress;
 
 		private String mDefaultLocalHost;
 		private String mDefaultLocalPort;
@@ -43,6 +44,7 @@ public class AppSettings extends PreferenceActivity {
 		private String mDefaultRemoteHost;
 		private String mDefaultRemotePort;
 		private String mDefaultTimeout;
+		private String mDefaultMacAddress;
 
 		private EditTextPreference mPrefLocalHost;
 		private EditTextPreference mPrefLocalPort;
@@ -50,6 +52,7 @@ public class AppSettings extends PreferenceActivity {
 		private EditTextPreference mPrefRemoteHost;
 		private EditTextPreference mPrefRemotePort;
 		private EditTextPreference mPrefTimeout;
+		private EditTextPreference mPrefMacAddress;
 
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,7 @@ public class AppSettings extends PreferenceActivity {
 			mKeyRemoteHost	= getString(R.string.pref_key_remote_host);
 			mKeyRemotePort	= getString(R.string.pref_key_remote_port);
 			mKeyTimeout		= getString(R.string.pref_key_timeout);
+			mKeyMacAddress	= getString(R.string.pref_key_mac_address);
 
 			mDefaultLocalHost	= getString(R.string.pref_default_local_host);
 			mDefaultLocalPort	= getString(R.string.pref_default_local_port);
@@ -76,6 +80,7 @@ public class AppSettings extends PreferenceActivity {
 			mDefaultRemoteHost	= getString(R.string.pref_default_remote_host);
 			mDefaultRemotePort	= getString(R.string.pref_default_remote_port);
 			mDefaultTimeout		= getString(R.string.pref_default_timeout);
+			mDefaultMacAddress	= getString(R.string.pref_default_mac_address);
 
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
 			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);
@@ -83,6 +88,7 @@ public class AppSettings extends PreferenceActivity {
 			mPrefRemoteHost	= (EditTextPreference) findPreference(mKeyRemoteHost);
 			mPrefRemotePort	= (EditTextPreference) findPreference(mKeyRemotePort);
 			mPrefTimeout	= (EditTextPreference) findPreference(mKeyTimeout);
+			mPrefMacAddress	= (EditTextPreference) findPreference(mKeyMacAddress);
 		}
 
 		@Override
@@ -96,6 +102,7 @@ public class AppSettings extends PreferenceActivity {
 			mPrefRemoteHost.setSummary(mPref.getString(mKeyRemoteHost, mDefaultRemoteHost));
 			mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
 			mPrefTimeout.setSummary(mPref.getString(mKeyTimeout, mDefaultTimeout) + " ms");
+			mPrefMacAddress.setSummary(mPref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			// Set up a listener whenever a key changes            
 			getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -129,9 +136,12 @@ public class AppSettings extends PreferenceActivity {
 
 			} else if (_key.equals(mKeyLocalHost)) {
 				mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
-
+				
 			} else if (_key.equals(mKeyTimeout)) {
 				mPrefTimeout.setSummary(mPref.getString(mKeyTimeout, mDefaultTimeout) + " ms");
+
+			} else if (_key.equals(mKeyMacAddress)) {
+				mPrefMacAddress.setSummary(mPref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			}
 

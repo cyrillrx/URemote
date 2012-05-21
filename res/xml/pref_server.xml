@@ -30,6 +30,10 @@
             android:defaultValue="@string/pref_default_timeout"
             android:key="@string/pref_key_timeout"
             android:title="@string/pref_timeout" />
+        <EditTextPreference
+            android:defaultValue="@string/pref_default_mac_address"
+            android:key="@string/pref_key_mac_address"
+            android:title="@string/pref_mac_address" />
     </PreferenceCategory>
 
 </PreferenceScreen>

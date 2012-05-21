@@ -3,6 +3,7 @@ package org.es.uremote.computer;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.uremote.utils.ServerMessage.CODE_AI;
 import static org.es.uremote.utils.ServerMessage.CODE_APP;
 import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
 import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
@@ -10,19 +11,26 @@ import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.WakeOnLan;
+import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.ServerMessage;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 /**
@@ -31,14 +39,10 @@ import android.widget.Toast;
  * Classe permettant de se connecter et d'envoyer des commandes à un serveur distant via une AsyncTask.
  *
  */
-public class FragDashboard extends Fragment implements OnClickListener {
+public class FragAdmin extends Fragment implements OnClickListener {
 
 	// Liste des RequestCodes pour les ActivityForResults
 	private static final int RC_APP_LAUNCHER	= 0;
-	private static final int STATE_KO	= 0;
-	private static final int STATE_OK	= 1;
-	private static final int STATE_CONNECTING	= 2;
-	private ImageButton mCmdMute;
 
 	private ViewPagerDashboard mParent;
 
@@ -53,19 +57,12 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.server_frag_dashboard, container, false);
+		View view = inflater.inflate(R.layout.server_frag_admin, container, false);
 
-		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
-
-		((ImageButton) view.findViewById(R.id.cmdPrevious)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdPlayPause)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
-		mCmdMute = (ImageButton) view.findViewById(R.id.cmdMute);
-		mCmdMute.setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdWakeOnLan)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdShutdown)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdAiMute)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
 
 		return view;
 	}
@@ -85,6 +82,18 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 		switch (_view.getId()) {
 
+		case R.id.cmdWakeOnLan :
+			wakeOnLan();
+			break;
+		case R.id.cmdShutdown :
+			confirmCommand(CODE_CLASSIC, ServerMessage.SHUTDOWN);
+			break;
+		case R.id.cmdAiMute :
+			sendAsyncMessage(CODE_AI, ServerMessage.AI_MUTE);
+			break;
+		case R.id.cmdKillServer :
+			confirmCommand(CODE_CLASSIC, ServerMessage.KILL_SERVER);
+			break;
 		case R.id.cmdTest :
 			sendAsyncMessage(CODE_CLASSIC, ServerMessage.TEST_COMMAND);
 			break;
@@ -97,6 +106,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		case R.id.cmdGomStretch :
 			sendAsyncMessage(CODE_APP, ServerMessage.GOM_PLAYER_STRETCH);
 			break;
+
 		case R.id.cmdPrevious :
 			sendAsyncMessage(CODE_MEDIA, ServerMessage.MEDIA_PREVIOUS);
 			break;
@@ -132,6 +142,26 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		} 
 	}
 
+	private void wakeOnLan() {
+
+		final WifiManager wifiMgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+		final boolean wifi = wifiMgr.isWifiEnabled();
+		final int resKeyHost = wifi ? R.string.pref_key_broadcast : R.string.pref_key_remote_host;
+		final int resDefHost = wifi ? R.string.pref_default_broadcast : R.string.pref_default_remote_host;
+
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		
+		final String keyHost = getString(resKeyHost);
+		final String defHost = getString(resDefHost);
+		final String host = pref.getString(keyHost, defHost);
+
+		final String keyMAcAddress	= getString(R.string.pref_key_mac_address);
+		final String defaultMAcAddress	= getString(R.string.pref_default_mac_address);
+		final String macAddress = pref.getString(keyMAcAddress, defaultMAcAddress);
+
+		new WakeOnLan(mParent.getHandler()).execute(host, macAddress);	
+	}
+
 	////////////////////////////////////////////////////////////////////
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
@@ -143,29 +173,52 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 * @param _param Le paramètre du message.
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
-		if (DashboardMessageMgr.availablePermits() > 0) {
-			new DashboardMessageMgr(mParent.getHandler()).execute(_code, _param);
+		if (AdminMessageMgr.availablePermits() > 0) {
+			new AdminMessageMgr(mParent.getHandler()).execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
+	}
+
+	/** 
+	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
+	 */
+	public void confirmCommand(final String _code, final String _param) {
+		int resId = (_param.equals(ServerMessage.KILL_SERVER)) ? R.string.confirm_kill_server : R.string.confirm_command;
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		builder.setIcon(android.R.drawable.ic_menu_more);
+		builder.setMessage(resId);
+		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int id) {
+				// Envoi du message si l'utilisateur confirme
+				sendAsyncMessage(_code, _param);
+			}
+		});
+
+		builder.setNegativeButton(android.R.string.cancel, null);
+		builder.show();
 	}
 
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
 	 */
-	private class DashboardMessageMgr extends AsyncMessageMgr {
+	public class AdminMessageMgr extends AsyncMessageMgr {
 
-		public DashboardMessageMgr(Handler _handler) {
+		public AdminMessageMgr(Handler _handler) {
 			super(_handler);
 		}
-
+		
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mParent.updateConnectionState(STATE_CONNECTING);
+			mParent.updateConnectionState(Constants.STATE_CONNECTING);
 		}
-
+		
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
@@ -173,17 +226,9 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			showToast(_serverReply);
 
 			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
-				mParent.updateConnectionState(STATE_KO);
-
+				mParent.updateConnectionState(Constants.STATE_KO);
 			} else { 
-				if (ServerMessage.REPLY_VOLUME_MUTED.equals(_serverReply)) {
-					mCmdMute.setImageResource(R.drawable.volume_muted);
-
-				} else if (ServerMessage.REPLY_VOLUME_ON.equals(_serverReply)) {
-					mCmdMute.setImageResource(R.drawable.volume_on);
-
-				}
-				mParent.updateConnectionState(STATE_OK);
+				mParent.updateConnectionState(Constants.STATE_OK);
 			}
 		}
 	}

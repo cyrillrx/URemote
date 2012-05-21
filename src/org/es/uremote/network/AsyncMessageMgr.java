@@ -1,6 +1,8 @@
 package org.es.uremote.network;
 
 import static org.es.uremote.utils.Constants.DEBUG;
+import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
+import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +15,8 @@ import java.util.concurrent.Semaphore;
 import org.es.uremote.utils.ServerMessage;
 
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 /**
@@ -27,10 +31,15 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	private static int sPort;
 	private static int sTimeout;
 	
-	protected String mReturnCode = ServerMessage.RC_SUCCES;
+	protected String mReturnCode;
 	protected String mCommand;
 	protected String mParam;
-	private Socket mSocket	= null;
+	protected Handler mHandler;
+	private Socket mSocket;
+
+	public AsyncMessageMgr(Handler _handler) {
+		mHandler = _handler;
+	}
 	
 	/**
 	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
@@ -38,6 +47,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 */
 	@Override
 	protected void onPreExecute() {
+		mReturnCode = ServerMessage.RC_SUCCES;
 		try {
 			sSemaphore.acquire();
 		} catch (InterruptedException e) {
@@ -103,12 +113,26 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		if (DEBUG) {
 			Log.i(TAG, "Semaphore release");
 		}
+		
+		if (mCommand.equals(CODE_VOLUME))
+			showToast(_serverReply);
 	}
 
 	@Override
 	protected void onCancelled() {
 		closeSocketIO();
 		super.onCancelled();
+	}
+	
+	/**
+	 * Envoi d'un message Toast sur le thread de l'UI.
+	 * @param _message Le message à afficher.
+	 */
+	protected void showToast(String _message) {
+		Message msg = new Message();
+		msg.what = MESSAGE_WHAT_TOAST;
+		msg.obj = _message;
+		mHandler.sendMessage(msg);	
 	}
 	
 	/**

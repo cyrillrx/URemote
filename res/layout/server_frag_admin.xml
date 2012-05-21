@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+
+        <Button
+            android:id="@+id/cmdWakeOnLan"
+            style="@style/command_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/wol"
+            android:text="@string/cmd_wake_on_lan" />
+
+        <Button
+            android:id="@+id/cmdShutdown"
+            style="@style/command_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/shutdown"
+            android:text="@string/cmd_shutdown" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" >
+
+        <Button
+            android:id="@+id/cmdKillServer"
+            style="@style/command_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/force_quit"
+            android:text="@string/cmd_kill_server" />
+
+        <Button
+            android:id="@+id/cmdAiMute"
+            style="@style/command_button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ai_mute"
+            android:text="@string/cmd_ai_mute" />
+    </TableRow>
+
+</TableLayout>

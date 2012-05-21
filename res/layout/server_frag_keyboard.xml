@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="*" >
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbAltf4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="3"
+            android:padding="0dp"
+            android:text="@string/kb_alt_f4" />
+
+        <Button
+            android:id="@+id/kbCtrlEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="4"
+            android:padding="0dp"
+            android:text="@string/kb_ctrl_enter" />
+
+        <Button
+            android:id="@+id/kbBackspace"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="3"
+            android:padding="0dp"
+            android:text="@string/kb_backspace" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kb1"
+            style="@style/keyboard"
+            android:text="@string/kb_1" />
+
+        <Button
+            android:id="@+id/kb2"
+            style="@style/keyboard"
+            android:text="@string/kb_2" />
+
+        <Button
+            android:id="@+id/kb3"
+            style="@style/keyboard"
+            android:text="@string/kb_3" />
+
+        <Button
+            android:id="@+id/kb4"
+            style="@style/keyboard"
+            android:text="@string/kb_4" />
+
+        <Button
+            android:id="@+id/kb5"
+            style="@style/keyboard"
+            android:text="@string/kb_5" />
+
+        <Button
+            android:id="@+id/kb6"
+            style="@style/keyboard"
+            android:text="@string/kb_6" />
+
+        <Button
+            android:id="@+id/kb7"
+            style="@style/keyboard"
+            android:text="@string/kb_7" />
+
+        <Button
+            android:id="@+id/kb8"
+            style="@style/keyboard"
+            android:text="@string/kb_8" />
+
+        <Button
+            android:id="@+id/kb9"
+            style="@style/keyboard"
+            android:text="@string/kb_9" />
+
+        <Button
+            android:id="@+id/kb0"
+            style="@style/keyboard"
+            android:text="@string/kb_0" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbA"
+            style="@style/keyboard"
+            android:text="@string/kb_a" />
+
+        <Button
+            android:id="@+id/kbZ"
+            style="@style/keyboard"
+            android:text="@string/kb_z" />
+
+        <Button
+            android:id="@+id/kbE"
+            style="@style/keyboard"
+            android:text="@string/kb_e" />
+
+        <Button
+            android:id="@+id/kbR"
+            style="@style/keyboard"
+            android:text="@string/kb_r" />
+
+        <Button
+            android:id="@+id/kbT"
+            style="@style/keyboard"
+            android:text="@string/kb_t" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbY"
+            style="@style/keyboard"
+            android:text="@string/kb_y" />
+
+        <Button
+            android:id="@+id/kbU"
+            style="@style/keyboard"
+            android:text="@string/kb_u" />
+
+        <Button
+            android:id="@+id/kbI"
+            style="@style/keyboard"
+            android:text="@string/kb_i" />
+
+        <Button
+            android:id="@+id/kbO"
+            style="@style/keyboard"
+            android:text="@string/kb_o" />
+
+        <Button
+            android:id="@+id/kbP"
+            style="@style/keyboard"
+            android:text="@string/kb_p" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbQ"
+            style="@style/keyboard"
+            android:text="@string/kb_q" />
+
+        <Button
+            android:id="@+id/kbS"
+            style="@style/keyboard"
+            android:text="@string/kb_s" />
+
+        <Button
+            android:id="@+id/kbD"
+            style="@style/keyboard"
+            android:text="@string/kb_d" />
+
+        <Button
+            android:id="@+id/kbF"
+            style="@style/keyboard"
+            android:text="@string/kb_f" />
+
+        <Button
+            android:id="@+id/kbG"
+            style="@style/keyboard"
+            android:text="@string/kb_g" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbH"
+            style="@style/keyboard"
+            android:text="@string/kb_h" />
+
+        <Button
+            android:id="@+id/kbJ"
+            style="@style/keyboard"
+            android:text="@string/kb_j" />
+
+        <Button
+            android:id="@+id/kbK"
+            style="@style/keyboard"
+            android:text="@string/kb_k" />
+
+        <Button
+            android:id="@+id/kbL"
+            style="@style/keyboard"
+            android:text="@string/kb_l" />
+
+        <Button
+            android:id="@+id/kbM"
+            style="@style/keyboard"
+            android:text="@string/kb_m" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/kbW"
+            style="@style/keyboard"
+            android:text="@string/kb_w" />
+
+        <Button
+            android:id="@+id/kbX"
+            style="@style/keyboard"
+            android:text="@string/kb_x" />
+
+        <Button
+            android:id="@+id/kbC"
+            style="@style/keyboard"
+            android:text="@string/kb_c" />
+
+        <Button
+            android:id="@+id/kbV"
+            style="@style/keyboard"
+            android:text="@string/kb_v" />
+
+        <Button
+            android:id="@+id/kbB"
+            style="@style/keyboard"
+            android:text="@string/kb_b" />
+
+        <Button
+            android:id="@+id/kbN"
+            style="@style/keyboard"
+            android:text="@string/kb_n" />
+    </TableRow>
+
+    <TableRow android:gravity="center" >
+
+        <Button
+            android:id="@+id/kbEscape"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="2"
+            android:padding="0dp"
+            android:text="@string/kb_escape" />
+
+        <Button
+            android:id="@+id/kbSpace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="6"
+            android:text="@string/kb_space" />
+
+        <Button
+            android:id="@+id/kbEnter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="2"
+            android:padding="0dp"
+            android:text="@string/kb_enter" />
+    </TableRow>
+
+</TableLayout>

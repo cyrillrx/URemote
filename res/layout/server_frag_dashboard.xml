@@ -5,50 +5,9 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <!-- Statut du serveur -->
-
-        <TextView
-            android:id="@+id/tvServerInfos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/tvServerState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/presence_invisible"
-            android:text="@string/msg_command_failed" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/cmdWakeOnLan"
-                style="@style/command_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/wol"
-                android:text="@string/cmd_wake_on_lan" />
-
-            <Button
-                android:id="@+id/cmdShutdown"
-                style="@style/command_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/shutdown"
-                android:text="@string/cmd_shutdown" />
-
-            <Button
-                android:id="@+id/cmdKillServer"
-                style="@style/command_button"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/force_quit"
-                android:text="@string/cmd_kill_server" />
-        </TableRow>
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center|bottom" >
 
         <TableRow
             android:layout_width="match_parent"
@@ -124,34 +83,11 @@
                 android:src="@drawable/volume_on" />
         </TableRow>
 
-        <TableRow
-            android:layout_height="match_parent"
-            android:gravity="center|bottom" >
-
-            <Button
-                android:id="@+id/cmdAiMute"
-                style="@style/command_button"
-                android:drawableTop="@drawable/ai_mute"
-                android:text="@string/cmd_ai_mute" />
-
-            <Button
-                android:id="@+id/btnAppLauncher"
-                style="@style/command_button"
-                android:drawableTop="@drawable/app_launcher"
-                android:text="@string/btn_app_launcher" />
-        </TableRow>
-
-        <TableRow
-            android:layout_height="match_parent"
-            android:gravity="center|bottom" >
-
-            <ProgressBar
-                android:id="@+id/pbConnection"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="invisible" />
-        </TableRow>
+        <Button
+            android:id="@+id/btnAppLauncher"
+            style="@style/command_button"
+            android:drawableTop="@drawable/app_launcher"
+            android:text="@string/btn_app_launcher" />
     </TableLayout>
 
 </ScrollView>

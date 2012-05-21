@@ -6,26 +6,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:stretchColumns="*" >
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1" >
-
-            <TextView
-                android:id="@+id/tvServerInfos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/tvServerState"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@android:drawable/presence_invisible"
-                android:text="@string/msg_command_failed" />
-        </TableRow>
 
         <!-- Première ligne de commandes -->
 
@@ -34,32 +16,26 @@
             android:layout_weight="1" >
 
             <Button
-                android:id="@+id/cmdWakeOnLan"
-                style="@style/command_button"
-                android:drawableTop="@drawable/wol"
-                android:text="@string/cmd_wake_on_lan" />
-
-            <Button
-                android:id="@+id/cmdKillServer"
-                style="@style/command_button"
-                android:drawableTop="@drawable/force_quit"
-                android:text="@string/cmd_kill_server" />
-
-            <Button
                 android:id="@+id/cmdTest"
                 style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:drawableTop="@drawable/test"
                 android:text="@string/cmd_test" />
 
             <Button
                 android:id="@+id/cmdGomStretch"
                 style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:drawableTop="@drawable/fullscreen"
                 android:text="@string/cmd_gom_stretch" />
 
             <Button
                 android:id="@+id/cmdSwitch"
                 style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:drawableTop="@drawable/switch_window"
                 android:text="@string/cmd_switch_window" />
         </TableRow>
@@ -102,37 +78,11 @@
                 android:src="@drawable/volume_on" />
         </TableRow>
 
-        <!-- seconde ligne de commandes -->
-
-        <TableRow
-            android:layout_height="0dp"
-            android:layout_weight="1" >
-
-            <Button
-                android:id="@+id/cmdShutdown"
-                style="@style/command_button"
-                android:drawableTop="@drawable/shutdown"
-                android:text="@string/cmd_shutdown" />
-
-            <Button
-                android:id="@+id/cmdAiMute"
-                style="@style/command_button"
-                android:drawableTop="@drawable/ai_mute"
-                android:text="@string/cmd_ai_mute" />
-
-            <Button
-                android:id="@+id/btnAppLauncher"
-                style="@style/command_button"
-                android:drawableTop="@drawable/app_launcher"
-                android:text="@string/btn_app_launcher" />
-
-            <Space />
-
-            <ProgressBar
-                android:id="@+id/pbConnection"
-                style="?android:attr/progressBarStyleLarge"
-                android:visibility="invisible" />
-        </TableRow>
+        <Button
+            android:id="@+id/btnAppLauncher"
+            style="@style/command_button"
+            android:drawableTop="@drawable/app_launcher"
+            android:text="@string/btn_app_launcher" />
     </TableLayout>
 
 </ScrollView>

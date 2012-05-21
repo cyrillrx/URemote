@@ -1,6 +1,10 @@
 package org.es.uremote.computer;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
+import static org.es.uremote.utils.Constants.STATE_CONNECTING;
+import static org.es.uremote.utils.Constants.STATE_OK;
 import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
@@ -17,6 +21,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,26 +31,34 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ViewPagerDashboard extends FragmentActivity implements OnPageChangeListener {
 
 	private static int PAGES_COUNT = 3;
-	private Handler mHandler = null;
 	private int mCurrentPage = 0;
+
+	private TextView mTvServerState;
+	private ProgressBar mPbConnection;
+	private Handler mHandler;
+	
+	public Handler getHandler() {
+		return mHandler;
+	}
 
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.fragment_pager);
-		
+		setContentView(R.layout.server_pager);
+
 		initHandler();
 		initServer();
 
@@ -58,9 +71,11 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 
 		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
 		// Création des fragments à utiliser dans chacun des onglets
-		Fragment fragDashboard		= new FragDashboard(mHandler);
-		ListFragment fragExplorer	= new FragFileManager();
-		Fragment fragKeyboard		= new FragKeyboard();
+		FragAdmin fragAdmin				= new FragAdmin();
+		FragDashboard fragDashboard		= new FragDashboard();
+		FragExplorer fragExplorer	= new FragExplorer();
+		FragKeyboard fragKeyboard		= new FragKeyboard();
+		fragments.add(fragAdmin);
 		fragments.add(fragDashboard);
 		fragments.add(fragExplorer);
 		fragments.add(fragKeyboard);
@@ -70,6 +85,10 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOnPageChangeListener(this);
 		viewPager.setCurrentItem(mCurrentPage);
+
+		mTvServerState = (TextView) findViewById(R.id.tvServerState);
+		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
+		((TextView) findViewById(R.id.tvServerInfos)).setText(AsyncMessageMgr.getServerInfos());
 
 		if (_savedInstanceState != null) {
 			// TODO Replacer par un constante
@@ -128,24 +147,6 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		}
 	}
 
-	/** Initialisation de l'handler gérant l'envoi des message Toast. */
-	private void initHandler() {
-		if (mHandler == null) {
-			mHandler = new Handler() {
-				@Override
-				public void handleMessage(Message _msg) {
-					switch (_msg.what) {
-					case MESSAGE_WHAT_TOAST:
-						Toast.makeText(ViewPagerDashboard.this, (String)_msg.obj, Toast.LENGTH_SHORT).show();
-						break;
-					default : break;
-					}
-					super.handleMessage(_msg);
-				}
-
-			};
-		}	
-	}
 
 	/** Initialisation des paramètres du serveur via les préférences */
 	private void initServer() {
@@ -175,22 +176,29 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		AsyncMessageMgr.setPort(port);
 		AsyncMessageMgr.setTimeout(timeout);
 	}
-
-	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
-	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
-	 * @param _param Le paramètre du message.
+	
+	/** 
+	 * Initialisation de l'handler gérant l'envoi des messages Toast. 
+	 * @param _activity L'activité associée au fragment
 	 */
-	private void sendAsyncMessage(String _code, String _param) {
-		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr().execute(_code, _param);
-		} else {
-			// TODO Internationaliser
-			Toast.makeText(getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
-		}
-	}
+	private void initHandler() {
+		if (mHandler == null) {
+			mHandler = new Handler() {
+				@Override
+				public void handleMessage(Message _msg) {
+					switch (_msg.what) {
+					case MESSAGE_WHAT_TOAST:
+						Toast.makeText(getApplicationContext(), (String)_msg.obj, Toast.LENGTH_SHORT).show();
+						break;
+					default : break;
+					}
+					super.handleMessage(_msg);
+				}
 
+			};
+		}	
+	}
+	
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
@@ -237,20 +245,55 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 			return mFragments.size();
 		}
 	}
-
+	
 	/**
-	 * Classe asynchrone de gestion d'envoi des messages
-	 * @author cyril.leroux
+	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * puis envoie le message passé en paramètre.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
 	 */
-	private class MessageMgr extends AsyncMessageMgr {
-
-		@Override
-		protected void onPostExecute(String _serverReply) {
-			super.onPostExecute(_serverReply);
-
-			if (_serverReply != null && !_serverReply.isEmpty()) {
-				Toast.makeText(getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
-			}
+	public void sendAsyncMessage(String _code, String _param) {
+		if (AsyncMessageMgr.availablePermits() > 0) {
+			new AsyncMessageMgr(mHandler).execute(_code, _param);
+		} else {
+			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
+	
+
+	/**
+	 * Fonction de mise à jour de l'interface utilisateur
+	 * @param _state L'état à mettre à jour (OK, KO, CONNECTING)
+	 */
+	public void updateConnectionState(int _state) {
+		int drawableResId;
+		int messageResId;
+		int visibility;
+
+		switch (_state) {
+		case STATE_OK:
+			drawableResId = android.R.drawable.presence_online; 
+			messageResId = R.string.msg_command_succeeded;
+			visibility = INVISIBLE;
+			break;
+
+		case STATE_CONNECTING:
+			drawableResId = android.R.drawable.presence_away; 
+			messageResId = R.string.msg_command_running;
+			visibility = VISIBLE;
+			break;
+
+		default: // KO
+			drawableResId = android.R.drawable.presence_offline; 
+			messageResId = R.string.msg_command_failed;
+			visibility = INVISIBLE;
+			break;
+		}
+		final Drawable imgLeft = getResources().getDrawable(drawableResId);
+		imgLeft.setBounds(0, 0, 24, 24);
+		mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
+		mTvServerState.setText(messageResId);
+		mPbConnection.setVisibility(visibility);
+	}
+
 }

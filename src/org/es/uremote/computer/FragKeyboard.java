@@ -7,11 +7,13 @@ import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
 
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.ServerMessage;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +30,20 @@ import android.widget.Toast;
  */
 public class FragKeyboard extends Fragment implements OnClickListener {
 
+	private ViewPagerDashboard mParent;
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		mParent = (ViewPagerDashboard) getActivity();
+	}
+	
 	/** 
 	 * Cette fonction est appelée lors de la création de l'activité
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.server_keyboard, container, false);
+		View view = inflater.inflate(R.layout.server_frag_keyboard, container, false);
 
 		((Button) view.findViewById(R.id.kbEnter)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.kbSpace)).setOnClickListener(this);
@@ -226,16 +236,34 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////
+	// *********************** Message Sender *********************** //
+	////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * puis envoie le message passé en paramètre.
+	 * @param _code Le code du message. 
+	 * @param _param Le paramètre du message.
+	 */
+	public void sendAsyncMessage(String _code, String _param) {
+		if (KeyboardMessageMgr.availablePermits() > 0) {
+			new KeyboardMessageMgr(mParent.getHandler()).execute(_code, _param);
+		} else {
+			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+		}
+	}
+
 	/** 
 	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
 	 * @param _code Le code du message. 
 	 * @param _param Le paramètre du message.
 	 */
-	private void confirmCommand(final String _code, final String _param) {
-
+	public void confirmCommand(final String _code, final String _param) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
-		builder.setMessage(R.string.confirm_command);
+		builder.setMessage( R.string.confirm_command);
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
@@ -249,36 +277,31 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
-	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
-	 * @param _param Le paramètre du message.
-	 */
-	private void sendAsyncMessage(String _code, String _param) {
-		if (MessageMgr.availablePermits() > 0) {
-			new MessageMgr().execute(_code, _param);
-		} else {
-			// TODO Internationaliser
-			Toast.makeText(getActivity().getApplicationContext(), "No more permit available !", Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	/**
-	 * Classe asynchrone de gestion d'envoi des messages
+	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
 	 */
-	private class MessageMgr extends AsyncMessageMgr {
+	public class KeyboardMessageMgr extends AsyncMessageMgr {
 
-		/**
-		 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)} 
-		 * Exécutée dans le thread principal.
-		 * @param _result Le résultat de la fonction {@link #doInBackground(String...)}.
-		 */
+		public KeyboardMessageMgr(Handler _handler) {
+			super(_handler);
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mParent.updateConnectionState(Constants.STATE_CONNECTING);
+		}
+		
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
-			if (_serverReply != null && !_serverReply.isEmpty()) {
-				Toast.makeText(getActivity().getApplicationContext(), _serverReply, Toast.LENGTH_SHORT).show();
+
+			showToast(_serverReply);
+
+			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
+				mParent.updateConnectionState(Constants.STATE_KO);
+			} else { 
+				mParent.updateConnectionState(Constants.STATE_OK);
 			}
 		}
 	}
