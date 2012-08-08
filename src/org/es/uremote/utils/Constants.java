@@ -1,7 +1,11 @@
 package org.es.uremote.utils;
 
+/**
+ * Classe référençant les constantes de l'application.
+ * @author Cyril Leroux
+ *
+ */
 public class Constants {
-	public static final boolean DEBUG = true;
 	public static final int MESSAGE_WHAT_TOAST = 0;
 
 	public static final int STATE_KO	= 0;

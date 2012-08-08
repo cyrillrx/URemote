@@ -13,10 +13,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Adapter used to display an explorer view.
+ * 
+ * @author Cyril Leroux
+ *
+ */
 public class FileManagerAdapter extends BaseAdapter {
-	private List<FileManagerEntity> mFileList;
-	private LayoutInflater mInflater;
+	private final List<FileManagerEntity> mFileList;
+	private final LayoutInflater mInflater;
 
+	/**
+	 * Default constructor
+	 * @param _context the application context.
+	 * @param _fileList the files to display
+	 */
 	public FileManagerAdapter(Context _context, List<FileManagerEntity> _fileList) {
 		mInflater = LayoutInflater.from(_context);
 		mFileList = _fileList;
@@ -31,6 +42,11 @@ public class FileManagerAdapter extends BaseAdapter {
 	@Override
 	public long getItemId(int _position) { return _position; }
 
+	/**
+	 * The view holder is the template for the items of the list.
+	 * @author Cyril Leroux
+	 *
+	 */
 	public static class ViewHolder {
 		ImageView ivIcon;
 		TextView tvName;
@@ -54,10 +70,12 @@ public class FileManagerAdapter extends BaseAdapter {
 		final FileManagerEntity file = mFileList.get(_position);
 
 		int iconRes = R.drawable.filemanager_blank;
-		if (file.isDirectory())
+
+		if (file.isDirectory()) {
 			iconRes = R.drawable.filemanager_folder;
-		else if (file.isVideo())
-			iconRes = R.drawable.filemanager_blank;
+		} else if (file.isVideo()) {
+			iconRes = R.drawable.filemanager_video;
+		}
 
 		holder.ivIcon.setImageResource(iconRes);
 		holder.tvName.setText(file.getName());

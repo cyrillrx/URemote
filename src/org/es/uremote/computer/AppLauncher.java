@@ -13,6 +13,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
+/**
+ * This Activity displays a list of applications that you can launch on the remote server.
+ * 
+ * @author Cyril Leroux
+ *
+ */
 public class AppLauncher extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */

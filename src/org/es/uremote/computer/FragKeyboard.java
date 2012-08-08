@@ -6,6 +6,7 @@ import static org.es.uremote.utils.ServerMessage.CODE_COMBO;
 import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
 
 import org.es.uremote.R;
+import org.es.uremote.ViewPagerDashboard;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.ServerMessage;
@@ -24,7 +25,7 @@ import android.widget.Toast;
 
 /**
  * @author Cyril Leroux
- * 
+ *
  * Classe permettant de se connecter et d'envoyer des commandes à un serveur distant via une AsyncTask.
  *
  */
@@ -37,8 +38,8 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		super.onActivityCreated(savedInstanceState);
 		mParent = (ViewPagerDashboard) getActivity();
 	}
-	
-	/** 
+
+	/**
 	 * Cette fonction est appelée lors de la création de l'activité
 	 */
 	@Override
@@ -94,7 +95,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Prise en comptes des événements onClick 
+	 * Prise en comptes des événements onClick
 	 */
 	@Override
 	public void onClick(View _view) {
@@ -240,11 +241,11 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	////////////////////////////////////////////////////////////////////
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
-	
+
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * Cette fonction initialise le composant gérant l'envoi des messages
 	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
+	 * @param _code Le code du message.
 	 * @param _param Le paramètre du message.
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
@@ -255,9 +256,9 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		}
 	}
 
-	/** 
+	/**
 	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
-	 * @param _code Le code du message. 
+	 * @param _code Le code du message.
 	 * @param _param Le paramètre du message.
 	 */
 	public void confirmCommand(final String _code, final String _param) {
@@ -278,20 +279,23 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
-	 * @author cyril.leroux
+	 * @author Cyril Leroux
 	 */
 	public class KeyboardMessageMgr extends AsyncMessageMgr {
 
+		/**
+		 * @param _handler
+		 */
 		public KeyboardMessageMgr(Handler _handler) {
 			super(_handler);
 		}
-		
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 			mParent.updateConnectionState(Constants.STATE_CONNECTING);
 		}
-		
+
 		@Override
 		protected void onPostExecute(String _serverReply) {
 			super.onPostExecute(_serverReply);
@@ -300,7 +304,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 
 			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
 				mParent.updateConnectionState(Constants.STATE_KO);
-			} else { 
+			} else {
 				mParent.updateConnectionState(Constants.STATE_OK);
 			}
 		}

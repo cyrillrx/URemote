@@ -9,6 +9,7 @@ import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import org.es.uremote.R;
+import org.es.uremote.ViewPagerDashboard;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.ServerMessage;

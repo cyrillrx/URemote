@@ -1,53 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">URemote</string>
-	
-	<!-- Activités -->
-	<string name="title_home">URemote Home</string>
-	<string name="title_preferences">Préférences</string>
-	<string name="title_tv">Contrôle de la TV</string>
-	<string name="title_robots">Contrôle des robots</string>
-	<string name="title_lights">Contrôle des éclairages</string>
-	<string name="title_hifi">Hifi</string>
-	<string name="title_settings">Paramètres</string>
-	<string name="title_server_dashboard">Dashboard</string>
-	<string name="title_application_launcher">Applications</string>
-	<string name="title_filemanager">Explorateur de fichiers</string>
-	
-	<!-- Autre -->
-	<string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>
-	<string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
-	<string name="msg_settings_control_not_available">Paramètres n\'est pas encore disponible</string>
-	<string name="msg_command_succeeded">Commande effectuée</string>
-	<string name="msg_command_running">Commande en cours…</string>
-	<string name="msg_command_failed">La commande a échouée</string>
-	<string name="msg_no_more_permit">Plus de permis disponible !</string>
-	<string name="confirm_kill_server">Voulez-vous vraiment tuer le serveur ?</string>
-    <string name="confirm_command">Confirmez la commande ?</string>
-	<string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
-	<string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
+    <string name="app_name">URemote</string>
 
-	<!-- Préférences -->
-	<string name="pref_server_settings">Configuration du serveur</string>
-	<string name="pref_local">Accès local</string>
-	<string name="pref_remote">Accès distant</string>
-	<string name="pref_common">Commun</string>
-	<string name="pref_other">Autre</string>
-	
-	<string name="pref_local_ip_address">Adresse ip locale</string>
-	<string name="pref_local_port">Port d\'écoute local</string>
-	<string name="pref_broadcast_address">Adresse de broadcast</string>
-	<string name="pref_remote_ip_address">Adresse ip distante</string>
-	<string name="pref_remote_port">Port d\'écoute distant</string>
-	<string name="pref_timeout">Timeout des appels au serveur</string>
-	<string name="pref_mac_address">Adresse Mac de WakeOnLan</string>
-	<string name="pref_author">Développeur de l\'application</string>
-	<string name="pref_author_summary">Cyril Leroux</string>
-	<string name="pref_website">Site web du développeur</string>
-	<string name="pref_website_address">http://www.essaion-soft.com</string>
-	
+    <!-- Activités -->
+    <string name="title_preferences">Préférences</string>
+    <string name="title_tv">Contrôle de la TV</string>
+    <string name="title_robots">Contrôle des robots</string>
+    <string name="title_lights">Contrôle des éclairages</string>
+    <string name="title_hifi">Hifi</string>
+    <string name="title_settings">Paramètres</string>
+    <string name="title_server_dashboard">Dashboard</string>
+    <string name="title_application_launcher">Applications</string>
+    <string name="title_filemanager">Explorateur de fichiers</string>
+
     <!-- Menu -->
     <string name="menu_server_settings">Config serveur</string>
+
+    <!-- Autre -->
+    <string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>
+    <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
+    <string name="msg_command_succeeded">Commande effectuée</string>
+    <string name="msg_command_running">Commande en cours…</string>
+    <string name="msg_command_failed">La commande a échouée</string>
+    <string name="msg_no_more_permit">Plus de permis disponible !</string>
+    <string name="confirm_kill_server">Voulez-vous vraiment tuer le serveur ?</string>
+    <string name="confirm_command">Confirmez la commande ?</string>
+    <string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
+    <string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
+    <string name="power">Power</string>
 
 </resources>

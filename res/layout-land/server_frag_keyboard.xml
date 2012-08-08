@@ -91,52 +91,52 @@
 		<Button
 			android:id="@+id/kbA"
 			style="@style/keyboard"
-			android:text="@string/kb_a" />
+			android:text="@string/kb_lowercase_a" />
 
 		<Button
 			android:id="@+id/kbZ"
 			style="@style/keyboard"
-			android:text="@string/kb_z" />
+			android:text="@string/kb_lowercase_z" />
 
 		<Button
 			android:id="@+id/kbE"
 			style="@style/keyboard"
-			android:text="@string/kb_e" />
+			android:text="@string/kb_lowercase_e" />
 
 		<Button
 			android:id="@+id/kbR"
 			style="@style/keyboard"
-			android:text="@string/kb_r" />
+			android:text="@string/kb_lowercase_r" />
 
 		<Button
 			android:id="@+id/kbT"
 			style="@style/keyboard"
-			android:text="@string/kb_t" />
+			android:text="@string/kb_lowercase_t" />
 
 		<Button
 			android:id="@+id/kbY"
 			style="@style/keyboard"
-			android:text="@string/kb_y" />
+			android:text="@string/kb_lowercase_y" />
 
 		<Button
 			android:id="@+id/kbU"
 			style="@style/keyboard"
-			android:text="@string/kb_u" />
+			android:text="@string/kb_lowercase_u" />
 
 		<Button
 			android:id="@+id/kbI"
 			style="@style/keyboard"
-			android:text="@string/kb_i" />
+			android:text="@string/kb_lowercase_i" />
 
 		<Button
 			android:id="@+id/kbO"
 			style="@style/keyboard"
-			android:text="@string/kb_o" />
+			android:text="@string/kb_lowercase_o" />
 
 		<Button
 			android:id="@+id/kbP"
 			style="@style/keyboard"
-			android:text="@string/kb_p" />
+			android:text="@string/kb_lowercase_p" />
 	</TableRow>
 
 	<TableRow>
@@ -144,52 +144,52 @@
 		<Button
 			android:id="@+id/kbQ"
 			style="@style/keyboard"
-			android:text="@string/kb_q" />
+			android:text="@string/kb_lowercase_q" />
 
 		<Button
 			android:id="@+id/kbS"
 			style="@style/keyboard"
-			android:text="@string/kb_s" />
+			android:text="@string/kb_lowercase_s" />
 
 		<Button
 			android:id="@+id/kbD"
 			style="@style/keyboard"
-			android:text="@string/kb_d" />
+			android:text="@string/kb_lowercase_d" />
 
 		<Button
 			android:id="@+id/kbF"
 			style="@style/keyboard"
-			android:text="@string/kb_f" />
+			android:text="@string/kb_lowercase_f" />
 
 		<Button
 			android:id="@+id/kbG"
 			style="@style/keyboard"
-			android:text="@string/kb_g" />
+			android:text="@string/kb_lowercase_g" />
 
 		<Button
 			android:id="@+id/kbH"
 			style="@style/keyboard"
-			android:text="@string/kb_h" />
+			android:text="@string/kb_lowercase_h" />
 
 		<Button
 			android:id="@+id/kbJ"
 			style="@style/keyboard"
-			android:text="@string/kb_j" />
+			android:text="@string/kb_lowercase_j" />
 
 		<Button
 			android:id="@+id/kbK"
 			style="@style/keyboard"
-			android:text="@string/kb_k" />
+			android:text="@string/kb_lowercase_k" />
 
 		<Button
 			android:id="@+id/kbL"
 			style="@style/keyboard"
-			android:text="@string/kb_l" />
+			android:text="@string/kb_lowercase_l" />
 
 		<Button
 			android:id="@+id/kbM"
 			style="@style/keyboard"
-			android:text="@string/kb_m" />
+			android:text="@string/kb_lowercase_m" />
 	</TableRow>
 
 	<TableRow>
@@ -205,32 +205,32 @@
 		<Button
 			android:id="@+id/kbW"
 			style="@style/keyboard"
-			android:text="@string/kb_w" />
+			android:text="@string/kb_lowercase_w" />
 
 		<Button
 			android:id="@+id/kbX"
 			style="@style/keyboard"
-			android:text="@string/kb_x" />
+			android:text="@string/kb_lowercase_x" />
 
 		<Button
 			android:id="@+id/kbC"
 			style="@style/keyboard"
-			android:text="@string/kb_c" />
+			android:text="@string/kb_lowercase_c" />
 
 		<Button
 			android:id="@+id/kbV"
 			style="@style/keyboard"
-			android:text="@string/kb_v" />
+			android:text="@string/kb_lowercase_v" />
 
 		<Button
 			android:id="@+id/kbB"
 			style="@style/keyboard"
-			android:text="@string/kb_b" />
+			android:text="@string/kb_lowercase_b" />
 
 		<Button
 			android:id="@+id/kbN"
 			style="@style/keyboard"
-			android:text="@string/kb_n" />
+			android:text="@string/kb_lowercase_n" />
 
 		<Button
 			android:id="@+id/kbEnter"

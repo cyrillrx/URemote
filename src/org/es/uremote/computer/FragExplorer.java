@@ -1,11 +1,12 @@
 package org.es.uremote.computer;
 
-import static org.es.uremote.utils.Constants.DEBUG;
+import static org.es.uremote.BuildConfig.DEBUG;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.es.uremote.R;
+import org.es.uremote.ViewPagerDashboard;
 import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.FileManagerEntity;
@@ -25,6 +26,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * File explorer fragment.
+ * This fragment allow you to browse your PC content through the application.
+ *
+ * @author Cyril Leroux
+ */
 public class FragExplorer extends ListFragment {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
@@ -32,7 +39,7 @@ public class FragExplorer extends ListFragment {
 	private static final String DEFAULT_PATH = "L:\\Series";
 	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 
-	private TextView mTvPath; 
+	private TextView mTvPath;
 	private String mDirectoryPath;
 	private String mDirectoryContent;
 	private ViewPagerDashboard mParent;
@@ -42,17 +49,17 @@ public class FragExplorer extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 		mParent = (ViewPagerDashboard) getActivity();
 	}
-	
+
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		
+
 		if (mDirectoryPath == null || mDirectoryContent == null) {
 			mDirectoryPath		= DEFAULT_PATH;
 			mDirectoryContent	= DEFAULT_CONTENT;
 		}
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
@@ -65,15 +72,16 @@ public class FragExplorer extends ListFragment {
 		updateView(mDirectoryContent);
 		super.onStart();
 	}
-	
+
 	/**
 	 * Transforme le message séréalisé en liste de fichiers pour l'arborescence
 	 * @param dirInfo Les informations sur le dossier séréalirées
 	 * @return La liste des FileManagerEntity prêts à être affichés
 	 */
 	private List<FileManagerEntity> directoryInfoToList(String dirInfo) {
-		if (dirInfo == null || dirInfo.isEmpty())
+		if (dirInfo == null || dirInfo.isEmpty()) {
 			return null;
+		}
 
 		final List<FileManagerEntity> fileList = new ArrayList<FileManagerEntity>();
 		String[] filesInfo = dirInfo.split("[|]");
@@ -91,8 +99,9 @@ public class FragExplorer extends ListFragment {
 		final List<FileManagerEntity> fileList = directoryInfoToList(infos);
 
 		if (fileList.size() == 0) {
-			if (DEBUG)
+			if (DEBUG) {
 				Log.e(TAG, "fileList is null");
+			}
 			return;
 		}
 
@@ -118,7 +127,7 @@ public class FragExplorer extends ListFragment {
 		// On n'affiche que les derniers caractères
 		//TODO Gérer l'orientation
 		int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
-		
+
 		int maxPath = (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) ? MAX_PATH_PORTRAIT : MAX_PATH_LANDSCAPE;
 		String path = (pathLength > maxPath) ? "..." + mDirectoryPath.substring(pathLength - maxPath + 3, pathLength) : mDirectoryPath;
 		mTvPath.setText(path);
@@ -127,7 +136,7 @@ public class FragExplorer extends ListFragment {
 	/**
 	 * Demande au serveur de lister le contenu du répertoire.
 	 * Lance l'activité une fois les données récupérée.
-	 * @param _dirPath Le chemin du répertoire à afficher. 
+	 * @param _dirPath Le chemin du répertoire à afficher.
 	 */
 	private void getDirectoryContent(String _dirPath) {
 		sendAsyncMessage(ServerMessage.OPEN_DIR, _dirPath);
@@ -152,11 +161,11 @@ public class FragExplorer extends ListFragment {
 	////////////////////////////////////////////////////////////////////
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
-	
+
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * Cette fonction initialise le composant gérant l'envoi des messages
 	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
+	 * @param _code Le code du message.
 	 * @param _param Le paramètre du message.
 	 */
 	private void sendAsyncMessage(String _code, String _param) {
@@ -166,7 +175,7 @@ public class FragExplorer extends ListFragment {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
 	 * @author cyril.leroux
@@ -185,7 +194,7 @@ public class FragExplorer extends ListFragment {
 				showToast(_serverReply);
 			} else if (ServerMessage.OPEN_DIR.equals(mCommand)) {
 				updateDirectory(mParam, _serverReply);
-			} 
+			}
 		}
 	}
 }
