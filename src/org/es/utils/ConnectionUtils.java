@@ -1,6 +1,6 @@
 package org.es.utils;
 
-import static org.es.uremote.utils.Constants.DEBUG;
+import static org.es.uremote.BuildConfig.DEBUG;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -10,60 +10,63 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 /**
- * Classe gérant les connexions wifi, 3G, bluetooth, etc.
+ * This class manage connections to WIFI, mobile data, Bluetooth, etc.
+ *
  * @author Cyril Leroux
  */
 public class ConnectionUtils {
 	private static final String TAG = "WebUtils";
 
 	/**
-	 * @param _context Le context de l'activité ou de l'application.
-	 * @return L'objet ConnectivityManager lié au contexte
+	 * @param _context Activity or Application context.
+	 * @return The ConnectivityManager object binded to the context.
 	 */
 	public static ConnectivityManager getConnectivityManager(Context _context) {
 		return (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
 	}
-	
+
 	/**
-	 * @param _connectivityMgr Ojet contenant les informations sur les connexions.
-	 * @return true si l'on a accès à internet par Wifi
+	 * @param _connectivityMgr Object that contains informations on connections.
+	 * @return true if the device is connected to the Internet through WIFI. false otherwise.
 	 */
 	public static boolean isConnectedThroughWifi(ConnectivityManager _connectivityMgr) {
 		boolean isConnectedToWifi = _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
 		return isConnectedToWifi;
 	}
-	
+
 	/**
-	 * Teste l'accès à internet.
-	 * @param _connectivityMgr Ojet contenant les informations sur les connexions.
-	 * @return true si l'on a accès à internet par le wifi ou le 3G.
+	 * Tests the Internet connection.
+	 * @param _connectivityMgr Object that contains informations on connections.
+	 * @return true if the device is connected to the Internet (through WIFI or mobile data). false otherwise.
 	 */
 	public static boolean isConnectedToInternet(ConnectivityManager _connectivityMgr) {
-		
+
 		boolean isMobileConnected	= _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected(); // Vérifie l'accès à l'internet mobile
 		boolean isWifiConnected		= isConnectedThroughWifi(_connectivityMgr);
-		
-		if (isMobileConnected || isWifiConnected)
+
+		if (isMobileConnected || isWifiConnected) {
 			return true;
-		
-		if (DEBUG)
+		}
+
+		if (DEBUG) {
 			Log.e(TAG, "No acces to the world wide web");
+		}
 		return false;
 	}
-	
+
 	/**
-	 * @param _connectivityMgr Ojet contenant les informations sur les connexions.
-	 * @param _ipAddress L'adresse ip de l'hôte auquel on souhaite se connecter
-	 * @return true si l'on a accès à l'hôte dont l'adresse est spécifiée en paramètre. 
+	 * @param _connectivityMgr Object that contains informations on connections.
+	 * @param _ipAddress The IP address of the host we want to connect to.
+	 * @return true if the device can access the specified host. false otherwise.
 	 */
 	public static boolean canAccessHost(ConnectivityManager _connectivityMgr, String _ipAddress) {
 		return _connectivityMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, lookupHost(_ipAddress));
 	}
-	
+
 	/**
-	 * Convertit la chaine de caractère de l'adresse ip et un entier .
-	 * @param _ipAddress L'adresse de l'hôte sous forme de chaine de caractère.
-	 * @return L'adresse de l'hôte sous forme d'entier.
+	 * Convert the IP address into an integer.
+	 * @param _ipAddress The IP address to convert.
+	 * @return The IP address converted as an integer.
 	 */
 	private static int lookupHost(String _ipAddress) {
 	    InetAddress inetAddress;
@@ -72,13 +75,14 @@ public class ConnectionUtils {
 	    } catch (UnknownHostException e) {
 	        return -1;
 	    }
-	    byte[] addrBytes;
-	    int addr;
-	    addrBytes = inetAddress.getAddress();
-	    addr = ((addrBytes[3] & 0xff) << 24)
-	            | ((addrBytes[2] & 0xff) << 16)
-	            | ((addrBytes[1] & 0xff) << 8)
-	            |  (addrBytes[0] & 0xff);
-	    return addr;
+
+	    byte[] addressBytes;
+	    int address;
+	    addressBytes = inetAddress.getAddress();
+	    address = ((addressBytes[3] & 0xff) << 24)
+	            | ((addressBytes[2] & 0xff) << 16)
+	            | ((addressBytes[1] & 0xff) << 8)
+	            |  (addressBytes[0] & 0xff);
+	    return address;
 	}
 }

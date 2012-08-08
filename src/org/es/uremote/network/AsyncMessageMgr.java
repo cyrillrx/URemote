@@ -1,6 +1,6 @@
 package org.es.uremote.network;
 
-import static org.es.uremote.utils.Constants.DEBUG;
+import static org.es.uremote.BuildConfig.DEBUG;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
@@ -30,19 +30,24 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	private static String sHost;
 	private static int sPort;
 	private static int sTimeout;
-	
+
 	protected String mReturnCode;
 	protected String mCommand;
 	protected String mParam;
 	protected Handler mHandler;
 	private Socket mSocket;
 
+	/**
+	 * Initialize class with the message handler as a parameter.
+	 * @param _handler The handler for toast messages.
+	 */
 	public AsyncMessageMgr(Handler _handler) {
 		mHandler = _handler;
 	}
-	
+
 	/**
-	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)} 
+	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)}.<br />
+	 * Elle retient un sémaphore qui sera libéré dans la fonction {@link #onPostExecute(String)}.<br />
 	 * Exécutée dans le thread principal.
 	 */
 	@Override
@@ -51,11 +56,13 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		try {
 			sSemaphore.acquire();
 		} catch (InterruptedException e) {
-			if (DEBUG)
+			if (DEBUG) {
 				Log.e(TAG, "onPreExecute Semaphore acquire error.");
+			}
 		}
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "onPreExecute Semaphore acquire. " + sSemaphore.availablePermits() + " left");
+		}
 	}
 
 	/**
@@ -66,7 +73,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	@Override
 	protected String doInBackground(String... _params) {
 		String serverReply = "";
-		
+
 		mCommand	= _params[0];
 		mParam 		= (_params.length > 1) ? _params[1] : "";
 		final String message	= mCommand + "|" + mParam;
@@ -75,20 +82,23 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		try {
 			// Création du socket
 			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout, message);
-			if (mSocket != null && mSocket.isConnected())
+			if (mSocket != null && mSocket.isConnected()) {
 				serverReply = sendAsyncMessage(mSocket, message);
-			
+			}
+
 		} catch (IOException e) {
 			mReturnCode = ServerMessage.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
-			if (DEBUG)
+			if (DEBUG) {
 				Log.e(TAG, serverReply);
+			}
 
 		} catch (Exception e) {
 			mCommand = ServerMessage.RC_ERROR;
 			serverReply = "IOException" + e.getMessage();
-			if (DEBUG) 
+			if (DEBUG) {
 				Log.e(TAG, serverReply);
+			}
 
 		} finally {
 			closeSocketIO();
@@ -98,7 +108,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	}
 
 	/**
-	 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)} 
+	 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)}
 	 * Exécutée dans le thread principal.
 	 * @param _serverReply La réponse du serveur renvoyée par la fonction {@link #doInBackground(String...)}.
 	 */
@@ -113,9 +123,10 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		if (DEBUG) {
 			Log.i(TAG, "Semaphore release");
 		}
-		
-		if (mCommand.equals(CODE_VOLUME))
+
+		if (mCommand.equals(CODE_VOLUME)) {
 			showToast(_serverReply);
+		}
 	}
 
 	@Override
@@ -123,7 +134,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		closeSocketIO();
 		super.onCancelled();
 	}
-	
+
 	/**
 	 * Envoi d'un message Toast sur le thread de l'UI.
 	 * @param _message Le message à afficher.
@@ -132,9 +143,9 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		Message msg = new Message();
 		msg.what = MESSAGE_WHAT_TOAST;
 		msg.obj = _message;
-		mHandler.sendMessage(msg);	
+		mHandler.sendMessage(msg);
 	}
-	
+
 	/**
 	 * Fonction de connexion à un socket disant.
 	 * @param _host L'adresse ip de l'hôte auquel est lié le socket.
@@ -154,15 +165,16 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 
 	/**
 	 * Cette fonction est appelée depuis le thread principal
-	 * Elle permet l'envoi d'une commande et d'un paramètre 
+	 * Elle permet l'envoi d'une commande et d'un paramètre
 	 * @param _socket Le socket sur lequel on envoie le message.
 	 * @param _message Le message à transmettre
 	 * @return La réponse du serveur.
 	 * @throws IOException exception.
 	 */
 	private String sendAsyncMessage(Socket _socket, String _message) throws IOException {
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "sendMessage: " + _message);
+		}
 		String serverReply = "";
 
 		if (mSocket.isConnected()) {
@@ -180,49 +192,70 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 * @throws IOException exeption
 	 */
 	private String getServerReply(Socket _socket) throws IOException {
-		final int BUFSIZ = 512; 
+		final int BUFSIZ = 512;
 
 		final BufferedReader bufferReader = new BufferedReader(new InputStreamReader(_socket.getInputStream()), BUFSIZ);
 		String line = "", reply = "";
-		while ((line = bufferReader.readLine()) != null)
+		while ((line = bufferReader.readLine()) != null) {
 			reply += line;
+		}
 
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "Got a reply : " + reply);
+		}
 
 		return reply;
-	} 
-	
+	}
+
 	/**
 	 * Ferme les entrées/sortie du socket puis ferme le socket.
 	 */
 	private void closeSocketIO() {
-		if (mSocket == null)
+		if (mSocket == null) {
 			return;
+		}
 
-		try { if (mSocket.getInputStream() != null)	mSocket.getInputStream().close();	} catch(IOException e) {}
-		try { if (mSocket.getOutputStream() != null)mSocket.getOutputStream().close();	} catch(IOException e) {}
+		try { if (mSocket.getInputStream() != null) {
+			mSocket.getInputStream().close();
+		}	} catch(IOException e) {}
+		try { if (mSocket.getOutputStream() != null) {
+			mSocket.getOutputStream().close();
+		}	} catch(IOException e) {}
 		try { mSocket.close(); } catch(IOException e) {}
 	}
-	
+
+	/** @return The count of available permits. */
 	public static int availablePermits() {
 		return sSemaphore.availablePermits();
 	}
-	
+
+	/** @return Concatenation of host and port of the remote server. */
 	public static String getServerInfos() {
 		return sHost + ":" + sPort;
 	}
-	
+
+	/**
+	 * Set the ip address of the remote server.
+	 * @param _host the ip address of the remote server.
+	 */
 	public static void setHost(String _host) {
 		sHost = _host;
 	}
-	
+
+	/**
+	 * Set the port on which we want to establish a connexion with the remote server.
+	 * @param _port the port value.
+	 */
 	public static void setPort(int _port) {
 		sPort = _port;
 	}
-	
+
+	/**
+	 * Define the timeout of the connexion with the server.
+	 * @param _timeout The timeout in millisecondes.
+	 */
 	public static void setTimeout(int _timeout) {
 		sTimeout = _timeout;
 	}
-	
+
 }

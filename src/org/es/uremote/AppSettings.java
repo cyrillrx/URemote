@@ -10,6 +10,11 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+/**
+ * Activity that hosts application preferences.
+ * @author Cyril Leroux
+ *
+ */
 public class AppSettings extends PreferenceActivity {
 // TODO changer les commentaires
 	@Override
@@ -23,7 +28,7 @@ public class AppSettings extends PreferenceActivity {
 	}
 
 	/**
-	 * This fragment shows the preferences for the first header.
+	 * This fragment shows the preferences for the server.
 	 */
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
@@ -65,7 +70,7 @@ public class AppSettings extends PreferenceActivity {
 			super.onActivityCreated(savedInstanceState);
 			mActivity = (AppSettings) getActivity();
 			mPref = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
-			
+
 			mKeyLocalHost	= getString(R.string.pref_key_local_host);
 			mKeyLocalPort	= getString(R.string.pref_key_local_port);
 			mKeyBroadcast	= getString(R.string.pref_key_broadcast);
@@ -104,7 +109,7 @@ public class AppSettings extends PreferenceActivity {
 			mPrefTimeout.setSummary(mPref.getString(mKeyTimeout, mDefaultTimeout) + " ms");
 			mPrefMacAddress.setSummary(mPref.getString(mKeyMacAddress, mDefaultMacAddress));
 
-			// Set up a listener whenever a key changes            
+			// Set up a listener whenever a key changes
 			getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 		}
 
@@ -112,13 +117,11 @@ public class AppSettings extends PreferenceActivity {
 		public void onPause() {
 			super.onPause();
 
-			// Unregister the listener whenever a key changes            
-			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);    
+			// Unregister the listener whenever a key changes
+			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 		}
 
-		/**
-		 * On change la valeur affichée d'un paramètre après l'avoir modifié. 
-		 */
+		/** Change the summary of a value whenever the value had been modified. */
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences _sharedPreferences, String _key) {
 
@@ -136,7 +139,7 @@ public class AppSettings extends PreferenceActivity {
 
 			} else if (_key.equals(mKeyLocalHost)) {
 				mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
-				
+
 			} else if (_key.equals(mKeyTimeout)) {
 				mPrefTimeout.setSummary(mPref.getString(mKeyTimeout, mDefaultTimeout) + " ms");
 
@@ -147,15 +150,4 @@ public class AppSettings extends PreferenceActivity {
 
 		}
 	}
-	
-	/**
-	 * @param _appContext Le contexte de l'application
-	 * @return La valeur de la préférence Adresse ip locale du serveur.
-	 *//*
-	private static String getLocalHost(Context _context) {
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(_context.getApplicationContext());
-		final String keyLocalHost		= _context.getString(R.string.pref_key_local_host);
-		final String defaultLocalHost	= _context.getString(R.string.pref_default_local_host);
-		return pref.getString(keyLocalHost, defaultLocalHost);
-	}*/
 }

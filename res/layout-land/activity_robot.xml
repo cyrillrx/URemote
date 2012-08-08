@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/robotControlUp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_up"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow>
+
+            <ImageButton
+                android:id="@+id/robotControlLeft"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_left"
+                android:src="@android:drawable/arrow_up_float" />
+
+            <ImageButton
+                android:id="@+id/robotControlRight"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_right"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/robotControlDown"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_down"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+    </TableLayout>
+
+    <VideoView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:layout_weight="1" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/robotControl1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_1" />
+
+            <Button
+                android:id="@+id/robotControl2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/robotControl3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_3" />
+
+            <Button
+                android:id="@+id/robotControl4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/robotControl5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_5" />
+
+            <Button
+                android:id="@+id/robotControl6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@string/kb_6" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

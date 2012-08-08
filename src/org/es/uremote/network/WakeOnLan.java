@@ -1,6 +1,6 @@
 package org.es.uremote.network;
 
-import static org.es.uremote.utils.Constants.DEBUG;
+import static org.es.uremote.BuildConfig.DEBUG;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 import java.net.DatagramPacket;
@@ -12,12 +12,21 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+/**
+ * This class allow the application to send a Magic Packet on the network to wake a PC up.
+ *
+ * @author Cyril Leroux
+ *
+ */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
 	// TODO Internationnaliser la classe
-	private static final String TAG = "WakeOnLan";    
-	private static final int PORT = 9;   
-	private Handler mHandler;
+	private static final String TAG = "WakeOnLan";
+	private static final int PORT = 9;
+	private final Handler mHandler;
 
+	/**
+	 * @param _handler
+	 */
 	public WakeOnLan(Handler _handler) {
 		mHandler = _handler;
 	}
@@ -51,9 +60,10 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 		}
 
 		// TODO Virer le log
-		if (DEBUG)
+		if (DEBUG) {
 			Log.i(TAG, "ip : " + _ip + ", mac : " + _mac);
-		
+		}
+
 		String result = "ip : " + _ip + ", mac : " + _mac + "\r\n";
 
 		String ipStr	= _ip;
@@ -77,14 +87,16 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 			socket.send(packet);
 			socket.close();
 
-			if (DEBUG)
+			if (DEBUG) {
 				Log.d(TAG, "Wake-on-LAN packet sent.");
+			}
 
 			result += "Wake-on-LAN packet sent.";
 
 		} catch (Exception e) {
-			if (DEBUG)
+			if (DEBUG) {
 				Log.e(TAG, "Failed to send Wake-on-LAN packet: " + e);
+			}
 
 			result += "Failed to send Wake-on-LAN packet: " + e;
 		}

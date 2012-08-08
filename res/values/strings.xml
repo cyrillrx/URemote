@@ -4,7 +4,6 @@
     <string name="app_name">URemote</string>
 
     <!-- Activités -->
-    <string name="title_home">URemote Home</string>
     <string name="title_preferences">Preferences</string>
     <string name="title_tv">Tv remote</string>
     <string name="title_robots">Robot control</string>
@@ -15,10 +14,12 @@
     <string name="title_application_launcher">Applications</string>
     <string name="title_filemanager">File Explorer</string>
 
+    <!-- Menu -->
+    <string name="menu_server_settings">Server settings</string>
+    
     <!-- Autre -->
     <string name="msg_light_control_not_available">Lights control is not available yet</string>
     <string name="msg_hifi_control_not_available">Hifi control is not available yet</string>
-    <string name="msg_settings_control_not_available">Settings control is not available yet</string>
     <string name="msg_command_succeeded">Command succeeded</string>
     <string name="msg_command_running">Command is running…</string>
     <string name="msg_command_failed">Command failed</string>
@@ -27,27 +28,6 @@
     <string name="confirm_command">Confirm the command ?</string>
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
-
-    <!-- Préférences -->
-    <string name="pref_server_settings">Server Settings</string>
-	<string name="pref_local">Local access</string>
-	<string name="pref_remote">Remote access</string>
-	<string name="pref_common">Common</string>
-    <string name="pref_other">Other</string>
-	
-	<string name="pref_local_ip_address">Local ip address</string>
-	<string name="pref_local_port">Local listening port</string>
-	<string name="pref_broadcast_address">Broadcast ip address</string>
-	<string name="pref_remote_ip_address">Remote ip address</string>
-	<string name="pref_remote_port">Remote listening port</string>
-	<string name="pref_timeout">Connection timeout</string>
-	<string name="pref_mac_address">WakeOnLan Mac address</string>
-    <string name="pref_author">Application Developer</string>
-    <string name="pref_author_summary">Cyril Leroux</string>
-    <string name="pref_website">Developer website</string>
-    <string name="pref_website_address">http://www.essaion-soft.com</string>
-    
-    <!-- Menu -->
-    <string name="menu_server_settings">Server settings</string>
+    <string name="power">Power</string>
 
 </resources>

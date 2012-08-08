@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:background="@null"
     android:gravity="center"
     android:stretchColumns="*" >
 
@@ -31,12 +30,6 @@
             android:background="@null"
             android:contentDescription="@string/title_tv"
             android:src="@drawable/home_tv" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
 
         <ImageButton
             android:id="@+id/btnRobot"
@@ -47,6 +40,12 @@
             android:background="@null"
             android:contentDescription="@string/title_robots"
             android:src="@drawable/home_robot" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <ImageButton
             android:id="@+id/btnMediaCenter"
@@ -57,12 +56,6 @@
             android:background="@null"
             android:contentDescription="@string/title_server_dashboard"
             android:src="@drawable/home_media_center" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
 
         <ImageButton
             android:id="@+id/btnHifi"
@@ -71,7 +64,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@null"
-            android:contentDescription="@string/title_server_dashboard"
+            android:contentDescription="@string/title_hifi"
             android:src="@drawable/home_hifi" />
 
         <ImageButton

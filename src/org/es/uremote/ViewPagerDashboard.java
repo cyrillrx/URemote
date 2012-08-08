@@ -1,4 +1,4 @@
-package org.es.uremote.computer;
+package org.es.uremote;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -11,9 +11,11 @@ import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.es.uremote.AppSettings;
-import org.es.uremote.Home;
 import org.es.uremote.R;
+import org.es.uremote.computer.FragAdmin;
+import org.es.uremote.computer.FragDashboard;
+import org.es.uremote.computer.FragExplorer;
+import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.ServerMessage;
 
@@ -41,23 +43,29 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * @author Cyril Leroux
+ *
+ */
 public class ViewPagerDashboard extends FragmentActivity implements OnPageChangeListener {
 
-	private static int PAGES_COUNT = 3;
+	private static final int PAGES_COUNT = 3;
 	private int mCurrentPage = 0;
 
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
-	private Handler mHandler;
-	
+	/** Handler the display of toast messages. */
+	private static Handler sHandler;
+
+	/** @return the handler used to display the toast messages. */
 	public Handler getHandler() {
-		return mHandler;
+		return sHandler;
 	}
 
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.server_pager);
+		setContentView(R.layout.activity_server);
 
 		initHandler();
 		initServer();
@@ -93,8 +101,9 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		if (_savedInstanceState != null) {
 			// TODO Replacer par un constante
 			final int newTabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
-			if (newTabIndex != actionBar.getSelectedNavigationIndex())
+			if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
 				actionBar.setSelectedNavigationItem(newTabIndex);
+			}
 		} else {
 			sendAsyncMessage(CODE_CLASSIC, ServerMessage.HELLO_SERVER);
 		}
@@ -176,14 +185,14 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		AsyncMessageMgr.setPort(port);
 		AsyncMessageMgr.setTimeout(timeout);
 	}
-	
-	/** 
-	 * Initialisation de l'handler gérant l'envoi des messages Toast. 
+
+	/**
+	 * Initialisation de l'handler gérant l'envoi des messages Toast.
 	 * @param _activity L'activité associée au fragment
 	 */
 	private void initHandler() {
-		if (mHandler == null) {
-			mHandler = new Handler() {
+		if (sHandler == null) {
+			sHandler = new Handler() {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
@@ -196,9 +205,9 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 				}
 
 			};
-		}	
+		}
 	}
-	
+
 	@Override
 	public void onPageScrollStateChanged(int arg0) {
 		// TODO Auto-generated method stub
@@ -214,20 +223,21 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 	@Override
 	public void onPageSelected(int _position) {
 		mCurrentPage = _position;
-		if (_position == 1)
+		if (_position == 1) {
 			getActionBar().setIcon(R.drawable.ic_filemanager);
-		else if (_position == 2)
+		} else if (_position == 2) {
 			getActionBar().setIcon(R.drawable.ic_keyboard);
-		else
+		} else {
 			getActionBar().setIcon(R.drawable.ic_launcher);
+		}
 	}
 
 	private class MyPagerAdapter extends FragmentPagerAdapter {
 
-		private List<Fragment> mFragments;
+		private final List<Fragment> mFragments;
 
 		/**
-		 * @param _fm 
+		 * @param _fm
 		 * @param _fragments
 		 */
 		public MyPagerAdapter(FragmentManager _fm, List<Fragment> _fragments) {
@@ -245,21 +255,21 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 			return mFragments.size();
 		}
 	}
-	
+
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * Cette fonction initialise le composant gérant l'envoi des messages
 	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
+	 * @param _code Le code du message.
 	 * @param _param Le paramètre du message.
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(mHandler).execute(_code, _param);
+			new AsyncMessageMgr(sHandler).execute(_code, _param);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 
 	/**
 	 * Fonction de mise à jour de l'interface utilisateur
@@ -272,19 +282,19 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 
 		switch (_state) {
 		case STATE_OK:
-			drawableResId = android.R.drawable.presence_online; 
+			drawableResId = android.R.drawable.presence_online;
 			messageResId = R.string.msg_command_succeeded;
 			visibility = INVISIBLE;
 			break;
 
 		case STATE_CONNECTING:
-			drawableResId = android.R.drawable.presence_away; 
+			drawableResId = android.R.drawable.presence_away;
 			messageResId = R.string.msg_command_running;
 			visibility = VISIBLE;
 			break;
 
 		default: // KO
-			drawableResId = android.R.drawable.presence_offline; 
+			drawableResId = android.R.drawable.presence_offline;
 			messageResId = R.string.msg_command_failed;
 			visibility = INVISIBLE;
 			break;
