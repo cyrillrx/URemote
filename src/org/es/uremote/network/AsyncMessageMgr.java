@@ -81,7 +81,7 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		mSocket = null;
 		try {
 			// Création du socket
-			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout, message);
+			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout);
 			if (mSocket != null && mSocket.isConnected()) {
 				serverReply = sendAsyncMessage(mSocket, message);
 			}
@@ -150,11 +150,11 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 * Fonction de connexion à un socket disant.
 	 * @param _host L'adresse ip de l'hôte auquel est lié le socket.
 	 * @param _port Le numéro de port de l'hôte auquel est lié le socket.
-	 * @param _message Le message à envoyer.
+	 * @param _timeout Timeout of the messages send through the socket.
 	 * @return true si la connexion s'est effectuée correctement, false dans les autres cas.
 	 * @throws IOException excteption
 	 */
-	private Socket connectToRemoteSocket(String _host, int _port, int _timeout, String _message) throws IOException {
+	private Socket connectToRemoteSocket(String _host, int _port, int _timeout) throws IOException {
 
 		final SocketAddress socketAddress = new InetSocketAddress(_host, _port);
 		Socket socket = new Socket();
