@@ -205,7 +205,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
-	 * @author cyril.leroux
+	 * @author Cyril Leroux
 	 */
 	public class AdminMessageMgr extends AsyncMessageMgr {
 

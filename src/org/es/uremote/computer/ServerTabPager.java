@@ -25,7 +25,7 @@
 //import android.widget.Toast;
 //
 //public class ServerTabPager extends Activity {
-//	
+//
 //	private ViewPager mViewPager;
 //	private TabsAdapter mTabAdapter;
 //
@@ -34,9 +34,9 @@
 //	public void onCreate(Bundle _savedInstanceState) {
 //		super.onCreate(_savedInstanceState);
 //		setContentView(R.layout.fragment_host);
-//		
+//
 //		initServer();
-//		
+//
 //		// Instanciation de l'ActionBar
 //		ActionBar actionBar = getActionBar();
 //		// Utilisation des onglets dans l'ActionBar
@@ -68,7 +68,7 @@
 //		} else {
 //			sendAsyncMessage(CODE_CLASSIC, Message.HELLO_SERVER);
 //		}
-//		
+//
 //	}
 //
 //	@Override
@@ -92,7 +92,7 @@
 //		}
 //		return super.onKeyDown(keyCode, event);
 //	}
-//	
+//
 //	/** Initialisation des paramètres du serveur en utilisant les préférences */
 //	private void initServer() {
 //
@@ -103,21 +103,21 @@
 //		final int resKeyPort = wifi ? R.string.pref_key_local_port : R.string.pref_key_remote_port;
 //		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
 //		final int resDefPort = wifi ? R.string.pref_default_local_port : R.string.pref_default_remote_port;
-//		
+//
 //		final String keyHost = getString(resKeyHost);
 //		final String keyPort = getString(resKeyPort);
 //		final String defHost = getString(resDefHost);
 //		final String defPort = getString(resDefPort);
-//		
+//
 //		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 //		AsyncMessageMgr.setHost(pref.getString(keyHost, defHost));
 //		AsyncMessageMgr.setPort(Integer.parseInt(pref.getString(keyPort, defPort)));
 //	}
 //
 //	/**
-//	 * Cette fonction initialise le composant gérant l'envoi des messages 
+//	 * Cette fonction initialise le composant gérant l'envoi des messages
 //	 * puis envoie le message passé en paramètre.
-//	 * @param _code Le code du message. 
+//	 * @param _code Le code du message.
 //	 * @param _param Le paramètre du message.
 //	 */
 //	private void sendAsyncMessage(String _code, String _param) {
@@ -129,7 +129,7 @@
 //	}
 //
 //	/**
-//	 * @author cyril.leroux
+//	 * @author Cyril Leroux
 //	 * Listener personnalisé pour les changments d'onglets (sélection/resélection/désélection)
 //	 */
 //	protected class MyTabsListener implements TabListener {
@@ -156,7 +156,7 @@
 //
 //	/**
 //	 * Classe asynchrone de gestion d'envoi des messages
-//	 * @author cyril.leroux
+//	 * @author Cyril Leroux
 //	 */
 //	private class MessageMgr extends AsyncMessageMgr {
 //
@@ -169,7 +169,7 @@
 //			}
 //		}
 //	}
-//	
+//
 //	 /**
 //     * This is a helper class that implements the management of tabs and all
 //     * details of connecting a ViewPager with associated TabHost.  It relies on a
@@ -182,7 +182,7 @@
 //     * tab changes.
 //     */
 //    public static class TabAdapter extends FragmentPagerAdapter implements TabListener, OnPageChangeListener {
-//      
+//
 //		private final Context mContext;
 //        private final ActionBar mActionBar;
 //        private final ViewPager mViewPager;

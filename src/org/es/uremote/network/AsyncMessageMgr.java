@@ -21,7 +21,7 @@ import android.util.Log;
 
 /**
  * Classe asynchrone de gestion d'envoi de command avec paramètres au serveur.
- * @author cyril.leroux
+ * @author Cyril Leroux
  */
 public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	protected static Semaphore sSemaphore = new Semaphore(2);

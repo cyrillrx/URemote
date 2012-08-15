@@ -49,7 +49,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		mParent = (ViewPagerDashboard) getActivity();
 	}
 
-	/** 
+	/**
 	 * Cette fonction est appelée lors de la création de l'activité
 	 */
 	@Override
@@ -78,7 +78,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Prise en comptes des événements onClick 
+	 * Prise en comptes des événements onClick
 	 */
 	@Override
 	public void onClick(View _view) {
@@ -118,7 +118,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		}
 	}
 
-	/** 
+	/**
 	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
 	 * 
 	 * @param _requestCode Code d'identification de l'activité appelée.
@@ -130,7 +130,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
 			final String message = _data.getStringExtra(IntentKeys.APPLICATION_MESSAGE);
 			sendAsyncMessage(CODE_APP, message);
-		} 
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -138,9 +138,9 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages 
+	 * Cette fonction initialise le composant gérant l'envoi des messages
 	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message. 
+	 * @param _code Le code du message.
 	 * @param _param Le paramètre du message.
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
@@ -153,7 +153,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
-	 * @author cyril.leroux
+	 * @author Cyril Leroux
 	 */
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
@@ -176,7 +176,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
 				mParent.updateConnectionState(STATE_KO);
 
-			} else { 
+			} else {
 				if (ServerMessage.REPLY_VOLUME_MUTED.equals(_serverReply)) {
 					mCmdMute.setImageResource(R.drawable.volume_muted);
 

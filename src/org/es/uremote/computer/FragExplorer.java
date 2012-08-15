@@ -178,7 +178,7 @@ public class FragExplorer extends ListFragment {
 
 	/**
 	 * Classe asynchrone de gestion d'envoi des messages au serveur
-	 * @author cyril.leroux
+	 * @author Cyril Leroux
 	 */
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
