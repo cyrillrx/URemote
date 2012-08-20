@@ -165,6 +165,9 @@ public final class ExchangeProtos {
       KB_ESCAPE(24, 43),
       KB_ALT_F4(25, 44),
       KB_CTRL_RETURN(26, 45),
+      GOM_PLAYER_RUN(27, 50),
+      GOM_PLAYER_KILL(28, 51),
+      GOM_PLAYER_STRETCH(29, 52),
       ;
       
       public static final int DEFINE_VALUE = 0;
@@ -194,6 +197,9 @@ public final class ExchangeProtos {
       public static final int KB_ESCAPE_VALUE = 43;
       public static final int KB_ALT_F4_VALUE = 44;
       public static final int KB_CTRL_RETURN_VALUE = 45;
+      public static final int GOM_PLAYER_RUN_VALUE = 50;
+      public static final int GOM_PLAYER_KILL_VALUE = 51;
+      public static final int GOM_PLAYER_STRETCH_VALUE = 52;
       
       
       public final int getNumber() { return value; }
@@ -227,6 +233,9 @@ public final class ExchangeProtos {
           case 43: return KB_ESCAPE;
           case 44: return KB_ALT_F4;
           case 45: return KB_CTRL_RETURN;
+          case 50: return GOM_PLAYER_RUN;
+          case 51: return GOM_PLAYER_KILL;
+          case 52: return GOM_PLAYER_STRETCH;
           default: return null;
         }
       }
@@ -257,7 +266,7 @@ public final class ExchangeProtos {
       }
       
       private static final Code[] VALUES = {
-        DEFINE, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_ALT_F4, KB_CTRL_RETURN, 
+        DEFINE, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_ALT_F4, KB_CTRL_RETURN, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
       };
       
       public static Code valueOf(
@@ -2080,7 +2089,7 @@ public final class ExchangeProtos {
     org.es.network.ExchangeProtos.Request getRequest();
     org.es.network.ExchangeProtos.RequestOrBuilder getRequestOrBuilder();
     
-    // required .network.Response.ReturnCode returnCode = 2;
+    // optional .network.Response.ReturnCode returnCode = 2 [default = RC_ERROR];
     boolean hasReturnCode();
     org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode();
     
@@ -2208,7 +2217,7 @@ public final class ExchangeProtos {
       return request_;
     }
     
-    // required .network.Response.ReturnCode returnCode = 2;
+    // optional .network.Response.ReturnCode returnCode = 2 [default = RC_ERROR];
     public static final int RETURNCODE_FIELD_NUMBER = 2;
     private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_;
     public boolean hasReturnCode() {
@@ -2275,7 +2284,7 @@ public final class ExchangeProtos {
     
     private void initFields() {
       request_ = org.es.network.ExchangeProtos.Request.getDefaultInstance();
-      returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_SUCCESS;
+      returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
       message_ = "";
       integer_ = 0;
       dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
@@ -2285,10 +2294,6 @@ public final class ExchangeProtos {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
       
-      if (!hasReturnCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (hasRequest()) {
         if (!getRequest().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -2484,7 +2489,7 @@ public final class ExchangeProtos {
           requestBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
-        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_SUCCESS;
+        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
         bitField0_ = (bitField0_ & ~0x00000002);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -2598,10 +2603,6 @@ public final class ExchangeProtos {
       }
       
       public final boolean isInitialized() {
-        if (!hasReturnCode()) {
-          
-          return false;
-        }
         if (hasRequest()) {
           if (!getRequest().isInitialized()) {
             
@@ -2775,8 +2776,8 @@ public final class ExchangeProtos {
         return requestBuilder_;
       }
       
-      // required .network.Response.ReturnCode returnCode = 2;
-      private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_SUCCESS;
+      // optional .network.Response.ReturnCode returnCode = 2 [default = RC_ERROR];
+      private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
       public boolean hasReturnCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
@@ -2794,7 +2795,7 @@ public final class ExchangeProtos {
       }
       public Builder clearReturnCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
-        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_SUCCESS;
+        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
         onChanged();
         return this;
       }
@@ -2986,12 +2987,12 @@ public final class ExchangeProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025server_exchange.proto\022\007network\"\314\004\n\007Req" +
+      "\n\025server_exchange.proto\022\007network\"\215\005\n\007Req" +
       "uest\022#\n\004type\030\001 \002(\0162\025.network.Request.Typ" +
       "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022\017" +
       "\n\007integer\030\003 \001(\005\022\014\n\004text\030\004 \001(\t\"K\n\004Type\022\n\n" +
       "\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n" +
-      "\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\212\003\n\004Code\022\n\n\006D" +
+      "\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\313\003\n\004Code\022\n\n\006D" +
       "EFINE\020\000\022\t\n\005HELLO\020\001\022\010\n\004TEST\020\002\022\017\n\013KILL_SER" +
       "VER\020\003\022\014\n\010SHUTDOWN\020\004\022\021\n\rSWITCH_WINDOW\020\005\022\010" +
       "\n\004LOCK\020\006\022\006\n\002UP\020\007\022\010\n\004DOWN\020\010\022\010\n\004LEFT\020\t\022\t\n\005" +
@@ -3001,18 +3002,20 @@ public final class ExchangeProtos {
       "\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDIA_RE" +
       "WIND\020#\022\r\n\tKB_RETURN\020(\022\014\n\010KB_SPACE\020)\022\020\n\014K" +
       "B_BACKSPACE\020*\022\r\n\tKB_ESCAPE\020+\022\r\n\tKB_ALT_F" +
-      "4\020,\022\022\n\016KB_CTRL_RETURN\020-\"\274\001\n\nDirContent\022\014" +
-      "\n\004path\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.Dir" +
-      "Content.File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004ty" +
-      "pe\030\003 \002(\0162!.network.DirContent.File.FileT" +
-      "ype\022\014\n\004size\030\004 \002(\005\"#\n\010FileType\022\r\n\tDIRECTO",
-      "RY\020\000\022\010\n\004FILE\020\001\"\326\001\n\010Response\022!\n\007request\030\001" +
-      " \001(\0132\020.network.Request\0220\n\nreturnCode\030\002 \002" +
-      "(\0162\034.network.Response.ReturnCode\022\017\n\007mess" +
-      "age\030\003 \001(\t\022\017\n\007integer\030\004 \001(\005\022\'\n\ndirContent" +
-      "\030\005 \001(\0132\023.network.DirContent\"*\n\nReturnCod" +
-      "e\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016org.e" +
-      "s.networkB\016ExchangeProtos"
+      "4\020,\022\022\n\016KB_CTRL_RETURN\020-\022\022\n\016GOM_PLAYER_RU" +
+      "N\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022GOM_PLAYER_S" +
+      "TRETCH\0204\"\274\001\n\nDirContent\022\014\n\004path\030\001 \002(\t\022&\n" +
+      "\004file\030\002 \003(\0132\030.network.DirContent.File\032x\n" +
+      "\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002(\0162!.netw",
+      "ork.DirContent.File.FileType\022\014\n\004size\030\004 \002" +
+      "(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020\000\022\010\n\004FILE\020\001\"" +
+      "\340\001\n\010Response\022!\n\007request\030\001 \001(\0132\020.network." +
+      "Request\022:\n\nreturnCode\030\002 \001(\0162\034.network.Re" +
+      "sponse.ReturnCode:\010RC_ERROR\022\017\n\007message\030\003" +
+      " \001(\t\022\017\n\007integer\030\004 \001(\005\022\'\n\ndirContent\030\005 \001(" +
+      "\0132\023.network.DirContent\"*\n\nReturnCode\022\016\n\n" +
+      "RC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016org.es.net" +
+      "workB\016ExchangeProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
