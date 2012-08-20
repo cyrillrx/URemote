@@ -160,7 +160,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 		final String defaultMAcAddress	= getString(R.string.pref_default_mac_address);
 		final String macAddress = pref.getString(keyMAcAddress, defaultMAcAddress);
 
-		new WakeOnLan(mParent.getHandler()).execute(host, macAddress);
+		new WakeOnLan(ServerControl.getHandler()).execute(host, macAddress);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -174,7 +174,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
 		if (AdminMessageMgr.availablePermits() > 0) {
-			new AdminMessageMgr(mParent.getHandler()).execute(_code, _param);
+			new AdminMessageMgr(ServerControl.getHandler()).execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}

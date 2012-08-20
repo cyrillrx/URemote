@@ -145,7 +145,7 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	 */
 	public void sendAsyncMessage(String _code, String _param) {
 		if (DashboardMessageMgr.availablePermits() > 0) {
-			new DashboardMessageMgr(mParent.getHandler()).execute(_code, _param);
+			new DashboardMessageMgr(ServerControl.getHandler()).execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}

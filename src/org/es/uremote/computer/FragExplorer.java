@@ -42,12 +42,10 @@ public class FragExplorer extends ListFragment {
 	private TextView mTvPath;
 	private String mDirectoryPath;
 	private String mDirectoryContent;
-	private ServerControl mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ServerControl) getActivity();
 	}
 
 	@Override
@@ -170,7 +168,7 @@ public class FragExplorer extends ListFragment {
 	 */
 	private void sendAsyncMessage(String _code, String _param) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
-			new ExplorerMessageMgr(mParent.getHandler()).execute(_code, _param);
+			new ExplorerMessageMgr(ServerControl.getHandler()).execute(_code, _param);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
