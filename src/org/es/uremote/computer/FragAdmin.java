@@ -10,7 +10,7 @@ import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import org.es.uremote.R;
-import org.es.uremote.ViewPagerDashboard;
+import org.es.uremote.ServerControl;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.utils.Constants;
@@ -45,12 +45,12 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	// Liste des RequestCodes pour les ActivityForResults
 	private static final int RC_APP_LAUNCHER	= 0;
 
-	private ViewPagerDashboard mParent;
+	private ServerControl mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ViewPagerDashboard) getActivity();
+		mParent = (ServerControl) getActivity();
 	}
 
 	/**

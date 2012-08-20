@@ -47,7 +47,7 @@ import android.widget.Toast;
  * @author Cyril Leroux
  *
  */
-public class ViewPagerDashboard extends FragmentActivity implements OnPageChangeListener {
+public class ServerControl extends FragmentActivity implements OnPageChangeListener {
 
 	private static final int PAGES_COUNT = 3;
 	private int mCurrentPage = 0;
@@ -58,7 +58,7 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 	private static Handler sHandler;
 
 	/** @return the handler used to display the toast messages. */
-	public Handler getHandler() {
+	public static Handler getHandler() {
 		return sHandler;
 	}
 
@@ -67,7 +67,7 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		super.onCreate(_savedInstanceState);
 		setContentView(R.layout.activity_server);
 
-		initHandler();
+		initHandler(getApplicationContext());
 		initServer();
 
 		// Instanciation de l'ActionBar
@@ -81,7 +81,7 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 		// Création des fragments à utiliser dans chacun des onglets
 		FragAdmin fragAdmin				= new FragAdmin();
 		FragDashboard fragDashboard		= new FragDashboard();
-		FragExplorer fragExplorer	= new FragExplorer();
+		FragExplorer fragExplorer		= new FragExplorer();
 		FragKeyboard fragKeyboard		= new FragKeyboard();
 		fragments.add(fragAdmin);
 		fragments.add(fragDashboard);
@@ -190,14 +190,14 @@ public class ViewPagerDashboard extends FragmentActivity implements OnPageChange
 	 * Initialisation de l'handler gérant l'envoi des messages Toast.
 	 * @param _activity L'activité associée au fragment
 	 */
-	private void initHandler() {
+	private static void initHandler(final Context _ctx) {
 		if (sHandler == null) {
 			sHandler = new Handler() {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 					case MESSAGE_WHAT_TOAST:
-						Toast.makeText(getApplicationContext(), (String)_msg.obj, Toast.LENGTH_SHORT).show();
+						Toast.makeText(_ctx, (String)_msg.obj, Toast.LENGTH_SHORT).show();
 						break;
 					default : break;
 					}

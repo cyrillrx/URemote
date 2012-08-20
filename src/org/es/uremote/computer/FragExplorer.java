@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.es.uremote.R;
-import org.es.uremote.ViewPagerDashboard;
+import org.es.uremote.ServerControl;
 import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.FileManagerEntity;
@@ -42,12 +42,12 @@ public class FragExplorer extends ListFragment {
 	private TextView mTvPath;
 	private String mDirectoryPath;
 	private String mDirectoryContent;
-	private ViewPagerDashboard mParent;
+	private ServerControl mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ViewPagerDashboard) getActivity();
+		mParent = (ServerControl) getActivity();
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import org.es.uremote.R;
-import org.es.uremote.ViewPagerDashboard;
+import org.es.uremote.ServerControl;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.ServerMessage;
@@ -41,12 +41,12 @@ public class FragDashboard extends Fragment implements OnClickListener {
 	private static final int STATE_CONNECTING	= 2;
 	private ImageButton mCmdMute;
 
-	private ViewPagerDashboard mParent;
+	private ServerControl mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ViewPagerDashboard) getActivity();
+		mParent = (ServerControl) getActivity();
 	}
 
 	/**

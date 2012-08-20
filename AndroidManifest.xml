@@ -28,7 +28,7 @@
             android:name=".AppSettings"
             android:label="@string/title_preferences" />
         <activity
-            android:name=".ViewPagerDashboard"
+            android:name=".ServerControl"
             android:label="@string/title_server_dashboard" />
         <activity
             android:name=".computer.ServerTabPager"

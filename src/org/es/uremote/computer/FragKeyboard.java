@@ -6,7 +6,7 @@ import static org.es.uremote.utils.ServerMessage.CODE_COMBO;
 import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
 
 import org.es.uremote.R;
-import org.es.uremote.ViewPagerDashboard;
+import org.es.uremote.ServerControl;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.ServerMessage;
@@ -31,12 +31,12 @@ import android.widget.Toast;
  */
 public class FragKeyboard extends Fragment implements OnClickListener {
 
-	private ViewPagerDashboard mParent;
+	private ServerControl mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ViewPagerDashboard) getActivity();
+		mParent = (ServerControl) getActivity();
 	}
 
 	/**
