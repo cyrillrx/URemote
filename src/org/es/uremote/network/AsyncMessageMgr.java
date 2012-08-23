@@ -2,7 +2,6 @@ package org.es.uremote.network;
 
 import static org.es.uremote.BuildConfig.DEBUG;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +11,9 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.ExchangeProtos.Response.ReturnCode;
 import org.es.uremote.utils.ServerMessage;
 
 import android.os.AsyncTask;
@@ -20,10 +22,12 @@ import android.os.Message;
 import android.util.Log;
 
 /**
- * Classe asynchrone de gestion d'envoi de command avec paramètres au serveur.
+ * Class that handle asynchronous messages to send to the server.
+ * 
  * @author Cyril Leroux
+ * 
  */
-public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
+public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2);
 	private static final String TAG = "AsyncMessageMgr";
 
@@ -31,9 +35,6 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	private static int sPort;
 	private static int sTimeout;
 
-	protected String mReturnCode;
-	protected String mCommand;
-	protected String mParam;
 	protected Handler mHandler;
 	private Socket mSocket;
 
@@ -45,14 +46,8 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		mHandler = _handler;
 	}
 
-	/**
-	 * Cette fonction est exécutée avant l'appel à {@link #doInBackground(String...)}.<br />
-	 * Elle retient un sémaphore qui sera libéré dans la fonction {@link #onPostExecute(String)}.<br />
-	 * Exécutée dans le thread principal.
-	 */
 	@Override
 	protected void onPreExecute() {
-		mReturnCode = ServerMessage.RC_SUCCES;
 		try {
 			sSemaphore.acquire();
 		} catch (InterruptedException e) {
@@ -65,46 +60,41 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 		}
 	}
 
-	/**
-	 * Cette fonction est exécutée sur un thread différent du thread principal
-	 * @param _params le tableau de string contenant les paramètres (commande et paramètre de la commande).
-	 * @return La réponse du serveur.
-	 */
 	@Override
-	protected String doInBackground(String... _params) {
-		String serverReply = "";
+	protected Response doInBackground(Request... _requests) {
 
-		mCommand	= _params[0];
-		mParam 		= (_params.length > 1) ? _params[1] : "";
-		final String message	= mCommand + "|" + mParam;
+		final Request request = _requests[0];
+		String errorMessage = "";
 
 		mSocket = null;
 		try {
-			// Création du socket
+			// Socket creation
 			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout);
 			if (mSocket != null && mSocket.isConnected()) {
-				serverReply = sendAsyncMessage(mSocket, message);
+				return sendAndReceive(mSocket, request);
 			}
+			errorMessage = "Socket null or not connected";
 
 		} catch (IOException e) {
-			mReturnCode = ServerMessage.RC_ERROR;
-			serverReply = "IOException" + e.getMessage();
+			errorMessage = "IOException" + e.getMessage();
 			if (DEBUG) {
-				Log.e(TAG, serverReply);
+				Log.e(TAG, errorMessage);
 			}
 
 		} catch (Exception e) {
-			mCommand = ServerMessage.RC_ERROR;
-			serverReply = "IOException" + e.getMessage();
+			errorMessage = "Exception" + e.getMessage();
 			if (DEBUG) {
-				Log.e(TAG, serverReply);
+				Log.e(TAG, errorMessage);
 			}
 
 		} finally {
 			closeSocketIO();
 		}
 
-		return serverReply;
+		return Response.newBuilder()
+		.setReturnCode(ReturnCode.RC_ERROR)
+		.setMessage(errorMessage)
+		.build();
 	}
 
 	/**
@@ -113,19 +103,17 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	 * @param _serverReply La réponse du serveur renvoyée par la fonction {@link #doInBackground(String...)}.
 	 */
 	@Override
-	protected void onPostExecute(String _serverReply) {
+	protected void onPostExecute(Response _response) {
 		if (DEBUG) {
-			Log.i(TAG, "Got a reply : " + _serverReply);
-			Log.i(TAG, "mCommand  : " + mCommand);
-			Log.i(TAG, "mParam  : " + mParam);
+			Log.i(TAG, "Got a reply : " + _response.toString());
 		}
 		sSemaphore.release();
 		if (DEBUG) {
 			Log.i(TAG, "Semaphore release");
 		}
 
-		if (mCommand.equals(CODE_VOLUME)) {
-			showToast(_serverReply);
+		if (Request..equals(CODE_VOLUME)) {
+			showToast(_response.getMessage());
 		}
 	}
 
@@ -136,23 +124,31 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	}
 
 	/**
-	 * Envoi d'un message Toast sur le thread de l'UI.
-	 * @param _message Le message à afficher.
+	 * Send a toast message on the UI thread.
+	 * @param _toastMessage The message to display.
 	 */
-	protected void showToast(String _message) {
+	protected void showToast(String _toastMessage) {
+		if (mHandler == null) {
+			if (DEBUG) {
+				Log.i(TAG, "showToast() handler is null");
+			}
+			return;
+		}
+
 		Message msg = new Message();
 		msg.what = MESSAGE_WHAT_TOAST;
-		msg.obj = _message;
+		msg.obj = _toastMessage;
 		mHandler.sendMessage(msg);
 	}
 
 	/**
-	 * Fonction de connexion à un socket disant.
-	 * @param _host L'adresse ip de l'hôte auquel est lié le socket.
-	 * @param _port Le numéro de port de l'hôte auquel est lié le socket.
-	 * @param _timeout Timeout of the messages send through the socket.
-	 * @return true si la connexion s'est effectuée correctement, false dans les autres cas.
-	 * @throws IOException excteption
+	 * Creates the socket, connects it to the server then returns it.
+	 * 
+	 * @param _host The remote server IP address.
+	 * @param _port The port on which we want to establish a connection with the remote server.
+	 * @param _timeout The timeout of the connection with the server (in milliseconds).
+	 * @return The socket on which to send the message.
+	 * @throws IOException exception
 	 */
 	private Socket connectToRemoteSocket(String _host, int _port, int _timeout) throws IOException {
 
@@ -164,26 +160,27 @@ public class AsyncMessageMgr extends AsyncTask<String, int[], String> {
 	}
 
 	/**
-	 * Cette fonction est appelée depuis le thread principal
-	 * Elle permet l'envoi d'une commande et d'un paramètre
-	 * @param _socket Le socket sur lequel on envoie le message.
-	 * @param _message Le message à transmettre
-	 * @return La réponse du serveur.
+	 * Called from the UI Thread.
+	 * Send a message through a Socket to a server and get the reply.
+	 * 
+	 * @param _socket The socket on which to send the message.
+	 * @param _req Client request.
+	 * @return The server reply.
 	 * @throws IOException exception.
 	 */
-	private String sendAsyncMessage(Socket _socket, String _message) throws IOException {
+	private Response sendAndReceive(Socket _socket, Request _req) throws IOException {
 		if (DEBUG) {
-			Log.i(TAG, "sendMessage: " + _message);
+			Log.i(TAG, "sendMessage: " + _req.toString());
 		}
-		String serverReply = "";
-
-		if (mSocket.isConnected()) {
-			_socket.getOutputStream().write(_message.getBytes());
+		Response reply = null;
+		if (_socket.isConnected()) {
+			_socket.getOutputStream().write(_req.toByteArray());
 			_socket.getOutputStream().flush();
 			_socket.shutdownOutput();
-			serverReply = getServerReply(_socket);
+
+			reply = Response.parseFrom(_socket.getInputStream());
 		}
-		return serverReply;
+		return reply;
 	}
 
 	/**
