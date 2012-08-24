@@ -8,9 +8,9 @@ import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
 import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
+import org.es.network.AsyncMessageMgr;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.ServerMessage;
 

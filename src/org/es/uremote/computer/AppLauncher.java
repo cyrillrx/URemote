@@ -1,8 +1,6 @@
 package org.es.uremote.computer;
 
 import static org.es.uremote.utils.IntentKeys.APPLICATION_MESSAGE;
-import static org.es.uremote.utils.ServerMessage.APP_GOM_PLAYER;
-import static org.es.uremote.utils.ServerMessage.KILL_GOM_PLAYER;
 
 import org.es.uremote.R;
 
@@ -21,7 +19,6 @@ import android.widget.ImageButton;
  */
 public class AppLauncher extends Activity implements OnClickListener {
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,7 +37,7 @@ public class AppLauncher extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.btnAppGomPlayer:
-			returnAppMessage(APP_GOM_PLAYER);
+			returnAppMessage(org.es.network.ExchangeProtos.Request.Code.CodeAPP_GOM_PLAYER);
 			break;
 
 		case R.id.btnKillGomPlayer:

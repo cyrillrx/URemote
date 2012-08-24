@@ -5,10 +5,10 @@ import static org.es.uremote.BuildConfig.DEBUG;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.es.network.AsyncMessageMgr;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.FileManagerEntity;
 import org.es.uremote.utils.ServerMessage;
 

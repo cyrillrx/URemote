@@ -5,9 +5,9 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static org.es.uremote.utils.ServerMessage.CODE_COMBO;
 import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
 
+import org.es.network.AsyncMessageMgr;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.ServerMessage;
 

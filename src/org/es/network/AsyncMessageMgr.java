@@ -1,4 +1,4 @@
-package org.es.uremote.network;
+package org.es.network;
 
 import static org.es.uremote.BuildConfig.DEBUG;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
@@ -14,7 +14,6 @@ import java.util.concurrent.Semaphore;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
-import org.es.uremote.utils.ServerMessage;
 
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -112,7 +111,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			Log.i(TAG, "Semaphore release");
 		}
 
-		if (Request..equals(CODE_VOLUME)) {
+		if (Request.Type.VOLUME.equals(_response.getRequest().getType())) {
 			showToast(_response.getMessage());
 		}
 	}
