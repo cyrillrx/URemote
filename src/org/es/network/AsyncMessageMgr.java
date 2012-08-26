@@ -1,17 +1,18 @@
 package org.es.network;
 
+import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.uremote.BuildConfig.DEBUG;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
 import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
 
@@ -96,6 +97,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		.build();
 	}
 
+	// TODO fr to en
 	/**
 	 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)}
 	 * Exécutée dans le thread principal.
@@ -112,7 +114,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			Log.i(TAG, "Semaphore release");
 		}
 
-		if (Request.Type.VOLUME.equals(_response.getRequest().getType())) {
+		if (VOLUME.equals(_response.getRequest().getType())) {
 			showToast(_response.getMessage());
 		}
 	}
@@ -184,28 +186,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
-	 * @param _socket Le socket auquel le message a été envoyé.
-	 * @return La réponse du serveur.
-	 * @throws IOException exeption
-	 */
-	private String getServerReply(Socket _socket) throws IOException {
-		final int BUFSIZ = 512;
-
-		final BufferedReader bufferReader = new BufferedReader(new InputStreamReader(_socket.getInputStream()), BUFSIZ);
-		String line = "", reply = "";
-		while ((line = bufferReader.readLine()) != null) {
-			reply += line;
-		}
-
-		if (DEBUG) {
-			Log.i(TAG, "Got a reply : " + reply);
-		}
-
-		return reply;
-	}
-
-	/**
-	 * Ferme les entrées/sortie du socket puis ferme le socket.
+	 * Close socket IO then close the socket.
 	 */
 	private void closeSocketIO() {
 		if (mSocket == null) {
@@ -221,26 +202,30 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		try { mSocket.close(); } catch(IOException e) {}
 	}
 
-	/** @return The count of available permits. */
+	/**
+	 * @return The count of available permits.
+	 */
 	public static int availablePermits() {
 		return sSemaphore.availablePermits();
 	}
 
-	/** @return Concatenation of host and port of the remote server. */
+	/**
+	 * @return Concatenation of host and port of the remote server.
+	 */
 	public static String getServerInfos() {
 		return sHost + ":" + sPort;
 	}
 
 	/**
-	 * Set the ip address of the remote server.
-	 * @param _host the ip address of the remote server.
+	 * Set the IP address of the remote server.
+	 * @param _host the IP address of the remote server.
 	 */
 	public static void setHost(String _host) {
 		sHost = _host;
 	}
 
 	/**
-	 * Set the port on which we want to establish a connexion with the remote server.
+	 * Set the port on which we want to establish a connection with the remote server.
 	 * @param _port the port value.
 	 */
 	public static void setPort(int _port) {
@@ -248,11 +233,40 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
-	 * Define the timeout of the connexion with the server.
-	 * @param _timeout The timeout in millisecondes.
+	 * Define the timeout of the connection with the server.
+	 * @param _timeout The timeout in milliseconds.
 	 */
 	public static void setTimeout(int _timeout) {
 		sTimeout = _timeout;
 	}
 
+	/**
+	 * Build a request.
+	 * @param _type The request type.
+	 * @param _code The request code.
+	 * @param _stringParam A string parameter.
+	 * @return The request if it had been initialized. Return null otherwise.
+	 */
+	public static Request buildRequest(Type _type, Code _code, String _stringParam) {
+		Request request = Request.newBuilder()
+		.setType(_type)
+		.setCode(_code)
+		.setStringParam(_stringParam)
+		.build();
+
+		if (request.isInitialized()) {
+			return request;
+		}
+		return null;
+	}
+
+	/**
+	 * Build a request.
+	 * @param _type The request type.
+	 * @param _code The request code.
+	 * @return The request if it had been initialized. Return null otherwise.
+	 */
+	public static Request buildRequest(Type _type, Code _code) {
+		return buildRequest(_type, _code, "");
+	}
 }

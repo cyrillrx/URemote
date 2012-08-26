@@ -1,8 +1,10 @@
 package org.es.uremote.computer;
 
-import static org.es.uremote.utils.IntentKeys.APPLICATION_MESSAGE;
+import static org.es.uremote.utils.IntentKeys.REQUEST_CODE;
+import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
 
-import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
 import org.es.uremote.R;
 
 import android.app.Activity;
@@ -26,8 +28,6 @@ public class AppLauncher extends Activity implements OnClickListener {
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 		setContentView(R.layout.server_app_launcher);
 
-		//requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		// Click listener for all buttons
 		((ImageButton) findViewById(R.id.btnAppGomPlayer)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnKillGomPlayer)).setOnClickListener(this);
@@ -38,11 +38,11 @@ public class AppLauncher extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.btnAppGomPlayer:
-			returnAppMessage(Request.Code.GOM_PLAYER_RUN.name());
+			returnAppMessage(Type.APP, Code.GOM_PLAYER_RUN);
 			break;
 
 		case R.id.btnKillGomPlayer:
-			returnAppMessage(Request.Code.GOM_PLAYER_KILL.name());
+			returnAppMessage(Type.APP, Code.GOM_PLAYER_KILL);
 			break;
 
 		default:
@@ -56,13 +56,12 @@ public class AppLauncher extends Activity implements OnClickListener {
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 	}
 
-	private void returnAppMessage(String _appMessage) {
+	private void returnAppMessage(Type _type, Code _code) {
 		Intent data = new Intent();
-		data.putExtra(APPLICATION_MESSAGE, _appMessage);
+		data.putExtra(REQUEST_TYPE, _type.ordinal());
+		data.putExtra(REQUEST_CODE, _code.ordinal());
 		setResult(RESULT_OK, data);
 		finish();
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 	}
-
-
 }

@@ -1,28 +1,23 @@
 package org.es.uremote.computer;
 
 
-import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.utils.ServerMessage.CODE_AI;
-import static org.es.uremote.utils.ServerMessage.CODE_APP;
-import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
-import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
-import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
-import org.es.network.ExchangeProtos.Response.ReturnCode;
+import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.utils.Constants;
-import org.es.uremote.utils.IntentKeys;
-import org.es.uremote.utils.ServerMessage;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -37,15 +32,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 /**
- * @author Cyril Leroux
+ * Class to connect and send commands to a remote server through AsyncTask.
  * 
- * Classe permettant de se connecter et d'envoyer des commandes à un serveur distant via une AsyncTask.
+ * @author Cyril Leroux
  *
  */
-public class FragAdmin extends Fragment implements OnClickListener {
-
-	// Liste des RequestCodes pour les ActivityForResults
-	private static final int RC_APP_LAUNCHER	= 0;
+public class FragAdmin extends Fragment implements OnClickListener, IRequestSender {
 
 	private ServerControl mParent;
 
@@ -56,7 +48,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Cette fonction est appelée lors de la création de l'activité
+	 * Called when the application is created.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,9 +68,6 @@ public class FragAdmin extends Fragment implements OnClickListener {
 		super.onStart();
 	}
 
-	/**
-	 * Prise en comptes des événements onClick
-	 */
 	@Override
 	public void onClick(View _view) {
 		_view.performHapticFeedback(VIRTUAL_KEY);
@@ -88,60 +77,21 @@ public class FragAdmin extends Fragment implements OnClickListener {
 		case R.id.cmdWakeOnLan :
 			wakeOnLan();
 			break;
+
 		case R.id.cmdShutdown :
-			confirmCommand(CODE_CLASSIC, ServerMessage.SHUTDOWN);
-			break;
-		case R.id.cmdAiMute :
-			sendAsyncMessage(CODE_AI, ServerMessage.AI_MUTE);
-			break;
-		case R.id.cmdKillServer :
-			confirmCommand(CODE_CLASSIC, ServerMessage.KILL_SERVER);
-			break;
-		case R.id.cmdTest :
-			sendAsyncMessage(CODE_CLASSIC, ServerMessage.TEST_COMMAND);
-			break;
-		case R.id.cmdSwitch :
-			sendAsyncMessage(CODE_CLASSIC, ServerMessage.MONITOR_SWITCH_WINDOW);
-			break;
-		case R.id.btnAppLauncher :
-			startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
-			break;
-		case R.id.cmdGomStretch :
-			sendAsyncMessage(CODE_APP, ServerMessage.GOM_PLAYER_STRETCH);
+			confirmRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.SHUTDOWN));
 			break;
 
-		case R.id.cmdPrevious :
-			sendAsyncMessage(CODE_MEDIA, ServerMessage.MEDIA_PREVIOUS);
+		case R.id.cmdAiMute :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.AI, Code.MUTE));
 			break;
-		case R.id.cmdPlayPause :
-			sendAsyncMessage(CODE_MEDIA, ServerMessage.MEDIA_PLAY_PAUSE);
+
+		case R.id.cmdKillServer :
+			confirmRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.KILL_SERVER));
 			break;
-		case R.id.cmdStop :
-			sendAsyncMessage(CODE_MEDIA, ServerMessage.MEDIA_STOP);
-			break;
-		case R.id.cmdNext :
-			sendAsyncMessage(CODE_MEDIA, ServerMessage.MEDIA_NEXT);
-			break;
-		case R.id.cmdMute :
-			sendAsyncMessage(CODE_VOLUME, ServerMessage.VOLUME_MUTE);
-			break;
+
 		default:
 			break;
-		}
-	}
-
-	/**
-	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
-	 * 
-	 * @param _requestCode Code d'identification de l'activité appelée.
-	 * @param _resultCode Code de retour de l'activité (RESULT_OK/RESULT_CANCEL).
-	 * @param _data Les données renvoyées par l'application.
-	 */
-	@Override
-	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {	// Résultat de l'activité Application Launcher
-		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
-			final String message = _data.getStringExtra(IntentKeys.APPLICATION_MESSAGE);
-			sendAsyncMessage(CODE_APP, message);
 		}
 	}
 
@@ -169,26 +119,26 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
 
-	/**
-	 * This method initialize the message sender manager then send the message.
-	 * @param _code The message code.
-	 * @param _param The message parameter.
-	 */
-	public void sendAsyncMessage(String _code, String _param) {
+	@Override
+	public void sendAsyncRequest(Request _request) {
+		if (_request == null) {
+			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_null_request, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		if (AdminMessageMgr.availablePermits() > 0) {
-			new AdminMessageMgr(ServerControl.getHandler()).execute(_code, _param);
+			new AdminMessageMgr(ServerControl.getHandler()).execute(_request);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	/**
-	 * Ask for the user to confirm before executing a given command.
-	 * @param _code Le code du message.
-	 * @param _param Le paramètre du message.
+	 * Ask for the user to confirm before sending a request to the server.
+	 * @param _request The request to send.
 	 */
-	public void confirmCommand(final String _code, final String _param) {
-		int resId = (_param.equals(ServerMessage.KILL_SERVER)) ? R.string.confirm_kill_server : R.string.confirm_command;
+	public void confirmRequest(final Request _request) {
+		int resId = (Request.Code.KILL_SERVER.equals(_request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
@@ -196,8 +146,8 @@ public class FragAdmin extends Fragment implements OnClickListener {
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				// Envoi du message si l'utilisateur confirme
-				sendAsyncMessage(_code, _param);
+				// Send the request if the user confirms it
+				sendAsyncRequest(_request);
 			}
 		});
 
@@ -206,8 +156,8 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Class that handle asynchronous messages to send to the server.
-	 * Spelcialize for Admin.
+	 * Class that handle asynchronous requests sent to a remote server.
+	 * Specialize for Admin commands.
 	 * @author Cyril Leroux
 	 * 
 	 */
@@ -232,7 +182,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
 			showToast(_response.toString());
 
-			if (ReturnCode.RC_ERROR.equals(mReturnCode)) {
+			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(Constants.STATE_KO);
 			} else {
 				mParent.updateConnectionState(Constants.STATE_OK);

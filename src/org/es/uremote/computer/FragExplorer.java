@@ -1,16 +1,19 @@
 package org.es.uremote.computer;
 
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.BuildConfig.DEBUG;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.es.network.AsyncMessageMgr;
+import org.es.network.ExchangeProtos.DirContent;
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.objects.FileManagerEntity;
-import org.es.uremote.utils.ServerMessage;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,16 +35,17 @@ import android.widget.Toast;
  *
  * @author Cyril Leroux
  */
-public class FragExplorer extends ListFragment {
+public class FragExplorer extends ListFragment implements IRequestSender  {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
-	private static final String DEFAULT_PATH = "L:\\Series";
-	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
+	//	private static final String DEFAULT_PATH = "L:\\Series";
+	//	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 
 	private TextView mTvPath;
-	private String mDirectoryPath;
-	private String mDirectoryContent;
+	private final DirContent mDirectoryContent = null;
+	//	private String mDirectoryPath;
+	//	private String mDirectoryContent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -52,10 +56,10 @@ public class FragExplorer extends ListFragment {
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
 
-		if (mDirectoryPath == null || mDirectoryContent == null) {
-			mDirectoryPath		= DEFAULT_PATH;
-			mDirectoryContent	= DEFAULT_CONTENT;
-		}
+		//		if (mDirectoryPath == null || mDirectoryContent == null) {
+		//			mDirectoryPath		= DEFAULT_PATH;
+		//			mDirectoryContent	= DEFAULT_CONTENT;
+		//		}
 	}
 
 	@Override
@@ -71,89 +75,92 @@ public class FragExplorer extends ListFragment {
 		super.onStart();
 	}
 
+	//	// TODO fr to en
+	//	/**
+	//	 * Transforme le message séréalisé en liste de fichiers pour l'arborescence
+	//	 * @param dirInfo Les informations sur le dossier séréalirées
+	//	 * @return La liste des FileManagerEntity prêts à être affichés
+	//	 */
+	//	private List<FileManagerEntity> directoryInfoToList(String dirInfo) {
+	//		if (dirInfo == null || dirInfo.isEmpty()) {
+	//			return null;
+	//		}
+	//
+	//		final List<FileManagerEntity> fileList = new ArrayList<FileManagerEntity>();
+	//		String[] filesInfo = dirInfo.split("[|]");
+	//		for (String fileInfo : filesInfo) {
+	//			fileList.add(new FileManagerEntity(mDirectoryPath, fileInfo));
+	//		}
+	//		return fileList;
+	//	}
+
 	/**
-	 * Transforme le message séréalisé en liste de fichiers pour l'arborescence
-	 * @param dirInfo Les informations sur le dossier séréalirées
-	 * @return La liste des FileManagerEntity prêts à être affichés
+	 * Update the view with the content of the new directory
+	 * @param _dirContent The object that hosts the directory content.
 	 */
-	private List<FileManagerEntity> directoryInfoToList(String dirInfo) {
-		if (dirInfo == null || dirInfo.isEmpty()) {
-			return null;
+	private void updateView(final DirContent _dirContent){
+		if (_dirContent == null) {
+			return;
 		}
-
-		final List<FileManagerEntity> fileList = new ArrayList<FileManagerEntity>();
-		String[] filesInfo = dirInfo.split("[|]");
-		for (String fileInfo : filesInfo) {
-			fileList.add(new FileManagerEntity(mDirectoryPath, fileInfo));
-		}
-		return fileList;
-	}
-
-	/**
-	 * Fonction permettant de mettre à jour de la vue
-	 * @param infos Les éléments constitutifs du dossier à afficher (données séréalisées)
-	 */
-	private void updateView(String infos){
-		final List<FileManagerEntity> fileList = directoryInfoToList(infos);
-
-		if (fileList.size() == 0) {
+		if (_dirContent.getFileCount() == 0) {
 			if (DEBUG) {
-				Log.e(TAG, "fileList is null");
+				Log.e(TAG, "file count == 0");
 			}
 			return;
 		}
 
-		FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), fileList);
+		FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), _dirContent);
 		setListAdapter(adpt);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
-				if (fileList.get(_position).isDirectory()) {
-					getDirectoryContent(fileList.get(_position).getFullPath());
+				DirContent.File file = _dirContent.getFile(_position);
+				if (DIRECTORY.equals(_dirContent.getFile(_position).getType())) {
+					getDirectoryContent(_dirContent.getPath());
 
 				} else {
-					// Ouvrir le fichier avec le programme par défaut
-					openFile(fileList.get(_position).getFullPath());
+					// Open the file with the default program.
+					final String fullPath = _dirContent.getPath() + file.getName();
+					openFile(fullPath);
 
 				}
 			}
 		});
 
-		int pathLength = mDirectoryPath.length();
-		// On n'affiche que les derniers caractères
-		//TODO Gérer l'orientation
+		// If path is to big, just show the last characters.
+		int pathLength = mDirectoryContent.getPath().length();
 		int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
-
 		int maxPath = (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) ? MAX_PATH_PORTRAIT : MAX_PATH_LANDSCAPE;
-		String path = (pathLength > maxPath) ? "..." + mDirectoryPath.substring(pathLength - maxPath + 3, pathLength) : mDirectoryPath;
+		String path = (pathLength > maxPath) ? "..." + mDirectoryContent.getPath().substring(pathLength - maxPath + 3, pathLength) : mDirectoryContent.getPath();
 		mTvPath.setText(path);
 	}
 
 	/**
-	 * Demande au serveur de lister le contenu du répertoire.
-	 * Lance l'activité une fois les données récupérée.
-	 * @param _dirPath Le chemin du répertoire à afficher.
+	 * Ask the server to list the content of a directory.
+	 * Launches the activity once the data have been received.
+	 * @param _dirPath The path of the directory to display.
 	 */
 	private void getDirectoryContent(String _dirPath) {
-		sendAsyncMessage(ServerMessage.OPEN_DIR, _dirPath);
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST));
 	}
 
-	/**
-	 * Mise à jour de la vue avec les nouveaux fichiers
-	 * @param _dirPath Le chemin du répertoire courant.
-	 * @param _dirContent Le contenu du répertoire courant.
-	 */
-	private void updateDirectory(String _dirPath, String _dirContent) {
-		// Afficher le contenu du répertoire
-		mDirectoryPath = _dirPath;
-		mDirectoryContent = _dirContent;
-		updateView(mDirectoryContent);
-	}
+	//	// TODO fr to en
+	//	/**
+	//	 * Update the view with the new content.
+	//	 * @param _dirPath The path to the current directoriLe chemin du répertoire courant.
+	//	 * @param _dirContent The object that hosts the directory content.
+	//	 */
+	//	private void updateDirectory(String _dirPath, String _dirContent) {
+	//		// Afficher le contenu du répertoire
+	//		//		mDirectoryPath = _dirPath;
+	//		//		mDirectoryContent = _dirContent;
+	//		updateView(mDirectoryContent);
+	//	}
 
 	private void openFile(String _filename) {
-		sendAsyncMessage(ServerMessage.OPEN_FILE, _filename);
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE));
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -161,21 +168,20 @@ public class FragExplorer extends ListFragment {
 	////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages
-	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message.
-	 * @param _param Le paramètre du message.
+	 * Initializes the message handler then send the request.
+	 * @param _request The request to send.
 	 */
-	private void sendAsyncMessage(String _code, String _param) {
+	@Override
+	public void sendAsyncRequest(Request _request) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
-			new ExplorerMessageMgr(ServerControl.getHandler()).execute(_code, _param);
+			new ExplorerMessageMgr(ServerControl.getHandler()).execute(_request);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	/**
-	 * Classe asynchrone de gestion d'envoi des messages au serveur
+	 * Class that handle asynchronous requests sent to a remote server.
 	 * @author Cyril Leroux
 	 */
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
@@ -185,13 +191,14 @@ public class FragExplorer extends ListFragment {
 		}
 
 		@Override
-		protected void onPostExecute(String _serverReply) {
-			super.onPostExecute(_serverReply);
+		protected void onPostExecute(Response _response) {
+			super.onPostExecute(_response);
 
-			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
-				showToast(_serverReply);
-			} else if (ServerMessage.OPEN_DIR.equals(mCommand)) {
-				updateDirectory(mParam, _serverReply);
+			if (RC_ERROR.equals(_response.getReturnCode())) {
+				showToast(_response.getMessage());
+
+			} else if (Code.GET_FILE_LIST.equals(_response.getRequest().getCode())) {
+				updateView(_response.getDirContent());
 			}
 		}
 	}

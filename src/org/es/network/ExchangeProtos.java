@@ -19,13 +19,13 @@ public final class ExchangeProtos {
     boolean hasCode();
     org.es.network.ExchangeProtos.Request.Code getCode();
     
-    // optional int32 integer = 3;
-    boolean hasInteger();
-    int getInteger();
+    // optional int32 intParam = 3;
+    boolean hasIntParam();
+    int getIntParam();
     
-    // optional string text = 4;
-    boolean hasText();
-    String getText();
+    // optional string stringParam = 4;
+    boolean hasStringParam();
+    String getStringParam();
   }
   public static final class Request extends
       com.google.protobuf.GeneratedMessage
@@ -310,24 +310,24 @@ public final class ExchangeProtos {
       return code_;
     }
     
-    // optional int32 integer = 3;
-    public static final int INTEGER_FIELD_NUMBER = 3;
-    private int integer_;
-    public boolean hasInteger() {
+    // optional int32 intParam = 3;
+    public static final int INTPARAM_FIELD_NUMBER = 3;
+    private int intParam_;
+    public boolean hasIntParam() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
-    public int getInteger() {
-      return integer_;
+    public int getIntParam() {
+      return intParam_;
     }
     
-    // optional string text = 4;
-    public static final int TEXT_FIELD_NUMBER = 4;
-    private java.lang.Object text_;
-    public boolean hasText() {
+    // optional string stringParam = 4;
+    public static final int STRINGPARAM_FIELD_NUMBER = 4;
+    private java.lang.Object stringParam_;
+    public boolean hasStringParam() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public String getText() {
-      java.lang.Object ref = text_;
+    public String getStringParam() {
+      java.lang.Object ref = stringParam_;
       if (ref instanceof String) {
         return (String) ref;
       } else {
@@ -335,17 +335,17 @@ public final class ExchangeProtos {
             (com.google.protobuf.ByteString) ref;
         String s = bs.toStringUtf8();
         if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          text_ = s;
+          stringParam_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getTextBytes() {
-      java.lang.Object ref = text_;
+    private com.google.protobuf.ByteString getStringParamBytes() {
+      java.lang.Object ref = stringParam_;
       if (ref instanceof String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        text_ = b;
+        stringParam_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -355,8 +355,8 @@ public final class ExchangeProtos {
     private void initFields() {
       type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
       code_ = org.es.network.ExchangeProtos.Request.Code.DEFINE;
-      integer_ = 0;
-      text_ = "";
+      intParam_ = 0;
+      stringParam_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -385,10 +385,10 @@ public final class ExchangeProtos {
         output.writeEnum(2, code_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, integer_);
+        output.writeInt32(3, intParam_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getTextBytes());
+        output.writeBytes(4, getStringParamBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -409,11 +409,11 @@ public final class ExchangeProtos {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, integer_);
+          .computeInt32Size(3, intParam_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getTextBytes());
+          .computeBytesSize(4, getStringParamBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -543,9 +543,9 @@ public final class ExchangeProtos {
         bitField0_ = (bitField0_ & ~0x00000001);
         code_ = org.es.network.ExchangeProtos.Request.Code.DEFINE;
         bitField0_ = (bitField0_ & ~0x00000002);
-        integer_ = 0;
+        intParam_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        text_ = "";
+        stringParam_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
@@ -596,11 +596,11 @@ public final class ExchangeProtos {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.integer_ = integer_;
+        result.intParam_ = intParam_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.text_ = text_;
+        result.stringParam_ = stringParam_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -623,11 +623,11 @@ public final class ExchangeProtos {
         if (other.hasCode()) {
           setCode(other.getCode());
         }
-        if (other.hasInteger()) {
-          setInteger(other.getInteger());
+        if (other.hasIntParam()) {
+          setIntParam(other.getIntParam());
         }
-        if (other.hasText()) {
-          setText(other.getText());
+        if (other.hasStringParam()) {
+          setStringParam(other.getStringParam());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -692,12 +692,12 @@ public final class ExchangeProtos {
             }
             case 24: {
               bitField0_ |= 0x00000004;
-              integer_ = input.readInt32();
+              intParam_ = input.readInt32();
               break;
             }
             case 34: {
               bitField0_ |= 0x00000008;
-              text_ = input.readBytes();
+              stringParam_ = input.readBytes();
               break;
             }
           }
@@ -754,60 +754,60 @@ public final class ExchangeProtos {
         return this;
       }
       
-      // optional int32 integer = 3;
-      private int integer_ ;
-      public boolean hasInteger() {
+      // optional int32 intParam = 3;
+      private int intParam_ ;
+      public boolean hasIntParam() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
-      public int getInteger() {
-        return integer_;
+      public int getIntParam() {
+        return intParam_;
       }
-      public Builder setInteger(int value) {
+      public Builder setIntParam(int value) {
         bitField0_ |= 0x00000004;
-        integer_ = value;
+        intParam_ = value;
         onChanged();
         return this;
       }
-      public Builder clearInteger() {
+      public Builder clearIntParam() {
         bitField0_ = (bitField0_ & ~0x00000004);
-        integer_ = 0;
+        intParam_ = 0;
         onChanged();
         return this;
       }
       
-      // optional string text = 4;
-      private java.lang.Object text_ = "";
-      public boolean hasText() {
+      // optional string stringParam = 4;
+      private java.lang.Object stringParam_ = "";
+      public boolean hasStringParam() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public String getText() {
-        java.lang.Object ref = text_;
+      public String getStringParam() {
+        java.lang.Object ref = stringParam_;
         if (!(ref instanceof String)) {
           String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
-          text_ = s;
+          stringParam_ = s;
           return s;
         } else {
           return (String) ref;
         }
       }
-      public Builder setText(String value) {
+      public Builder setStringParam(String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000008;
-        text_ = value;
+        stringParam_ = value;
         onChanged();
         return this;
       }
-      public Builder clearText() {
+      public Builder clearStringParam() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        text_ = getDefaultInstance().getText();
+        stringParam_ = getDefaultInstance().getStringParam();
         onChanged();
         return this;
       }
-      void setText(com.google.protobuf.ByteString value) {
+      void setStringParam(com.google.protobuf.ByteString value) {
         bitField0_ |= 0x00000008;
-        text_ = value;
+        stringParam_ = value;
         onChanged();
       }
       
@@ -2097,9 +2097,9 @@ public final class ExchangeProtos {
     boolean hasMessage();
     String getMessage();
     
-    // optional int32 integer = 4;
-    boolean hasInteger();
-    int getInteger();
+    // optional int32 intValue = 4;
+    boolean hasIntValue();
+    int getIntValue();
     
     // optional .network.DirContent dirContent = 5;
     boolean hasDirContent();
@@ -2259,14 +2259,14 @@ public final class ExchangeProtos {
       }
     }
     
-    // optional int32 integer = 4;
-    public static final int INTEGER_FIELD_NUMBER = 4;
-    private int integer_;
-    public boolean hasInteger() {
+    // optional int32 intValue = 4;
+    public static final int INTVALUE_FIELD_NUMBER = 4;
+    private int intValue_;
+    public boolean hasIntValue() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
-    public int getInteger() {
-      return integer_;
+    public int getIntValue() {
+      return intValue_;
     }
     
     // optional .network.DirContent dirContent = 5;
@@ -2286,7 +2286,7 @@ public final class ExchangeProtos {
       request_ = org.es.network.ExchangeProtos.Request.getDefaultInstance();
       returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
       message_ = "";
-      integer_ = 0;
+      intValue_ = 0;
       dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
@@ -2323,7 +2323,7 @@ public final class ExchangeProtos {
         output.writeBytes(3, getMessageBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, integer_);
+        output.writeInt32(4, intValue_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         output.writeMessage(5, dirContent_);
@@ -2351,7 +2351,7 @@ public final class ExchangeProtos {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, integer_);
+          .computeInt32Size(4, intValue_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
@@ -2493,7 +2493,7 @@ public final class ExchangeProtos {
         bitField0_ = (bitField0_ & ~0x00000002);
         message_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        integer_ = 0;
+        intValue_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
         if (dirContentBuilder_ == null) {
           dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
@@ -2558,7 +2558,7 @@ public final class ExchangeProtos {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.integer_ = integer_;
+        result.intValue_ = intValue_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
@@ -2592,8 +2592,8 @@ public final class ExchangeProtos {
         if (other.hasMessage()) {
           setMessage(other.getMessage());
         }
-        if (other.hasInteger()) {
-          setInteger(other.getInteger());
+        if (other.hasIntValue()) {
+          setIntValue(other.getIntValue());
         }
         if (other.hasDirContent()) {
           mergeDirContent(other.getDirContent());
@@ -2668,7 +2668,7 @@ public final class ExchangeProtos {
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              integer_ = input.readInt32();
+              intValue_ = input.readInt32();
               break;
             }
             case 42: {
@@ -2836,23 +2836,23 @@ public final class ExchangeProtos {
         onChanged();
       }
       
-      // optional int32 integer = 4;
-      private int integer_ ;
-      public boolean hasInteger() {
+      // optional int32 intValue = 4;
+      private int intValue_ ;
+      public boolean hasIntValue() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public int getInteger() {
-        return integer_;
+      public int getIntValue() {
+        return intValue_;
       }
-      public Builder setInteger(int value) {
+      public Builder setIntValue(int value) {
         bitField0_ |= 0x00000008;
-        integer_ = value;
+        intValue_ = value;
         onChanged();
         return this;
       }
-      public Builder clearInteger() {
+      public Builder clearIntValue() {
         bitField0_ = (bitField0_ & ~0x00000008);
-        integer_ = 0;
+        intValue_ = 0;
         onChanged();
         return this;
       }
@@ -2987,35 +2987,35 @@ public final class ExchangeProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025server_exchange.proto\022\007network\"\215\005\n\007Req" +
+      "\n\025server_exchange.proto\022\007network\"\225\005\n\007Req" +
       "uest\022#\n\004type\030\001 \002(\0162\025.network.Request.Typ" +
-      "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022\017" +
-      "\n\007integer\030\003 \001(\005\022\014\n\004text\030\004 \001(\t\"K\n\004Type\022\n\n" +
-      "\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n" +
-      "\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\313\003\n\004Code\022\n\n\006D" +
-      "EFINE\020\000\022\t\n\005HELLO\020\001\022\010\n\004TEST\020\002\022\017\n\013KILL_SER" +
-      "VER\020\003\022\014\n\010SHUTDOWN\020\004\022\021\n\rSWITCH_WINDOW\020\005\022\010" +
-      "\n\004LOCK\020\006\022\006\n\002UP\020\007\022\010\n\004DOWN\020\010\022\010\n\004LEFT\020\t\022\t\n\005" +
-      "RIGHT\020\n\022\010\n\004MUTE\020\013\022\007\n\003SAY\020\014\022\021\n\rGET_FILE_L",
-      "IST\020\024\022\r\n\tOPEN_FILE\020\025\022\024\n\020MEDIA_PLAY_PAUSE" +
-      "\020\036\022\016\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PREVIOUS\020 \022\016" +
-      "\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDIA_RE" +
-      "WIND\020#\022\r\n\tKB_RETURN\020(\022\014\n\010KB_SPACE\020)\022\020\n\014K" +
-      "B_BACKSPACE\020*\022\r\n\tKB_ESCAPE\020+\022\r\n\tKB_ALT_F" +
-      "4\020,\022\022\n\016KB_CTRL_RETURN\020-\022\022\n\016GOM_PLAYER_RU" +
-      "N\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022GOM_PLAYER_S" +
-      "TRETCH\0204\"\274\001\n\nDirContent\022\014\n\004path\030\001 \002(\t\022&\n" +
-      "\004file\030\002 \003(\0132\030.network.DirContent.File\032x\n" +
-      "\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002(\0162!.netw",
-      "ork.DirContent.File.FileType\022\014\n\004size\030\004 \002" +
-      "(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020\000\022\010\n\004FILE\020\001\"" +
-      "\340\001\n\010Response\022!\n\007request\030\001 \001(\0132\020.network." +
-      "Request\022:\n\nreturnCode\030\002 \001(\0162\034.network.Re" +
-      "sponse.ReturnCode:\010RC_ERROR\022\017\n\007message\030\003" +
-      " \001(\t\022\017\n\007integer\030\004 \001(\005\022\'\n\ndirContent\030\005 \001(" +
-      "\0132\023.network.DirContent\"*\n\nReturnCode\022\016\n\n" +
-      "RC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016org.es.net" +
-      "workB\016ExchangeProtos"
+      "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022\020" +
+      "\n\010intParam\030\003 \001(\005\022\023\n\013stringParam\030\004 \001(\t\"K\n" +
+      "\004Type\022\n\n\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBO" +
+      "ARD\020\002\022\006\n\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\313\003\n\004C" +
+      "ode\022\n\n\006DEFINE\020\000\022\t\n\005HELLO\020\001\022\010\n\004TEST\020\002\022\017\n\013" +
+      "KILL_SERVER\020\003\022\014\n\010SHUTDOWN\020\004\022\021\n\rSWITCH_WI" +
+      "NDOW\020\005\022\010\n\004LOCK\020\006\022\006\n\002UP\020\007\022\010\n\004DOWN\020\010\022\010\n\004LE" +
+      "FT\020\t\022\t\n\005RIGHT\020\n\022\010\n\004MUTE\020\013\022\007\n\003SAY\020\014\022\021\n\rGE",
+      "T_FILE_LIST\020\024\022\r\n\tOPEN_FILE\020\025\022\024\n\020MEDIA_PL" +
+      "AY_PAUSE\020\036\022\016\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PREV" +
+      "IOUS\020 \022\016\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014" +
+      "MEDIA_REWIND\020#\022\r\n\tKB_RETURN\020(\022\014\n\010KB_SPAC" +
+      "E\020)\022\020\n\014KB_BACKSPACE\020*\022\r\n\tKB_ESCAPE\020+\022\r\n\t" +
+      "KB_ALT_F4\020,\022\022\n\016KB_CTRL_RETURN\020-\022\022\n\016GOM_P" +
+      "LAYER_RUN\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022GOM_" +
+      "PLAYER_STRETCH\0204\"\274\001\n\nDirContent\022\014\n\004path\030" +
+      "\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.DirContent" +
+      ".File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002(",
+      "\0162!.network.DirContent.File.FileType\022\014\n\004" +
+      "size\030\004 \002(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020\000\022\010\n" +
+      "\004FILE\020\001\"\341\001\n\010Response\022!\n\007request\030\001 \001(\0132\020." +
+      "network.Request\022:\n\nreturnCode\030\002 \001(\0162\034.ne" +
+      "twork.Response.ReturnCode:\010RC_ERROR\022\017\n\007m" +
+      "essage\030\003 \001(\t\022\020\n\010intValue\030\004 \001(\005\022\'\n\ndirCon" +
+      "tent\030\005 \001(\0132\023.network.DirContent\"*\n\nRetur" +
+      "nCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016o" +
+      "rg.es.networkB\016ExchangeProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3027,7 +3027,7 @@ public final class ExchangeProtos {
           internal_static_network_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_Request_descriptor,
-              new java.lang.String[] { "Type", "Code", "Integer", "Text", },
+              new java.lang.String[] { "Type", "Code", "IntParam", "StringParam", },
               org.es.network.ExchangeProtos.Request.class,
               org.es.network.ExchangeProtos.Request.Builder.class);
           internal_static_network_DirContent_descriptor =
@@ -3051,7 +3051,7 @@ public final class ExchangeProtos {
           internal_static_network_Response_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_Response_descriptor,
-              new java.lang.String[] { "Request", "ReturnCode", "Message", "Integer", "DirContent", },
+              new java.lang.String[] { "Request", "ReturnCode", "Message", "IntValue", "DirContent", },
               org.es.network.ExchangeProtos.Response.class,
               org.es.network.ExchangeProtos.Response.Builder.class);
           return null;

@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -48,7 +50,7 @@ import android.widget.Toast;
 public class ServerControl extends FragmentActivity implements OnPageChangeListener {
 
 	private static final String SELECTED_TAB_INDEX = "selectedTabIndex";
-	private static final int PAGES_COUNT = 3;
+	private static final int PAGES_COUNT = 4;
 	private int mCurrentPage = 0;
 
 	private TextView mTvServerState;
@@ -69,19 +71,18 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		initHandler(getApplicationContext());
 		initServer();
 
-		// Instanciation de l'ActionBar
+		// ActionBar configuration
 		ActionBar actionBar = getActionBar();
-		// Utilisation des onglets dans l'ActionBar
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		// L'icone de l'application sert pour le "navigation Up"
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
-		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
-		// Création des fragments à utiliser dans chacun des onglets
+		// Fragment to use in each tab
 		FragAdmin fragAdmin				= new FragAdmin();
 		FragDashboard fragDashboard		= new FragDashboard();
 		FragExplorer fragExplorer		= new FragExplorer();
 		FragKeyboard fragKeyboard		= new FragKeyboard();
+		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
 		fragments.add(fragAdmin);
 		fragments.add(fragDashboard);
 		fragments.add(fragExplorer);
@@ -103,18 +104,14 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
 		} else {
-			Request request = Request.newBuilder()
-			.setType(Request.Type.SIMPLE)
-			.setCode(Request.Code.HELLO)
-			.build();
-			sendAsyncMessage(request);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.HELLO));
 		}
 
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		
+
 		int tabIndex = getActionBar().getSelectedNavigationIndex();
 		outState.putInt(SELECTED_TAB_INDEX, tabIndex);
 		super.onSaveInstanceState(outState);
@@ -126,21 +123,11 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			
-			Request request = Request.newBuilder()
-			.setType(Request.Type.VOLUME)
-			.setCode(Request.Code.UP)
-			.build();
-			sendAsyncMessage(request);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.UP));
 			return true;
-			
+
 		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-			
-			Request request = Request.newBuilder()
-			.setType(Request.Type.VOLUME)
-			.setCode(Request.Code.DOWN)
-			.build();
-			sendAsyncMessage(request);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.DOWN));
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -170,6 +157,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		}
 	}
 
+	// TODO fr to en
 	/** Initialisation des paramètres du serveur via les préférences */
 	private void initServer() {
 
@@ -264,10 +252,15 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	}
 
 	/**
-	 * Initialize the message handler then send the request in parameter.
-	 * @param _request the request.
+	 * Initializes the message handler then send the request.
+	 * @param _request The request to send.
 	 */
-	public void sendAsyncMessage(Request _request) {
+	public void sendAsyncRequest(Request _request) {
+		if (_request == null) {
+			Toast.makeText(getApplicationContext(), R.string.msg_null_request, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		if (AsyncMessageMgr.availablePermits() > 0) {
 			new AsyncMessageMgr(sHandler).execute(_request);
 		} else {

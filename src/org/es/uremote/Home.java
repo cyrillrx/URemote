@@ -1,8 +1,6 @@
 package org.es.uremote;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-
-
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -78,6 +76,7 @@ public class Home extends Activity implements OnClickListener {
 	}
 
 	private void startRobotControl () {
+		// TODO fr to en
 		// Si le Bluetooth n'est pas activé, demander à l'activer
 		if (!BluetoothAdapter.getDefaultAdapter().isEnabled()) {
 			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -88,6 +87,7 @@ public class Home extends Activity implements OnClickListener {
 	}
 
 	private void startServerTabHost() {
+		// TODO fr to en
 		// Si le Wifi n'est pas activé, demander son activation.
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		if (!wifiMgr.isWifiEnabled()) {

@@ -2,14 +2,17 @@ package org.es.uremote.computer;
 
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.utils.ServerMessage.CODE_COMBO;
-import static org.es.uremote.utils.ServerMessage.CODE_KEYBOARD;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.utils.Constants;
-import org.es.uremote.utils.ServerMessage;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,12 +27,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 /**
+ * Class to connect and send commands to a remote server through AsyncTask.
+ * 
  * @author Cyril Leroux
  *
- * Classe permettant de se connecter et d'envoyer des commandes à un serveur distant via une AsyncTask.
- *
  */
-public class FragKeyboard extends Fragment implements OnClickListener {
+public class FragKeyboard extends Fragment implements OnClickListener, IRequestSender {
 
 	private ServerControl mParent;
 
@@ -39,6 +42,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		mParent = (ServerControl) getActivity();
 	}
 
+	// TODO fr to en
 	/**
 	 * Cette fonction est appelée lors de la création de l'activité
 	 */
@@ -94,9 +98,6 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		return view;
 	}
 
-	/**
-	 * Prise en comptes des événements onClick
-	 */
 	@Override
 	public void onClick(View _view) {
 		_view.performHapticFeedback(VIRTUAL_KEY);
@@ -104,132 +105,139 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		switch (_view.getId()) {
 
 		case R.id.kbEnter :
-			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_ENTER);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_RETURN));
 			break;
+
 		case R.id.kbSpace :
-			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_SPACE);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_SPACE));
 			break;
+
 		case R.id.kbBackspace :
-			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_BACKSPACE);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_BACKSPACE));
 			break;
+
 		case R.id.kbEscape :
-			sendAsyncMessage(CODE_KEYBOARD, ServerMessage.KB_ESCAPE);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_ESCAPE));
 			break;
+
 		case R.id.kbAltf4 :
-			confirmCommand(CODE_COMBO, ServerMessage.KB_ALT_F4);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_ALT_F4));
 			break;
+
 		case R.id.kbCtrlEnter :
-			sendAsyncMessage(CODE_COMBO, ServerMessage.KB_CTRL_ENTER);
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.KB_CTRL_RETURN));
 			break;
 
 		case R.id.kb0 :
-			sendAsyncMessage(CODE_KEYBOARD, "0");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "0"));
 			break;
+
 		case R.id.kb1 :
-			sendAsyncMessage(CODE_KEYBOARD, "1");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "1"));
 			break;
+
 		case R.id.kb2 :
-			sendAsyncMessage(CODE_KEYBOARD, "2");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "2"));
 			break;
 		case R.id.kb3 :
-			sendAsyncMessage(CODE_KEYBOARD, "3");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "3"));
 			break;
 		case R.id.kb4 :
-			sendAsyncMessage(CODE_KEYBOARD, "4");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "4"));
 			break;
 		case R.id.kb5 :
-			sendAsyncMessage(CODE_KEYBOARD, "5");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "5"));
 			break;
 		case R.id.kb6 :
-			sendAsyncMessage(CODE_KEYBOARD, "6");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "6"));
 			break;
 		case R.id.kb7 :
-			sendAsyncMessage(CODE_KEYBOARD, "7");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "7"));
 			break;
 		case R.id.kb8 :
-			sendAsyncMessage(CODE_KEYBOARD, "8");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "8"));
 			break;
 		case R.id.kb9 :
-			sendAsyncMessage(CODE_KEYBOARD, "9");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "9"));
 			break;
 
 		case R.id.kbA :
-			sendAsyncMessage(CODE_KEYBOARD, "A");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "A"));
 			break;
 		case R.id.kbB :
-			sendAsyncMessage(CODE_KEYBOARD, "B");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "B"));
 			break;
 		case R.id.kbC :
-			sendAsyncMessage(CODE_KEYBOARD, "C");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "C"));
 			break;
 		case R.id.kbD :
-			sendAsyncMessage(CODE_KEYBOARD, "D");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "D"));
 			break;
 		case R.id.kbE :
-			sendAsyncMessage(CODE_KEYBOARD, "E");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "E"));
 			break;
 		case R.id.kbF :
-			sendAsyncMessage(CODE_KEYBOARD, "F");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "F"));
 			break;
 		case R.id.kbG :
-			sendAsyncMessage(CODE_KEYBOARD, "G");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "G"));
 			break;
 		case R.id.kbH :
-			sendAsyncMessage(CODE_KEYBOARD, "H");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "H"));
 			break;
 		case R.id.kbI :
-			sendAsyncMessage(CODE_KEYBOARD, "I");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "I"));
 			break;
 		case R.id.kbJ :
-			sendAsyncMessage(CODE_KEYBOARD, "J");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "J"));
 			break;
 		case R.id.kbK :
-			sendAsyncMessage(CODE_KEYBOARD, "K");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "K"));
 			break;
 		case R.id.kbL :
-			sendAsyncMessage(CODE_KEYBOARD, "L");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "L"));
 			break;
 		case R.id.kbM :
-			sendAsyncMessage(CODE_KEYBOARD, "M");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "M"));
 			break;
 		case R.id.kbN :
-			sendAsyncMessage(CODE_KEYBOARD, "N");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "N"));
 			break;
 		case R.id.kbO :
-			sendAsyncMessage(CODE_KEYBOARD, "O");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "O"));
 			break;
 		case R.id.kbP :
-			sendAsyncMessage(CODE_KEYBOARD, "P");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "P"));
 			break;
 		case R.id.kbQ :
-			sendAsyncMessage(CODE_KEYBOARD, "Q");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "Q"));
 			break;
 		case R.id.kbR :
-			sendAsyncMessage(CODE_KEYBOARD, "R");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "R"));
 			break;
 		case R.id.kbS :
-			sendAsyncMessage(CODE_KEYBOARD, "S");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "S"));
 			break;
 		case R.id.kbT :
-			sendAsyncMessage(CODE_KEYBOARD, "T");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "T"));
 			break;
 		case R.id.kbU :
-			sendAsyncMessage(CODE_KEYBOARD, "U");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "U"));
 			break;
 		case R.id.kbV :
-			sendAsyncMessage(CODE_KEYBOARD, "V");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "V"));
 			break;
 		case R.id.kbW :
-			sendAsyncMessage(CODE_KEYBOARD, "W");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "W"));
 			break;
 		case R.id.kbX :
-			sendAsyncMessage(CODE_KEYBOARD, "X");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "X"));
 			break;
 		case R.id.kbY :
-			sendAsyncMessage(CODE_KEYBOARD, "Y");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "Y"));
 			break;
 		case R.id.kbZ :
-			sendAsyncMessage(CODE_KEYBOARD, "X");
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.DEFINE, "Z"));
 			break;
 
 		default:
@@ -243,33 +251,31 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages
-	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message.
-	 * @param _param Le paramètre du message.
+	 * Initializes the message sender manager then send a request.
+	 * @param _request The request.
 	 */
-	public void sendAsyncMessage(String _code, String _param) {
+	@Override
+	public void sendAsyncRequest(Request _request) {
 		if (KeyboardMessageMgr.availablePermits() > 0) {
-			new KeyboardMessageMgr(ServerControl.getHandler()).execute(_code, _param);
+			new KeyboardMessageMgr(ServerControl.getHandler()).execute(_request);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
 
 	/**
-	 * Demande une confirmation à l'utilisateur avant d'executer la commande.
-	 * @param _code Le code du message.
-	 * @param _param Le paramètre du message.
+	 * Ask for the user to confirm before sending a request to the server.
+	 * @param _request The request to send.
 	 */
-	public void confirmCommand(final String _code, final String _param) {
+	public void confirmRequest(final Request _request) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
 		builder.setMessage( R.string.confirm_command);
 		builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
-				// Envoi du message si l'utilisateur confirme
-				sendAsyncMessage(_code, _param);
+				// Send the request if the user confirms it
+				sendAsyncRequest(_request);
 			}
 		});
 
@@ -278,8 +284,10 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Classe asynchrone de gestion d'envoi des messages au serveur
+	 * Class that handle asynchronous requests sent to a remote server.
+	 * Specialize for Keyboard commands.
 	 * @author Cyril Leroux
+	 * 
 	 */
 	public class KeyboardMessageMgr extends AsyncMessageMgr {
 
@@ -297,12 +305,12 @@ public class FragKeyboard extends Fragment implements OnClickListener {
 		}
 
 		@Override
-		protected void onPostExecute(String _serverReply) {
-			super.onPostExecute(_serverReply);
+		protected void onPostExecute(Response _response) {
+			super.onPostExecute(_response);
 
-			showToast(_serverReply);
+			showToast(_response.toString());
 
-			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
+			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(Constants.STATE_KO);
 			} else {
 				mParent.updateConnectionState(Constants.STATE_OK);

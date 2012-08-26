@@ -1,9 +1,11 @@
 package org.es.uremote.components;
 
-import java.util.List;
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;
 
+import org.es.network.ExchangeProtos.DirContent;
 import org.es.uremote.R;
-import org.es.uremote.objects.FileManagerEntity;
+import org.es.uremote.utils.FileUtils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,24 +22,25 @@ import android.widget.TextView;
  *
  */
 public class FileManagerAdapter extends BaseAdapter {
-	private final List<FileManagerEntity> mFileList;
+	//	private final List<FileManagerEntity> mFileList;
+	private final DirContent mDirContent;
 	private final LayoutInflater mInflater;
 
 	/**
 	 * Default constructor
 	 * @param _context the application context.
-	 * @param _fileList the files to display
+	 * @param _dirContent the files to display
 	 */
-	public FileManagerAdapter(Context _context, List<FileManagerEntity> _fileList) {
+	public FileManagerAdapter(Context _context,  DirContent _dirContent) {
 		mInflater = LayoutInflater.from(_context);
-		mFileList = _fileList;
+		mDirContent = _dirContent;
 	}
 
 	@Override
-	public int getCount() { return mFileList.size();	}
+	public int getCount() { return mDirContent.getFileCount();	}
 
 	@Override
-	public Object getItem(int _position) { return mFileList.get(_position); }
+	public Object getItem(int _position) { return mDirContent.getFile(_position); }
 
 	@Override
 	public long getItemId(int _position) { return _position; }
@@ -67,13 +70,13 @@ public class FileManagerAdapter extends BaseAdapter {
 			holder = (ViewHolder) _convertView.getTag();
 		}
 
-		final FileManagerEntity file = mFileList.get(_position);
+		final DirContent.File file = mDirContent.getFile(_position);
 
 		int iconRes = R.drawable.filemanager_blank;
 
-		if (file.isDirectory()) {
+		if (DIRECTORY.equals(file.getType())) {
 			iconRes = R.drawable.filemanager_folder;
-		} else if (file.isVideo()) {
+		} else if (FILE.equals(file.getType()) && FileUtils.isAVideo(file.getName())) {
 			iconRes = R.drawable.filemanager_video;
 		}
 

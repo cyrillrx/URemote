@@ -16,7 +16,7 @@ import android.preference.PreferenceManager;
  *
  */
 public class AppSettings extends PreferenceActivity {
-// TODO changer les commentaires
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
