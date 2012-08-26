@@ -2,6 +2,7 @@ package org.es.uremote.computer;
 
 import static org.es.uremote.utils.IntentKeys.APPLICATION_MESSAGE;
 
+import org.es.network.ExchangeProtos.Request;
 import org.es.uremote.R;
 
 import android.app.Activity;
@@ -27,7 +28,7 @@ public class AppLauncher extends Activity implements OnClickListener {
 
 		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		// Click listener pour tous les boutons
+		// Click listener for all buttons
 		((ImageButton) findViewById(R.id.btnAppGomPlayer)).setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btnKillGomPlayer)).setOnClickListener(this);
 	}
@@ -37,11 +38,11 @@ public class AppLauncher extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.btnAppGomPlayer:
-			returnAppMessage(org.es.network.ExchangeProtos.Request.Code.CodeAPP_GOM_PLAYER);
+			returnAppMessage(Request.Code.GOM_PLAYER_RUN.name());
 			break;
 
 		case R.id.btnKillGomPlayer:
-			returnAppMessage(KILL_GOM_PLAYER);
+			returnAppMessage(Request.Code.GOM_PLAYER_KILL.name());
 			break;
 
 		default:

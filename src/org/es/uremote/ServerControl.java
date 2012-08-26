@@ -5,19 +5,17 @@ import static android.view.View.VISIBLE;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_OK;
-import static org.es.uremote.utils.ServerMessage.CODE_CLASSIC;
-import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.es.network.AsyncMessageMgr;
-import org.es.uremote.R;
+import org.es.network.ExchangeProtos.Request;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
-import org.es.uremote.utils.ServerMessage;
+import org.es.uremote.utils.Constants;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -49,6 +47,7 @@ import android.widget.Toast;
  */
 public class ServerControl extends FragmentActivity implements OnPageChangeListener {
 
+	private static final String SELECTED_TAB_INDEX = "selectedTabIndex";
 	private static final int PAGES_COUNT = 3;
 	private int mCurrentPage = 0;
 
@@ -99,34 +98,49 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		((TextView) findViewById(R.id.tvServerInfos)).setText(AsyncMessageMgr.getServerInfos());
 
 		if (_savedInstanceState != null) {
-			// TODO Replacer par un constante
-			final int newTabIndex = _savedInstanceState.getInt("selectedTabIndex", 1);
+			final int newTabIndex = _savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
 			if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
 		} else {
-			sendAsyncMessage(CODE_CLASSIC, ServerMessage.HELLO_SERVER);
+			Request request = Request.newBuilder()
+			.setType(Request.Type.SIMPLE)
+			.setCode(Request.Code.HELLO)
+			.build();
+			sendAsyncMessage(request);
 		}
 
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
+		
 		int tabIndex = getActionBar().getSelectedNavigationIndex();
-		outState.putInt("selectedTabIndex", tabIndex);
+		outState.putInt(SELECTED_TAB_INDEX, tabIndex);
 		super.onSaveInstanceState(outState);
 	}
 
 	/**
-	 * Prise en compte de l'appui sur les boutons physique.
+	 * Handle volume physical buttons.
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			sendAsyncMessage(CODE_VOLUME, ServerMessage.VOLUME_UP);
+			
+			Request request = Request.newBuilder()
+			.setType(Request.Type.VOLUME)
+			.setCode(Request.Code.UP)
+			.build();
+			sendAsyncMessage(request);
 			return true;
+			
 		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-			sendAsyncMessage(CODE_VOLUME, ServerMessage.VOLUME_DOWN);
+			
+			Request request = Request.newBuilder()
+			.setType(Request.Type.VOLUME)
+			.setCode(Request.Code.DOWN)
+			.build();
+			sendAsyncMessage(request);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -155,7 +169,6 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
 
 	/** Initialisation des paramètres du serveur via les préférences */
 	private void initServer() {
@@ -187,17 +200,17 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	}
 
 	/**
-	 * Initialisation de l'handler gérant l'envoi des messages Toast.
-	 * @param _activity L'activité associée au fragment
+	 * Initialize the toast message handler.
+	 * @param _context The context used to display toast messages.
 	 */
-	private static void initHandler(final Context _ctx) {
+	private static void initHandler(final Context _context) {
 		if (sHandler == null) {
 			sHandler = new Handler() {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 					case MESSAGE_WHAT_TOAST:
-						Toast.makeText(_ctx, (String)_msg.obj, Toast.LENGTH_SHORT).show();
+						Toast.makeText(_context, (String)_msg.obj, Toast.LENGTH_SHORT).show();
 						break;
 					default : break;
 					}
@@ -209,16 +222,10 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPageScrollStateChanged(int arg0) {}
 
 	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-
-	}
+	public void onPageScrolled(int arg0, float arg1, int arg2) {}
 
 	@Override
 	public void onPageSelected(int _position) {
@@ -237,8 +244,8 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		private final List<Fragment> mFragments;
 
 		/**
-		 * @param _fm
-		 * @param _fragments
+		 * @param _fm The fragment manager
+		 * @param _fragments The fragments list.
 		 */
 		public MyPagerAdapter(FragmentManager _fm, List<Fragment> _fragments) {
 			super(_fm);
@@ -257,14 +264,12 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	}
 
 	/**
-	 * Cette fonction initialise le composant gérant l'envoi des messages
-	 * puis envoie le message passé en paramètre.
-	 * @param _code Le code du message.
-	 * @param _param Le paramètre du message.
+	 * Initialize the message handler then send the request in parameter.
+	 * @param _request the request.
 	 */
-	public void sendAsyncMessage(String _code, String _param) {
+	public void sendAsyncMessage(Request _request) {
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler).execute(_code, _param);
+			new AsyncMessageMgr(sHandler).execute(_request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
@@ -272,8 +277,11 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 
 
 	/**
-	 * Fonction de mise à jour de l'interface utilisateur
-	 * @param _state L'état à mettre à jour (OK, KO, CONNECTING)
+	 * Update the connection state of the UI
+	 * @param _state The state of the connection <br />
+	 * ({@link Constants#STATE_OK}, <br />
+	 * {@link Constants#STATE_KO}, <br />
+	 * {@link Constants#STATE_CONNECTING})
 	 */
 	public void updateConnectionState(int _state) {
 		int drawableResId;

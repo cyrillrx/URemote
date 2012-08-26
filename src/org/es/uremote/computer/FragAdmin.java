@@ -10,6 +10,8 @@ import static org.es.uremote.utils.ServerMessage.CODE_MEDIA;
 import static org.es.uremote.utils.ServerMessage.CODE_VOLUME;
 
 import org.es.network.AsyncMessageMgr;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.ExchangeProtos.Response.ReturnCode;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.network.WakeOnLan;
@@ -204,13 +206,15 @@ public class FragAdmin extends Fragment implements OnClickListener {
 	}
 
 	/**
-	 * Classe asynchrone de gestion d'envoi des messages au serveur
+	 * Class that handle asynchronous messages to send to the server.
+	 * Spelcialize for Admin.
 	 * @author Cyril Leroux
+	 * 
 	 */
 	public class AdminMessageMgr extends AsyncMessageMgr {
 
 		/**
-		 * @param _handler
+		 * @param _handler The toast messages handler.
 		 */
 		public AdminMessageMgr(Handler _handler) {
 			super(_handler);
@@ -223,12 +227,12 @@ public class FragAdmin extends Fragment implements OnClickListener {
 		}
 
 		@Override
-		protected void onPostExecute(String _serverReply) {
-			super.onPostExecute(_serverReply);
+		protected void onPostExecute(Response _response) {
+			super.onPostExecute(_response);
 
-			showToast(_serverReply);
+			showToast(_response.toString());
 
-			if (ServerMessage.RC_ERROR.equals(mReturnCode)) {
+			if (ReturnCode.RC_ERROR.equals(mReturnCode)) {
 				mParent.updateConnectionState(Constants.STATE_KO);
 			} else {
 				mParent.updateConnectionState(Constants.STATE_OK);

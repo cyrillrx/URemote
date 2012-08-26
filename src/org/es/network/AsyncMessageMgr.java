@@ -99,6 +99,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Cette fonction est exécutée après l'appel à {@link #doInBackground(String...)}
 	 * Exécutée dans le thread principal.
+	 * It releases the semaphore acquired in OnPreExecute method.
 	 * @param _serverReply La réponse du serveur renvoyée par la fonction {@link #doInBackground(String...)}.
 	 */
 	@Override
