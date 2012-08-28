@@ -39,13 +39,12 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
-	//	private static final String DEFAULT_PATH = "L:\\Series";
+	private static final String DEFAULT_PATH = "L:\\";
 	//	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 
 	private TextView mTvPath;
-	private final DirContent mDirectoryContent = null;
-	//	private String mDirectoryPath;
-	//	private String mDirectoryContent;
+	private final String mDirectoryPath = DEFAULT_PATH;
+	private DirContent mDirectoryContent = null;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -55,11 +54,6 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-
-		//		if (mDirectoryPath == null || mDirectoryContent == null) {
-		//			mDirectoryPath		= DEFAULT_PATH;
-		//			mDirectoryContent	= DEFAULT_CONTENT;
-		//		}
 	}
 
 	@Override
@@ -71,28 +65,13 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	@Override
 	public void onStart() {
-		updateView(mDirectoryContent);
+		if (mDirectoryContent == null) {
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, mDirectoryPath));
+		} else {
+			updateView(mDirectoryContent);
+		}
 		super.onStart();
 	}
-
-	//	// TODO fr to en
-	//	/**
-	//	 * Transforme le message séréalisé en liste de fichiers pour l'arborescence
-	//	 * @param dirInfo Les informations sur le dossier séréalirées
-	//	 * @return La liste des FileManagerEntity prêts à être affichés
-	//	 */
-	//	private List<FileManagerEntity> directoryInfoToList(String dirInfo) {
-	//		if (dirInfo == null || dirInfo.isEmpty()) {
-	//			return null;
-	//		}
-	//
-	//		final List<FileManagerEntity> fileList = new ArrayList<FileManagerEntity>();
-	//		String[] filesInfo = dirInfo.split("[|]");
-	//		for (String fileInfo : filesInfo) {
-	//			fileList.add(new FileManagerEntity(mDirectoryPath, fileInfo));
-	//		}
-	//		return fileList;
-	//	}
 
 	/**
 	 * Update the view with the content of the new directory
@@ -146,19 +125,6 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST));
 	}
 
-	//	// TODO fr to en
-	//	/**
-	//	 * Update the view with the new content.
-	//	 * @param _dirPath The path to the current directoriLe chemin du répertoire courant.
-	//	 * @param _dirContent The object that hosts the directory content.
-	//	 */
-	//	private void updateDirectory(String _dirPath, String _dirContent) {
-	//		// Afficher le contenu du répertoire
-	//		//		mDirectoryPath = _dirPath;
-	//		//		mDirectoryContent = _dirContent;
-	//		updateView(mDirectoryContent);
-	//	}
-
 	private void openFile(String _filename) {
 		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE));
 	}
@@ -198,6 +164,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 				showToast(_response.getMessage());
 
 			} else if (Code.GET_FILE_LIST.equals(_response.getRequest().getCode())) {
+				mDirectoryContent = _response.getDirContent();
 				updateView(_response.getDirContent());
 			}
 		}
