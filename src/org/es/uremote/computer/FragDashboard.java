@@ -3,7 +3,10 @@ package org.es.uremote.computer;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Code.MUTE;
+import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.BuildConfig.DEBUG;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
@@ -19,7 +22,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -35,6 +41,7 @@ import android.widget.Toast;
  */
 public class FragDashboard extends Fragment implements OnClickListener, IRequestSender {
 
+	private static final String TAG	= "FragDashboard";
 	// ActivityForResults request codes
 	private static final int RC_APP_LAUNCHER	= 0;
 
@@ -49,6 +56,12 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		mParent = (ServerControl) getActivity();
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	/**
@@ -186,17 +199,21 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 		@Override
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
-
+			if (DEBUG) {
+				Log.d(TAG, "onPostExecute");
+				Log.d(TAG, _response.toString());
+			}
 			showToast(_response.toString());
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
 
 			} else {
-				Type type = _response.getRequest().getType();
-				Code code = _response.getRequest().getCode();
+				Type type = _response.hasRequest() ? _response.getRequest().getType() : null;
+				Code code = _response.hasRequest() ? _response.getRequest().getCode() : null;
 
-				if (Type.VOLUME.equals(type) && Code.MUTE.equals(code)) {
+				// Update mute icone
+				if (VOLUME.equals(type) && MUTE.equals(code)) {
 					if (_response.getIntValue() == 0) { // Mute
 						mCmdMute.setImageResource(R.drawable.volume_muted);
 					} else if (_response.getIntValue() == 1) { // Volume On

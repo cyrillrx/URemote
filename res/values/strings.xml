@@ -16,6 +16,7 @@
 
     <!-- Menu -->
     <string name="menu_server_settings">Server settings</string>
+    <string name="menu_server_refresh">Refresh</string>
     
     <!-- Other -->
     <string name="msg_light_control_not_available">Lights control is not available yet</string>

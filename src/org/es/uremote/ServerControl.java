@@ -1,7 +1,15 @@
 package org.es.uremote;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
+import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.network.ExchangeProtos.Request.Code.DOWN;
+import static org.es.network.ExchangeProtos.Request.Code.UP;
+import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_OK;
@@ -12,7 +20,6 @@ import java.util.List;
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -104,7 +111,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
 		} else {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.HELLO));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(SIMPLE, Code.HELLO));
 		}
 
 	}
@@ -122,12 +129,12 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.UP));
+		if (keyCode == KEYCODE_VOLUME_UP) {
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, UP));
 			return true;
 
-		} else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.DOWN));
+		} else if (keyCode == KEYCODE_VOLUME_DOWN) {
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, DOWN));
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -145,7 +152,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			Intent intent = new Intent(this, Home.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return true;
 
@@ -198,7 +205,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 					case MESSAGE_WHAT_TOAST:
-						Toast.makeText(_context, (String)_msg.obj, Toast.LENGTH_SHORT).show();
+						Toast.makeText(_context, (String)_msg.obj, LENGTH_SHORT).show();
 						break;
 					default : break;
 					}
@@ -257,14 +264,14 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	 */
 	public void sendAsyncRequest(Request _request) {
 		if (_request == null) {
-			Toast.makeText(getApplicationContext(), R.string.msg_null_request, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();
 			return;
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
 			new AsyncMessageMgr(sHandler).execute(_request);
 		} else {
-			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
 	}
 

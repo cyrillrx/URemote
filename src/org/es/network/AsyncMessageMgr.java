@@ -97,6 +97,13 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		.build();
 	}
 
+	/**
+	 * Runs on the UI thread after {@link #doInBackground(Request...)}.
+	 * The specified result is the value returned by {@link #doInBackground(Request...)}.
+	 * This method won't be invoked if the task was canceled.
+	 * It releases the semaphore acquired in OnPreExecute method.
+	 * @param _serverReply The response from the server returned by {@link #doInBackground(Request...)}.
+	 */
 	@Override
 	protected void onPostExecute(Response _response) {
 		if (DEBUG) {
@@ -107,8 +114,15 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			Log.i(TAG, "Semaphore release");
 		}
 
-		if (VOLUME.equals(_response.getRequest().getType())) {
-			showToast(_response.getMessage());
+		if (_response.hasRequest()) {
+			Type type = _response.getRequest().getType();
+			if (VOLUME.equals(type)) {
+				showToast(_response.getMessage());
+			}
+		} else {
+			if (DEBUG) {
+				Log.i(TAG, "Response don't have request");
+			}
 		}
 	}
 

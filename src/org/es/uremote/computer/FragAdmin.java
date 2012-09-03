@@ -2,18 +2,23 @@ package org.es.uremote.computer;
 
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Code.KILL_SERVER;
+import static org.es.network.ExchangeProtos.Request.Code.MUTE;
+import static org.es.network.ExchangeProtos.Request.Code.SHUTDOWN;
+import static org.es.network.ExchangeProtos.Request.Type.AI;
+import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.utils.Constants.STATE_CONNECTING;
+import static org.es.uremote.utils.Constants.STATE_KO;
+import static org.es.uremote.utils.Constants.STATE_OK;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.network.WakeOnLan;
-import org.es.uremote.utils.Constants;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -79,15 +84,15 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			break;
 
 		case R.id.cmdShutdown :
-			confirmRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.SHUTDOWN));
+			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, SHUTDOWN));
 			break;
 
 		case R.id.cmdAiMute :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.AI, Code.MUTE));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(AI, MUTE));
 			break;
 
 		case R.id.cmdKillServer :
-			confirmRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.KILL_SERVER));
+			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, KILL_SERVER));
 			break;
 
 		default:
@@ -138,7 +143,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 	 * @param _request The request to send.
 	 */
 	public void confirmRequest(final Request _request) {
-		int resId = (Request.Code.KILL_SERVER.equals(_request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
+		int resId = (KILL_SERVER.equals(_request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
@@ -173,7 +178,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mParent.updateConnectionState(Constants.STATE_CONNECTING);
+			mParent.updateConnectionState(STATE_CONNECTING);
 		}
 
 		@Override
@@ -183,9 +188,9 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			showToast(_response.toString());
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {
-				mParent.updateConnectionState(Constants.STATE_KO);
+				mParent.updateConnectionState(STATE_KO);
 			} else {
-				mParent.updateConnectionState(Constants.STATE_OK);
+				mParent.updateConnectionState(STATE_OK);
 			}
 		}
 	}

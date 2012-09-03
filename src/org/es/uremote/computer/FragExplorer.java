@@ -1,6 +1,7 @@
 package org.es.uremote.computer;
 
 import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.Request.Code.GET_FILE_LIST;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.BuildConfig.DEBUG;
 
@@ -160,10 +161,14 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
 
+			if (DEBUG) {
+				Log.e(TAG, "ExplorerMessageMgr onPostExecute");
+			}
+
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				showToast(_response.getMessage());
 
-			} else if (Code.GET_FILE_LIST.equals(_response.getRequest().getCode())) {
+			} else if (_response.hasRequest() && GET_FILE_LIST.equals(_response.getRequest().getCode())) {
 				mDirectoryContent = _response.getDirContent();
 				updateView(_response.getDirContent());
 			}
