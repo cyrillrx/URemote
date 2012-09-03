@@ -74,7 +74,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		// ActionBar configuration
 		ActionBar actionBar = getActionBar();
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-		// L'icone de l'application sert pour le "navigation Up"
+		// Enable Home as Up
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Fragment to use in each tab
@@ -157,12 +157,12 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		}
 	}
 
-	// TODO fr to en
-	/** Initialisation des paramètres du serveur via les préférences */
+	/** 
+	 * Initialize server using shared preferences.
+	 */
 	private void initServer() {
 
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		// Si l'utilisateur a activé le Wifi, on ouvre l'activité
 		final boolean wifi = wifiMgr.isWifiEnabled();
 
 		final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
