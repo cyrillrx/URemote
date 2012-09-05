@@ -1,13 +1,10 @@
 package org.es.utils;
 
-import static org.es.uremote.BuildConfig.DEBUG;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.util.Log;
 
 /**
  * This class manage connections to WIFI, mobile data, Bluetooth, etc.
@@ -41,16 +38,14 @@ public class ConnectionUtils {
 	 */
 	public static boolean isConnectedToInternet(ConnectivityManager _connectivityMgr) {
 
-		boolean isMobileConnected	= _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected(); // Vérifie l'accès à l'internet mobile
+		boolean isMobileConnected	= _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
 		boolean isWifiConnected		= isConnectedThroughWifi(_connectivityMgr);
 
 		if (isMobileConnected || isWifiConnected) {
 			return true;
 		}
 
-		if (DEBUG) {
-			Log.e(TAG, "No acces to the world wide web");
-		}
+		Log.error(TAG, "No acces to the world wide web");
 		return false;
 	}
 
@@ -69,20 +64,20 @@ public class ConnectionUtils {
 	 * @return The IP address converted as an integer.
 	 */
 	private static int lookupHost(String _ipAddress) {
-	    InetAddress inetAddress;
-	    try {
-	        inetAddress = InetAddress.getByName(_ipAddress);
-	    } catch (UnknownHostException e) {
-	        return -1;
-	    }
+		InetAddress inetAddress;
+		try {
+			inetAddress = InetAddress.getByName(_ipAddress);
+		} catch (UnknownHostException e) {
+			return -1;
+		}
 
-	    byte[] addressBytes;
-	    int address;
-	    addressBytes = inetAddress.getAddress();
-	    address = ((addressBytes[3] & 0xff) << 24)
-	            | ((addressBytes[2] & 0xff) << 16)
-	            | ((addressBytes[1] & 0xff) << 8)
-	            |  (addressBytes[0] & 0xff);
-	    return address;
+		byte[] addressBytes;
+		int address;
+		addressBytes = inetAddress.getAddress();
+		address = ((addressBytes[3] & 0xff) << 24)
+		| ((addressBytes[2] & 0xff) << 16)
+		| ((addressBytes[1] & 0xff) << 8)
+		|  (addressBytes[0] & 0xff);
+		return address;
 	}
 }

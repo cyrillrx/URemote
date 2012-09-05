@@ -1,9 +1,9 @@
 package org.es.uremote.computer;
 
 import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-import static org.es.network.ExchangeProtos.Request.Code.GET_FILE_LIST;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.BuildConfig.DEBUG;
+
+import java.io.File;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.DirContent;
@@ -15,11 +15,11 @@ import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.components.FileManagerAdapter;
+import org.es.utils.Log;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -40,11 +40,10 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
-	private static final String DEFAULT_PATH = "L:\\";
+	private static final String DEFAULT_PATH = "L:";
 	//	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
 
 	private TextView mTvPath;
-	private final String mDirectoryPath = DEFAULT_PATH;
 	private DirContent mDirectoryContent = null;
 
 	@Override
@@ -67,7 +66,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	@Override
 	public void onStart() {
 		if (mDirectoryContent == null) {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, mDirectoryPath));
+			openDirectory(DEFAULT_PATH);
 		} else {
 			updateView(mDirectoryContent);
 		}
@@ -83,9 +82,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 			return;
 		}
 		if (_dirContent.getFileCount() == 0) {
-			if (DEBUG) {
-				Log.e(TAG, "file count == 0");
-			}
+			Log.error(TAG, "file count == 0");
 			return;
 		}
 
@@ -98,11 +95,11 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 			public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
 				DirContent.File file = _dirContent.getFile(_position);
 				if (DIRECTORY.equals(_dirContent.getFile(_position).getType())) {
-					getDirectoryContent(_dirContent.getPath());
+					openDirectory(_dirContent.getPath() + File.separator + _dirContent.getFile(_position).getName());
 
 				} else {
 					// Open the file with the default program.
-					final String fullPath = _dirContent.getPath() + file.getName();
+					final String fullPath = _dirContent.getPath() + File.separator + file.getName();
 					openFile(fullPath);
 
 				}
@@ -122,12 +119,12 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 * Launches the activity once the data have been received.
 	 * @param _dirPath The path of the directory to display.
 	 */
-	private void getDirectoryContent(String _dirPath) {
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST));
+	private void openDirectory(String _dirPath) {
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, _dirPath));
 	}
 
 	private void openFile(String _filename) {
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE));
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE, _filename));
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -161,17 +158,20 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
 
-			if (DEBUG) {
-				Log.e(TAG, "ExplorerMessageMgr onPostExecute");
-			}
-
 			if (RC_ERROR.equals(_response.getReturnCode())) {
-				showToast(_response.getMessage());
-
-			} else if (_response.hasRequest() && GET_FILE_LIST.equals(_response.getRequest().getCode())) {
-				mDirectoryContent = _response.getDirContent();
-				updateView(_response.getDirContent());
+				if (!_response.getMessage().isEmpty()) {
+					showToast(_response.getMessage());
+				}
+				return;
 			}
+			//TODO supprimer
+			//} else if (_response.hasRequest() && GET_FILE_LIST.equals(_response.getRequest().getCode())) {
+			if (!_response.getMessage().isEmpty()) {
+				showToast(_response.getMessage());
+			}
+			mDirectoryContent = _response.getDirContent();
+			updateView(_response.getDirContent());
+
 		}
 	}
 }

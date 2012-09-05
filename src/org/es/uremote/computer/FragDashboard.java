@@ -6,7 +6,6 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static org.es.network.ExchangeProtos.Request.Code.MUTE;
 import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.BuildConfig.DEBUG;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
@@ -17,12 +16,12 @@ import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.utils.IntentKeys;
+import org.es.utils.Log;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -199,10 +198,8 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 		@Override
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
-			if (DEBUG) {
-				Log.d(TAG, "onPostExecute");
-				Log.d(TAG, _response.toString());
-			}
+			Log.debug(TAG, "onPostExecute() response : " + _response.getMessage());
+
 			showToast(_response.toString());
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {

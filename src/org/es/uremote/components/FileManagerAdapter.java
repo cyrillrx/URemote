@@ -82,7 +82,7 @@ public class FileManagerAdapter extends BaseAdapter {
 
 		holder.ivIcon.setImageResource(iconRes);
 		holder.tvName.setText(file.getName());
-		holder.tvSize.setText(file.getSize());
+		holder.tvSize.setText(String.valueOf(file.getSize()));
 
 		return _convertView;
 	}
