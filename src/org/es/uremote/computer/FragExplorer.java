@@ -15,6 +15,7 @@ import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.ServerControl;
 import org.es.uremote.components.FileManagerAdapter;
+import org.es.uremote.utils.FileUtils;
 import org.es.utils.Log;
 
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.protobuf.InvalidProtocolBufferException;
+
 /**
  * File explorer fragment.
  * This fragment allow you to browse your PC content through the application.
@@ -41,36 +44,45 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
 	private static final String DEFAULT_PATH = "L:";
-	//	private static final String DEFAULT_CONTENT = "..<DIR>|24<DIR>|Breaking Bad<DIR>|Dexter<DIR>|Futurama<DIR>|Game of Thrones<DIR>|Glee<DIR>|Heroes<DIR>|House<DIR>|How I Met Your Mother<DIR>|Legend of the Seeker<DIR>|Merlin<DIR>|Misfits<DIR>|No Ordinary Family<DIR>|Prison Break<DIR>|Scrubs<DIR>|Smallville<DIR>|South Park<DIR>|Terminator The Sarah Connor Chronicles<DIR>|The Vampire Diaries<DIR>|The Walking Dead<DIR>|Thumbs.db<4608 bytes>";
+	private static final String DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
 
 	private TextView mTvPath;
 	private DirContent mDirectoryContent = null;
 
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-	}
-
-	@Override
-	public void onCreate(Bundle _savedInstanceState) {
-		super.onCreate(_savedInstanceState);
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		Log.debug(TAG, "onCreateView");
+
 		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
 		return view;
 	}
 
 	@Override
-	public void onStart() {
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		Log.debug(TAG, "onActivityCreated");
+
+		// Restoring current directory content
+		if (savedInstanceState != null) {
+			try {
+				mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
+			} catch (InvalidProtocolBufferException e) {
+				Log.error(TAG, "onCreate InvalidProtocolBufferException : " + e);
+			}
+		}
+		// Get the directory content from the server or update the one that already exist.
 		if (mDirectoryContent == null) {
 			openDirectory(DEFAULT_PATH);
 		} else {
 			updateView(mDirectoryContent);
 		}
-		super.onStart();
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putByteArray(DIRECTORY_CONTENT, mDirectoryContent.toByteArray());
+		super.onSaveInstanceState(outState);
 	}
 
 	/**
@@ -93,13 +105,19 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
-				DirContent.File file = _dirContent.getFile(_position);
-				if (DIRECTORY.equals(_dirContent.getFile(_position).getType())) {
-					openDirectory(_dirContent.getPath() + File.separator + _dirContent.getFile(_position).getName());
+				final DirContent.File file = _dirContent.getFile(_position);
+				final String filename = file.getName();
+				final String filePath = _dirContent.getPath();
+
+				if (DIRECTORY.equals(file.getType())) {
+
+					final boolean navUp = "..".equals(filename);
+					final String dirPath = (navUp) ? FileUtils.truncatePath(filePath) : filePath + File.separator + filename;
+					openDirectory(dirPath);
 
 				} else {
 					// Open the file with the default program.
-					final String fullPath = _dirContent.getPath() + File.separator + file.getName();
+					final String fullPath = filePath + File.separator + filename;
 					openFile(fullPath);
 
 				}

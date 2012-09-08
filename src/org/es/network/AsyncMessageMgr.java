@@ -33,6 +33,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	private static String sHost;
 	private static int sPort;
 	private static int sTimeout;
+	private static int sSoTimeout;
 
 	protected Handler mHandler;
 	private Socket mSocket;
@@ -71,11 +72,11 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			errorMessage = "Socket null or not connected";
 
 		} catch (IOException e) {
-			errorMessage = "IOException" + e.getMessage();
+			errorMessage = "IOException" + e;
 			Log.error(TAG, errorMessage);
 
 		} catch (Exception e) {
-			errorMessage = "Exception" + e.getMessage();
+			errorMessage = "Exception" + e;
 			Log.error(TAG, errorMessage);
 
 		} finally {
@@ -172,6 +173,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			//mClientDetails is a protobuf message object, dump it to the BAOS
 			_req.writeDelimitedTo(baos);
 
+			_socket.setSoTimeout(sSoTimeout);
 			_socket.getOutputStream().write(baos.toByteArray());
 			_socket.getOutputStream().flush();
 			_socket.shutdownOutput();
@@ -242,6 +244,14 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 */
 	public static void setTimeout(int _timeout) {
 		sTimeout = _timeout;
+	}
+
+	/**
+	 * Define the timeout of the connection with the server.
+	 * @param _timeout The timeout in milliseconds.
+	 */
+	public static void setSoTimeout(int _timeout) {
+		sSoTimeout = _timeout;
 	}
 
 	/**

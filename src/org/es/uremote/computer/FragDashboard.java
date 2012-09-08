@@ -152,7 +152,9 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 			final Type type  = Type.valueOf(_data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
 			final Code code  = Code.valueOf(_data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(type, code));
+			if (type != null && code != null) {
+				sendAsyncRequest(AsyncMessageMgr.buildRequest(type, code));
+			}
 		}
 	}
 

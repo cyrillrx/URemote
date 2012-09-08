@@ -25,6 +25,7 @@ import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.utils.Constants;
+import org.es.utils.Log;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -56,8 +57,10 @@ import android.widget.Toast;
  */
 public class ServerControl extends FragmentActivity implements OnPageChangeListener {
 
-	private static final String SELECTED_TAB_INDEX = "selectedTabIndex";
+	private static final String TAG = "ServerControl";
+	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
 	private static final int PAGES_COUNT = 4;
+	private static final int EXPLORER_PAGE_ID = 2;
 	private int mCurrentPage = 0;
 
 	private TextView mTvServerState;
@@ -136,6 +139,15 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		} else if (keyCode == KEYCODE_VOLUME_DOWN) {
 			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, DOWN));
 			return true;
+		} else {
+			if (keyCode == KeyEvent.KEYCODE_BACK && mCurrentPage == EXPLORER_PAGE_ID) {
+
+				// TODO return on explorer
+				Log.error(TAG, "KEYCODE_BACK");
+				return true;
+			}
+			Log.error(TAG, KeyEvent.keyCodeToString(keyCode));
+
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -164,7 +176,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		}
 	}
 
-	/** 
+	/**
 	 * Initialize server using shared preferences.
 	 */
 	private void initServer() {
@@ -176,22 +188,26 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		final int resKeyPort = wifi ? R.string.pref_key_local_port : R.string.pref_key_remote_port;
 		final String keyHost	= getString(resKeyHost);
 		final String keyPort	= getString(resKeyPort);
-		final String keyTimeout	= getString(R.string.pref_key_timeout);
+		final String keyConnectionTimeout	= getString(R.string.pref_key_connection_timeout);
+		final String keyReadTimeout	= getString(R.string.pref_key_read_timeout);
 
 		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
 		final int resDefPort = wifi ? R.string.pref_default_local_port : R.string.pref_default_remote_port;
 		final String defaultHost	= getString(resDefHost);
 		final String defaultPort	= getString(resDefPort);
-		final String defaultTimeout	= getString(R.string.pref_default_timeout);
+		final String defaultConnectionTimeout	= getString(R.string.pref_default_connection_timeout);
+		final String defaultReadTimeout	= getString(R.string.pref_default_read_timeout);
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		final String host = pref.getString(keyHost, defaultHost);
 		final int port = Integer.parseInt(pref.getString(keyPort, defaultPort));
-		final int timeout = Integer.parseInt(pref.getString(keyTimeout, defaultTimeout));
+		final int connectionTimeout = Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
+		final int readTimeout = Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
 		AsyncMessageMgr.setHost(host);
 		AsyncMessageMgr.setPort(port);
-		AsyncMessageMgr.setTimeout(timeout);
+		AsyncMessageMgr.setTimeout(connectionTimeout);
+		AsyncMessageMgr.setSoTimeout(readTimeout);
 	}
 
 	/**
