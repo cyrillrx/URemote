@@ -107,17 +107,20 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 			public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
 				final DirContent.File file = _dirContent.getFile(_position);
 				final String filename = file.getName();
-				final String filePath = _dirContent.getPath();
+				final String currentDirPath = _dirContent.getPath();
 
 				if (DIRECTORY.equals(file.getType())) {
 
-					final boolean navUp = "..".equals(filename);
-					final String dirPath = (navUp) ? FileUtils.truncatePath(filePath) : filePath + File.separator + filename;
-					openDirectory(dirPath);
+					if ("..".equals(filename)) {
+						openParentDirectory(currentDirPath);
+					} else {
+						final String dirPath = currentDirPath + File.separator + filename;
+						openDirectory(dirPath);
+					}
 
 				} else {
 					// Open the file with the default program.
-					final String fullPath = filePath + File.separator + filename;
+					final String fullPath = currentDirPath + File.separator + filename;
 					openFile(fullPath);
 
 				}
@@ -133,12 +136,41 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	}
 
 	/**
-	 * Ask the server to list the content of a directory.
-	 * Launches the activity once the data have been received.
+	 * Ask the server to list the content of the passed directory.
+	 * Updates the view once the data have been received from the server.
 	 * @param _dirPath The path of the directory to display.
 	 */
 	private void openDirectory(String _dirPath) {
 		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, _dirPath));
+	}
+
+	/**
+	 * Ask the server to list the content of the passed directory's parent.
+	 * Updates the view once the data have been received from the server.
+	 * @param _dirPath The path of the child directory.
+	 */
+	private void openParentDirectory(String _dirPath) {
+		final String parentPath = FileUtils.truncatePath(_dirPath);
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, parentPath));
+	}
+
+	/**
+	 * Ask the server to list the content of the current directory's parent.
+	 * This method is supposed to be called from the {@link ServerControl} class.
+	 * Updates the view once the data have been received from the server.
+	 * @param _dirPath The path of the child directory.
+	 * @return true if it is possible to navigate up.
+	 */
+	public boolean navigateUpIfPossible() {
+		if (mDirectoryContent == null) {
+			return false;
+		}
+		final String dirPath = mDirectoryContent.getPath();
+		if (dirPath.contains(File.separator)) {
+			openParentDirectory(dirPath);
+			return true;
+		}
+		return false;
 	}
 
 	private void openFile(String _filename) {

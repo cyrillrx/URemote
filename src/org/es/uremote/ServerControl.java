@@ -61,12 +61,14 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
 	private static final int PAGES_COUNT = 4;
 	private static final int EXPLORER_PAGE_ID = 2;
-	private int mCurrentPage = 0;
 
-	private TextView mTvServerState;
-	private ProgressBar mPbConnection;
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
+
+	private FragExplorer mFragExplorer;
+	private int mCurrentPage = 0;
+	private TextView mTvServerState;
+	private ProgressBar mPbConnection;
 
 	/** @return the handler used to display the toast messages. */
 	public static Handler getHandler() {
@@ -90,12 +92,12 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		// Fragment to use in each tab
 		FragAdmin fragAdmin				= new FragAdmin();
 		FragDashboard fragDashboard		= new FragDashboard();
-		FragExplorer fragExplorer		= new FragExplorer();
+		mFragExplorer		= new FragExplorer();
 		FragKeyboard fragKeyboard		= new FragKeyboard();
 		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
 		fragments.add(fragAdmin);
 		fragments.add(fragDashboard);
-		fragments.add(fragExplorer);
+		fragments.add(mFragExplorer);
 		fragments.add(fragKeyboard);
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
@@ -142,9 +144,9 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 		} else {
 			if (keyCode == KeyEvent.KEYCODE_BACK && mCurrentPage == EXPLORER_PAGE_ID) {
 
-				// TODO return on explorer
-				Log.error(TAG, "KEYCODE_BACK");
-				return true;
+				if (mFragExplorer.navigateUpIfPossible()) {
+					return true;
+				}
 			}
 			Log.error(TAG, KeyEvent.keyCodeToString(keyCode));
 
