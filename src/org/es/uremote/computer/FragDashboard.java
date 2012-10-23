@@ -3,6 +3,7 @@ package org.es.uremote.computer;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Code.DEFINE;
 import static org.es.network.ExchangeProtos.Request.Code.MUTE;
 import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
@@ -30,6 +31,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 
 /**
@@ -38,7 +41,7 @@ import android.widget.Toast;
  * @author Cyril Leroux
  *
  */
-public class FragDashboard extends Fragment implements OnClickListener, IRequestSender {
+public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, IRequestSender {
 
 	private static final String TAG	= "FragDashboard";
 	// ActivityForResults request codes
@@ -79,8 +82,12 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 		((ImageButton) view.findViewById(R.id.cmdPlayPause)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
+
 		mCmdMute = (ImageButton) view.findViewById(R.id.cmdMute);
 		mCmdMute.setOnClickListener(this);
+
+
+		((SeekBar) view.findViewById(R.id.sbVolume)).setOnSeekBarChangeListener(this);
 
 		return view;
 	}
@@ -140,14 +147,14 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 
 	// TODO fr to en
 	/**
-	 * Gestion des actions en fonction du code de retour renvoyé après un StartActivityForResult.
+	 * Result for AppLauncher activity.
 	 * 
 	 * @param _requestCode Code d'identification de l'activité appelée.
 	 * @param _resultCode Code de retour de l'activité (RESULT_OK/RESULT_CANCEL).
 	 * @param _data Les données renvoyées par l'application.
 	 */
 	@Override
-	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {	// Résultat de l'activité Application Launcher
+	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {
 		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
 			final Type type  = Type.valueOf(_data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
 			final Code code  = Code.valueOf(_data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
@@ -176,7 +183,10 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 		if (DashboardMessageMgr.availablePermits() > 0) {
 			new DashboardMessageMgr(ServerControl.getHandler()).execute(_request);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			//TODO
+			final String toastMsg = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
+			Toast.makeText(getActivity().getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
+			//			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -202,16 +212,17 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 			super.onPostExecute(_response);
 			Log.debug(TAG, "onPostExecute() response : " + _response.getMessage());
 
-			showToast(_response.toString());
+			Type type = _response.getRequestType();
+			Code code = _response.getRequestCode();
+
+			if (!(VOLUME.equals(type) && DEFINE.equals(code))) {
+				showToast(_response.toString());
+			}
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
 
 			} else {
-				Type type = _response.hasRequest() ? _response.getRequest().getType() : null;
-				Code code = _response.hasRequest() ? _response.getRequest().getCode() : null;
-
-				// Update mute icone
 				if (VOLUME.equals(type) && MUTE.equals(code)) {
 					if (_response.getIntValue() == 0) { // Mute
 						mCmdMute.setImageResource(R.drawable.volume_muted);
@@ -222,5 +233,23 @@ public class FragDashboard extends Fragment implements OnClickListener, IRequest
 				mParent.updateConnectionState(STATE_OK);
 			}
 		}
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		final int volume = seekBar.getProgress();
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.DEFINE, volume));
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+		// TODO Auto-generated method stub
+
 	}
 }
