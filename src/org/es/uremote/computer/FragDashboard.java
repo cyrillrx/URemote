@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static org.es.network.ExchangeProtos.Request.Code.DEFINE;
 import static org.es.network.ExchangeProtos.Request.Code.MUTE;
+import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
@@ -24,8 +25,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -60,18 +59,18 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		mParent = (ServerControl) getActivity();
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
-		super.onCreateOptionsMenu(menu, inflater);
-	}
-
 	/**
 	 * Called when the application is created.
 	 */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_dashboard, container, false);
+
+		((ImageButton) view.findViewById(R.id.kbLeft)).setOnClickListener(this);
+		((ImageButton) view.findViewById(R.id.kbRight)).setOnClickListener(this);
+		((ImageButton) view.findViewById(R.id.kbUp)).setOnClickListener(this);
+		((ImageButton) view.findViewById(R.id.kbDown)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.kbOk)).setOnClickListener(this);
 
 		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
@@ -104,6 +103,26 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 		switch (_view.getId()) {
 
+		case R.id.kbLeft :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.LEFT));
+			break;
+
+		case R.id.kbRight :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.RIGHT));
+			break;
+
+		case R.id.kbUp :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.UP));
+			break;
+
+		case R.id.kbDown :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.DOWN));
+			break;
+
+		case R.id.kbOk :
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.KB_RETURN));
+			break;
+
 		case R.id.cmdTest :
 			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.TEST));
 			break;
@@ -121,23 +140,23 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			break;
 
 		case R.id.cmdPrevious :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.MEDIA_PREVIOUS));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_PREVIOUS));
 			break;
 
 		case R.id.cmdPlayPause :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.MEDIA_PLAY_PAUSE));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE));
 			break;
 
 		case R.id.cmdStop :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.MEDIA_STOP));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_STOP));
 			break;
 
 		case R.id.cmdNext :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.KEYBOARD, Code.MEDIA_NEXT));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_NEXT));
 			break;
 
 		case R.id.cmdMute :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.MUTE));
+			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.MUTE));
 			break;
 
 		default:
@@ -145,14 +164,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		}
 	}
 
-	// TODO fr to en
-	/**
-	 * Result for AppLauncher activity.
-	 * 
-	 * @param _requestCode Code d'identification de l'activité appelée.
-	 * @param _resultCode Code de retour de l'activité (RESULT_OK/RESULT_CANCEL).
-	 * @param _data Les données renvoyées par l'application.
-	 */
 	@Override
 	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {
 		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
@@ -183,10 +194,11 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		if (DashboardMessageMgr.availablePermits() > 0) {
 			new DashboardMessageMgr(ServerControl.getHandler()).execute(_request);
 		} else {
-			//TODO
-			final String toastMsg = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
-			Toast.makeText(getActivity().getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
-			//			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			final boolean defineVolume = VOLUME.equals(_request.getType()) && DEFINE.equals(_request.getCode());
+			if (!defineVolume) {
+				final String toastMsg = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
+				Toast.makeText(getActivity().getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -238,18 +250,14 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		final int volume = seekBar.getProgress();
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.VOLUME, Code.DEFINE, volume));
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.DEFINE, volume));
 	}
 
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
-		// TODO Auto-generated method stub
-
 	}
 }

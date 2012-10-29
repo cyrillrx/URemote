@@ -1,5 +1,6 @@
 package org.es.network;
 
+import static org.es.network.ExchangeProtos.Request.Code.NONE;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 import java.io.ByteArrayOutputStream;
@@ -258,14 +259,16 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * Build a request with both integer and string parameters.
 	 * @param _type The request type.
 	 * @param _code The request code.
+	 * @param _extraCode The request extra code.
 	 * @param _intParam An integer parameter.
 	 * @param _stringParam A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	private static Request buildRequest(Type _type, Code _code, int _intParam, String _stringParam) {
+	private static Request buildRequest(Type _type, Code _code, Code _extraCode, int _intParam, String _stringParam) {
 		Request request = Request.newBuilder()
 		.setType(_type)
 		.setCode(_code)
+		.setExtraCode(_extraCode)
 		.setIntParam(_intParam)
 		.setStringParam(_stringParam)
 		.build();
@@ -286,27 +289,39 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
 	public static Request buildRequest(Type _type, Code _code, int _intParam) {
-		return buildRequest(_type, _code, _intParam, "");
+		return buildRequest(_type, _code, NONE, _intParam, "");
 	}
 
 	/**
 	 * Build a request with a string parameter.
 	 * @param _type The request type.
 	 * @param _code The request code.
+	 * @param _extraCode The request extra code.
 	 * @param _stringParam A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(Type _type, Code _code, String _stringParam) {
-		return buildRequest(_type, _code, 0, _stringParam);
+	public static Request buildRequest(Type _type, Code _code, Code _extraCode, String _stringParam) {
+		return buildRequest(_type, _code, _extraCode, 0, _stringParam);
 	}
 
 	/**
-	 * Build a request.
+	 * Build a request with a code and an extra code.
+	 * @param _type The request type.
+	 * @param _code The request code.
+	 * @param _extraCode The request extra code.
+	 * @return The request if it had been initialized. Return null otherwise.
+	 */
+	public static Request buildRequest(Type _type, Code _code, Code _extraCode) {
+		return buildRequest(_type, _code, _extraCode, 0, "");
+	}
+
+	/**
+	 * Build a request with a code.
 	 * @param _type The request type.
 	 * @param _code The request code.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
 	public static Request buildRequest(Type _type, Code _code) {
-		return buildRequest(_type, _code, 0, "");
+		return buildRequest(_type, _code, NONE, 0, "");
 	}
 }

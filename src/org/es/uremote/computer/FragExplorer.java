@@ -1,6 +1,7 @@
 package org.es.uremote.computer;
 
 import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.Request.Code.NONE;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import java.io.File;
@@ -66,7 +67,10 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		// Restoring current directory content
 		if (savedInstanceState != null) {
 			try {
-				mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
+				byte[] dirContent = savedInstanceState.getByteArray(DIRECTORY_CONTENT);
+				if (dirContent != null) {
+					mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
+				}
 			} catch (InvalidProtocolBufferException e) {
 				Log.error(TAG, "onCreate InvalidProtocolBufferException : " + e);
 			}
@@ -81,7 +85,9 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		outState.putByteArray(DIRECTORY_CONTENT, mDirectoryContent.toByteArray());
+		if (mDirectoryContent != null) {
+			outState.putByteArray(DIRECTORY_CONTENT, mDirectoryContent.toByteArray());
+		}
 		super.onSaveInstanceState(outState);
 	}
 
@@ -141,7 +147,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 * @param _dirPath The path of the directory to display.
 	 */
 	private void openDirectory(String _dirPath) {
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, _dirPath));
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, NONE, _dirPath));
 	}
 
 	/**
@@ -151,7 +157,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 */
 	private void openParentDirectory(String _dirPath) {
 		final String parentPath = FileUtils.truncatePath(_dirPath);
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, parentPath));
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.GET_FILE_LIST, NONE, parentPath));
 	}
 
 	/**
@@ -174,7 +180,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	}
 
 	private void openFile(String _filename) {
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE, _filename));
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.EXPLORER, Code.OPEN_FILE, NONE, _filename));
 	}
 
 	////////////////////////////////////////////////////////////////////

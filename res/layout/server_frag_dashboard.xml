@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
     android:gravity="center" >
+
+    <!-- First line of controls -->
 
     <TableRow
         android:layout_width="match_parent"
@@ -33,6 +36,66 @@
             android:drawableTop="@drawable/switch_window"
             android:text="@string/cmd_switch_window" />
     </TableRow>
+
+    <Space
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <!-- Directional keys -->
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/kbUp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_up"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/kbLeft"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_left"
+                android:src="@android:drawable/arrow_up_float" />
+
+            <Button
+                android:id="@+id/kbOk"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="@string/ok" />
+
+            <ImageButton
+                android:id="@+id/kbRight"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_right"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal" >
+
+            <ImageButton
+                android:id="@+id/kbDown"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:contentDescription="@string/kb_down"
+                android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+    </TableLayout>
+
+    <Space
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
+    <!-- Media controls -->
 
     <TableRow
         android:layout_width="match_parent"
@@ -79,15 +142,15 @@
             android:src="@drawable/volume_on" />
     </TableRow>
 
+    <Space
+        android:layout_height="0px"
+        android:layout_weight="1" />
+
     <SeekBar
         android:id="@+id/sbVolume"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="100" />
-
-    <Space
-        android:layout_height="0px"
-        android:layout_weight="1" />
 
     <Button
         android:id="@+id/btnAppLauncher"

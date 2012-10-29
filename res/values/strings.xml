@@ -31,5 +31,6 @@
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
     <string name="power">Power</string>
+    <string name="ok">OK</string>
 
 </resources>

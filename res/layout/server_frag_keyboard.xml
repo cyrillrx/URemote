@@ -7,20 +7,20 @@
     <TableRow>
 
         <Button
-            android:id="@+id/kbAltf4"
+            android:id="@+id/kbEscape"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_span="3"
             android:padding="0dp"
-            android:text="@string/kb_alt_f4" />
+            android:text="@string/kb_escape" />
 
         <Button
-            android:id="@+id/kbCtrlEnter"
+            android:id="@+id/kbAltF4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_span="4"
             android:padding="0dp"
-            android:text="@string/kb_ctrl_enter" />
+            android:text="@string/kb_alt_f4" />
 
         <Button
             android:id="@+id/kbBackspace"
@@ -231,26 +231,58 @@
 
     <TableRow android:gravity="center" >
 
-        <Button
-            android:id="@+id/kbEscape"
+        <ToggleButton
+            android:id="@+id/kbShift"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_span="2"
             android:padding="0dp"
-            android:text="@string/kb_escape" />
+            android:textOff="@string/kb_shift"
+            android:textOn="@string/kb_shift" />
 
         <Button
             android:id="@+id/kbSpace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_span="6"
+            android:layout_span="8"
+            android:padding="0dp"
             android:text="@string/kb_space" />
+    </TableRow>
+
+    <TableRow>
+
+        <ToggleButton
+            android:id="@+id/kbControl"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="2"
+            android:padding="0dp"
+            android:textOff="@string/kb_control"
+            android:textOn="@string/kb_control" />
+
+        <ToggleButton
+            android:id="@+id/kbWindows"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="3"
+            android:padding="0dp"
+            android:textOff="@string/kb_windows"
+            android:textOn="@string/kb_windows" />
+
+        <ToggleButton
+            android:id="@+id/kbAlt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_span="2"
+            android:padding="0dp"
+            android:textOff="@string/kb_alt"
+            android:textOn="@string/kb_alt" />
 
         <Button
             android:id="@+id/kbEnter"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_span="2"
+            android:layout_span="3"
             android:padding="0dp"
             android:text="@string/kb_enter" />
     </TableRow>
