@@ -10,9 +10,10 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.ServerControl;
 import org.es.uremote.utils.Constants;
+import org.es.utils.Log;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,7 +25,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 /**
@@ -34,8 +34,8 @@ import android.widget.ToggleButton;
  *
  */
 public class FragKeyboard extends Fragment implements OnClickListener, IRequestSender {
-
-	private ServerControl mParent;
+	private static final String TAG = "FragKeyboard";
+	private Computer mParent;
 
 	private ToggleButton mTbControl;
 	private ToggleButton mTbAlt;
@@ -45,7 +45,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ServerControl) getActivity();
+		mParent = (Computer) getActivity();
 	}
 
 	/**
@@ -313,9 +313,9 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	@Override
 	public void sendAsyncRequest(Request _request) {
 		if (KeyboardMessageMgr.availablePermits() > 0) {
-			new KeyboardMessageMgr(ServerControl.getHandler()).execute(_request);
+			new KeyboardMessageMgr(Computer.getHandler()).execute(_request);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			Log.warning(TAG, getString(R.string.msg_no_more_permit));
 		}
 	}
 
@@ -364,7 +364,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
 
-			showToast(_response.toString());
+			sendToastToUI(_response.getMessage());
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(Constants.STATE_KO);

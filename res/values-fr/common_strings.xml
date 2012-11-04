@@ -19,6 +19,7 @@
     <string name="cmd_preview">Preview</string>
     <string name="cmd_next">Next</string>
     <string name="cmd_mute">Mute</string>
+    <string name="cmd_lock">Lock</string>
     <string name="btn_app_launcher">Launcher</string>
 
 </resources>

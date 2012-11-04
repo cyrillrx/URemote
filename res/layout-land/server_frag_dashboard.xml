@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:padding="15dp" >
 
     <!-- Directional keys -->
 
@@ -143,11 +144,14 @@
             android:layout_height="wrap_content"
             android:max="100" />
 
-        <Button
-            android:id="@+id/btnAppLauncher"
-            style="@style/command_button"
-            android:drawableTop="@drawable/app_launcher"
-            android:text="@string/btn_app_launcher" />
+        <TableRow android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/btnAppLauncher"
+                style="@style/command_button"
+                android:drawableTop="@drawable/app_launcher"
+                android:text="@string/btn_app_launcher" />
+        </TableRow>
     </TableLayout>
 
 </LinearLayout>

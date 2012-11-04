@@ -7,12 +7,13 @@
     <string name="title_preferences">Preferences</string>
     <string name="title_tv">Tv remote</string>
     <string name="title_robots">Robot control</string>
-    <string name="title_lights">Light control</string>
+    <string name="title_lights">Lights</string>
     <string name="title_hifi">Hifi</string>
     <string name="title_settings">Settings</string>
-    <string name="title_server_dashboard">Dashboard</string>
+    <string name="title_computer">Ordinateur</string>
     <string name="title_application_launcher">Applications</string>
     <string name="title_filemanager">File Explorer</string>
+    <string name="title_admin">Admin</string>
 
     <!-- Menu -->
     <string name="menu_server_settings">Server settings</string>
@@ -28,6 +29,7 @@
     <string name="msg_no_more_permit">No more permit available !</string>
     <string name="confirm_kill_server">You are about to kill the server. Would you like to continue ?</string>
     <string name="confirm_command">Confirm the command ?</string>
+    <string name="action_image_description">Action icon</string>
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
     <string name="power">Power</string>

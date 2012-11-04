@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Home"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,21 +29,12 @@
             android:name=".AppSettings"
             android:label="@string/title_preferences" />
         <activity
-            android:name=".ServerControl"
-            android:label="@string/title_server_dashboard" />
-        <activity
-            android:name=".computer.ServerTabPager"
-            android:label="@string/title_server_dashboard" />
-        <activity
-            android:name=".computer._ServerDashboard"
-            android:label="@string/title_server_dashboard" />
+            android:name=".Computer"
+            android:label="@string/title_computer" />
         <activity
             android:name=".computer.AppLauncher"
             android:label="@string/title_application_launcher"
             android:theme="@android:style/Theme.Dialog" />
-        <activity
-            android:name=".computer._FileManager"
-            android:label="@string/title_filemanager" />
         <activity
             android:name=".Lights"
             android:label="@string/title_lights" />
@@ -51,9 +43,6 @@
             android:label="@string/title_robots" />
         <activity
             android:name=".TvDialer"
-            android:label="@string/tv" />
-        <activity
-            android:name=".TvChannel"
             android:label="@string/title_tv" />
     </application>
 

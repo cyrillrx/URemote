@@ -22,7 +22,6 @@ import android.widget.TextView;
  *
  */
 public class FileManagerAdapter extends BaseAdapter {
-	//	private final List<FileManagerEntity> mFileList;
 	private final DirContent mDirContent;
 	private final LayoutInflater mInflater;
 
@@ -37,10 +36,20 @@ public class FileManagerAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public int getCount() { return mDirContent.getFileCount();	}
+	public int getCount() {
+		if (mDirContent == null) {
+			return 0;
+		}
+		return mDirContent.getFileCount();
+	}
 
 	@Override
-	public Object getItem(int _position) { return mDirContent.getFile(_position); }
+	public Object getItem(int _position) {
+		if (mDirContent == null) {
+			return null;
+		}
+		return mDirContent.getFile(_position);
+	}
 
 	@Override
 	public long getItemId(int _position) { return _position; }

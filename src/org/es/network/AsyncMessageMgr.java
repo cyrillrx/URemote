@@ -102,18 +102,11 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		sSemaphore.release();
 		Log.info(TAG, "Semaphore release");
 
-		if (_response.getMessage().isEmpty()) {
+		if (!_response.getMessage().isEmpty()) {
 			Log.info(TAG, "onPostExecute message : " + _response.getMessage());
 		} else {
 			Log.info(TAG, "onPostExecute empty message.");
 		}
-		//			Type type = _response.getRequest().getType();
-		//			if (VOLUME.equals(type)) {
-		//				showToast(_response.getMessage());
-		//			}
-		//		} else {
-		//			Log.error(TAG, "Response don't have request");
-		//		}
 	}
 
 	@Override
@@ -126,7 +119,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * Send a toast message on the UI thread.
 	 * @param _toastMessage The message to display.
 	 */
-	protected void showToast(String _toastMessage) {
+	protected void sendToastToUI(String _toastMessage) {
 		if (mHandler == null) {
 			Log.error(TAG, "showToast() handler is null");
 			return;

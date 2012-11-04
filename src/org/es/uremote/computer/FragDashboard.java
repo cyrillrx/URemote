@@ -15,15 +15,19 @@ import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.ServerControl;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
+import android.app.Service;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +36,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -41,22 +46,24 @@ import android.widget.Toast;
  *
  */
 public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, IRequestSender {
-
 	private static final String TAG	= "FragDashboard";
-	// ActivityForResults request codes
-	private static final int RC_APP_LAUNCHER	= 0;
-
 	private static final int STATE_KO	= 0;
 	private static final int STATE_OK	= 1;
 	private static final int STATE_CONNECTING	= 2;
-	private ImageButton mCmdMute;
 
-	private ServerControl mParent;
+	// ActivityForResults request codes
+	private static final int RC_APP_LAUNCHER	= 0;
+
+	private ImageButton mIbMute;
+	private SeekBar mSbVolume;
+	private Toast mToast;
+	private TextView mTvToast;
+	private Computer mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ServerControl) getActivity();
+		mParent = (Computer) getActivity();
 	}
 
 	/**
@@ -82,11 +89,11 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
 
-		mCmdMute = (ImageButton) view.findViewById(R.id.cmdMute);
-		mCmdMute.setOnClickListener(this);
+		mIbMute = (ImageButton) view.findViewById(R.id.cmdMute);
+		mIbMute.setOnClickListener(this);
 
-
-		((SeekBar) view.findViewById(R.id.sbVolume)).setOnSeekBarChangeListener(this);
+		mSbVolume = ((SeekBar) view.findViewById(R.id.sbVolume));
+		mSbVolume.setOnSeekBarChangeListener(this);
 
 		return view;
 	}
@@ -176,6 +183,53 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		}
 	}
 
+	/**
+	 * Show a static toast message.
+	 * The next message replace the previous one.
+	 * 
+	 * @param _message The message to display.
+	 * @param _point The position to display it.
+	 */
+	private void showVolumeToast(final String _message, final int _x, final int _y) {
+		if (mToast == null) {
+			initVolumeToast();
+		}
+		mTvToast.setText(_message);
+		//		final int x = (_x);
+		//		final int y = (int) (_y - mTvToast.getHeight() / 2.0);
+		mToast.setGravity(Gravity.CENTER, 0, 0);
+		mToast.show();
+	}
+
+	private void initVolumeToast() {
+		LayoutInflater inflater = ( LayoutInflater ) getActivity().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+		View view = inflater.inflate(R.layout.custom_toast, null);
+
+		mToast = new Toast(getActivity().getApplicationContext());
+		mToast.setDuration(Toast.LENGTH_SHORT);
+		mToast.setView(view);
+
+		mTvToast = (TextView) view.findViewById(R.id.toastText);
+		mTvToast.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
+	}
+
+	@Override
+	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+		if (!fromUser) {
+			return;
+		}
+		final int volume = seekBar.getProgress();
+		sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.DEFINE, volume));
+	}
+
+	@Override
+	public void onStartTrackingTouch(SeekBar seekBar) {
+	}
+
+	@Override
+	public void onStopTrackingTouch(SeekBar seekBar) {
+	}
+
 	////////////////////////////////////////////////////////////////////
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
@@ -186,18 +240,14 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 */
 	@Override
 	public void sendAsyncRequest(Request _request) {
-		if (_request == null) {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_null_request, Toast.LENGTH_SHORT).show();
-			return;
-		}
 
 		if (DashboardMessageMgr.availablePermits() > 0) {
-			new DashboardMessageMgr(ServerControl.getHandler()).execute(_request);
+			new DashboardMessageMgr(Computer.getHandler()).execute(_request);
 		} else {
 			final boolean defineVolume = VOLUME.equals(_request.getType()) && DEFINE.equals(_request.getCode());
 			if (!defineVolume) {
-				final String toastMsg = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
-				Toast.makeText(getActivity().getApplicationContext(), toastMsg, Toast.LENGTH_SHORT).show();
+				final String message = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
+				Log.warning(TAG, message);
 			}
 		}
 	}
@@ -224,40 +274,37 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			super.onPostExecute(_response);
 			Log.debug(TAG, "onPostExecute() response : " + _response.getMessage());
 
-			Type type = _response.getRequestType();
-			Code code = _response.getRequestCode();
-
-			if (!(VOLUME.equals(type) && DEFINE.equals(code))) {
-				showToast(_response.toString());
-			}
-
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
+				return;
+			}
 
+			mParent.updateConnectionState(STATE_OK);
+
+			final Type type = _response.getRequestType();
+			final Code code = _response.getRequestCode();
+
+			boolean usingVolumeSeekbar = VOLUME.equals(type) && DEFINE.equals(code);
+			if (!usingVolumeSeekbar) {
+				sendToastToUI(_response.getMessage());
 			} else {
-				if (VOLUME.equals(type) && MUTE.equals(code)) {
-					if (_response.getIntValue() == 0) { // Mute
-						mCmdMute.setImageResource(R.drawable.volume_muted);
-					} else if (_response.getIntValue() == 1) { // Volume On
-						mCmdMute.setImageResource(R.drawable.volume_on);
-					}
+				final int volume = _response.getIntValue();
+
+				Rect hitRect = new Rect();
+				mSbVolume.getDrawingRect(hitRect);
+				final int x = mSbVolume.getLeft() + (int)((float)volume / (float)mSbVolume.getMax() * mSbVolume.getWidth());
+				final int y = mSbVolume.getTop();
+				showVolumeToast(volume + "%", x, y);
+			}
+
+			// Handle UI mute icon
+			if (VOLUME.equals(type) && MUTE.equals(code)) {
+				if (_response.getIntValue() == 0) { // Mute
+					mIbMute.setImageResource(R.drawable.volume_muted);
+				} else if (_response.getIntValue() == 1) { // Volume On
+					mIbMute.setImageResource(R.drawable.volume_on);
 				}
-				mParent.updateConnectionState(STATE_OK);
 			}
 		}
-	}
-
-	@Override
-	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-		final int volume = seekBar.getProgress();
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.DEFINE, volume));
-	}
-
-	@Override
-	public void onStartTrackingTouch(SeekBar seekBar) {
-	}
-
-	@Override
-	public void onStopTrackingTouch(SeekBar seekBar) {
 	}
 }

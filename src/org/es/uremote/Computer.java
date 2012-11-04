@@ -55,7 +55,7 @@ import android.widget.Toast;
  * @author Cyril Leroux
  *
  */
-public class ServerControl extends FragmentActivity implements OnPageChangeListener {
+public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	private static final String TAG = "ServerControl";
 	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
@@ -70,6 +70,8 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
 
+	private static Toast sToast = null;
+
 	/** @return the handler used to display the toast messages. */
 	public static Handler getHandler() {
 		return sHandler;
@@ -78,7 +80,7 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 	@Override
 	public void onCreate(Bundle _savedInstanceState) {
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.activity_server);
+		setContentView(R.layout.activity_computer);
 
 		initHandler(getApplicationContext());
 		initServer();
@@ -223,8 +225,9 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 					case MESSAGE_WHAT_TOAST:
-						Toast.makeText(_context, (String)_msg.obj, LENGTH_SHORT).show();
+						showStaticToast(_context, (String)_msg.obj);
 						break;
+
 					default : break;
 					}
 					super.handleMessage(_msg);
@@ -232,6 +235,13 @@ public class ServerControl extends FragmentActivity implements OnPageChangeListe
 
 			};
 		}
+	}
+
+	private static void showStaticToast(final Context _context, final String _message) {
+		if (sToast == null) {
+			sToast = Toast.makeText(_context,_message, LENGTH_SHORT);
+		}
+		sToast.show();
 	}
 
 	@Override

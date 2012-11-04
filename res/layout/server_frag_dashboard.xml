@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    android:gravity="center" >
+    android:gravity="center"
+    android:padding="15dp" >
 
     <!-- First line of controls -->
 
@@ -97,9 +97,7 @@
 
     <!-- Media controls -->
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+    <TableRow>
 
         <ImageButton
             android:id="@+id/cmdPrevious"
@@ -152,10 +150,13 @@
         android:layout_height="wrap_content"
         android:max="100" />
 
-    <Button
-        android:id="@+id/btnAppLauncher"
-        style="@style/command_button"
-        android:drawableTop="@drawable/app_launcher"
-        android:text="@string/btn_app_launcher" />
+    <TableRow android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/btnAppLauncher"
+            style="@style/command_button"
+            android:drawableTop="@drawable/app_launcher"
+            android:text="@string/btn_app_launcher" />
+    </TableRow>
 
 </TableLayout>

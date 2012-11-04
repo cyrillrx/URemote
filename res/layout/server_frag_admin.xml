@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:gravity="center"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:gravity="center" >
 
+    <Space
+        android:layout_height="0px"
+        android:layout_weight="1" />
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -47,5 +50,16 @@
             android:drawableTop="@drawable/ai_mute"
             android:text="@string/cmd_ai_mute" />
     </TableRow>
+
+    <Button
+        android:id="@+id/cmdLock"
+        style="@style/command_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableTop="@drawable/lock"
+        android:text="@string/cmd_lock" />
+    <Space
+        android:layout_height="0px"
+        android:layout_weight="1" />
 
 </TableLayout>

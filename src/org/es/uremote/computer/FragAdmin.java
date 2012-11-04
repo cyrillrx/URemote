@@ -3,6 +3,7 @@ package org.es.uremote.computer;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static org.es.network.ExchangeProtos.Request.Code.KILL_SERVER;
+import static org.es.network.ExchangeProtos.Request.Code.LOCK;
 import static org.es.network.ExchangeProtos.Request.Code.MUTE;
 import static org.es.network.ExchangeProtos.Request.Code.SHUTDOWN;
 import static org.es.network.ExchangeProtos.Request.Type.AI;
@@ -16,9 +17,10 @@ import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.ServerControl;
 import org.es.uremote.network.WakeOnLan;
+import org.es.utils.Log;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,7 +36,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -43,13 +44,14 @@ import android.widget.Toast;
  *
  */
 public class FragAdmin extends Fragment implements OnClickListener, IRequestSender {
+	private static final String TAG	= "FragAdmin";
 
-	private ServerControl mParent;
+	private Computer mParent;
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (ServerControl) getActivity();
+		mParent = (Computer) getActivity();
 	}
 
 	/**
@@ -63,6 +65,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		((Button) view.findViewById(R.id.cmdShutdown)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdAiMute)).setOnClickListener(this);
 		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
+		((Button) view.findViewById(R.id.cmdLock)).setOnClickListener(this);
 
 		return view;
 	}
@@ -95,6 +98,10 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, KILL_SERVER));
 			break;
 
+		case R.id.cmdLock :
+			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, LOCK));
+			break;
+
 		default:
 			break;
 		}
@@ -117,7 +124,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		final String defaultMAcAddress	= getString(R.string.pref_default_mac_address);
 		final String macAddress = pref.getString(keyMAcAddress, defaultMAcAddress);
 
-		new WakeOnLan(ServerControl.getHandler()).execute(host, macAddress);
+		new WakeOnLan(Computer.getHandler()).execute(host, macAddress);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -126,15 +133,11 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 	@Override
 	public void sendAsyncRequest(Request _request) {
-		if (_request == null) {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_null_request, Toast.LENGTH_SHORT).show();
-			return;
-		}
 
 		if (AdminMessageMgr.availablePermits() > 0) {
-			new AdminMessageMgr(ServerControl.getHandler()).execute(_request);
+			new AdminMessageMgr(Computer.getHandler()).execute(_request);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			Log.warning(TAG, getString(R.string.msg_no_more_permit));
 		}
 	}
 
@@ -185,7 +188,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
 
-			showToast(_response.toString());
+			sendToastToUI(_response.getMessage());
 
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);

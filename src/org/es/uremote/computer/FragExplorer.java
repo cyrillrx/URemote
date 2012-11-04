@@ -14,7 +14,7 @@ import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
 import org.es.uremote.R;
-import org.es.uremote.ServerControl;
+import org.es.uremote.Computer;
 import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.utils.FileUtils;
 import org.es.utils.Log;
@@ -104,7 +104,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 			return;
 		}
 
-		FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), _dirContent);
+		final FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), _dirContent);
 		setListAdapter(adpt);
 
 		ListView listView = getListView();
@@ -162,7 +162,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Ask the server to list the content of the current directory's parent.
-	 * This method is supposed to be called from the {@link ServerControl} class.
+	 * This method is supposed to be called from the {@link Computer} class.
 	 * Updates the view once the data have been received from the server.
 	 * @param _dirPath The path of the child directory.
 	 * @return true if it is possible to navigate up.
@@ -194,7 +194,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	@Override
 	public void sendAsyncRequest(Request _request) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
-			new ExplorerMessageMgr(ServerControl.getHandler()).execute(_request);
+			new ExplorerMessageMgr(Computer.getHandler()).execute(_request);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
@@ -214,16 +214,17 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
 
+			Log.debug(TAG, _response.getMessage());
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				if (!_response.getMessage().isEmpty()) {
-					showToast(_response.getMessage());
+					sendToastToUI(_response.getMessage());
 				}
 				return;
 			}
 			//TODO supprimer
 			//} else if (_response.hasRequest() && GET_FILE_LIST.equals(_response.getRequest().getCode())) {
 			if (!_response.getMessage().isEmpty()) {
-				showToast(_response.getMessage());
+				sendToastToUI(_response.getMessage());
 			}
 			mDirectoryContent = _response.getDirContent();
 			updateView(_response.getDirContent());
