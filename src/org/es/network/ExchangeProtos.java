@@ -170,15 +170,16 @@ public final class ExchangeProtos {
       KB_CTRL(25, 40),
       KB_SHIFT(26, 41),
       KB_ALT(27, 42),
-      KB_WINDOWS(28, 43),
-      KB_RETURN(29, 44),
-      KB_SPACE(30, 45),
-      KB_BACKSPACE(31, 46),
-      KB_ESCAPE(32, 47),
-      KB_TAB(33, 48),
-      KB_F4(34, 50),
-      GOM_PLAYER_KILL(36, 51),
-      GOM_PLAYER_STRETCH(37, 52),
+      KB_ALTGR(28, 43),
+      KB_WINDOWS(29, 44),
+      KB_RETURN(30, 45),
+      KB_SPACE(31, 46),
+      KB_BACKSPACE(32, 47),
+      KB_ESCAPE(33, 48),
+      KB_TAB(34, 49),
+      KB_F4(35, 50),
+      GOM_PLAYER_KILL(37, 51),
+      GOM_PLAYER_STRETCH(38, 52),
       ;
       
       public static final Code GOM_PLAYER_RUN = KB_F4;
@@ -210,12 +211,13 @@ public final class ExchangeProtos {
       public static final int KB_CTRL_VALUE = 40;
       public static final int KB_SHIFT_VALUE = 41;
       public static final int KB_ALT_VALUE = 42;
-      public static final int KB_WINDOWS_VALUE = 43;
-      public static final int KB_RETURN_VALUE = 44;
-      public static final int KB_SPACE_VALUE = 45;
-      public static final int KB_BACKSPACE_VALUE = 46;
-      public static final int KB_ESCAPE_VALUE = 47;
-      public static final int KB_TAB_VALUE = 48;
+      public static final int KB_ALTGR_VALUE = 43;
+      public static final int KB_WINDOWS_VALUE = 44;
+      public static final int KB_RETURN_VALUE = 45;
+      public static final int KB_SPACE_VALUE = 46;
+      public static final int KB_BACKSPACE_VALUE = 47;
+      public static final int KB_ESCAPE_VALUE = 48;
+      public static final int KB_TAB_VALUE = 49;
       public static final int KB_F4_VALUE = 50;
       public static final int GOM_PLAYER_RUN_VALUE = 50;
       public static final int GOM_PLAYER_KILL_VALUE = 51;
@@ -254,12 +256,13 @@ public final class ExchangeProtos {
           case 40: return KB_CTRL;
           case 41: return KB_SHIFT;
           case 42: return KB_ALT;
-          case 43: return KB_WINDOWS;
-          case 44: return KB_RETURN;
-          case 45: return KB_SPACE;
-          case 46: return KB_BACKSPACE;
-          case 47: return KB_ESCAPE;
-          case 48: return KB_TAB;
+          case 43: return KB_ALTGR;
+          case 44: return KB_WINDOWS;
+          case 45: return KB_RETURN;
+          case 46: return KB_SPACE;
+          case 47: return KB_BACKSPACE;
+          case 48: return KB_ESCAPE;
+          case 49: return KB_TAB;
           case 50: return KB_F4;
           case 51: return GOM_PLAYER_KILL;
           case 52: return GOM_PLAYER_STRETCH;
@@ -293,7 +296,7 @@ public final class ExchangeProtos {
       }
       
       private static final Code[] VALUES = {
-        NONE, DEFINE, STATUS, ON, OFF, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_CTRL, KB_SHIFT, KB_ALT, KB_WINDOWS, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_TAB, KB_F4, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
+        NONE, DEFINE, STATUS, ON, OFF, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_CTRL, KB_SHIFT, KB_ALT, KB_ALTGR, KB_WINDOWS, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_TAB, KB_F4, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
       };
       
       public static Code valueOf(
@@ -3061,13 +3064,13 @@ public final class ExchangeProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025server_exchange.proto\022\007network\"\221\006\n\007Req" +
+      "\n\025server_exchange.proto\022\007network\"\237\006\n\007Req" +
       "uest\022#\n\004type\030\001 \002(\0162\025.network.Request.Typ" +
       "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022(" +
       "\n\textraCode\030\003 \002(\0162\025.network.Request.Code" +
       "\022\020\n\010intParam\030\004 \001(\005\022\023\n\013stringParam\030\005 \001(\t\"" +
       "K\n\004Type\022\n\n\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEY" +
-      "BOARD\020\002\022\006\n\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\235\004\n" +
+      "BOARD\020\002\022\006\n\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\253\004\n" +
       "\004Code\022\010\n\004NONE\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022" +
       "\006\n\002ON\020\003\022\007\n\003OFF\020\004\022\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n" +
       "\013KILL_SERVER\020\007\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_W",
@@ -3077,24 +3080,24 @@ public final class ExchangeProtos {
       "LAY_PAUSE\020\036\022\016\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PRE" +
       "VIOUS\020 \022\016\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n" +
       "\014MEDIA_REWIND\020#\022\013\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT" +
-      "\020)\022\n\n\006KB_ALT\020*\022\016\n\nKB_WINDOWS\020+\022\r\n\tKB_RET" +
-      "URN\020,\022\014\n\010KB_SPACE\020-\022\020\n\014KB_BACKSPACE\020.\022\r\n" +
-      "\tKB_ESCAPE\020/\022\n\n\006KB_TAB\0200\022\t\n\005KB_F4\0202\022\022\n\016G" +
-      "OM_PLAYER_RUN\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022",
-      "GOM_PLAYER_STRETCH\0204\"\274\001\n\nDirContent\022\014\n\004p" +
-      "ath\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.DirCon" +
-      "tent.File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030" +
-      "\003 \002(\0162!.network.DirContent.File.FileType" +
-      "\022\014\n\004size\030\004 \002(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020" +
-      "\000\022\010\n\004FILE\020\001\"\226\002\n\010Response\022*\n\013requestType\030" +
-      "\001 \001(\0162\025.network.Request.Type\022*\n\013requestC" +
-      "ode\030\002 \001(\0162\025.network.Request.Code\022:\n\nretu" +
-      "rnCode\030\003 \001(\0162\034.network.Response.ReturnCo" +
-      "de:\010RC_ERROR\022\017\n\007message\030\004 \001(\t\022\020\n\010intValu",
-      "e\030\005 \001(\005\022\'\n\ndirContent\030\006 \001(\0132\023.network.Di" +
-      "rContent\"*\n\nReturnCode\022\016\n\nRC_SUCCESS\020\000\022\014" +
-      "\n\010RC_ERROR\020\001B \n\016org.es.networkB\016Exchange" +
-      "Protos"
+      "\020)\022\n\n\006KB_ALT\020*\022\014\n\010KB_ALTGR\020+\022\016\n\nKB_WINDO" +
+      "WS\020,\022\r\n\tKB_RETURN\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_" +
+      "BACKSPACE\020/\022\r\n\tKB_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t" +
+      "\n\005KB_F4\0202\022\022\n\016GOM_PLAYER_RUN\0202\022\023\n\017GOM_PLA",
+      "YER_KILL\0203\022\026\n\022GOM_PLAYER_STRETCH\0204\"\274\001\n\nD" +
+      "irContent\022\014\n\004path\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030." +
+      "network.DirContent.File\032x\n\004File\022\014\n\004name\030" +
+      "\001 \002(\t\022/\n\004type\030\003 \002(\0162!.network.DirContent" +
+      ".File.FileType\022\014\n\004size\030\004 \002(\005\"#\n\010FileType" +
+      "\022\r\n\tDIRECTORY\020\000\022\010\n\004FILE\020\001\"\226\002\n\010Response\022*" +
+      "\n\013requestType\030\001 \001(\0162\025.network.Request.Ty" +
+      "pe\022*\n\013requestCode\030\002 \001(\0162\025.network.Reques" +
+      "t.Code\022:\n\nreturnCode\030\003 \001(\0162\034.network.Res" +
+      "ponse.ReturnCode:\010RC_ERROR\022\017\n\007message\030\004 ",
+      "\001(\t\022\020\n\010intValue\030\005 \001(\005\022\'\n\ndirContent\030\006 \001(" +
+      "\0132\023.network.DirContent\"*\n\nReturnCode\022\016\n\n" +
+      "RC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016org.es.net" +
+      "workB\016ExchangeProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
