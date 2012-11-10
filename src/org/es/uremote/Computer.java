@@ -124,6 +124,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	@Override
+	protected void onResume() {
+		initServer();
+		super.onResume();
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 
 		int tabIndex = getActionBar().getSelectedNavigationIndex();
@@ -188,28 +194,40 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		final boolean wifi = wifiMgr.isWifiEnabled();
 
+		// Get Host and Port key
 		final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
 		final int resKeyPort = wifi ? R.string.pref_key_local_port : R.string.pref_key_remote_port;
 		final String keyHost	= getString(resKeyHost);
 		final String keyPort	= getString(resKeyPort);
-		final String keyConnectionTimeout	= getString(R.string.pref_key_connection_timeout);
-		final String keyReadTimeout	= getString(R.string.pref_key_read_timeout);
 
+		// Get key for other properties
+		final String keySecurityToken		= getString(R.string.pref_key_security_token);
+		final String keyConnectionTimeout	= getString(R.string.pref_key_connection_timeout);
+		final String keyReadTimeout			= getString(R.string.pref_key_read_timeout);
+
+		// Get default values for Host and Port
 		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
 		final int resDefPort = wifi ? R.string.pref_default_local_port : R.string.pref_default_remote_port;
 		final String defaultHost	= getString(resDefHost);
 		final String defaultPort	= getString(resDefPort);
+
+		// Get default values for other properties
+		final String defaultSecurityToken		= getString(R.string.pref_default_security_token);
 		final String defaultConnectionTimeout	= getString(R.string.pref_default_connection_timeout);
-		final String defaultReadTimeout	= getString(R.string.pref_default_read_timeout);
+		final String defaultReadTimeout			= getString(R.string.pref_default_read_timeout);
 
+		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final String host = pref.getString(keyHost, defaultHost);
-		final int port = Integer.parseInt(pref.getString(keyPort, defaultPort));
-		final int connectionTimeout = Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
-		final int readTimeout = Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
+		final String host	= pref.getString(keyHost, defaultHost);
+		final int port		= Integer.parseInt(pref.getString(keyPort, defaultPort));
+		final String securityToken	= pref.getString(keySecurityToken, defaultSecurityToken);
+		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
+		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
+		// TODO hash the security token
 		AsyncMessageMgr.setHost(host);
 		AsyncMessageMgr.setPort(port);
+		AsyncMessageMgr.setSecurityToken(securityToken);
 		AsyncMessageMgr.setTimeout(connectionTimeout);
 		AsyncMessageMgr.setSoTimeout(readTimeout);
 	}
@@ -239,8 +257,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	private static void showStaticToast(final Context _context, final String _message) {
 		if (sToast == null) {
-			sToast = Toast.makeText(_context,_message, LENGTH_SHORT);
+			sToast = Toast.makeText(_context, "", LENGTH_SHORT);
 		}
+		sToast.setText(_message);
 		sToast.show();
 	}
 

@@ -74,7 +74,12 @@
     <string name="kb_up">Up</string>
     <string name="kb_right">Right</string>
     <string name="kb_down">Down</string>
+    
     <!-- Autres touches -->
+    <string name="kb_control">Ctrl</string>
+    <string name="kb_alt">Alt</string>
+    <string name="kb_shift">Shift</string>
+    <string name="kb_windows">Windows</string>
     <string name="kb_enter">Enter</string>
     <string name="kb_space">[     _____     ]</string>
     <string name="kb_backspace">Backspace</string>

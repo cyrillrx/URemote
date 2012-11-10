@@ -23,11 +23,15 @@ public final class ExchangeProtos {
     boolean hasExtraCode();
     org.es.network.ExchangeProtos.Request.Code getExtraCode();
     
-    // optional int32 intParam = 4;
+    // optional string securityToken = 4;
+    boolean hasSecurityToken();
+    String getSecurityToken();
+    
+    // optional int32 intParam = 5;
     boolean hasIntParam();
     int getIntParam();
     
-    // optional string stringParam = 5;
+    // optional string stringParam = 6;
     boolean hasStringParam();
     String getStringParam();
   }
@@ -350,21 +354,53 @@ public final class ExchangeProtos {
       return extraCode_;
     }
     
-    // optional int32 intParam = 4;
-    public static final int INTPARAM_FIELD_NUMBER = 4;
+    // optional string securityToken = 4;
+    public static final int SECURITYTOKEN_FIELD_NUMBER = 4;
+    private java.lang.Object securityToken_;
+    public boolean hasSecurityToken() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    public String getSecurityToken() {
+      java.lang.Object ref = securityToken_;
+      if (ref instanceof String) {
+        return (String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        String s = bs.toStringUtf8();
+        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+          securityToken_ = s;
+        }
+        return s;
+      }
+    }
+    private com.google.protobuf.ByteString getSecurityTokenBytes() {
+      java.lang.Object ref = securityToken_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+        securityToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    
+    // optional int32 intParam = 5;
+    public static final int INTPARAM_FIELD_NUMBER = 5;
     private int intParam_;
     public boolean hasIntParam() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     public int getIntParam() {
       return intParam_;
     }
     
-    // optional string stringParam = 5;
-    public static final int STRINGPARAM_FIELD_NUMBER = 5;
+    // optional string stringParam = 6;
+    public static final int STRINGPARAM_FIELD_NUMBER = 6;
     private java.lang.Object stringParam_;
     public boolean hasStringParam() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     public String getStringParam() {
       java.lang.Object ref = stringParam_;
@@ -396,6 +432,7 @@ public final class ExchangeProtos {
       type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
       code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
       extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      securityToken_ = "";
       intParam_ = 0;
       stringParam_ = "";
     }
@@ -433,10 +470,13 @@ public final class ExchangeProtos {
         output.writeEnum(3, extraCode_.getNumber());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, intParam_);
+        output.writeBytes(4, getSecurityTokenBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getStringParamBytes());
+        output.writeInt32(5, intParam_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getStringParamBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -461,11 +501,15 @@ public final class ExchangeProtos {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, intParam_);
+          .computeBytesSize(4, getSecurityTokenBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getStringParamBytes());
+          .computeInt32Size(5, intParam_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getStringParamBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -597,10 +641,12 @@ public final class ExchangeProtos {
         bitField0_ = (bitField0_ & ~0x00000002);
         extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
         bitField0_ = (bitField0_ & ~0x00000004);
-        intParam_ = 0;
+        securityToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        stringParam_ = "";
+        intParam_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
+        stringParam_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
       
@@ -654,9 +700,13 @@ public final class ExchangeProtos {
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.intParam_ = intParam_;
+        result.securityToken_ = securityToken_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.intParam_ = intParam_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.stringParam_ = stringParam_;
         result.bitField0_ = to_bitField0_;
@@ -683,6 +733,9 @@ public final class ExchangeProtos {
         }
         if (other.hasExtraCode()) {
           setExtraCode(other.getExtraCode());
+        }
+        if (other.hasSecurityToken()) {
+          setSecurityToken(other.getSecurityToken());
         }
         if (other.hasIntParam()) {
           setIntParam(other.getIntParam());
@@ -766,13 +819,18 @@ public final class ExchangeProtos {
               }
               break;
             }
-            case 32: {
+            case 34: {
               bitField0_ |= 0x00000008;
+              securityToken_ = input.readBytes();
+              break;
+            }
+            case 40: {
+              bitField0_ |= 0x00000010;
               intParam_ = input.readInt32();
               break;
             }
-            case 42: {
-              bitField0_ |= 0x00000010;
+            case 50: {
+              bitField0_ |= 0x00000020;
               stringParam_ = input.readBytes();
               break;
             }
@@ -854,31 +912,67 @@ public final class ExchangeProtos {
         return this;
       }
       
-      // optional int32 intParam = 4;
+      // optional string securityToken = 4;
+      private java.lang.Object securityToken_ = "";
+      public boolean hasSecurityToken() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      public String getSecurityToken() {
+        java.lang.Object ref = securityToken_;
+        if (!(ref instanceof String)) {
+          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          securityToken_ = s;
+          return s;
+        } else {
+          return (String) ref;
+        }
+      }
+      public Builder setSecurityToken(String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
+        securityToken_ = value;
+        onChanged();
+        return this;
+      }
+      public Builder clearSecurityToken() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        securityToken_ = getDefaultInstance().getSecurityToken();
+        onChanged();
+        return this;
+      }
+      void setSecurityToken(com.google.protobuf.ByteString value) {
+        bitField0_ |= 0x00000008;
+        securityToken_ = value;
+        onChanged();
+      }
+      
+      // optional int32 intParam = 5;
       private int intParam_ ;
       public boolean hasIntParam() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       public int getIntParam() {
         return intParam_;
       }
       public Builder setIntParam(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         intParam_ = value;
         onChanged();
         return this;
       }
       public Builder clearIntParam() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         intParam_ = 0;
         onChanged();
         return this;
       }
       
-      // optional string stringParam = 5;
+      // optional string stringParam = 6;
       private java.lang.Object stringParam_ = "";
       public boolean hasStringParam() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       public String getStringParam() {
         java.lang.Object ref = stringParam_;
@@ -894,19 +988,19 @@ public final class ExchangeProtos {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         stringParam_ = value;
         onChanged();
         return this;
       }
       public Builder clearStringParam() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         stringParam_ = getDefaultInstance().getStringParam();
         onChanged();
         return this;
       }
       void setStringParam(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         stringParam_ = value;
         onChanged();
       }
@@ -3064,40 +3158,41 @@ public final class ExchangeProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025server_exchange.proto\022\007network\"\237\006\n\007Req" +
+      "\n\025server_exchange.proto\022\007network\"\266\006\n\007Req" +
       "uest\022#\n\004type\030\001 \002(\0162\025.network.Request.Typ" +
       "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022(" +
       "\n\textraCode\030\003 \002(\0162\025.network.Request.Code" +
-      "\022\020\n\010intParam\030\004 \001(\005\022\023\n\013stringParam\030\005 \001(\t\"" +
-      "K\n\004Type\022\n\n\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEY" +
-      "BOARD\020\002\022\006\n\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\253\004\n" +
-      "\004Code\022\010\n\004NONE\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022" +
-      "\006\n\002ON\020\003\022\007\n\003OFF\020\004\022\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n" +
-      "\013KILL_SERVER\020\007\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_W",
-      "INDOW\020\t\022\010\n\004LOCK\020\n\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004L" +
-      "EFT\020\r\022\t\n\005RIGHT\020\016\022\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\021\n\rG" +
-      "ET_FILE_LIST\020\024\022\r\n\tOPEN_FILE\020\025\022\024\n\020MEDIA_P" +
-      "LAY_PAUSE\020\036\022\016\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PRE" +
-      "VIOUS\020 \022\016\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n" +
-      "\014MEDIA_REWIND\020#\022\013\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT" +
-      "\020)\022\n\n\006KB_ALT\020*\022\014\n\010KB_ALTGR\020+\022\016\n\nKB_WINDO" +
-      "WS\020,\022\r\n\tKB_RETURN\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_" +
-      "BACKSPACE\020/\022\r\n\tKB_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t" +
-      "\n\005KB_F4\0202\022\022\n\016GOM_PLAYER_RUN\0202\022\023\n\017GOM_PLA",
-      "YER_KILL\0203\022\026\n\022GOM_PLAYER_STRETCH\0204\"\274\001\n\nD" +
-      "irContent\022\014\n\004path\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030." +
-      "network.DirContent.File\032x\n\004File\022\014\n\004name\030" +
-      "\001 \002(\t\022/\n\004type\030\003 \002(\0162!.network.DirContent" +
-      ".File.FileType\022\014\n\004size\030\004 \002(\005\"#\n\010FileType" +
-      "\022\r\n\tDIRECTORY\020\000\022\010\n\004FILE\020\001\"\226\002\n\010Response\022*" +
-      "\n\013requestType\030\001 \001(\0162\025.network.Request.Ty" +
-      "pe\022*\n\013requestCode\030\002 \001(\0162\025.network.Reques" +
-      "t.Code\022:\n\nreturnCode\030\003 \001(\0162\034.network.Res" +
-      "ponse.ReturnCode:\010RC_ERROR\022\017\n\007message\030\004 ",
-      "\001(\t\022\020\n\010intValue\030\005 \001(\005\022\'\n\ndirContent\030\006 \001(" +
-      "\0132\023.network.DirContent\"*\n\nReturnCode\022\016\n\n" +
-      "RC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B \n\016org.es.net" +
-      "workB\016ExchangeProtos"
+      "\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intParam\030\005 \001(" +
+      "\005\022\023\n\013stringParam\030\006 \001(\t\"K\n\004Type\022\n\n\006SIMPLE" +
+      "\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI\020\003\022\n" +
+      "\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\253\004\n\004Code\022\010\n\004NONE\020\000\022\n" +
+      "\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OFF\020\004\022" +
+      "\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007\022\014\n",
+      "\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOCK\020\n" +
+      "\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r\022\t\n\005RIGHT\020\016\022" +
+      "\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\021\n\rGET_FILE_LIST\020\024\022\r\n" +
+      "\tOPEN_FILE\020\025\022\024\n\020MEDIA_PLAY_PAUSE\020\036\022\016\n\nME" +
+      "DIA_STOP\020\037\022\022\n\016MEDIA_PREVIOUS\020 \022\016\n\nMEDIA_" +
+      "NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDIA_REWIND\020#\022\013" +
+      "\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT\020)\022\n\n\006KB_ALT\020*\022\014\n" +
+      "\010KB_ALTGR\020+\022\016\n\nKB_WINDOWS\020,\022\r\n\tKB_RETURN" +
+      "\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_BACKSPACE\020/\022\r\n\tKB" +
+      "_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t\n\005KB_F4\0202\022\022\n\016GOM_",
+      "PLAYER_RUN\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022GOM" +
+      "_PLAYER_STRETCH\0204\"\274\001\n\nDirContent\022\014\n\004path" +
+      "\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.DirConten" +
+      "t.File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002" +
+      "(\0162!.network.DirContent.File.FileType\022\014\n" +
+      "\004size\030\004 \002(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020\000\022\010" +
+      "\n\004FILE\020\001\"\226\002\n\010Response\022*\n\013requestType\030\001 \001" +
+      "(\0162\025.network.Request.Type\022*\n\013requestCode" +
+      "\030\002 \001(\0162\025.network.Request.Code\022:\n\nreturnC" +
+      "ode\030\003 \001(\0162\034.network.Response.ReturnCode:",
+      "\010RC_ERROR\022\017\n\007message\030\004 \001(\t\022\020\n\010intValue\030\005" +
+      " \001(\005\022\'\n\ndirContent\030\006 \001(\0132\023.network.DirCo" +
+      "ntent\"*\n\nReturnCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010R" +
+      "C_ERROR\020\001B \n\016org.es.networkB\016ExchangePro" +
+      "tos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -3109,7 +3204,7 @@ public final class ExchangeProtos {
           internal_static_network_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_Request_descriptor,
-              new java.lang.String[] { "Type", "Code", "ExtraCode", "IntParam", "StringParam", },
+              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntParam", "StringParam", },
               org.es.network.ExchangeProtos.Request.class,
               org.es.network.ExchangeProtos.Request.Builder.class);
           internal_static_network_DirContent_descriptor =
