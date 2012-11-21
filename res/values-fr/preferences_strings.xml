@@ -7,6 +7,7 @@
     <string name="pref_key_broadcast">broadcast</string>
     <string name="pref_key_remote_host">remote_host</string>
     <string name="pref_key_remote_port">remote_port</string>
+    <string name="pref_key_security_token">security_token</string>
     <string name="pref_key_connection_timeout">connection_timeout</string>
     <string name="pref_key_read_timeout">read_timeout</string>
     <string name="pref_key_mac_address">mac_address</string>
@@ -17,15 +18,17 @@
     <string name="pref_default_broadcast">192.168.0.255</string>
     <string name="pref_default_remote_host">82.229.76.34</string>
     <string name="pref_default_remote_port">9080</string>
+    <string name="pref_default_security_token">1234</string>
     <string name="pref_default_connection_timeout">500</string>
     <string name="pref_default_read_timeout">1000</string>
-    <string name="pref_default_mac_address">00&#8211;22&#8211;15&#8211;1A&#8211;9B&#8211;B1</string>
+    <string name="pref_default_mac_address">00character (–, &#8211;)22&#8211;15&#8211;1A&#8211;9B&#8211;B1</string>
     
     <!-- Titles -->
-    <string name="pref_server_settings">Configuration du serveur</string>
-    <string name="pref_local">Accès local</string>
-    <string name="pref_remote">Accès distant</string>
-    <string name="pref_other">Autre</string>
+    <string name="pref_title_server_settings">Configuration du serveur</string>
+    <string name="pref_title_local">Accès local</string>
+    <string name="pref_title_remote">Accès distant</string>
+    <string name="pref_title_security">Sécurité</string>
+    <string name="pref_title_other">Autre</string>
     
     <!-- Preference names -->
     <string name="pref_local_ip_address">Adresse ip locale</string>
@@ -33,8 +36,9 @@
     <string name="pref_broadcast_address">Adresse de broadcast</string>
     <string name="pref_remote_ip_address">Adresse ip distante</string>
     <string name="pref_remote_port">Port d\'écoute distant</string>
-    <string name="pref_connection_timeout">Timeout des appels au serveur</string>
-    <string name="pref_read_timeout">Timeout de lecture</string>
+    <string name="pref_security_token">Jeton de sécurité</string>
+    <string name="pref_connection_timeout">Timeout des appels au serveur (connexion)</string>
+    <string name="pref_read_timeout">Timeout de lecture (temps de traitement)</string>
     <string name="pref_mac_address">Adresse Mac de WakeOnLan</string>
     <string name="pref_author">Développeur de l\'application</string>
     <string name="pref_author_summary">Cyril Leroux</string>

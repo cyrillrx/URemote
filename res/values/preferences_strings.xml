@@ -7,6 +7,7 @@
     <string name="pref_key_broadcast">broadcast</string>
     <string name="pref_key_remote_host">remote_host</string>
     <string name="pref_key_remote_port">remote_port</string>
+    <string name="pref_key_security_token">security_token</string>
     <string name="pref_key_connection_timeout">connection_timeout</string>
     <string name="pref_key_read_timeout">read_timeout</string>
     <string name="pref_key_mac_address">mac_address</string>
@@ -17,15 +18,17 @@
     <string name="pref_default_broadcast">192.168.0.255</string>
     <string name="pref_default_remote_host">82.229.76.34</string>
     <string name="pref_default_remote_port">9080</string>
+    <string name="pref_default_security_token">1234</string>
     <string name="pref_default_connection_timeout">500</string>
     <string name="pref_default_read_timeout">1000</string>
     <string name="pref_default_mac_address">00&#8211;22&#8211;15&#8211;1A&#8211;9B&#8211;B1</string>
 
     <!-- Titles -->
-    <string name="pref_server_settings">Server Settings</string>
-    <string name="pref_local">Local access</string>
-    <string name="pref_remote">Remote access</string>
-    <string name="pref_other">Other</string>
+    <string name="pref_title_server_settings">Server Settings</string>
+    <string name="pref_title_local">Local access</string>
+    <string name="pref_title_remote">Remote access</string>
+    <string name="pref_title_security">Security</string>
+    <string name="pref_title_other">Other</string>
     
     <!-- Preference names -->
     <string name="pref_local_ip_address">Local ip address</string>
@@ -33,6 +36,7 @@
     <string name="pref_broadcast_address">Broadcast ip address</string>
     <string name="pref_remote_ip_address">Remote ip address</string>
     <string name="pref_remote_port">Remote listening port</string>
+    <string name="pref_security_token">Security Token</string>
     <string name="pref_connection_timeout">Connection timeout</string>
     <string name="pref_read_timeout">Read timeout</string>
     <string name="pref_mac_address">WakeOnLan Mac address</string>

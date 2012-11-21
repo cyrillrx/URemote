@@ -33,6 +33,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	private static String sHost;
 	private static int sPort;
+	private static String sSecurityToken;
 	private static int sTimeout;
 	private static int sSoTimeout;
 
@@ -164,6 +165,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		if (_socket.isConnected()) {
 			//create BAOS for protobuf
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
 			//mClientDetails is a protobuf message object, dump it to the BAOS
 			_req.writeDelimitedTo(baos);
 
@@ -233,6 +235,14 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
+	 * Set the security token that will be use to authenticate the user.
+	 * @param _securityToken the security token.
+	 */
+	public static void setSecurityToken(final String _securityToken) {
+		sSecurityToken = _securityToken;
+	}
+
+	/**
 	 * Define the timeout of the connection with the server.
 	 * @param _timeout The timeout in milliseconds.
 	 */
@@ -257,13 +267,14 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _stringParam A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	private static Request buildRequest(Type _type, Code _code, Code _extraCode, int _intParam, String _stringParam) {
+	private static Request buildRequest(final Type _type, final Code _code, final Code _extraCode, final int _intParam, final String _stringParam) {
 		Request request = Request.newBuilder()
 		.setType(_type)
 		.setCode(_code)
 		.setExtraCode(_extraCode)
 		.setIntParam(_intParam)
 		.setStringParam(_stringParam)
+		.setSecurityToken(sSecurityToken) // Add the security token
 		.build();
 
 		if (request.isInitialized()) {
@@ -281,7 +292,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _intParam An integer parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(Type _type, Code _code, int _intParam) {
+	public static Request buildRequest(final Type _type, final Code _code, final int _intParam) {
 		return buildRequest(_type, _code, NONE, _intParam, "");
 	}
 
@@ -293,7 +304,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _stringParam A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(Type _type, Code _code, Code _extraCode, String _stringParam) {
+	public static Request buildRequest(final Type _type, final Code _code, final Code _extraCode, final String _stringParam) {
 		return buildRequest(_type, _code, _extraCode, 0, _stringParam);
 	}
 
@@ -304,7 +315,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _extraCode The request extra code.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(Type _type, Code _code, Code _extraCode) {
+	public static Request buildRequest(final Type _type, final Code _code, final Code _extraCode) {
 		return buildRequest(_type, _code, _extraCode, 0, "");
 	}
 
@@ -314,7 +325,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _code The request code.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(Type _type, Code _code) {
+	public static Request buildRequest(final Type _type, final Code _code) {
 		return buildRequest(_type, _code, NONE, 0, "");
 	}
 }

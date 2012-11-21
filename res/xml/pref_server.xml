@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="@string/pref_local" >
+    <PreferenceCategory android:title="@string/pref_title_local" >
         <EditTextPreference
             android:defaultValue="@string/pref_default_local_host"
             android:key="@string/pref_key_local_host"
@@ -15,7 +15,7 @@
             android:key="@string/pref_key_broadcast"
             android:title="@string/pref_broadcast_address" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_remote" >
+    <PreferenceCategory android:title="@string/pref_title_remote" >
         <EditTextPreference
             android:defaultValue="@string/pref_default_remote_host"
             android:key="@string/pref_key_remote_host"
@@ -25,7 +25,13 @@
             android:key="@string/pref_key_remote_port"
             android:title="@string/pref_remote_port" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_other" >
+    <PreferenceCategory android:title="@string/pref_title_security" >
+        <EditTextPreference
+            android:defaultValue="@string/pref_default_security_token"
+            android:key="@string/pref_key_security_token"
+            android:title="@string/pref_security_token" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_title_other" >
         <EditTextPreference
             android:defaultValue="@string/pref_default_connection_timeout"
             android:key="@string/pref_key_connection_timeout"

@@ -272,21 +272,22 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		@Override
 		protected void onPostExecute(Response _response) {
 			super.onPostExecute(_response);
-			Log.debug(TAG, "onPostExecute() response : " + _response.getMessage());
+			final String message = _response.getMessage();
+			Log.debug(TAG, "onPostExecute() response : " + message);
 
+			// TODO handle return better than that
 			if (RC_ERROR.equals(_response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
-				return;
+			} else {
+				mParent.updateConnectionState(STATE_OK);
 			}
-
-			mParent.updateConnectionState(STATE_OK);
 
 			final Type type = _response.getRequestType();
 			final Code code = _response.getRequestCode();
 
 			boolean usingVolumeSeekbar = VOLUME.equals(type) && DEFINE.equals(code);
 			if (!usingVolumeSeekbar) {
-				sendToastToUI(_response.getMessage());
+				sendToastToUI(message);
 			} else {
 				final int volume = _response.getIntValue();
 
