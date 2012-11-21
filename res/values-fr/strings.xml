@@ -33,5 +33,6 @@
     <string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
     <string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
     <string name="power">Power</string>
+    <string name="ok">OK</string>
 
 </resources>

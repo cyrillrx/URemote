@@ -68,8 +68,9 @@
     <string name="kb_uppercase_w">W</string>
     <string name="kb_uppercase_x">X</string>
     <string name="kb_uppercase_y">Y</string>
-    <string name="kb_uppercase_z">Z</string>
+    <string name="kb_uppercase_z">Z</string>
     -->
+    
     <!-- Directional keys -->
     <string name="kb_left">Left</string>
     <string name="kb_up">Up</string>
