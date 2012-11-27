@@ -1,4 +1,4 @@
-Application name : Uremote (sands for universal remote)
+Application name : Uremote (stands for universal remote)
 Author : Cyril Leroux (aka Elasticboy)
 Contact : Go to www.essaion-soft.com
 

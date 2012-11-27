@@ -34,5 +34,6 @@
     <string name="filemanager_empty_directory">This directory is empty.</string>
     <string name="power">Power</string>
     <string name="ok">OK</string>
+    <string name="progress">0%</string>
 
 </resources>

@@ -20,6 +20,9 @@ import org.es.uremote.R;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.Animator.AnimatorListener;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -51,13 +54,20 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private static final int STATE_OK	= 1;
 	private static final int STATE_CONNECTING	= 2;
 
+	private static final int DELAY		= 500;
+	private static final int DURATION	= 500;
+
+	private ObjectAnimator mFadeIn;
+	private ObjectAnimator mFadeOut;
+
 	// ActivityForResults request codes
 	private static final int RC_APP_LAUNCHER	= 0;
 
+	private TextView mToastLike;
 	private ImageButton mIbMute;
 	private SeekBar mSbVolume;
-	private Toast mToast;
-	private TextView mTvToast;
+	//	private Toast mToast;
+	//	private TextView mTvToast;
 	private Computer mParent;
 
 	@Override
@@ -88,6 +98,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		((ImageButton) view.findViewById(R.id.cmdPlayPause)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
+
+		mToastLike = (TextView) view.findViewById(R.id.toastText);
+		mToastLike.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
 
 		mIbMute = (ImageButton) view.findViewById(R.id.cmdMute);
 		mIbMute.setOnClickListener(this);
@@ -186,32 +199,34 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	/**
 	 * Show a static toast message.
 	 * The next message replace the previous one.
-	 * 
+	 *
 	 * @param _message The message to display.
 	 * @param _point The position to display it.
 	 */
 	private void showVolumeToast(final String _message, final int _x, final int _y) {
-		if (mToast == null) {
-			initVolumeToast();
-		}
-		mTvToast.setText(_message);
-		//		final int x = (_x);
-		//		final int y = (int) (_y - mTvToast.getHeight() / 2.0);
-		mToast.setGravity(Gravity.CENTER, 0, 0);
-		mToast.show();
+		//			if (mToast == null) {
+		//				initVolumeToast();
+		//			}
+		//			mTvToast.setText(_message);
+		//			//		final int x = (_x);
+		//			//		final int y = (int) (_y - mTvToast.getHeight() / 2.0);
+		//			mToast.setGravity(Gravity.CENTER, 0, 0);
+		//			mToast.show();
+		mToastLike.setText(_message);
+		fadeIn();
 	}
 
-	private void initVolumeToast() {
-		LayoutInflater inflater = ( LayoutInflater ) getActivity().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(R.layout.custom_toast, null);
-
-		mToast = new Toast(getActivity().getApplicationContext());
-		mToast.setDuration(Toast.LENGTH_SHORT);
-		mToast.setView(view);
-
-		mTvToast = (TextView) view.findViewById(R.id.toastText);
-		mTvToast.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
-	}
+	//	private void initVolumeToast() {
+	//		LayoutInflater inflater = ( LayoutInflater ) getActivity().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
+	//		View view = inflater.inflate(R.layout.custom_toast, null);
+	//
+	//		mToast = new Toast(getActivity().getApplicationContext());
+	//		mToast.setDuration(Toast.LENGTH_SHORT);
+	//		mToast.setView(view);
+	//
+	//		mTvToast = (TextView) view.findViewById(R.id.toastText);
+	//		mTvToast.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
+	//	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -307,5 +322,101 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				}
 			}
 		}
+	}
+
+	/** Launch a fade in animation. */
+	private void fadeIn() {
+		initFadeIn();
+		initFadeOut();
+
+		if (mFadeOut.isStarted() ) {
+			mFadeOut.cancel();
+		}
+
+		if (mFadeIn.isStarted()) {
+			return;
+		}
+
+		if (mToastLike.getAlpha() != 1.0 || mToastLike.getVisibility() != View.VISIBLE) {
+			mFadeIn.start();
+			return;
+		}
+		fadeOut();
+	}
+
+	/** Launch a fade out animation. */
+	private void fadeOut() {
+		if (mFadeOut.isStarted() && !mFadeOut.isRunning()) {
+			mFadeOut.setStartDelay(DELAY);
+		} else {
+			initFadeOut();
+			mFadeOut.start();
+		}
+	}
+
+	private void initFadeIn() {
+		if (mFadeIn != null) {
+			return;
+		}
+		mFadeIn = ObjectAnimator.ofFloat(mToastLike, "alpha", 1f).setDuration(DURATION);
+		mFadeIn.setStartDelay(0);
+
+		mFadeIn.addListener(new AnimatorListener() {
+
+			@Override
+			public void onAnimationStart(Animator animation) {
+				if (mToastLike.getVisibility() != View.VISIBLE) {
+					mToastLike.setVisibility(View.VISIBLE);
+				}
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) { }
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				final float alpha = mToastLike.getAlpha();
+				if (alpha == 1.0) {
+					fadeOut();
+
+				}
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) { }
+		});
+	}
+
+	private void initFadeOut() {
+		if (mFadeOut != null) {
+			return;
+		}
+		mFadeOut = ObjectAnimator.ofFloat(mToastLike, "alpha", 0f).setDuration(DURATION);
+		mFadeOut.setStartDelay(DELAY);
+
+		mFadeOut.addListener(new AnimatorListener() {
+
+			@Override
+			public void onAnimationStart(Animator animation) {}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) { }
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				final float alpha = mToastLike.getAlpha();
+
+				if (alpha == 0.0) {
+					if (mToastLike.getVisibility() == View.VISIBLE) {
+						mToastLike.setVisibility(View.GONE);
+						mFadeIn = null;
+						mFadeOut = null;
+					}
+				}
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) { }
+		});
 	}
 }
