@@ -28,7 +28,7 @@ import android.os.Message;
  * 
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
-	protected static Semaphore sSemaphore = new Semaphore(2);
+	protected static Semaphore sSemaphore = new Semaphore(2, true);
 	private static final String TAG = "AsyncMessageMgr";
 
 	private static String sHost;
