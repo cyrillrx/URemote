@@ -8,14 +8,12 @@ import java.security.NoSuchAlgorithmException;
  *
  */
 public class Md5 {
-
 	/**
 	 * Encode the string into MD5 finger print
 	 * @param stringToEncode The string to encode.
 	 * @return The encoded string.
 	 */
 	public static String encode(String stringToEncode) {
-		//byte[] uniqueKey = stringToEncode.getBytes();
 		byte[] hash      = null;
 
 		try {
