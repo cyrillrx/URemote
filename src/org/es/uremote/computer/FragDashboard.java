@@ -21,16 +21,14 @@ import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
 import android.animation.Animator.AnimatorListener;
-import android.app.Service;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,7 +38,6 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -63,11 +60,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	// ActivityForResults request codes
 	private static final int RC_APP_LAUNCHER	= 0;
 
-	private TextView mToastLike;
+	private TextView mTvVolume;
 	private ImageButton mIbMute;
 	private SeekBar mSbVolume;
-	//	private Toast mToast;
-	//	private TextView mTvToast;
 	private Computer mParent;
 
 	@Override
@@ -99,8 +94,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
 		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
 
-		mToastLike = (TextView) view.findViewById(R.id.toastText);
-		mToastLike.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
+		mTvVolume = (TextView) view.findViewById(R.id.toastText);
+		mTvVolume.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
 
 		mIbMute = (ImageButton) view.findViewById(R.id.cmdMute);
 		mIbMute.setOnClickListener(this);
@@ -204,29 +199,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param _point The position to display it.
 	 */
 	private void showVolumeToast(final String _message, final int _x, final int _y) {
-		//			if (mToast == null) {
-		//				initVolumeToast();
-		//			}
-		//			mTvToast.setText(_message);
-		//			//		final int x = (_x);
-		//			//		final int y = (int) (_y - mTvToast.getHeight() / 2.0);
-		//			mToast.setGravity(Gravity.CENTER, 0, 0);
-		//			mToast.show();
-		mToastLike.setText(_message);
-		fadeIn();
+		mTvVolume.setText(_message);
+		fadeIn(mTvVolume);
 	}
-
-	//	private void initVolumeToast() {
-	//		LayoutInflater inflater = ( LayoutInflater ) getActivity().getSystemService(Service.LAYOUT_INFLATER_SERVICE);
-	//		View view = inflater.inflate(R.layout.custom_toast, null);
-	//
-	//		mToast = new Toast(getActivity().getApplicationContext());
-	//		mToast.setDuration(Toast.LENGTH_SHORT);
-	//		mToast.setView(view);
-	//
-	//		mTvToast = (TextView) view.findViewById(R.id.toastText);
-	//		mTvToast.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
-	//	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -325,9 +300,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	}
 
 	/** Launch a fade in animation. */
-	private void fadeIn() {
-		initFadeIn();
-		initFadeOut();
+	private void fadeIn(View view) {
+		initFadeIn(view);
+		initFadeOut(view);
 
 		if (mFadeOut.isStarted() ) {
 			mFadeOut.cancel();
@@ -337,36 +312,39 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			return;
 		}
 
-		if (mToastLike.getAlpha() != 1.0 || mToastLike.getVisibility() != View.VISIBLE) {
+		if (view.getAlpha() != 1.0 || view.getVisibility() != View.VISIBLE) {
 			mFadeIn.start();
 			return;
 		}
-		fadeOut();
+		fadeOut(view);
 	}
 
 	/** Launch a fade out animation. */
-	private void fadeOut() {
+	private void fadeOut(View view) {
 		if (mFadeOut.isStarted() && !mFadeOut.isRunning()) {
 			mFadeOut.setStartDelay(DELAY);
 		} else {
-			initFadeOut();
+			initFadeOut(view);
 			mFadeOut.start();
 		}
 	}
 
-	private void initFadeIn() {
+	private void initFadeIn(View view) {
 		if (mFadeIn != null) {
 			return;
 		}
-		mFadeIn = ObjectAnimator.ofFloat(mToastLike, "alpha", 1f).setDuration(DURATION);
+		mFadeIn = ObjectAnimator.ofFloat(view, "alpha", 1f).setDuration(DURATION);
 		mFadeIn.setStartDelay(0);
 
 		mFadeIn.addListener(new AnimatorListener() {
 
+			private View mView = mTvVolume;
+			
 			@Override
 			public void onAnimationStart(Animator animation) {
-				if (mToastLike.getVisibility() != View.VISIBLE) {
-					mToastLike.setVisibility(View.VISIBLE);
+				// TODO Replace mView by the view in parameter
+				if (mView.getVisibility() != View.VISIBLE) {
+					mView.setVisibility(View.VISIBLE);
 				}
 			}
 
@@ -375,9 +353,10 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 			@Override
 			public void onAnimationEnd(Animator animation) {
-				final float alpha = mToastLike.getAlpha();
+				// TODO Replace mView by the view in parameter
+				final float alpha = mView.getAlpha();
 				if (alpha == 1.0) {
-					fadeOut();
+					fadeOut(mView);
 
 				}
 			}
@@ -387,14 +366,16 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		});
 	}
 
-	private void initFadeOut() {
+	private void initFadeOut(View view) {
 		if (mFadeOut != null) {
 			return;
 		}
-		mFadeOut = ObjectAnimator.ofFloat(mToastLike, "alpha", 0f).setDuration(DURATION);
+		mFadeOut = ObjectAnimator.ofFloat(view, "alpha", 0f).setDuration(DURATION);
 		mFadeOut.setStartDelay(DELAY);
 
 		mFadeOut.addListener(new AnimatorListener() {
+			
+			private View mView = mTvVolume;
 
 			@Override
 			public void onAnimationStart(Animator animation) {}
@@ -404,11 +385,13 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 			@Override
 			public void onAnimationEnd(Animator animation) {
-				final float alpha = mToastLike.getAlpha();
+				// TODO Replace mView by the view in parameter
+				final float alpha = mView.getAlpha();
 
 				if (alpha == 0.0) {
-					if (mToastLike.getVisibility() == View.VISIBLE) {
-						mToastLike.setVisibility(View.GONE);
+					// TODO Replace mView by the view in parameter
+					if (mView.getVisibility() == View.VISIBLE) {
+						mView.setVisibility(View.GONE);
 						mFadeIn = null;
 						mFadeOut = null;
 					}
