@@ -10,779 +10,125 @@ public final class ExchangeProtos {
   }
   public interface RequestOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required .network.Request.Type type = 1;
+    /**
+     * <code>required .network.Request.Type type = 1;</code>
+     */
     boolean hasType();
+    /**
+     * <code>required .network.Request.Type type = 1;</code>
+     */
     org.es.network.ExchangeProtos.Request.Type getType();
-    
+
     // required .network.Request.Code code = 2;
+    /**
+     * <code>required .network.Request.Code code = 2;</code>
+     */
     boolean hasCode();
+    /**
+     * <code>required .network.Request.Code code = 2;</code>
+     */
     org.es.network.ExchangeProtos.Request.Code getCode();
-    
+
     // required .network.Request.Code extraCode = 3;
+    /**
+     * <code>required .network.Request.Code extraCode = 3;</code>
+     */
     boolean hasExtraCode();
+    /**
+     * <code>required .network.Request.Code extraCode = 3;</code>
+     */
     org.es.network.ExchangeProtos.Request.Code getExtraCode();
-    
+
     // optional string securityToken = 4;
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
     boolean hasSecurityToken();
-    String getSecurityToken();
-    
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
+    java.lang.String getSecurityToken();
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getSecurityTokenBytes();
+
     // optional int32 intParam = 5;
+    /**
+     * <code>optional int32 intParam = 5;</code>
+     */
     boolean hasIntParam();
+    /**
+     * <code>optional int32 intParam = 5;</code>
+     */
     int getIntParam();
-    
+
     // optional string stringParam = 6;
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
     boolean hasStringParam();
-    String getStringParam();
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
+    java.lang.String getStringParam();
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getStringParamBytes();
   }
+  /**
+   * Protobuf type {@code network.Request}
+   */
   public static final class Request extends
       com.google.protobuf.GeneratedMessage
       implements RequestOrBuilder {
     // Use Request.newBuilder() to construct.
-    private Request(Builder builder) {
+    private Request(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private Request(boolean noInit) {}
-    
+    private Request(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final Request defaultInstance;
     public static Request getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public Request getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable;
-    }
-    
-    public enum Type
-        implements com.google.protobuf.ProtocolMessageEnum {
-      SIMPLE(0, 0),
-      EXPLORER(1, 1),
-      KEYBOARD(2, 2),
-      AI(3, 3),
-      VOLUME(4, 4),
-      APP(5, 5),
-      ;
-      
-      public static final int SIMPLE_VALUE = 0;
-      public static final int EXPLORER_VALUE = 1;
-      public static final int KEYBOARD_VALUE = 2;
-      public static final int AI_VALUE = 3;
-      public static final int VOLUME_VALUE = 4;
-      public static final int APP_VALUE = 5;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static Type valueOf(int value) {
-        switch (value) {
-          case 0: return SIMPLE;
-          case 1: return EXPLORER;
-          case 2: return KEYBOARD;
-          case 3: return AI;
-          case 4: return VOLUME;
-          case 5: return APP;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<Type>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<Type>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
-              public Type findValueByNumber(int number) {
-                return Type.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.Request.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final Type[] VALUES = {
-        SIMPLE, EXPLORER, KEYBOARD, AI, VOLUME, APP, 
-      };
-      
-      public static Type valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private Type(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:network.Request.Type)
-    }
-    
-    public enum Code
-        implements com.google.protobuf.ProtocolMessageEnum {
-      NONE(0, 0),
-      DEFINE(1, 1),
-      STATUS(2, 2),
-      ON(3, 3),
-      OFF(4, 4),
-      HELLO(5, 5),
-      TEST(6, 6),
-      KILL_SERVER(7, 7),
-      SHUTDOWN(8, 8),
-      SWITCH_WINDOW(9, 9),
-      LOCK(10, 10),
-      UP(11, 11),
-      DOWN(12, 12),
-      LEFT(13, 13),
-      RIGHT(14, 14),
-      MUTE(15, 15),
-      SAY(16, 16),
-      GET_FILE_LIST(17, 20),
-      OPEN_FILE(18, 21),
-      MEDIA_PLAY_PAUSE(19, 30),
-      MEDIA_STOP(20, 31),
-      MEDIA_PREVIOUS(21, 32),
-      MEDIA_NEXT(22, 33),
-      MEDIA_FF(23, 34),
-      MEDIA_REWIND(24, 35),
-      KB_CTRL(25, 40),
-      KB_SHIFT(26, 41),
-      KB_ALT(27, 42),
-      KB_ALTGR(28, 43),
-      KB_WINDOWS(29, 44),
-      KB_RETURN(30, 45),
-      KB_SPACE(31, 46),
-      KB_BACKSPACE(32, 47),
-      KB_ESCAPE(33, 48),
-      KB_TAB(34, 49),
-      KB_F4(35, 50),
-      GOM_PLAYER_KILL(37, 51),
-      GOM_PLAYER_STRETCH(38, 52),
-      ;
-      
-      public static final Code GOM_PLAYER_RUN = KB_F4;
-      public static final int NONE_VALUE = 0;
-      public static final int DEFINE_VALUE = 1;
-      public static final int STATUS_VALUE = 2;
-      public static final int ON_VALUE = 3;
-      public static final int OFF_VALUE = 4;
-      public static final int HELLO_VALUE = 5;
-      public static final int TEST_VALUE = 6;
-      public static final int KILL_SERVER_VALUE = 7;
-      public static final int SHUTDOWN_VALUE = 8;
-      public static final int SWITCH_WINDOW_VALUE = 9;
-      public static final int LOCK_VALUE = 10;
-      public static final int UP_VALUE = 11;
-      public static final int DOWN_VALUE = 12;
-      public static final int LEFT_VALUE = 13;
-      public static final int RIGHT_VALUE = 14;
-      public static final int MUTE_VALUE = 15;
-      public static final int SAY_VALUE = 16;
-      public static final int GET_FILE_LIST_VALUE = 20;
-      public static final int OPEN_FILE_VALUE = 21;
-      public static final int MEDIA_PLAY_PAUSE_VALUE = 30;
-      public static final int MEDIA_STOP_VALUE = 31;
-      public static final int MEDIA_PREVIOUS_VALUE = 32;
-      public static final int MEDIA_NEXT_VALUE = 33;
-      public static final int MEDIA_FF_VALUE = 34;
-      public static final int MEDIA_REWIND_VALUE = 35;
-      public static final int KB_CTRL_VALUE = 40;
-      public static final int KB_SHIFT_VALUE = 41;
-      public static final int KB_ALT_VALUE = 42;
-      public static final int KB_ALTGR_VALUE = 43;
-      public static final int KB_WINDOWS_VALUE = 44;
-      public static final int KB_RETURN_VALUE = 45;
-      public static final int KB_SPACE_VALUE = 46;
-      public static final int KB_BACKSPACE_VALUE = 47;
-      public static final int KB_ESCAPE_VALUE = 48;
-      public static final int KB_TAB_VALUE = 49;
-      public static final int KB_F4_VALUE = 50;
-      public static final int GOM_PLAYER_RUN_VALUE = 50;
-      public static final int GOM_PLAYER_KILL_VALUE = 51;
-      public static final int GOM_PLAYER_STRETCH_VALUE = 52;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static Code valueOf(int value) {
-        switch (value) {
-          case 0: return NONE;
-          case 1: return DEFINE;
-          case 2: return STATUS;
-          case 3: return ON;
-          case 4: return OFF;
-          case 5: return HELLO;
-          case 6: return TEST;
-          case 7: return KILL_SERVER;
-          case 8: return SHUTDOWN;
-          case 9: return SWITCH_WINDOW;
-          case 10: return LOCK;
-          case 11: return UP;
-          case 12: return DOWN;
-          case 13: return LEFT;
-          case 14: return RIGHT;
-          case 15: return MUTE;
-          case 16: return SAY;
-          case 20: return GET_FILE_LIST;
-          case 21: return OPEN_FILE;
-          case 30: return MEDIA_PLAY_PAUSE;
-          case 31: return MEDIA_STOP;
-          case 32: return MEDIA_PREVIOUS;
-          case 33: return MEDIA_NEXT;
-          case 34: return MEDIA_FF;
-          case 35: return MEDIA_REWIND;
-          case 40: return KB_CTRL;
-          case 41: return KB_SHIFT;
-          case 42: return KB_ALT;
-          case 43: return KB_ALTGR;
-          case 44: return KB_WINDOWS;
-          case 45: return KB_RETURN;
-          case 46: return KB_SPACE;
-          case 47: return KB_BACKSPACE;
-          case 48: return KB_ESCAPE;
-          case 49: return KB_TAB;
-          case 50: return KB_F4;
-          case 51: return GOM_PLAYER_KILL;
-          case 52: return GOM_PLAYER_STRETCH;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<Code>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<Code>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<Code>() {
-              public Code findValueByNumber(int number) {
-                return Code.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.Request.getDescriptor().getEnumTypes().get(1);
-      }
-      
-      private static final Code[] VALUES = {
-        NONE, DEFINE, STATUS, ON, OFF, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_CTRL, KB_SHIFT, KB_ALT, KB_ALTGR, KB_WINDOWS, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_TAB, KB_F4, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
-      };
-      
-      public static Code valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private Code(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:network.Request.Code)
-    }
-    
-    private int bitField0_;
-    // required .network.Request.Type type = 1;
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private org.es.network.ExchangeProtos.Request.Type type_;
-    public boolean hasType() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public org.es.network.ExchangeProtos.Request.Type getType() {
-      return type_;
-    }
-    
-    // required .network.Request.Code code = 2;
-    public static final int CODE_FIELD_NUMBER = 2;
-    private org.es.network.ExchangeProtos.Request.Code code_;
-    public boolean hasCode() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public org.es.network.ExchangeProtos.Request.Code getCode() {
-      return code_;
-    }
-    
-    // required .network.Request.Code extraCode = 3;
-    public static final int EXTRACODE_FIELD_NUMBER = 3;
-    private org.es.network.ExchangeProtos.Request.Code extraCode_;
-    public boolean hasExtraCode() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public org.es.network.ExchangeProtos.Request.Code getExtraCode() {
-      return extraCode_;
-    }
-    
-    // optional string securityToken = 4;
-    public static final int SECURITYTOKEN_FIELD_NUMBER = 4;
-    private java.lang.Object securityToken_;
-    public boolean hasSecurityToken() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public String getSecurityToken() {
-      java.lang.Object ref = securityToken_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          securityToken_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getSecurityTokenBytes() {
-      java.lang.Object ref = securityToken_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        securityToken_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional int32 intParam = 5;
-    public static final int INTPARAM_FIELD_NUMBER = 5;
-    private int intParam_;
-    public boolean hasIntParam() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public int getIntParam() {
-      return intParam_;
-    }
-    
-    // optional string stringParam = 6;
-    public static final int STRINGPARAM_FIELD_NUMBER = 6;
-    private java.lang.Object stringParam_;
-    public boolean hasStringParam() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public String getStringParam() {
-      java.lang.Object ref = stringParam_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          stringParam_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getStringParamBytes() {
-      java.lang.Object ref = stringParam_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        stringParam_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    private void initFields() {
-      type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-      code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-      extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-      securityToken_ = "";
-      intParam_ = 0;
-      stringParam_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasExtraCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, type_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, code_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, extraCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getSecurityTokenBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, intParam_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBytes(6, getStringParamBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, type_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, code_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, extraCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getSecurityTokenBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, intParam_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getStringParamBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static org.es.network.ExchangeProtos.Request parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.es.network.ExchangeProtos.Request parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Request parseFrom(
+    private Request(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.es.network.ExchangeProtos.Request prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.es.network.ExchangeProtos.RequestOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable;
-      }
-      
-      // Construct using org.es.network.ExchangeProtos.Request.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        securityToken_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
-        intParam_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        stringParam_ = "";
-        bitField0_ = (bitField0_ & ~0x00000020);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.es.network.ExchangeProtos.Request.getDescriptor();
-      }
-      
-      public org.es.network.ExchangeProtos.Request getDefaultInstanceForType() {
-        return org.es.network.ExchangeProtos.Request.getDefaultInstance();
-      }
-      
-      public org.es.network.ExchangeProtos.Request build() {
-        org.es.network.ExchangeProtos.Request result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private org.es.network.ExchangeProtos.Request buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        org.es.network.ExchangeProtos.Request result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public org.es.network.ExchangeProtos.Request buildPartial() {
-        org.es.network.ExchangeProtos.Request result = new org.es.network.ExchangeProtos.Request(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.type_ = type_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.code_ = code_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.extraCode_ = extraCode_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.securityToken_ = securityToken_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.intParam_ = intParam_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        result.stringParam_ = stringParam_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.es.network.ExchangeProtos.Request) {
-          return mergeFrom((org.es.network.ExchangeProtos.Request)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(org.es.network.ExchangeProtos.Request other) {
-        if (other == org.es.network.ExchangeProtos.Request.getDefaultInstance()) return this;
-        if (other.hasType()) {
-          setType(other.getType());
-        }
-        if (other.hasCode()) {
-          setCode(other.getCode());
-        }
-        if (other.hasExtraCode()) {
-          setExtraCode(other.getExtraCode());
-        }
-        if (other.hasSecurityToken()) {
-          setSecurityToken(other.getSecurityToken());
-        }
-        if (other.hasIntParam()) {
-          setIntParam(other.getIntParam());
-        }
-        if (other.hasStringParam()) {
-          setStringParam(other.getStringParam());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (!hasType()) {
-          
-          return false;
-        }
-        if (!hasCode()) {
-          
-          return false;
-        }
-        if (!hasExtraCode()) {
-          
-          return false;
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -836,18 +182,1085 @@ public final class ExchangeProtos {
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.es.network.ExchangeProtos.Request.class, org.es.network.ExchangeProtos.Request.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Request> PARSER =
+        new com.google.protobuf.AbstractParser<Request>() {
+      public Request parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Request(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Request> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code network.Request.Type}
+     */
+    public enum Type
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>SIMPLE = 0;</code>
+       */
+      SIMPLE(0, 0),
+      /**
+       * <code>EXPLORER = 1;</code>
+       */
+      EXPLORER(1, 1),
+      /**
+       * <code>KEYBOARD = 2;</code>
+       */
+      KEYBOARD(2, 2),
+      /**
+       * <code>AI = 3;</code>
+       */
+      AI(3, 3),
+      /**
+       * <code>VOLUME = 4;</code>
+       */
+      VOLUME(4, 4),
+      /**
+       * <code>APP = 5;</code>
+       */
+      APP(5, 5),
+      ;
+
+      /**
+       * <code>SIMPLE = 0;</code>
+       */
+      public static final int SIMPLE_VALUE = 0;
+      /**
+       * <code>EXPLORER = 1;</code>
+       */
+      public static final int EXPLORER_VALUE = 1;
+      /**
+       * <code>KEYBOARD = 2;</code>
+       */
+      public static final int KEYBOARD_VALUE = 2;
+      /**
+       * <code>AI = 3;</code>
+       */
+      public static final int AI_VALUE = 3;
+      /**
+       * <code>VOLUME = 4;</code>
+       */
+      public static final int VOLUME_VALUE = 4;
+      /**
+       * <code>APP = 5;</code>
+       */
+      public static final int APP_VALUE = 5;
+
+
+      public final int getNumber() { return value; }
+
+      public static Type valueOf(int value) {
+        switch (value) {
+          case 0: return SIMPLE;
+          case 1: return EXPLORER;
+          case 2: return KEYBOARD;
+          case 3: return AI;
+          case 4: return VOLUME;
+          case 5: return APP;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<Type>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Type>() {
+              public Type findValueByNumber(int number) {
+                return Type.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.Request.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final Type[] VALUES = values();
+
+      public static Type valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private Type(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:network.Request.Type)
+    }
+
+    /**
+     * Protobuf enum {@code network.Request.Code}
+     */
+    public enum Code
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>NONE = 0;</code>
+       */
+      NONE(0, 0),
+      /**
+       * <code>DEFINE = 1;</code>
+       */
+      DEFINE(1, 1),
+      /**
+       * <code>STATUS = 2;</code>
+       */
+      STATUS(2, 2),
+      /**
+       * <code>ON = 3;</code>
+       */
+      ON(3, 3),
+      /**
+       * <code>OFF = 4;</code>
+       */
+      OFF(4, 4),
+      /**
+       * <code>HELLO = 5;</code>
+       */
+      HELLO(5, 5),
+      /**
+       * <code>TEST = 6;</code>
+       */
+      TEST(6, 6),
+      /**
+       * <code>KILL_SERVER = 7;</code>
+       */
+      KILL_SERVER(7, 7),
+      /**
+       * <code>SHUTDOWN = 8;</code>
+       */
+      SHUTDOWN(8, 8),
+      /**
+       * <code>SWITCH_WINDOW = 9;</code>
+       */
+      SWITCH_WINDOW(9, 9),
+      /**
+       * <code>LOCK = 10;</code>
+       */
+      LOCK(10, 10),
+      /**
+       * <code>UP = 11;</code>
+       */
+      UP(11, 11),
+      /**
+       * <code>DOWN = 12;</code>
+       */
+      DOWN(12, 12),
+      /**
+       * <code>LEFT = 13;</code>
+       */
+      LEFT(13, 13),
+      /**
+       * <code>RIGHT = 14;</code>
+       */
+      RIGHT(14, 14),
+      /**
+       * <code>MUTE = 15;</code>
+       */
+      MUTE(15, 15),
+      /**
+       * <code>SAY = 16;</code>
+       */
+      SAY(16, 16),
+      /**
+       * <code>GET_FILE_LIST = 20;</code>
+       */
+      GET_FILE_LIST(17, 20),
+      /**
+       * <code>OPEN_FILE = 21;</code>
+       */
+      OPEN_FILE(18, 21),
+      /**
+       * <code>MEDIA_PLAY_PAUSE = 30;</code>
+       */
+      MEDIA_PLAY_PAUSE(19, 30),
+      /**
+       * <code>MEDIA_STOP = 31;</code>
+       */
+      MEDIA_STOP(20, 31),
+      /**
+       * <code>MEDIA_PREVIOUS = 32;</code>
+       */
+      MEDIA_PREVIOUS(21, 32),
+      /**
+       * <code>MEDIA_NEXT = 33;</code>
+       */
+      MEDIA_NEXT(22, 33),
+      /**
+       * <code>MEDIA_FF = 34;</code>
+       */
+      MEDIA_FF(23, 34),
+      /**
+       * <code>MEDIA_REWIND = 35;</code>
+       */
+      MEDIA_REWIND(24, 35),
+      /**
+       * <code>KB_CTRL = 40;</code>
+       */
+      KB_CTRL(25, 40),
+      /**
+       * <code>KB_SHIFT = 41;</code>
+       */
+      KB_SHIFT(26, 41),
+      /**
+       * <code>KB_ALT = 42;</code>
+       */
+      KB_ALT(27, 42),
+      /**
+       * <code>KB_ALTGR = 43;</code>
+       */
+      KB_ALTGR(28, 43),
+      /**
+       * <code>KB_WINDOWS = 44;</code>
+       */
+      KB_WINDOWS(29, 44),
+      /**
+       * <code>KB_RETURN = 45;</code>
+       */
+      KB_RETURN(30, 45),
+      /**
+       * <code>KB_SPACE = 46;</code>
+       */
+      KB_SPACE(31, 46),
+      /**
+       * <code>KB_BACKSPACE = 47;</code>
+       */
+      KB_BACKSPACE(32, 47),
+      /**
+       * <code>KB_ESCAPE = 48;</code>
+       */
+      KB_ESCAPE(33, 48),
+      /**
+       * <code>KB_TAB = 49;</code>
+       */
+      KB_TAB(34, 49),
+      /**
+       * <code>KB_F4 = 50;</code>
+       */
+      KB_F4(35, 50),
+      /**
+       * <code>GOM_PLAYER_KILL = 51;</code>
+       */
+      GOM_PLAYER_KILL(37, 51),
+      /**
+       * <code>GOM_PLAYER_STRETCH = 52;</code>
+       */
+      GOM_PLAYER_STRETCH(38, 52),
+      ;
+
+      /**
+       * <code>GOM_PLAYER_RUN = 50;</code>
+       */
+      public static final Code GOM_PLAYER_RUN = KB_F4;
+      /**
+       * <code>NONE = 0;</code>
+       */
+      public static final int NONE_VALUE = 0;
+      /**
+       * <code>DEFINE = 1;</code>
+       */
+      public static final int DEFINE_VALUE = 1;
+      /**
+       * <code>STATUS = 2;</code>
+       */
+      public static final int STATUS_VALUE = 2;
+      /**
+       * <code>ON = 3;</code>
+       */
+      public static final int ON_VALUE = 3;
+      /**
+       * <code>OFF = 4;</code>
+       */
+      public static final int OFF_VALUE = 4;
+      /**
+       * <code>HELLO = 5;</code>
+       */
+      public static final int HELLO_VALUE = 5;
+      /**
+       * <code>TEST = 6;</code>
+       */
+      public static final int TEST_VALUE = 6;
+      /**
+       * <code>KILL_SERVER = 7;</code>
+       */
+      public static final int KILL_SERVER_VALUE = 7;
+      /**
+       * <code>SHUTDOWN = 8;</code>
+       */
+      public static final int SHUTDOWN_VALUE = 8;
+      /**
+       * <code>SWITCH_WINDOW = 9;</code>
+       */
+      public static final int SWITCH_WINDOW_VALUE = 9;
+      /**
+       * <code>LOCK = 10;</code>
+       */
+      public static final int LOCK_VALUE = 10;
+      /**
+       * <code>UP = 11;</code>
+       */
+      public static final int UP_VALUE = 11;
+      /**
+       * <code>DOWN = 12;</code>
+       */
+      public static final int DOWN_VALUE = 12;
+      /**
+       * <code>LEFT = 13;</code>
+       */
+      public static final int LEFT_VALUE = 13;
+      /**
+       * <code>RIGHT = 14;</code>
+       */
+      public static final int RIGHT_VALUE = 14;
+      /**
+       * <code>MUTE = 15;</code>
+       */
+      public static final int MUTE_VALUE = 15;
+      /**
+       * <code>SAY = 16;</code>
+       */
+      public static final int SAY_VALUE = 16;
+      /**
+       * <code>GET_FILE_LIST = 20;</code>
+       */
+      public static final int GET_FILE_LIST_VALUE = 20;
+      /**
+       * <code>OPEN_FILE = 21;</code>
+       */
+      public static final int OPEN_FILE_VALUE = 21;
+      /**
+       * <code>MEDIA_PLAY_PAUSE = 30;</code>
+       */
+      public static final int MEDIA_PLAY_PAUSE_VALUE = 30;
+      /**
+       * <code>MEDIA_STOP = 31;</code>
+       */
+      public static final int MEDIA_STOP_VALUE = 31;
+      /**
+       * <code>MEDIA_PREVIOUS = 32;</code>
+       */
+      public static final int MEDIA_PREVIOUS_VALUE = 32;
+      /**
+       * <code>MEDIA_NEXT = 33;</code>
+       */
+      public static final int MEDIA_NEXT_VALUE = 33;
+      /**
+       * <code>MEDIA_FF = 34;</code>
+       */
+      public static final int MEDIA_FF_VALUE = 34;
+      /**
+       * <code>MEDIA_REWIND = 35;</code>
+       */
+      public static final int MEDIA_REWIND_VALUE = 35;
+      /**
+       * <code>KB_CTRL = 40;</code>
+       */
+      public static final int KB_CTRL_VALUE = 40;
+      /**
+       * <code>KB_SHIFT = 41;</code>
+       */
+      public static final int KB_SHIFT_VALUE = 41;
+      /**
+       * <code>KB_ALT = 42;</code>
+       */
+      public static final int KB_ALT_VALUE = 42;
+      /**
+       * <code>KB_ALTGR = 43;</code>
+       */
+      public static final int KB_ALTGR_VALUE = 43;
+      /**
+       * <code>KB_WINDOWS = 44;</code>
+       */
+      public static final int KB_WINDOWS_VALUE = 44;
+      /**
+       * <code>KB_RETURN = 45;</code>
+       */
+      public static final int KB_RETURN_VALUE = 45;
+      /**
+       * <code>KB_SPACE = 46;</code>
+       */
+      public static final int KB_SPACE_VALUE = 46;
+      /**
+       * <code>KB_BACKSPACE = 47;</code>
+       */
+      public static final int KB_BACKSPACE_VALUE = 47;
+      /**
+       * <code>KB_ESCAPE = 48;</code>
+       */
+      public static final int KB_ESCAPE_VALUE = 48;
+      /**
+       * <code>KB_TAB = 49;</code>
+       */
+      public static final int KB_TAB_VALUE = 49;
+      /**
+       * <code>KB_F4 = 50;</code>
+       */
+      public static final int KB_F4_VALUE = 50;
+      /**
+       * <code>GOM_PLAYER_RUN = 50;</code>
+       */
+      public static final int GOM_PLAYER_RUN_VALUE = 50;
+      /**
+       * <code>GOM_PLAYER_KILL = 51;</code>
+       */
+      public static final int GOM_PLAYER_KILL_VALUE = 51;
+      /**
+       * <code>GOM_PLAYER_STRETCH = 52;</code>
+       */
+      public static final int GOM_PLAYER_STRETCH_VALUE = 52;
+
+
+      public final int getNumber() { return value; }
+
+      public static Code valueOf(int value) {
+        switch (value) {
+          case 0: return NONE;
+          case 1: return DEFINE;
+          case 2: return STATUS;
+          case 3: return ON;
+          case 4: return OFF;
+          case 5: return HELLO;
+          case 6: return TEST;
+          case 7: return KILL_SERVER;
+          case 8: return SHUTDOWN;
+          case 9: return SWITCH_WINDOW;
+          case 10: return LOCK;
+          case 11: return UP;
+          case 12: return DOWN;
+          case 13: return LEFT;
+          case 14: return RIGHT;
+          case 15: return MUTE;
+          case 16: return SAY;
+          case 20: return GET_FILE_LIST;
+          case 21: return OPEN_FILE;
+          case 30: return MEDIA_PLAY_PAUSE;
+          case 31: return MEDIA_STOP;
+          case 32: return MEDIA_PREVIOUS;
+          case 33: return MEDIA_NEXT;
+          case 34: return MEDIA_FF;
+          case 35: return MEDIA_REWIND;
+          case 40: return KB_CTRL;
+          case 41: return KB_SHIFT;
+          case 42: return KB_ALT;
+          case 43: return KB_ALTGR;
+          case 44: return KB_WINDOWS;
+          case 45: return KB_RETURN;
+          case 46: return KB_SPACE;
+          case 47: return KB_BACKSPACE;
+          case 48: return KB_ESCAPE;
+          case 49: return KB_TAB;
+          case 50: return KB_F4;
+          case 51: return GOM_PLAYER_KILL;
+          case 52: return GOM_PLAYER_STRETCH;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<Code>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<Code>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<Code>() {
+              public Code findValueByNumber(int number) {
+                return Code.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.Request.getDescriptor().getEnumTypes().get(1);
+      }
+
+      private static final Code[] VALUES = {
+        NONE, DEFINE, STATUS, ON, OFF, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_CTRL, KB_SHIFT, KB_ALT, KB_ALTGR, KB_WINDOWS, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_TAB, KB_F4, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
+      };
+
+      public static Code valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private Code(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:network.Request.Code)
+    }
+
+    private int bitField0_;
+    // required .network.Request.Type type = 1;
+    public static final int TYPE_FIELD_NUMBER = 1;
+    private org.es.network.ExchangeProtos.Request.Type type_;
+    /**
+     * <code>required .network.Request.Type type = 1;</code>
+     */
+    public boolean hasType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .network.Request.Type type = 1;</code>
+     */
+    public org.es.network.ExchangeProtos.Request.Type getType() {
+      return type_;
+    }
+
+    // required .network.Request.Code code = 2;
+    public static final int CODE_FIELD_NUMBER = 2;
+    private org.es.network.ExchangeProtos.Request.Code code_;
+    /**
+     * <code>required .network.Request.Code code = 2;</code>
+     */
+    public boolean hasCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .network.Request.Code code = 2;</code>
+     */
+    public org.es.network.ExchangeProtos.Request.Code getCode() {
+      return code_;
+    }
+
+    // required .network.Request.Code extraCode = 3;
+    public static final int EXTRACODE_FIELD_NUMBER = 3;
+    private org.es.network.ExchangeProtos.Request.Code extraCode_;
+    /**
+     * <code>required .network.Request.Code extraCode = 3;</code>
+     */
+    public boolean hasExtraCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required .network.Request.Code extraCode = 3;</code>
+     */
+    public org.es.network.ExchangeProtos.Request.Code getExtraCode() {
+      return extraCode_;
+    }
+
+    // optional string securityToken = 4;
+    public static final int SECURITYTOKEN_FIELD_NUMBER = 4;
+    private java.lang.Object securityToken_;
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
+    public boolean hasSecurityToken() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
+    public java.lang.String getSecurityToken() {
+      java.lang.Object ref = securityToken_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          securityToken_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string securityToken = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSecurityTokenBytes() {
+      java.lang.Object ref = securityToken_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        securityToken_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int32 intParam = 5;
+    public static final int INTPARAM_FIELD_NUMBER = 5;
+    private int intParam_;
+    /**
+     * <code>optional int32 intParam = 5;</code>
+     */
+    public boolean hasIntParam() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 intParam = 5;</code>
+     */
+    public int getIntParam() {
+      return intParam_;
+    }
+
+    // optional string stringParam = 6;
+    public static final int STRINGPARAM_FIELD_NUMBER = 6;
+    private java.lang.Object stringParam_;
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
+    public boolean hasStringParam() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
+    public java.lang.String getStringParam() {
+      java.lang.Object ref = stringParam_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          stringParam_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string stringParam = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStringParamBytes() {
+      java.lang.Object ref = stringParam_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        stringParam_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+      code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      securityToken_ = "";
+      intParam_ = 0;
+      stringParam_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasExtraCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, code_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, extraCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getSecurityTokenBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, intParam_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getStringParamBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, type_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, code_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, extraCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getSecurityTokenBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, intParam_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getStringParamBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Request parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Request parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Request parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.es.network.ExchangeProtos.Request prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code network.Request}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.es.network.ExchangeProtos.RequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.es.network.ExchangeProtos.Request.class, org.es.network.ExchangeProtos.Request.Builder.class);
+      }
+
+      // Construct using org.es.network.ExchangeProtos.Request.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        securityToken_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        intParam_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        stringParam_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+      }
+
+      public org.es.network.ExchangeProtos.Request getDefaultInstanceForType() {
+        return org.es.network.ExchangeProtos.Request.getDefaultInstance();
+      }
+
+      public org.es.network.ExchangeProtos.Request build() {
+        org.es.network.ExchangeProtos.Request result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.es.network.ExchangeProtos.Request buildPartial() {
+        org.es.network.ExchangeProtos.Request result = new org.es.network.ExchangeProtos.Request(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.type_ = type_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.code_ = code_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.extraCode_ = extraCode_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.securityToken_ = securityToken_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.intParam_ = intParam_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        result.stringParam_ = stringParam_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.es.network.ExchangeProtos.Request) {
+          return mergeFrom((org.es.network.ExchangeProtos.Request)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.es.network.ExchangeProtos.Request other) {
+        if (other == org.es.network.ExchangeProtos.Request.getDefaultInstance()) return this;
+        if (other.hasType()) {
+          setType(other.getType());
+        }
+        if (other.hasCode()) {
+          setCode(other.getCode());
+        }
+        if (other.hasExtraCode()) {
+          setExtraCode(other.getExtraCode());
+        }
+        if (other.hasSecurityToken()) {
+          bitField0_ |= 0x00000008;
+          securityToken_ = other.securityToken_;
+          onChanged();
+        }
+        if (other.hasIntParam()) {
+          setIntParam(other.getIntParam());
+        }
+        if (other.hasStringParam()) {
+          bitField0_ |= 0x00000020;
+          stringParam_ = other.stringParam_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasCode()) {
+          
+          return false;
+        }
+        if (!hasExtraCode()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.es.network.ExchangeProtos.Request parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.es.network.ExchangeProtos.Request) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // required .network.Request.Type type = 1;
       private org.es.network.ExchangeProtos.Request.Type type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+      /**
+       * <code>required .network.Request.Type type = 1;</code>
+       */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>required .network.Request.Type type = 1;</code>
+       */
       public org.es.network.ExchangeProtos.Request.Type getType() {
         return type_;
       }
+      /**
+       * <code>required .network.Request.Type type = 1;</code>
+       */
       public Builder setType(org.es.network.ExchangeProtos.Request.Type value) {
         if (value == null) {
           throw new NullPointerException();
@@ -857,21 +1270,33 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .network.Request.Type type = 1;</code>
+       */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
         type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
         onChanged();
         return this;
       }
-      
+
       // required .network.Request.Code code = 2;
       private org.es.network.ExchangeProtos.Request.Code code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      /**
+       * <code>required .network.Request.Code code = 2;</code>
+       */
       public boolean hasCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>required .network.Request.Code code = 2;</code>
+       */
       public org.es.network.ExchangeProtos.Request.Code getCode() {
         return code_;
       }
+      /**
+       * <code>required .network.Request.Code code = 2;</code>
+       */
       public Builder setCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
           throw new NullPointerException();
@@ -881,21 +1306,33 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .network.Request.Code code = 2;</code>
+       */
       public Builder clearCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
         code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
         onChanged();
         return this;
       }
-      
+
       // required .network.Request.Code extraCode = 3;
       private org.es.network.ExchangeProtos.Request.Code extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      /**
+       * <code>required .network.Request.Code extraCode = 3;</code>
+       */
       public boolean hasExtraCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>required .network.Request.Code extraCode = 3;</code>
+       */
       public org.es.network.ExchangeProtos.Request.Code getExtraCode() {
         return extraCode_;
       }
+      /**
+       * <code>required .network.Request.Code extraCode = 3;</code>
+       */
       public Builder setExtraCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
           throw new NullPointerException();
@@ -905,29 +1342,59 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>required .network.Request.Code extraCode = 3;</code>
+       */
       public Builder clearExtraCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
         extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
         onChanged();
         return this;
       }
-      
+
       // optional string securityToken = 4;
       private java.lang.Object securityToken_ = "";
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
       public boolean hasSecurityToken() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public String getSecurityToken() {
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
+      public java.lang.String getSecurityToken() {
         java.lang.Object ref = securityToken_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           securityToken_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setSecurityToken(String value) {
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSecurityTokenBytes() {
+        java.lang.Object ref = securityToken_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          securityToken_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
+      public Builder setSecurityToken(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -936,55 +1403,105 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
       public Builder clearSecurityToken() {
         bitField0_ = (bitField0_ & ~0x00000008);
         securityToken_ = getDefaultInstance().getSecurityToken();
         onChanged();
         return this;
       }
-      void setSecurityToken(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000008;
+      /**
+       * <code>optional string securityToken = 4;</code>
+       */
+      public Builder setSecurityTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         securityToken_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional int32 intParam = 5;
       private int intParam_ ;
+      /**
+       * <code>optional int32 intParam = 5;</code>
+       */
       public boolean hasIntParam() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
+      /**
+       * <code>optional int32 intParam = 5;</code>
+       */
       public int getIntParam() {
         return intParam_;
       }
+      /**
+       * <code>optional int32 intParam = 5;</code>
+       */
       public Builder setIntParam(int value) {
         bitField0_ |= 0x00000010;
         intParam_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional int32 intParam = 5;</code>
+       */
       public Builder clearIntParam() {
         bitField0_ = (bitField0_ & ~0x00000010);
         intParam_ = 0;
         onChanged();
         return this;
       }
-      
+
       // optional string stringParam = 6;
       private java.lang.Object stringParam_ = "";
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
       public boolean hasStringParam() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
-      public String getStringParam() {
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
+      public java.lang.String getStringParam() {
         java.lang.Object ref = stringParam_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           stringParam_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setStringParam(String value) {
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStringParamBytes() {
+        java.lang.Object ref = stringParam_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          stringParam_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
+      public Builder setStringParam(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -993,543 +1510,275 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
       public Builder clearStringParam() {
         bitField0_ = (bitField0_ & ~0x00000020);
         stringParam_ = getDefaultInstance().getStringParam();
         onChanged();
         return this;
       }
-      void setStringParam(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000020;
+      /**
+       * <code>optional string stringParam = 6;</code>
+       */
+      public Builder setStringParamBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
         stringParam_ = value;
         onChanged();
+        return this;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:network.Request)
     }
-    
+
     static {
       defaultInstance = new Request(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:network.Request)
   }
-  
+
   public interface DirContentOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // required string path = 1;
+    /**
+     * <code>required string path = 1;</code>
+     */
     boolean hasPath();
-    String getPath();
-    
+    /**
+     * <code>required string path = 1;</code>
+     */
+    java.lang.String getPath();
+    /**
+     * <code>required string path = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getPathBytes();
+
     // repeated .network.DirContent.File file = 2;
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     java.util.List<org.es.network.ExchangeProtos.DirContent.File> 
         getFileList();
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     org.es.network.ExchangeProtos.DirContent.File getFile(int index);
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     int getFileCount();
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
         getFileOrBuilderList();
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
         int index);
   }
+  /**
+   * Protobuf type {@code network.DirContent}
+   */
   public static final class DirContent extends
       com.google.protobuf.GeneratedMessage
       implements DirContentOrBuilder {
     // Use DirContent.newBuilder() to construct.
-    private DirContent(Builder builder) {
+    private DirContent(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private DirContent(boolean noInit) {}
-    
+    private DirContent(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final DirContent defaultInstance;
     public static DirContent getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public DirContent getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private DirContent(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              path_ = input.readBytes();
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                file_ = new java.util.ArrayList<org.es.network.ExchangeProtos.DirContent.File>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              file_.add(input.readMessage(org.es.network.ExchangeProtos.DirContent.File.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          file_ = java.util.Collections.unmodifiableList(file_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
       return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
     }
-    
+
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable;
+      return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.es.network.ExchangeProtos.DirContent.class, org.es.network.ExchangeProtos.DirContent.Builder.class);
     }
-    
+
+    public static com.google.protobuf.Parser<DirContent> PARSER =
+        new com.google.protobuf.AbstractParser<DirContent>() {
+      public DirContent parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new DirContent(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<DirContent> getParserForType() {
+      return PARSER;
+    }
+
     public interface FileOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
-      
+
       // required string name = 1;
+      /**
+       * <code>required string name = 1;</code>
+       */
       boolean hasName();
-      String getName();
-      
+      /**
+       * <code>required string name = 1;</code>
+       */
+      java.lang.String getName();
+      /**
+       * <code>required string name = 1;</code>
+       */
+      com.google.protobuf.ByteString
+          getNameBytes();
+
       // required .network.DirContent.File.FileType type = 3;
+      /**
+       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       */
       boolean hasType();
+      /**
+       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       */
       org.es.network.ExchangeProtos.DirContent.File.FileType getType();
-      
+
       // required int32 size = 4;
+      /**
+       * <code>required int32 size = 4;</code>
+       */
       boolean hasSize();
+      /**
+       * <code>required int32 size = 4;</code>
+       */
       int getSize();
     }
+    /**
+     * Protobuf type {@code network.DirContent.File}
+     */
     public static final class File extends
         com.google.protobuf.GeneratedMessage
         implements FileOrBuilder {
       // Use File.newBuilder() to construct.
-      private File(Builder builder) {
+      private File(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
         super(builder);
+        this.unknownFields = builder.getUnknownFields();
       }
-      private File(boolean noInit) {}
-      
+      private File(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
       private static final File defaultInstance;
       public static File getDefaultInstance() {
         return defaultInstance;
       }
-      
+
       public File getDefaultInstanceForType() {
         return defaultInstance;
       }
-      
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable;
-      }
-      
-      public enum FileType
-          implements com.google.protobuf.ProtocolMessageEnum {
-        DIRECTORY(0, 0),
-        FILE(1, 1),
-        ;
-        
-        public static final int DIRECTORY_VALUE = 0;
-        public static final int FILE_VALUE = 1;
-        
-        
-        public final int getNumber() { return value; }
-        
-        public static FileType valueOf(int value) {
-          switch (value) {
-            case 0: return DIRECTORY;
-            case 1: return FILE;
-            default: return null;
-          }
-        }
-        
-        public static com.google.protobuf.Internal.EnumLiteMap<FileType>
-            internalGetValueMap() {
-          return internalValueMap;
-        }
-        private static com.google.protobuf.Internal.EnumLiteMap<FileType>
-            internalValueMap =
-              new com.google.protobuf.Internal.EnumLiteMap<FileType>() {
-                public FileType findValueByNumber(int number) {
-                  return FileType.valueOf(number);
-                }
-              };
-        
-        public final com.google.protobuf.Descriptors.EnumValueDescriptor
-            getValueDescriptor() {
-          return getDescriptor().getValues().get(index);
-        }
-        public final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptorForType() {
-          return getDescriptor();
-        }
-        public static final com.google.protobuf.Descriptors.EnumDescriptor
-            getDescriptor() {
-          return org.es.network.ExchangeProtos.DirContent.File.getDescriptor().getEnumTypes().get(0);
-        }
-        
-        private static final FileType[] VALUES = {
-          DIRECTORY, FILE, 
-        };
-        
-        public static FileType valueOf(
-            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-          if (desc.getType() != getDescriptor()) {
-            throw new java.lang.IllegalArgumentException(
-              "EnumValueDescriptor is not for this type.");
-          }
-          return VALUES[desc.getIndex()];
-        }
-        
-        private final int index;
-        private final int value;
-        
-        private FileType(int index, int value) {
-          this.index = index;
-          this.value = value;
-        }
-        
-        // @@protoc_insertion_point(enum_scope:network.DirContent.File.FileType)
-      }
-      
-      private int bitField0_;
-      // required string name = 1;
-      public static final int NAME_FIELD_NUMBER = 1;
-      private java.lang.Object name_;
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      public String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          return (String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-            name_ = s;
-          }
-          return s;
-        }
-      }
-      private com.google.protobuf.ByteString getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      
-      // required .network.DirContent.File.FileType type = 3;
-      public static final int TYPE_FIELD_NUMBER = 3;
-      private org.es.network.ExchangeProtos.DirContent.File.FileType type_;
-      public boolean hasType() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      public org.es.network.ExchangeProtos.DirContent.File.FileType getType() {
-        return type_;
-      }
-      
-      // required int32 size = 4;
-      public static final int SIZE_FIELD_NUMBER = 4;
-      private int size_;
-      public boolean hasSize() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      public int getSize() {
-        return size_;
-      }
-      
-      private void initFields() {
-        name_ = "";
-        type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-        size_ = 0;
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-        
-        if (!hasName()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasType()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasSize()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-      
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeBytes(1, getNameBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeEnum(3, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeInt32(4, size_);
-        }
-        getUnknownFields().writeTo(output);
-      }
-      
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-      
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(1, getNameBytes());
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeEnumSize(3, type_.getNumber());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(4, size_);
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-      
-      private static final long serialVersionUID = 0L;
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
       @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
       }
-      
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data).buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return newBuilder().mergeFrom(data, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Builder builder = newBuilder();
-        if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-          return builder.buildParsed();
-        } else {
-          return null;
-        }
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input).buildParsed();
-      }
-      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+      private File(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return newBuilder().mergeFrom(input, extensionRegistry)
-                 .buildParsed();
-      }
-      
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(org.es.network.ExchangeProtos.DirContent.File prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-      
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements org.es.network.ExchangeProtos.DirContent.FileOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
-        }
-        
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable;
-        }
-        
-        // Construct using org.es.network.ExchangeProtos.DirContent.File.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-        
-        private Builder(BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-        
-        public Builder clear() {
-          super.clear();
-          name_ = "";
-          bitField0_ = (bitField0_ & ~0x00000001);
-          type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-          bitField0_ = (bitField0_ & ~0x00000002);
-          size_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-        
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-        
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return org.es.network.ExchangeProtos.DirContent.File.getDescriptor();
-        }
-        
-        public org.es.network.ExchangeProtos.DirContent.File getDefaultInstanceForType() {
-          return org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance();
-        }
-        
-        public org.es.network.ExchangeProtos.DirContent.File build() {
-          org.es.network.ExchangeProtos.DirContent.File result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-        
-        private org.es.network.ExchangeProtos.DirContent.File buildParsed()
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          org.es.network.ExchangeProtos.DirContent.File result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(
-              result).asInvalidProtocolBufferException();
-          }
-          return result;
-        }
-        
-        public org.es.network.ExchangeProtos.DirContent.File buildPartial() {
-          org.es.network.ExchangeProtos.DirContent.File result = new org.es.network.ExchangeProtos.DirContent.File(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.name_ = name_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.type_ = type_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.size_ = size_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-        
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof org.es.network.ExchangeProtos.DirContent.File) {
-            return mergeFrom((org.es.network.ExchangeProtos.DirContent.File)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-        
-        public Builder mergeFrom(org.es.network.ExchangeProtos.DirContent.File other) {
-          if (other == org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance()) return this;
-          if (other.hasName()) {
-            setName(other.getName());
-          }
-          if (other.hasType()) {
-            setType(other.getType());
-          }
-          if (other.hasSize()) {
-            setSize(other.getSize());
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-        
-        public final boolean isInitialized() {
-          if (!hasName()) {
-            
-            return false;
-          }
-          if (!hasType()) {
-            
-            return false;
-          }
-          if (!hasSize()) {
-            
-            return false;
-          }
-          return true;
-        }
-        
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder(
-              this.getUnknownFields());
-          while (true) {
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
             int tag = input.readTag();
             switch (tag) {
               case 0:
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
+                break;
               default: {
                 if (!parseUnknownField(input, unknownFields,
                                        extensionRegistry, tag)) {
-                  this.setUnknownFields(unknownFields.build());
-                  onChanged();
-                  return this;
+                  done = true;
                 }
                 break;
               }
@@ -1556,26 +1805,531 @@ public final class ExchangeProtos {
               }
             }
           }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
         }
-        
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.es.network.ExchangeProtos.DirContent.File.class, org.es.network.ExchangeProtos.DirContent.File.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<File> PARSER =
+          new com.google.protobuf.AbstractParser<File>() {
+        public File parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new File(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<File> getParserForType() {
+        return PARSER;
+      }
+
+      /**
+       * Protobuf enum {@code network.DirContent.File.FileType}
+       */
+      public enum FileType
+          implements com.google.protobuf.ProtocolMessageEnum {
+        /**
+         * <code>DIRECTORY = 0;</code>
+         */
+        DIRECTORY(0, 0),
+        /**
+         * <code>FILE = 1;</code>
+         */
+        FILE(1, 1),
+        ;
+
+        /**
+         * <code>DIRECTORY = 0;</code>
+         */
+        public static final int DIRECTORY_VALUE = 0;
+        /**
+         * <code>FILE = 1;</code>
+         */
+        public static final int FILE_VALUE = 1;
+
+
+        public final int getNumber() { return value; }
+
+        public static FileType valueOf(int value) {
+          switch (value) {
+            case 0: return DIRECTORY;
+            case 1: return FILE;
+            default: return null;
+          }
+        }
+
+        public static com.google.protobuf.Internal.EnumLiteMap<FileType>
+            internalGetValueMap() {
+          return internalValueMap;
+        }
+        private static com.google.protobuf.Internal.EnumLiteMap<FileType>
+            internalValueMap =
+              new com.google.protobuf.Internal.EnumLiteMap<FileType>() {
+                public FileType findValueByNumber(int number) {
+                  return FileType.valueOf(number);
+                }
+              };
+
+        public final com.google.protobuf.Descriptors.EnumValueDescriptor
+            getValueDescriptor() {
+          return getDescriptor().getValues().get(index);
+        }
+        public final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptorForType() {
+          return getDescriptor();
+        }
+        public static final com.google.protobuf.Descriptors.EnumDescriptor
+            getDescriptor() {
+          return org.es.network.ExchangeProtos.DirContent.File.getDescriptor().getEnumTypes().get(0);
+        }
+
+        private static final FileType[] VALUES = values();
+
+        public static FileType valueOf(
+            com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+          if (desc.getType() != getDescriptor()) {
+            throw new java.lang.IllegalArgumentException(
+              "EnumValueDescriptor is not for this type.");
+          }
+          return VALUES[desc.getIndex()];
+        }
+
+        private final int index;
+        private final int value;
+
+        private FileType(int index, int value) {
+          this.index = index;
+          this.value = value;
+        }
+
+        // @@protoc_insertion_point(enum_scope:network.DirContent.File.FileType)
+      }
+
+      private int bitField0_;
+      // required string name = 1;
+      public static final int NAME_FIELD_NUMBER = 1;
+      private java.lang.Object name_;
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>required string name = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      // required .network.DirContent.File.FileType type = 3;
+      public static final int TYPE_FIELD_NUMBER = 3;
+      private org.es.network.ExchangeProtos.DirContent.File.FileType type_;
+      /**
+       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       */
+      public boolean hasType() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       */
+      public org.es.network.ExchangeProtos.DirContent.File.FileType getType() {
+        return type_;
+      }
+
+      // required int32 size = 4;
+      public static final int SIZE_FIELD_NUMBER = 4;
+      private int size_;
+      /**
+       * <code>required int32 size = 4;</code>
+       */
+      public boolean hasSize() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required int32 size = 4;</code>
+       */
+      public int getSize() {
+        return size_;
+      }
+
+      private void initFields() {
+        name_ = "";
+        type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+        size_ = 0;
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasName()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasType()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!hasSize()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeBytes(1, getNameBytes());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeEnum(3, type_.getNumber());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          output.writeInt32(4, size_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(1, getNameBytes());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeEnumSize(3, type_.getNumber());
+        }
+        if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeInt32Size(4, size_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static org.es.network.ExchangeProtos.DirContent.File parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(org.es.network.ExchangeProtos.DirContent.File prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code network.DirContent.File}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements org.es.network.ExchangeProtos.DirContent.FileOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  org.es.network.ExchangeProtos.DirContent.File.class, org.es.network.ExchangeProtos.DirContent.File.Builder.class);
+        }
+
+        // Construct using org.es.network.ExchangeProtos.DirContent.File.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          name_ = "";
+          bitField0_ = (bitField0_ & ~0x00000001);
+          type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+          bitField0_ = (bitField0_ & ~0x00000002);
+          size_ = 0;
+          bitField0_ = (bitField0_ & ~0x00000004);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+        }
+
+        public org.es.network.ExchangeProtos.DirContent.File getDefaultInstanceForType() {
+          return org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance();
+        }
+
+        public org.es.network.ExchangeProtos.DirContent.File build() {
+          org.es.network.ExchangeProtos.DirContent.File result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public org.es.network.ExchangeProtos.DirContent.File buildPartial() {
+          org.es.network.ExchangeProtos.DirContent.File result = new org.es.network.ExchangeProtos.DirContent.File(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.name_ = name_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.type_ = type_;
+          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+            to_bitField0_ |= 0x00000004;
+          }
+          result.size_ = size_;
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof org.es.network.ExchangeProtos.DirContent.File) {
+            return mergeFrom((org.es.network.ExchangeProtos.DirContent.File)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(org.es.network.ExchangeProtos.DirContent.File other) {
+          if (other == org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance()) return this;
+          if (other.hasName()) {
+            bitField0_ |= 0x00000001;
+            name_ = other.name_;
+            onChanged();
+          }
+          if (other.hasType()) {
+            setType(other.getType());
+          }
+          if (other.hasSize()) {
+            setSize(other.getSize());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasName()) {
+            
+            return false;
+          }
+          if (!hasType()) {
+            
+            return false;
+          }
+          if (!hasSize()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          org.es.network.ExchangeProtos.DirContent.File parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (org.es.network.ExchangeProtos.DirContent.File) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
         private int bitField0_;
-        
+
         // required string name = 1;
         private java.lang.Object name_ = "";
+        /**
+         * <code>required string name = 1;</code>
+         */
         public boolean hasName() {
           return ((bitField0_ & 0x00000001) == 0x00000001);
         }
-        public String getName() {
+        /**
+         * <code>required string name = 1;</code>
+         */
+        public java.lang.String getName() {
           java.lang.Object ref = name_;
-          if (!(ref instanceof String)) {
-            String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
             name_ = s;
             return s;
           } else {
-            return (String) ref;
+            return (java.lang.String) ref;
           }
         }
-        public Builder setName(String value) {
+        /**
+         * <code>required string name = 1;</code>
+         */
+        public com.google.protobuf.ByteString
+            getNameBytes() {
+          java.lang.Object ref = name_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            name_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>required string name = 1;</code>
+         */
+        public Builder setName(
+            java.lang.String value) {
           if (value == null) {
     throw new NullPointerException();
   }
@@ -1584,26 +2338,46 @@ public final class ExchangeProtos {
           onChanged();
           return this;
         }
+        /**
+         * <code>required string name = 1;</code>
+         */
         public Builder clearName() {
           bitField0_ = (bitField0_ & ~0x00000001);
           name_ = getDefaultInstance().getName();
           onChanged();
           return this;
         }
-        void setName(com.google.protobuf.ByteString value) {
-          bitField0_ |= 0x00000001;
+        /**
+         * <code>required string name = 1;</code>
+         */
+        public Builder setNameBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
           name_ = value;
           onChanged();
+          return this;
         }
-        
+
         // required .network.DirContent.File.FileType type = 3;
         private org.es.network.ExchangeProtos.DirContent.File.FileType type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+        /**
+         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         */
         public boolean hasType() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
+        /**
+         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         */
         public org.es.network.ExchangeProtos.DirContent.File.FileType getType() {
           return type_;
         }
+        /**
+         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         */
         public Builder setType(org.es.network.ExchangeProtos.DirContent.File.FileType value) {
           if (value == null) {
             throw new NullPointerException();
@@ -1613,99 +2387,140 @@ public final class ExchangeProtos {
           onChanged();
           return this;
         }
+        /**
+         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         */
         public Builder clearType() {
           bitField0_ = (bitField0_ & ~0x00000002);
           type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
           onChanged();
           return this;
         }
-        
+
         // required int32 size = 4;
         private int size_ ;
+        /**
+         * <code>required int32 size = 4;</code>
+         */
         public boolean hasSize() {
           return ((bitField0_ & 0x00000004) == 0x00000004);
         }
+        /**
+         * <code>required int32 size = 4;</code>
+         */
         public int getSize() {
           return size_;
         }
+        /**
+         * <code>required int32 size = 4;</code>
+         */
         public Builder setSize(int value) {
           bitField0_ |= 0x00000004;
           size_ = value;
           onChanged();
           return this;
         }
+        /**
+         * <code>required int32 size = 4;</code>
+         */
         public Builder clearSize() {
           bitField0_ = (bitField0_ & ~0x00000004);
           size_ = 0;
           onChanged();
           return this;
         }
-        
+
         // @@protoc_insertion_point(builder_scope:network.DirContent.File)
       }
-      
+
       static {
         defaultInstance = new File(true);
         defaultInstance.initFields();
       }
-      
+
       // @@protoc_insertion_point(class_scope:network.DirContent.File)
     }
-    
+
     private int bitField0_;
     // required string path = 1;
     public static final int PATH_FIELD_NUMBER = 1;
     private java.lang.Object path_;
+    /**
+     * <code>required string path = 1;</code>
+     */
     public boolean hasPath() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
-    public String getPath() {
+    /**
+     * <code>required string path = 1;</code>
+     */
+    public java.lang.String getPath() {
       java.lang.Object ref = path_;
-      if (ref instanceof String) {
-        return (String) ref;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
           path_ = s;
         }
         return s;
       }
     }
-    private com.google.protobuf.ByteString getPathBytes() {
+    /**
+     * <code>required string path = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getPathBytes() {
       java.lang.Object ref = path_;
-      if (ref instanceof String) {
+      if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
         path_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
-    
+
     // repeated .network.DirContent.File file = 2;
     public static final int FILE_FIELD_NUMBER = 2;
     private java.util.List<org.es.network.ExchangeProtos.DirContent.File> file_;
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     public java.util.List<org.es.network.ExchangeProtos.DirContent.File> getFileList() {
       return file_;
     }
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     public java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
         getFileOrBuilderList() {
       return file_;
     }
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     public int getFileCount() {
       return file_.size();
     }
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     public org.es.network.ExchangeProtos.DirContent.File getFile(int index) {
       return file_.get(index);
     }
+    /**
+     * <code>repeated .network.DirContent.File file = 2;</code>
+     */
     public org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
         int index) {
       return file_.get(index);
     }
-    
+
     private void initFields() {
       path_ = "";
       file_ = java.util.Collections.emptyList();
@@ -1714,7 +2529,7 @@ public final class ExchangeProtos {
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
-      
+
       if (!hasPath()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1728,7 +2543,7 @@ public final class ExchangeProtos {
       memoizedIsInitialized = 1;
       return true;
     }
-    
+
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
@@ -1740,12 +2555,12 @@ public final class ExchangeProtos {
       }
       getUnknownFields().writeTo(output);
     }
-    
+
     private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
       int size = memoizedSerializedSize;
       if (size != -1) return size;
-    
+
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
@@ -1759,94 +2574,83 @@ public final class ExchangeProtos {
       memoizedSerializedSize = size;
       return size;
     }
-    
+
     private static final long serialVersionUID = 0L;
     @java.lang.Override
     protected java.lang.Object writeReplace()
         throws java.io.ObjectStreamException {
       return super.writeReplace();
     }
-    
+
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
+      return PARSER.parseFrom(data);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(data, extensionRegistry);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
     public static org.es.network.ExchangeProtos.DirContent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input);
     }
     public static org.es.network.ExchangeProtos.DirContent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
+      return PARSER.parseFrom(input);
     }
     public static org.es.network.ExchangeProtos.DirContent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
+      return PARSER.parseFrom(input, extensionRegistry);
     }
-    
+
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(org.es.network.ExchangeProtos.DirContent prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
-    
+
     @java.lang.Override
     protected Builder newBuilderForType(
         com.google.protobuf.GeneratedMessage.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
+    /**
+     * Protobuf type {@code network.DirContent}
+     */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.es.network.ExchangeProtos.DirContentOrBuilder {
@@ -1854,18 +2658,21 @@ public final class ExchangeProtos {
           getDescriptor() {
         return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
       }
-      
+
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable;
+        return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.es.network.ExchangeProtos.DirContent.class, org.es.network.ExchangeProtos.DirContent.Builder.class);
       }
-      
+
       // Construct using org.es.network.ExchangeProtos.DirContent.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
-      
-      private Builder(BuilderParent parent) {
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1877,7 +2684,7 @@ public final class ExchangeProtos {
       private static Builder create() {
         return new Builder();
       }
-      
+
       public Builder clear() {
         super.clear();
         path_ = "";
@@ -1890,20 +2697,20 @@ public final class ExchangeProtos {
         }
         return this;
       }
-      
+
       public Builder clone() {
         return create().mergeFrom(buildPartial());
       }
-      
+
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.es.network.ExchangeProtos.DirContent.getDescriptor();
+        return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
       }
-      
+
       public org.es.network.ExchangeProtos.DirContent getDefaultInstanceForType() {
         return org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
       }
-      
+
       public org.es.network.ExchangeProtos.DirContent build() {
         org.es.network.ExchangeProtos.DirContent result = buildPartial();
         if (!result.isInitialized()) {
@@ -1911,17 +2718,7 @@ public final class ExchangeProtos {
         }
         return result;
       }
-      
-      private org.es.network.ExchangeProtos.DirContent buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        org.es.network.ExchangeProtos.DirContent result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
+
       public org.es.network.ExchangeProtos.DirContent buildPartial() {
         org.es.network.ExchangeProtos.DirContent result = new org.es.network.ExchangeProtos.DirContent(this);
         int from_bitField0_ = bitField0_;
@@ -1943,7 +2740,7 @@ public final class ExchangeProtos {
         onBuilt();
         return result;
       }
-      
+
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof org.es.network.ExchangeProtos.DirContent) {
           return mergeFrom((org.es.network.ExchangeProtos.DirContent)other);
@@ -1952,11 +2749,13 @@ public final class ExchangeProtos {
           return this;
         }
       }
-      
+
       public Builder mergeFrom(org.es.network.ExchangeProtos.DirContent other) {
         if (other == org.es.network.ExchangeProtos.DirContent.getDefaultInstance()) return this;
         if (other.hasPath()) {
-          setPath(other.getPath());
+          bitField0_ |= 0x00000001;
+          path_ = other.path_;
+          onChanged();
         }
         if (fileBuilder_ == null) {
           if (!other.file_.isEmpty()) {
@@ -1987,7 +2786,7 @@ public final class ExchangeProtos {
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
-      
+
       public final boolean isInitialized() {
         if (!hasPath()) {
           
@@ -2001,63 +2800,69 @@ public final class ExchangeProtos {
         }
         return true;
       }
-      
+
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              path_ = input.readBytes();
-              break;
-            }
-            case 18: {
-              org.es.network.ExchangeProtos.DirContent.File.Builder subBuilder = org.es.network.ExchangeProtos.DirContent.File.newBuilder();
-              input.readMessage(subBuilder, extensionRegistry);
-              addFile(subBuilder.buildPartial());
-              break;
-            }
+        org.es.network.ExchangeProtos.DirContent parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.es.network.ExchangeProtos.DirContent) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
           }
         }
+        return this;
       }
-      
       private int bitField0_;
-      
+
       // required string path = 1;
       private java.lang.Object path_ = "";
+      /**
+       * <code>required string path = 1;</code>
+       */
       public boolean hasPath() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
-      public String getPath() {
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public java.lang.String getPath() {
         java.lang.Object ref = path_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           path_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setPath(String value) {
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getPathBytes() {
+        java.lang.Object ref = path_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          path_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public Builder setPath(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -2066,18 +2871,29 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>required string path = 1;</code>
+       */
       public Builder clearPath() {
         bitField0_ = (bitField0_ & ~0x00000001);
         path_ = getDefaultInstance().getPath();
         onChanged();
         return this;
       }
-      void setPath(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000001;
+      /**
+       * <code>required string path = 1;</code>
+       */
+      public Builder setPathBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
         path_ = value;
         onChanged();
+        return this;
       }
-      
+
       // repeated .network.DirContent.File file = 2;
       private java.util.List<org.es.network.ExchangeProtos.DirContent.File> file_ =
         java.util.Collections.emptyList();
@@ -2087,10 +2903,13 @@ public final class ExchangeProtos {
           bitField0_ |= 0x00000002;
          }
       }
-      
+
       private com.google.protobuf.RepeatedFieldBuilder<
           org.es.network.ExchangeProtos.DirContent.File, org.es.network.ExchangeProtos.DirContent.File.Builder, org.es.network.ExchangeProtos.DirContent.FileOrBuilder> fileBuilder_;
-      
+
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public java.util.List<org.es.network.ExchangeProtos.DirContent.File> getFileList() {
         if (fileBuilder_ == null) {
           return java.util.Collections.unmodifiableList(file_);
@@ -2098,6 +2917,9 @@ public final class ExchangeProtos {
           return fileBuilder_.getMessageList();
         }
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public int getFileCount() {
         if (fileBuilder_ == null) {
           return file_.size();
@@ -2105,6 +2927,9 @@ public final class ExchangeProtos {
           return fileBuilder_.getCount();
         }
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.File getFile(int index) {
         if (fileBuilder_ == null) {
           return file_.get(index);
@@ -2112,6 +2937,9 @@ public final class ExchangeProtos {
           return fileBuilder_.getMessage(index);
         }
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder setFile(
           int index, org.es.network.ExchangeProtos.DirContent.File value) {
         if (fileBuilder_ == null) {
@@ -2126,6 +2954,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder setFile(
           int index, org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
         if (fileBuilder_ == null) {
@@ -2137,6 +2968,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder addFile(org.es.network.ExchangeProtos.DirContent.File value) {
         if (fileBuilder_ == null) {
           if (value == null) {
@@ -2150,6 +2984,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder addFile(
           int index, org.es.network.ExchangeProtos.DirContent.File value) {
         if (fileBuilder_ == null) {
@@ -2164,6 +3001,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder addFile(
           org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
         if (fileBuilder_ == null) {
@@ -2175,6 +3015,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder addFile(
           int index, org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
         if (fileBuilder_ == null) {
@@ -2186,6 +3029,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder addAllFile(
           java.lang.Iterable<? extends org.es.network.ExchangeProtos.DirContent.File> values) {
         if (fileBuilder_ == null) {
@@ -2197,6 +3043,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder clearFile() {
         if (fileBuilder_ == null) {
           file_ = java.util.Collections.emptyList();
@@ -2207,6 +3056,9 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public Builder removeFile(int index) {
         if (fileBuilder_ == null) {
           ensureFileIsMutable();
@@ -2217,10 +3069,16 @@ public final class ExchangeProtos {
         }
         return this;
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.File.Builder getFileBuilder(
           int index) {
         return getFileFieldBuilder().getBuilder(index);
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
           int index) {
         if (fileBuilder_ == null) {
@@ -2228,6 +3086,9 @@ public final class ExchangeProtos {
           return fileBuilder_.getMessageOrBuilder(index);
         }
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
            getFileOrBuilderList() {
         if (fileBuilder_ != null) {
@@ -2236,15 +3097,24 @@ public final class ExchangeProtos {
           return java.util.Collections.unmodifiableList(file_);
         }
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.File.Builder addFileBuilder() {
         return getFileFieldBuilder().addBuilder(
             org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance());
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.File.Builder addFileBuilder(
           int index) {
         return getFileFieldBuilder().addBuilder(
             index, org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance());
       }
+      /**
+       * <code>repeated .network.DirContent.File file = 2;</code>
+       */
       public java.util.List<org.es.network.ExchangeProtos.DirContent.File.Builder> 
            getFileBuilderList() {
         return getFileFieldBuilder().getBuilderList();
@@ -2263,581 +3133,138 @@ public final class ExchangeProtos {
         }
         return fileBuilder_;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:network.DirContent)
     }
-    
+
     static {
       defaultInstance = new DirContent(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:network.DirContent)
   }
-  
+
   public interface ResponseOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
-    
+
     // optional .network.Request.Type requestType = 1;
+    /**
+     * <code>optional .network.Request.Type requestType = 1;</code>
+     */
     boolean hasRequestType();
+    /**
+     * <code>optional .network.Request.Type requestType = 1;</code>
+     */
     org.es.network.ExchangeProtos.Request.Type getRequestType();
-    
+
     // optional .network.Request.Code requestCode = 2;
+    /**
+     * <code>optional .network.Request.Code requestCode = 2;</code>
+     */
     boolean hasRequestCode();
+    /**
+     * <code>optional .network.Request.Code requestCode = 2;</code>
+     */
     org.es.network.ExchangeProtos.Request.Code getRequestCode();
-    
+
     // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    /**
+     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     */
     boolean hasReturnCode();
+    /**
+     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     */
     org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode();
-    
+
     // optional string message = 4;
+    /**
+     * <code>optional string message = 4;</code>
+     */
     boolean hasMessage();
-    String getMessage();
-    
+    /**
+     * <code>optional string message = 4;</code>
+     */
+    java.lang.String getMessage();
+    /**
+     * <code>optional string message = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getMessageBytes();
+
     // optional int32 intValue = 5;
+    /**
+     * <code>optional int32 intValue = 5;</code>
+     */
     boolean hasIntValue();
+    /**
+     * <code>optional int32 intValue = 5;</code>
+     */
     int getIntValue();
-    
+
     // optional .network.DirContent dirContent = 6;
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
     boolean hasDirContent();
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
     org.es.network.ExchangeProtos.DirContent getDirContent();
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
     org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder();
   }
+  /**
+   * Protobuf type {@code network.Response}
+   */
   public static final class Response extends
       com.google.protobuf.GeneratedMessage
       implements ResponseOrBuilder {
     // Use Response.newBuilder() to construct.
-    private Response(Builder builder) {
+    private Response(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
+      this.unknownFields = builder.getUnknownFields();
     }
-    private Response(boolean noInit) {}
-    
+    private Response(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
     private static final Response defaultInstance;
     public static Response getDefaultInstance() {
       return defaultInstance;
     }
-    
+
     public Response getDefaultInstanceForType() {
       return defaultInstance;
     }
-    
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
-    }
-    
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable;
-    }
-    
-    public enum ReturnCode
-        implements com.google.protobuf.ProtocolMessageEnum {
-      RC_SUCCESS(0, 0),
-      RC_ERROR(1, 1),
-      ;
-      
-      public static final int RC_SUCCESS_VALUE = 0;
-      public static final int RC_ERROR_VALUE = 1;
-      
-      
-      public final int getNumber() { return value; }
-      
-      public static ReturnCode valueOf(int value) {
-        switch (value) {
-          case 0: return RC_SUCCESS;
-          case 1: return RC_ERROR;
-          default: return null;
-        }
-      }
-      
-      public static com.google.protobuf.Internal.EnumLiteMap<ReturnCode>
-          internalGetValueMap() {
-        return internalValueMap;
-      }
-      private static com.google.protobuf.Internal.EnumLiteMap<ReturnCode>
-          internalValueMap =
-            new com.google.protobuf.Internal.EnumLiteMap<ReturnCode>() {
-              public ReturnCode findValueByNumber(int number) {
-                return ReturnCode.valueOf(number);
-              }
-            };
-      
-      public final com.google.protobuf.Descriptors.EnumValueDescriptor
-          getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
-      }
-      public final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptorForType() {
-        return getDescriptor();
-      }
-      public static final com.google.protobuf.Descriptors.EnumDescriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.Response.getDescriptor().getEnumTypes().get(0);
-      }
-      
-      private static final ReturnCode[] VALUES = {
-        RC_SUCCESS, RC_ERROR, 
-      };
-      
-      public static ReturnCode valueOf(
-          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-        if (desc.getType() != getDescriptor()) {
-          throw new java.lang.IllegalArgumentException(
-            "EnumValueDescriptor is not for this type.");
-        }
-        return VALUES[desc.getIndex()];
-      }
-      
-      private final int index;
-      private final int value;
-      
-      private ReturnCode(int index, int value) {
-        this.index = index;
-        this.value = value;
-      }
-      
-      // @@protoc_insertion_point(enum_scope:network.Response.ReturnCode)
-    }
-    
-    private int bitField0_;
-    // optional .network.Request.Type requestType = 1;
-    public static final int REQUESTTYPE_FIELD_NUMBER = 1;
-    private org.es.network.ExchangeProtos.Request.Type requestType_;
-    public boolean hasRequestType() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    public org.es.network.ExchangeProtos.Request.Type getRequestType() {
-      return requestType_;
-    }
-    
-    // optional .network.Request.Code requestCode = 2;
-    public static final int REQUESTCODE_FIELD_NUMBER = 2;
-    private org.es.network.ExchangeProtos.Request.Code requestCode_;
-    public boolean hasRequestCode() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    public org.es.network.ExchangeProtos.Request.Code getRequestCode() {
-      return requestCode_;
-    }
-    
-    // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
-    public static final int RETURNCODE_FIELD_NUMBER = 3;
-    private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_;
-    public boolean hasReturnCode() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    public org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode() {
-      return returnCode_;
-    }
-    
-    // optional string message = 4;
-    public static final int MESSAGE_FIELD_NUMBER = 4;
-    private java.lang.Object message_;
-    public boolean hasMessage() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    public String getMessage() {
-      java.lang.Object ref = message_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        if (com.google.protobuf.Internal.isValidUtf8(bs)) {
-          message_ = s;
-        }
-        return s;
-      }
-    }
-    private com.google.protobuf.ByteString getMessageBytes() {
-      java.lang.Object ref = message_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8((String) ref);
-        message_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    
-    // optional int32 intValue = 5;
-    public static final int INTVALUE_FIELD_NUMBER = 5;
-    private int intValue_;
-    public boolean hasIntValue() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    public int getIntValue() {
-      return intValue_;
-    }
-    
-    // optional .network.DirContent dirContent = 6;
-    public static final int DIRCONTENT_FIELD_NUMBER = 6;
-    private org.es.network.ExchangeProtos.DirContent dirContent_;
-    public boolean hasDirContent() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
-    public org.es.network.ExchangeProtos.DirContent getDirContent() {
-      return dirContent_;
-    }
-    public org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder() {
-      return dirContent_;
-    }
-    
-    private void initFields() {
-      requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-      requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-      returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-      message_ = "";
-      intValue_ = 0;
-      dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-      
-      if (hasDirContent()) {
-        if (!getDirContent().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-    
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, requestType_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeEnum(2, requestCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, returnCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getMessageBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, intValue_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeMessage(6, dirContent_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-    
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-    
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, requestType_.getNumber());
-      }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(2, requestCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, returnCode_.getNumber());
-      }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getMessageBytes());
-      }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, intValue_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(6, dirContent_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-    
-    private static final long serialVersionUID = 0L;
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
     }
-    
-    public static org.es.network.ExchangeProtos.Response parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return newBuilder().mergeFrom(data, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.es.network.ExchangeProtos.Response parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      Builder builder = newBuilder();
-      if (builder.mergeDelimitedFrom(input, extensionRegistry)) {
-        return builder.buildParsed();
-      } else {
-        return null;
-      }
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input).buildParsed();
-    }
-    public static org.es.network.ExchangeProtos.Response parseFrom(
+    private Response(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return newBuilder().mergeFrom(input, extensionRegistry)
-               .buildParsed();
-    }
-    
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(org.es.network.ExchangeProtos.Response prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-    
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements org.es.network.ExchangeProtos.ResponseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
-      }
-      
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable;
-      }
-      
-      // Construct using org.es.network.ExchangeProtos.Response.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-      
-      private Builder(BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getDirContentFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-      
-      public Builder clear() {
-        super.clear();
-        requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        message_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
-        intValue_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000010);
-        if (dirContentBuilder_ == null) {
-          dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
-        } else {
-          dirContentBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000020);
-        return this;
-      }
-      
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-      
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.es.network.ExchangeProtos.Response.getDescriptor();
-      }
-      
-      public org.es.network.ExchangeProtos.Response getDefaultInstanceForType() {
-        return org.es.network.ExchangeProtos.Response.getDefaultInstance();
-      }
-      
-      public org.es.network.ExchangeProtos.Response build() {
-        org.es.network.ExchangeProtos.Response result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-      
-      private org.es.network.ExchangeProtos.Response buildParsed()
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        org.es.network.ExchangeProtos.Response result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(
-            result).asInvalidProtocolBufferException();
-        }
-        return result;
-      }
-      
-      public org.es.network.ExchangeProtos.Response buildPartial() {
-        org.es.network.ExchangeProtos.Response result = new org.es.network.ExchangeProtos.Response(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.requestType_ = requestType_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.requestCode_ = requestCode_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.returnCode_ = returnCode_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
-        result.message_ = message_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
-        result.intValue_ = intValue_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
-        if (dirContentBuilder_ == null) {
-          result.dirContent_ = dirContent_;
-        } else {
-          result.dirContent_ = dirContentBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-      
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof org.es.network.ExchangeProtos.Response) {
-          return mergeFrom((org.es.network.ExchangeProtos.Response)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-      
-      public Builder mergeFrom(org.es.network.ExchangeProtos.Response other) {
-        if (other == org.es.network.ExchangeProtos.Response.getDefaultInstance()) return this;
-        if (other.hasRequestType()) {
-          setRequestType(other.getRequestType());
-        }
-        if (other.hasRequestCode()) {
-          setRequestCode(other.getRequestCode());
-        }
-        if (other.hasReturnCode()) {
-          setReturnCode(other.getReturnCode());
-        }
-        if (other.hasMessage()) {
-          setMessage(other.getMessage());
-        }
-        if (other.hasIntValue()) {
-          setIntValue(other.getIntValue());
-        }
-        if (other.hasDirContent()) {
-          mergeDirContent(other.getDirContent());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-      
-      public final boolean isInitialized() {
-        if (hasDirContent()) {
-          if (!getDirContent().isInitialized()) {
-            
-            return false;
-          }
-        }
-        return true;
-      }
-      
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder(
-            this.getUnknownFields());
-        while (true) {
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
           int tag = input.readTag();
           switch (tag) {
             case 0:
-              this.setUnknownFields(unknownFields.build());
-              onChanged();
-              return this;
+              done = true;
+              break;
             default: {
               if (!parseUnknownField(input, unknownFields,
                                      extensionRegistry, tag)) {
-                this.setUnknownFields(unknownFields.build());
-                onChanged();
-                return this;
+                done = true;
               }
               break;
             }
@@ -2885,28 +3312,621 @@ public final class ExchangeProtos {
               break;
             }
             case 50: {
-              org.es.network.ExchangeProtos.DirContent.Builder subBuilder = org.es.network.ExchangeProtos.DirContent.newBuilder();
-              if (hasDirContent()) {
-                subBuilder.mergeFrom(getDirContent());
+              org.es.network.ExchangeProtos.DirContent.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000020) == 0x00000020)) {
+                subBuilder = dirContent_.toBuilder();
               }
-              input.readMessage(subBuilder, extensionRegistry);
-              setDirContent(subBuilder.buildPartial());
+              dirContent_ = input.readMessage(org.es.network.ExchangeProtos.DirContent.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(dirContent_);
+                dirContent_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000020;
               break;
             }
           }
         }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
       }
-      
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              org.es.network.ExchangeProtos.Response.class, org.es.network.ExchangeProtos.Response.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Response> PARSER =
+        new com.google.protobuf.AbstractParser<Response>() {
+      public Response parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Response(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Response> getParserForType() {
+      return PARSER;
+    }
+
+    /**
+     * Protobuf enum {@code network.Response.ReturnCode}
+     */
+    public enum ReturnCode
+        implements com.google.protobuf.ProtocolMessageEnum {
+      /**
+       * <code>RC_SUCCESS = 0;</code>
+       */
+      RC_SUCCESS(0, 0),
+      /**
+       * <code>RC_ERROR = 1;</code>
+       */
+      RC_ERROR(1, 1),
+      ;
+
+      /**
+       * <code>RC_SUCCESS = 0;</code>
+       */
+      public static final int RC_SUCCESS_VALUE = 0;
+      /**
+       * <code>RC_ERROR = 1;</code>
+       */
+      public static final int RC_ERROR_VALUE = 1;
+
+
+      public final int getNumber() { return value; }
+
+      public static ReturnCode valueOf(int value) {
+        switch (value) {
+          case 0: return RC_SUCCESS;
+          case 1: return RC_ERROR;
+          default: return null;
+        }
+      }
+
+      public static com.google.protobuf.Internal.EnumLiteMap<ReturnCode>
+          internalGetValueMap() {
+        return internalValueMap;
+      }
+      private static com.google.protobuf.Internal.EnumLiteMap<ReturnCode>
+          internalValueMap =
+            new com.google.protobuf.Internal.EnumLiteMap<ReturnCode>() {
+              public ReturnCode findValueByNumber(int number) {
+                return ReturnCode.valueOf(number);
+              }
+            };
+
+      public final com.google.protobuf.Descriptors.EnumValueDescriptor
+          getValueDescriptor() {
+        return getDescriptor().getValues().get(index);
+      }
+      public final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptorForType() {
+        return getDescriptor();
+      }
+      public static final com.google.protobuf.Descriptors.EnumDescriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.Response.getDescriptor().getEnumTypes().get(0);
+      }
+
+      private static final ReturnCode[] VALUES = values();
+
+      public static ReturnCode valueOf(
+          com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
+        if (desc.getType() != getDescriptor()) {
+          throw new java.lang.IllegalArgumentException(
+            "EnumValueDescriptor is not for this type.");
+        }
+        return VALUES[desc.getIndex()];
+      }
+
+      private final int index;
+      private final int value;
+
+      private ReturnCode(int index, int value) {
+        this.index = index;
+        this.value = value;
+      }
+
+      // @@protoc_insertion_point(enum_scope:network.Response.ReturnCode)
+    }
+
+    private int bitField0_;
+    // optional .network.Request.Type requestType = 1;
+    public static final int REQUESTTYPE_FIELD_NUMBER = 1;
+    private org.es.network.ExchangeProtos.Request.Type requestType_;
+    /**
+     * <code>optional .network.Request.Type requestType = 1;</code>
+     */
+    public boolean hasRequestType() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .network.Request.Type requestType = 1;</code>
+     */
+    public org.es.network.ExchangeProtos.Request.Type getRequestType() {
+      return requestType_;
+    }
+
+    // optional .network.Request.Code requestCode = 2;
+    public static final int REQUESTCODE_FIELD_NUMBER = 2;
+    private org.es.network.ExchangeProtos.Request.Code requestCode_;
+    /**
+     * <code>optional .network.Request.Code requestCode = 2;</code>
+     */
+    public boolean hasRequestCode() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .network.Request.Code requestCode = 2;</code>
+     */
+    public org.es.network.ExchangeProtos.Request.Code getRequestCode() {
+      return requestCode_;
+    }
+
+    // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    public static final int RETURNCODE_FIELD_NUMBER = 3;
+    private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_;
+    /**
+     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     */
+    public boolean hasReturnCode() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     */
+    public org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode() {
+      return returnCode_;
+    }
+
+    // optional string message = 4;
+    public static final int MESSAGE_FIELD_NUMBER = 4;
+    private java.lang.Object message_;
+    /**
+     * <code>optional string message = 4;</code>
+     */
+    public boolean hasMessage() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional string message = 4;</code>
+     */
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          message_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string message = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMessageBytes() {
+      java.lang.Object ref = message_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    // optional int32 intValue = 5;
+    public static final int INTVALUE_FIELD_NUMBER = 5;
+    private int intValue_;
+    /**
+     * <code>optional int32 intValue = 5;</code>
+     */
+    public boolean hasIntValue() {
+      return ((bitField0_ & 0x00000010) == 0x00000010);
+    }
+    /**
+     * <code>optional int32 intValue = 5;</code>
+     */
+    public int getIntValue() {
+      return intValue_;
+    }
+
+    // optional .network.DirContent dirContent = 6;
+    public static final int DIRCONTENT_FIELD_NUMBER = 6;
+    private org.es.network.ExchangeProtos.DirContent dirContent_;
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
+    public boolean hasDirContent() {
+      return ((bitField0_ & 0x00000020) == 0x00000020);
+    }
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
+    public org.es.network.ExchangeProtos.DirContent getDirContent() {
+      return dirContent_;
+    }
+    /**
+     * <code>optional .network.DirContent dirContent = 6;</code>
+     */
+    public org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder() {
+      return dirContent_;
+    }
+
+    private void initFields() {
+      requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+      requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+      message_ = "";
+      intValue_ = 0;
+      dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (hasDirContent()) {
+        if (!getDirContent().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeEnum(1, requestType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeEnum(2, requestCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeEnum(3, returnCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        output.writeInt32(5, intValue_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeMessage(6, dirContent_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(1, requestType_.getNumber());
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(2, requestCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(3, returnCode_.getNumber());
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, getMessageBytes());
+      }
+      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, intValue_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, dirContent_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Response parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Response parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static org.es.network.ExchangeProtos.Response parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(org.es.network.ExchangeProtos.Response prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code network.Response}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements org.es.network.ExchangeProtos.ResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                org.es.network.ExchangeProtos.Response.class, org.es.network.ExchangeProtos.Response.Builder.class);
+      }
+
+      // Construct using org.es.network.ExchangeProtos.Response.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getDirContentFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        intValue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        if (dirContentBuilder_ == null) {
+          dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
+        } else {
+          dirContentBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000020);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+      }
+
+      public org.es.network.ExchangeProtos.Response getDefaultInstanceForType() {
+        return org.es.network.ExchangeProtos.Response.getDefaultInstance();
+      }
+
+      public org.es.network.ExchangeProtos.Response build() {
+        org.es.network.ExchangeProtos.Response result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public org.es.network.ExchangeProtos.Response buildPartial() {
+        org.es.network.ExchangeProtos.Response result = new org.es.network.ExchangeProtos.Response(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.requestType_ = requestType_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.requestCode_ = requestCode_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.returnCode_ = returnCode_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.message_ = message_;
+        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
+          to_bitField0_ |= 0x00000010;
+        }
+        result.intValue_ = intValue_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
+        }
+        if (dirContentBuilder_ == null) {
+          result.dirContent_ = dirContent_;
+        } else {
+          result.dirContent_ = dirContentBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof org.es.network.ExchangeProtos.Response) {
+          return mergeFrom((org.es.network.ExchangeProtos.Response)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(org.es.network.ExchangeProtos.Response other) {
+        if (other == org.es.network.ExchangeProtos.Response.getDefaultInstance()) return this;
+        if (other.hasRequestType()) {
+          setRequestType(other.getRequestType());
+        }
+        if (other.hasRequestCode()) {
+          setRequestCode(other.getRequestCode());
+        }
+        if (other.hasReturnCode()) {
+          setReturnCode(other.getReturnCode());
+        }
+        if (other.hasMessage()) {
+          bitField0_ |= 0x00000008;
+          message_ = other.message_;
+          onChanged();
+        }
+        if (other.hasIntValue()) {
+          setIntValue(other.getIntValue());
+        }
+        if (other.hasDirContent()) {
+          mergeDirContent(other.getDirContent());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (hasDirContent()) {
+          if (!getDirContent().isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        org.es.network.ExchangeProtos.Response parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (org.es.network.ExchangeProtos.Response) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
       private int bitField0_;
-      
+
       // optional .network.Request.Type requestType = 1;
       private org.es.network.ExchangeProtos.Request.Type requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+      /**
+       * <code>optional .network.Request.Type requestType = 1;</code>
+       */
       public boolean hasRequestType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
+      /**
+       * <code>optional .network.Request.Type requestType = 1;</code>
+       */
       public org.es.network.ExchangeProtos.Request.Type getRequestType() {
         return requestType_;
       }
+      /**
+       * <code>optional .network.Request.Type requestType = 1;</code>
+       */
       public Builder setRequestType(org.es.network.ExchangeProtos.Request.Type value) {
         if (value == null) {
           throw new NullPointerException();
@@ -2916,21 +3936,33 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional .network.Request.Type requestType = 1;</code>
+       */
       public Builder clearRequestType() {
         bitField0_ = (bitField0_ & ~0x00000001);
         requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
         onChanged();
         return this;
       }
-      
+
       // optional .network.Request.Code requestCode = 2;
       private org.es.network.ExchangeProtos.Request.Code requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
+      /**
+       * <code>optional .network.Request.Code requestCode = 2;</code>
+       */
       public boolean hasRequestCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
+      /**
+       * <code>optional .network.Request.Code requestCode = 2;</code>
+       */
       public org.es.network.ExchangeProtos.Request.Code getRequestCode() {
         return requestCode_;
       }
+      /**
+       * <code>optional .network.Request.Code requestCode = 2;</code>
+       */
       public Builder setRequestCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
           throw new NullPointerException();
@@ -2940,21 +3972,33 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional .network.Request.Code requestCode = 2;</code>
+       */
       public Builder clearRequestCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
         requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
         onChanged();
         return this;
       }
-      
+
       // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
       private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+      /**
+       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       */
       public boolean hasReturnCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
+      /**
+       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       */
       public org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode() {
         return returnCode_;
       }
+      /**
+       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       */
       public Builder setReturnCode(org.es.network.ExchangeProtos.Response.ReturnCode value) {
         if (value == null) {
           throw new NullPointerException();
@@ -2964,29 +4008,59 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       */
       public Builder clearReturnCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
         returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
         onChanged();
         return this;
       }
-      
+
       // optional string message = 4;
       private java.lang.Object message_ = "";
+      /**
+       * <code>optional string message = 4;</code>
+       */
       public boolean hasMessage() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
-      public String getMessage() {
+      /**
+       * <code>optional string message = 4;</code>
+       */
+      public java.lang.String getMessage() {
         java.lang.Object ref = message_;
-        if (!(ref instanceof String)) {
-          String s = ((com.google.protobuf.ByteString) ref).toStringUtf8();
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
           message_ = s;
           return s;
         } else {
-          return (String) ref;
+          return (java.lang.String) ref;
         }
       }
-      public Builder setMessage(String value) {
+      /**
+       * <code>optional string message = 4;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMessageBytes() {
+        java.lang.Object ref = message_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          message_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string message = 4;</code>
+       */
+      public Builder setMessage(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -2995,46 +4069,75 @@ public final class ExchangeProtos {
         onChanged();
         return this;
       }
+      /**
+       * <code>optional string message = 4;</code>
+       */
       public Builder clearMessage() {
         bitField0_ = (bitField0_ & ~0x00000008);
         message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
-      void setMessage(com.google.protobuf.ByteString value) {
-        bitField0_ |= 0x00000008;
+      /**
+       * <code>optional string message = 4;</code>
+       */
+      public Builder setMessageBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000008;
         message_ = value;
         onChanged();
+        return this;
       }
-      
+
       // optional int32 intValue = 5;
       private int intValue_ ;
+      /**
+       * <code>optional int32 intValue = 5;</code>
+       */
       public boolean hasIntValue() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
+      /**
+       * <code>optional int32 intValue = 5;</code>
+       */
       public int getIntValue() {
         return intValue_;
       }
+      /**
+       * <code>optional int32 intValue = 5;</code>
+       */
       public Builder setIntValue(int value) {
         bitField0_ |= 0x00000010;
         intValue_ = value;
         onChanged();
         return this;
       }
+      /**
+       * <code>optional int32 intValue = 5;</code>
+       */
       public Builder clearIntValue() {
         bitField0_ = (bitField0_ & ~0x00000010);
         intValue_ = 0;
         onChanged();
         return this;
       }
-      
+
       // optional .network.DirContent dirContent = 6;
       private org.es.network.ExchangeProtos.DirContent dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           org.es.network.ExchangeProtos.DirContent, org.es.network.ExchangeProtos.DirContent.Builder, org.es.network.ExchangeProtos.DirContentOrBuilder> dirContentBuilder_;
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public boolean hasDirContent() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent getDirContent() {
         if (dirContentBuilder_ == null) {
           return dirContent_;
@@ -3042,6 +4145,9 @@ public final class ExchangeProtos {
           return dirContentBuilder_.getMessage();
         }
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public Builder setDirContent(org.es.network.ExchangeProtos.DirContent value) {
         if (dirContentBuilder_ == null) {
           if (value == null) {
@@ -3055,6 +4161,9 @@ public final class ExchangeProtos {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public Builder setDirContent(
           org.es.network.ExchangeProtos.DirContent.Builder builderForValue) {
         if (dirContentBuilder_ == null) {
@@ -3066,6 +4175,9 @@ public final class ExchangeProtos {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public Builder mergeDirContent(org.es.network.ExchangeProtos.DirContent value) {
         if (dirContentBuilder_ == null) {
           if (((bitField0_ & 0x00000020) == 0x00000020) &&
@@ -3082,6 +4194,9 @@ public final class ExchangeProtos {
         bitField0_ |= 0x00000020;
         return this;
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public Builder clearDirContent() {
         if (dirContentBuilder_ == null) {
           dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
@@ -3092,11 +4207,17 @@ public final class ExchangeProtos {
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public org.es.network.ExchangeProtos.DirContent.Builder getDirContentBuilder() {
         bitField0_ |= 0x00000020;
         onChanged();
         return getDirContentFieldBuilder().getBuilder();
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       public org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder() {
         if (dirContentBuilder_ != null) {
           return dirContentBuilder_.getMessageOrBuilder();
@@ -3104,6 +4225,9 @@ public final class ExchangeProtos {
           return dirContent_;
         }
       }
+      /**
+       * <code>optional .network.DirContent dirContent = 6;</code>
+       */
       private com.google.protobuf.SingleFieldBuilder<
           org.es.network.ExchangeProtos.DirContent, org.es.network.ExchangeProtos.DirContent.Builder, org.es.network.ExchangeProtos.DirContentOrBuilder> 
           getDirContentFieldBuilder() {
@@ -3117,18 +4241,18 @@ public final class ExchangeProtos {
         }
         return dirContentBuilder_;
       }
-      
+
       // @@protoc_insertion_point(builder_scope:network.Response)
     }
-    
+
     static {
       defaultInstance = new Response(true);
       defaultInstance.initFields();
     }
-    
+
     // @@protoc_insertion_point(class_scope:network.Response)
   }
-  
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_network_Request_descriptor;
   private static
@@ -3149,7 +4273,7 @@ public final class ExchangeProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_network_Response_fieldAccessorTable;
-  
+
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
@@ -3204,33 +4328,25 @@ public final class ExchangeProtos {
           internal_static_network_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_Request_descriptor,
-              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntParam", "StringParam", },
-              org.es.network.ExchangeProtos.Request.class,
-              org.es.network.ExchangeProtos.Request.Builder.class);
+              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntParam", "StringParam", });
           internal_static_network_DirContent_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_network_DirContent_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_DirContent_descriptor,
-              new java.lang.String[] { "Path", "File", },
-              org.es.network.ExchangeProtos.DirContent.class,
-              org.es.network.ExchangeProtos.DirContent.Builder.class);
+              new java.lang.String[] { "Path", "File", });
           internal_static_network_DirContent_File_descriptor =
             internal_static_network_DirContent_descriptor.getNestedTypes().get(0);
           internal_static_network_DirContent_File_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_DirContent_File_descriptor,
-              new java.lang.String[] { "Name", "Type", "Size", },
-              org.es.network.ExchangeProtos.DirContent.File.class,
-              org.es.network.ExchangeProtos.DirContent.File.Builder.class);
+              new java.lang.String[] { "Name", "Type", "Size", });
           internal_static_network_Response_descriptor =
             getDescriptor().getMessageTypes().get(2);
           internal_static_network_Response_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_Response_descriptor,
-              new java.lang.String[] { "RequestType", "RequestCode", "ReturnCode", "Message", "IntValue", "DirContent", },
-              org.es.network.ExchangeProtos.Response.class,
-              org.es.network.ExchangeProtos.Response.Builder.class);
+              new java.lang.String[] { "RequestType", "RequestCode", "ReturnCode", "Message", "IntValue", "DirContent", });
           return null;
         }
       };
@@ -3239,6 +4355,6 @@ public final class ExchangeProtos {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
   }
-  
+
   // @@protoc_insertion_point(outer_class_scope)
 }
