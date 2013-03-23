@@ -487,19 +487,19 @@ public final class ExchangeProtos {
        */
       KB_F4(35, 50),
       /**
-       * <code>GOM_PLAYER_KILL = 51;</code>
+       * <code>GOM_PLAYER_RUN = 60;</code>
        */
-      GOM_PLAYER_KILL(37, 51),
+      GOM_PLAYER_RUN(36, 60),
       /**
-       * <code>GOM_PLAYER_STRETCH = 52;</code>
+       * <code>GOM_PLAYER_KILL = 61;</code>
        */
-      GOM_PLAYER_STRETCH(38, 52),
+      GOM_PLAYER_KILL(37, 61),
+      /**
+       * <code>GOM_PLAYER_STRETCH = 62;</code>
+       */
+      GOM_PLAYER_STRETCH(38, 62),
       ;
 
-      /**
-       * <code>GOM_PLAYER_RUN = 50;</code>
-       */
-      public static final Code GOM_PLAYER_RUN = KB_F4;
       /**
        * <code>NONE = 0;</code>
        */
@@ -645,17 +645,17 @@ public final class ExchangeProtos {
        */
       public static final int KB_F4_VALUE = 50;
       /**
-       * <code>GOM_PLAYER_RUN = 50;</code>
+       * <code>GOM_PLAYER_RUN = 60;</code>
        */
-      public static final int GOM_PLAYER_RUN_VALUE = 50;
+      public static final int GOM_PLAYER_RUN_VALUE = 60;
       /**
-       * <code>GOM_PLAYER_KILL = 51;</code>
+       * <code>GOM_PLAYER_KILL = 61;</code>
        */
-      public static final int GOM_PLAYER_KILL_VALUE = 51;
+      public static final int GOM_PLAYER_KILL_VALUE = 61;
       /**
-       * <code>GOM_PLAYER_STRETCH = 52;</code>
+       * <code>GOM_PLAYER_STRETCH = 62;</code>
        */
-      public static final int GOM_PLAYER_STRETCH_VALUE = 52;
+      public static final int GOM_PLAYER_STRETCH_VALUE = 62;
 
 
       public final int getNumber() { return value; }
@@ -698,8 +698,9 @@ public final class ExchangeProtos {
           case 48: return KB_ESCAPE;
           case 49: return KB_TAB;
           case 50: return KB_F4;
-          case 51: return GOM_PLAYER_KILL;
-          case 52: return GOM_PLAYER_STRETCH;
+          case 60: return GOM_PLAYER_RUN;
+          case 61: return GOM_PLAYER_KILL;
+          case 62: return GOM_PLAYER_STRETCH;
           default: return null;
         }
       }
@@ -729,9 +730,7 @@ public final class ExchangeProtos {
         return org.es.network.ExchangeProtos.Request.getDescriptor().getEnumTypes().get(1);
       }
 
-      private static final Code[] VALUES = {
-        NONE, DEFINE, STATUS, ON, OFF, HELLO, TEST, KILL_SERVER, SHUTDOWN, SWITCH_WINDOW, LOCK, UP, DOWN, LEFT, RIGHT, MUTE, SAY, GET_FILE_LIST, OPEN_FILE, MEDIA_PLAY_PAUSE, MEDIA_STOP, MEDIA_PREVIOUS, MEDIA_NEXT, MEDIA_FF, MEDIA_REWIND, KB_CTRL, KB_SHIFT, KB_ALT, KB_ALTGR, KB_WINDOWS, KB_RETURN, KB_SPACE, KB_BACKSPACE, KB_ESCAPE, KB_TAB, KB_F4, GOM_PLAYER_RUN, GOM_PLAYER_KILL, GOM_PLAYER_STRETCH, 
-      };
+      private static final Code[] VALUES = values();
 
       public static Code valueOf(
           com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
@@ -4302,8 +4301,8 @@ public final class ExchangeProtos {
       "\010KB_ALTGR\020+\022\016\n\nKB_WINDOWS\020,\022\r\n\tKB_RETURN" +
       "\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_BACKSPACE\020/\022\r\n\tKB" +
       "_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t\n\005KB_F4\0202\022\022\n\016GOM_",
-      "PLAYER_RUN\0202\022\023\n\017GOM_PLAYER_KILL\0203\022\026\n\022GOM" +
-      "_PLAYER_STRETCH\0204\"\274\001\n\nDirContent\022\014\n\004path" +
+      "PLAYER_RUN\020<\022\023\n\017GOM_PLAYER_KILL\020=\022\026\n\022GOM" +
+      "_PLAYER_STRETCH\020>\"\274\001\n\nDirContent\022\014\n\004path" +
       "\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.DirConten" +
       "t.File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002" +
       "(\0162!.network.DirContent.File.FileType\022\014\n" +
