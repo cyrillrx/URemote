@@ -11,33 +11,33 @@ public final class ExchangeProtos {
   public interface RequestOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required .network.Request.Type type = 1;
+    // required .network_io.Request.Type type = 1;
     /**
-     * <code>required .network.Request.Type type = 1;</code>
+     * <code>required .network_io.Request.Type type = 1;</code>
      */
     boolean hasType();
     /**
-     * <code>required .network.Request.Type type = 1;</code>
+     * <code>required .network_io.Request.Type type = 1;</code>
      */
     org.es.network.ExchangeProtos.Request.Type getType();
 
-    // required .network.Request.Code code = 2;
+    // required .network_io.Request.Code code = 2;
     /**
-     * <code>required .network.Request.Code code = 2;</code>
+     * <code>required .network_io.Request.Code code = 2;</code>
      */
     boolean hasCode();
     /**
-     * <code>required .network.Request.Code code = 2;</code>
+     * <code>required .network_io.Request.Code code = 2;</code>
      */
     org.es.network.ExchangeProtos.Request.Code getCode();
 
-    // required .network.Request.Code extraCode = 3;
+    // required .network_io.Request.Code extraCode = 3;
     /**
-     * <code>required .network.Request.Code extraCode = 3;</code>
+     * <code>required .network_io.Request.Code extraCode = 3;</code>
      */
     boolean hasExtraCode();
     /**
-     * <code>required .network.Request.Code extraCode = 3;</code>
+     * <code>required .network_io.Request.Code extraCode = 3;</code>
      */
     org.es.network.ExchangeProtos.Request.Code getExtraCode();
 
@@ -82,7 +82,7 @@ public final class ExchangeProtos {
         getStringParamBytes();
   }
   /**
-   * Protobuf type {@code network.Request}
+   * Protobuf type {@code network_io.Request}
    */
   public static final class Request extends
       com.google.protobuf.GeneratedMessage
@@ -194,12 +194,12 @@ public final class ExchangeProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+      return org.es.network.ExchangeProtos.internal_static_network_io_Request_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable
+      return org.es.network.ExchangeProtos.internal_static_network_io_Request_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.es.network.ExchangeProtos.Request.class, org.es.network.ExchangeProtos.Request.Builder.class);
     }
@@ -220,7 +220,7 @@ public final class ExchangeProtos {
     }
 
     /**
-     * Protobuf enum {@code network.Request.Type}
+     * Protobuf enum {@code network_io.Request.Type}
      */
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -334,11 +334,11 @@ public final class ExchangeProtos {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:network.Request.Type)
+      // @@protoc_insertion_point(enum_scope:network_io.Request.Type)
     }
 
     /**
-     * Protobuf enum {@code network.Request.Code}
+     * Protobuf enum {@code network_io.Request.Code}
      */
     public enum Code
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -749,53 +749,53 @@ public final class ExchangeProtos {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:network.Request.Code)
+      // @@protoc_insertion_point(enum_scope:network_io.Request.Code)
     }
 
     private int bitField0_;
-    // required .network.Request.Type type = 1;
+    // required .network_io.Request.Type type = 1;
     public static final int TYPE_FIELD_NUMBER = 1;
     private org.es.network.ExchangeProtos.Request.Type type_;
     /**
-     * <code>required .network.Request.Type type = 1;</code>
+     * <code>required .network_io.Request.Type type = 1;</code>
      */
     public boolean hasType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .network.Request.Type type = 1;</code>
+     * <code>required .network_io.Request.Type type = 1;</code>
      */
     public org.es.network.ExchangeProtos.Request.Type getType() {
       return type_;
     }
 
-    // required .network.Request.Code code = 2;
+    // required .network_io.Request.Code code = 2;
     public static final int CODE_FIELD_NUMBER = 2;
     private org.es.network.ExchangeProtos.Request.Code code_;
     /**
-     * <code>required .network.Request.Code code = 2;</code>
+     * <code>required .network_io.Request.Code code = 2;</code>
      */
     public boolean hasCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required .network.Request.Code code = 2;</code>
+     * <code>required .network_io.Request.Code code = 2;</code>
      */
     public org.es.network.ExchangeProtos.Request.Code getCode() {
       return code_;
     }
 
-    // required .network.Request.Code extraCode = 3;
+    // required .network_io.Request.Code extraCode = 3;
     public static final int EXTRACODE_FIELD_NUMBER = 3;
     private org.es.network.ExchangeProtos.Request.Code extraCode_;
     /**
-     * <code>required .network.Request.Code extraCode = 3;</code>
+     * <code>required .network_io.Request.Code extraCode = 3;</code>
      */
     public boolean hasExtraCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required .network.Request.Code extraCode = 3;</code>
+     * <code>required .network_io.Request.Code extraCode = 3;</code>
      */
     public org.es.network.ExchangeProtos.Request.Code getExtraCode() {
       return extraCode_;
@@ -1065,19 +1065,19 @@ public final class ExchangeProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code network.Request}
+     * Protobuf type {@code network_io.Request}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.es.network.ExchangeProtos.RequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_Request_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_Request_fieldAccessorTable
+        return org.es.network.ExchangeProtos.internal_static_network_io_Request_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.es.network.ExchangeProtos.Request.class, org.es.network.ExchangeProtos.Request.Builder.class);
       }
@@ -1123,7 +1123,7 @@ public final class ExchangeProtos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.es.network.ExchangeProtos.internal_static_network_Request_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_Request_descriptor;
       }
 
       public org.es.network.ExchangeProtos.Request getDefaultInstanceForType() {
@@ -1243,22 +1243,22 @@ public final class ExchangeProtos {
       }
       private int bitField0_;
 
-      // required .network.Request.Type type = 1;
+      // required .network_io.Request.Type type = 1;
       private org.es.network.ExchangeProtos.Request.Type type_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
       /**
-       * <code>required .network.Request.Type type = 1;</code>
+       * <code>required .network_io.Request.Type type = 1;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .network.Request.Type type = 1;</code>
+       * <code>required .network_io.Request.Type type = 1;</code>
        */
       public org.es.network.ExchangeProtos.Request.Type getType() {
         return type_;
       }
       /**
-       * <code>required .network.Request.Type type = 1;</code>
+       * <code>required .network_io.Request.Type type = 1;</code>
        */
       public Builder setType(org.es.network.ExchangeProtos.Request.Type value) {
         if (value == null) {
@@ -1270,7 +1270,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>required .network.Request.Type type = 1;</code>
+       * <code>required .network_io.Request.Type type = 1;</code>
        */
       public Builder clearType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -1279,22 +1279,22 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // required .network.Request.Code code = 2;
+      // required .network_io.Request.Code code = 2;
       private org.es.network.ExchangeProtos.Request.Code code_ = org.es.network.ExchangeProtos.Request.Code.NONE;
       /**
-       * <code>required .network.Request.Code code = 2;</code>
+       * <code>required .network_io.Request.Code code = 2;</code>
        */
       public boolean hasCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required .network.Request.Code code = 2;</code>
+       * <code>required .network_io.Request.Code code = 2;</code>
        */
       public org.es.network.ExchangeProtos.Request.Code getCode() {
         return code_;
       }
       /**
-       * <code>required .network.Request.Code code = 2;</code>
+       * <code>required .network_io.Request.Code code = 2;</code>
        */
       public Builder setCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
@@ -1306,7 +1306,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>required .network.Request.Code code = 2;</code>
+       * <code>required .network_io.Request.Code code = 2;</code>
        */
       public Builder clearCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -1315,22 +1315,22 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // required .network.Request.Code extraCode = 3;
+      // required .network_io.Request.Code extraCode = 3;
       private org.es.network.ExchangeProtos.Request.Code extraCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
       /**
-       * <code>required .network.Request.Code extraCode = 3;</code>
+       * <code>required .network_io.Request.Code extraCode = 3;</code>
        */
       public boolean hasExtraCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required .network.Request.Code extraCode = 3;</code>
+       * <code>required .network_io.Request.Code extraCode = 3;</code>
        */
       public org.es.network.ExchangeProtos.Request.Code getExtraCode() {
         return extraCode_;
       }
       /**
-       * <code>required .network.Request.Code extraCode = 3;</code>
+       * <code>required .network_io.Request.Code extraCode = 3;</code>
        */
       public Builder setExtraCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
@@ -1342,7 +1342,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>required .network.Request.Code extraCode = 3;</code>
+       * <code>required .network_io.Request.Code extraCode = 3;</code>
        */
       public Builder clearExtraCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -1532,7 +1532,7 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:network.Request)
+      // @@protoc_insertion_point(builder_scope:network_io.Request)
     }
 
     static {
@@ -1540,7 +1540,7 @@ public final class ExchangeProtos {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:network.Request)
+    // @@protoc_insertion_point(class_scope:network_io.Request)
   }
 
   public interface DirContentOrBuilder
@@ -1561,33 +1561,33 @@ public final class ExchangeProtos {
     com.google.protobuf.ByteString
         getPathBytes();
 
-    // repeated .network.DirContent.File file = 2;
+    // repeated .network_io.DirContent.File file = 2;
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     java.util.List<org.es.network.ExchangeProtos.DirContent.File> 
         getFileList();
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     org.es.network.ExchangeProtos.DirContent.File getFile(int index);
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     int getFileCount();
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
         getFileOrBuilderList();
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
         int index);
   }
   /**
-   * Protobuf type {@code network.DirContent}
+   * Protobuf type {@code network_io.DirContent}
    */
   public static final class DirContent extends
       com.google.protobuf.GeneratedMessage
@@ -1667,12 +1667,12 @@ public final class ExchangeProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
+      return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable
+      return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.es.network.ExchangeProtos.DirContent.class, org.es.network.ExchangeProtos.DirContent.Builder.class);
     }
@@ -1710,13 +1710,13 @@ public final class ExchangeProtos {
       com.google.protobuf.ByteString
           getNameBytes();
 
-      // required .network.DirContent.File.FileType type = 3;
+      // required .network_io.DirContent.File.FileType type = 3;
       /**
-       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       * <code>required .network_io.DirContent.File.FileType type = 3;</code>
        */
       boolean hasType();
       /**
-       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       * <code>required .network_io.DirContent.File.FileType type = 3;</code>
        */
       org.es.network.ExchangeProtos.DirContent.File.FileType getType();
 
@@ -1731,7 +1731,7 @@ public final class ExchangeProtos {
       int getSize();
     }
     /**
-     * Protobuf type {@code network.DirContent.File}
+     * Protobuf type {@code network_io.DirContent.File}
      */
     public static final class File extends
         com.google.protobuf.GeneratedMessage
@@ -1816,12 +1816,12 @@ public final class ExchangeProtos {
       }
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_File_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable
+        return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_File_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.es.network.ExchangeProtos.DirContent.File.class, org.es.network.ExchangeProtos.DirContent.File.Builder.class);
       }
@@ -1842,7 +1842,7 @@ public final class ExchangeProtos {
       }
 
       /**
-       * Protobuf enum {@code network.DirContent.File.FileType}
+       * Protobuf enum {@code network_io.DirContent.File.FileType}
        */
       public enum FileType
           implements com.google.protobuf.ProtocolMessageEnum {
@@ -1920,7 +1920,7 @@ public final class ExchangeProtos {
           this.value = value;
         }
 
-        // @@protoc_insertion_point(enum_scope:network.DirContent.File.FileType)
+        // @@protoc_insertion_point(enum_scope:network_io.DirContent.File.FileType)
       }
 
       private int bitField0_;
@@ -1967,17 +1967,17 @@ public final class ExchangeProtos {
         }
       }
 
-      // required .network.DirContent.File.FileType type = 3;
+      // required .network_io.DirContent.File.FileType type = 3;
       public static final int TYPE_FIELD_NUMBER = 3;
       private org.es.network.ExchangeProtos.DirContent.File.FileType type_;
       /**
-       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       * <code>required .network_io.DirContent.File.FileType type = 3;</code>
        */
       public boolean hasType() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required .network.DirContent.File.FileType type = 3;</code>
+       * <code>required .network_io.DirContent.File.FileType type = 3;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.File.FileType getType() {
         return type_;
@@ -2137,19 +2137,19 @@ public final class ExchangeProtos {
         return builder;
       }
       /**
-       * Protobuf type {@code network.DirContent.File}
+       * Protobuf type {@code network_io.DirContent.File}
        */
       public static final class Builder extends
           com.google.protobuf.GeneratedMessage.Builder<Builder>
          implements org.es.network.ExchangeProtos.DirContent.FileOrBuilder {
         public static final com.google.protobuf.Descriptors.Descriptor
             getDescriptor() {
-          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+          return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_File_descriptor;
         }
 
         protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
             internalGetFieldAccessorTable() {
-          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_fieldAccessorTable
+          return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_File_fieldAccessorTable
               .ensureFieldAccessorsInitialized(
                   org.es.network.ExchangeProtos.DirContent.File.class, org.es.network.ExchangeProtos.DirContent.File.Builder.class);
         }
@@ -2189,7 +2189,7 @@ public final class ExchangeProtos {
 
         public com.google.protobuf.Descriptors.Descriptor
             getDescriptorForType() {
-          return org.es.network.ExchangeProtos.internal_static_network_DirContent_File_descriptor;
+          return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_File_descriptor;
         }
 
         public org.es.network.ExchangeProtos.DirContent.File getDefaultInstanceForType() {
@@ -2360,22 +2360,22 @@ public final class ExchangeProtos {
           return this;
         }
 
-        // required .network.DirContent.File.FileType type = 3;
+        // required .network_io.DirContent.File.FileType type = 3;
         private org.es.network.ExchangeProtos.DirContent.File.FileType type_ = org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
         /**
-         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         * <code>required .network_io.DirContent.File.FileType type = 3;</code>
          */
         public boolean hasType() {
           return ((bitField0_ & 0x00000002) == 0x00000002);
         }
         /**
-         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         * <code>required .network_io.DirContent.File.FileType type = 3;</code>
          */
         public org.es.network.ExchangeProtos.DirContent.File.FileType getType() {
           return type_;
         }
         /**
-         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         * <code>required .network_io.DirContent.File.FileType type = 3;</code>
          */
         public Builder setType(org.es.network.ExchangeProtos.DirContent.File.FileType value) {
           if (value == null) {
@@ -2387,7 +2387,7 @@ public final class ExchangeProtos {
           return this;
         }
         /**
-         * <code>required .network.DirContent.File.FileType type = 3;</code>
+         * <code>required .network_io.DirContent.File.FileType type = 3;</code>
          */
         public Builder clearType() {
           bitField0_ = (bitField0_ & ~0x00000002);
@@ -2429,7 +2429,7 @@ public final class ExchangeProtos {
           return this;
         }
 
-        // @@protoc_insertion_point(builder_scope:network.DirContent.File)
+        // @@protoc_insertion_point(builder_scope:network_io.DirContent.File)
       }
 
       static {
@@ -2437,7 +2437,7 @@ public final class ExchangeProtos {
         defaultInstance.initFields();
       }
 
-      // @@protoc_insertion_point(class_scope:network.DirContent.File)
+      // @@protoc_insertion_point(class_scope:network_io.DirContent.File)
     }
 
     private int bitField0_;
@@ -2484,36 +2484,36 @@ public final class ExchangeProtos {
       }
     }
 
-    // repeated .network.DirContent.File file = 2;
+    // repeated .network_io.DirContent.File file = 2;
     public static final int FILE_FIELD_NUMBER = 2;
     private java.util.List<org.es.network.ExchangeProtos.DirContent.File> file_;
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     public java.util.List<org.es.network.ExchangeProtos.DirContent.File> getFileList() {
       return file_;
     }
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     public java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
         getFileOrBuilderList() {
       return file_;
     }
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     public int getFileCount() {
       return file_.size();
     }
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     public org.es.network.ExchangeProtos.DirContent.File getFile(int index) {
       return file_.get(index);
     }
     /**
-     * <code>repeated .network.DirContent.File file = 2;</code>
+     * <code>repeated .network_io.DirContent.File file = 2;</code>
      */
     public org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
         int index) {
@@ -2648,19 +2648,19 @@ public final class ExchangeProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code network.DirContent}
+     * Protobuf type {@code network_io.DirContent}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.es.network.ExchangeProtos.DirContentOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_fieldAccessorTable
+        return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.es.network.ExchangeProtos.DirContent.class, org.es.network.ExchangeProtos.DirContent.Builder.class);
       }
@@ -2703,7 +2703,7 @@ public final class ExchangeProtos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.es.network.ExchangeProtos.internal_static_network_DirContent_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_DirContent_descriptor;
       }
 
       public org.es.network.ExchangeProtos.DirContent getDefaultInstanceForType() {
@@ -2893,7 +2893,7 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // repeated .network.DirContent.File file = 2;
+      // repeated .network_io.DirContent.File file = 2;
       private java.util.List<org.es.network.ExchangeProtos.DirContent.File> file_ =
         java.util.Collections.emptyList();
       private void ensureFileIsMutable() {
@@ -2907,7 +2907,7 @@ public final class ExchangeProtos {
           org.es.network.ExchangeProtos.DirContent.File, org.es.network.ExchangeProtos.DirContent.File.Builder, org.es.network.ExchangeProtos.DirContent.FileOrBuilder> fileBuilder_;
 
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public java.util.List<org.es.network.ExchangeProtos.DirContent.File> getFileList() {
         if (fileBuilder_ == null) {
@@ -2917,7 +2917,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public int getFileCount() {
         if (fileBuilder_ == null) {
@@ -2927,7 +2927,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.File getFile(int index) {
         if (fileBuilder_ == null) {
@@ -2937,7 +2937,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder setFile(
           int index, org.es.network.ExchangeProtos.DirContent.File value) {
@@ -2954,7 +2954,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder setFile(
           int index, org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
@@ -2968,7 +2968,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder addFile(org.es.network.ExchangeProtos.DirContent.File value) {
         if (fileBuilder_ == null) {
@@ -2984,7 +2984,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder addFile(
           int index, org.es.network.ExchangeProtos.DirContent.File value) {
@@ -3001,7 +3001,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder addFile(
           org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
@@ -3015,7 +3015,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder addFile(
           int index, org.es.network.ExchangeProtos.DirContent.File.Builder builderForValue) {
@@ -3029,7 +3029,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder addAllFile(
           java.lang.Iterable<? extends org.es.network.ExchangeProtos.DirContent.File> values) {
@@ -3043,7 +3043,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder clearFile() {
         if (fileBuilder_ == null) {
@@ -3056,7 +3056,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public Builder removeFile(int index) {
         if (fileBuilder_ == null) {
@@ -3069,14 +3069,14 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.File.Builder getFileBuilder(
           int index) {
         return getFileFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.FileOrBuilder getFileOrBuilder(
           int index) {
@@ -3086,7 +3086,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public java.util.List<? extends org.es.network.ExchangeProtos.DirContent.FileOrBuilder> 
            getFileOrBuilderList() {
@@ -3097,14 +3097,14 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.File.Builder addFileBuilder() {
         return getFileFieldBuilder().addBuilder(
             org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance());
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.File.Builder addFileBuilder(
           int index) {
@@ -3112,7 +3112,7 @@ public final class ExchangeProtos {
             index, org.es.network.ExchangeProtos.DirContent.File.getDefaultInstance());
       }
       /**
-       * <code>repeated .network.DirContent.File file = 2;</code>
+       * <code>repeated .network_io.DirContent.File file = 2;</code>
        */
       public java.util.List<org.es.network.ExchangeProtos.DirContent.File.Builder> 
            getFileBuilderList() {
@@ -3133,7 +3133,7 @@ public final class ExchangeProtos {
         return fileBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:network.DirContent)
+      // @@protoc_insertion_point(builder_scope:network_io.DirContent)
     }
 
     static {
@@ -3141,39 +3141,39 @@ public final class ExchangeProtos {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:network.DirContent)
+    // @@protoc_insertion_point(class_scope:network_io.DirContent)
   }
 
   public interface ResponseOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // optional .network.Request.Type requestType = 1;
+    // optional .network_io.Request.Type requestType = 1;
     /**
-     * <code>optional .network.Request.Type requestType = 1;</code>
+     * <code>optional .network_io.Request.Type requestType = 1;</code>
      */
     boolean hasRequestType();
     /**
-     * <code>optional .network.Request.Type requestType = 1;</code>
+     * <code>optional .network_io.Request.Type requestType = 1;</code>
      */
     org.es.network.ExchangeProtos.Request.Type getRequestType();
 
-    // optional .network.Request.Code requestCode = 2;
+    // optional .network_io.Request.Code requestCode = 2;
     /**
-     * <code>optional .network.Request.Code requestCode = 2;</code>
+     * <code>optional .network_io.Request.Code requestCode = 2;</code>
      */
     boolean hasRequestCode();
     /**
-     * <code>optional .network.Request.Code requestCode = 2;</code>
+     * <code>optional .network_io.Request.Code requestCode = 2;</code>
      */
     org.es.network.ExchangeProtos.Request.Code getRequestCode();
 
-    // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
     /**
-     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     boolean hasReturnCode();
     /**
-     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode();
 
@@ -3202,22 +3202,22 @@ public final class ExchangeProtos {
      */
     int getIntValue();
 
-    // optional .network.DirContent dirContent = 6;
+    // optional .network_io.DirContent dirContent = 6;
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     boolean hasDirContent();
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     org.es.network.ExchangeProtos.DirContent getDirContent();
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder();
   }
   /**
-   * Protobuf type {@code network.Response}
+   * Protobuf type {@code network_io.Response}
    */
   public static final class Response extends
       com.google.protobuf.GeneratedMessage
@@ -3337,12 +3337,12 @@ public final class ExchangeProtos {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+      return org.es.network.ExchangeProtos.internal_static_network_io_Response_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable
+      return org.es.network.ExchangeProtos.internal_static_network_io_Response_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               org.es.network.ExchangeProtos.Response.class, org.es.network.ExchangeProtos.Response.Builder.class);
     }
@@ -3363,7 +3363,7 @@ public final class ExchangeProtos {
     }
 
     /**
-     * Protobuf enum {@code network.Response.ReturnCode}
+     * Protobuf enum {@code network_io.Response.ReturnCode}
      */
     public enum ReturnCode
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -3441,53 +3441,53 @@ public final class ExchangeProtos {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:network.Response.ReturnCode)
+      // @@protoc_insertion_point(enum_scope:network_io.Response.ReturnCode)
     }
 
     private int bitField0_;
-    // optional .network.Request.Type requestType = 1;
+    // optional .network_io.Request.Type requestType = 1;
     public static final int REQUESTTYPE_FIELD_NUMBER = 1;
     private org.es.network.ExchangeProtos.Request.Type requestType_;
     /**
-     * <code>optional .network.Request.Type requestType = 1;</code>
+     * <code>optional .network_io.Request.Type requestType = 1;</code>
      */
     public boolean hasRequestType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional .network.Request.Type requestType = 1;</code>
+     * <code>optional .network_io.Request.Type requestType = 1;</code>
      */
     public org.es.network.ExchangeProtos.Request.Type getRequestType() {
       return requestType_;
     }
 
-    // optional .network.Request.Code requestCode = 2;
+    // optional .network_io.Request.Code requestCode = 2;
     public static final int REQUESTCODE_FIELD_NUMBER = 2;
     private org.es.network.ExchangeProtos.Request.Code requestCode_;
     /**
-     * <code>optional .network.Request.Code requestCode = 2;</code>
+     * <code>optional .network_io.Request.Code requestCode = 2;</code>
      */
     public boolean hasRequestCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .network.Request.Code requestCode = 2;</code>
+     * <code>optional .network_io.Request.Code requestCode = 2;</code>
      */
     public org.es.network.ExchangeProtos.Request.Code getRequestCode() {
       return requestCode_;
     }
 
-    // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
     public static final int RETURNCODE_FIELD_NUMBER = 3;
     private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_;
     /**
-     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     public boolean hasReturnCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     public org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode() {
       return returnCode_;
@@ -3552,23 +3552,23 @@ public final class ExchangeProtos {
       return intValue_;
     }
 
-    // optional .network.DirContent dirContent = 6;
+    // optional .network_io.DirContent dirContent = 6;
     public static final int DIRCONTENT_FIELD_NUMBER = 6;
     private org.es.network.ExchangeProtos.DirContent dirContent_;
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     public boolean hasDirContent() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     public org.es.network.ExchangeProtos.DirContent getDirContent() {
       return dirContent_;
     }
     /**
-     * <code>optional .network.DirContent dirContent = 6;</code>
+     * <code>optional .network_io.DirContent dirContent = 6;</code>
      */
     public org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder() {
       return dirContent_;
@@ -3730,19 +3730,19 @@ public final class ExchangeProtos {
       return builder;
     }
     /**
-     * Protobuf type {@code network.Response}
+     * Protobuf type {@code network_io.Response}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
        implements org.es.network.ExchangeProtos.ResponseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_Response_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return org.es.network.ExchangeProtos.internal_static_network_Response_fieldAccessorTable
+        return org.es.network.ExchangeProtos.internal_static_network_io_Response_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 org.es.network.ExchangeProtos.Response.class, org.es.network.ExchangeProtos.Response.Builder.class);
       }
@@ -3793,7 +3793,7 @@ public final class ExchangeProtos {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return org.es.network.ExchangeProtos.internal_static_network_Response_descriptor;
+        return org.es.network.ExchangeProtos.internal_static_network_io_Response_descriptor;
       }
 
       public org.es.network.ExchangeProtos.Response getDefaultInstanceForType() {
@@ -3909,22 +3909,22 @@ public final class ExchangeProtos {
       }
       private int bitField0_;
 
-      // optional .network.Request.Type requestType = 1;
+      // optional .network_io.Request.Type requestType = 1;
       private org.es.network.ExchangeProtos.Request.Type requestType_ = org.es.network.ExchangeProtos.Request.Type.SIMPLE;
       /**
-       * <code>optional .network.Request.Type requestType = 1;</code>
+       * <code>optional .network_io.Request.Type requestType = 1;</code>
        */
       public boolean hasRequestType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional .network.Request.Type requestType = 1;</code>
+       * <code>optional .network_io.Request.Type requestType = 1;</code>
        */
       public org.es.network.ExchangeProtos.Request.Type getRequestType() {
         return requestType_;
       }
       /**
-       * <code>optional .network.Request.Type requestType = 1;</code>
+       * <code>optional .network_io.Request.Type requestType = 1;</code>
        */
       public Builder setRequestType(org.es.network.ExchangeProtos.Request.Type value) {
         if (value == null) {
@@ -3936,7 +3936,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.Request.Type requestType = 1;</code>
+       * <code>optional .network_io.Request.Type requestType = 1;</code>
        */
       public Builder clearRequestType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -3945,22 +3945,22 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // optional .network.Request.Code requestCode = 2;
+      // optional .network_io.Request.Code requestCode = 2;
       private org.es.network.ExchangeProtos.Request.Code requestCode_ = org.es.network.ExchangeProtos.Request.Code.NONE;
       /**
-       * <code>optional .network.Request.Code requestCode = 2;</code>
+       * <code>optional .network_io.Request.Code requestCode = 2;</code>
        */
       public boolean hasRequestCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .network.Request.Code requestCode = 2;</code>
+       * <code>optional .network_io.Request.Code requestCode = 2;</code>
        */
       public org.es.network.ExchangeProtos.Request.Code getRequestCode() {
         return requestCode_;
       }
       /**
-       * <code>optional .network.Request.Code requestCode = 2;</code>
+       * <code>optional .network_io.Request.Code requestCode = 2;</code>
        */
       public Builder setRequestCode(org.es.network.ExchangeProtos.Request.Code value) {
         if (value == null) {
@@ -3972,7 +3972,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.Request.Code requestCode = 2;</code>
+       * <code>optional .network_io.Request.Code requestCode = 2;</code>
        */
       public Builder clearRequestCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -3981,22 +3981,22 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+      // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
       private org.es.network.ExchangeProtos.Response.ReturnCode returnCode_ = org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
       /**
-       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public boolean hasReturnCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public org.es.network.ExchangeProtos.Response.ReturnCode getReturnCode() {
         return returnCode_;
       }
       /**
-       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public Builder setReturnCode(org.es.network.ExchangeProtos.Response.ReturnCode value) {
         if (value == null) {
@@ -4008,7 +4008,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public Builder clearReturnCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -4124,18 +4124,18 @@ public final class ExchangeProtos {
         return this;
       }
 
-      // optional .network.DirContent dirContent = 6;
+      // optional .network_io.DirContent dirContent = 6;
       private org.es.network.ExchangeProtos.DirContent dirContent_ = org.es.network.ExchangeProtos.DirContent.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           org.es.network.ExchangeProtos.DirContent, org.es.network.ExchangeProtos.DirContent.Builder, org.es.network.ExchangeProtos.DirContentOrBuilder> dirContentBuilder_;
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public boolean hasDirContent() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public org.es.network.ExchangeProtos.DirContent getDirContent() {
         if (dirContentBuilder_ == null) {
@@ -4145,7 +4145,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public Builder setDirContent(org.es.network.ExchangeProtos.DirContent value) {
         if (dirContentBuilder_ == null) {
@@ -4161,7 +4161,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public Builder setDirContent(
           org.es.network.ExchangeProtos.DirContent.Builder builderForValue) {
@@ -4175,7 +4175,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public Builder mergeDirContent(org.es.network.ExchangeProtos.DirContent value) {
         if (dirContentBuilder_ == null) {
@@ -4194,7 +4194,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public Builder clearDirContent() {
         if (dirContentBuilder_ == null) {
@@ -4207,7 +4207,7 @@ public final class ExchangeProtos {
         return this;
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public org.es.network.ExchangeProtos.DirContent.Builder getDirContentBuilder() {
         bitField0_ |= 0x00000020;
@@ -4215,7 +4215,7 @@ public final class ExchangeProtos {
         return getDirContentFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       public org.es.network.ExchangeProtos.DirContentOrBuilder getDirContentOrBuilder() {
         if (dirContentBuilder_ != null) {
@@ -4225,7 +4225,7 @@ public final class ExchangeProtos {
         }
       }
       /**
-       * <code>optional .network.DirContent dirContent = 6;</code>
+       * <code>optional .network_io.DirContent dirContent = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           org.es.network.ExchangeProtos.DirContent, org.es.network.ExchangeProtos.DirContent.Builder, org.es.network.ExchangeProtos.DirContentOrBuilder> 
@@ -4241,7 +4241,7 @@ public final class ExchangeProtos {
         return dirContentBuilder_;
       }
 
-      // @@protoc_insertion_point(builder_scope:network.Response)
+      // @@protoc_insertion_point(builder_scope:network_io.Response)
     }
 
     static {
@@ -4249,29 +4249,29 @@ public final class ExchangeProtos {
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:network.Response)
+    // @@protoc_insertion_point(class_scope:network_io.Response)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_network_Request_descriptor;
+    internal_static_network_io_Request_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_network_Request_fieldAccessorTable;
+      internal_static_network_io_Request_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_network_DirContent_descriptor;
+    internal_static_network_io_DirContent_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_network_DirContent_fieldAccessorTable;
+      internal_static_network_io_DirContent_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_network_DirContent_File_descriptor;
+    internal_static_network_io_DirContent_File_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_network_DirContent_File_fieldAccessorTable;
+      internal_static_network_io_DirContent_File_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_network_Response_descriptor;
+    internal_static_network_io_Response_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_network_Response_fieldAccessorTable;
+      internal_static_network_io_Response_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4281,70 +4281,70 @@ public final class ExchangeProtos {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025server_exchange.proto\022\007network\"\266\006\n\007Req" +
-      "uest\022#\n\004type\030\001 \002(\0162\025.network.Request.Typ" +
-      "e\022#\n\004code\030\002 \002(\0162\025.network.Request.Code\022(" +
-      "\n\textraCode\030\003 \002(\0162\025.network.Request.Code" +
-      "\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intParam\030\005 \001(" +
-      "\005\022\023\n\013stringParam\030\006 \001(\t\"K\n\004Type\022\n\n\006SIMPLE" +
-      "\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI\020\003\022\n" +
-      "\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\253\004\n\004Code\022\010\n\004NONE\020\000\022\n" +
-      "\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OFF\020\004\022" +
-      "\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007\022\014\n",
-      "\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOCK\020\n" +
-      "\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r\022\t\n\005RIGHT\020\016\022" +
-      "\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\021\n\rGET_FILE_LIST\020\024\022\r\n" +
-      "\tOPEN_FILE\020\025\022\024\n\020MEDIA_PLAY_PAUSE\020\036\022\016\n\nME" +
-      "DIA_STOP\020\037\022\022\n\016MEDIA_PREVIOUS\020 \022\016\n\nMEDIA_" +
-      "NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDIA_REWIND\020#\022\013" +
-      "\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT\020)\022\n\n\006KB_ALT\020*\022\014\n" +
-      "\010KB_ALTGR\020+\022\016\n\nKB_WINDOWS\020,\022\r\n\tKB_RETURN" +
-      "\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_BACKSPACE\020/\022\r\n\tKB" +
-      "_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t\n\005KB_F4\0202\022\022\n\016GOM_",
-      "PLAYER_RUN\020<\022\023\n\017GOM_PLAYER_KILL\020=\022\026\n\022GOM" +
-      "_PLAYER_STRETCH\020>\"\274\001\n\nDirContent\022\014\n\004path" +
-      "\030\001 \002(\t\022&\n\004file\030\002 \003(\0132\030.network.DirConten" +
-      "t.File\032x\n\004File\022\014\n\004name\030\001 \002(\t\022/\n\004type\030\003 \002" +
-      "(\0162!.network.DirContent.File.FileType\022\014\n" +
-      "\004size\030\004 \002(\005\"#\n\010FileType\022\r\n\tDIRECTORY\020\000\022\010" +
-      "\n\004FILE\020\001\"\226\002\n\010Response\022*\n\013requestType\030\001 \001" +
-      "(\0162\025.network.Request.Type\022*\n\013requestCode" +
-      "\030\002 \001(\0162\025.network.Request.Code\022:\n\nreturnC" +
-      "ode\030\003 \001(\0162\034.network.Response.ReturnCode:",
-      "\010RC_ERROR\022\017\n\007message\030\004 \001(\t\022\020\n\010intValue\030\005" +
-      " \001(\005\022\'\n\ndirContent\030\006 \001(\0132\023.network.DirCo" +
-      "ntent\"*\n\nReturnCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010R" +
-      "C_ERROR\020\001B \n\016org.es.networkB\016ExchangePro" +
-      "tos"
+      "\n\025server_exchange.proto\022\nnetwork_io\"\277\006\n\007" +
+      "Request\022&\n\004type\030\001 \002(\0162\030.network_io.Reque" +
+      "st.Type\022&\n\004code\030\002 \002(\0162\030.network_io.Reque" +
+      "st.Code\022+\n\textraCode\030\003 \002(\0162\030.network_io." +
+      "Request.Code\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010i" +
+      "ntParam\030\005 \001(\005\022\023\n\013stringParam\030\006 \001(\t\"K\n\004Ty" +
+      "pe\022\n\n\006SIMPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD" +
+      "\020\002\022\006\n\002AI\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\253\004\n\004Code" +
+      "\022\010\n\004NONE\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON" +
+      "\020\003\022\007\n\003OFF\020\004\022\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL",
+      "_SERVER\020\007\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW" +
+      "\020\t\022\010\n\004LOCK\020\n\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r" +
+      "\022\t\n\005RIGHT\020\016\022\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\021\n\rGET_FI" +
+      "LE_LIST\020\024\022\r\n\tOPEN_FILE\020\025\022\024\n\020MEDIA_PLAY_P" +
+      "AUSE\020\036\022\016\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PREVIOUS" +
+      "\020 \022\016\n\nMEDIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDI" +
+      "A_REWIND\020#\022\013\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT\020)\022\n\n" +
+      "\006KB_ALT\020*\022\014\n\010KB_ALTGR\020+\022\016\n\nKB_WINDOWS\020,\022" +
+      "\r\n\tKB_RETURN\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_BACKS" +
+      "PACE\020/\022\r\n\tKB_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t\n\005KB_",
+      "F4\0202\022\022\n\016GOM_PLAYER_RUN\020<\022\023\n\017GOM_PLAYER_K" +
+      "ILL\020=\022\026\n\022GOM_PLAYER_STRETCH\020>\"\302\001\n\nDirCon" +
+      "tent\022\014\n\004path\030\001 \002(\t\022)\n\004file\030\002 \003(\0132\033.netwo" +
+      "rk_io.DirContent.File\032{\n\004File\022\014\n\004name\030\001 " +
+      "\002(\t\0222\n\004type\030\003 \002(\0162$.network_io.DirConten" +
+      "t.File.FileType\022\014\n\004size\030\004 \002(\005\"#\n\010FileTyp" +
+      "e\022\r\n\tDIRECTORY\020\000\022\010\n\004FILE\020\001\"\242\002\n\010Response\022" +
+      "-\n\013requestType\030\001 \001(\0162\030.network_io.Reques" +
+      "t.Type\022-\n\013requestCode\030\002 \001(\0162\030.network_io" +
+      ".Request.Code\022=\n\nreturnCode\030\003 \001(\0162\037.netw",
+      "ork_io.Response.ReturnCode:\010RC_ERROR\022\017\n\007" +
+      "message\030\004 \001(\t\022\020\n\010intValue\030\005 \001(\005\022*\n\ndirCo" +
+      "ntent\030\006 \001(\0132\026.network_io.DirContent\"*\n\nR" +
+      "eturnCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B" +
+      " \n\016org.es.networkB\016ExchangeProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_network_Request_descriptor =
+          internal_static_network_io_Request_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_network_Request_fieldAccessorTable = new
+          internal_static_network_io_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_network_Request_descriptor,
+              internal_static_network_io_Request_descriptor,
               new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntParam", "StringParam", });
-          internal_static_network_DirContent_descriptor =
+          internal_static_network_io_DirContent_descriptor =
             getDescriptor().getMessageTypes().get(1);
-          internal_static_network_DirContent_fieldAccessorTable = new
+          internal_static_network_io_DirContent_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_network_DirContent_descriptor,
+              internal_static_network_io_DirContent_descriptor,
               new java.lang.String[] { "Path", "File", });
-          internal_static_network_DirContent_File_descriptor =
-            internal_static_network_DirContent_descriptor.getNestedTypes().get(0);
-          internal_static_network_DirContent_File_fieldAccessorTable = new
+          internal_static_network_io_DirContent_File_descriptor =
+            internal_static_network_io_DirContent_descriptor.getNestedTypes().get(0);
+          internal_static_network_io_DirContent_File_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_network_DirContent_File_descriptor,
+              internal_static_network_io_DirContent_File_descriptor,
               new java.lang.String[] { "Name", "Type", "Size", });
-          internal_static_network_Response_descriptor =
+          internal_static_network_io_Response_descriptor =
             getDescriptor().getMessageTypes().get(2);
-          internal_static_network_Response_fieldAccessorTable = new
+          internal_static_network_io_Response_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_network_Response_descriptor,
+              internal_static_network_io_Response_descriptor,
               new java.lang.String[] { "RequestType", "RequestCode", "ReturnCode", "Message", "IntValue", "DirContent", });
           return null;
         }
