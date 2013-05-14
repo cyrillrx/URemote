@@ -2,6 +2,7 @@ package org.es.uremote.widget;
 
 import java.util.Random;
 
+import org.es.uremote.Computer;
 import org.es.uremote.R;
 
 import android.app.PendingIntent;
@@ -10,7 +11,6 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 
 /**
@@ -34,18 +34,23 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_media);
 
-			//			// Set the text
-			//			remoteViews.setTextViewText(R.id.textToUpdate, data);
-			//			remoteViews.setTextViewText(R.id.textToUpdate, data);
-			//
-			//			// Register an onClickListener
-			//			Intent intent = new Intent(context, MediaWidgerProvider.class);
-			//			intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-			//			intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-			//
-			//			PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-			//			remoteViews.setOnClickPendingIntent(R.id.textToUpdate, pendingIntent);
-			//			appWidgetManager.updateAppWidget(widgetId, remoteViews);
+			// Set the text
+			//	remoteViews.setTextViewText(R.id.textToUpdate, data);
+			//	remoteViews.setTextViewText(R.id.textToUpdate, data);
+
+			// Register an onClickListener
+			Intent intent = new Intent(context, Computer.class);
+			//	intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+			//	intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+
+			PendingIntent pendingIntent = PendingIntent.getActivity(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT );
+
+			remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, pendingIntent);
+			remoteViews.setOnClickPendingIntent(R.id.cmdPlayPause, pendingIntent);
+			remoteViews.setOnClickPendingIntent(R.id.cmdStop, pendingIntent);
+			remoteViews.setOnClickPendingIntent(R.id.cmdNext, pendingIntent);
+
+			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 		}
 	}
 }
