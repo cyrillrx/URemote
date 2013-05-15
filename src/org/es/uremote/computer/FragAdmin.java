@@ -17,6 +17,7 @@ import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
+import org.es.network.NetworkMessage;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.network.WakeOnLan;
@@ -87,19 +88,19 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			break;
 
 		case R.id.cmdShutdown :
-			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, SHUTDOWN));
+			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
 			break;
 
 		case R.id.cmdAiMute :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(AI, MUTE));
+			sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
 			break;
 
 		case R.id.cmdKillServer :
-			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, KILL_SERVER));
+			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
 			break;
 
 		case R.id.cmdLock :
-			confirmRequest(AsyncMessageMgr.buildRequest(SIMPLE, LOCK));
+			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
 			break;
 
 		default:

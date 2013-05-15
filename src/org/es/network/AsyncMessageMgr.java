@@ -1,9 +1,7 @@
 package org.es.network;
 
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -11,8 +9,6 @@ import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
 import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
 import org.es.utils.Log;
@@ -69,7 +65,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			// Socket creation
 			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout);
 			if (mSocket != null && mSocket.isConnected()) {
-				return sendAndReceive(mSocket, request);
+				return NetworkMessage.sendRequest(mSocket, request, sSoTimeout);
 			}
 			errorMessage = "Socket null or not connected";
 
@@ -86,9 +82,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		}
 
 		return Response.newBuilder()
-		.setReturnCode(ReturnCode.RC_ERROR)
-		.setMessage(errorMessage)
-		.build();
+				.setReturnCode(ReturnCode.RC_ERROR)
+				.setMessage(errorMessage)
+				.build();
 	}
 
 	/**
@@ -148,35 +144,6 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		socket.connect(socketAddress, _timeout);
 
 		return socket;
-	}
-
-	/**
-	 * Called from the UI Thread.
-	 * Send a message through a Socket to a server and get the reply.
-	 * 
-	 * @param _socket The socket on which to send the message.
-	 * @param _req Client request.
-	 * @return The server reply.
-	 * @throws IOException exception.
-	 */
-	private Response sendAndReceive(Socket _socket, Request _req) throws IOException {
-		Log.info(TAG, "sendMessage: " + _req.toString());
-
-		if (_socket.isConnected()) {
-			//create BAOS for protobuf
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-			//mClientDetails is a protobuf message object, dump it to the BAOS
-			_req.writeDelimitedTo(baos);
-
-			_socket.setSoTimeout(sSoTimeout);
-			_socket.getOutputStream().write(baos.toByteArray());
-			_socket.getOutputStream().flush();
-			_socket.shutdownOutput();
-
-			return Response.parseDelimitedFrom(_socket.getInputStream());
-		}
-		return null;
 	}
 
 	/**
@@ -243,6 +210,13 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
+	 * @return the security token that will be use to authenticate the user.
+	 */
+	public static String getSecurityToken() {
+		return sSecurityToken;
+	}
+
+	/**
 	 * Define the timeout of the connection with the server.
 	 * @param _timeout The timeout in milliseconds.
 	 */
@@ -256,76 +230,5 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 */
 	public static void setSoTimeout(int _timeout) {
 		sSoTimeout = _timeout;
-	}
-
-	/**
-	 * Build a request with both integer and string parameters.
-	 * @param _type The request type.
-	 * @param _code The request code.
-	 * @param _extraCode The request extra code.
-	 * @param _intParam An integer parameter.
-	 * @param _stringParam A string parameter.
-	 * @return The request if it had been initialized. Return null otherwise.
-	 */
-	private static Request buildRequest(final Type _type, final Code _code, final Code _extraCode, final int _intParam, final String _stringParam) {
-		Request request = Request.newBuilder()
-		.setType(_type)
-		.setCode(_code)
-		.setExtraCode(_extraCode)
-		.setIntParam(_intParam)
-		.setStringParam(_stringParam)
-		.setSecurityToken(sSecurityToken) // Add the security token
-		.build();
-
-		if (request.isInitialized()) {
-			return request;
-		}
-
-		Log.error(TAG, "buildRequest() request is NOT initialized");
-		return null;
-	}
-
-	/**
-	 * Build a request with an integer parameter.
-	 * @param _type The request type.
-	 * @param _code The request code.
-	 * @param _intParam An integer parameter.
-	 * @return The request if it had been initialized. Return null otherwise.
-	 */
-	public static Request buildRequest(final Type _type, final Code _code, final int _intParam) {
-		return buildRequest(_type, _code, NONE, _intParam, "");
-	}
-
-	/**
-	 * Build a request with a string parameter.
-	 * @param _type The request type.
-	 * @param _code The request code.
-	 * @param _extraCode The request extra code.
-	 * @param _stringParam A string parameter.
-	 * @return The request if it had been initialized. Return null otherwise.
-	 */
-	public static Request buildRequest(final Type _type, final Code _code, final Code _extraCode, final String _stringParam) {
-		return buildRequest(_type, _code, _extraCode, 0, _stringParam);
-	}
-
-	/**
-	 * Build a request with a code and an extra code.
-	 * @param _type The request type.
-	 * @param _code The request code.
-	 * @param _extraCode The request extra code.
-	 * @return The request if it had been initialized. Return null otherwise.
-	 */
-	public static Request buildRequest(final Type _type, final Code _code, final Code _extraCode) {
-		return buildRequest(_type, _code, _extraCode, 0, "");
-	}
-
-	/**
-	 * Build a request with a code.
-	 * @param _type The request type.
-	 * @param _code The request code.
-	 * @return The request if it had been initialized. Return null otherwise.
-	 */
-	public static Request buildRequest(final Type _type, final Code _code) {
-		return buildRequest(_type, _code, NONE, 0, "");
 	}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.es.uremote"
-    android:versionCode="1"
-    android:versionName="0.1" >
+    android:versionCode="2"
+    android:versionName="0.8" >
 
     <uses-sdk
         android:minSdkVersion="15"
@@ -47,7 +47,10 @@
         <activity
             android:name=".TvDialer"
             android:label="@string/title_tv" />
-        
+
+        <service android:name=".service.BluetoothService" />
+        <service android:name=".service.SendRequestService" />
+
         <!-- Widgets -->
         <receiver
             android:name="org.es.uremote.widget.MediaWidgerProvider"
@@ -55,6 +58,10 @@
             android:label="URemote Media Widget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="ACTION_MEDIA_PREVIOUS" />
+                <action android:name="ACTION_MEDIA_PLAY_PAUSE" />
+                <action android:name="ACTION_MEDIA_STOP" />
+                <action android:name="ACTION_MEDIA_NEXT" />
             </intent-filter>
 
             <meta-data

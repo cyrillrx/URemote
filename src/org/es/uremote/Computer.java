@@ -20,6 +20,8 @@ import java.util.List;
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.NetworkMessage;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -118,7 +120,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
 		} else {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(SIMPLE, Code.HELLO));
+			sendAsyncRequest(SIMPLE, Code.HELLO);
 		}
 
 	}
@@ -143,11 +145,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KEYCODE_VOLUME_UP) {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, UP));
+			sendAsyncRequest(VOLUME, UP);
 			return true;
 
 		} else if (keyCode == KEYCODE_VOLUME_DOWN) {
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, DOWN));
+			sendAsyncRequest(VOLUME, DOWN);
 			return true;
 		} else {
 			if (keyCode == KeyEvent.KEYCODE_BACK && mCurrentPage == EXPLORER_PAGE_ID) {
@@ -307,16 +309,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initializes the message handler then send the request.
-	 * @param _request The request to send.
+	 * @param requestType The request type.
+	 * @param requestCode The request code.
 	 */
-	public void sendAsyncRequest(Request _request) {
-		if (_request == null) {
+	public void sendAsyncRequest(Type requestType, Code requestCode) {
+		Request request = NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
+
+		if (request == null) {
 			Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();
 			return;
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler).execute(_request);
+			new AsyncMessageMgr(sHandler).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

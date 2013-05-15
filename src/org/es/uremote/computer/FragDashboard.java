@@ -10,6 +10,7 @@ import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
+import org.es.network.NetworkMessage;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -119,31 +120,31 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		switch (_view.getId()) {
 
 		case R.id.kbLeft :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.LEFT));
+			sendAsyncRequest(KEYBOARD, Code.LEFT);
 			break;
 
 		case R.id.kbRight :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.RIGHT));
+			sendAsyncRequest(KEYBOARD, Code.RIGHT);
 			break;
 
 		case R.id.kbUp :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.UP));
+			sendAsyncRequest(KEYBOARD, Code.UP);
 			break;
 
 		case R.id.kbDown :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.DOWN));
+			sendAsyncRequest(KEYBOARD, Code.DOWN);
 			break;
 
 		case R.id.kbOk :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.KB_RETURN));
+			sendAsyncRequest(KEYBOARD, Code.KB_RETURN);
 			break;
 
 		case R.id.cmdTest :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.TEST));
+			sendAsyncRequest(Type.SIMPLE, Code.TEST);
 			break;
 
 		case R.id.cmdSwitch :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.SIMPLE, Code.SWITCH_WINDOW));
+			sendAsyncRequest(Type.SIMPLE, Code.SWITCH_WINDOW);
 			break;
 
 		case R.id.btnAppLauncher :
@@ -151,27 +152,27 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			break;
 
 		case R.id.cmdGomStretch :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(Type.APP, Code.GOM_PLAYER_STRETCH));
+			sendAsyncRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
 			break;
 
 		case R.id.cmdPrevious :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_PREVIOUS));
+			sendAsyncRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
 			break;
 
 		case R.id.cmdPlayPause :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE));
+			sendAsyncRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
 			break;
 
 		case R.id.cmdStop :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_STOP));
+			sendAsyncRequest(KEYBOARD, Code.MEDIA_STOP);
 			break;
 
 		case R.id.cmdNext :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(KEYBOARD, Code.MEDIA_NEXT));
+			sendAsyncRequest(KEYBOARD, Code.MEDIA_NEXT);
 			break;
 
 		case R.id.cmdMute :
-			sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.MUTE));
+			sendAsyncRequest(VOLUME, Code.MUTE);
 			break;
 
 		default:
@@ -186,7 +187,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code  = Code.valueOf(_data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendAsyncRequest(AsyncMessageMgr.buildRequest(type, code));
+				sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -209,7 +210,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			return;
 		}
 		final int volume = seekBar.getProgress();
-		sendAsyncRequest(AsyncMessageMgr.buildRequest(VOLUME, Code.DEFINE, volume));
+		sendAsyncRequest(VOLUME, Code.DEFINE, volume);
 	}
 
 	@Override
@@ -223,6 +224,25 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	////////////////////////////////////////////////////////////////////
 	// *********************** Message Sender *********************** //
 	////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Initializes the message handler then send the request.
+	 * @param requestType The request type.
+	 * @param requestCode The request code.
+	 * @param intParam An integer parameter.
+	 */
+	public void sendAsyncRequest(Type requestType, Code requestCode, int intParam) {
+		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
+	}
+
+	/**
+	 * Initializes the message handler then send the request.
+	 * @param requestType The request type.
+	 * @param requestCode The request code.
+	 */
+	public void sendAsyncRequest(Type requestType, Code requestCode) {
+		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
+	}
 
 	/**
 	 * Initializes the message handler then send the request.
@@ -338,8 +358,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 		mFadeIn.addListener(new AnimatorListener() {
 
-			private View mView = mTvVolume;
-			
+			private final View mView = mTvVolume;
+
 			@Override
 			public void onAnimationStart(Animator animation) {
 				// TODO Replace mView by the view in parameter
@@ -374,8 +394,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		mFadeOut.setStartDelay(DELAY);
 
 		mFadeOut.addListener(new AnimatorListener() {
-			
-			private View mView = mTvVolume;
+
+			private final View mView = mTvVolume;
 
 			@Override
 			public void onAnimationStart(Animator animation) {}

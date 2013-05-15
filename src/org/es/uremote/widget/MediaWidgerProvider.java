@@ -1,10 +1,12 @@
 package org.es.uremote.widget;
 
+import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_NEXT;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PLAY_PAUSE;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PREVIOUS;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_STOP;
+import static org.es.network.ExchangeProtos.Request.Code.NONE;
 import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
@@ -12,7 +14,11 @@ import java.util.Random;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
 import org.es.uremote.R;
+import org.es.uremote.service.SendRequestService;
+import org.es.utils.Log;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -34,21 +40,24 @@ import android.widget.Toast;
  */
 public class MediaWidgerProvider extends AppWidgetProvider {
 
+	private static final String TAG = "MediaWidgerProvider";
+
+	private static final String ACTION_MEDIA_PREVIOUS	= "ACTION_MEDIA_PREVIOUS";
+	private static final String ACTION_MEDIA_PLAY_PAUSE	= "ACTION_MEDIA_PLAY_PAUSE";
+	private static final String ACTION_MEDIA_STOP		= "ACTION_MEDIA_STOP";
+	private static final String ACTION_MEDIA_NEXT		= "ACTION_MEDIA_NEXT";
+
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
 	private static Toast sToast = null;
 
-	private static final String EXTRA_COMMAND		= "EXTRA_COMMAND";
-	private static final String INTENT_MEDIA_PREVIOUS	= "MEDIA_PREVIOUS";
-	private static final String INTENT_MEDIA_PLAY_PAUSE	= "MEDIA_PLAY_PAUSE";
-	private static final String INTENT_MEDIA_STOP		= "MEDIA_STOP";
-	private static final String INTENT_MEDIA_NEXT		= "MEDIA_NEXT";
+	private ServerData mServerData;
 
 	@Override
 	public void onEnabled(Context context) {
 		super.onEnabled(context);
 		initHandler(context);
-		initServer(context);
+		mServerData = initServer(context);
 	}
 
 	@Override
@@ -72,30 +81,22 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 			// Register onClickListeners
 			Intent previousIntent = new Intent(context, MediaWidgerProvider.class);
-			previousIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-			previousIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-			previousIntent.putExtra(EXTRA_COMMAND, INTENT_MEDIA_PREVIOUS);
+			previousIntent.setAction(ACTION_MEDIA_PREVIOUS);
 			PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 			remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, previousPendingIntent);
 
 			Intent playPauseIntent = new Intent(context, MediaWidgerProvider.class);
-			playPauseIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-			playPauseIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-			playPauseIntent.putExtra(EXTRA_COMMAND, INTENT_MEDIA_PLAY_PAUSE);
+			playPauseIntent.setAction(ACTION_MEDIA_PLAY_PAUSE);
 			PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(context, widgetId, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 			remoteViews.setOnClickPendingIntent(R.id.cmdPlayPause, playPausePendingIntent);
 
 			Intent stopIntent = new Intent(context, MediaWidgerProvider.class);
-			stopIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-			stopIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-			stopIntent.putExtra(EXTRA_COMMAND, INTENT_MEDIA_STOP);
+			stopIntent.setAction(ACTION_MEDIA_STOP);
 			PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, widgetId, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 			remoteViews.setOnClickPendingIntent(R.id.cmdStop, stopPendingIntent);
 
 			Intent nextIntent = new Intent(context, MediaWidgerProvider.class);
-			nextIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-			nextIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-			nextIntent.putExtra(EXTRA_COMMAND, INTENT_MEDIA_NEXT);
+			nextIntent.setAction(ACTION_MEDIA_NEXT);
 			PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 			remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
 
@@ -108,28 +109,67 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		// TODO Auto-generated method stub
 		super.onReceive(context, intent);
 
-		final String mediaCommand = intent.getStringExtra(EXTRA_COMMAND);
+		Log.debug(TAG, "MediaWidgerProvider onReceive");
 
-		if (MEDIA_PREVIOUS.equals(mediaCommand)) {
+		final String mediaCommand = intent.getAction();
+		Log.debug(TAG, "Action : " + intent.getAction());
+
+		if (ACTION_MEDIA_PREVIOUS.equals(mediaCommand)) {
 			Toast.makeText(context, "MEDIA_PREVIOUS", LENGTH_SHORT).show();
-			sendAsyncRequest(context, AsyncMessageMgr.buildRequest(KEYBOARD, MEDIA_PREVIOUS));
+			sendAsyncRequest(context, buildRequest(KEYBOARD, MEDIA_PREVIOUS));
 
-		} else if (MEDIA_PLAY_PAUSE.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_PLAY_PAUSE.equals(mediaCommand)) {
 			Toast.makeText(context, "MEDIA_PLAY_PAUSE", LENGTH_SHORT).show();
-			sendAsyncRequest(context, AsyncMessageMgr.buildRequest(KEYBOARD, MEDIA_PLAY_PAUSE));
+			sendAsyncRequest(context, buildRequest(KEYBOARD, MEDIA_PLAY_PAUSE));
 
-		} else if (MEDIA_STOP.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_STOP.equals(mediaCommand)) {
 			Toast.makeText(context, "MEDIA_STOP", LENGTH_SHORT).show();
-			sendAsyncRequest(context, AsyncMessageMgr.buildRequest(KEYBOARD, MEDIA_STOP));
+			sendAsyncRequest(context, buildRequest(KEYBOARD, MEDIA_STOP));
 
-		} else if (MEDIA_NEXT.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_NEXT.equals(mediaCommand)) {
 			Toast.makeText(context, "MEDIA_NEXT", LENGTH_SHORT).show();
-			sendAsyncRequest(context, AsyncMessageMgr.buildRequest(KEYBOARD, MEDIA_NEXT));
+			sendAsyncRequest(context, buildRequest(KEYBOARD, MEDIA_NEXT));
 
 		} else {
 			Toast.makeText(context, "Nothing", LENGTH_SHORT).show();
-			sendAsyncRequest(context, AsyncMessageMgr.buildRequest(KEYBOARD, MEDIA_PLAY_PAUSE));
 		}
+	}
+
+	/**
+	 * Build a request with a code.
+	 * @param _type The request type.
+	 * @param _code The request code.
+	 * @return The request if it had been initialized. Return null otherwise.
+	 */
+	public Request buildRequest(final Type _type, final Code _code) {
+		return buildRequest(_type, _code, NONE, 0, "");
+	}
+
+	/**
+	 * Build a request with both integer and string parameters.
+	 * @param _type The request type.
+	 * @param _code The request code.
+	 * @param _extraCode The request extra code.
+	 * @param _intParam An integer parameter.
+	 * @param _stringParam A string parameter.
+	 * @return The request if it had been initialized. Return null otherwise.
+	 */
+	private Request buildRequest(final Type _type, final Code _code, final Code _extraCode, final int _intParam, final String _stringParam) {
+		Request request = Request.newBuilder()
+				.setType(_type)
+				.setCode(_code)
+				.setExtraCode(_extraCode)
+				.setIntParam(_intParam)
+				.setStringParam(_stringParam)
+				.setSecurityToken(mServerData.getSecurityToken()) // Add the security token
+				.build();
+
+		if (request.isInitialized()) {
+			return request;
+		}
+
+		Log.error(TAG, "buildRequest() request is NOT initialized");
+		return null;
 	}
 
 	/**
@@ -181,7 +221,44 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		sToast.show();
 	}
 
-	private void initServer(Context context) {
+	private class ServerData {
+
+		private final String mSecurityToken;
+		private final String mHost;
+		private final int mPort;
+		private final int mConnectionTimeout;
+		private final int mReadTimeout;
+
+		public ServerData(String host, int port, int connectionTimeout, int readTimeout, String securityToken) {
+			mHost = host;
+			mPort = port;
+			mConnectionTimeout = connectionTimeout;
+			mReadTimeout = readTimeout;
+			mSecurityToken = securityToken;
+		}
+
+		public String getSecurityToken() {
+			return mSecurityToken;
+		}
+
+		public String getHost() {
+			return mHost;
+		}
+
+		public int getPort() {
+			return mPort;
+		}
+
+		public int getConnectionTimeout() {
+			return mConnectionTimeout;
+		}
+
+		public int getReadTimeout() {
+			return mReadTimeout;
+		}
+	}
+
+	private ServerData initServer(Context context) {
 
 		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		final boolean wifi = wifiMgr.isWifiEnabled();
@@ -216,11 +293,6 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		// TODO hash the security token
-		AsyncMessageMgr.setHost(host);
-		AsyncMessageMgr.setPort(port);
-		AsyncMessageMgr.setSecurityToken(securityToken);
-		AsyncMessageMgr.setTimeout(connectionTimeout);
-		AsyncMessageMgr.setSoTimeout(readTimeout);
+		return new ServerData(host, port, connectionTimeout, readTimeout, securityToken);
 	}
 }
