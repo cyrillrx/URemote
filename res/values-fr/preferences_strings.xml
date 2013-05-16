@@ -14,14 +14,14 @@
 
     <!-- Default values -->
     <string name="pref_default_local_host">192.168.0.1</string>
-    <string name="pref_default_local_port">8082</string>
+    <string name="pref_default_local_port">0000</string>
     <string name="pref_default_broadcast">192.168.0.255</string>
-    <string name="pref_default_remote_host">82.229.76.34</string>
-    <string name="pref_default_remote_port">9080</string>
-    <string name="pref_default_security_token">1234</string>
+    <string name="pref_default_remote_host">0.0.0.0</string>
+    <string name="pref_default_remote_port">0000</string>
+    <string name="pref_default_security_token">0000</string>
     <string name="pref_default_connection_timeout">500</string>
     <string name="pref_default_read_timeout">1000</string>
-    <string name="pref_default_mac_address">00character (–, &#8211;)22&#8211;15&#8211;1A&#8211;9B&#8211;B1</string>
+    <string name="pref_default_mac_address">00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00</string>
     
     <!-- Titles -->
     <string name="pref_title_server_settings">Configuration du serveur</string>
