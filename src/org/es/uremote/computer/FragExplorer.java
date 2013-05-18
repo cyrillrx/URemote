@@ -7,7 +7,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 import java.io.File;
 
 import org.es.network.AsyncMessageMgr;
-import org.es.network.NetworkMessage;
+import org.es.network.MessageHelper;
 import org.es.network.ExchangeProtos.DirContent;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
@@ -148,7 +148,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 * @param _dirPath The path of the directory to display.
 	 */
 	private void openDirectory(String _dirPath) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, _dirPath));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, _dirPath));
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 */
 	private void openParentDirectory(String _dirPath) {
 		final String parentPath = FileUtils.truncatePath(_dirPath);
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, parentPath));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, parentPath));
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	}
 
 	private void openFile(String _filename) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, _filename));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, _filename));
 	}
 
 	////////////////////////////////////////////////////////////////////

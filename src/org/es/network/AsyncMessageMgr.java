@@ -34,6 +34,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	private static int sSoTimeout;
 
 	protected Handler mHandler;
+
+	//TODO
+	private ServerInfo mServerInfo;
 	private Socket mSocket;
 
 	/**
@@ -65,7 +68,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			// Socket creation
 			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout);
 			if (mSocket != null && mSocket.isConnected()) {
-				return NetworkMessage.sendRequest(mSocket, request, sSoTimeout);
+				return MessageHelper.sendRequest(mSocket, request, sSoTimeout);
 			}
 			errorMessage = "Socket null or not connected";
 

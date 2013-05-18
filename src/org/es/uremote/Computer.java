@@ -21,7 +21,7 @@ import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.NetworkMessage;
+import org.es.network.MessageHelper;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -197,26 +197,26 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		final boolean wifi = wifiMgr.isWifiEnabled();
 
 		// Get Host and Port key
-		final int resKeyHost = wifi ? R.string.pref_key_local_host : R.string.pref_key_remote_host;
-		final int resKeyPort = wifi ? R.string.pref_key_local_port : R.string.pref_key_remote_port;
+		final int resKeyHost = wifi ? R.string.key_local_host : R.string.key_remote_host;
+		final int resKeyPort = wifi ? R.string.key_local_port : R.string.key_remote_port;
 		final String keyHost	= getString(resKeyHost);
 		final String keyPort	= getString(resKeyPort);
 
 		// Get key for other properties
-		final String keySecurityToken		= getString(R.string.pref_key_security_token);
-		final String keyConnectionTimeout	= getString(R.string.pref_key_connection_timeout);
-		final String keyReadTimeout			= getString(R.string.pref_key_read_timeout);
+		final String keySecurityToken		= getString(R.string.key_security_token);
+		final String keyConnectionTimeout	= getString(R.string.key_connection_timeout);
+		final String keyReadTimeout			= getString(R.string.key_read_timeout);
 
 		// Get default values for Host and Port
-		final int resDefHost = wifi ? R.string.pref_default_local_host : R.string.pref_default_remote_host;
-		final int resDefPort = wifi ? R.string.pref_default_local_port : R.string.pref_default_remote_port;
+		final int resDefHost = wifi ? R.string.default_local_host : R.string.default_remote_host;
+		final int resDefPort = wifi ? R.string.default_local_port : R.string.default_remote_port;
 		final String defaultHost	= getString(resDefHost);
 		final String defaultPort	= getString(resDefPort);
 
 		// Get default values for other properties
-		final String defaultSecurityToken		= getString(R.string.pref_default_security_token);
-		final String defaultConnectionTimeout	= getString(R.string.pref_default_connection_timeout);
-		final String defaultReadTimeout			= getString(R.string.pref_default_read_timeout);
+		final String defaultSecurityToken		= getString(R.string.default_security_token);
+		final String defaultConnectionTimeout	= getString(R.string.default_connection_timeout);
+		final String defaultReadTimeout			= getString(R.string.default_read_timeout);
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -313,7 +313,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
-		Request request = NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
+		Request request = MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
 
 		if (request == null) {
 			Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();

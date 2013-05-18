@@ -17,7 +17,7 @@ import org.es.network.ExchangeProtos.Response;
  * @author Cyril Leroux
  *
  */
-public class NetworkMessage {
+public class MessageHelper {
 
 	/**
 	 * Build a request with both integer and string parameters.

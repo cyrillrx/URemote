@@ -6,7 +6,7 @@ import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
-import org.es.network.NetworkMessage;
+import org.es.network.MessageHelper;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -315,7 +315,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	 * @param extraCode The request extra code.
 	 */
 	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
 	}
 	
 
@@ -327,7 +327,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	 * @param stringParam A string parameter.
 	 */
 	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
 	}
 	
 	/**

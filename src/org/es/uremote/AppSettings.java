@@ -77,25 +77,25 @@ public class AppSettings extends PreferenceActivity {
 			mActivity = (AppSettings) getActivity();
 			mPref = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
-			mKeyLocalHost	= getString(R.string.pref_key_local_host);
-			mKeyLocalPort	= getString(R.string.pref_key_local_port);
-			mKeyBroadcast	= getString(R.string.pref_key_broadcast);
-			mKeyRemoteHost	= getString(R.string.pref_key_remote_host);
-			mKeyRemotePort	= getString(R.string.pref_key_remote_port);
-			mKeySecurityToken		= getString(R.string.pref_key_security_token);
-			mKeyConnectionTimeout	= getString(R.string.pref_key_connection_timeout);
-			mKeyReadTimeout			= getString(R.string.pref_key_read_timeout);
-			mKeyMacAddress	= getString(R.string.pref_key_mac_address);
+			mKeyLocalHost	= getString(R.string.key_local_host);
+			mKeyLocalPort	= getString(R.string.key_local_port);
+			mKeyBroadcast	= getString(R.string.key_broadcast);
+			mKeyRemoteHost	= getString(R.string.key_remote_host);
+			mKeyRemotePort	= getString(R.string.key_remote_port);
+			mKeySecurityToken		= getString(R.string.key_security_token);
+			mKeyConnectionTimeout	= getString(R.string.key_connection_timeout);
+			mKeyReadTimeout			= getString(R.string.key_read_timeout);
+			mKeyMacAddress	= getString(R.string.key_mac_address);
 
-			mDefaultLocalHost	= getString(R.string.pref_default_local_host);
-			mDefaultLocalPort	= getString(R.string.pref_default_local_port);
-			mDefaultBroadcast	= getString(R.string.pref_default_broadcast);
-			mDefaultRemoteHost	= getString(R.string.pref_default_remote_host);
-			mDefaultRemotePort	= getString(R.string.pref_default_remote_port);
-			mDefaultSecurityToken		= getString(R.string.pref_default_security_token);
-			mDefaultConnectionTimeout	= getString(R.string.pref_default_connection_timeout);
-			mDefaultReadTimeout			= getString(R.string.pref_default_read_timeout);
-			mDefaultMacAddress	= getString(R.string.pref_default_mac_address);
+			mDefaultLocalHost	= getString(R.string.default_local_host);
+			mDefaultLocalPort	= getString(R.string.default_local_port);
+			mDefaultBroadcast	= getString(R.string.default_broadcast);
+			mDefaultRemoteHost	= getString(R.string.default_remote_host);
+			mDefaultRemotePort	= getString(R.string.default_remote_port);
+			mDefaultSecurityToken		= getString(R.string.default_security_token);
+			mDefaultConnectionTimeout	= getString(R.string.default_connection_timeout);
+			mDefaultReadTimeout			= getString(R.string.default_read_timeout);
+			mDefaultMacAddress	= getString(R.string.default_mac_address);
 
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
 			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);

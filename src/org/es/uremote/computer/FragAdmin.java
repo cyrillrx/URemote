@@ -17,7 +17,7 @@ import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
-import org.es.network.NetworkMessage;
+import org.es.network.MessageHelper;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.network.WakeOnLan;
@@ -88,19 +88,19 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			break;
 
 		case R.id.cmdShutdown :
-			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
+			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
 			break;
 
 		case R.id.cmdAiMute :
-			sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
+			sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
 			break;
 
 		case R.id.cmdKillServer :
-			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
+			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
 			break;
 
 		case R.id.cmdLock :
-			confirmRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
+			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
 			break;
 
 		default:
@@ -112,8 +112,8 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 		final WifiManager wifiMgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		final boolean wifi = wifiMgr.isWifiEnabled();
-		final int resKeyHost = wifi ? R.string.pref_key_broadcast : R.string.pref_key_remote_host;
-		final int resDefHost = wifi ? R.string.pref_default_broadcast : R.string.pref_default_remote_host;
+		final int resKeyHost = wifi ? R.string.key_broadcast : R.string.key_remote_host;
+		final int resDefHost = wifi ? R.string.default_broadcast : R.string.default_remote_host;
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
@@ -121,8 +121,8 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		final String defHost = getString(resDefHost);
 		final String host = pref.getString(keyHost, defHost);
 
-		final String keyMAcAddress	= getString(R.string.pref_key_mac_address);
-		final String defaultMAcAddress	= getString(R.string.pref_default_mac_address);
+		final String keyMAcAddress	= getString(R.string.key_mac_address);
+		final String defaultMAcAddress	= getString(R.string.default_mac_address);
 		final String macAddress = pref.getString(keyMAcAddress, defaultMAcAddress);
 
 		new WakeOnLan(Computer.getHandler()).execute(host, macAddress);

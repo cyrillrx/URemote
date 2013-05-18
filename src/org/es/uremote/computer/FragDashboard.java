@@ -10,7 +10,7 @@ import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
-import org.es.network.NetworkMessage;
+import org.es.network.MessageHelper;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -187,7 +187,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code  = Code.valueOf(_data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
+				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -232,7 +232,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param intParam An integer parameter.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode, int intParam) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
 	}
 
 	/**
@@ -241,7 +241,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
-		sendAsyncRequest(NetworkMessage.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
 	}
 
 	/**
