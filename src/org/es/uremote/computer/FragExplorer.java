@@ -8,6 +8,7 @@ import java.io.File;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.MessageHelper;
+import org.es.network.ServerInfo;
 import org.es.network.ExchangeProtos.DirContent;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
@@ -208,7 +209,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
 		public ExplorerMessageMgr(Handler _handler) {
-			super(_handler);
+			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

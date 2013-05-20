@@ -53,13 +53,10 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 	private static Handler sHandler;
 	private static Toast sToast = null;
 
-	private ServerInfo mServerInfo;
-
 	@Override
 	public void onEnabled(Context context) {
 		super.onEnabled(context);
 		initHandler(context);
-		mServerInfo = initServer(context);
 	}
 
 	@Override
@@ -137,7 +134,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
-		Request request = MessageHelper.buildRequest(getSecurityToken(context), requestType, requestCode);
+		Request request = MessageHelper.buildRequest(MessageHelper.getSecurityToken(context), requestType, requestCode);
 
 		if (request == null) {
 			Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -145,7 +142,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler).execute(request);
+			new AsyncMessageMgr(sHandler, ServerInfo.loadFromPreferences(context)).execute(request);
 		} else {
 			Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
@@ -180,48 +177,5 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		}
 		sToast.setText(_message);
 		sToast.show();
-	}
-
-	private ServerInfo initServer(Context context) {
-
-		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		final boolean wifi = wifiMgr.isWifiEnabled();
-
-		// Get Host and Port key
-		final int resKeyHost = wifi ? R.string.key_local_host : R.string.key_remote_host;
-		final int resKeyPort = wifi ? R.string.key_local_port : R.string.key_remote_port;
-		final String keyHost	= context.getString(resKeyHost);
-		final String keyPort	= context.getString(resKeyPort);
-
-		// Get key for other properties
-		final String keyConnectionTimeout	= context.getString(R.string.key_connection_timeout);
-		final String keyReadTimeout			= context.getString(R.string.key_read_timeout);
-
-		// Get default values for Host and Port
-		final int resDefHost = wifi ? R.string.default_local_host : R.string.default_remote_host;
-		final int resDefPort = wifi ? R.string.default_local_port : R.string.default_remote_port;
-		final String defaultHost	= context.getString(resDefHost);
-		final String defaultPort	= context.getString(resDefPort);
-
-		// Get default values for other properties
-		final String defaultConnectionTimeout	= context.getString(R.string.default_connection_timeout);
-		final String defaultReadTimeout			= context.getString(R.string.default_read_timeout);
-
-		// Get the properties values
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final String host	= pref.getString(keyHost, defaultHost);
-		final int port		= Integer.parseInt(pref.getString(keyPort, defaultPort));
-		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
-		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
-
-		return new ServerInfo(host, port, connectionTimeout, readTimeout);
-	}
-
-	private String getSecurityToken(Context context) {
-		final String keySecurityToken		= context.getString(R.string.key_security_token);
-		final String defaultSecurityToken	= context.getString(R.string.default_security_token);
-
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		return pref.getString(keySecurityToken, defaultSecurityToken);
 	}
 }

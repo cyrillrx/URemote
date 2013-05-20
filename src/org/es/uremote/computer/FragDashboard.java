@@ -11,6 +11,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.MessageHelper;
+import org.es.network.ServerInfo;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -270,7 +271,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
 		public DashboardMessageMgr(Handler _handler) {
-			super(_handler);
+			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

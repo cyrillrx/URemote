@@ -41,10 +41,12 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	/**
 	 * Initialize class with the message handler as a parameter.
-	 * @param _handler The handler for toast messages.
+	 * @param handler The handler for toast messages.
+	 * @param serverInfo Server connection informations.
 	 */
-	public AsyncMessageMgr(Handler _handler) {
-		mHandler = _handler;
+	public AsyncMessageMgr(Handler handler, ServerInfo serverInfo) {
+		mHandler = handler;
+		mServerInfo = serverInfo;
 	}
 
 	@Override

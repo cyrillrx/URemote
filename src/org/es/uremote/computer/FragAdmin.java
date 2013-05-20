@@ -18,6 +18,7 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
 import org.es.network.MessageHelper;
+import org.es.network.ServerInfo;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.network.WakeOnLan;
@@ -176,7 +177,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		 * @param _handler The toast messages handler.
 		 */
 		public AdminMessageMgr(Handler _handler) {
-			super(_handler);
+			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

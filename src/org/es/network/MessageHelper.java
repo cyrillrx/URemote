@@ -10,6 +10,11 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
+import org.es.uremote.R;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Class that holds the utils to manage network messages
@@ -120,5 +125,17 @@ public class MessageHelper {
 			return Response.parseDelimitedFrom(socket.getInputStream());
 		}
 		return null;
+	}
+
+	/**
+	 * @param context The application context
+	 * @return The Security token stored in User Preferences
+	 */
+	public static String getSecurityToken(Context context) {
+		final String keySecurityToken		= context.getString(R.string.key_security_token);
+		final String defaultSecurityToken	= context.getString(R.string.default_security_token);
+
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+		return pref.getString(keySecurityToken, defaultSecurityToken);
 	}
 }

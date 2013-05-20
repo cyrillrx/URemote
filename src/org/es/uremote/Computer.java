@@ -22,6 +22,7 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.MessageHelper;
+import org.es.network.ServerInfo;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -321,7 +322,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler).execute(request);
+			new AsyncMessageMgr(sHandler, ServerInfo.loadFromPreferences(getApplicationContext())).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
