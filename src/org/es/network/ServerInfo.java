@@ -26,25 +26,67 @@ public class ServerInfo {
 
 	private final String mLabel;
 	private final String mServerName;
-	private final String mHost;
-	private final int mPort;
+	private String mLocalHost;
+	private int mLocalPort;
+	private String mRemoteHost;
+	private int mRemotePort;
+
+	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
 	private final int mConnectionTimeout;
 	private final int mReadTimeout;
 	private final int mConnectionType;
 
 	/**
 	 * Default constructor
-	 * @param host
-	 * @param port
+	 */
+	public ServerInfo() {
+		mLabel		= "";
+		mServerName	= "";
+		mLocalHost	= "";
+		mLocalPort	= 0000;
+		mRemoteHost	= "";
+		mRemotePort	= 0000;
+		mConnectionTimeout	= 500;
+		mReadTimeout		= 500;
+		mConnectionType		= CONNECTION_TYPE_LOCAL;
+	}
+	/**
+	 * Constructor with parameters
+	 * @param localHost
+	 * @param localPort
+	 * @param remoteHost
+	 * @param remotePort
 	 * @param connectionTimeout
 	 * @param readTimeout
 	 */
-	public ServerInfo(final String host, final int port, final int connectionTimeout, final int readTimeout) {
+	public ServerInfo(final String localHost, final int localPort, final int connectionTimeout, final int readTimeout) {
 
 		mLabel		= "";
 		mServerName	= "";
-		mHost		= host;
-		mPort		= port;
+		mLocalHost	= localHost;
+		mLocalPort	= localPort;
+		mConnectionTimeout	= connectionTimeout;
+		mReadTimeout		= readTimeout;
+		mConnectionType		= CONNECTION_TYPE_LOCAL;
+	}
+
+	/**
+	 * Constructor with parameters
+	 * @param localHost
+	 * @param localPort
+	 * @param remoteHost
+	 * @param remotePort
+	 * @param connectionTimeout
+	 * @param readTimeout
+	 */
+	public ServerInfo(final String localHost, final int localPort, final String remoteHost, final int remotePort, final int connectionTimeout, final int readTimeout) {
+
+		mLabel		= "";
+		mServerName	= "";
+		mLocalHost	= localHost;
+		mLocalPort	= localPort;
+		mRemoteHost	= remoteHost;
+		mRemotePort	= remotePort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
 		mConnectionType		= CONNECTION_TYPE_LOCAL;
@@ -91,22 +133,67 @@ public class ServerInfo {
 	}
 
 	/**
-	 * @return Ip address of the server
+	 * @return Local ip address of the server
 	 */
-	public String getHost() {
-		return mHost;
+	public String getLocalHost() {
+		return mLocalHost;
 	}
 
 	/**
-	 * @return Open port to connect to.
+	 * Set the local ipAddress.
+	 * @param ipAddress
 	 */
-	public int getPort() {
-		return mPort;
+	public void setLocalHost(final String ipAddress) {
+		mLocalHost = ipAddress;
+	}
+
+	/**
+	 * @return Open port to connect to the local server.
+	 */
+	public int getLocalPort() {
+		return mLocalPort;
+	}
+
+	/**
+	 * Set the local port.
+	 * @param port
+	 */
+	public void setLocalPort(final int port) {
+		mLocalPort = port;
+	}
+
+	/**
+	 * @return Remote ip address of the server.
+	 */
+	public String getRemoteHost() {
+		return mRemoteHost;
+	}
+
+	/**
+	 * Set the remote ipAddress.
+	 * @param ipAddress
+	 */
+	public void setRemoteHost(final String ipAddress) {
+		mRemoteHost = ipAddress;
+	}
+
+	/**
+	 * @return Open port to connect to the remote server.
+	 */
+	public int getRemotePort() {
+		return mRemotePort;
+	}
+
+	/**
+	 * Set the remote port.
+	 * @param port
+	 */
+	public void setRemotePort(final int port) {
+		mRemotePort = port;
 	}
 
 	/**
 	 * @return Timeout connection in milliseconds.
-	 * If the connection with the remote server is not established within this timeout, it is dismiss.
 	 */
 	public int getConnectionTimeout() {
 		return mConnectionTimeout;
