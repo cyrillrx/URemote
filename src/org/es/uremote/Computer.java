@@ -81,8 +81,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	@Override
-	public void onCreate(Bundle _savedInstanceState) {
-		super.onCreate(_savedInstanceState);
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_computer);
 
 		initHandler(getApplicationContext());
@@ -115,8 +115,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 		((TextView) findViewById(R.id.tvServerInfos)).setText(AsyncMessageMgr.getServerInfos());
 
-		if (_savedInstanceState != null) {
-			final int newTabIndex = _savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
+		if (savedInstanceState != null) {
+			final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
 			if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
