@@ -133,6 +133,15 @@ public class ServerInfo {
 	}
 
 	/**
+	 * Save the object attributes into a XML file.
+	 * @return true if save succeeded false otherwise.
+	 */
+	public boolean saveToXmlFile() {
+		// TODO implement
+		return false;
+	}
+
+	/**
 	 * @return Local ip address of the server
 	 */
 	public String getLocalHost() {

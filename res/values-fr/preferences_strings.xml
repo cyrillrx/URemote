@@ -37,8 +37,8 @@
     <string name="remote_ip_address">Adresse ip distante</string>
     <string name="remote_port">Port d\'écoute distant</string>
     <string name="security_token">Jeton de sécurité</string>
-    <string name="connection_timeout">Timeout des appels au serveur (connexion)</string>
-    <string name="read_timeout">Timeout de lecture (temps de traitement)</string>
+    <string name="connection_timeout">Timeout de connexion</string>
+    <string name="read_timeout">Timeout de lecture</string>
     <string name="mac_address">Adresse Mac de WakeOnLan</string>
     <string name="author">Développeur de l\'application</string>
     <string name="author_summary">Cyril Leroux</string>

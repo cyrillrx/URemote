@@ -168,7 +168,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	@Override
 	public boolean onCreateOptionsMenu(Menu _menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.menu_server, _menu);
+		inflater.inflate(R.menu.server, _menu);
 		return true;
 	}
 
