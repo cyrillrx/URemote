@@ -34,7 +34,11 @@ public class CreateServer extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.menu_ok:
-			return mServerInfo.save();
+			if (mServerInfo.saveToXmlFile()) {
+				//TODO close
+			} else {
+				// TODO notify that an error occurred
+			}
 
 		default:
 			return super.onOptionsItemSelected(item);

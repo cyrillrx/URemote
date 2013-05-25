@@ -15,15 +15,6 @@ import android.preference.PreferenceManager;
  */
 public class ServerInfo {
 
-	/**
-	 * 
-	 */
-	public static final int CONNECTION_TYPE_LOCAL	= 0;
-	/**
-	 * 
-	 */
-	public static final int CONNECTION_TYPE_REMOTE	= 0;
-
 	private final String mLabel;
 	private final String mServerName;
 	private String mLocalHost;
@@ -34,7 +25,6 @@ public class ServerInfo {
 	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
 	private final int mConnectionTimeout;
 	private final int mReadTimeout;
-	private final int mConnectionType;
 
 	/**
 	 * Default constructor
@@ -48,14 +38,11 @@ public class ServerInfo {
 		mRemotePort	= 0000;
 		mConnectionTimeout	= 500;
 		mReadTimeout		= 500;
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 	/**
 	 * Constructor with parameters
 	 * @param localHost
 	 * @param localPort
-	 * @param remoteHost
-	 * @param remotePort
 	 * @param connectionTimeout
 	 * @param readTimeout
 	 */
@@ -67,7 +54,6 @@ public class ServerInfo {
 		mLocalPort	= localPort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 
 	/**
@@ -89,7 +75,6 @@ public class ServerInfo {
 		mRemotePort	= remotePort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
 
 	}
 
