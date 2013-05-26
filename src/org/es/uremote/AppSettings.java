@@ -32,9 +32,6 @@ public class AppSettings extends PreferenceActivity {
 	 */
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
-		protected AppSettings mActivity;
-		protected SharedPreferences mPref = null;
-
 		private String mKeyLocalHost;
 		private String mKeyLocalPort;
 		private String mKeyBroadcast;
@@ -74,8 +71,6 @@ public class AppSettings extends PreferenceActivity {
 		@Override
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
-			mActivity = (AppSettings) getActivity();
-			mPref = PreferenceManager.getDefaultSharedPreferences(mActivity.getApplicationContext());
 
 			mKeyLocalHost	= getString(R.string.key_local_host);
 			mKeyLocalPort	= getString(R.string.key_local_port);
@@ -112,16 +107,18 @@ public class AppSettings extends PreferenceActivity {
 		public void onResume() {
 			super.onResume();
 
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
 			// Setup the initial values
-			mPrefLocalHost.setSummary(mPref.getString(mKeyLocalHost, mDefaultLocalHost));
-			mPrefLocalPort.setSummary(mPref.getString(mKeyLocalPort, mDefaultLocalPort));
-			mPrefBroadcast.setSummary(mPref.getString(mKeyBroadcast, mDefaultBroadcast));
-			mPrefRemoteHost.setSummary(mPref.getString(mKeyRemoteHost, mDefaultRemoteHost));
-			mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
-			mPrefSecurityToken.setSummary(mPref.getString(mKeySecurityToken, mDefaultSecurityToken));
-			mPrefConnectionTimeout.setSummary(mPref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
-			mPrefReadTimeout.setSummary(mPref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
-			mPrefMacAddress.setSummary(mPref.getString(mKeyMacAddress, mDefaultMacAddress));
+			mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
+			mPrefLocalPort.setSummary(pref.getString(mKeyLocalPort, mDefaultLocalPort));
+			mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
+			mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
+			mPrefRemotePort.setSummary(pref.getString(mKeyRemotePort, mDefaultRemotePort));
+			mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
+			mPrefConnectionTimeout.setSummary(pref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
+			mPrefReadTimeout.setSummary(pref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+			mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			// Set up a listener whenever a key changes
 			getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -135,36 +132,38 @@ public class AppSettings extends PreferenceActivity {
 			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 		}
 
-		/** Change the summary of a value whenever the value had been modified. */
+		/**
+		 * Change the summary of a value whenever the value had been modified.
+		 */
 		@Override
-		public void onSharedPreferenceChanged(SharedPreferences _sharedPreferences, String _key) {
+		public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
 
-			if (_key.equals(mKeyLocalHost)) {
-				mPrefLocalHost.setSummary(mPref.getString(mKeyLocalHost, mDefaultLocalHost));
+			if (key.equals(mKeyLocalHost)) {
+				mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
 
-			} else if (_key.equals(mKeyLocalPort)) {
-				mPrefLocalPort.setSummary(mPref.getString(mKeyLocalPort, mDefaultLocalPort));
+			} else if (key.equals(mKeyLocalPort)) {
+				mPrefLocalPort.setSummary(pref.getString(mKeyLocalPort, mDefaultLocalPort));
 
-			} else if (_key.equals(mKeyBroadcast)) {
-				mPrefBroadcast.setSummary(mPref.getString(mKeyBroadcast, mDefaultBroadcast));
+			} else if (key.equals(mKeyBroadcast)) {
+				mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
 
-			} else if (_key.equals(mKeyRemoteHost)) {
-				mPrefRemoteHost.setSummary(mPref.getString(mKeyRemoteHost, mDefaultRemoteHost));
+			} else if (key.equals(mKeyRemoteHost)) {
+				mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
 
-			} else if (_key.equals(mKeyLocalHost)) {
-				mPrefRemotePort.setSummary(mPref.getString(mKeyRemotePort, mDefaultRemotePort));
+			} else if (key.equals(mKeyLocalHost)) {
+				mPrefRemotePort.setSummary(pref.getString(mKeyRemotePort, mDefaultRemotePort));
 
-			} else if (_key.equals(mKeySecurityToken)) {
-				mPrefSecurityToken.setSummary(mPref.getString(mKeySecurityToken, mDefaultSecurityToken));
+			} else if (key.equals(mKeySecurityToken)) {
+				mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
 
-			} else if (_key.equals(mKeyConnectionTimeout)) {
-				mPrefConnectionTimeout.setSummary(mPref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
+			} else if (key.equals(mKeyConnectionTimeout)) {
+				mPrefConnectionTimeout.setSummary(pref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
 
-			} else if (_key.equals(mKeyReadTimeout)) {
-				mPrefReadTimeout.setSummary(mPref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+			} else if (key.equals(mKeyReadTimeout)) {
+				mPrefReadTimeout.setSummary(pref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
 
-			} else if (_key.equals(mKeyMacAddress)) {
-				mPrefMacAddress.setSummary(mPref.getString(mKeyMacAddress, mDefaultMacAddress));
+			} else if (key.equals(mKeyMacAddress)) {
+				mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			}
 		}

@@ -11,8 +11,10 @@ import java.util.concurrent.Semaphore;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
+import org.es.uremote.objects.ServerInfo;
 import org.es.utils.Log;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -27,16 +29,12 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2, true);
 	private static final String TAG = "AsyncMessageMgr";
 
-	private static String sHost;
-	private static int sPort;
 	private static String sSecurityToken;
-	private static int sTimeout;
-	private static int sSoTimeout;
 
 	protected Handler mHandler;
 
 	//TODO
-	private ServerInfo mServerInfo;
+	protected final ServerInfo mServerInfo;
 	private Socket mSocket;
 
 	/**
@@ -60,9 +58,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	@Override
-	protected Response doInBackground(Request... _requests) {
+	protected Response doInBackground(Request... requests) {
 
-		final Request request = _requests[0];
+		final Request request = requests[0];
 		String errorMessage = "";
 
 		mSocket = null;
@@ -100,12 +98,12 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @param _serverReply The response from the server returned by {@link #doInBackground(Request...)}.
 	 */
 	@Override
-	protected void onPostExecute(Response _response) {
+	protected void onPostExecute(Response response) {
 		sSemaphore.release();
 		Log.info(TAG, "Semaphore release");
 
-		if (!_response.getMessage().isEmpty()) {
-			Log.info(TAG, "onPostExecute message : " + _response.getMessage());
+		if (!response.getMessage().isEmpty()) {
+			Log.info(TAG, "onPostExecute message : " + response.getMessage());
 		} else {
 			Log.info(TAG, "onPostExecute empty message.");
 		}
@@ -121,7 +119,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * Send a toast message on the UI thread.
 	 * @param _toastMessage The message to display.
 	 */
-	protected void sendToastToUI(String _toastMessage) {
+	protected void sendToastToUI(String toastMessage) {
 		if (mHandler == null) {
 			Log.error(TAG, "showToast() handler is null");
 			return;
@@ -129,7 +127,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 		Message msg = new Message();
 		msg.what = MESSAGE_WHAT_TOAST;
-		msg.obj = _toastMessage;
+		msg.obj = toastMessage;
 		mHandler.sendMessage(msg);
 	}
 
@@ -142,11 +140,11 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */
-	private Socket connectToRemoteSocket(String _host, int _port, int _timeout) throws IOException {
+	private Socket connectToRemoteSocket(String host, int port, int timeout) throws IOException {
 
-		final SocketAddress socketAddress = new InetSocketAddress(_host, _port);
+		final SocketAddress socketAddress = new InetSocketAddress(host, port);
 		Socket socket = new Socket();
-		socket.connect(socketAddress, _timeout);
+		socket.connect(socketAddress, timeout);
 
 		return socket;
 	}
@@ -184,34 +182,11 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
-	 * @return Concatenation of host and port of the remote server.
-	 */
-	public static String getServerInfos() {
-		return sHost + ":" + sPort;
-	}
-
-	/**
-	 * Set the IP address of the remote server.
-	 * @param _host the IP address of the remote server.
-	 */
-	public static void setHost(String _host) {
-		sHost = _host;
-	}
-
-	/**
-	 * Set the port on which we want to establish a connection with the remote server.
-	 * @param _port the port value.
-	 */
-	public static void setPort(int _port) {
-		sPort = _port;
-	}
-
-	/**
 	 * Set the security token that will be use to authenticate the user.
-	 * @param _securityToken the security token.
+	 * @param securityToken the security token.
 	 */
-	public static void setSecurityToken(final String _securityToken) {
-		sSecurityToken = _securityToken;
+	public static void setSecurityToken(final String securityToken) {
+		sSecurityToken = securityToken;
 	}
 
 	/**
@@ -221,19 +196,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		return sSecurityToken;
 	}
 
-	/**
-	 * Define the timeout of the connection with the server.
-	 * @param _timeout The timeout in milliseconds.
-	 */
-	public static void setTimeout(int _timeout) {
-		sTimeout = _timeout;
-	}
-
-	/**
-	 * Define the timeout of the connection with the server.
-	 * @param _timeout The timeout in milliseconds.
-	 */
-	public static void setSoTimeout(int _timeout) {
-		sSoTimeout = _timeout;
+	public String getServerInfos(Context context) {
+		return mServerInfo.getFullAddress(context);
 	}
 }

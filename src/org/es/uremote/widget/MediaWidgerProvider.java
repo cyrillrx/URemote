@@ -17,8 +17,8 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.MessageHelper;
-import org.es.network.ServerInfo;
 import org.es.uremote.R;
+import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.service.SendRequestService;
 import org.es.utils.Log;
 

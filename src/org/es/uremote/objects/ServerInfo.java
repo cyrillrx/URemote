@@ -1,4 +1,4 @@
-package org.es.network;
+package org.es.uremote.objects;
 
 import org.es.uremote.R;
 
@@ -14,6 +14,16 @@ import android.preference.PreferenceManager;
  *
  */
 public class ServerInfo {
+	/**
+	 * The server is in the same network.
+	 * We can use a local IP address.
+	 */
+	public static final int CONNECTION_TYPE_LOCAL	= 0;
+	/**
+	 * The server is not in the same network.
+	 * We can only reach it by a remote IP address.
+	 */
+	public static final int CONNECTION_TYPE_REMOTE	= 1;
 
 	private final String mLabel;
 	private final String mServerName;
@@ -39,22 +49,6 @@ public class ServerInfo {
 		mConnectionTimeout	= 500;
 		mReadTimeout		= 500;
 	}
-	/**
-	 * Constructor with parameters
-	 * @param localHost
-	 * @param localPort
-	 * @param connectionTimeout
-	 * @param readTimeout
-	 */
-	public ServerInfo(final String localHost, final int localPort, final int connectionTimeout, final int readTimeout) {
-
-		mLabel		= "";
-		mServerName	= "";
-		mLocalHost	= localHost;
-		mLocalPort	= localPort;
-		mConnectionTimeout	= connectionTimeout;
-		mReadTimeout		= readTimeout;
-	}
 
 	/**
 	 * Constructor with parameters
@@ -75,7 +69,6 @@ public class ServerInfo {
 		mRemotePort	= remotePort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
-
 	}
 
 	/**
@@ -84,24 +77,21 @@ public class ServerInfo {
 	 */
 	public static ServerInfo loadFromPreferences(Context context) {
 
-		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-		final boolean wifi = wifiMgr.isWifiEnabled();
-
 		// Get Host and Port key
-		final int resKeyHost = wifi ? R.string.key_local_host : R.string.key_remote_host;
-		final int resKeyPort = wifi ? R.string.key_local_port : R.string.key_remote_port;
-		final String keyHost	= context.getString(resKeyHost);
-		final String keyPort	= context.getString(resKeyPort);
+		final String keyLocalHost	= context.getString(R.string.key_local_host);
+		final String keyLocalPort	= context.getString(R.string.key_local_port);
+		final String keyRemoteHost	= context.getString(R.string.key_remote_host);
+		final String keyRemotePort	= context.getString(R.string.key_remote_port);
 
 		// Get key for other properties
 		final String keyConnectionTimeout	= context.getString(R.string.key_connection_timeout);
 		final String keyReadTimeout			= context.getString(R.string.key_read_timeout);
 
 		// Get default values for Host and Port
-		final int resDefHost = wifi ? R.string.default_local_host : R.string.default_remote_host;
-		final int resDefPort = wifi ? R.string.default_local_port : R.string.default_remote_port;
-		final String defaultHost	= context.getString(resDefHost);
-		final String defaultPort	= context.getString(resDefPort);
+		final String defaultLocalHost	= context.getString(R.string.default_local_host);
+		final String defaultLocalPort	= context.getString(R.string.default_local_port);
+		final String defaultRemoteHost	= context.getString(R.string.default_remote_host);
+		final String defaultRemotePort	= context.getString(R.string.default_remote_port);
 
 		// Get default values for other properties
 		final String defaultConnectionTimeout	= context.getString(R.string.default_connection_timeout);
@@ -109,12 +99,19 @@ public class ServerInfo {
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final String host	= pref.getString(keyHost, defaultHost);
-		final int port		= Integer.parseInt(pref.getString(keyPort, defaultPort));
+		final String localHost	= pref.getString(keyLocalHost, defaultLocalHost);
+		final int localPort		= Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
+		final String remoteHost	= pref.getString(keyRemoteHost, defaultRemoteHost);
+		final int remotePort	= Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerInfo(host, port, connectionTimeout, readTimeout);
+		return new ServerInfo(localHost, localPort, remoteHost, remotePort, connectionTimeout, readTimeout);
+	}
+
+	private boolean isLocal(Context context) {
+		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		return wifiMgr.isWifiEnabled();
 	}
 
 	/**
@@ -124,6 +121,18 @@ public class ServerInfo {
 	public boolean saveToXmlFile() {
 		// TODO implement
 		return false;
+	}
+
+	/**
+	 * @param context
+	 * @return Concatenation of host and port of the remote server.
+	 */
+	public String getFullAddress(Context context) {
+		if (isLocal(context)) {
+			return mLocalHost + ":" + mLocalPort;
+		}
+
+		return mRemoteHost + ":" + mRemotePort;
 	}
 
 	/**

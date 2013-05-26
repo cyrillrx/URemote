@@ -22,11 +22,11 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.MessageHelper;
-import org.es.network.ServerInfo;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
+import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.utils.Constants;
 import org.es.utils.Log;
 

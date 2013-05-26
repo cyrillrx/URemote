@@ -1,6 +1,6 @@
 package org.es.uremote;
 
-import org.es.network.ServerInfo;
+import org.es.uremote.objects.ServerInfo;
 
 import android.app.Activity;
 import android.os.Bundle;

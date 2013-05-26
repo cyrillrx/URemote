@@ -2,7 +2,7 @@ package org.es.uremote.components;
 
 import java.util.List;
 
-import org.es.network.ServerInfo;
+import org.es.uremote.objects.ServerInfo;
 
 import android.content.Context;
 import android.view.LayoutInflater;

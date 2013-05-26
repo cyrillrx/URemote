@@ -8,7 +8,6 @@ import java.io.File;
 
 import org.es.network.AsyncMessageMgr;
 import org.es.network.MessageHelper;
-import org.es.network.ServerInfo;
 import org.es.network.ExchangeProtos.DirContent;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
@@ -18,6 +17,7 @@ import org.es.network.IRequestSender;
 import org.es.uremote.R;
 import org.es.uremote.Computer;
 import org.es.uremote.components.FileManagerAdapter;
+import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.utils.FileUtils;
 import org.es.utils.Log;
 
