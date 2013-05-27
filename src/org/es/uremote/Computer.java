@@ -17,15 +17,15 @@ import static org.es.uremote.utils.Constants.STATE_OK;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.MessageHelper;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.utils.Constants;
 import org.es.utils.Log;
@@ -80,6 +80,14 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		return sHandler;
 	}
 
+	private ServerInfo getCurrentServer() {
+		return ServerInfo.loadFromPreferences(getApplicationContext());
+	}
+
+	private String getServerString() {
+		return getCurrentServer().getFullAddress(getApplicationContext());
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -113,7 +121,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 		mTvServerState = (TextView) findViewById(R.id.tvServerState);
 		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
-		((TextView) findViewById(R.id.tvServerInfos)).setText(AsyncMessageMgr.getServerInfos());
+		((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString());
 
 		if (savedInstanceState != null) {
 			final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
@@ -123,7 +131,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		} else {
 			sendAsyncRequest(SIMPLE, Code.HELLO);
 		}
-
 	}
 
 	@Override
@@ -181,7 +188,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 			startActivity(intent);
 			return true;
 
-		case R.id.miServerSettings:
+		case R.id.server_settings:
 			startActivity(new Intent(this, AppSettings.class));
 			return true;
 		default:
@@ -192,47 +199,20 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	/**
 	 * Initialize server using shared preferences.
 	 */
-	private void initServer() {
-
-		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-		final boolean wifi = wifiMgr.isWifiEnabled();
-
-		// Get Host and Port key
-		final int resKeyHost = wifi ? R.string.key_local_host : R.string.key_remote_host;
-		final int resKeyPort = wifi ? R.string.key_local_port : R.string.key_remote_port;
-		final String keyHost	= getString(resKeyHost);
-		final String keyPort	= getString(resKeyPort);
+	private ServerInfo initServer() {
 
 		// Get key for other properties
-		final String keySecurityToken		= getString(R.string.key_security_token);
-		final String keyConnectionTimeout	= getString(R.string.key_connection_timeout);
-		final String keyReadTimeout			= getString(R.string.key_read_timeout);
-
-		// Get default values for Host and Port
-		final int resDefHost = wifi ? R.string.default_local_host : R.string.default_remote_host;
-		final int resDefPort = wifi ? R.string.default_local_port : R.string.default_remote_port;
-		final String defaultHost	= getString(resDefHost);
-		final String defaultPort	= getString(resDefPort);
-
-		// Get default values for other properties
+		final String keySecurityToken			= getString(R.string.key_security_token);
 		final String defaultSecurityToken		= getString(R.string.default_security_token);
-		final String defaultConnectionTimeout	= getString(R.string.default_connection_timeout);
-		final String defaultReadTimeout			= getString(R.string.default_read_timeout);
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final String host	= pref.getString(keyHost, defaultHost);
-		final int port		= Integer.parseInt(pref.getString(keyPort, defaultPort));
 		final String securityToken	= pref.getString(keySecurityToken, defaultSecurityToken);
-		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
-		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
 		// TODO hash the security token
-		AsyncMessageMgr.setHost(host);
-		AsyncMessageMgr.setPort(port);
 		AsyncMessageMgr.setSecurityToken(securityToken);
-		AsyncMessageMgr.setTimeout(connectionTimeout);
-		AsyncMessageMgr.setSoTimeout(readTimeout);
+
+		return ServerInfo.loadFromPreferences(getApplicationContext());
 	}
 
 	/**
@@ -289,12 +269,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		private final List<Fragment> mFragments;
 
 		/**
-		 * @param _fm The fragment manager
-		 * @param _fragments The fragments list.
+		 * @param fm The fragment manager
+		 * @param fragments The fragments list.
 		 */
-		public MyPagerAdapter(FragmentManager _fm, List<Fragment> _fragments) {
-			super(_fm);
-			mFragments = _fragments;
+		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+			super(fm);
+			mFragments = fragments;
 		}
 
 		@Override
@@ -327,7 +307,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
 	}
-
 
 	/**
 	 * Update the connection state of the UI

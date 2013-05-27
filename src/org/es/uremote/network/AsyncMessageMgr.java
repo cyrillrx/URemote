@@ -1,4 +1,4 @@
-package org.es.network;
+package org.es.uremote.network;
 
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
+import org.es.network.ExchangeProtos;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
@@ -95,7 +96,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * The specified result is the value returned by {@link #doInBackground(Request...)}.
 	 * This method won't be invoked if the task was canceled.
 	 * It releases the semaphore acquired in OnPreExecute method.
-	 * @param _serverReply The response from the server returned by {@link #doInBackground(Request...)}.
+	 * @param response The response from the server returned by {@link #doInBackground(Request...)}.
 	 */
 	@Override
 	protected void onPostExecute(Response response) {
@@ -117,7 +118,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	/**
 	 * Send a toast message on the UI thread.
-	 * @param _toastMessage The message to display.
+	 * @param toastMessage The message to display.
 	 */
 	protected void sendToastToUI(String toastMessage) {
 		if (mHandler == null) {
@@ -134,9 +135,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 * 
-	 * @param _host The remote server IP address.
-	 * @param _port The port on which we want to establish a connection with the remote server.
-	 * @param _timeout The timeout of the connection with the server (in milliseconds).
+	 * @param host The remote server IP address.
+	 * @param port The port on which we want to establish a connection with the remote server.
+	 * @param timeout The timeout of the connection with the server (in milliseconds).
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */
@@ -194,9 +195,5 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 */
 	public static String getSecurityToken() {
 		return sSecurityToken;
-	}
-
-	public String getServerInfos(Context context) {
-		return mServerInfo.getFullAddress(context);
 	}
 }

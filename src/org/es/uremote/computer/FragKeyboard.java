@@ -5,8 +5,6 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
-import org.es.network.AsyncMessageMgr;
-import org.es.network.MessageHelper;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -14,6 +12,8 @@ import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.utils.Constants;
 import org.es.utils.Log;

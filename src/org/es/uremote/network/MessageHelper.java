@@ -1,4 +1,4 @@
-package org.es.network;
+package org.es.uremote.network;
 
 import static org.es.network.ExchangeProtos.Request.Code.NONE;
 

@@ -31,6 +31,7 @@ public class ServerInfo {
 	private int mLocalPort;
 	private String mRemoteHost;
 	private int mRemotePort;
+	private int mType = CONNECTION_TYPE_LOCAL;
 
 	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
 	private final int mConnectionTimeout;
@@ -48,6 +49,7 @@ public class ServerInfo {
 		mRemotePort	= 0000;
 		mConnectionTimeout	= 500;
 		mReadTimeout		= 500;
+		mType		= CONNECTION_TYPE_LOCAL;
 	}
 
 	/**
@@ -69,6 +71,7 @@ public class ServerInfo {
 		mRemotePort	= remotePort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
+		mType		= CONNECTION_TYPE_LOCAL;
 	}
 
 	/**
@@ -109,7 +112,7 @@ public class ServerInfo {
 		return new ServerInfo(localHost, localPort, remoteHost, remotePort, connectionTimeout, readTimeout);
 	}
 
-	private boolean isLocal(Context context) {
+	public boolean isLocal(Context context) {
 		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		return wifiMgr.isWifiEnabled();
 	}
@@ -121,6 +124,14 @@ public class ServerInfo {
 	public boolean saveToXmlFile() {
 		// TODO implement
 		return false;
+	}
+
+	public void setLocal() {
+		mType = CONNECTION_TYPE_LOCAL;
+	}
+
+	public void setRemote() {
+		mType = CONNECTION_TYPE_REMOTE;
 	}
 
 	/**

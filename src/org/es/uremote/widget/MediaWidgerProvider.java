@@ -12,12 +12,12 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 import java.util.Random;
 
-import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.MessageHelper;
 import org.es.uremote.R;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.service.SendRequestService;
 import org.es.utils.Log;

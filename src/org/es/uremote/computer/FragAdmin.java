@@ -13,13 +13,13 @@ import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
 
-import org.es.network.AsyncMessageMgr;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.IRequestSender;
-import org.es.network.MessageHelper;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.objects.ServerInfo;
 import org.es.utils.Log;

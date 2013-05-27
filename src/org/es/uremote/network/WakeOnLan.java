@@ -19,9 +19,9 @@ import android.os.Message;
  *
  */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
-	// TODO Internationnaliser la classe
-	private static final String TAG = "WakeOnLan";
-	private static final int PORT = 9;
+
+	private static final String TAG	= "WakeOnLan";
+	private static final int PORT	= 9;
 	private final Handler mHandler;
 
 	/**
@@ -32,39 +32,39 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 	}
 
 	@Override
-	protected String doInBackground(String... _params) {
-		return wake(_params[0], _params[1]);
+	protected String doInBackground(String... params) {
+		return wake(params[0], params[1]);
 	}
 
 	@Override
-	protected void onPostExecute(String _result) {
+	protected void onPostExecute(String result) {
 
 		Message msg = new Message();
 		msg.what = MESSAGE_WHAT_TOAST;
-		msg.obj = _result;
+		msg.obj = result;
 		mHandler.sendMessage(msg);
 
-		super.onPostExecute(_result);
+		super.onPostExecute(result);
 	}
 
 	/**
-	 * Crée et envoie un packet magique à l'adresse spécifiée pour reveiller le PC.
-	 * @param _ip
-	 * @param _mac
-	 * @return Le message de retour
+	 * Create and send a magic packet to the specified address to wake the PC.
+	 * @param ip The ip address
+	 * @param mac The mac address
+	 * @return The return message.
 	 */
-	private String wake(String _ip, String _mac) {
+	private String wake(String ip, String mac) {
 
-		if (_ip.isEmpty() || _mac.isEmpty()) {
-			return "_ip.isEmpty() || _mac.isEmpty()";
+		if (ip.isEmpty() || mac.isEmpty()) {
+			return "ip.isEmpty() || mac.isEmpty()";
 		}
 
-		Log.info(TAG, "ip : " + _ip + ", mac : " + _mac);
+		Log.info(TAG, "ip : " + ip + ", mac : " + mac);
 
-		String result = "ip : " + _ip + ", mac : " + _mac + "\r\n";
+		String result = "ip : " + ip + ", mac : " + mac + "\r\n";
 
-		String ipStr	= _ip;
-		String macStr	= _mac;
+		String ipStr	= ip;
+		String macStr	= mac;
 
 		try {
 			byte[] macBytes = getMacBytes(macStr);
