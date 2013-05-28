@@ -31,7 +31,7 @@ public class ServerInfo {
 	private int mLocalPort;
 	private String mRemoteHost;
 	private int mRemotePort;
-	private int mType = CONNECTION_TYPE_LOCAL;
+	private int mConnectionType;
 
 	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
 	private final int mConnectionTimeout;
@@ -49,7 +49,7 @@ public class ServerInfo {
 		mRemotePort	= 0000;
 		mConnectionTimeout	= 500;
 		mReadTimeout		= 500;
-		mType		= CONNECTION_TYPE_LOCAL;
+		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class ServerInfo {
 		mRemotePort	= remotePort;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
-		mType		= CONNECTION_TYPE_LOCAL;
+		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 
 	/**
@@ -113,6 +113,7 @@ public class ServerInfo {
 	}
 
 	public boolean isLocal(Context context) {
+		// TODO define when local and remote
 		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 		return wifiMgr.isWifiEnabled();
 	}
@@ -127,11 +128,11 @@ public class ServerInfo {
 	}
 
 	public void setLocal() {
-		mType = CONNECTION_TYPE_LOCAL;
+		mConnectionType = CONNECTION_TYPE_LOCAL;
 	}
 
 	public void setRemote() {
-		mType = CONNECTION_TYPE_REMOTE;
+		mConnectionType = CONNECTION_TYPE_REMOTE;
 	}
 
 	/**
@@ -147,10 +148,23 @@ public class ServerInfo {
 	}
 
 	/**
-	 * @return Local ip address of the server
+	 * @return Local or remote ip address of the server.
 	 */
-	public String getLocalHost() {
+	public String getHost() {
+		if (mConnectionType == CONNECTION_TYPE_REMOTE) {
+			return mRemoteHost;
+		}
 		return mLocalHost;
+	}
+
+	/**
+	 * @return Local or remote port on which we want to establish a connection with the server.
+	 */
+	public int getPort() {
+		if (mConnectionType == CONNECTION_TYPE_REMOTE) {
+			return mRemotePort;
+		}
+		return mLocalPort;
 	}
 
 	/**
@@ -162,13 +176,6 @@ public class ServerInfo {
 	}
 
 	/**
-	 * @return Open port to connect to the local server.
-	 */
-	public int getLocalPort() {
-		return mLocalPort;
-	}
-
-	/**
 	 * Set the local port.
 	 * @param port
 	 */
@@ -177,25 +184,11 @@ public class ServerInfo {
 	}
 
 	/**
-	 * @return Remote ip address of the server.
-	 */
-	public String getRemoteHost() {
-		return mRemoteHost;
-	}
-
-	/**
 	 * Set the remote ipAddress.
 	 * @param ipAddress
 	 */
 	public void setRemoteHost(final String ipAddress) {
 		mRemoteHost = ipAddress;
-	}
-
-	/**
-	 * @return Open port to connect to the remote server.
-	 */
-	public int getRemotePort() {
-		return mRemotePort;
 	}
 
 	/**

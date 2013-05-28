@@ -104,12 +104,11 @@ public class MessageHelper {
 	 * 
 	 * @param socket The socket on which to send the message.
 	 * @param request Client request.
-	 * @param soTimeOut socket's read timeout in milliseconds. Use 0 for no timeout.
 	 * 
 	 * @return The server reply.
 	 * @throws IOException exception.
 	 */
-	public static Response sendRequest(Socket socket, Request request, final int soTimeOut) throws IOException {
+	public static Response sendRequest(Socket socket, Request request) throws IOException {
 		if (socket.isConnected()) {
 			//create BAOS for protobuf
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -117,7 +116,6 @@ public class MessageHelper {
 			//mClientDetails is a protobuf message object, dump it to the BAOS
 			request.writeDelimitedTo(baos);
 
-			socket.setSoTimeout(soTimeOut);
 			socket.getOutputStream().write(baos.toByteArray());
 			socket.getOutputStream().flush();
 			socket.shutdownOutput();

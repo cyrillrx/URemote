@@ -8,14 +8,12 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
-import org.es.network.ExchangeProtos;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
 import org.es.uremote.objects.ServerInfo;
 import org.es.utils.Log;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -67,9 +65,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		mSocket = null;
 		try {
 			// Socket creation
-			mSocket = connectToRemoteSocket(sHost, sPort, sTimeout);
+			mSocket = connectToRemoteSocket(mServerInfo);
 			if (mSocket != null && mSocket.isConnected()) {
-				return MessageHelper.sendRequest(mSocket, request, sSoTimeout);
+				return MessageHelper.sendRequest(mSocket, request);
 			}
 			errorMessage = "Socket null or not connected";
 
@@ -135,17 +133,16 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 * 
-	 * @param host The remote server IP address.
-	 * @param port The port on which we want to establish a connection with the remote server.
-	 * @param timeout The timeout of the connection with the server (in milliseconds).
+	 * @param serverInfo The object that holds server connection informations.
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */
-	private Socket connectToRemoteSocket(String host, int port, int timeout) throws IOException {
+	private Socket connectToRemoteSocket(ServerInfo serverInfo) throws IOException {
 
-		final SocketAddress socketAddress = new InetSocketAddress(host, port);
+		final SocketAddress socketAddress = new InetSocketAddress(serverInfo.getHost(), serverInfo.getPort());
 		Socket socket = new Socket();
-		socket.connect(socketAddress, timeout);
+		socket.setSoTimeout(serverInfo.getReadTimeout());
+		socket.connect(socketAddress, serverInfo.getConnectionTimeout());
 
 		return socket;
 	}
