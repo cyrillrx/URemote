@@ -16,8 +16,9 @@
     <string name="title_admin">Admin</string>
 
     <!-- Menu -->
-    <string name="menu_server_settings">Config serveur</string>
-    <string name="menu_server_refresh">Rafraichir</string>
+    <string name="menu_server_list">Gérer des serveurs</string>
+    <string name="menu_settings">Configuration</string>
+    <string name="menu_refresh">Rafraichir</string>
 
     <!-- Autre -->
     <string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>

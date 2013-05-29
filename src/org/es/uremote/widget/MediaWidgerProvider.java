@@ -1,16 +1,12 @@
 package org.es.uremote.widget;
 
-import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_IDS;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_NEXT;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PLAY_PAUSE;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PREVIOUS;
 import static org.es.network.ExchangeProtos.Request.Code.MEDIA_STOP;
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
 import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-
-import java.util.Random;
 
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
@@ -19,7 +15,6 @@ import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerInfo;
-import org.es.uremote.service.SendRequestService;
 import org.es.utils.Log;
 
 import android.app.PendingIntent;
@@ -28,17 +23,13 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 /**
  * @author Cyril Leroux
- *
  */
 public class MediaWidgerProvider extends AppWidgetProvider {
 
@@ -122,8 +113,6 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 			Toast.makeText(context, "MEDIA_NEXT", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_NEXT);
 
-		} else {
-			Toast.makeText(context, "Nothing", LENGTH_SHORT).show();
 		}
 	}
 
