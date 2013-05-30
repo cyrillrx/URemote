@@ -36,5 +36,6 @@
     <string name="power">Power</string>
     <string name="ok">OK</string>
     <string name="progress">0%</string>
+    <string name="no_content">Aucun élément à afficher</string>
 
 </resources>
