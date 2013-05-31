@@ -1,5 +1,8 @@
 package org.es.uremote.components;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.es.uremote.objects.ServerInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -14,7 +17,8 @@ public class ServerXmlHandler extends DefaultHandler {
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
 
-	private static final String TAG_ROOT		= "server";
+	private static final String TAG_ROOT		= "servers";
+	private static final String TAG_SERVER		= "server";
 	private static final String TAG_LOCAL_IP	= "local_ip_address";
 	private static final String TAG_LOCAL_PORT	= "local_port";
 	private static final String TAG_REMOTE_IP	= "remote_ip_address";
@@ -23,10 +27,11 @@ public class ServerXmlHandler extends DefaultHandler {
 	private static final String TAG_CONNECTION_TIMEOUT	= "connection_timeout";
 	private static final String TAG_READ_TIMEOUT		= "read_timeout";
 
-	private ServerInfo mServerInfo = null;
+	private ServerInfo mCurrentServer = null;
+	private List<ServerInfo> mServers = null;
 
 	/**
-	 * Called et tag opening (<tag>).
+	 * Called tag opening (<tag>).
 	 */
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -34,7 +39,11 @@ public class ServerXmlHandler extends DefaultHandler {
 
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
-			mServerInfo = new ServerInfo();
+			mServers = new ArrayList<>();
+
+		}
+		if (localName.equals(TAG_SERVER)) {
+			mCurrentServer = new ServerInfo();
 		}
 	}
 
@@ -46,16 +55,16 @@ public class ServerXmlHandler extends DefaultHandler {
 		mCurrentElement = false;
 
 		if (localName.equals(TAG_LOCAL_IP)) {
-			mServerInfo.setLocalHost(mCurrentValue);
+			mCurrentServer.setLocalHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_LOCAL_PORT)) {
-			mServerInfo.setLocalPort(Integer.parseInt(mCurrentValue));
+			mCurrentServer.setLocalPort(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_REMOTE_IP)) {
-			mServerInfo.setRemoteHost(mCurrentValue);
+			mCurrentServer.setRemoteHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_REMOTE_PORT)) {
-			mServerInfo.setRemotePort(Integer.parseInt(mCurrentValue));
+			mCurrentServer.setRemotePort(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_MAC_ADDRESS)) {
 			// TODO
@@ -65,6 +74,9 @@ public class ServerXmlHandler extends DefaultHandler {
 
 		} else if (localName.equals(TAG_READ_TIMEOUT)) {
 			// TODO
+
+		} else if (localName.equals(TAG_SERVER)) {
+			mServers.add(mCurrentServer);
 
 		} else if (localName.equals(TAG_ROOT)) {
 			mLoaded = true;
@@ -82,11 +94,11 @@ public class ServerXmlHandler extends DefaultHandler {
 	}
 
 	/**
-	 * @return The server connection informations.
+	 * @return A list of {@link ServerInfo}.
 	 */
-	public ServerInfo getServer() {
+	public List<ServerInfo> getServers() {
 		if (mLoaded) {
-			return mServerInfo;
+			return mServers;
 		}
 		return null;
 	}

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Adapter used to display server list.
@@ -51,16 +53,20 @@ public class ServerAdapter extends BaseAdapter {
 		return position;
 	}
 
-	//	public static class ViewHolder {
-	//		ImageView ivThumbnail;
-	//		TextView tvTitle;
-	//		TextView tvSubject;
-	//		TextView tvMessage;
-	//	}
-	//
+	/**
+	 * @author Cyril Leroux
+	 *
+	 */
+	public static class ViewHolder {
+		ImageView ivThumbnail;
+		TextView tvLabel;
+		TextView tvLocalhost;
+		TextView tvRemoteHost;
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		//		ViewHolder holder;
+		ViewHolder holder;
 		//		if (_convertView == null) {
 		//			_convertView = mInflater.inflate(R.layout.card_item, null);
 		//			holder = new ViewHolder();
