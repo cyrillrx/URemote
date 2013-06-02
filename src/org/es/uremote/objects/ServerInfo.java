@@ -25,8 +25,7 @@ public class ServerInfo {
 	 */
 	public static final int CONNECTION_TYPE_REMOTE	= 1;
 
-	private final String mLabel;
-	private final String mServerName;
+	private String mName;
 	private String mLocalHost;
 	private int mLocalPort;
 	private String mRemoteHost;
@@ -41,8 +40,7 @@ public class ServerInfo {
 	 * Default constructor
 	 */
 	public ServerInfo() {
-		mLabel		= "";
-		mServerName	= "";
+		mName		= "";
 		mLocalHost	= "";
 		mLocalPort	= 0000;
 		mRemoteHost	= "";
@@ -63,8 +61,7 @@ public class ServerInfo {
 	 */
 	public ServerInfo(final String localHost, final int localPort, final String remoteHost, final int remotePort, final int connectionTimeout, final int readTimeout) {
 
-		mLabel		= "";
-		mServerName	= "";
+		mName		= "";
 		mLocalHost	= localHost;
 		mLocalPort	= localPort;
 		mRemoteHost	= remoteHost;
@@ -147,6 +144,14 @@ public class ServerInfo {
 		return mRemoteHost + ":" + mRemotePort;
 	}
 
+	public String getName() {
+		return mName;
+	}
+	
+	public void setName(String name) {
+		mName = name;
+	}
+	
 	/**
 	 * @return Local or remote ip address of the server.
 	 */

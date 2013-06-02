@@ -39,7 +39,7 @@ public class ServerXmlHandler extends DefaultHandler {
 
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
-			mServers = new ArrayList<>();
+			mServers = new ArrayList<ServerInfo>();
 
 		}
 		if (localName.equals(TAG_SERVER)) {

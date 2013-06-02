@@ -2,6 +2,7 @@ package org.es.uremote.components;
 
 import java.util.List;
 
+import org.es.uremote.R;
 import org.es.uremote.objects.ServerInfo;
 
 import android.content.Context;
@@ -59,7 +60,7 @@ public class ServerAdapter extends BaseAdapter {
 	 */
 	public static class ViewHolder {
 		ImageView ivThumbnail;
-		TextView tvLabel;
+		TextView tvName;
 		TextView tvLocalhost;
 		TextView tvRemoteHost;
 	}
@@ -67,30 +68,27 @@ public class ServerAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		//		if (_convertView == null) {
-		//			_convertView = mInflater.inflate(R.layout.card_item, null);
-		//			holder = new ViewHolder();
-		//			holder.ivThumbnail	= (ImageView) _convertView.findViewById(R.id.ivThumbnail);
-		//			holder.tvTitle		= (TextView) _convertView.findViewById(R.id.tvTitle);
-		//			holder.tvSubject	= (TextView) _convertView.findViewById(R.id.tvSubject);
-		//			holder.tvMessage	= (TextView) _convertView.findViewById(R.id.tvMessage);
-		//			_convertView.setTag(holder);
-		//		} else {
-		//			holder = (ViewHolder) _convertView.getTag();
-		//		}
-		//
-		//		final Card card = mCards.get(_position);
-		//		final Bitmap bmp = card.getThumbBitmap();
-		//		if (bmp != null && !bmp.isRecycled()) {
-		//			holder.ivThumbnail.setImageBitmap(bmp);
-		//		} else {
-		//			holder.ivThumbnail.setVisibility(View.GONE);
-		//		}
-		//
-		//		holder.tvTitle.setText(card.getTitle());
-		//		holder.tvSubject.setText(card.getSubject());
-		//		holder.tvMessage.setText(card.getMessage());
-		//		return _convertView;
-		return null;
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.server_item, null);
+			holder = new ViewHolder();
+			//					holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.ivThumbnail);
+			holder.tvName		= (TextView) convertView.findViewById(R.id.server_name);
+			holder.tvLocalhost	= (TextView) convertView.findViewById(R.id.local_host);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
+		}
+
+		final ServerInfo server = mServers.get(position);
+		//				final Bitmap bmp = card.getThumbBitmap();
+		//				if (bmp != null && !bmp.isRecycled()) {
+		//					holder.ivThumbnail.setImageBitmap(bmp);
+		//				} else {
+		//					holder.ivThumbnail.setVisibility(View.GONE);
+		//				}
+
+		holder.tvName.setText(server.getName());
+		holder.tvLocalhost.setText(server.getHost());
+		return convertView;
 	}
 }
