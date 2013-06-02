@@ -14,9 +14,9 @@ public class ActionItem {
 
 	/**
 	 * Constructor
-	 * @param title
-	 * @param summary
-	 * @param imageResource
+	 * @param title The action title.
+	 * @param summary The action summary.
+	 * @param imageResource The resource id of the thumbnail image.
 	 */
 	public ActionItem(final String title, final String summary, final int imageResource) {
 		mTitle			= title;

@@ -20,8 +20,8 @@ public class BTDevice {
 
 	/**
 	 * Constructor
-	 * @param device
-	 * @param type
+	 * @param device The {@link BluetoothDevice} used to build the {@link BTDevice} object.
+	 * @param type The device state.
 	 */
 	public BTDevice(BluetoothDevice device, String type) {
 		mName		= device.getName();

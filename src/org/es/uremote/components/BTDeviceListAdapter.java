@@ -23,10 +23,10 @@ public class BTDeviceListAdapter extends BaseAdapter {
 
 	/**
 	 * Adapter constructor
-	 * @param context
-	 * @param devices
+	 * @param context The application context.
+	 * @param devices The list of {@link BTDevice} to display.
 	 */
-	public BTDeviceListAdapter(final Context context, final List<BTDevice> devices) {
+	public BTDeviceListAdapter(Context context, final List<BTDevice> devices) {
 		mInflater = LayoutInflater.from(context);
 		mBtDevices = devices;
 	}

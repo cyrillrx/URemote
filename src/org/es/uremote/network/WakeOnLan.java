@@ -6,6 +6,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+import org.es.uremote.BuildConfig;
 import org.es.utils.Log;
 
 import android.os.AsyncTask;
@@ -25,10 +26,10 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 	private final Handler mHandler;
 
 	/**
-	 * @param _handler
+	 * @param handler
 	 */
-	public WakeOnLan(Handler _handler) {
-		mHandler = _handler;
+	public WakeOnLan(Handler handler) {
+		mHandler = handler;
 	}
 
 	@Override
@@ -49,25 +50,24 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 
 	/**
 	 * Create and send a magic packet to the specified address to wake the PC.
-	 * @param ip The ip address
-	 * @param mac The mac address
+	 * @param broadcastIp The ip address.
+	 * @param macAddress The mac address.
 	 * @return The return message.
 	 */
-	private String wake(String ip, String mac) {
+	private String wake(String broadcastIp, String macAddress) {
 
-		if (ip.isEmpty() || mac.isEmpty()) {
+		if (broadcastIp.isEmpty() || macAddress.isEmpty()) {
 			return "ip.isEmpty() || mac.isEmpty()";
 		}
 
-		Log.info(TAG, "ip : " + ip + ", mac : " + mac);
+		if (BuildConfig.DEBUG) {
+			Log.info(TAG, "ip : " + broadcastIp + ", mac : " + macAddress);
+		}
 
-		String result = "ip : " + ip + ", mac : " + mac + "\r\n";
-
-		String ipStr	= ip;
-		String macStr	= mac;
+		String result = "ip : " + broadcastIp + ", mac : " + macAddress + "\r\n";
 
 		try {
-			byte[] macBytes = getMacBytes(macStr);
+			byte[] macBytes = getMacBytes(macAddress);
 			byte[] bytes = new byte[6 + 16 * macBytes.length];
 
 			for (int i = 0; i < 6; i++) {
@@ -78,7 +78,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 				System.arraycopy(macBytes, 0, bytes, i, macBytes.length);
 			}
 
-			InetAddress address = InetAddress.getByName(ipStr);
+			InetAddress address = InetAddress.getByName(broadcastIp);
 			DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, PORT);
 			DatagramSocket socket = new DatagramSocket();
 			socket.send(packet);
