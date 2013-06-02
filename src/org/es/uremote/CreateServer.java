@@ -1,5 +1,6 @@
 package org.es.uremote;
 
+import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
 
 import android.app.Activity;
@@ -14,12 +15,12 @@ import android.view.MenuItem;
  */
 public class CreateServer extends Activity {
 
-	private ServerInfo mServerInfo;
+	private ServerBuilder mServerBuilder;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.create_server);
 	}
 
 	@Override
@@ -34,7 +35,14 @@ public class CreateServer extends Activity {
 
 		switch (item.getItemId()) {
 		case R.id.done:
-			if (mServerInfo.saveToXmlFile()) {
+			mServerBuilder = new ServerBuilder();
+			// TODO fill serverBuilder
+			ServerInfo server = mServerBuilder.build();
+			if (server == null) {
+				return false;
+			}
+
+			if (server.saveToXmlFile()) {
 				//TODO close
 			} else {
 				// TODO notify that an error occurred

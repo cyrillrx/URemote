@@ -15,12 +15,11 @@
 
     <EditText
         android:id="@+id/localIpAddress1"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
         android:gravity="center"
-        android:inputType="number"
-        android:text="192" />
+        android:inputType="text"
+        android:text="@string/default_server_label" />
 
     <!-- Local ip address label -->
 

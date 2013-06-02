@@ -21,6 +21,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 /**
@@ -44,7 +46,11 @@ public class ServerList extends ListActivity {
 			(new AsyncServerLoader()).execute(fis);
 		} catch (FileNotFoundException e) {
 		} finally {
-			try { fis.close(); } catch (IOException e) { }
+			try {
+				if (fis != null) {
+					fis.close();
+				}
+			} catch (IOException e) { }
 		}
 	}
 
@@ -52,11 +58,18 @@ public class ServerList extends ListActivity {
 		ServerAdapter adapter = new ServerAdapter(getApplicationContext(), servers);
 		setListAdapter(adapter);
 	}
-	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu _menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.server_list, _menu);
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
+
 		case android.R.id.home:
 			Intent intent = new Intent(getApplicationContext(), Computer.class);
 			intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
@@ -66,12 +79,12 @@ public class ServerList extends ListActivity {
 		case R.id.add_server:
 			startActivity(new Intent(getApplicationContext(), CreateServer.class));
 			return true;
-			
+
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
+
 	/**
 	 * Load the servers from a FileInputStream.
 	 * @author Cyril Leroux
@@ -92,7 +105,7 @@ public class ServerList extends ListActivity {
 				XMLReader reader = parserFactory.newSAXParser().getXMLReader();
 				reader.setContentHandler(serverXmlhandler);
 				reader.parse(new InputSource(fis));
-				
+
 			} catch (Exception e) {
 				if (BuildConfig.DEBUG) {
 					Log.d(TAG, "Parsing Server exception : " + e);
@@ -100,7 +113,7 @@ public class ServerList extends ListActivity {
 			}
 			return serverXmlhandler.getServers();
 		}
-		
+
 		@Override
 		protected void onPostExecute(List<ServerInfo> servers) {
 			updateView(servers);
