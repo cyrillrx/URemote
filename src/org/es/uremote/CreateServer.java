@@ -33,7 +33,7 @@ public class CreateServer extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.menu_ok:
+		case R.id.done:
 			if (mServerInfo.saveToXmlFile()) {
 				//TODO close
 			} else {

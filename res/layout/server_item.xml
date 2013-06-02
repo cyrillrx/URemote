@@ -4,14 +4,23 @@
 	android:layout_height="match_parent"
 	android:orientation="vertical" >
 
-	<TextView android:id="@+id/server_name"
+	<ImageView
+		android:id="@+id/thumbnail"
+		android:layout_width="90dp"
+		android:layout_height="90dp"
+		android:adjustViewBounds="true"
+		android:contentDescription="@string/action_image_description" />
+
+	<TextView
+		android:id="@+id/server_name"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" 
-		android:text="@string/default_server_label"/>
-	
-	<TextView android:id="@+id/local_host"
+		android:layout_height="wrap_content"
+		android:text="@string/default_server_label" />
+
+	<TextView
+		android:id="@+id/local_host"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content" 
-		android:text="@string/default_local_host"/>
+		android:layout_height="wrap_content"
+		android:text="@string/default_local_host" />
 
 </LinearLayout>

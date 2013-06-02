@@ -35,7 +35,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -85,7 +84,10 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	private String getServerString() {
-		return getCurrentServer().getFullAddress(getApplicationContext());
+		if (getCurrentServer().isLocal(getApplicationContext())){			
+			return getCurrentServer().getFullLocal();
+		}
+		return getCurrentServer().getFullRemote();
 	}
 
 	@Override
@@ -182,15 +184,21 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		
 		case android.R.id.home:
-			Intent intent = new Intent(this, Home.class);
+			Intent intent = new Intent(getApplicationContext(), Home.class);
 			intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			return true;
 
 		case R.id.server_settings:
-			startActivity(new Intent(this, AppSettings.class));
+			startActivity(new Intent(getApplicationContext(), AppSettings.class));
 			return true;
+			
+		case R.id.server_list:
+			startActivity(new Intent(getApplicationContext(), ServerList.class));
+			return true;
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -198,6 +206,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initialize server using shared preferences.
+	 * @return The {@link ServerInfo} loaded from preferences.
 	 */
 	private ServerInfo initServer() {
 

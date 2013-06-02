@@ -30,25 +30,14 @@ public class ServerInfo {
 	private int mLocalPort;
 	private String mRemoteHost;
 	private int mRemotePort;
+	private String mMacAddress;
 	private int mConnectionType;
 
-	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
-	private final int mConnectionTimeout;
-	private final int mReadTimeout;
-
 	/**
-	 * Default constructor
+	 * If the connection with the remote server is not established within this timeout, it is dismiss.
 	 */
-	public ServerInfo() {
-		mName		= "";
-		mLocalHost	= "";
-		mLocalPort	= 0000;
-		mRemoteHost	= "";
-		mRemotePort	= 0000;
-		mConnectionTimeout	= 500;
-		mReadTimeout		= 500;
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
-	}
+	private int mConnectionTimeout;
+	private int mReadTimeout;
 
 	/**
 	 * Constructor with parameters
@@ -59,13 +48,17 @@ public class ServerInfo {
 	 * @param connectionTimeout
 	 * @param readTimeout
 	 */
-	public ServerInfo(final String localHost, final int localPort, final String remoteHost, final int remotePort, final int connectionTimeout, final int readTimeout) {
+	public ServerInfo(final String localHost, final int localPort, 
+			final String remoteHost, final int remotePort, 
+			final String macAddress,
+			final int connectionTimeout, final int readTimeout) {
 
 		mName		= "";
 		mLocalHost	= localHost;
 		mLocalPort	= localPort;
 		mRemoteHost	= remoteHost;
 		mRemotePort	= remotePort;
+		mMacAddress	= macAddress;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
 		mConnectionType		= CONNECTION_TYPE_LOCAL;
@@ -82,6 +75,7 @@ public class ServerInfo {
 		final String keyLocalPort	= context.getString(R.string.key_local_port);
 		final String keyRemoteHost	= context.getString(R.string.key_remote_host);
 		final String keyRemotePort	= context.getString(R.string.key_remote_port);
+		final String keyMacAddress	= context.getString(R.string.key_mac_address);
 
 		// Get key for other properties
 		final String keyConnectionTimeout	= context.getString(R.string.key_connection_timeout);
@@ -92,6 +86,7 @@ public class ServerInfo {
 		final String defaultLocalPort	= context.getString(R.string.default_local_port);
 		final String defaultRemoteHost	= context.getString(R.string.default_remote_host);
 		final String defaultRemotePort	= context.getString(R.string.default_remote_port);
+		final String defaultMacAddress	= context.getString(R.string.default_mac_address);
 
 		// Get default values for other properties
 		final String defaultConnectionTimeout	= context.getString(R.string.default_connection_timeout);
@@ -99,14 +94,15 @@ public class ServerInfo {
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final String localHost	= pref.getString(keyLocalHost, defaultLocalHost);
-		final int localPort		= Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
-		final String remoteHost	= pref.getString(keyRemoteHost, defaultRemoteHost);
-		final int remotePort	= Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
+		final String localHost		= pref.getString(keyLocalHost, defaultLocalHost);
+		final int localPort			= Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
+		final String remoteHost		= pref.getString(keyRemoteHost, defaultRemoteHost);
+		final int remotePort		= Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
+		final String macAddress		= pref.getString(keyMacAddress, defaultMacAddress);
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerInfo(localHost, localPort, remoteHost, remotePort, connectionTimeout, readTimeout);
+		return new ServerInfo(localHost, localPort, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
 	}
 
 	public boolean isLocal(Context context) {
@@ -133,77 +129,86 @@ public class ServerInfo {
 	}
 
 	/**
-	 * @param context
+	 * @return Concatenation of host and port of the local server.
+	 */
+	public String getFullLocal() {
+		return mLocalHost + ":" + mLocalPort;
+
+	}
+	/**
 	 * @return Concatenation of host and port of the remote server.
 	 */
-	public String getFullAddress(Context context) {
-		if (isLocal(context)) {
-			return mLocalHost + ":" + mLocalPort;
-		}
-
+	public String getFullRemote() {
 		return mRemoteHost + ":" + mRemotePort;
 	}
 
 	public String getName() {
 		return mName;
 	}
-	
-	public void setName(String name) {
+
+	public void setName(final String name) {
 		mName = name;
 	}
-	
+
 	/**
-	 * @return Local or remote ip address of the server.
+	 * @return The local ip address.
 	 */
-	public String getHost() {
-		if (mConnectionType == CONNECTION_TYPE_REMOTE) {
-			return mRemoteHost;
-		}
+	public String getLocalHost() {
 		return mLocalHost;
 	}
 
 	/**
-	 * @return Local or remote port on which we want to establish a connection with the server.
-	 */
-	public int getPort() {
-		if (mConnectionType == CONNECTION_TYPE_REMOTE) {
-			return mRemotePort;
-		}
-		return mLocalPort;
-	}
-
-	/**
-	 * Set the local ipAddress.
-	 * @param ipAddress
+	 * Set the local ip address.
+	 * @param ipAddress The ip address of the local server.
 	 */
 	public void setLocalHost(final String ipAddress) {
 		mLocalHost = ipAddress;
 	}
 
+	public int getLocalPort() {
+		return mLocalPort;
+	}
+	
 	/**
 	 * Set the local port.
-	 * @param port
+	 * @param port The port of the local server.
 	 */
 	public void setLocalPort(final int port) {
 		mLocalPort = port;
 	}
 
+	public String getRemoteHost() {
+		return mRemoteHost;
+	}
+	
 	/**
-	 * Set the remote ipAddress.
-	 * @param ipAddress
+	 * Set the remote ip address.
+	 * @param ipAddress The ip address of the remote server.
 	 */
 	public void setRemoteHost(final String ipAddress) {
 		mRemoteHost = ipAddress;
 	}
 
+	public int getRemotePort() {
+		return mRemotePort;
+	}
+
 	/**
 	 * Set the remote port.
-	 * @param port
+	 * @param port The remote port.
 	 */
 	public void setRemotePort(final int port) {
 		mRemotePort = port;
 	}
-
+	
+	public String getMacAddress() {
+		return mMacAddress;
+	}
+	
+	public void setMacAddress(final String macAddress) {
+		mMacAddress = macAddress;
+	}
+	
 	/**
 	 * @return Timeout connection in milliseconds.
 	 */
@@ -211,10 +216,18 @@ public class ServerInfo {
 		return mConnectionTimeout;
 	}
 
+	public void setConnectionTimeout(final int timeout) {
+		mConnectionTimeout = timeout;
+	}
+	
 	/**
 	 * @return Read timeout in milliseconds.
 	 */
 	public int getReadTimeout() {
 		return mReadTimeout;
+	}
+	
+	public void setReadTimout(final int timeout) {
+		mReadTimeout = timeout;
 	}
 }

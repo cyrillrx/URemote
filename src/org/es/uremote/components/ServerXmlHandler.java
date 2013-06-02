@@ -3,6 +3,7 @@ package org.es.uremote.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -27,8 +28,8 @@ public class ServerXmlHandler extends DefaultHandler {
 	private static final String TAG_CONNECTION_TIMEOUT	= "connection_timeout";
 	private static final String TAG_READ_TIMEOUT		= "read_timeout";
 
-	private ServerInfo mCurrentServer = null;
-	private List<ServerInfo> mServers = null;
+	private ServerBuilder mBuilder;
+	private List<ServerInfo> mServers;
 
 	/**
 	 * Called tag opening (<tag>).
@@ -43,7 +44,7 @@ public class ServerXmlHandler extends DefaultHandler {
 
 		}
 		if (localName.equals(TAG_SERVER)) {
-			mCurrentServer = new ServerInfo();
+			mBuilder = new ServerBuilder();
 		}
 	}
 
@@ -55,28 +56,31 @@ public class ServerXmlHandler extends DefaultHandler {
 		mCurrentElement = false;
 
 		if (localName.equals(TAG_LOCAL_IP)) {
-			mCurrentServer.setLocalHost(mCurrentValue);
+			mBuilder.setLocalHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_LOCAL_PORT)) {
-			mCurrentServer.setLocalPort(Integer.parseInt(mCurrentValue));
+			mBuilder.setLocalPort(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_REMOTE_IP)) {
-			mCurrentServer.setRemoteHost(mCurrentValue);
+			mBuilder.setRemoteHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_REMOTE_PORT)) {
-			mCurrentServer.setRemotePort(Integer.parseInt(mCurrentValue));
+			mBuilder.setRemotePort(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_MAC_ADDRESS)) {
-			// TODO
+			mBuilder.setMacAddress(mCurrentValue);
 
 		} else if (localName.equals(TAG_CONNECTION_TIMEOUT)) {
-			// TODO
+			mBuilder.setConnectionTimeout(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_READ_TIMEOUT)) {
-			// TODO
+			mBuilder.setReadTimout(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_SERVER)) {
-			mServers.add(mCurrentServer);
+			ServerInfo server = mBuilder.build();
+			if (server != null) {
+				mServers.add(server);
+			}
 
 		} else if (localName.equals(TAG_ROOT)) {
 			mLoaded = true;

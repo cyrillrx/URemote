@@ -74,7 +74,7 @@
                     android:id="@+id/kbOk"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:text="@string/ok" />
+                    android:text="@android:string/ok" />
 
                 <ImageButton
                     android:id="@+id/kbRight"

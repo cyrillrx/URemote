@@ -84,9 +84,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		}
 
 		return Response.newBuilder()
-				.setReturnCode(ReturnCode.RC_ERROR)
-				.setMessage(errorMessage)
-				.build();
+		.setReturnCode(ReturnCode.RC_ERROR)
+		.setMessage(errorMessage)
+		.build();
 	}
 
 	/**
@@ -133,16 +133,18 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 * 
-	 * @param serverInfo The object that holds server connection informations.
+	 * @param server The object that holds server connection informations.
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */
-	private Socket connectToRemoteSocket(ServerInfo serverInfo) throws IOException {
+	private Socket connectToRemoteSocket(ServerInfo server) throws IOException {
 
-		final SocketAddress socketAddress = new InetSocketAddress(serverInfo.getHost(), serverInfo.getPort());
+		final String host	= server.getLocalHost();
+		final int port		= server.getLocalPort();
+		final SocketAddress socketAddress = new InetSocketAddress(host, port);
 		Socket socket = new Socket();
-		socket.setSoTimeout(serverInfo.getReadTimeout());
-		socket.connect(socketAddress, serverInfo.getConnectionTimeout());
+		socket.setSoTimeout(server.getReadTimeout());
+		socket.connect(socketAddress, server.getConnectionTimeout());
 
 		return socket;
 	}

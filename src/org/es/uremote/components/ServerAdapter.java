@@ -23,8 +23,8 @@ public class ServerAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
-	 * @param context
-	 * @param servers
+	 * @param context The application context.
+	 * @param servers The list of {@link ServerInfo} to display.
 	 */
 	public ServerAdapter(Context context, List<ServerInfo> servers) {
 		mInflater = LayoutInflater.from(context);
@@ -88,7 +88,7 @@ public class ServerAdapter extends BaseAdapter {
 		//				}
 
 		holder.tvName.setText(server.getName());
-		holder.tvLocalhost.setText(server.getHost());
+		holder.tvLocalhost.setText(server.getFullLocal());
 		return convertView;
 	}
 }
