@@ -1,11 +1,20 @@
 package org.es.uremote.objects;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Class that holds server connection informations.
@@ -14,6 +23,10 @@ import android.preference.PreferenceManager;
  *
  */
 public class ServerInfo {
+
+	public static final String SAVE_FILE	= "serverConfig";
+
+	private static String TAG = "ServerInfo";
 	/**
 	 * The server is in the same network.
 	 * We can use a local IP address.
@@ -45,11 +58,12 @@ public class ServerInfo {
 	 * @param localPort
 	 * @param remoteHost
 	 * @param remotePort
+	 * @param macAddress
 	 * @param connectionTimeout
 	 * @param readTimeout
 	 */
-	public ServerInfo(final String localHost, final int localPort, 
-			final String remoteHost, final int remotePort, 
+	public ServerInfo(final String localHost, final int localPort,
+			final String remoteHost, final int remotePort,
 			final String macAddress,
 			final int connectionTimeout, final int readTimeout) {
 
@@ -113,11 +127,17 @@ public class ServerInfo {
 
 	/**
 	 * Save the object attributes into a XML file.
+	 * @param context
 	 * @return true if save succeeded false otherwise.
+	 * @throws IOException
 	 */
-	public boolean saveToXmlFile() {
-		// TODO implement
-		return false;
+	public boolean saveToXmlFile(Context context) throws IOException {
+
+		FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
+		ObjectOutputStream os = new ObjectOutputStream(fos);
+		os.writeObject(this);
+		os.close();
+		return true;
 	}
 
 	public void setLocal() {
@@ -133,8 +153,8 @@ public class ServerInfo {
 	 */
 	public String getFullLocal() {
 		return mLocalHost + ":" + mLocalPort;
-
 	}
+
 	/**
 	 * @return Concatenation of host and port of the remote server.
 	 */
@@ -168,7 +188,7 @@ public class ServerInfo {
 	public int getLocalPort() {
 		return mLocalPort;
 	}
-	
+
 	/**
 	 * Set the local port.
 	 * @param port The port of the local server.
@@ -180,7 +200,7 @@ public class ServerInfo {
 	public String getRemoteHost() {
 		return mRemoteHost;
 	}
-	
+
 	/**
 	 * Set the remote ip address.
 	 * @param ipAddress The ip address of the remote server.
@@ -200,15 +220,15 @@ public class ServerInfo {
 	public void setRemotePort(final int port) {
 		mRemotePort = port;
 	}
-	
+
 	public String getMacAddress() {
 		return mMacAddress;
 	}
-	
+
 	public void setMacAddress(final String macAddress) {
 		mMacAddress = macAddress;
 	}
-	
+
 	/**
 	 * @return Timeout connection in milliseconds.
 	 */
@@ -219,14 +239,14 @@ public class ServerInfo {
 	public void setConnectionTimeout(final int timeout) {
 		mConnectionTimeout = timeout;
 	}
-	
+
 	/**
 	 * @return Read timeout in milliseconds.
 	 */
 	public int getReadTimeout() {
 		return mReadTimeout;
 	}
-	
+
 	public void setReadTimout(final int timeout) {
 		mReadTimeout = timeout;
 	}

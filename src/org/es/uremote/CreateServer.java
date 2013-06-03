@@ -1,10 +1,13 @@
 package org.es.uremote;
 
+import java.io.IOException;
+
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +18,7 @@ import android.view.MenuItem;
  */
 public class CreateServer extends Activity {
 
+	private static final String TAG = "CreateServer";
 	private ServerBuilder mServerBuilder;
 
 	@Override
@@ -42,10 +46,15 @@ public class CreateServer extends Activity {
 				return false;
 			}
 
-			if (server.saveToXmlFile()) {
+			try {
+				server.saveToXmlFile(getApplicationContext());
 				//TODO close
-			} else {
-				// TODO notify that an error occurred
+				finish();
+			} catch (IOException e) {
+				if (BuildConfig.DEBUG) {
+					Log.e(TAG, e.getMessage());
+				}
+				// TODO notify Somehow
 			}
 
 		default:

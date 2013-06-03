@@ -31,7 +31,6 @@ import android.view.MenuItem;
 public class ServerList extends ListActivity {
 
 	private static final String TAG			= "ServerList";
-	private static final String FILENAME	= "serverConfig";
 	List<ServerInfo> mServers;
 
 	@Override
@@ -42,7 +41,7 @@ public class ServerList extends ListActivity {
 
 		FileInputStream fis = null;
 		try {
-			fis = openFileInput(FILENAME);
+			fis = openFileInput(ServerInfo.SAVE_FILE);
 			(new AsyncServerLoader()).execute(fis);
 		} catch (FileNotFoundException e) {
 		} finally {
