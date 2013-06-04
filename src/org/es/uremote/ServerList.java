@@ -30,7 +30,8 @@ import android.view.MenuItem;
  */
 public class ServerList extends ListActivity {
 
-	private static final String TAG			= "ServerList";
+	private static final String TAG		= "ServerList";
+	private static int RC_ADD_SERVER	= 0;
 	List<ServerInfo> mServers;
 
 	@Override
@@ -76,7 +77,7 @@ public class ServerList extends ListActivity {
 			return true;
 
 		case R.id.add_server:
-			startActivity(new Intent(getApplicationContext(), CreateServer.class));
+			startActivityForResult(new Intent(getApplicationContext(), CreateServer.class), RC_ADD_SERVER);
 			return true;
 
 		default:

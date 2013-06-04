@@ -1,5 +1,7 @@
 package org.es.uremote.components;
 
+import static org.es.uremote.objects.ServerInfo.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,16 +19,6 @@ public class ServerXmlHandler extends DefaultHandler {
 	private boolean mCurrentElement	= false;
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
-
-	private static final String TAG_ROOT		= "servers";
-	private static final String TAG_SERVER		= "server";
-	private static final String TAG_LOCAL_IP	= "local_ip_address";
-	private static final String TAG_LOCAL_PORT	= "local_port";
-	private static final String TAG_REMOTE_IP	= "remote_ip_address";
-	private static final String TAG_REMOTE_PORT	= "remote_port";
-	private static final String TAG_MAC_ADDRESS	= "mac_address";
-	private static final String TAG_CONNECTION_TIMEOUT	= "connection_timeout";
-	private static final String TAG_READ_TIMEOUT		= "read_timeout";
 
 	private ServerBuilder mBuilder;
 	private List<ServerInfo> mServers;
@@ -55,13 +47,13 @@ public class ServerXmlHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		mCurrentElement = false;
 
-		if (localName.equals(TAG_LOCAL_IP)) {
+		if (localName.equals(TAG_LOCAL_HOST)) {
 			mBuilder.setLocalHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_LOCAL_PORT)) {
 			mBuilder.setLocalPort(Integer.parseInt(mCurrentValue));
 
-		} else if (localName.equals(TAG_REMOTE_IP)) {
+		} else if (localName.equals(TAG_REMOTE_HOST)) {
 			mBuilder.setRemoteHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_REMOTE_PORT)) {

@@ -1,13 +1,10 @@
 package org.es.uremote;
 
-import java.io.IOException;
-
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,16 +43,12 @@ public class CreateServer extends Activity {
 				return false;
 			}
 
-			try {
-				server.saveToXmlFile(getApplicationContext());
-				//TODO close
-				finish();
-			} catch (IOException e) {
-				if (BuildConfig.DEBUG) {
-					Log.e(TAG, e.getMessage());
-				}
-				// TODO notify Somehow
-			}
+			// if (OK) {
+			//	TODO close and return Server
+			//	finish();
+			// } else {
+			// 	TODO notify Somehow
+			// }
 
 		default:
 			return super.onOptionsItemSelected(item);

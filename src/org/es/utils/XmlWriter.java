@@ -1,6 +1,5 @@
 package org.es.utils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -15,7 +14,7 @@ import android.util.Xml;
  * 
  * @author Cyril Leroux
  */
-public class XmlFileCreator {
+public class XmlWriter {
 	private static final String TAG			= "XmlFileCreator";
 	private static final String ENCODING	= "UTF-8";
 	private static final String INDENT		= "http://xmlpull.org/v1/doc/features.html#indent-output";
@@ -29,16 +28,15 @@ public class XmlFileCreator {
 	 * Constructor.
 	 * Create and initiate the XML file.
 	 * 
-	 * @param xmlFile Path to create the file.
+	 * @param fos The file output stream to write in.
 	 * @param rootTag Root tag of the file.
 	 * @throws IOException
 	 */
-	public XmlFileCreator(File xmlFile, String rootTag) throws IOException {
+	public XmlWriter(FileOutputStream fos, String rootTag) throws IOException {
 
 		mRootTag = rootTag;
 
-		xmlFile.createNewFile();
-		mFileOutputStream = new FileOutputStream(xmlFile);
+		mFileOutputStream = fos;
 
 		mSerializer = Xml.newSerializer();
 		mSerializer.setOutput(mFileOutputStream, ENCODING);
@@ -55,6 +53,7 @@ public class XmlFileCreator {
 			mSerializer.endTag(NAMESPACE, mRootTag);
 			mSerializer.endDocument();
 			mSerializer.flush();
+			mFileOutputStream.flush();
 			mFileOutputStream.close();
 		} catch (Exception e) {
 			if (BuildConfig.DEBUG) {
@@ -104,7 +103,7 @@ public class XmlFileCreator {
 	}
 
 	/**
-	 * This method allow to open a tag from the outside (of the class).
+	 * This method allow to open a tag from the outside of the class.
 	 * 
 	 * @param namespace The namespace to use.
 	 * @param tag Tag name.
@@ -120,7 +119,7 @@ public class XmlFileCreator {
 	}
 
 	/**
-	 * This method allow to close a tag from the outside (of the class).
+	 * This method allow to close a tag from the outside of the class.
 	 * 
 	 * @param namespace The namespace to use.
 	 * @param tag Tag name.

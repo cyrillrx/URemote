@@ -1,20 +1,16 @@
 package org.es.uremote.objects;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.util.List;
 
-import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
+import org.es.utils.XmlWriter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 /**
  * Class that holds server connection informations.
@@ -24,7 +20,17 @@ import android.util.Log;
  */
 public class ServerInfo {
 
-	public static final String SAVE_FILE	= "serverConfig";
+	public static final String SAVE_FILE		= "serverConfig";
+	public static final String TAG_ROOT			= "servers";
+	public static final String TAG_SERVER		= "server";
+	public static final String TAG_LOCAL_HOST		= "local_ip_address";
+	public static final String TAG_LOCAL_PORT	= "local_port";
+	public static final String TAG_REMOTE_HOST	= "remote_ip_address";
+	public static final String TAG_REMOTE_PORT	= "remote_port";
+	public static final String TAG_MAC_ADDRESS	= "mac_address";
+	public static final String TAG_CONNECTION_TIMEOUT	= "connection_timeout";
+	public static final String TAG_READ_TIMEOUT			= "read_timeout";
+
 
 	private static String TAG = "ServerInfo";
 	/**
@@ -38,19 +44,19 @@ public class ServerInfo {
 	 */
 	public static final int CONNECTION_TYPE_REMOTE	= 1;
 
-	private String mName;
-	private String mLocalHost;
-	private int mLocalPort;
-	private String mRemoteHost;
-	private int mRemotePort;
-	private String mMacAddress;
-	private int mConnectionType;
+	private final String mName;
+	private final String mLocalHost;
+	private final int mLocalPort;
+	private final String mRemoteHost;
+	private final int mRemotePort;
+	private final String mMacAddress;
+	private final int mConnectionType;
 
 	/**
 	 * If the connection with the remote server is not established within this timeout, it is dismiss.
 	 */
-	private int mConnectionTimeout;
-	private int mReadTimeout;
+	private final int mConnectionTimeout;
+	private final int mReadTimeout;
 
 	/**
 	 * Constructor with parameters
@@ -128,24 +134,41 @@ public class ServerInfo {
 	/**
 	 * Save the object attributes into a XML file.
 	 * @param context
+	 * @param servers
 	 * @return true if save succeeded false otherwise.
 	 * @throws IOException
 	 */
-	public boolean saveToXmlFile(Context context) throws IOException {
+	public static boolean saveToXmlFile(Context context, List<ServerInfo> servers) throws IOException {
+
+		if (servers == null || servers.isEmpty()) {
+			return false;
+		}
 
 		FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
-		ObjectOutputStream os = new ObjectOutputStream(fos);
-		os.writeObject(this);
-		os.close();
+		//		ObjectOutputStream os = new ObjectOutputStream(fos);
+		//		os.writeObject(this);
+		//		os.close();
+		//		return true;
+
+		XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
+
+		xmlWriter.startTag(null, TAG_SERVER);
+
+		for (ServerInfo server : servers) {
+			xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
+			xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
+			xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
+			xmlWriter.addChild(TAG_REMOTE_PORT, server.getRemotePort(), null);
+
+			xmlWriter.addChild(TAG_MAC_ADDRESS, server.getMacAddress(), null);
+			xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, server.getConnectionTimeout(), null);
+			xmlWriter.addChild(TAG_READ_TIMEOUT, server.getReadTimeout(), null);
+		}
+
+		xmlWriter.endTag(null, TAG_SERVER);
+
+		xmlWriter.closeAndSave();
 		return true;
-	}
-
-	public void setLocal() {
-		mConnectionType = CONNECTION_TYPE_LOCAL;
-	}
-
-	public void setRemote() {
-		mConnectionType = CONNECTION_TYPE_REMOTE;
 	}
 
 	/**
@@ -166,10 +189,6 @@ public class ServerInfo {
 		return mName;
 	}
 
-	public void setName(final String name) {
-		mName = name;
-	}
-
 	/**
 	 * @return The local ip address.
 	 */
@@ -177,56 +196,20 @@ public class ServerInfo {
 		return mLocalHost;
 	}
 
-	/**
-	 * Set the local ip address.
-	 * @param ipAddress The ip address of the local server.
-	 */
-	public void setLocalHost(final String ipAddress) {
-		mLocalHost = ipAddress;
-	}
-
 	public int getLocalPort() {
 		return mLocalPort;
-	}
-
-	/**
-	 * Set the local port.
-	 * @param port The port of the local server.
-	 */
-	public void setLocalPort(final int port) {
-		mLocalPort = port;
 	}
 
 	public String getRemoteHost() {
 		return mRemoteHost;
 	}
 
-	/**
-	 * Set the remote ip address.
-	 * @param ipAddress The ip address of the remote server.
-	 */
-	public void setRemoteHost(final String ipAddress) {
-		mRemoteHost = ipAddress;
-	}
-
 	public int getRemotePort() {
 		return mRemotePort;
 	}
 
-	/**
-	 * Set the remote port.
-	 * @param port The remote port.
-	 */
-	public void setRemotePort(final int port) {
-		mRemotePort = port;
-	}
-
 	public String getMacAddress() {
 		return mMacAddress;
-	}
-
-	public void setMacAddress(final String macAddress) {
-		mMacAddress = macAddress;
 	}
 
 	/**
@@ -236,18 +219,10 @@ public class ServerInfo {
 		return mConnectionTimeout;
 	}
 
-	public void setConnectionTimeout(final int timeout) {
-		mConnectionTimeout = timeout;
-	}
-
 	/**
 	 * @return Read timeout in milliseconds.
 	 */
 	public int getReadTimeout() {
 		return mReadTimeout;
-	}
-
-	public void setReadTimout(final int timeout) {
-		mReadTimeout = timeout;
 	}
 }
