@@ -13,6 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.es.uremote.components.ServerAdapter;
 import org.es.uremote.components.ServerXmlHandler;
 import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.utils.IntentKeys;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -24,14 +25,20 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 
 /**
  * @author Cyril Leroux
  */
 public class ServerList extends ListActivity {
 
-	private static final String TAG		= "ServerList";
-	private static int RC_ADD_SERVER	= 0;
+	private static final String TAG = "ServerList";
+	private static final int RC_ADD_SERVER	= 0;
+	private static final int RC_EDIT_SERVER	= 1;
+
 	List<ServerInfo> mServers;
 
 	@Override
@@ -54,9 +61,20 @@ public class ServerList extends ListActivity {
 		}
 	}
 
-	private void updateView(List<ServerInfo> servers) {
+	private void updateView(final List<ServerInfo> servers) {
 		ServerAdapter adapter = new ServerAdapter(getApplicationContext(), servers);
 		setListAdapter(adapter);
+
+		ListView listView = getListView();
+		listView.setOnItemClickListener( new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				ServerInfo server = servers.get(position);
+				Intent i = new Intent(getApplicationContext(), EditServer.class);
+				i.putExtra(IntentKeys.EXTRA_SERVER_DATA, server);
+				startActivityForResult(i, RC_EDIT_SERVER);
+			}
+		});
 	}
 
 	@Override
@@ -77,7 +95,7 @@ public class ServerList extends ListActivity {
 			return true;
 
 		case R.id.add_server:
-			startActivityForResult(new Intent(getApplicationContext(), CreateServer.class), RC_ADD_SERVER);
+			startActivityForResult(new Intent(getApplicationContext(), EditServer.class), RC_ADD_SERVER);
 			return true;
 
 		default:
@@ -117,6 +135,20 @@ public class ServerList extends ListActivity {
 		@Override
 		protected void onPostExecute(List<ServerInfo> servers) {
 			updateView(servers);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		if (requestCode == RC_ADD_SERVER) {
+			// TODO Add to the server list
+			ServerInfo server = data.getParcelableExtra(IntentKeys.EXTRA_SERVER_DATA);
+			// load list
+			// Add to list
+			// save
+		} else if (requestCode == RC_EDIT_SERVER) {
+			//
 		}
 	}
 }

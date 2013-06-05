@@ -13,7 +13,7 @@ import android.view.MenuItem;
  * @author Cyril Leroux
  *
  */
-public class CreateServer extends Activity {
+public class EditServer extends Activity {
 
 	private static final String TAG = "CreateServer";
 	private ServerBuilder mServerBuilder;

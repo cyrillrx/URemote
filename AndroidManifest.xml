@@ -35,7 +35,7 @@
             android:name=".Computer"
             android:label="@string/title_computer" />
         <activity android:name=".ServerList" />
-        <activity android:name=".CreateServer" />
+        <activity android:name=".EditServer" />
         <activity
             android:name=".computer.AppLauncher"
             android:label="@string/title_application_launcher"

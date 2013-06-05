@@ -10,6 +10,8 @@ import org.es.utils.XmlWriter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 
 /**
@@ -18,7 +20,7 @@ import android.preference.PreferenceManager;
  * @author Cyril Leroux
  *
  */
-public class ServerInfo {
+public class ServerInfo implements Parcelable {
 
 	public static final String SAVE_FILE		= "serverConfig";
 	public static final String TAG_ROOT			= "servers";
@@ -82,6 +84,23 @@ public class ServerInfo {
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
 		mConnectionType		= CONNECTION_TYPE_LOCAL;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(mName);
+		dest.writeString(mLocalHost);
+		dest.writeInt(mLocalPort);
+		dest.writeString(mRemoteHost);
+		dest.writeInt(mRemotePort);
+		dest.writeString(mMacAddress);
+		dest.writeInt(mConnectionTimeout);
+		dest.writeInt(mReadTimeout);
 	}
 
 	/**
