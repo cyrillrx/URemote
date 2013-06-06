@@ -1,6 +1,10 @@
 package org.es.uremote;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
+import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
+import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -70,9 +74,10 @@ public class ServerList extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ServerInfo server = servers.get(position);
-				Intent i = new Intent(getApplicationContext(), EditServer.class);
-				i.putExtra(IntentKeys.EXTRA_SERVER_DATA, server);
-				startActivityForResult(i, RC_EDIT_SERVER);
+				Intent editIntent = new Intent(getApplicationContext(), ServerEdit.class);
+				editIntent.putExtra(IntentKeys.EXTRA_SERVER_DATA, server);
+				editIntent.setAction(ACTION_EDIT_SERVER);
+				startActivityForResult(editIntent, RC_EDIT_SERVER);
 			}
 		});
 	}
@@ -95,7 +100,9 @@ public class ServerList extends ListActivity {
 			return true;
 
 		case R.id.add_server:
-			startActivityForResult(new Intent(getApplicationContext(), EditServer.class), RC_ADD_SERVER);
+			Intent addIntent = new Intent(getApplicationContext(), ServerEdit.class);
+			addIntent.setAction(ACTION_EDIT_SERVER);
+			startActivityForResult(addIntent, RC_ADD_SERVER);
 			return true;
 
 		default:
@@ -141,14 +148,27 @@ public class ServerList extends ListActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+		if (resultCode != RESULT_OK) {
+			return;
+		}
+
 		if (requestCode == RC_ADD_SERVER) {
 			// TODO Add to the server list
-			ServerInfo server = data.getParcelableExtra(IntentKeys.EXTRA_SERVER_DATA);
+			ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
+			mServers.add(server);
+			ServerInfo.saveToXmlFile(getApplicationContext(), mServers);
+			updateView(mServers);
 			// load list
 			// Add to list
 			// save
+
 		} else if (requestCode == RC_EDIT_SERVER) {
 			//
+			final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
+			if (serverId == -1) {
+				ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
+				mServers.remove(serverId);
+			}
 		}
 	}
 }

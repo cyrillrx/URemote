@@ -42,19 +42,19 @@ public class ServerBuilder {
 		mReadTimeout		= 500;
 	}
 
-	public ServerInfo build() {
-		if (getLoaded()) {
-			return new ServerInfo(mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout); 
+	public ServerInfo build() throws Exception {
+		if (isLoaded()) {
+			return new ServerInfo(mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
 		}
-		return null;
+		throw new Exception("You can not build a Server if it is not fully Loaded.");
 	}
 
-	public boolean getLoaded() {
+	public boolean isLoaded() {
 		return mName != null && !mName.isEmpty()
-		&& !mLocalHost.isEmpty() && mLocalPort != 0
-		&& !mRemoteHost.isEmpty() && mRemotePort != 0
-		&& !mMacAddress.isEmpty();
-	} 
+				&& !mLocalHost.isEmpty() && mLocalPort != 0
+				&& !mRemoteHost.isEmpty() && mRemotePort != 0
+				&& !mMacAddress.isEmpty();
+	}
 
 	public void setLocal() {
 		mConnectionType = ServerInfo.CONNECTION_TYPE_LOCAL;

@@ -155,38 +155,41 @@ public class ServerInfo implements Parcelable {
 	 * @param context
 	 * @param servers
 	 * @return true if save succeeded false otherwise.
-	 * @throws IOException
 	 */
-	public static boolean saveToXmlFile(Context context, List<ServerInfo> servers) throws IOException {
+	public static boolean saveToXmlFile(Context context, List<ServerInfo> servers) {
 
 		if (servers == null || servers.isEmpty()) {
 			return false;
 		}
 
-		FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
-		//		ObjectOutputStream os = new ObjectOutputStream(fos);
-		//		os.writeObject(this);
-		//		os.close();
-		//		return true;
+		try {
+			FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
+			//		ObjectOutputStream os = new ObjectOutputStream(fos);
+			//		os.writeObject(this);
+			//		os.close();
+			//		return true;
 
-		XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
+			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
-		xmlWriter.startTag(null, TAG_SERVER);
+			xmlWriter.startTag(null, TAG_SERVER);
 
-		for (ServerInfo server : servers) {
-			xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
-			xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
-			xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
-			xmlWriter.addChild(TAG_REMOTE_PORT, server.getRemotePort(), null);
+			for (ServerInfo server : servers) {
+				xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
+				xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
+				xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
+				xmlWriter.addChild(TAG_REMOTE_PORT, server.getRemotePort(), null);
 
-			xmlWriter.addChild(TAG_MAC_ADDRESS, server.getMacAddress(), null);
-			xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, server.getConnectionTimeout(), null);
-			xmlWriter.addChild(TAG_READ_TIMEOUT, server.getReadTimeout(), null);
+				xmlWriter.addChild(TAG_MAC_ADDRESS, server.getMacAddress(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, server.getConnectionTimeout(), null);
+				xmlWriter.addChild(TAG_READ_TIMEOUT, server.getReadTimeout(), null);
+			}
+
+			xmlWriter.endTag(null, TAG_SERVER);
+			xmlWriter.closeAndSave();
+
+		} catch (IOException e) {
+			return false;
 		}
-
-		xmlWriter.endTag(null, TAG_SERVER);
-
-		xmlWriter.closeAndSave();
 		return true;
 	}
 

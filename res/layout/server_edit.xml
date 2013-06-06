@@ -14,7 +14,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/localIpAddress1"
+        android:id="@+id/local_host1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -40,7 +40,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/localIpAddress1"
+            android:id="@+id/local_host1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -54,7 +54,7 @@
             android:text="." />
 
         <EditText
-            android:id="@+id/localIpAddress2"
+            android:id="@+id/local_host2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -68,7 +68,7 @@
             android:text="." />
 
         <EditText
-            android:id="@+id/localIpAddress3"
+            android:id="@+id/local_host3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -82,7 +82,7 @@
             android:text="." />
 
         <EditText
-            android:id="@+id/localIpAddress4"
+            android:id="@+id/local_host4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -97,7 +97,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/localPort"
+            android:id="@+id/local_port"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="13"
@@ -125,7 +125,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/remoteIpAddress1"
+            android:id="@+id/remote_host1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -140,7 +140,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/remoteIpAddress2"
+            android:id="@+id/remote_host2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -155,7 +155,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/remoteIpAddress3"
+            android:id="@+id/remote_host3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -170,7 +170,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/remoteIpAddress4"
+            android:id="@+id/remote_host4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
@@ -185,7 +185,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/remotePort"
+            android:id="@+id/remote_port"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="13"
@@ -208,7 +208,7 @@
         android:orientation="horizontal" >
 
         <EditText
-            android:id="@+id/macAddress1"
+            android:id="@+id/mac_address1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -223,7 +223,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/macAddress2"
+            android:id="@+id/mac_address2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -238,7 +238,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/macAddress3"
+            android:id="@+id/mac_address3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -253,7 +253,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/macAddress4"
+            android:id="@+id/mac_address4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -268,7 +268,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/macAddress5"
+            android:id="@+id/mac_address5"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -283,7 +283,7 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/macAddress6"
+            android:id="@+id/mac_address6"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -311,7 +311,7 @@
             android:layout_weight="1" />
 
         <EditText
-            android:id="@+id/connectionTimeout"
+            android:id="@+id/connection_timeout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -344,7 +344,7 @@
             android:layout_weight="1" />
 
         <EditText
-            android:id="@+id/readTimeout"
+            android:id="@+id/read_timeout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

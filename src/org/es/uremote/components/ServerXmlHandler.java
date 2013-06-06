@@ -69,9 +69,11 @@ public class ServerXmlHandler extends DefaultHandler {
 			mBuilder.setReadTimout(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_SERVER)) {
-			ServerInfo server = mBuilder.build();
-			if (server != null) {
+			try {
+				ServerInfo server = mBuilder.build();
 				mServers.add(server);
+			} catch (Exception e) {
+
 			}
 
 		} else if (localName.equals(TAG_ROOT)) {
