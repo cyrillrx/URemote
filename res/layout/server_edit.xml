@@ -14,7 +14,7 @@
         android:textSize="16sp" />
 
     <EditText
-        android:id="@+id/local_host1"
+        android:id="@+id/server_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -213,7 +213,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
@@ -228,7 +228,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
@@ -243,7 +243,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
@@ -258,7 +258,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
@@ -273,7 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
@@ -288,7 +288,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:inputType="number"
+            android:inputType="number|textCapCharacters"
             android:text="@string/default_mac_adress_part" />
     </LinearLayout>
 

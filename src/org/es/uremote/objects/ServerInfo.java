@@ -22,7 +22,7 @@ import android.preference.PreferenceManager;
  */
 public class ServerInfo implements Parcelable {
 
-	public static final String SAVE_FILE		= "serverConfig";
+	public static final String SAVE_FILE		= "serverConfig.xml";
 	public static final String TAG_ROOT			= "servers";
 	public static final String TAG_SERVER		= "server";
 	public static final String TAG_LOCAL_HOST		= "local_ip_address";
@@ -83,6 +83,35 @@ public class ServerInfo implements Parcelable {
 		mMacAddress	= macAddress;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
+		mConnectionType		= CONNECTION_TYPE_LOCAL;
+	}
+
+
+
+	/**
+	 * CREATOR is a required attribute to create an instance of a class that implements Parcelable
+	 */
+	public static final Parcelable.Creator<ServerInfo> CREATOR = new Parcelable.Creator<ServerInfo>() {
+		@Override
+		public ServerInfo createFromParcel(Parcel src) {
+			return new ServerInfo(src);
+		}
+
+		@Override
+		public ServerInfo[] newArray(int size) {
+			return new ServerInfo[size];
+		}
+	};
+
+	public ServerInfo(Parcel src) {
+		mName			= src.readString();
+		mLocalHost		= src.readString();
+		mLocalPort		= src.readInt();
+		mRemoteHost		= src.readString();
+		mRemotePort		= src.readInt();
+		mMacAddress		= src.readString();
+		mConnectionTimeout	= src.readInt();
+		mReadTimeout		= src.readInt();
 		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 

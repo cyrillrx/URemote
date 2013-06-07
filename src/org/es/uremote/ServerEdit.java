@@ -7,10 +7,12 @@ import org.es.uremote.utils.IntentKeys;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * @author Cyril Leroux
@@ -49,7 +51,7 @@ public class ServerEdit extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_edit);
 
-		mServerName			= (EditText)findViewById(R.id.server_name);
+		mServerName		= (EditText)findViewById(R.id.server_name);
 
 		mLocalHost1	= (EditText)findViewById(R.id.local_host1);
 		mLocalHost2	= (EditText)findViewById(R.id.local_host2);
@@ -61,7 +63,7 @@ public class ServerEdit extends Activity {
 		mRemoteHost2	= (EditText)findViewById(R.id.remote_host2);
 		mRemoteHost3	= (EditText)findViewById(R.id.remote_host3);
 		mRemoteHost4	= (EditText)findViewById(R.id.remote_host4);
-		mRemotePort	= (EditText)findViewById(R.id.remote_port);
+		mRemotePort		= (EditText)findViewById(R.id.remote_port);
 
 		mMacAddress1	= (EditText)findViewById(R.id.mac_address1);
 		mMacAddress2	= (EditText)findViewById(R.id.mac_address2);
@@ -87,14 +89,15 @@ public class ServerEdit extends Activity {
 		switch (item.getItemId()) {
 		case R.id.done:
 			mServerBuilder = new ServerBuilder();
-			// TODO fill serverBuilder
+
+			mServerBuilder.setName(getName());
 			mServerBuilder.setLocalHost(getLocalHost());
-			// LocalPort
+			mServerBuilder.setLocalPort(getLocalPort());
 			mServerBuilder.setRemoteHost(getRemoteHost());
-			// Remote port
+			mServerBuilder.setRemotePort(getRemotePort());
 			mServerBuilder.setMacAddress(getMacAddress());
-			// connection Timeout
-			// read Timeout
+			mServerBuilder.setConnectionTimeout(getConnectionTimeout());
+			mServerBuilder.setReadTimout(getReadTimeout());
 
 			try {
 				ServerInfo server = mServerBuilder.build();
@@ -104,7 +107,10 @@ public class ServerEdit extends Activity {
 				finish();
 
 			} catch (Exception e) {
-				// 	TODO notify Somehow
+				if (BuildConfig.DEBUG) {
+					Log.e(TAG, e.getMessage());
+				}
+				Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 			return true;
 
@@ -119,18 +125,66 @@ public class ServerEdit extends Activity {
 		}
 	}
 
+	private String getName() {
+		return mServerName.getEditableText().toString();
+	}
+
 	private String getLocalHost() {
-		// TODO
-		return "";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mLocalHost1.getEditableText().toString());
+		sb.append(".");
+		sb.append(mLocalHost2.getEditableText().toString());
+		sb.append(".");
+		sb.append(mLocalHost3.getEditableText().toString());
+		sb.append(".");
+		sb.append(mLocalHost4.getEditableText().toString());
+		return sb.toString();
+	}
+
+	private int getLocalPort() {
+		return Integer.valueOf(mLocalPort.getEditableText().toString());
 	}
 
 	private String getRemoteHost() {
-		// TODO
-		return "";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mRemoteHost1.getEditableText().toString());
+		sb.append(".");
+		sb.append(mRemoteHost2.getEditableText().toString());
+		sb.append(".");
+		sb.append(mRemoteHost3.getEditableText().toString());
+		sb.append(".");
+		sb.append(mRemoteHost4.getEditableText().toString());
+		return sb.toString();
+	}
+
+	private int getRemotePort() {
+		return Integer.valueOf(mRemotePort.getEditableText().toString());
 	}
 
 	private String getMacAddress() {
-		// TODO
-		return "";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mMacAddress1.getEditableText().toString());
+		sb.append("-");
+		sb.append(mMacAddress2.getEditableText().toString());
+		sb.append("-");
+		sb.append(mMacAddress3.getEditableText().toString());
+		sb.append("-");
+		sb.append(mMacAddress4.getEditableText().toString());
+		sb.append("-");
+		sb.append(mMacAddress5.getEditableText().toString());
+		sb.append("-");
+		sb.append(mMacAddress6.getEditableText().toString());
+		return sb.toString();
+	}
+
+	private int getConnectionTimeout() {
+		return Integer.valueOf(mConnectionTimeout.getEditableText().toString());
+	}
+
+	private int getReadTimeout() {
+		return Integer.valueOf(mReadTimeout.getEditableText().toString());
 	}
 }

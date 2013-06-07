@@ -56,12 +56,9 @@ public class ServerList extends ListActivity {
 			fis = openFileInput(ServerInfo.SAVE_FILE);
 			(new AsyncServerLoader()).execute(fis);
 		} catch (FileNotFoundException e) {
-		} finally {
-			try {
-				if (fis != null) {
-					fis.close();
-				}
-			} catch (IOException e) { }
+			if (BuildConfig.DEBUG) {
+				Log.e(TAG, e.getMessage());
+			}
 		}
 	}
 
@@ -101,7 +98,7 @@ public class ServerList extends ListActivity {
 
 		case R.id.add_server:
 			Intent addIntent = new Intent(getApplicationContext(), ServerEdit.class);
-			addIntent.setAction(ACTION_EDIT_SERVER);
+			addIntent.setAction(ACTION_ADD_SERVER);
 			startActivityForResult(addIntent, RC_ADD_SERVER);
 			return true;
 
@@ -156,7 +153,11 @@ public class ServerList extends ListActivity {
 			// TODO Add to the server list
 			ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
 			mServers.add(server);
-			ServerInfo.saveToXmlFile(getApplicationContext(), mServers);
+			boolean saved = ServerInfo.saveToXmlFile(getApplicationContext(), mServers);
+			if (!saved && BuildConfig.DEBUG) {
+				Log.e(TAG, "Servers not saved.");
+			}
+
 			updateView(mServers);
 			// load list
 			// Add to list

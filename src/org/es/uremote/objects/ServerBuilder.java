@@ -46,14 +46,47 @@ public class ServerBuilder {
 		if (isLoaded()) {
 			return new ServerInfo(mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
 		}
-		throw new Exception("You can not build a Server if it is not fully Loaded.");
+		return null;
 	}
 
-	public boolean isLoaded() {
-		return mName != null && !mName.isEmpty()
-				&& !mLocalHost.isEmpty() && mLocalPort != 0
-				&& !mRemoteHost.isEmpty() && mRemotePort != 0
-				&& !mMacAddress.isEmpty();
+	public boolean isLoaded() throws Exception {
+		boolean error = false;
+		StringBuilder sb = new StringBuilder();
+
+		if (mName == null || mName.isEmpty()) {
+			error = true;
+			sb.append("- Name is null or empty.\n");
+		}
+
+		if (mLocalHost.isEmpty()) {
+			error = true;
+			sb.append("- Localhost is empty.\n");
+		}
+
+		if (mLocalPort == 0) {
+			error = true;
+			sb.append("- Local port is 0.\n");
+		}
+
+		if (mRemoteHost.isEmpty()) {
+			error = true;
+			sb.append("- Remote host is empty.\n");
+		}
+
+		if (mRemotePort == 0) {
+			error = true;
+			sb.append("- Remote port is 0.\n");
+		}
+
+		if (mMacAddress.isEmpty()) {
+			error = true;
+			sb.append("- Mac address is empty.\n");
+		}
+
+		if (error) {
+			throw new Exception("Can not save the Server :\n" + sb.toString());
+		}
+		return true;
 	}
 
 	public void setLocal() {
