@@ -53,7 +53,6 @@ public class XmlWriter {
 			mSerializer.endTag(NAMESPACE, mRootTag);
 			mSerializer.endDocument();
 			mSerializer.flush();
-			mFileOutputStream.flush();
 			mFileOutputStream.close();
 		} catch (Exception e) {
 			if (BuildConfig.DEBUG) {
@@ -90,15 +89,15 @@ public class XmlWriter {
 	}
 
 	/**
-	 * Add simple tag (float + attribute) in the XML tree.
+	 * Add simple tag (integer + attribute) in the XML tree.
 	 * 
 	 * @param tag Tag name.
-	 * @param floatingValue Floating value to convert and write in the tag.
+	 * @param intValue Integer value to convert and write in the tag.
 	 * @param attribute Attribute to write in the tag (String[] = {"attribute", "value"}.
 	 * Set attribute to null if no attribute.
 	 */
-	public void addChild(String tag, float floatingValue, String[] attribute) {
-		String floatStr = String.valueOf(floatingValue);
+	public void addChild(String tag, int intValue, String[] attribute) {
+		String floatStr = String.valueOf(intValue);
 		addChild(tag, floatStr, attribute);
 	}
 

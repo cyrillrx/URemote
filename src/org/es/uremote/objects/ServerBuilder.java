@@ -44,7 +44,7 @@ public class ServerBuilder {
 
 	public ServerInfo build() throws Exception {
 		if (isLoaded()) {
-			return new ServerInfo(mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
+			return new ServerInfo(mName, mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
 		}
 		return null;
 	}

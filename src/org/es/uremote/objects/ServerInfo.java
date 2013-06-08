@@ -1,9 +1,11 @@
 package org.es.uremote.objects;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
 import org.es.utils.XmlWriter;
 
@@ -13,6 +15,7 @@ import android.net.wifi.WifiManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Class that holds server connection informations.
@@ -62,6 +65,7 @@ public class ServerInfo implements Parcelable {
 
 	/**
 	 * Constructor with parameters
+	 * @param name
 	 * @param localHost
 	 * @param localPort
 	 * @param remoteHost
@@ -70,12 +74,12 @@ public class ServerInfo implements Parcelable {
 	 * @param connectionTimeout
 	 * @param readTimeout
 	 */
-	public ServerInfo(final String localHost, final int localPort,
+	public ServerInfo(final String name, final String localHost, final int localPort,
 			final String remoteHost, final int remotePort,
 			final String macAddress,
 			final int connectionTimeout, final int readTimeout) {
 
-		mName		= "";
+		mName		= name;
 		mLocalHost	= localHost;
 		mLocalPort	= localPort;
 		mRemoteHost	= remoteHost;
@@ -170,7 +174,7 @@ public class ServerInfo implements Parcelable {
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerInfo(localHost, localPort, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
+		return new ServerInfo("", localHost, localPort, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
 	}
 
 	public boolean isLocal(Context context) {
@@ -192,11 +196,12 @@ public class ServerInfo implements Parcelable {
 		}
 
 		try {
-			FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
-			//		ObjectOutputStream os = new ObjectOutputStream(fos);
-			//		os.writeObject(this);
-			//		os.close();
-			//		return true;
+			File confFile = new File(context.getExternalFilesDir(null), SAVE_FILE);
+			if (BuildConfig.DEBUG) {
+				Log.d(TAG, confFile.getPath());
+			}
+			FileOutputStream fos = new FileOutputStream(confFile);
+			//			FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
 
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
