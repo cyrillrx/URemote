@@ -28,7 +28,7 @@ public class ServerInfo implements Parcelable {
 	public static final String SAVE_FILE		= "serverConfig.xml";
 	public static final String TAG_ROOT			= "servers";
 	public static final String TAG_SERVER		= "server";
-	public static final String TAG_LOCAL_HOST		= "local_ip_address";
+	public static final String TAG_LOCAL_HOST	= "local_ip_address";
 	public static final String TAG_LOCAL_PORT	= "local_port";
 	public static final String TAG_REMOTE_HOST	= "remote_ip_address";
 	public static final String TAG_REMOTE_PORT	= "remote_port";

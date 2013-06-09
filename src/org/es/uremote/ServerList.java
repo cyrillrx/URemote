@@ -33,6 +33,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * @author Cyril Leroux
@@ -154,8 +155,13 @@ public class ServerList extends ListActivity {
 			ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
 			mServers.add(server);
 			boolean saved = ServerInfo.saveToXmlFile(getApplicationContext(), mServers);
-			if (!saved && BuildConfig.DEBUG) {
-				Log.e(TAG, "Servers not saved.");
+			if (!saved) {
+				if (BuildConfig.DEBUG) {
+					Log.e(TAG, "Servers not saved.");
+				}
+				Toast.makeText(getApplicationContext(), R.string.server_not_saved, Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
 			}
 
 			updateView(mServers);
