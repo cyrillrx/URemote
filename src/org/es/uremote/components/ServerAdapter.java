@@ -63,6 +63,7 @@ public class ServerAdapter extends BaseAdapter {
 		TextView tvName;
 		TextView tvLocalhost;
 		TextView tvRemoteHost;
+		TextView tvMacAddress;
 	}
 
 	@Override
@@ -74,6 +75,8 @@ public class ServerAdapter extends BaseAdapter {
 			//					holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.ivThumbnail);
 			holder.tvName		= (TextView) convertView.findViewById(R.id.server_name);
 			holder.tvLocalhost	= (TextView) convertView.findViewById(R.id.local_host);
+			holder.tvRemoteHost	= (TextView) convertView.findViewById(R.id.remote_host);
+			holder.tvMacAddress	= (TextView) convertView.findViewById(R.id.mac_address);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -89,6 +92,8 @@ public class ServerAdapter extends BaseAdapter {
 
 		holder.tvName.setText(server.getName());
 		holder.tvLocalhost.setText(server.getFullLocal());
+		holder.tvRemoteHost.setText(server.getFullRemote());
+		holder.tvMacAddress.setText(server.getMacAddress());
 		return convertView;
 	}
 }

@@ -1,5 +1,9 @@
 package org.es.uremote;
 
+import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
+
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
 import org.es.uremote.utils.IntentKeys;
@@ -73,7 +77,23 @@ public class ServerEdit extends Activity {
 		mMacAddress6	= (EditText)findViewById(R.id.mac_address6);
 
 		mConnectionTimeout	= (EditText)findViewById(R.id.connection_timeout);
-		mReadTimeout			= (EditText)findViewById(R.id.read_timeout);
+		mReadTimeout		= (EditText)findViewById(R.id.read_timeout);
+
+		if (ACTION_EDIT_SERVER.equals(getIntent().getAction())) {
+			loadServer(getIntent());
+		}
+	}
+
+	private void loadServer(Intent data) {
+		ServerInfo server = (ServerInfo) getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
+		if (server == null) {
+			finishActivity(Activity.RESULT_CANCELED);
+		}
+
+		loadSimpleData(server);
+		splitLocalHost(server);
+		splitRemoteHost(server);
+		splitMacAddress(server);
 	}
 
 	@Override
@@ -102,7 +122,8 @@ public class ServerEdit extends Activity {
 			try {
 				ServerInfo server = mServerBuilder.build();
 				Intent data = new Intent();
-				data.putExtra(IntentKeys.EXTRA_SERVER_DATA, server);
+				data.putExtra(EXTRA_SERVER_DATA, server);
+				data.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
 				setResult(RESULT_OK, data);
 				finish();
 
@@ -123,6 +144,43 @@ public class ServerEdit extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void loadSimpleData(final ServerInfo server) {
+		mServerName.setText(server.getName().trim());
+
+		mConnectionTimeout.setText(String.valueOf(server.getConnectionTimeout()));
+		mReadTimeout.setText(String.valueOf(server.getReadTimeout()));
+	}
+
+	private void splitLocalHost(final ServerInfo server) {
+		String parts[] = server.getLocalHost().split("\\.");
+		mLocalHost1.setText(parts[0]);
+		mLocalHost2.setText(parts[1]);
+		mLocalHost3.setText(parts[2]);
+		mLocalHost4.setText(parts[3]);
+
+		mLocalPort.setText(String.valueOf(server.getLocalPort()));
+	}
+
+	private void splitRemoteHost(final ServerInfo server) {
+		String parts[] = server.getRemoteHost().split("\\.");
+		mRemoteHost1.setText(parts[0]);
+		mRemoteHost2.setText(parts[1]);
+		mRemoteHost3.setText(parts[2]);
+		mRemoteHost4.setText(parts[3]);
+
+		mRemotePort.setText(String.valueOf(server.getRemotePort()));
+	}
+
+	private void splitMacAddress(final ServerInfo server) {
+		String parts[] = server.getMacAddress().split("-");
+		mMacAddress1.setText(parts[0]);
+		mMacAddress2.setText(parts[1]);
+		mMacAddress3.setText(parts[2]);
+		mMacAddress4.setText(parts[3]);
+		mMacAddress5.setText(parts[4]);
+		mMacAddress6.setText(parts[5]);
 	}
 
 	private String getName() {

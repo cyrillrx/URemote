@@ -24,6 +24,17 @@
     <string name="default_read_timeout">1000</string>
     <string name="default_mac_address">00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00</string>
     
+    <string name="dot">.</string>    
+    <string name="colon">:</string>
+    <string name="hyphen">-</string>
+    <string name="default_ip_part1">192</string>
+    <string name="default_ip_part2">168</string>
+    <string name="default_ip_part3">0</string>
+    <string name="default_ip_part4">0</string>
+    <string name="default_mac_adress_part">00</string>
+    <string name="millisecond_unit">ms</string>
+    <string name="server_name">Nom du serveur</string>
+    
     <!-- Titles -->
     <string name="title_server_settings">Configuration du serveur</string>
     <string name="title_local">Accès local</string>

@@ -17,7 +17,6 @@
         android:id="@+id/server_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:inputType="text"
         android:text="@string/default_server_label" />
 
@@ -46,12 +45,14 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="192" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="." />
+            android:text="@string/dot"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/local_host2"
@@ -60,12 +61,14 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="168" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="." />
+            android:text="@string/dot"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/local_host3"
@@ -74,12 +77,14 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="0" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="." />
+            android:text="@string/dot"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/local_host4"
@@ -88,7 +93,8 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="0" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part4" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,6 +109,7 @@
             android:layout_weight="13"
             android:gravity="center"
             android:inputType="number"
+            android:maxLength="4"
             android:text="@string/default_local_port" />
     </LinearLayout>
 
@@ -131,12 +138,13 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="192" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part1" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="."
+            android:text="@string/dot"
             android:textSize="16sp" />
 
         <EditText
@@ -146,12 +154,13 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="168" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="."
+            android:text="@string/dot"
             android:textSize="16sp" />
 
         <EditText
@@ -161,12 +170,13 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="0" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part3" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="."
+            android:text="@string/dot"
             android:textSize="16sp" />
 
         <EditText
@@ -176,7 +186,8 @@
             android:layout_weight="10"
             android:gravity="center"
             android:inputType="number"
-            android:text="0" />
+            android:maxLength="3"
+            android:text="@string/default_ip_part4" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -191,6 +202,7 @@
             android:layout_weight="13"
             android:gravity="center"
             android:inputType="number"
+            android:maxLength="4"
             android:text="@string/default_remote_port" />
     </LinearLayout>
 
@@ -212,14 +224,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@string/hyphen"
             android:textSize="16sp" />
 
         <EditText
@@ -227,14 +241,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@string/hyphen"
             android:textSize="16sp" />
 
         <EditText
@@ -242,14 +258,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@string/hyphen"
             android:textSize="16sp" />
 
         <EditText
@@ -257,14 +275,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@string/hyphen"
             android:textSize="16sp" />
 
         <EditText
@@ -272,14 +292,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="-"
+            android:text="@string/hyphen"
             android:textSize="16sp" />
 
         <EditText
@@ -287,8 +309,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:digits="0123456789ABCDEF"
             android:gravity="center"
-            android:inputType="number|textCapCharacters"
+            android:inputType="textCapCharacters"
+            android:maxLength="2"
             android:text="@string/default_mac_adress_part" />
     </LinearLayout>
 

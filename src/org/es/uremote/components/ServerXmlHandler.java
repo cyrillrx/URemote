@@ -47,7 +47,10 @@ public class ServerXmlHandler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		mCurrentElement = false;
 
-		if (localName.equals(TAG_LOCAL_HOST)) {
+		if (localName.equals(TAG_NAME)) {
+			mBuilder.setName(mCurrentValue);
+
+		} else if (localName.equals(TAG_LOCAL_HOST)) {
 			mBuilder.setLocalHost(mCurrentValue);
 
 		} else if (localName.equals(TAG_LOCAL_PORT)) {

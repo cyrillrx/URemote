@@ -28,6 +28,7 @@ public class ServerInfo implements Parcelable {
 	public static final String SAVE_FILE		= "serverConfig.xml";
 	public static final String TAG_ROOT			= "servers";
 	public static final String TAG_SERVER		= "server";
+	public static final String TAG_NAME			= "name";
 	public static final String TAG_LOCAL_HOST	= "local_ip_address";
 	public static final String TAG_LOCAL_PORT	= "local_port";
 	public static final String TAG_REMOTE_HOST	= "remote_ip_address";
@@ -49,19 +50,19 @@ public class ServerInfo implements Parcelable {
 	 */
 	public static final int CONNECTION_TYPE_REMOTE	= 1;
 
-	private final String mName;
-	private final String mLocalHost;
-	private final int mLocalPort;
-	private final String mRemoteHost;
-	private final int mRemotePort;
-	private final String mMacAddress;
+	private String mName;
+	private String mLocalHost;
+	private int mLocalPort;
+	private String mRemoteHost;
+	private int mRemotePort;
+	private String mMacAddress;
 	private final int mConnectionType;
 
 	/**
 	 * If the connection with the remote server is not established within this timeout, it is dismiss.
 	 */
-	private final int mConnectionTimeout;
-	private final int mReadTimeout;
+	private int mConnectionTimeout;
+	private int mReadTimeout;
 
 	/**
 	 * Constructor with parameters
@@ -90,7 +91,17 @@ public class ServerInfo implements Parcelable {
 		mConnectionType		= CONNECTION_TYPE_LOCAL;
 	}
 
+	public void copy(final ServerInfo server) {
+		mName		= server.getName();
+		mLocalHost	= server.getLocalHost();
+		mLocalPort	= server.getLocalPort();
+		mRemoteHost	= server.getRemoteHost();
+		mRemotePort	= server.getRemotePort();
+		mMacAddress	= server.getMacAddress();
+		mConnectionTimeout	= server.getConnectionTimeout();
+		mReadTimeout		= server.getReadTimeout();
 
+	}
 
 	/**
 	 * CREATOR is a required attribute to create an instance of a class that implements Parcelable
@@ -185,29 +196,28 @@ public class ServerInfo implements Parcelable {
 
 	/**
 	 * Save the object attributes into a XML file.
-	 * @param context
+	 * @param confFile
 	 * @param servers
 	 * @return true if save succeeded false otherwise.
 	 */
-	public static boolean saveToXmlFile(Context context, List<ServerInfo> servers) {
+	public static boolean saveToXmlFile(File confFile, List<ServerInfo> servers) {
 
 		if (servers == null || servers.isEmpty()) {
 			return false;
 		}
 
 		try {
-			File confFile = new File(context.getExternalFilesDir(null), SAVE_FILE);
 			if (BuildConfig.DEBUG) {
 				Log.d(TAG, confFile.getPath());
 			}
 			FileOutputStream fos = new FileOutputStream(confFile);
-			//			FileOutputStream fos = context.openFileOutput(SAVE_FILE, Context.MODE_PRIVATE);
 
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
 			xmlWriter.startTag(null, TAG_SERVER);
 
 			for (ServerInfo server : servers) {
+				xmlWriter.addChild(TAG_NAME, server.getName(), null);
 				xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
 				xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
 				xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
