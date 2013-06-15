@@ -34,6 +34,11 @@ public class ServerEdit extends Activity {
 	private EditText mLocalHost4;
 	private EditText mLocalPort;
 
+	private EditText mBroadcast1;
+	private EditText mBroadcast2;
+	private EditText mBroadcast3;
+	private EditText mBroadcast4;
+
 	private EditText mRemoteHost1;
 	private EditText mRemoteHost2;
 	private EditText mRemoteHost3;
@@ -62,6 +67,11 @@ public class ServerEdit extends Activity {
 		mLocalHost3	= (EditText)findViewById(R.id.local_host3);
 		mLocalHost4	= (EditText)findViewById(R.id.local_host4);
 		mLocalPort	= (EditText)findViewById(R.id.local_port);
+
+		mBroadcast1	= (EditText)findViewById(R.id.broadcast1);
+		mBroadcast2	= (EditText)findViewById(R.id.broadcast2);
+		mBroadcast3	= (EditText)findViewById(R.id.broadcast3);
+		mBroadcast4	= (EditText)findViewById(R.id.broadcast4);
 
 		mRemoteHost1	= (EditText)findViewById(R.id.remote_host1);
 		mRemoteHost2	= (EditText)findViewById(R.id.remote_host2);
@@ -92,6 +102,7 @@ public class ServerEdit extends Activity {
 
 		loadSimpleData(server);
 		splitLocalHost(server);
+		splitBroadcast(server);
 		splitRemoteHost(server);
 		splitMacAddress(server);
 	}
@@ -163,6 +174,16 @@ public class ServerEdit extends Activity {
 		mLocalPort.setText(String.valueOf(server.getLocalPort()));
 	}
 
+	private void splitBroadcast(final ServerInfo server) {
+		String parts[] = server.getBroadcast().split("\\.");
+		mBroadcast1.setText(parts[0]);
+		mBroadcast2.setText(parts[1]);
+		mBroadcast3.setText(parts[2]);
+		mBroadcast4.setText(parts[3]);
+
+		mLocalPort.setText(String.valueOf(server.getLocalPort()));
+	}
+
 	private void splitRemoteHost(final ServerInfo server) {
 		String parts[] = server.getRemoteHost().split("\\.");
 		mRemoteHost1.setText(parts[0]);
@@ -197,6 +218,19 @@ public class ServerEdit extends Activity {
 		sb.append(mLocalHost3.getEditableText().toString());
 		sb.append(".");
 		sb.append(mLocalHost4.getEditableText().toString());
+		return sb.toString();
+	}
+
+	private String getBroadcast() {
+
+		StringBuilder sb = new StringBuilder();
+		sb.append(mBroadcast1.getEditableText().toString());
+		sb.append(".");
+		sb.append(mBroadcast2.getEditableText().toString());
+		sb.append(".");
+		sb.append(mBroadcast3.getEditableText().toString());
+		sb.append(".");
+		sb.append(mBroadcast4.getEditableText().toString());
 		return sb.toString();
 	}
 

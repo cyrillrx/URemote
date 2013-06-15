@@ -18,6 +18,7 @@ public class ServerBuilder {
 	private String mName;
 	private String mLocalHost;
 	private int mLocalPort;
+	private String mBroadcast;
 	private String mRemoteHost;
 	private int mRemotePort;
 	private String mMacAddress;
@@ -35,6 +36,7 @@ public class ServerBuilder {
 		mName		= "";
 		mLocalHost	= "";
 		mLocalPort	= 0000;
+		mBroadcast	= "";
 		mRemoteHost	= "";
 		mRemotePort	= 0000;
 		mMacAddress	= "";
@@ -44,7 +46,7 @@ public class ServerBuilder {
 
 	public ServerInfo build() throws Exception {
 		if (isLoaded()) {
-			return new ServerInfo(mName, mLocalHost, mLocalPort, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
+			return new ServerInfo(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
 		}
 		return null;
 	}
@@ -66,6 +68,11 @@ public class ServerBuilder {
 		if (mLocalPort == 0) {
 			error = true;
 			sb.append("- Local port is 0.\n");
+		}
+
+		if (mBroadcast.isEmpty()) {
+			error = true;
+			sb.append("- Broadcast is empty.\n");
 		}
 
 		if (mRemoteHost.isEmpty()) {
@@ -107,6 +114,10 @@ public class ServerBuilder {
 
 	public void setLocalPort(final int port) {
 		mLocalPort = port;
+	}
+
+	public void setBroadcast(final String broadcastAddress) {
+		mBroadcast = broadcastAddress;
 	}
 
 	public void setRemoteHost(final String ipAddress) {

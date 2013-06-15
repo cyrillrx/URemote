@@ -112,7 +112,85 @@
             android:maxLength="4"
             android:text="@string/default_local_port" />
     </LinearLayout>
+    
+ 	<!-- Broadcast address label -->
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/broadcast_address"
+        android:textSize="16sp" />
+    
+     <!-- Broadcast address -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/broadcast1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="@string/default_ip_part1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dot"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/broadcast2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="@string/default_ip_part2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dot"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/broadcast3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="@string/default_ip_part3" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dot"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/broadcast4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="3"
+            android:text="@string/default_ip_part4" />
+
+    </LinearLayout>
+    
     <!-- Remote ip address label -->
 
     <TextView

@@ -31,6 +31,7 @@ public class ServerInfo implements Parcelable {
 	public static final String TAG_NAME			= "name";
 	public static final String TAG_LOCAL_HOST	= "local_ip_address";
 	public static final String TAG_LOCAL_PORT	= "local_port";
+	public static final String TAG_BROADCAST	= "broadcast address";
 	public static final String TAG_REMOTE_HOST	= "remote_ip_address";
 	public static final String TAG_REMOTE_PORT	= "remote_port";
 	public static final String TAG_MAC_ADDRESS	= "mac_address";
@@ -53,6 +54,7 @@ public class ServerInfo implements Parcelable {
 	private String mName;
 	private String mLocalHost;
 	private int mLocalPort;
+	private String mBroadcast;
 	private String mRemoteHost;
 	private int mRemotePort;
 	private String mMacAddress;
@@ -69,6 +71,7 @@ public class ServerInfo implements Parcelable {
 	 * @param name
 	 * @param localHost
 	 * @param localPort
+	 * @param broadcastIp
 	 * @param remoteHost
 	 * @param remotePort
 	 * @param macAddress
@@ -76,13 +79,14 @@ public class ServerInfo implements Parcelable {
 	 * @param readTimeout
 	 */
 	public ServerInfo(final String name, final String localHost, final int localPort,
-			final String remoteHost, final int remotePort,
+			final String broadcastIp, final String remoteHost, final int remotePort,
 			final String macAddress,
 			final int connectionTimeout, final int readTimeout) {
 
 		mName		= name;
 		mLocalHost	= localHost;
 		mLocalPort	= localPort;
+		mBroadcast	= broadcastIp;
 		mRemoteHost	= remoteHost;
 		mRemotePort	= remotePort;
 		mMacAddress	= macAddress;
@@ -95,6 +99,7 @@ public class ServerInfo implements Parcelable {
 		mName		= server.getName();
 		mLocalHost	= server.getLocalHost();
 		mLocalPort	= server.getLocalPort();
+		mBroadcast	= server.getBroadcast();
 		mRemoteHost	= server.getRemoteHost();
 		mRemotePort	= server.getRemotePort();
 		mMacAddress	= server.getMacAddress();
@@ -122,6 +127,7 @@ public class ServerInfo implements Parcelable {
 		mName			= src.readString();
 		mLocalHost		= src.readString();
 		mLocalPort		= src.readInt();
+		mBroadcast		= src.readString();
 		mRemoteHost		= src.readString();
 		mRemotePort		= src.readInt();
 		mMacAddress		= src.readString();
@@ -140,6 +146,7 @@ public class ServerInfo implements Parcelable {
 		dest.writeString(mName);
 		dest.writeString(mLocalHost);
 		dest.writeInt(mLocalPort);
+		dest.writeString(mBroadcast);
 		dest.writeString(mRemoteHost);
 		dest.writeInt(mRemotePort);
 		dest.writeString(mMacAddress);
@@ -156,6 +163,7 @@ public class ServerInfo implements Parcelable {
 		// Get Host and Port key
 		final String keyLocalHost	= context.getString(R.string.key_local_host);
 		final String keyLocalPort	= context.getString(R.string.key_local_port);
+		final String keyBroadcast	= context.getString(R.string.key_broadcast);
 		final String keyRemoteHost	= context.getString(R.string.key_remote_host);
 		final String keyRemotePort	= context.getString(R.string.key_remote_port);
 		final String keyMacAddress	= context.getString(R.string.key_mac_address);
@@ -167,6 +175,7 @@ public class ServerInfo implements Parcelable {
 		// Get default values for Host and Port
 		final String defaultLocalHost	= context.getString(R.string.default_local_host);
 		final String defaultLocalPort	= context.getString(R.string.default_local_port);
+		final String defaultBroadcast	= context.getString(R.string.default_broadcast);
 		final String defaultRemoteHost	= context.getString(R.string.default_remote_host);
 		final String defaultRemotePort	= context.getString(R.string.default_remote_port);
 		final String defaultMacAddress	= context.getString(R.string.default_mac_address);
@@ -179,13 +188,14 @@ public class ServerInfo implements Parcelable {
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		final String localHost		= pref.getString(keyLocalHost, defaultLocalHost);
 		final int localPort			= Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
+		final String broadcast		= pref.getString(keyBroadcast, defaultLocalHost);
 		final String remoteHost		= pref.getString(keyRemoteHost, defaultRemoteHost);
 		final int remotePort		= Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
 		final String macAddress		= pref.getString(keyMacAddress, defaultMacAddress);
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerInfo("", localHost, localPort, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
+		return new ServerInfo("", localHost, localPort, broadcast, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
 	}
 
 	public boolean isLocal(Context context) {
@@ -220,6 +230,7 @@ public class ServerInfo implements Parcelable {
 				xmlWriter.addChild(TAG_NAME, server.getName(), null);
 				xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
 				xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
+				xmlWriter.addChild(TAG_BROADCAST, server.getBroadcast(), null);
 				xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
 				xmlWriter.addChild(TAG_REMOTE_PORT, server.getRemotePort(), null);
 
@@ -264,6 +275,13 @@ public class ServerInfo implements Parcelable {
 
 	public int getLocalPort() {
 		return mLocalPort;
+	}
+
+	/**
+	 * @return The broadcast address.
+	 */
+	public String getBroadcast() {
+		return mBroadcast;
 	}
 
 	public String getRemoteHost() {

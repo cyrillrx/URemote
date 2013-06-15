@@ -56,6 +56,9 @@ public class ServerXmlHandler extends DefaultHandler {
 		} else if (localName.equals(TAG_LOCAL_PORT)) {
 			mBuilder.setLocalPort(Integer.parseInt(mCurrentValue));
 
+		} else if (localName.equals(TAG_BROADCAST)) {
+			mBuilder.setBroadcast(mCurrentValue);
+
 		} else if (localName.equals(TAG_REMOTE_HOST)) {
 			mBuilder.setRemoteHost(mCurrentValue);
 
