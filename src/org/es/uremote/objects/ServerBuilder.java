@@ -1,11 +1,7 @@
 package org.es.uremote.objects;
 
-import org.es.uremote.R;
+import org.es.uremote.objects.ServerInfo.ConnectionType;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.wifi.WifiManager;
-import android.preference.PreferenceManager;
 
 /**
  * Class that holds server connection informations.
@@ -22,7 +18,8 @@ public class ServerBuilder {
 	private String mRemoteHost;
 	private int mRemotePort;
 	private String mMacAddress;
-	private int mConnectionType;
+	private ConnectionType mConnectionType;
+
 	/**
 	 * If the connection with the remote server is not established within this timeout, it is dismiss.
 	 */
@@ -42,15 +39,24 @@ public class ServerBuilder {
 		mMacAddress	= "";
 		mConnectionTimeout	= 500;
 		mReadTimeout		= 500;
+		mConnectionType		= ConnectionType.LOCAL;
 	}
 
+	/**
+	 * @return A fully loaded {@link ServerInfo} object.
+	 * @throws Exception
+	 */
 	public ServerInfo build() throws Exception {
 		if (isLoaded()) {
-			return new ServerInfo(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout);
+			return new ServerInfo(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mConnectionType);
 		}
 		return null;
 	}
 
+	/**
+	 * @return True if the builder has all the informations to build the {@link ServerInfo} object. False otherwise.
+	 * @throws Exception
+	 */
 	public boolean isLoaded() throws Exception {
 		boolean error = false;
 		StringBuilder sb = new StringBuilder();
@@ -96,12 +102,8 @@ public class ServerBuilder {
 		return true;
 	}
 
-	public void setLocal() {
-		mConnectionType = ServerInfo.CONNECTION_TYPE_LOCAL;
-	}
-
-	public void setRemote() {
-		mConnectionType = ServerInfo.CONNECTION_TYPE_REMOTE;
+	public void setConnectioType(ConnectionType type) {
+		mConnectionType = type;
 	}
 
 	public void setName(final String name) {

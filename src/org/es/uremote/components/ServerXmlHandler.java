@@ -1,12 +1,24 @@
 package org.es.uremote.components;
 
-import static org.es.uremote.objects.ServerInfo.*;
+import static org.es.uremote.objects.ServerInfo.TAG_BROADCAST;
+import static org.es.uremote.objects.ServerInfo.TAG_CONNECTION_TIMEOUT;
+import static org.es.uremote.objects.ServerInfo.TAG_CONNECTION_TYPE;
+import static org.es.uremote.objects.ServerInfo.TAG_LOCAL_HOST;
+import static org.es.uremote.objects.ServerInfo.TAG_LOCAL_PORT;
+import static org.es.uremote.objects.ServerInfo.TAG_MAC_ADDRESS;
+import static org.es.uremote.objects.ServerInfo.TAG_NAME;
+import static org.es.uremote.objects.ServerInfo.TAG_READ_TIMEOUT;
+import static org.es.uremote.objects.ServerInfo.TAG_REMOTE_HOST;
+import static org.es.uremote.objects.ServerInfo.TAG_REMOTE_PORT;
+import static org.es.uremote.objects.ServerInfo.TAG_ROOT;
+import static org.es.uremote.objects.ServerInfo.TAG_SERVER;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerInfo.ConnectionType;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -29,7 +41,6 @@ public class ServerXmlHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		mCurrentElement = true;
-
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
 			mServers = new ArrayList<ServerInfo>();
@@ -74,6 +85,9 @@ public class ServerXmlHandler extends DefaultHandler {
 		} else if (localName.equals(TAG_READ_TIMEOUT)) {
 			mBuilder.setReadTimout(Integer.parseInt(mCurrentValue));
 
+		} else if (localName.equals(TAG_CONNECTION_TYPE)) {
+			mBuilder.setConnectioType(ConnectionType.valueOf(mCurrentValue));
+
 		} else if (localName.equals(TAG_SERVER)) {
 			try {
 				ServerInfo server = mBuilder.build();
@@ -104,6 +118,6 @@ public class ServerXmlHandler extends DefaultHandler {
 		if (mLoaded) {
 			return mServers;
 		}
-		return null;
+		return new ArrayList<ServerInfo>();
 	}
 }

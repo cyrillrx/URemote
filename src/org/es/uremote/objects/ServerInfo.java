@@ -31,25 +31,26 @@ public class ServerInfo implements Parcelable {
 	public static final String TAG_NAME			= "name";
 	public static final String TAG_LOCAL_HOST	= "local_ip_address";
 	public static final String TAG_LOCAL_PORT	= "local_port";
-	public static final String TAG_BROADCAST	= "broadcast address";
+	public static final String TAG_BROADCAST	= "broadcast_address";
 	public static final String TAG_REMOTE_HOST	= "remote_ip_address";
 	public static final String TAG_REMOTE_PORT	= "remote_port";
 	public static final String TAG_MAC_ADDRESS	= "mac_address";
 	public static final String TAG_CONNECTION_TIMEOUT	= "connection_timeout";
 	public static final String TAG_READ_TIMEOUT			= "read_timeout";
+	public static final String TAG_CONNECTION_TYPE		= "connection_type";
 
 
 	private static String TAG = "ServerInfo";
+
 	/**
-	 * The server is in the same network.
-	 * We can use a local IP address.
+	 * The type of connection.
 	 */
-	public static final int CONNECTION_TYPE_LOCAL	= 0;
-	/**
-	 * The server is not in the same network.
-	 * We can only reach it by a remote IP address.
-	 */
-	public static final int CONNECTION_TYPE_REMOTE	= 1;
+	public static enum ConnectionType {
+		/** The server IS in the same network than the device. It must be accessed locally. */
+		LOCAL,
+		/** The server IS NOT in the same network than the device. It must be accessed remotely. */
+		REMOTE
+	};
 
 	private String mName;
 	private String mLocalHost;
@@ -58,7 +59,7 @@ public class ServerInfo implements Parcelable {
 	private String mRemoteHost;
 	private int mRemotePort;
 	private String mMacAddress;
-	private final int mConnectionType;
+	private ConnectionType mConnectionType;
 
 	/**
 	 * If the connection with the remote server is not established within this timeout, it is dismiss.
@@ -77,11 +78,13 @@ public class ServerInfo implements Parcelable {
 	 * @param macAddress
 	 * @param connectionTimeout
 	 * @param readTimeout
+	 * @param connectionType
 	 */
 	public ServerInfo(final String name, final String localHost, final int localPort,
 			final String broadcastIp, final String remoteHost, final int remotePort,
 			final String macAddress,
-			final int connectionTimeout, final int readTimeout) {
+			final int connectionTimeout, final int readTimeout,
+			final ConnectionType connectionType) {
 
 		mName		= name;
 		mLocalHost	= localHost;
@@ -92,7 +95,7 @@ public class ServerInfo implements Parcelable {
 		mMacAddress	= macAddress;
 		mConnectionTimeout	= connectionTimeout;
 		mReadTimeout		= readTimeout;
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
+		mConnectionType		= connectionType;
 	}
 
 	public void copy(final ServerInfo server) {
@@ -105,7 +108,7 @@ public class ServerInfo implements Parcelable {
 		mMacAddress	= server.getMacAddress();
 		mConnectionTimeout	= server.getConnectionTimeout();
 		mReadTimeout		= server.getReadTimeout();
-
+		mConnectionType		= server.getConnectionType();
 	}
 
 	/**
@@ -123,6 +126,9 @@ public class ServerInfo implements Parcelable {
 		}
 	};
 
+	/**
+	 * @param src
+	 */
 	public ServerInfo(Parcel src) {
 		mName			= src.readString();
 		mLocalHost		= src.readString();
@@ -133,7 +139,7 @@ public class ServerInfo implements Parcelable {
 		mMacAddress		= src.readString();
 		mConnectionTimeout	= src.readInt();
 		mReadTimeout		= src.readInt();
-		mConnectionType		= CONNECTION_TYPE_LOCAL;
+		mConnectionType		= ConnectionType.valueOf(src.readString());
 	}
 
 	@Override
@@ -152,6 +158,7 @@ public class ServerInfo implements Parcelable {
 		dest.writeString(mMacAddress);
 		dest.writeInt(mConnectionTimeout);
 		dest.writeInt(mReadTimeout);
+		dest.writeString(mConnectionType.toString());
 	}
 
 	/**
@@ -188,16 +195,20 @@ public class ServerInfo implements Parcelable {
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 		final String localHost		= pref.getString(keyLocalHost, defaultLocalHost);
 		final int localPort			= Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
-		final String broadcast		= pref.getString(keyBroadcast, defaultLocalHost);
+		final String broadcast		= pref.getString(keyBroadcast, defaultBroadcast);
 		final String remoteHost		= pref.getString(keyRemoteHost, defaultRemoteHost);
 		final int remotePort		= Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
 		final String macAddress		= pref.getString(keyMacAddress, defaultMacAddress);
 		final int connectionTimeout	= Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
 		final int readTimeout		= Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerInfo("", localHost, localPort, broadcast, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout);
+		return new ServerInfo("", localHost, localPort, broadcast, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout, ConnectionType.LOCAL);
 	}
 
+	/**
+	 * @param context
+	 * @return True is the server is in the same network than the device.
+	 */
 	public boolean isLocal(Context context) {
 		// TODO define when local and remote
 		final WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -224,9 +235,8 @@ public class ServerInfo implements Parcelable {
 
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
-			xmlWriter.startTag(null, TAG_SERVER);
-
 			for (ServerInfo server : servers) {
+				xmlWriter.startTag(null, TAG_SERVER);
 				xmlWriter.addChild(TAG_NAME, server.getName(), null);
 				xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
 				xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
@@ -237,9 +247,10 @@ public class ServerInfo implements Parcelable {
 				xmlWriter.addChild(TAG_MAC_ADDRESS, server.getMacAddress(), null);
 				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, server.getConnectionTimeout(), null);
 				xmlWriter.addChild(TAG_READ_TIMEOUT, server.getReadTimeout(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TYPE, server.getConnectionType().toString(), null);
+				xmlWriter.endTag(null, TAG_SERVER);
 			}
 
-			xmlWriter.endTag(null, TAG_SERVER);
 			xmlWriter.closeAndSave();
 
 		} catch (IOException e) {
@@ -262,17 +273,23 @@ public class ServerInfo implements Parcelable {
 		return mRemoteHost + ":" + mRemotePort;
 	}
 
+	/**
+	 * @return The server name.
+	 */
 	public String getName() {
 		return mName;
 	}
 
 	/**
-	 * @return The local ip address.
+	 * @return The ip address of the local server.
 	 */
 	public String getLocalHost() {
 		return mLocalHost;
 	}
 
+	/**
+	 * @return The port of the local server.
+	 */
 	public int getLocalPort() {
 		return mLocalPort;
 	}
@@ -284,14 +301,23 @@ public class ServerInfo implements Parcelable {
 		return mBroadcast;
 	}
 
+	/**
+	 * @return The ip address of the remote server.
+	 */
 	public String getRemoteHost() {
 		return mRemoteHost;
 	}
 
+	/**
+	 * @return The port of the remote server.
+	 */
 	public int getRemotePort() {
 		return mRemotePort;
 	}
 
+	/**
+	 * @return The mac address of the server.
+	 */
 	public String getMacAddress() {
 		return mMacAddress;
 	}
@@ -308,5 +334,12 @@ public class ServerInfo implements Parcelable {
 	 */
 	public int getReadTimeout() {
 		return mReadTimeout;
+	}
+
+	/**
+	 * @return The type of connection (remote or local).
+	 */
+	public ConnectionType getConnectionType() {
+		return mConnectionType;
 	}
 }

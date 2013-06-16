@@ -6,6 +6,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerInfo.ConnectionType;
 import org.es.uremote.utils.IntentKeys;
 
 import android.app.Activity;
@@ -124,11 +125,13 @@ public class ServerEdit extends Activity {
 			mServerBuilder.setName(getName());
 			mServerBuilder.setLocalHost(getLocalHost());
 			mServerBuilder.setLocalPort(getLocalPort());
+			mServerBuilder.setBroadcast(getBroadcast());
 			mServerBuilder.setRemoteHost(getRemoteHost());
 			mServerBuilder.setRemotePort(getRemotePort());
 			mServerBuilder.setMacAddress(getMacAddress());
 			mServerBuilder.setConnectionTimeout(getConnectionTimeout());
 			mServerBuilder.setReadTimout(getReadTimeout());
+			mServerBuilder.setConnectioType(getConnectionType());
 
 			try {
 				ServerInfo server = mServerBuilder.build();
@@ -278,5 +281,10 @@ public class ServerEdit extends Activity {
 
 	private int getReadTimeout() {
 		return Integer.valueOf(mReadTimeout.getEditableText().toString());
+	}
+
+	private ConnectionType getConnectionType() {
+		// TODO load from IHM
+		return ConnectionType.LOCAL;
 	}
 }
