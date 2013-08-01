@@ -1,7 +1,7 @@
 package org.es.uremote.utils;
 
 /**
- * Classe référençant les constantes de l'application.
+ * That class contains the constants of the application
  * @author Cyril Leroux
  *
  */
