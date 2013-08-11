@@ -1,35 +1,5 @@
 package org.es.uremote;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
-import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
-import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.network.ExchangeProtos.Request.Code.DOWN;
-import static org.es.network.ExchangeProtos.Request.Code.UP;
-import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-import static org.es.uremote.utils.Constants.STATE_CONNECTING;
-import static org.es.uremote.utils.Constants.STATE_OK;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.uremote.computer.FragAdmin;
-import org.es.uremote.computer.FragDashboard;
-import org.es.uremote.computer.FragExplorer;
-import org.es.uremote.computer.FragKeyboard;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.utils.Constants;
-import org.es.utils.Log;
-
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -52,6 +22,37 @@ import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.uremote.computer.FragAdmin;
+import org.es.uremote.computer.FragDashboard;
+import org.es.uremote.computer.FragExplorer;
+import org.es.uremote.computer.FragKeyboard;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.utils.Constants;
+import org.es.utils.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
+import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.network.ExchangeProtos.Request.Code.DOWN;
+import static org.es.network.ExchangeProtos.Request.Code.UP;
+import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
+import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
+import static org.es.uremote.utils.Constants.STATE_CONNECTING;
+import static org.es.uremote.utils.Constants.STATE_OK;
 
 /**
  * @author Cyril Leroux
@@ -80,7 +81,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	private ServerSetting getCurrentServer() {
-		return ServerSetting.loadFromPreferences(getApplicationContext());
+		return ServerSettingDao.loadFromPreferences(getApplicationContext());
 	}
 
 	private String getServerString() {
@@ -221,7 +222,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(securityToken);
 
-		return ServerSetting.loadFromPreferences(getApplicationContext());
+		return ServerSettingDao.loadFromPreferences(getApplicationContext());
 	}
 
 	/**
@@ -311,7 +312,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerSetting.loadFromPreferences(getApplicationContext())).execute(request);
+			new AsyncMessageMgr(sHandler, ServerSettingDao.loadFromPreferences(getApplicationContext())).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

@@ -1,12 +1,5 @@
 package org.es.uremote.components;
 
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;
-
-import org.es.network.ExchangeProtos.DirContent;
-import org.es.uremote.R;
-import org.es.uremote.utils.FileUtils;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +7,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.es.network.ExchangeProtos.DirContent;
+import org.es.uremote.R;
+import org.es.uremote.utils.FileUtils;
+
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;
 
 /**
  * Adapter used to display an explorer view.

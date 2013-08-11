@@ -1,22 +1,5 @@
 package org.es.uremote.widget;
 
-import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.network.ExchangeProtos.Request.Code.MEDIA_NEXT;
-import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PLAY_PAUSE;
-import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PREVIOUS;
-import static org.es.network.ExchangeProtos.Request.Code.MEDIA_STOP;
-import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.uremote.R;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerSetting;
-import org.es.utils.Log;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -27,6 +10,23 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.RemoteViews;
 import android.widget.Toast;
+
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.uremote.R;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.utils.Log;
+
+import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.network.ExchangeProtos.Request.Code.MEDIA_NEXT;
+import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PLAY_PAUSE;
+import static org.es.network.ExchangeProtos.Request.Code.MEDIA_PREVIOUS;
+import static org.es.network.ExchangeProtos.Request.Code.MEDIA_STOP;
+import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
+import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
  * @author Cyril Leroux
@@ -131,7 +131,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerSetting.loadFromPreferences(context)).execute(request);
+			new AsyncMessageMgr(sHandler, ServerSettingDao.loadFromPreferences(context)).execute(request);
 		} else {
 			Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

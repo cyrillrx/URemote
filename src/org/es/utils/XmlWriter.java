@@ -1,13 +1,13 @@
 package org.es.utils;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import android.util.Log;
+import android.util.Xml;
 
 import org.es.uremote.BuildConfig;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.util.Log;
-import android.util.Xml;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Class that handle XML file creation.

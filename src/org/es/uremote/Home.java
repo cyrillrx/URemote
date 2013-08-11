@@ -1,13 +1,5 @@
 package org.es.uremote;
 
-import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.es.uremote.components.ActionListAdapter;
-import org.es.uremote.objects.ActionItem;
-
 import android.app.Activity;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
@@ -21,6 +13,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+
+import org.es.uremote.components.ActionListAdapter;
+import org.es.uremote.objects.ActionItem;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 
 /**
  * The dashboard class that leads everywhere in the application.

@@ -1,10 +1,10 @@
 package org.es.utils;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  * This class manage connections to WIFI, mobile data, Bluetooth, etc.

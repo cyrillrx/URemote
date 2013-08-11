@@ -1,23 +1,6 @@
 package org.es.uremote.computer;
 
 
-import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.utils.Constants;
-import org.es.utils.Log;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -29,6 +12,23 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ToggleButton;
+
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
+import org.es.uremote.R;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.uremote.utils.Constants;
+import org.es.utils.Log;
+
+import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -376,7 +376,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		 * @param _handler
 		 */
 		public KeyboardMessageMgr(Handler _handler) {
-			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

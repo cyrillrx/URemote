@@ -1,29 +1,6 @@
 package org.es.uremote.computer;
 
 
-import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.network.ExchangeProtos.Request.Code.KILL_SERVER;
-import static org.es.network.ExchangeProtos.Request.Code.LOCK;
-import static org.es.network.ExchangeProtos.Request.Code.MUTE;
-import static org.es.network.ExchangeProtos.Request.Code.SHUTDOWN;
-import static org.es.network.ExchangeProtos.Request.Type.AI;
-import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.utils.Constants.STATE_CONNECTING;
-import static org.es.uremote.utils.Constants.STATE_KO;
-import static org.es.uremote.utils.Constants.STATE_OK;
-
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.network.WakeOnLan;
-import org.es.uremote.objects.ServerSetting;
-import org.es.utils.Log;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -38,6 +15,29 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
+import org.es.uremote.R;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.uremote.network.WakeOnLan;
+import org.es.utils.Log;
+
+import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Code.KILL_SERVER;
+import static org.es.network.ExchangeProtos.Request.Code.LOCK;
+import static org.es.network.ExchangeProtos.Request.Code.MUTE;
+import static org.es.network.ExchangeProtos.Request.Code.SHUTDOWN;
+import static org.es.network.ExchangeProtos.Request.Type.AI;
+import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.utils.Constants.STATE_CONNECTING;
+import static org.es.uremote.utils.Constants.STATE_KO;
+import static org.es.uremote.utils.Constants.STATE_OK;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -177,7 +177,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		 * @param _handler The toast messages handler.
 		 */
 		public AdminMessageMgr(Handler _handler) {
-			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

@@ -1,10 +1,8 @@
 package org.es.uremote.network;
 
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.net.Socket;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
@@ -12,9 +10,11 @@ import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
 import org.es.uremote.R;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+
+import static org.es.network.ExchangeProtos.Request.Code.NONE;
 
 /**
  * Class that holds the utils to manage network messages

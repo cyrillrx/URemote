@@ -1,7 +1,5 @@
 package org.es.uremote;
 
-import java.util.List;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+
+import java.util.List;
 
 /**
  * Activity that hosts application preferences.

@@ -1,26 +1,5 @@
 package org.es.uremote;
 
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static org.es.uremote.objects.ServerSetting.SAVE_FILE;
-import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
-import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.SAXParserFactory;
-
-import org.es.uremote.components.ServerAdapter;
-import org.es.uremote.components.ServerXmlHandler;
-import org.es.uremote.dao.ServerSettingDao;
-import org.es.uremote.objects.ServerSetting;
-import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -34,6 +13,27 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import org.es.uremote.components.ServerAdapter;
+import org.es.uremote.components.ServerXmlHandler;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.objects.ServerSetting;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.parsers.SAXParserFactory;
+
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static org.es.uremote.objects.ServerSetting.SAVE_FILE;
+import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
+import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux

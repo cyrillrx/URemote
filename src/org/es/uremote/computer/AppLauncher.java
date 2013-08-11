@@ -1,18 +1,18 @@
 package org.es.uremote.computer;
 
-import static org.es.uremote.utils.IntentKeys.REQUEST_CODE;
-import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
-
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.uremote.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.uremote.R;
+
+import static org.es.uremote.utils.IntentKeys.REQUEST_CODE;
+import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
 
 /**
  * This Activity displays a list of applications that you can launch on the remote server.

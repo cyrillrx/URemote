@@ -1,10 +1,5 @@
 package org.es.uremote.components;
 
-import java.util.List;
-
-import org.es.uremote.R;
-import org.es.uremote.objects.ActionItem;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -13,6 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.es.uremote.R;
+import org.es.uremote.objects.ActionItem;
+
+import java.util.List;
 
 /**
  * Adapter used to display an action list.

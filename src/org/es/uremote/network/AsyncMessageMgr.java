@@ -1,12 +1,8 @@
 package org.es.uremote.network;
 
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.util.concurrent.Semaphore;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
@@ -14,9 +10,13 @@ import org.es.network.ExchangeProtos.Response.ReturnCode;
 import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.util.concurrent.Semaphore;
+
+import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
  * Class that handle asynchronous messages to send to the server.

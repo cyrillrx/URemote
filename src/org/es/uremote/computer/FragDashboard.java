@@ -1,27 +1,6 @@
 package org.es.uremote.computer;
 
 
-import static android.app.Activity.RESULT_OK;
-import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.network.ExchangeProtos.Request.Code.DEFINE;
-import static org.es.network.ExchangeProtos.Request.Code.MUTE;
-import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
-import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.utils.IntentKeys;
-import org.es.utils.Log;
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -40,6 +19,27 @@ import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
+import org.es.uremote.R;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.uremote.utils.IntentKeys;
+import org.es.utils.Log;
+
+import static android.app.Activity.RESULT_OK;
+import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static org.es.network.ExchangeProtos.Request.Code.DEFINE;
+import static org.es.network.ExchangeProtos.Request.Code.MUTE;
+import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
+import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -182,10 +182,10 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	}
 
 	@Override
-	public void onActivityResult(int _requestCode, int _resultCode, Intent _data) {
-		if (_requestCode == RC_APP_LAUNCHER && _resultCode == RESULT_OK) {
-			final Type type  = Type.valueOf(_data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
-			final Code code  = Code.valueOf(_data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RC_APP_LAUNCHER && resultCode == RESULT_OK) {
+			final Type type  = Type.valueOf(data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
+			final Code code  = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
 				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
@@ -197,11 +197,12 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * Show a static toast message.
 	 * The next message replace the previous one.
 	 *
-	 * @param _message The message to display.
-	 * @param _point The position to display it.
+	 * @param message The message to display.
+	 * @param x The x position to display it.
+	 * @param y The y position to display it.
 	 */
-	private void showVolumeToast(final String _message, final int _x, final int _y) {
-		mTvVolume.setText(_message);
+	private void showVolumeToast(final String message, final int x, final int y) {
+		mTvVolume.setText(message);
 		fadeIn(mTvVolume);
 	}
 
@@ -247,17 +248,17 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 	/**
 	 * Initializes the message handler then send the request.
-	 * @param _request The request to send.
+	 * @param request The request to send.
 	 */
 	@Override
-	public void sendAsyncRequest(Request _request) {
+	public void sendAsyncRequest(Request request) {
 
 		if (DashboardMessageMgr.availablePermits() > 0) {
-			new DashboardMessageMgr(Computer.getHandler()).execute(_request);
+			new DashboardMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			final boolean defineVolume = VOLUME.equals(_request.getType()) && DEFINE.equals(_request.getCode());
+			final boolean defineVolume = VOLUME.equals(request.getType()) && DEFINE.equals(request.getCode());
 			if (!defineVolume) {
-				final String message = getString(R.string.msg_no_more_permit) + "\n" + _request.toString();
+				final String message = getString(R.string.msg_no_more_permit) + "\n" + request.toString();
 				Log.warning(TAG, message);
 			}
 		}
@@ -271,7 +272,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
 		public DashboardMessageMgr(Handler _handler) {
-			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override
@@ -281,26 +282,26 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		}
 
 		@Override
-		protected void onPostExecute(Response _response) {
-			super.onPostExecute(_response);
-			final String message = _response.getMessage();
+		protected void onPostExecute(Response response) {
+			super.onPostExecute(response);
+			final String message = response.getMessage();
 			Log.debug(TAG, "onPostExecute() response : " + message);
 
 			// TODO handle return better than that
-			if (RC_ERROR.equals(_response.getReturnCode())) {
+			if (RC_ERROR.equals(response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
 			} else {
 				mParent.updateConnectionState(STATE_OK);
 			}
 
-			final Type type = _response.getRequestType();
-			final Code code = _response.getRequestCode();
+			final Type type = response.getRequestType();
+			final Code code = response.getRequestCode();
 
 			boolean usingVolumeSeekbar = VOLUME.equals(type) && DEFINE.equals(code);
 			if (!usingVolumeSeekbar) {
 				sendToastToUI(message);
 			} else {
-				final int volume = _response.getIntValue();
+				final int volume = response.getIntValue();
 
 				Rect hitRect = new Rect();
 				mSbVolume.getDrawingRect(hitRect);
@@ -311,9 +312,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 			// Handle UI mute icon
 			if (VOLUME.equals(type) && MUTE.equals(code)) {
-				if (_response.getIntValue() == 0) { // Mute
+				if (response.getIntValue() == 0) { // Mute
 					mIbMute.setImageResource(R.drawable.volume_muted);
-				} else if (_response.getIntValue() == 1) { // Volume On
+				} else if (response.getIntValue() == 1) { // Volume On
 					mIbMute.setImageResource(R.drawable.volume_on);
 				}
 			}

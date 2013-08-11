@@ -1,26 +1,5 @@
 package org.es.uremote.computer;
 
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-
-import java.io.File;
-
-import org.es.network.ExchangeProtos.DirContent;
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
-import org.es.uremote.R;
-import org.es.uremote.Computer;
-import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.utils.FileUtils;
-import org.es.utils.Log;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
@@ -35,6 +14,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import org.es.network.ExchangeProtos.DirContent;
+import org.es.network.ExchangeProtos.Request;
+import org.es.network.ExchangeProtos.Request.Code;
+import org.es.network.ExchangeProtos.Request.Type;
+import org.es.network.ExchangeProtos.Response;
+import org.es.network.IRequestSender;
+import org.es.uremote.Computer;
+import org.es.uremote.R;
+import org.es.uremote.components.FileManagerAdapter;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.network.MessageHelper;
+import org.es.uremote.utils.FileUtils;
+import org.es.utils.Log;
+
+import java.io.File;
+
+import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
+import static org.es.network.ExchangeProtos.Request.Code.NONE;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 /**
  * File explorer fragment.
@@ -166,7 +166,6 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 * Ask the server to list the content of the current directory's parent.
 	 * This method is supposed to be called from the {@link Computer} class.
 	 * Updates the view once the data have been received from the server.
-	 * @param _dirPath The path of the child directory.
 	 * @return true if it is possible to navigate up.
 	 */
 	public boolean navigateUpIfPossible() {
@@ -209,7 +208,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
 		public ExplorerMessageMgr(Handler _handler) {
-			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

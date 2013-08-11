@@ -1,8 +1,8 @@
 package org.es.utils;
 
-import static org.es.uremote.BuildConfig.DEBUG;
-
 import org.es.uremote.BuildConfig;
+
+import static org.es.uremote.BuildConfig.DEBUG;
 
 /**
  * This class handle conditional log.

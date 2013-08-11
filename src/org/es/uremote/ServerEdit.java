@@ -1,13 +1,5 @@
 package org.es.uremote;
 
-import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
-
-import org.es.uremote.objects.ServerBuilder;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.objects.ServerSetting.ConnectionType;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.es.uremote.objects.ServerBuilder;
+import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.objects.ServerSetting.ConnectionType;
+
+import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
