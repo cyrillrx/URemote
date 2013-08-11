@@ -1,7 +1,7 @@
 package org.es.uremote;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static org.es.uremote.objects.ServerInfo.SAVE_FILE;
+import static org.es.uremote.objects.ServerSetting.SAVE_FILE;
 import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
 import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
@@ -16,8 +16,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.es.uremote.components.ServerAdapter;
 import org.es.uremote.components.ServerXmlHandler;
-import org.es.uremote.objects.ServerInfo;
-import org.es.uremote.utils.IntentKeys;
+import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.objects.ServerSetting;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -44,13 +44,13 @@ public class ServerList extends ListActivity {
 	private static final int RC_ADD_SERVER	= 0;
 	private static final int RC_EDIT_SERVER	= 1;
 
-	List<ServerInfo> mServers;
+	List<ServerSetting> mServers;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_list);
-		mServers = new ArrayList<ServerInfo>();
+		mServers = new ArrayList<ServerSetting>();
 		loadServerList();
 
 	}
@@ -63,8 +63,8 @@ public class ServerList extends ListActivity {
 		(new AsyncServerLoader()).execute(getConfFile());
 	}
 
-	private void saveServers(List<ServerInfo> servers) {
-		boolean saved = ServerInfo.saveToXmlFile(getConfFile(), servers);
+	private void saveServers(List<ServerSetting> servers) {
+		boolean saved = ServerSettingDao.saveToXmlFile(getConfFile(), servers);
 
 		if (!saved) {
 			if (BuildConfig.DEBUG) {
@@ -76,7 +76,7 @@ public class ServerList extends ListActivity {
 		}
 	}
 
-	private void updateView(final List<ServerInfo> servers) {
+	private void updateView(final List<ServerSetting> servers) {
 		ServerAdapter adapter = new ServerAdapter(getApplicationContext(), servers);
 		setListAdapter(adapter);
 
@@ -84,7 +84,7 @@ public class ServerList extends ListActivity {
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				ServerInfo server = servers.get(position);
+				ServerSetting server = servers.get(position);
 				Intent editIntent = new Intent(getApplicationContext(), ServerEdit.class);
 				editIntent.putExtra(EXTRA_SERVER_DATA, server);
 				editIntent.putExtra(EXTRA_SERVER_ID, position);
@@ -127,15 +127,15 @@ public class ServerList extends ListActivity {
 	 * @author Cyril Leroux
 	 *
 	 */
-	private class AsyncServerLoader extends AsyncTask<File, Void, List<ServerInfo>> {
+	private class AsyncServerLoader extends AsyncTask<File, Void, List<ServerSetting>> {
 
 		@Override
-		protected List<ServerInfo> doInBackground(File... files) {
+		protected List<ServerSetting> doInBackground(File... files) {
 			mServers = LoadFromXml(files[0]);
 			return mServers;
 		}
 
-		private List<ServerInfo> LoadFromXml(File configFile) {
+		private List<ServerSetting> LoadFromXml(File configFile) {
 
 			ServerXmlHandler serverXmlhandler = new ServerXmlHandler();
 			try {
@@ -153,7 +153,7 @@ public class ServerList extends ListActivity {
 		}
 
 		@Override
-		protected void onPostExecute(List<ServerInfo> servers) {
+		protected void onPostExecute(List<ServerSetting> servers) {
 			updateView(servers);
 		}
 	}
@@ -167,7 +167,7 @@ public class ServerList extends ListActivity {
 
 		if (requestCode == RC_ADD_SERVER) {
 			// TODO Add to the server list
-			ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
+			ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
 			mServers.add(server);
 			saveServers(mServers);
 			updateView(mServers);
@@ -176,7 +176,7 @@ public class ServerList extends ListActivity {
 			//
 			final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
 			if (serverId != -1) {
-				ServerInfo server = data.getParcelableExtra(EXTRA_SERVER_DATA);
+				ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
 				mServers.get(serverId).copy(server);
 				saveServers(mServers);
 				updateView(mServers);

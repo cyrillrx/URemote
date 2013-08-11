@@ -3,7 +3,7 @@ package org.es.uremote.components;
 import java.util.List;
 
 import org.es.uremote.R;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,15 +18,15 @@ import android.widget.TextView;
  * @author Cyril Leroux
  */
 public class ServerAdapter extends BaseAdapter {
-	private List<ServerInfo> mServers = null;
+	private List<ServerSetting> mServers = null;
 	private final LayoutInflater mInflater;
 
 	/**
 	 * Default constructor
 	 * @param context The application context.
-	 * @param servers The list of {@link ServerInfo} to display.
+	 * @param servers The list of {@link org.es.uremote.objects.ServerSetting} to display.
 	 */
-	public ServerAdapter(Context context, List<ServerInfo> servers) {
+	public ServerAdapter(Context context, List<ServerSetting> servers) {
 		mInflater = LayoutInflater.from(context);
 		mServers = servers;
 	}
@@ -82,7 +82,7 @@ public class ServerAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final ServerInfo server = mServers.get(position);
+		final ServerSetting server = mServers.get(position);
 		//				final Bitmap bmp = card.getThumbBitmap();
 		//				if (bmp != null && !bmp.isRecycled()) {
 		//					holder.ivThumbnail.setImageBitmap(bmp);

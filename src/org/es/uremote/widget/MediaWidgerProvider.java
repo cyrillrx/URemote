@@ -14,7 +14,7 @@ import org.es.network.ExchangeProtos.Request.Type;
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
 import android.app.PendingIntent;
@@ -131,7 +131,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerInfo.loadFromPreferences(context)).execute(request);
+			new AsyncMessageMgr(sHandler, ServerSetting.loadFromPreferences(context)).execute(request);
 		} else {
 			Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

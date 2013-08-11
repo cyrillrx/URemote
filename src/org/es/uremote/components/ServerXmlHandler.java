@@ -1,27 +1,27 @@
 package org.es.uremote.components;
 
-import static org.es.uremote.objects.ServerInfo.TAG_BROADCAST;
-import static org.es.uremote.objects.ServerInfo.TAG_CONNECTION_TIMEOUT;
-import static org.es.uremote.objects.ServerInfo.TAG_CONNECTION_TYPE;
-import static org.es.uremote.objects.ServerInfo.TAG_LOCAL_HOST;
-import static org.es.uremote.objects.ServerInfo.TAG_LOCAL_PORT;
-import static org.es.uremote.objects.ServerInfo.TAG_MAC_ADDRESS;
-import static org.es.uremote.objects.ServerInfo.TAG_NAME;
-import static org.es.uremote.objects.ServerInfo.TAG_READ_TIMEOUT;
-import static org.es.uremote.objects.ServerInfo.TAG_REMOTE_HOST;
-import static org.es.uremote.objects.ServerInfo.TAG_REMOTE_PORT;
-import static org.es.uremote.objects.ServerInfo.TAG_ROOT;
-import static org.es.uremote.objects.ServerInfo.TAG_SERVER;
+import org.es.uremote.objects.ServerBuilder;
+import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.objects.ServerSetting.ConnectionType;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.es.uremote.objects.ServerBuilder;
-import org.es.uremote.objects.ServerInfo;
-import org.es.uremote.objects.ServerInfo.ConnectionType;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import static org.es.uremote.dao.ServerSettingDao.TAG_BROADCAST;
+import static org.es.uremote.dao.ServerSettingDao.TAG_CONNECTION_TIMEOUT;
+import static org.es.uremote.dao.ServerSettingDao.TAG_CONNECTION_TYPE;
+import static org.es.uremote.dao.ServerSettingDao.TAG_LOCAL_HOST;
+import static org.es.uremote.dao.ServerSettingDao.TAG_LOCAL_PORT;
+import static org.es.uremote.dao.ServerSettingDao.TAG_MAC_ADDRESS;
+import static org.es.uremote.dao.ServerSettingDao.TAG_NAME;
+import static org.es.uremote.dao.ServerSettingDao.TAG_READ_TIMEOUT;
+import static org.es.uremote.dao.ServerSettingDao.TAG_REMOTE_HOST;
+import static org.es.uremote.dao.ServerSettingDao.TAG_REMOTE_PORT;
+import static org.es.uremote.dao.ServerSettingDao.TAG_ROOT;
+import static org.es.uremote.dao.ServerSettingDao.TAG_SERVER;
 
 /**
  * This component allow to parse a XML file that contains server connection information.
@@ -33,7 +33,7 @@ public class ServerXmlHandler extends DefaultHandler {
 	private String mCurrentValue;
 
 	private ServerBuilder mBuilder;
-	private List<ServerInfo> mServers;
+	private List<ServerSetting> mServers;
 
 	/**
 	 * Called tag opening (<tag>).
@@ -41,12 +41,12 @@ public class ServerXmlHandler extends DefaultHandler {
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		mCurrentElement = true;
+
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
-			mServers = new ArrayList<ServerInfo>();
+			mServers = new ArrayList<>();
 
-		}
-		if (localName.equals(TAG_SERVER)) {
+        } else if (localName.equals(TAG_SERVER)) {
 			mBuilder = new ServerBuilder();
 		}
 	}
@@ -83,14 +83,14 @@ public class ServerXmlHandler extends DefaultHandler {
 			mBuilder.setConnectionTimeout(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_READ_TIMEOUT)) {
-			mBuilder.setReadTimout(Integer.parseInt(mCurrentValue));
+			mBuilder.setReadTimeout(Integer.parseInt(mCurrentValue));
 
 		} else if (localName.equals(TAG_CONNECTION_TYPE)) {
-			mBuilder.setConnectioType(ConnectionType.valueOf(mCurrentValue));
+			mBuilder.setConnectionType(ConnectionType.valueOf(mCurrentValue));
 
 		} else if (localName.equals(TAG_SERVER)) {
 			try {
-				ServerInfo server = mBuilder.build();
+				ServerSetting server = mBuilder.build();
 				mServers.add(server);
 			} catch (Exception e) {
 
@@ -112,12 +112,12 @@ public class ServerXmlHandler extends DefaultHandler {
 	}
 
 	/**
-	 * @return A list of {@link ServerInfo}.
+	 * @return A list of {@link org.es.uremote.objects.ServerSetting}.
 	 */
-	public List<ServerInfo> getServers() {
+	public List<ServerSetting> getServers() {
 		if (mLoaded) {
 			return mServers;
 		}
-		return new ArrayList<ServerInfo>();
+		return new ArrayList<>();
 	}
 }

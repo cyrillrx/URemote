@@ -14,7 +14,7 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
 import org.es.utils.Log;
 
@@ -376,7 +376,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		 * @param _handler
 		 */
 		public KeyboardMessageMgr(Handler _handler) {
-			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

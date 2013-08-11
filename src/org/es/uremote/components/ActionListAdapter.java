@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 /**
  * Adapter used to display an action list.
+ * Used for {@link org.es.uremote.Home} activity.
  * 
  * @author Cyril Leroux
  *
@@ -27,14 +28,14 @@ public class ActionListAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
-	 * @param _context The application context.
-	 * @param _actions The action list.
-	 * @param _typeface The type face to use.
+	 * @param context The application context.
+	 * @param actions The action list.
+	 * @param typeface The type face to use.
 	 */
-	public ActionListAdapter(final Context _context, final List<ActionItem> _actions, Typeface _typeface) {
-		mInflater	= LayoutInflater.from(_context);
-		mActionList = _actions;
-		mTypeface	= _typeface;
+	public ActionListAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
+		mInflater	= LayoutInflater.from(context);
+		mActionList = actions;
+		mTypeface	= typeface;
 	}
 
 	@Override
@@ -46,16 +47,16 @@ public class ActionListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int _position) {
+	public Object getItem(int position) {
 		if (mActionList == null) {
 			return null;
 		}
-		return mActionList.get(_position);
+		return mActionList.get(position);
 	}
 
 	@Override
-	public long getItemId(int _position) {
-		return _position;
+	public long getItemId(int position) {
+		return position;
 	}
 
 	/**
@@ -70,26 +71,26 @@ public class ActionListAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int _position, View _convertView, ViewGroup _parent) {
+	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		if (_convertView == null) {
-			_convertView = mInflater.inflate(R.layout.action_item, null);
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.action_item, null);
 			holder = new ViewHolder();
-			holder.ivActionIcon		= (ImageView) _convertView.findViewById(R.id.ivActionIcon);
-			holder.tvActionTitle	= (TextView) _convertView.findViewById(R.id.tvActionTitle);
-			holder.tvActionSummary	= (TextView) _convertView.findViewById(R.id.tvActionSummary);
-			_convertView.setTag(holder);
+			holder.ivActionIcon		= (ImageView) convertView.findViewById(R.id.ivActionIcon);
+			holder.tvActionTitle	= (TextView) convertView.findViewById(R.id.tvActionTitle);
+			holder.tvActionSummary	= (TextView) convertView.findViewById(R.id.tvActionSummary);
+			convertView.setTag(holder);
 		} else {
-			holder = (ViewHolder) _convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final ActionItem action = mActionList.get(_position);
+		final ActionItem action = mActionList.get(position);
 
 		holder.ivActionIcon.setImageResource(action.getImageResource());
 		holder.tvActionTitle.setText(action.getTitle());
 		holder.tvActionTitle.setTypeface(mTypeface);
 		holder.tvActionSummary.setText(action.getSummary());
 
-		return _convertView;
+		return convertView;
 	}
 }

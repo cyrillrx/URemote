@@ -18,7 +18,7 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
@@ -271,7 +271,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
 		public DashboardMessageMgr(Handler _handler) {
-			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

@@ -11,7 +11,7 @@ import java.util.concurrent.Semaphore;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Response.ReturnCode;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
 import android.os.AsyncTask;
@@ -33,17 +33,17 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected Handler mHandler;
 
 	//TODO
-	protected final ServerInfo mServerInfo;
+	protected final ServerSetting mServerSetting;
 	private Socket mSocket;
 
 	/**
 	 * Initialize class with the message handler as a parameter.
 	 * @param handler The handler for toast messages.
-	 * @param serverInfo Server connection informations.
+	 * @param serverSetting Server connection informations.
 	 */
-	public AsyncMessageMgr(Handler handler, ServerInfo serverInfo) {
+	public AsyncMessageMgr(Handler handler, ServerSetting serverSetting) {
 		mHandler = handler;
-		mServerInfo = serverInfo;
+		mServerSetting = serverSetting;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		mSocket = null;
 		try {
 			// Socket creation
-			mSocket = connectToRemoteSocket(mServerInfo);
+			mSocket = connectToRemoteSocket(mServerSetting);
 			if (mSocket != null && mSocket.isConnected()) {
 				return MessageHelper.sendRequest(mSocket, request);
 			}
@@ -137,7 +137,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */
-	private Socket connectToRemoteSocket(ServerInfo server) throws IOException {
+	private Socket connectToRemoteSocket(ServerSetting server) throws IOException {
 
 		final String host	= server.getLocalHost();
 		final int port		= server.getLocalPort();

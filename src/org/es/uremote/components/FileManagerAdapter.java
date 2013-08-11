@@ -27,12 +27,12 @@ public class FileManagerAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
-	 * @param _context the application context.
-	 * @param _dirContent the files to display
+	 * @param context the application context.
+	 * @param dirContent the files to display
 	 */
-	public FileManagerAdapter(Context _context,  DirContent _dirContent) {
-		mInflater = LayoutInflater.from(_context);
-		mDirContent = _dirContent;
+	public FileManagerAdapter(Context context,  DirContent dirContent) {
+		mInflater = LayoutInflater.from(context);
+		mDirContent = dirContent;
 	}
 
 	@Override
@@ -44,15 +44,15 @@ public class FileManagerAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public Object getItem(int _position) {
+	public Object getItem(int position) {
 		if (mDirContent == null) {
 			return null;
 		}
-		return mDirContent.getFile(_position);
+		return mDirContent.getFile(position);
 	}
 
 	@Override
-	public long getItemId(int _position) { return _position; }
+	public long getItemId(int position) { return position; }
 
 	/**
 	 * The view holder is the template for the items of the list.
@@ -66,20 +66,20 @@ public class FileManagerAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int _position, View _convertView, ViewGroup _parent) {
+	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		if (_convertView == null) {
-			_convertView = mInflater.inflate(R.layout.filemanager_item, null);
+		if (convertView == null) {
+			convertView = mInflater.inflate(R.layout.filemanager_item, null);
 			holder = new ViewHolder();
-			holder.ivIcon	= (ImageView) _convertView.findViewById(R.id.ivIcon);
-			holder.tvName	= (TextView) _convertView.findViewById(R.id.tvName);
-			holder.tvSize	= (TextView) _convertView.findViewById(R.id.tvSize);
-			_convertView.setTag(holder);
+			holder.ivIcon	= (ImageView) convertView.findViewById(R.id.ivIcon);
+			holder.tvName	= (TextView) convertView.findViewById(R.id.tvName);
+			holder.tvSize	= (TextView) convertView.findViewById(R.id.tvSize);
+			convertView.setTag(holder);
 		} else {
-			holder = (ViewHolder) _convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final DirContent.File file = mDirContent.getFile(_position);
+		final DirContent.File file = mDirContent.getFile(position);
 
 		int iconRes = R.drawable.filemanager_blank;
 
@@ -93,6 +93,6 @@ public class FileManagerAdapter extends BaseAdapter {
 		holder.tvName.setText(file.getName());
 		holder.tvSize.setText(String.valueOf(file.getSize()));
 
-		return _convertView;
+		return convertView;
 	}
 }

@@ -26,7 +26,7 @@ import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
 import org.es.utils.Log;
 
@@ -79,8 +79,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		return sHandler;
 	}
 
-	private ServerInfo getCurrentServer() {
-		return ServerInfo.loadFromPreferences(getApplicationContext());
+	private ServerSetting getCurrentServer() {
+		return ServerSetting.loadFromPreferences(getApplicationContext());
 	}
 
 	private String getServerString() {
@@ -206,9 +206,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initialize server using shared preferences.
-	 * @return The {@link ServerInfo} loaded from preferences.
+	 * @return The {@link org.es.uremote.objects.ServerSetting} loaded from preferences.
 	 */
-	private ServerInfo initServer() {
+	private ServerSetting initServer() {
 
 		// Get key for other properties
 		final String keySecurityToken			= getString(R.string.key_security_token);
@@ -221,7 +221,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(securityToken);
 
-		return ServerInfo.loadFromPreferences(getApplicationContext());
+		return ServerSetting.loadFromPreferences(getApplicationContext());
 	}
 
 	/**
@@ -311,7 +311,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerInfo.loadFromPreferences(getApplicationContext())).execute(request);
+			new AsyncMessageMgr(sHandler, ServerSetting.loadFromPreferences(getApplicationContext())).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

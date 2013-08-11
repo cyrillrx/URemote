@@ -1,6 +1,6 @@
 package org.es.uremote.objects;
 
-import org.es.uremote.objects.ServerInfo.ConnectionType;
+import org.es.uremote.objects.ServerSetting.ConnectionType;
 
 
 /**
@@ -43,18 +43,18 @@ public class ServerBuilder {
 	}
 
 	/**
-	 * @return A fully loaded {@link ServerInfo} object.
+	 * @return A fully loaded {@link ServerSetting} object.
 	 * @throws Exception
 	 */
-	public ServerInfo build() throws Exception {
+	public ServerSetting build() throws Exception {
 		if (isLoaded()) {
-			return new ServerInfo(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mConnectionType);
+			return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mConnectionType);
 		}
 		return null;
 	}
 
 	/**
-	 * @return True if the builder has all the informations to build the {@link ServerInfo} object. False otherwise.
+	 * @return True if the builder has all the informations to build the {@link ServerSetting} object. False otherwise.
 	 * @throws Exception
 	 */
 	public boolean isLoaded() throws Exception {
@@ -102,7 +102,7 @@ public class ServerBuilder {
 		return true;
 	}
 
-	public void setConnectioType(ConnectionType type) {
+	public void setConnectionType(ConnectionType type) {
 		mConnectionType = type;
 	}
 
@@ -138,7 +138,7 @@ public class ServerBuilder {
 		mConnectionTimeout = timeout;
 	}
 
-	public void setReadTimout(final int timeout) {
+	public void setReadTimeout(final int timeout) {
 		mReadTimeout = timeout;
 	}
 }

@@ -21,7 +21,7 @@ import org.es.uremote.R;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.network.WakeOnLan;
-import org.es.uremote.objects.ServerInfo;
+import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
 import android.app.AlertDialog;
@@ -177,7 +177,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		 * @param _handler The toast messages handler.
 		 */
 		public AdminMessageMgr(Handler _handler) {
-			super(_handler, ServerInfo.loadFromPreferences(getActivity().getApplicationContext()));
+			super(_handler, ServerSetting.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override
