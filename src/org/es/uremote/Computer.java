@@ -60,7 +60,7 @@ import static org.es.uremote.utils.Constants.STATE_OK;
  */
 public class Computer extends FragmentActivity implements OnPageChangeListener {
 
-	private static final String TAG = "ServerControl";
+	private static final String TAG = "Computer Activity";
 	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
 	private static final int PAGES_COUNT = 4;
 	private static final int EXPLORER_PAGE_ID = 2;
@@ -69,7 +69,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	private static Handler sHandler;
 
 	private FragExplorer mFragExplorer;
-	private int mCurrentPage = 0;
+	private int mCurrentPage = -1;
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
 
@@ -108,9 +108,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		// Fragment to use in each tab
 		FragAdmin fragAdmin				= new FragAdmin();
 		FragDashboard fragDashboard		= new FragDashboard();
-		mFragExplorer		= new FragExplorer();
+		mFragExplorer					= new FragExplorer();
 		FragKeyboard fragKeyboard		= new FragKeyboard();
-		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
+		List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
 		fragments.add(fragAdmin);
 		fragments.add(fragDashboard);
 		fragments.add(mFragExplorer);
@@ -162,15 +162,13 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		} else if (keyCode == KEYCODE_VOLUME_DOWN) {
 			sendAsyncRequest(VOLUME, DOWN);
 			return true;
-		} else {
-			if (keyCode == KeyEvent.KEYCODE_BACK && mCurrentPage == EXPLORER_PAGE_ID) {
 
-				if (mFragExplorer.navigateUpIfPossible()) {
-					return true;
-				}
+		} else if (keyCode == KeyEvent.KEYCODE_BACK) {
+        	if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.navigateUpIfPossible()) {
+				return true;
 			}
-			Log.error(TAG, KeyEvent.keyCodeToString(keyCode));
-
+		} else {
+			Log.info(TAG, "#onKeyDown : Key " + KeyEvent.keyCodeToString(keyCode) + " not handle for page " + mCurrentPage);
 		}
 		return super.onKeyDown(keyCode, event);
 	}

@@ -74,7 +74,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 					mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
 				}
 			} catch (InvalidProtocolBufferException e) {
-				Log.error(TAG, "onCreate InvalidProtocolBufferException : " + e);
+				Log.error(TAG, "#onActivityCreated : Error occurred while parsing directory content.", e);
 			}
 		}
 		// Get the directory content from the server or update the one that already exist.
@@ -102,7 +102,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 			return;
 		}
 		if (dirContent.getFileCount() == 0) {
-			Log.error(TAG, "file count == 0");
+			Log.warning(TAG, "No file in the directory.");
 			return;
 		}
 

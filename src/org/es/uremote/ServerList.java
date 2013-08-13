@@ -67,7 +67,7 @@ public class ServerList extends ListActivity {
 		boolean saved = ServerSettingDao.saveToXmlFile(getConfFile(), servers);
 
 		if (!saved) {
-			Log.error(TAG, "Servers not saved.");
+			Log.error(TAG, "#saveServers : Servers not saved.");
 			Toast.makeText(getApplicationContext(), R.string.server_not_saved, Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
@@ -143,7 +143,7 @@ public class ServerList extends ListActivity {
 				reader.parse(new InputSource(new FileInputStream(configFile)));
 
 			} catch (Exception e) {
-                Log.debug(TAG, "Parsing Server exception : " + e);
+                Log.error(TAG, "AsyncServerLoader#LoadFromXml : Error occurred while parsing Server settings", e);
 			}
 			return serverXmlhandler.getServers();
 		}

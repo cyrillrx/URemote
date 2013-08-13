@@ -141,7 +141,7 @@ public class ServerEdit extends Activity {
 				finish();
 
 			} catch (Exception e) {
-				Log.error(TAG, e.getMessage());
+				Log.error(TAG, e.getMessage(), e);
 				Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 			return true;

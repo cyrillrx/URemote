@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
-import org.es.uremote.BuildConfig;
 import org.es.utils.Log;
 
 import java.net.DatagramPacket;
@@ -60,9 +59,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 			return "ip.isEmpty() || mac.isEmpty()";
 		}
 
-		if (BuildConfig.DEBUG) {
-			Log.info(TAG, "ip : " + broadcastIp + ", mac : " + macAddress);
-		}
+		Log.info(TAG, "ip : " + broadcastIp + ", mac : " + macAddress);
 
 		String result = "ip : " + broadcastIp + ", mac : " + macAddress + "\r\n";
 

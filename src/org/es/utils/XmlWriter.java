@@ -1,24 +1,23 @@
 package org.es.utils;
 
-import android.util.Log;
 import android.util.Xml;
 
-import org.es.uremote.BuildConfig;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Class that handle XML file creation.
- * 
+ * Class that handle XML file creation.<br />
+ * Default encoding : UTF-8
+ *
  * @author Cyril Leroux
  */
 public class XmlWriter {
-	private static final String TAG			= "XmlFileCreator";
-	private static final String ENCODING	= "UTF-8";
-	private static final String INDENT		= "http://xmlpull.org/v1/doc/features.html#indent-output";
-	private static final String NAMESPACE	= null;
+	private static final String TAG					= "XmlWriter";
+	private static final String ENCODING			= "UTF-8";
+	private static final String NAMESPACE			= null;
+    private static final String FEATURE_INDENT		= "http://xmlpull.org/v1/doc/features.html#indent-output";
 
 	private final String mRootTag;
 	private final FileOutputStream mFileOutputStream;
@@ -41,7 +40,7 @@ public class XmlWriter {
 		mSerializer = Xml.newSerializer();
 		mSerializer.setOutput(mFileOutputStream, ENCODING);
 		mSerializer.startDocument(ENCODING, true);
-		mSerializer.setFeature(INDENT, true);
+		mSerializer.setFeature(FEATURE_INDENT, true);
 		mSerializer.startTag(null, rootTag);
 	}
 
@@ -55,9 +54,7 @@ public class XmlWriter {
 			mSerializer.flush();
 			mFileOutputStream.close();
 		} catch (Exception e) {
-			if (BuildConfig.DEBUG) {
-				Log.e(TAG, "Error in closeAndSave method");
-			}
+			Log.error(TAG, "Error in closeAndSave method");
 		}
 	}
 
@@ -82,9 +79,7 @@ public class XmlWriter {
 
 			mSerializer.endTag(null, tag); // Close tag
 		} catch (Exception e) {
-			if (BuildConfig.DEBUG) {
-				Log.e(TAG, "Error in addChild method");
-			}
+			Log.error(TAG, "Error in addChild method");
 		}
 	}
 
@@ -111,9 +106,7 @@ public class XmlWriter {
 		try {
 			mSerializer.startTag(null, tag); // Open tag
 		} catch (Exception e) {
-			if (BuildConfig.DEBUG) {
-				Log.e(TAG, "Error in addChild method");
-			}
+			Log.error(TAG, "Error in addChild method");
 		}
 	}
 
@@ -127,9 +120,7 @@ public class XmlWriter {
 		try {
 			mSerializer.endTag(null, tag); // Close the tag
 		} catch (Exception e) {
-			if (BuildConfig.DEBUG) {
-				Log.e(TAG, "Error in addChild method");
-			}
+			Log.error(TAG, "Error in addChild method");
 		}
 	}
 }

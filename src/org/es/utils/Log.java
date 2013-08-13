@@ -56,4 +56,16 @@ public class Log {
 			android.util.Log.e(tag, message);
 		}
 	}
+
+    /**
+     * Send an ERROR log message
+     * @param tag Used to identify the source of a log message. It usually identifies the class or activity where the log call occurs.
+     * @param message The message you would like logged.
+     * @param e exception attached to the message
+     */
+    public static void error(String tag, String message, Exception e) {
+        if (DEBUG) {
+            android.util.Log.e(tag, message, e);
+        }
+    }
 }
