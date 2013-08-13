@@ -3,11 +3,11 @@ package org.es.uremote.dao;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
 import org.es.uremote.objects.ServerSetting;
+import org.es.utils.Log;
 import org.es.utils.XmlWriter;
 
 import java.io.File;
@@ -49,7 +49,7 @@ public class ServerSettingDao {
 
         try {
             if (BuildConfig.DEBUG) {
-                Log.d(TAG, confFile.getPath());
+                Log.debug(TAG, confFile.getPath());
             }
             FileOutputStream fos = new FileOutputStream(confFile);
 

@@ -21,8 +21,8 @@ public class TvDialer extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View _v) {
-		switch (_v.getId()) {
+	public void onClick(View view) {
+		switch (view.getId()) {
 		// TODO code controls
 		default:
 			break;

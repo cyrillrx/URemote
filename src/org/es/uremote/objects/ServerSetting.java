@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Class that holds server connection settings.
+ * Parcelable class that holds server connection settings.
  * 
  * @author Cyril Leroux
  *

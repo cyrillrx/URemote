@@ -3,6 +3,7 @@ package org.es.uremote.objects;
 
 /**
  * Simple object that hold an action.
+ * Used in Home Activity
  * @author Cyril Leroux
  *
  */

@@ -15,58 +15,58 @@ public class ConnectionUtils {
 	private static final String TAG = "WebUtils";
 
 	/**
-	 * @param _context Activity or Application context.
-	 * @return The ConnectivityManager object binded to the context.
+	 * @param context Activity or Application context.
+	 * @return The ConnectivityManager object bound to the context.
 	 */
-	public static ConnectivityManager getConnectivityManager(Context _context) {
-		return (ConnectivityManager) _context.getSystemService(Context.CONNECTIVITY_SERVICE);
+	public static ConnectivityManager getConnectivityManager(Context context) {
+		return (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 	}
 
 	/**
-	 * @param _connectivityMgr Object that contains informations on connections.
+	 * @param connectivityMgr Object that contains connections data.
 	 * @return true if the device is connected to the Internet through WIFI. false otherwise.
 	 */
-	public static boolean isConnectedThroughWifi(ConnectivityManager _connectivityMgr) {
-		boolean isConnectedToWifi = _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
+	public static boolean isConnectedThroughWifi(ConnectivityManager connectivityMgr) {
+		boolean isConnectedToWifi = connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
 		return isConnectedToWifi;
 	}
 
 	/**
 	 * Tests the Internet connection.
-	 * @param _connectivityMgr Object that contains informations on connections.
+	 * @param connectivityMgr Object that contains connections data.
 	 * @return true if the device is connected to the Internet (through WIFI or mobile data). false otherwise.
 	 */
-	public static boolean isConnectedToInternet(ConnectivityManager _connectivityMgr) {
+	public static boolean isConnectedToInternet(ConnectivityManager connectivityMgr) {
 
-		boolean isMobileConnected	= _connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
-		boolean isWifiConnected		= isConnectedThroughWifi(_connectivityMgr);
+		boolean isMobileConnected	= connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
+		boolean isWifiConnected		= isConnectedThroughWifi(connectivityMgr);
 
 		if (isMobileConnected || isWifiConnected) {
 			return true;
 		}
 
-		Log.error(TAG, "No acces to the world wide web");
+		Log.error(TAG, "No access to the world wide web");
 		return false;
 	}
 
 	/**
-	 * @param _connectivityMgr Object that contains informations on connections.
-	 * @param _ipAddress The IP address of the host we want to connect to.
+	 * @param connectivityMgr Object that contains connections data.
+	 * @param ipAddress The IP address of the host we want to connect to.
 	 * @return true if the device can access the specified host. false otherwise.
 	 */
-	public static boolean canAccessHost(ConnectivityManager _connectivityMgr, String _ipAddress) {
-		return _connectivityMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, lookupHost(_ipAddress));
+	public static boolean canAccessHost(ConnectivityManager connectivityMgr, String ipAddress) {
+		return connectivityMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, lookupHost(ipAddress));
 	}
 
 	/**
 	 * Convert the IP address into an integer.
-	 * @param _ipAddress The IP address to convert.
+	 * @param ipAddress The IP address to convert.
 	 * @return The IP address converted as an integer.
 	 */
-	private static int lookupHost(String _ipAddress) {
+	private static int lookupHost(String ipAddress) {
 		InetAddress inetAddress;
 		try {
-			inetAddress = InetAddress.getByName(_ipAddress);
+			inetAddress = InetAddress.getByName(ipAddress);
 		} catch (UnknownHostException e) {
 			return -1;
 		}

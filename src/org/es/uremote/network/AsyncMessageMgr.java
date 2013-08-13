@@ -39,7 +39,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Initialize class with the message handler as a parameter.
 	 * @param handler The handler for toast messages.
-	 * @param serverSetting Server connection informations.
+	 * @param serverSetting Server connection settings.
 	 */
 	public AsyncMessageMgr(Handler handler, ServerSetting serverSetting) {
 		mHandler = handler;
@@ -133,7 +133,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 * 
-	 * @param server The object that holds server connection informations.
+	 * @param server The object that holds server connection settings.
 	 * @return The socket on which to send the message.
 	 * @throws IOException exception
 	 */

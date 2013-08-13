@@ -176,9 +176,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu _menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.server, _menu);
+		inflater.inflate(R.menu.server, menu);
 		return true;
 	}
 
@@ -227,16 +227,16 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initialize the toast message handler.
-	 * @param _context The context used to display toast messages.
+	 * @param context The context used to display toast messages.
 	 */
-	private static void initHandler(final Context _context) {
+	private static void initHandler(final Context context) {
 		if (sHandler == null) {
 			sHandler = new Handler() {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 					case MESSAGE_WHAT_TOAST:
-						showStaticToast(_context, (String)_msg.obj);
+						showStaticToast(context, (String)_msg.obj);
 						break;
 
 					default : break;
@@ -248,11 +248,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		}
 	}
 
-	private static void showStaticToast(final Context _context, final String _message) {
+	private static void showStaticToast(final Context context, final String message) {
 		if (sToast == null) {
-			sToast = Toast.makeText(_context, "", LENGTH_SHORT);
+			sToast = Toast.makeText(context, "", LENGTH_SHORT);
 		}
-		sToast.setText(_message);
+		sToast.setText(message);
 		sToast.show();
 	}
 
@@ -263,11 +263,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	public void onPageScrolled(int arg0, float arg1, int arg2) {}
 
 	@Override
-	public void onPageSelected(int _position) {
-		mCurrentPage = _position;
-		if (_position == 1) {
+	public void onPageSelected(int position) {
+        // TODO this call does not work as it should.
+		mCurrentPage = position;
+		if (position == 1) {
 			getActionBar().setIcon(R.drawable.ic_filemanager);
-		} else if (_position == 2) {
+		} else if (position == 2) {
 			getActionBar().setIcon(R.drawable.ic_keyboard);
 		} else {
 			getActionBar().setIcon(R.drawable.ic_launcher);

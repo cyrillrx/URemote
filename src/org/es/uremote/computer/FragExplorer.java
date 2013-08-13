@@ -95,27 +95,27 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Update the view with the content of the new directory
-	 * @param _dirContent The object that hosts the directory content.
+	 * @param dirContent The object that hosts the directory content.
 	 */
-	private void updateView(final DirContent _dirContent){
-		if (_dirContent == null) {
+	private void updateView(final DirContent dirContent){
+		if (dirContent == null) {
 			return;
 		}
-		if (_dirContent.getFileCount() == 0) {
+		if (dirContent.getFileCount() == 0) {
 			Log.error(TAG, "file count == 0");
 			return;
 		}
 
-		final FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), _dirContent);
+		final FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
 		setListAdapter(adpt);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener( new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
-				final DirContent.File file = _dirContent.getFile(_position);
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				final DirContent.File file = dirContent.getFile(position);
 				final String filename = file.getName();
-				final String currentDirPath = _dirContent.getPath();
+				final String currentDirPath = dirContent.getPath();
 
 				if (DIRECTORY.equals(file.getType())) {
 
@@ -146,19 +146,19 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	/**
 	 * Ask the server to list the content of the passed directory.
 	 * Updates the view once the data have been received from the server.
-	 * @param _dirPath The path of the directory to display.
+	 * @param dirPath The path of the directory to display.
 	 */
-	private void openDirectory(String _dirPath) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, _dirPath));
+	private void openDirectory(String dirPath) {
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 	}
 
 	/**
 	 * Ask the server to list the content of the passed directory's parent.
 	 * Updates the view once the data have been received from the server.
-	 * @param _dirPath The path of the child directory.
+	 * @param dirPath The path of the child directory.
 	 */
-	private void openParentDirectory(String _dirPath) {
-		final String parentPath = FileUtils.truncatePath(_dirPath);
+	private void openParentDirectory(String dirPath) {
+		final String parentPath = FileUtils.truncatePath(dirPath);
 		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, parentPath));
 	}
 
@@ -180,8 +180,8 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		return false;
 	}
 
-	private void openFile(String _filename) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, _filename));
+	private void openFile(String filename) {
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -190,12 +190,12 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Initializes the message handler then send the request.
-	 * @param _request The request to send.
+	 * @param request The request to send.
 	 */
 	@Override
-	public void sendAsyncRequest(Request _request) {
+	public void sendAsyncRequest(Request request) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
-			new ExplorerMessageMgr(Computer.getHandler()).execute(_request);
+			new ExplorerMessageMgr(Computer.getHandler()).execute(request);
 		} else {
 			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
@@ -207,28 +207,28 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 */
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
-		public ExplorerMessageMgr(Handler _handler) {
-			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public ExplorerMessageMgr(Handler handler) {
+			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override
-		protected void onPostExecute(Response _response) {
-			super.onPostExecute(_response);
+		protected void onPostExecute(Response response) {
+			super.onPostExecute(response);
 
-			Log.debug(TAG, _response.getMessage());
-			if (RC_ERROR.equals(_response.getReturnCode())) {
-				if (!_response.getMessage().isEmpty()) {
-					sendToastToUI(_response.getMessage());
+			Log.debug(TAG, response.getMessage());
+			if (RC_ERROR.equals(response.getReturnCode())) {
+				if (!response.getMessage().isEmpty()) {
+					sendToastToUI(response.getMessage());
 				}
 				return;
 			}
-			//TODO supprimer
-			//} else if (_response.hasRequest() && GET_FILE_LIST.equals(_response.getRequest().getCode())) {
-			if (!_response.getMessage().isEmpty()) {
-				sendToastToUI(_response.getMessage());
+			//TODO clean
+			//} else if (_response.hasRequest() && GET_FILE_LIST.equals(response.getRequest().getCode())) {
+			if (!response.getMessage().isEmpty()) {
+				sendToastToUI(response.getMessage());
 			}
-			mDirectoryContent = _response.getDirContent();
-			updateView(_response.getDirContent());
+			mDirectoryContent = response.getDirContent();
+			updateView(response.getDirContent());
 
 		}
 	}

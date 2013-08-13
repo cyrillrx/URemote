@@ -11,7 +11,7 @@ import org.es.network.ExchangeProtos.Request;
 public interface IRequestSender {
 	/**
 	 * Initializes the message handler then send the request.
-	 * @param _request The request to send.
+	 * @param request The request to send.
 	 */
-	public void sendAsyncRequest(Request _request);
+	public void sendAsyncRequest(Request request);
 }

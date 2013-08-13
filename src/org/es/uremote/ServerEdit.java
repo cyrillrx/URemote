@@ -3,7 +3,6 @@ package org.es.uremote;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
+import org.es.utils.Log;
 
 import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
@@ -95,7 +95,7 @@ public class ServerEdit extends Activity {
 	}
 
 	private void loadServer(Intent data) {
-		ServerSetting server = (ServerSetting) getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
+		ServerSetting server = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
 		if (server == null) {
 			finishActivity(Activity.RESULT_CANCELED);
 		}
@@ -141,9 +141,7 @@ public class ServerEdit extends Activity {
 				finish();
 
 			} catch (Exception e) {
-				if (BuildConfig.DEBUG) {
-					Log.e(TAG, e.getMessage());
-				}
+				Log.error(TAG, e.getMessage());
 				Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 			}
 			return true;

@@ -21,7 +21,7 @@ public class ServerBuilder {
 	private ConnectionType mConnectionType;
 
 	/**
-	 * If the connection with the remote server is not established within this timeout, it is dismiss.
+	 * If the connection with the remote server is not established within this timeout, it is dismissed.
 	 */
 	private int mConnectionTimeout;
 	private int mReadTimeout;
@@ -54,7 +54,7 @@ public class ServerBuilder {
 	}
 
 	/**
-	 * @return True if the builder has all the informations to build the {@link ServerSetting} object. False otherwise.
+	 * @return True if the builder has all the data to build the {@link ServerSetting} object. False otherwise.
 	 * @throws Exception
 	 */
 	public boolean isLoaded() throws Exception {

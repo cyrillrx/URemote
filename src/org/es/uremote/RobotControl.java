@@ -39,54 +39,63 @@ public class RobotControl extends Activity implements OnClickListener {
 		((Button) findViewById(R.id.robotControl6)).setOnClickListener(this);
 	}
 
-	private void fireToast(String _message) {
-		Toast.makeText(RobotControl.this, _message, Toast.LENGTH_SHORT).show();
+	private void fireToast(String message) {
+		Toast.makeText(RobotControl.this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
-	public void onClick(View _view) {
-		_view.performHapticFeedback(VIRTUAL_KEY);
-		switch (_view.getId()) {
+	public void onClick(View view) {
+		view.performHapticFeedback(VIRTUAL_KEY);
+		switch (view.getId()) {
 
 		case R.id.robotControlLeft:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControlLeft");
+			fireToast("Todo : code robotControlLeft");
 			break;
+
 		case R.id.robotControlUp:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControlUp");
+			fireToast("Todo : code robotControlUp");
 			break;
+
 		case R.id.robotControlRight:
 			// TODO code the button behavior
 			fireToast("To todo : code robotControlRight");
 			break;
+
 		case R.id.robotControlDown:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControlDown");
+			fireToast("Todo : code robotControlDown");
 			break;
+
 		case R.id.robotControl1:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl1");
+			fireToast("Todo : code robotControl1");
 			break;
+
 		case R.id.robotControl2:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl2");
+			fireToast("Todo : code robotControl2");
 			break;
+
 		case R.id.robotControl3:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl3");
+			fireToast("Todo : code robotControl3");
 			break;
+
 		case R.id.robotControl4:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl4");
+			fireToast("Todo : code robotControl4");
 			break;
+
 		case R.id.robotControl5:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl5");
+			fireToast("Todo : code robotControl5");
 			break;
+
 		case R.id.robotControl6:
 			// TODO code the button behavior
-			fireToast("To todo : code robotControl6");
+			fireToast("Todo : code robotControl6");
 			break;
 
 		default:

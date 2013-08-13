@@ -79,10 +79,10 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 	}
 
 	@Override
-	public void onClick(View _view) {
-		_view.performHapticFeedback(VIRTUAL_KEY);
+	public void onClick(View view) {
+		view.performHapticFeedback(VIRTUAL_KEY);
 
-		switch (_view.getId()) {
+		switch (view.getId()) {
 
 		case R.id.cmdWakeOnLan :
 			wakeOnLan();
@@ -134,10 +134,10 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 	////////////////////////////////////////////////////////////////////
 
 	@Override
-	public void sendAsyncRequest(Request _request) {
+	public void sendAsyncRequest(Request request) {
 
 		if (AdminMessageMgr.availablePermits() > 0) {
-			new AdminMessageMgr(Computer.getHandler()).execute(_request);
+			new AdminMessageMgr(Computer.getHandler()).execute(request);
 		} else {
 			Log.warning(TAG, getString(R.string.msg_no_more_permit));
 		}
@@ -145,10 +145,10 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 	/**
 	 * Ask for the user to confirm before sending a request to the server.
-	 * @param _request The request to send.
+	 * @param request The request to send.
 	 */
-	public void confirmRequest(final Request _request) {
-		int resId = (KILL_SERVER.equals(_request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
+	public void confirmRequest(final Request request) {
+		int resId = (KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
@@ -157,7 +157,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Send the request if the user confirms it
-				sendAsyncRequest(_request);
+				sendAsyncRequest(request);
 			}
 		});
 
@@ -174,10 +174,10 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 	public class AdminMessageMgr extends AsyncMessageMgr {
 
 		/**
-		 * @param _handler The toast messages handler.
+		 * @param handler The toast messages handler.
 		 */
-		public AdminMessageMgr(Handler _handler) {
-			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public AdminMessageMgr(Handler handler) {
+			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override
@@ -187,12 +187,12 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		}
 
 		@Override
-		protected void onPostExecute(Response _response) {
-			super.onPostExecute(_response);
+		protected void onPostExecute(Response response) {
+			super.onPostExecute(response);
 
-			sendToastToUI(_response.getMessage());
+			sendToastToUI(response.getMessage());
 
-			if (RC_ERROR.equals(_response.getReturnCode())) {
+			if (RC_ERROR.equals(response.getReturnCode())) {
 				mParent.updateConnectionState(STATE_KO);
 			} else {
 				mParent.updateConnectionState(STATE_OK);

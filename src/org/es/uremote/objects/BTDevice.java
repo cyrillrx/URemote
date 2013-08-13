@@ -3,7 +3,7 @@ package org.es.uremote.objects;
 import android.bluetooth.BluetoothDevice;
 
 /**
- * Simple object that hold the bluetooth device informations.
+ * Simple object that hold the bluetooth device data.
  * @author Cyril Leroux
  *
  */

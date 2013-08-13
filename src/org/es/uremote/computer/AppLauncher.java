@@ -56,10 +56,10 @@ public class AppLauncher extends Activity implements OnClickListener {
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 	}
 
-	private void returnAppMessage(Type _type, Code _code) {
+	private void returnAppMessage(Type type, Code code) {
 		Intent data = new Intent();
-		data.putExtra(REQUEST_TYPE, _type.getNumber());
-		data.putExtra(REQUEST_CODE, _code.getNumber());
+		data.putExtra(REQUEST_TYPE, type.getNumber());
+		data.putExtra(REQUEST_CODE, code.getNumber());
 		setResult(RESULT_OK, data);
 		finish();
 		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);

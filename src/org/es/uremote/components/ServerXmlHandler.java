@@ -102,12 +102,12 @@ public class ServerXmlHandler extends DefaultHandler {
 	}
 
 	@Override
-	public void characters(char[] _ch, int _start, int _length) throws SAXException {
+	public void characters(char[] ch, int start, int length) throws SAXException {
 		if (!mCurrentElement) {
 			return;
 		}
 
-		mCurrentValue = new String(_ch, _start, _length);
+		mCurrentValue = new String(ch, start, length);
 		mCurrentElement = false;
 	}
 

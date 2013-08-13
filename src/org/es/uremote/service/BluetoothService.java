@@ -33,6 +33,9 @@ import static org.es.uremote.utils.IntentKeys.TOAST;
  */
 public class BluetoothService {
 
+    /** This token is used to synchronize class methods. */
+    private static final Object TOKEN = new Object();
+
 	// Constants that indicate the current connection state
 	/** Doing nothing. */
 	public static final int STATE_NONE				= 0;
@@ -252,7 +255,7 @@ public class BluetoothService {
 	}
 
 	/**
-	 * Write to the ConnectedThread in an unsynchronized manner
+	 * Asynchronously write to the ConnectedThread
 	 * @param out The bytes to write
 	 * @see ConnectedThread#write(byte[])
 	 */
@@ -260,13 +263,13 @@ public class BluetoothService {
 		// Create temporary object
 		ConnectedThread r;
 		// Synchronize a copy of the ConnectedThread
-		synchronized (this) {
+		synchronized (TOKEN) {
 			if (mState != STATE_CONNECTED) {
 				return;
 			}
 			r = mConnectedThread;
 		}
-		// Perform the write unsynchronized
+		// Perform the write asynchronously
 		r.write(out);
 	}
 

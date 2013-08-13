@@ -23,7 +23,7 @@ public class IntentKeys {
 
 	// Key names received from the BluetoothChatService Handler
 	public static final String DEVICE_NAME		= "device_name";
-	public static final String TOAST		= "toast";
+	public static final String TOAST			= "toast";
 
 
 	// Message types sent from the BluetoothChatService Handler
@@ -33,7 +33,7 @@ public class IntentKeys {
 	public static final int MESSAGE_DEVICE_NAME		= 4;
 	public static final int MESSAGE_TOAST			= 5;
 
-	// Constantes pour les Broadcasts
+	// Broadcasts constants
 	//	public static final String BROADCAST_CHECK_SERVER_STATE = "server_state";
 	//	public static final String BROADCAST_SERVER_IS_ON = "server_is_on";
 	//	public static final String BROADCAST_SERVER_IS_OFF = "server_is_off";

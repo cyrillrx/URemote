@@ -116,12 +116,12 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	}
 
 	@Override
-	public void onClick(View _view) {
-		_view.performHapticFeedback(VIRTUAL_KEY);
+	public void onClick(View view) {
+		view.performHapticFeedback(VIRTUAL_KEY);
 
-		final Code extraCode = getExtraCode(_view);
+		final Code extraCode = getExtraCode(view);
 
-		switch (_view.getId()) {
+		switch (view.getId()) {
 
 		case R.id.kbControl :
 			if (mTbControl.isChecked()) {
@@ -292,7 +292,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		}
 	}
 
-	private Code getExtraCode(View _view) {
+	private Code getExtraCode(View view) {
 		if (mTbControl.isChecked()) {
 			return Code.KB_CTRL;
 		} else if (mTbAlt.isChecked()) {
@@ -333,12 +333,12 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 
 	/**
 	 * Initializes the message sender manager then send a request.
-	 * @param _request The request.
+	 * @param request The request.
 	 */
 	@Override
-	public void sendAsyncRequest(Request _request) {
+	public void sendAsyncRequest(Request request) {
 		if (KeyboardMessageMgr.availablePermits() > 0) {
-			new KeyboardMessageMgr(Computer.getHandler()).execute(_request);
+			new KeyboardMessageMgr(Computer.getHandler()).execute(request);
 		} else {
 			Log.warning(TAG, getString(R.string.msg_no_more_permit));
 		}
@@ -346,9 +346,9 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 
 	/**
 	 * Ask for the user to confirm before sending a request to the server.
-	 * @param _request The request to send.
+	 * @param request The request to send.
 	 */
-	public void confirmRequest(final Request _request) {
+	public void confirmRequest(final Request request) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setIcon(android.R.drawable.ic_menu_more);
 		builder.setMessage( R.string.confirm_command);
@@ -356,7 +356,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Send the request if the user confirms it
-				sendAsyncRequest(_request);
+				sendAsyncRequest(request);
 			}
 		});
 
@@ -373,10 +373,10 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 	public class KeyboardMessageMgr extends AsyncMessageMgr {
 
 		/**
-		 * @param _handler
+		 * @param handler
 		 */
-		public KeyboardMessageMgr(Handler _handler) {
-			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public KeyboardMessageMgr(Handler handler) {
+			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override
@@ -386,12 +386,12 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		}
 
 		@Override
-		protected void onPostExecute(Response _response) {
-			super.onPostExecute(_response);
+		protected void onPostExecute(Response response) {
+			super.onPostExecute(response);
 
-			sendToastToUI(_response.getMessage());
+			sendToastToUI(response.getMessage());
 
-			if (RC_ERROR.equals(_response.getReturnCode())) {
+			if (RC_ERROR.equals(response.getReturnCode())) {
 				mParent.updateConnectionState(Constants.STATE_KO);
 			} else {
 				mParent.updateConnectionState(Constants.STATE_OK);

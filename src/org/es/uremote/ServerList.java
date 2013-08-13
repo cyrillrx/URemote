@@ -4,7 +4,6 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +17,7 @@ import org.es.uremote.components.ServerAdapter;
 import org.es.uremote.components.ServerXmlHandler;
 import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
+import org.es.utils.Log;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -50,7 +50,7 @@ public class ServerList extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_list);
-		mServers = new ArrayList<ServerSetting>();
+		mServers = new ArrayList<>();
 		loadServerList();
 
 	}
@@ -67,9 +67,7 @@ public class ServerList extends ListActivity {
 		boolean saved = ServerSettingDao.saveToXmlFile(getConfFile(), servers);
 
 		if (!saved) {
-			if (BuildConfig.DEBUG) {
-				Log.e(TAG, "Servers not saved.");
-			}
+			Log.error(TAG, "Servers not saved.");
 			Toast.makeText(getApplicationContext(), R.string.server_not_saved, Toast.LENGTH_SHORT).show();
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
@@ -95,9 +93,9 @@ public class ServerList extends ListActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu _menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.server_list, _menu);
+		inflater.inflate(R.menu.server_list, menu);
 		return true;
 	}
 
@@ -145,9 +143,7 @@ public class ServerList extends ListActivity {
 				reader.parse(new InputSource(new FileInputStream(configFile)));
 
 			} catch (Exception e) {
-				if (BuildConfig.DEBUG) {
-					Log.d(TAG, "Parsing Server exception : " + e);
-				}
+                Log.debug(TAG, "Parsing Server exception : " + e);
 			}
 			return serverXmlhandler.getServers();
 		}
