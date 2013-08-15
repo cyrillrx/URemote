@@ -167,9 +167,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
         	if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.navigateUpIfPossible()) {
 				return true;
 			}
-		} else {
-			Log.info(TAG, "#onKeyDown : Key " + KeyEvent.keyCodeToString(keyCode) + " not handle for page " + mCurrentPage);
 		}
+		Log.warning(TAG, "#onKeyDown - Key " + KeyEvent.keyCodeToString(keyCode) + " not handle for page " + mCurrentPage);
 		return super.onKeyDown(keyCode, event);
 	}
 

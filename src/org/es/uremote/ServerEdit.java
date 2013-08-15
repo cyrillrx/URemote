@@ -141,16 +141,10 @@ public class ServerEdit extends Activity {
 				finish();
 
 			} catch (Exception e) {
-				Log.error(TAG, e.getMessage(), e);
-				Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+				Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
+				Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
 			}
 			return true;
-
-
-			//			case R.id.cancel:
-			//				setResult(RESULT_CANCELED);
-			//				finish();
-			//				return true;
 
 		default:
 			return super.onOptionsItemSelected(item);

@@ -285,7 +285,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
 			final String message = response.getMessage();
-			Log.debug(TAG, "onPostExecute() response : " + message);
+			Log.debug(TAG, "#onPostExecute - Sending response : " + message);
 
 			// TODO handle return better than that
 			if (RC_ERROR.equals(response.getReturnCode())) {
