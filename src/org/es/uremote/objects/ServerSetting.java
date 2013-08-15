@@ -7,82 +7,12 @@ import android.os.Parcelable;
 
 /**
  * Parcelable class that holds server connection settings.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class ServerSetting implements Parcelable {
 
-	public static final String SAVE_FILE	= "serverConfig.xml";
-
-	/**
-	 * The type of connection.
-	 */
-	public static enum ConnectionType {
-		/** The server IS in the same network than the device. It must be accessed locally. */
-		LOCAL,
-		/** The server IS NOT in the same network than the device. It must be accessed remotely. */
-		REMOTE
-	};
-
-	private String mName;
-	private String mLocalHost;
-	private int mLocalPort;
-	private String mBroadcast;
-	private String mRemoteHost;
-	private int mRemotePort;
-	private String mMacAddress;
-	private ConnectionType mConnectionType;
-
-	/**
-	 * If the connection with the remote server is not established within this timeout, it is dismiss.
-	 */
-	private int mConnectionTimeout;
-	private int mReadTimeout;
-
-	/**
-	 * Constructor with parameters
-	 * @param name
-	 * @param localHost
-	 * @param localPort
-	 * @param broadcastIp
-	 * @param remoteHost
-	 * @param remotePort
-	 * @param macAddress
-	 * @param connectionTimeout
-	 * @param readTimeout
-	 * @param connectionType
-	 */
-	public ServerSetting(final String name, final String localHost, final int localPort,
-                         final String broadcastIp, final String remoteHost, final int remotePort,
-                         final String macAddress,
-                         final int connectionTimeout, final int readTimeout,
-                         final ConnectionType connectionType) {
-
-		mName		= name;
-		mLocalHost	= localHost;
-		mLocalPort	= localPort;
-		mBroadcast	= broadcastIp;
-		mRemoteHost	= remoteHost;
-		mRemotePort	= remotePort;
-		mMacAddress	= macAddress;
-		mConnectionTimeout	= connectionTimeout;
-		mReadTimeout		= readTimeout;
-		mConnectionType		= connectionType;
-	}
-
-	public void copy(final ServerSetting server) {
-		mName		= server.getName();
-		mLocalHost	= server.getLocalHost();
-		mLocalPort	= server.getLocalPort();
-		mBroadcast	= server.getBroadcast();
-		mRemoteHost	= server.getRemoteHost();
-		mRemotePort	= server.getRemotePort();
-		mMacAddress	= server.getMacAddress();
-		mConnectionTimeout	= server.getConnectionTimeout();
-		mReadTimeout		= server.getReadTimeout();
-		mConnectionType		= server.getConnectionType();
-	}
+	public static final String SAVE_FILE = "serverConfig.xml";
 
 	/**
 	 * CREATOR is a required attribute to create an instance of a class that implements Parcelable
@@ -99,20 +29,84 @@ public class ServerSetting implements Parcelable {
 		}
 	};
 
+	private String mName;
+	private String mLocalHost;
+	private int mLocalPort;
+	private String mBroadcast;
+	private String mRemoteHost;
+	private int mRemotePort;
+	private String mMacAddress;
+	private ConnectionType mConnectionType;
+	/**
+	 * If the connection with the remote server is not established within this timeout, it is dismiss.
+	 */
+	private int mConnectionTimeout;
+	private int mReadTimeout;
+
+	/**
+	 * Constructor with parameters
+	 *
+	 * @param name
+	 * @param localHost
+	 * @param localPort
+	 * @param broadcastIp
+	 * @param remoteHost
+	 * @param remotePort
+	 * @param macAddress
+	 * @param connectionTimeout
+	 * @param readTimeout
+	 * @param connectionType
+	 */
+	public ServerSetting(final String name, final String localHost, final int localPort,
+	                     final String broadcastIp, final String remoteHost, final int remotePort,
+	                     final String macAddress,
+	                     final int connectionTimeout, final int readTimeout,
+	                     final ConnectionType connectionType) {
+
+		mName = name;
+		mLocalHost			= localHost;
+		mLocalPort			= localPort;
+		mBroadcast			= broadcastIp;
+		mRemoteHost			= remoteHost;
+		mRemotePort			= remotePort;
+		mMacAddress			= macAddress;
+		mConnectionTimeout	= connectionTimeout;
+		mReadTimeout		= readTimeout;
+		mConnectionType		= connectionType;
+	}
+
 	/**
 	 * @param src
 	 */
 	public ServerSetting(Parcel src) {
-		mName			= src.readString();
-		mLocalHost		= src.readString();
-		mLocalPort		= src.readInt();
-		mBroadcast		= src.readString();
-		mRemoteHost		= src.readString();
-		mRemotePort		= src.readInt();
-		mMacAddress		= src.readString();
+		mName				= src.readString();
+		mLocalHost			= src.readString();
+		mLocalPort			= src.readInt();
+		mBroadcast			= src.readString();
+		mRemoteHost			= src.readString();
+		mRemotePort			= src.readInt();
+		mMacAddress			= src.readString();
 		mConnectionTimeout	= src.readInt();
 		mReadTimeout		= src.readInt();
 		mConnectionType		= ConnectionType.valueOf(src.readString());
+	}
+
+	/**
+	 * Update the server with the object passed.
+	 *
+	 * @param server The server updated data.
+	 */
+	public void update(final ServerSetting server) {
+		mName				= server.getName();
+		mLocalHost			= server.getLocalHost();
+		mLocalPort			= server.getLocalPort();
+		mBroadcast			= server.getBroadcast();
+		mRemoteHost			= server.getRemoteHost();
+		mRemotePort			= server.getRemotePort();
+		mMacAddress			= server.getMacAddress();
+		mConnectionTimeout	= server.getConnectionTimeout();
+		mReadTimeout		= server.getReadTimeout();
+		mConnectionType		= server.getConnectionType();
 	}
 
 	@Override
@@ -226,5 +220,19 @@ public class ServerSetting implements Parcelable {
 	 */
 	public ConnectionType getConnectionType() {
 		return mConnectionType;
+	}
+
+	/**
+	 * The type of connection.
+	 */
+	public static enum ConnectionType {
+		/**
+		 * The server IS in the same network than the device. It must be accessed locally.
+		 */
+		LOCAL,
+		/**
+		 * The server IS NOT in the same network than the device. It must be accessed remotely.
+		 */
+		REMOTE
 	}
 }
