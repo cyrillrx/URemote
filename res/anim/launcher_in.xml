@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-	android:interpolator="@android:anim/linear_interpolator" >
+	 android:interpolator="@android:anim/linear_interpolator">
 
 	<scale
-		android:duration="100"
-		android:fillAfter="true"
-		android:fromXScale="5.0"
-		android:fromYScale="5.0"
-		android:pivotX="50%"
-		android:pivotY="50%"
-		android:toXScale="1.0"
-		android:toYScale="1.0" />
+			android:duration="100"
+			android:fillAfter="true"
+			android:fromXScale="5.0"
+			android:fromYScale="5.0"
+			android:pivotX="50%"
+			android:pivotY="50%"
+			android:toXScale="1.0"
+			android:toYScale="1.0" />
 
 	<alpha
-		android:duration="100"
-		android:fillAfter="true"
-		android:fromAlpha="0.0"
-		android:toAlpha="1.0" />
+			android:duration="100"
+			android:fillAfter="true"
+			android:fromAlpha="0.0"
+			android:toAlpha="1.0" />
 
 </set>

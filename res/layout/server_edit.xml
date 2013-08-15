@@ -1,463 +1,463 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:orientation="vertical" >
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:layout_margin="10dp"
+			  android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/server_name"
-        android:textSize="16sp" />
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:text="@string/server_name"
+			android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/server_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:text="@string/default_server_label" />
+	<EditText
+			android:id="@+id/server_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="text"
+			android:text="@string/default_server_label" />
 
-    <!-- Local ip address label -->
+	<!-- Local ip address label -->
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/local_ip_address"
-        android:textSize="16sp" />
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:text="@string/local_ip_address"
+			android:textSize="16sp" />
 
-    <!-- Local ip address -->
+	<!-- Local ip address -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/local_host1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part1" />
+		<EditText
+				android:id="@+id/local_host1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/local_host2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part2" />
+		<EditText
+				android:id="@+id/local_host2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/local_host3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part3" />
+		<EditText
+				android:id="@+id/local_host3"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part3" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/local_host4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part4" />
+		<EditText
+				android:id="@+id/local_host4"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part4" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/colon"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/colon"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/local_port"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="13"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="4"
-            android:text="@string/default_local_port" />
-    </LinearLayout>
-    
- 	<!-- Broadcast address label -->
+		<EditText
+				android:id="@+id/local_port"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="13"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="4"
+				android:text="@string/default_local_port" />
+	</LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/broadcast_address"
-        android:textSize="16sp" />
-    
-     <!-- Broadcast address -->
+	<!-- Broadcast address label -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:text="@string/broadcast_address"
+			android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/broadcast1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part1" />
+	<!-- Broadcast address -->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/broadcast2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part2" />
+		<EditText
+				android:id="@+id/broadcast1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/broadcast3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part3" />
+		<EditText
+				android:id="@+id/broadcast2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/broadcast4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part4" />
+		<EditText
+				android:id="@+id/broadcast3"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part3" />
 
-    </LinearLayout>
-    
-    <!-- Remote ip address label -->
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/remote_ip_address"
-        android:textSize="16sp" />
+		<EditText
+				android:id="@+id/broadcast4"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part4" />
 
-    <!-- Remote ip address -->
+	</LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal" >
+	<!-- Remote ip address label -->
 
-        <EditText
-            android:id="@+id/remote_host1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part1" />
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:text="@string/remote_ip_address"
+			android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+	<!-- Remote ip address -->
 
-        <EditText
-            android:id="@+id/remote_host2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part2" />
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/remote_host1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part1" />
 
-        <EditText
-            android:id="@+id/remote_host3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part3" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dot"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/remote_host2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part2" />
 
-        <EditText
-            android:id="@+id/remote_host4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="3"
-            android:text="@string/default_ip_part4" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/colon"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/remote_host3"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part3" />
 
-        <EditText
-            android:id="@+id/remote_port"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="13"
-            android:gravity="center"
-            android:inputType="number"
-            android:maxLength="4"
-            android:text="@string/default_remote_port" />
-    </LinearLayout>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/dot"
+				android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/mac_address"
-        android:textSize="16sp" />
+		<EditText
+				android:id="@+id/remote_host4"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="10"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="@string/default_ip_part4" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/colon"
+				android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/mac_address1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
+		<EditText
+				android:id="@+id/remote_port"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="13"
+				android:gravity="center"
+				android:inputType="number"
+				android:maxLength="4"
+				android:text="@string/default_remote_port" />
+	</LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hyphen"
-            android:textSize="16sp" />
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:layout_marginTop="5dp"
+			android:text="@string/mac_address"
+			android:textSize="16sp" />
 
-        <EditText
-            android:id="@+id/mac_address2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hyphen"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/mac_address1"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
 
-        <EditText
-            android:id="@+id/mac_address3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/hyphen"
+				android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hyphen"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/mac_address2"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
 
-        <EditText
-            android:id="@+id/mac_address4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/hyphen"
+				android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hyphen"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/mac_address3"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
 
-        <EditText
-            android:id="@+id/mac_address5"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/hyphen"
+				android:textSize="16sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hyphen"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/mac_address4"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
 
-        <EditText
-            android:id="@+id/mac_address6"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789ABCDEF"
-            android:gravity="center"
-            android:inputType="textCapCharacters"
-            android:maxLength="2"
-            android:text="@string/default_mac_adress_part" />
-    </LinearLayout>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/hyphen"
+				android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+		<EditText
+				android:id="@+id/mac_address5"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/connection_timeout"
-            android:textSize="16sp" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/hyphen"
+				android:textSize="16sp" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+		<EditText
+				android:id="@+id/mac_address6"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:digits="0123456789ABCDEF"
+				android:gravity="center"
+				android:inputType="textCapCharacters"
+				android:maxLength="2"
+				android:text="@string/default_mac_adress_part" />
+	</LinearLayout>
 
-        <EditText
-            android:id="@+id/connection_timeout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="@string/default_connection_timeout" />
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/millisecond_unit"
-            android:textSize="16sp" />
-    </LinearLayout>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+				android:text="@string/connection_timeout"
+				android:textSize="16sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+		<Space
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/read_timeout"
-            android:textSize="16sp" />
+		<EditText
+				android:id="@+id/connection_timeout"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:inputType="number"
+				android:text="@string/default_connection_timeout" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/millisecond_unit"
+				android:textSize="16sp" />
+	</LinearLayout>
 
-        <EditText
-            android:id="@+id/read_timeout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:inputType="number"
-            android:text="@string/default_read_timeout" />
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/millisecond_unit"
-            android:textSize="16sp" />
-    </LinearLayout>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
+				android:layout_marginTop="5dp"
+				android:text="@string/read_timeout"
+				android:textSize="16sp" />
+
+		<Space
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1" />
+
+		<EditText
+				android:id="@+id/read_timeout"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:gravity="center"
+				android:inputType="number"
+				android:text="@string/default_read_timeout" />
+
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/millisecond_unit"
+				android:textSize="16sp" />
+	</LinearLayout>
 
 </LinearLayout>
