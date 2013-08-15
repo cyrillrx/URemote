@@ -85,7 +85,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	}
 
 	private String getServerString() {
-		if (getCurrentServer().isLocal(getApplicationContext())){			
+		if (getCurrentServer().isLocal(getApplicationContext())) {
 			return getCurrentServer().getFullLocal();
 		}
 		return getCurrentServer().getFullRemote();
@@ -164,7 +164,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 			return true;
 
 		} else if (keyCode == KeyEvent.KEYCODE_BACK) {
-        	if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.navigateUpIfPossible()) {
+			if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.navigateUpIfPossible()) {
 				return true;
 			}
 		}
@@ -182,39 +182,40 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		
-		case android.R.id.home:
-			Intent intent = new Intent(getApplicationContext(), Home.class);
-			intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			return true;
 
-		case R.id.server_settings:
-			startActivity(new Intent(getApplicationContext(), AppSettings.class));
-			return true;
-			
-		case R.id.server_list:
-			startActivity(new Intent(getApplicationContext(), ServerList.class));
-			return true;
-			
-		default:
-			return super.onOptionsItemSelected(item);
+			case android.R.id.home:
+				Intent intent = new Intent(getApplicationContext(), Home.class);
+				intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				return true;
+
+			case R.id.server_settings:
+				startActivity(new Intent(getApplicationContext(), AppSettings.class));
+				return true;
+
+			case R.id.server_list:
+				startActivity(new Intent(getApplicationContext(), ServerList.class));
+				return true;
+
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 
 	/**
 	 * Initialize server using shared preferences.
+	 *
 	 * @return The {@link org.es.uremote.objects.ServerSetting} loaded from preferences.
 	 */
 	private ServerSetting initServer() {
 
 		// Get key for other properties
-		final String keySecurityToken			= getString(R.string.key_security_token);
-		final String defaultSecurityToken		= getString(R.string.default_security_token);
+		final String keySecurityToken		= getString(R.string.key_security_token);
+		final String defaultSecurityToken	= getString(R.string.default_security_token);
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final String securityToken	= pref.getString(keySecurityToken, defaultSecurityToken);
+		final String securityToken = pref.getString(keySecurityToken, defaultSecurityToken);
 
 		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(securityToken);
@@ -224,6 +225,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initialize the toast message handler.
+	 *
 	 * @param context The context used to display toast messages.
 	 */
 	private static void initHandler(final Context context) {
@@ -232,11 +234,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
-					case MESSAGE_WHAT_TOAST:
-						showStaticToast(context, (String)_msg.obj);
-						break;
+						case MESSAGE_WHAT_TOAST:
+							showStaticToast(context, (String) _msg.obj);
+							break;
 
-					default : break;
+						default: break;
 					}
 					super.handleMessage(_msg);
 				}
@@ -261,7 +263,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	@Override
 	public void onPageSelected(int position) {
-        // TODO this call does not work as it should.
+		// TODO this call does not work as it should.
 		mCurrentPage = position;
 		if (position == 1) {
 			getActionBar().setIcon(R.drawable.ic_filemanager);
@@ -298,6 +300,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param requestType The request type.
 	 * @param requestCode The request code.
 	 */
@@ -318,6 +321,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 
 	/**
 	 * Update the connection state of the UI
+	 *
 	 * @param _state The state of the connection <br />
 	 * ({@link Constants#STATE_OK}, <br />
 	 * {@link Constants#STATE_KO}, <br />
@@ -329,23 +333,23 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		int visibility;
 
 		switch (_state) {
-		case STATE_OK:
-			drawableResId = android.R.drawable.presence_online;
-			messageResId = R.string.msg_command_succeeded;
-			visibility = INVISIBLE;
-			break;
+			case STATE_OK:
+				drawableResId = android.R.drawable.presence_online;
+				messageResId = R.string.msg_command_succeeded;
+				visibility = INVISIBLE;
+				break;
 
-		case STATE_CONNECTING:
-			drawableResId = android.R.drawable.presence_away;
-			messageResId = R.string.msg_command_running;
-			visibility = VISIBLE;
-			break;
+			case STATE_CONNECTING:
+				drawableResId = android.R.drawable.presence_away;
+				messageResId = R.string.msg_command_running;
+				visibility = VISIBLE;
+				break;
 
-		default: // KO
-			drawableResId = android.R.drawable.presence_offline;
-			messageResId = R.string.msg_command_failed;
-			visibility = INVISIBLE;
-			break;
+			default: // KO
+				drawableResId = android.R.drawable.presence_offline;
+				messageResId = R.string.msg_command_failed;
+				visibility = INVISIBLE;
+				break;
 		}
 		final Drawable imgLeft = getResources().getDrawable(drawableResId);
 		imgLeft.setBounds(0, 0, 24, 24);

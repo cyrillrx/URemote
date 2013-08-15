@@ -33,6 +33,7 @@ public class ConnectionUtils {
 
 	/**
 	 * Tests the Internet connection.
+	 *
 	 * @param connectivityMgr Object that contains connections data.
 	 * @return true if the device is connected to the Internet (through WIFI or mobile data). false otherwise.
 	 */
@@ -60,6 +61,7 @@ public class ConnectionUtils {
 
 	/**
 	 * Convert the IP address into an integer.
+	 *
 	 * @param ipAddress The IP address to convert.
 	 * @return The IP address converted as an integer.
 	 */
@@ -75,9 +77,9 @@ public class ConnectionUtils {
 		int address;
 		addressBytes = inetAddress.getAddress();
 		address = ((addressBytes[3] & 0xff) << 24)
-		| ((addressBytes[2] & 0xff) << 16)
-		| ((addressBytes[1] & 0xff) << 8)
-		|  (addressBytes[0] & 0xff);
+				| ((addressBytes[2] & 0xff) << 16)
+				| ((addressBytes[1] & 0xff) << 8)
+				| (addressBytes[0] & 0xff);
 		return address;
 	}
 }

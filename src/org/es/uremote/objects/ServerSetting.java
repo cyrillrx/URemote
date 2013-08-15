@@ -14,9 +14,7 @@ public class ServerSetting implements Parcelable {
 
 	public static final String SAVE_FILE = "serverConfig.xml";
 
-	/**
-	 * CREATOR is a required attribute to create an instance of a class that implements Parcelable
-	 */
+	/** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
 	public static final Parcelable.Creator<ServerSetting> CREATOR = new Parcelable.Creator<ServerSetting>() {
 		@Override
 		public ServerSetting createFromParcel(Parcel src) {
@@ -37,9 +35,7 @@ public class ServerSetting implements Parcelable {
 	private int mRemotePort;
 	private String mMacAddress;
 	private ConnectionType mConnectionType;
-	/**
-	 * If the connection with the remote server is not established within this timeout, it is dismiss.
-	 */
+	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
 	private int mConnectionTimeout;
 	private int mReadTimeout;
 
@@ -58,10 +54,10 @@ public class ServerSetting implements Parcelable {
 	 * @param connectionType
 	 */
 	public ServerSetting(final String name, final String localHost, final int localPort,
-	                     final String broadcastIp, final String remoteHost, final int remotePort,
-	                     final String macAddress,
-	                     final int connectionTimeout, final int readTimeout,
-	                     final ConnectionType connectionType) {
+						 final String broadcastIp, final String remoteHost, final int remotePort,
+						 final String macAddress,
+						 final int connectionTimeout, final int readTimeout,
+						 final ConnectionType connectionType) {
 
 		mName = name;
 		mLocalHost			= localHost;
@@ -75,9 +71,7 @@ public class ServerSetting implements Parcelable {
 		mConnectionType		= connectionType;
 	}
 
-	/**
-	 * @param src
-	 */
+	/** @param src */
 	public ServerSetting(Parcel src) {
 		mName				= src.readString();
 		mLocalHost			= src.readString();
@@ -138,101 +132,71 @@ public class ServerSetting implements Parcelable {
 		return wifiMgr.isWifiEnabled();
 	}
 
-	/**
-	 * @return Concatenation of host and port of the local server.
-	 */
+	/** @return Concatenation of host and port of the local server. */
 	public String getFullLocal() {
 		return mLocalHost + ":" + mLocalPort;
 	}
 
-	/**
-	 * @return Concatenation of host and port of the remote server.
-	 */
+	/** @return Concatenation of host and port of the remote server. */
 	public String getFullRemote() {
 		return mRemoteHost + ":" + mRemotePort;
 	}
 
-	/**
-	 * @return The server name.
-	 */
+	/** @return The server name. */
 	public String getName() {
 		return mName;
 	}
 
-	/**
-	 * @return The ip address of the local server.
-	 */
+	/** @return The ip address of the local server. */
 	public String getLocalHost() {
 		return mLocalHost;
 	}
 
-	/**
-	 * @return The port of the local server.
-	 */
+	/** @return The port of the local server. */
 	public int getLocalPort() {
 		return mLocalPort;
 	}
 
-	/**
-	 * @return The broadcast address.
-	 */
+	/** @return The broadcast address. */
 	public String getBroadcast() {
 		return mBroadcast;
 	}
 
-	/**
-	 * @return The ip address of the remote server.
-	 */
+	/** @return The ip address of the remote server. */
 	public String getRemoteHost() {
 		return mRemoteHost;
 	}
 
-	/**
-	 * @return The port of the remote server.
-	 */
+	/** @return The port of the remote server. */
 	public int getRemotePort() {
 		return mRemotePort;
 	}
 
-	/**
-	 * @return The mac address of the server.
-	 */
+	/** @return The mac address of the server. */
 	public String getMacAddress() {
 		return mMacAddress;
 	}
 
-	/**
-	 * @return Timeout connection in milliseconds.
-	 */
+	/** @return Timeout connection in milliseconds. */
 	public int getConnectionTimeout() {
 		return mConnectionTimeout;
 	}
 
-	/**
-	 * @return Read timeout in milliseconds.
-	 */
+	/** @return Read timeout in milliseconds. */
 	public int getReadTimeout() {
 		return mReadTimeout;
 	}
 
-	/**
-	 * @return The type of connection (remote or local).
-	 */
+	/** @return The type of connection (remote or local). */
 	public ConnectionType getConnectionType() {
 		return mConnectionType;
 	}
 
-	/**
-	 * The type of connection.
-	 */
+	/** The type of connection. */
 	public static enum ConnectionType {
-		/**
-		 * The server IS in the same network than the device. It must be accessed locally.
-		 */
+		/** The server IS in the same network than the device. It must be accessed locally. */
 		LOCAL,
-		/**
-		 * The server IS NOT in the same network than the device. It must be accessed remotely.
-		 */
+		/** The server IS NOT in the same network than the device. It must be accessed remotely. */
 		REMOTE
 	}
 }

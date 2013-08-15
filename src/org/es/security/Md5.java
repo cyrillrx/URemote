@@ -1,20 +1,22 @@
 package org.es.security;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
  * Class to encode into MD5
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class Md5 {
 	/**
 	 * Encode the string into MD5 finger print
+	 *
 	 * @param stringToEncode The string to encode.
 	 * @return The encoded string.
 	 */
 	public static String encode(String stringToEncode) {
-		byte[] hash      = null;
+		byte[] hash = null;
 
 		try {
 			hash = MessageDigest.getInstance("MD5").digest(stringToEncode.getBytes());

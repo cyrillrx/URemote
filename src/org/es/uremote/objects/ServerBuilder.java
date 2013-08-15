@@ -5,9 +5,8 @@ import org.es.uremote.objects.ServerSetting.ConnectionType;
 
 /**
  * Class that holds server connection informations.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class ServerBuilder {
 
@@ -20,15 +19,11 @@ public class ServerBuilder {
 	private String mMacAddress;
 	private ConnectionType mConnectionType;
 
-	/**
-	 * If the connection with the remote server is not established within this timeout, it is dismissed.
-	 */
+	/** If the connection with the remote server is not established within this timeout, it is dismissed. */
 	private int mConnectionTimeout;
 	private int mReadTimeout;
 
-	/**
-	 * Default constructor
-	 */
+	/** Default constructor */
 	public ServerBuilder() {
 		mName		= "";
 		mLocalHost	= "";
@@ -44,6 +39,7 @@ public class ServerBuilder {
 
 	/**
 	 * @return A fully loaded {@link ServerSetting} object.
+	 *
 	 * @throws Exception
 	 */
 	public ServerSetting build() throws Exception {
@@ -55,6 +51,7 @@ public class ServerBuilder {
 
 	/**
 	 * @return True if the builder has all the data to build the {@link ServerSetting} object. False otherwise.
+	 *
 	 * @throws Exception
 	 */
 	public boolean isLoaded() throws Exception {

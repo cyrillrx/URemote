@@ -25,6 +25,7 @@ import static org.es.uremote.dao.ServerSettingDao.TAG_SERVER;
 
 /**
  * This component allow to parse a XML file that contains server connection information.
+ *
  * @author Cyril Leroux
  */
 public class ServerXmlHandler extends DefaultHandler {
@@ -35,9 +36,7 @@ public class ServerXmlHandler extends DefaultHandler {
 	private ServerBuilder mBuilder;
 	private List<ServerSetting> mServers;
 
-	/**
-	 * Called tag opening (<tag>).
-	 */
+	/** Called tag opening (<tag>). */
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		mCurrentElement = true;
@@ -46,14 +45,12 @@ public class ServerXmlHandler extends DefaultHandler {
 			mLoaded = false;
 			mServers = new ArrayList<>();
 
-        } else if (localName.equals(TAG_SERVER)) {
+		} else if (localName.equals(TAG_SERVER)) {
 			mBuilder = new ServerBuilder();
 		}
 	}
 
-	/**
-	 * Called at tag closure (</tag>) to get the value of the parsed element.
-	 */
+	/** Called at tag closure (</tag>) to get the value of the parsed element. */
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		mCurrentElement = false;
@@ -111,9 +108,7 @@ public class ServerXmlHandler extends DefaultHandler {
 		mCurrentElement = false;
 	}
 
-	/**
-	 * @return A list of {@link org.es.uremote.objects.ServerSetting}.
-	 */
+	/** @return A list of {@link org.es.uremote.objects.ServerSetting}. */
 	public List<ServerSetting> getServers() {
 		if (mLoaded) {
 			return mServers;

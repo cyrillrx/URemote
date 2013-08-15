@@ -20,9 +20,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-/**
- * Created by Cyril Leroux on 10/08/13.
- */
+/** Created by Cyril Leroux on 10/08/13. */
 public class ServerSettingDao {
 
 	public static final String TAG_ROOT = "servers";
@@ -88,7 +86,7 @@ public class ServerSettingDao {
 	 * Load the server settings from an XML file into the server list.
 	 *
 	 * @param configFile The file to read.
-	 * @param servers    The list to fill with loaded data.
+	 * @param servers The list to fill with loaded data.
 	 * @return true if load succeeded, false otherwise.
 	 */
 	public static boolean loadFromFile(File configFile, List<ServerSetting> servers) {

@@ -26,7 +26,6 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  * The dashboard class that leads everywhere in the application.
  *
  * @author Cyril Leroux
- *
  */
 public class Home extends ListActivity implements OnItemClickListener {
 
@@ -75,28 +74,28 @@ public class Home extends ListActivity implements OnItemClickListener {
 
 		switch (_position) {
 
-		case ACTION_COMPUTER:
-			startComputerRemote();
-			break;
+			case ACTION_COMPUTER:
+				startComputerRemote();
+				break;
 
-		case ACTION_LIGHTS:
-			Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
-			break;
+			case ACTION_LIGHTS:
+				Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
+				break;
 
-		case ACTION_ROBOTS:
-			startRobotControl();
-			break;
+			case ACTION_ROBOTS:
+				startRobotControl();
+				break;
 
-		case ACTION_TV:
-			startActivity(new Intent(getApplicationContext(), TvDialer.class));
-			break;
+			case ACTION_TV:
+				startActivity(new Intent(getApplicationContext(), TvDialer.class));
+				break;
 
-		case ACTION_HIFI:
-			Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
-			break;
+			case ACTION_HIFI:
+				Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
@@ -126,19 +125,19 @@ public class Home extends ListActivity implements OnItemClickListener {
 
 		switch (requestCode) {
 
-		// Return from bluetooth activation
-		case RC_ENABLE_BT:
-			if (resultCode == Activity.RESULT_OK) {
-				// Start robot control activity if bluetooth is enable
-				startActivity(new Intent(getApplicationContext(), RobotControl.class));
-			}
-			break;
+			// Return from bluetooth activation
+			case RC_ENABLE_BT:
+				if (resultCode == Activity.RESULT_OK) {
+					// Start robot control activity if bluetooth is enable
+					startActivity(new Intent(getApplicationContext(), RobotControl.class));
+				}
+				break;
 
 			// Return from wifi activation
-		case RC_ENABLE_WIFI:
-			// Start computer control activity
-			startActivity(new Intent(getApplicationContext(), Computer.class));
-			break;
+			case RC_ENABLE_WIFI:
+				// Start computer control activity
+				startActivity(new Intent(getApplicationContext(), Computer.class));
+				break;
 		}
 	}
 }

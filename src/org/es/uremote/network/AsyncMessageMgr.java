@@ -20,9 +20,8 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
  * Class that handle asynchronous messages to send to the server.
- * 
+ *
  * @author Cyril Leroux
- * 
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2, true);
@@ -38,6 +37,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	/**
 	 * Initialize class with the message handler as a parameter.
+	 *
 	 * @param handler The handler for toast messages.
 	 * @param serverSetting Server connection settings.
 	 */
@@ -84,9 +84,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		}
 
 		return Response.newBuilder()
-		.setReturnCode(ReturnCode.RC_ERROR)
-		.setMessage(errorMessage)
-		.build();
+				.setReturnCode(ReturnCode.RC_ERROR)
+				.setMessage(errorMessage)
+				.build();
 	}
 
 	/**
@@ -94,6 +94,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 * The specified result is the value returned by {@link #doInBackground(Request...)}.
 	 * This method won't be invoked if the task was canceled.
 	 * It releases the semaphore acquired in OnPreExecute method.
+	 *
 	 * @param response The response from the server returned by {@link #doInBackground(Request...)}.
 	 */
 	@Override
@@ -116,6 +117,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	/**
 	 * Send a toast message on the UI thread.
+	 *
 	 * @param toastMessage The message to display.
 	 */
 	protected void sendToastToUI(String toastMessage) {
@@ -132,15 +134,16 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
 	/**
 	 * Creates the socket, connects it to the server then returns it.
-	 * 
+	 *
 	 * @param server The object that holds server connection settings.
 	 * @return The socket on which to send the message.
+	 *
 	 * @throws IOException exception
 	 */
 	private Socket connectToRemoteSocket(ServerSetting server) throws IOException {
 
-		final String host	= server.getLocalHost();
-		final int port		= server.getLocalPort();
+		final String host = server.getLocalHost();
+		final int port = server.getLocalPort();
 		final SocketAddress socketAddress = new InetSocketAddress(host, port);
 		Socket socket = new Socket();
 		socket.setSoTimeout(server.getReadTimeout());
@@ -149,9 +152,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		return socket;
 	}
 
-	/**
-	 * Close socket IO then close the socket.
-	 */
+	/** Close socket IO then close the socket. */
 	private void closeSocketIO() {
 		Log.warning(TAG, "closeSocket");
 		if (mSocket == null) {
@@ -162,36 +163,33 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			if (mSocket.getInputStream() != null) {
 				mSocket.getInputStream().close();
 			}
-		} catch(IOException e) {}
+		} catch (IOException e) {}
 
 		try {
 			if (mSocket.getOutputStream() != null) {
 				mSocket.getOutputStream().close();
 			}
-		} catch(IOException e) {}
+		} catch (IOException e) {}
 		try {
 			mSocket.close();
-		} catch(IOException e) {}
+		} catch (IOException e) {}
 	}
 
-	/**
-	 * @return The count of available permits.
-	 */
+	/** @return The count of available permits. */
 	public static int availablePermits() {
 		return sSemaphore.availablePermits();
 	}
 
 	/**
 	 * Set the security token that will be use to authenticate the user.
+	 *
 	 * @param securityToken the security token.
 	 */
 	public static void setSecurityToken(final String securityToken) {
 		sSecurityToken = securityToken;
 	}
 
-	/**
-	 * @return the security token that will be use to authenticate the user.
-	 */
+	/** @return the security token that will be use to authenticate the user. */
 	public static String getSecurityToken() {
 		return sSecurityToken;
 	}

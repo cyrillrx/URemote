@@ -4,8 +4,8 @@ package org.es.uremote.objects;
 /**
  * Simple object that hold an action.
  * Used in Home Activity
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class ActionItem {
 
@@ -15,6 +15,7 @@ public class ActionItem {
 
 	/**
 	 * Constructor
+	 *
 	 * @param title The action title.
 	 * @param summary The action summary.
 	 * @param imageResource The resource id of the thumbnail image.
@@ -25,23 +26,17 @@ public class ActionItem {
 		mImageResource	= imageResource;
 	}
 
-	/**
-	 * @return the mTitle
-	 */
+	/** @return the mTitle */
 	public String getTitle() {
 		return mTitle;
 	}
 
-	/**
-	 * @return the mSummary
-	 */
+	/** @return the mSummary */
 	public String getSummary() {
 		return mSummary;
 	}
 
-	/**
-	 * @return the mImageResource
-	 */
+	/** @return the mImageResource */
 	public int getImageResource() {
 		return mImageResource;
 	}

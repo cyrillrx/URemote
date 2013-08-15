@@ -43,12 +43,14 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, IRequestSender {
 	private static final String TAG	= "FragDashboard";
+	/** ActivityForResults request codes */
+	private static final int RC_APP_LAUNCHER = 0;
+
 	private static final int STATE_KO	= 0;
 	private static final int STATE_OK	= 1;
 	private static final int STATE_CONNECTING	= 2;
@@ -58,9 +60,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 	private ObjectAnimator mFadeIn;
 	private ObjectAnimator mFadeOut;
-
-	// ActivityForResults request codes
-	private static final int RC_APP_LAUNCHER	= 0;
 
 	private TextView mTvVolume;
 	private ImageButton mIbMute;
@@ -73,9 +72,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		mParent = (Computer) getActivity();
 	}
 
-	/**
-	 * Called when the application is created.
-	 */
+	/** Called when the application is created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_dashboard, container, false);
@@ -120,72 +117,72 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 		switch (_view.getId()) {
 
-		case R.id.kbLeft :
-			sendAsyncRequest(KEYBOARD, Code.LEFT);
-			break;
+			case R.id.kbLeft:
+				sendAsyncRequest(KEYBOARD, Code.LEFT);
+				break;
 
-		case R.id.kbRight :
-			sendAsyncRequest(KEYBOARD, Code.RIGHT);
-			break;
+			case R.id.kbRight:
+				sendAsyncRequest(KEYBOARD, Code.RIGHT);
+				break;
 
-		case R.id.kbUp :
-			sendAsyncRequest(KEYBOARD, Code.UP);
-			break;
+			case R.id.kbUp:
+				sendAsyncRequest(KEYBOARD, Code.UP);
+				break;
 
-		case R.id.kbDown :
-			sendAsyncRequest(KEYBOARD, Code.DOWN);
-			break;
+			case R.id.kbDown:
+				sendAsyncRequest(KEYBOARD, Code.DOWN);
+				break;
 
-		case R.id.kbOk :
-			sendAsyncRequest(KEYBOARD, Code.KB_RETURN);
-			break;
+			case R.id.kbOk:
+				sendAsyncRequest(KEYBOARD, Code.KB_RETURN);
+				break;
 
-		case R.id.cmdTest :
-			sendAsyncRequest(Type.SIMPLE, Code.TEST);
-			break;
+			case R.id.cmdTest:
+				sendAsyncRequest(Type.SIMPLE, Code.TEST);
+				break;
 
-		case R.id.cmdSwitch :
-			sendAsyncRequest(Type.SIMPLE, Code.SWITCH_WINDOW);
-			break;
+			case R.id.cmdSwitch:
+				sendAsyncRequest(Type.SIMPLE, Code.SWITCH_WINDOW);
+				break;
 
-		case R.id.btnAppLauncher :
-			startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
-			break;
+			case R.id.btnAppLauncher:
+				startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
+				break;
 
-		case R.id.cmdGomStretch :
-			sendAsyncRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
-			break;
+			case R.id.cmdGomStretch:
+				sendAsyncRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
+				break;
 
-		case R.id.cmdPrevious :
-			sendAsyncRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
-			break;
+			case R.id.cmdPrevious:
+				sendAsyncRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
+				break;
 
-		case R.id.cmdPlayPause :
-			sendAsyncRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
-			break;
+			case R.id.cmdPlayPause:
+				sendAsyncRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
+				break;
 
-		case R.id.cmdStop :
-			sendAsyncRequest(KEYBOARD, Code.MEDIA_STOP);
-			break;
+			case R.id.cmdStop:
+				sendAsyncRequest(KEYBOARD, Code.MEDIA_STOP);
+				break;
 
-		case R.id.cmdNext :
-			sendAsyncRequest(KEYBOARD, Code.MEDIA_NEXT);
-			break;
+			case R.id.cmdNext:
+				sendAsyncRequest(KEYBOARD, Code.MEDIA_NEXT);
+				break;
 
-		case R.id.cmdMute :
-			sendAsyncRequest(VOLUME, Code.MUTE);
-			break;
+			case R.id.cmdMute:
+				sendAsyncRequest(VOLUME, Code.MUTE);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RC_APP_LAUNCHER && resultCode == RESULT_OK) {
-			final Type type  = Type.valueOf(data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
-			final Code code  = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
+			final Type type = Type.valueOf(data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
+			final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
 				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
@@ -229,6 +226,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param requestType The request type.
 	 * @param requestCode The request code.
 	 * @param intParam An integer parameter.
@@ -239,6 +237,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param requestType The request type.
 	 * @param requestCode The request code.
 	 */
@@ -248,6 +247,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param request The request to send.
 	 */
 	@Override
@@ -267,6 +267,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
 	 * Specialize for Dashboard.
+	 *
 	 * @author Cyril Leroux
 	 */
 	private class DashboardMessageMgr extends AsyncMessageMgr {
@@ -305,7 +306,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 				Rect hitRect = new Rect();
 				mSbVolume.getDrawingRect(hitRect);
-				final int x = mSbVolume.getLeft() + (int)((float)volume / (float)mSbVolume.getMax() * mSbVolume.getWidth());
+				final int x = mSbVolume.getLeft() + (int) ((float) volume / (float) mSbVolume.getMax() * mSbVolume.getWidth());
 				final int y = mSbVolume.getTop();
 				showVolumeToast(volume + "%", x, y);
 			}
@@ -326,7 +327,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		initFadeIn(view);
 		initFadeOut(view);
 
-		if (mFadeOut.isStarted() ) {
+		if (mFadeOut.isStarted()) {
 			mFadeOut.cancel();
 		}
 

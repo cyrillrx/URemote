@@ -28,9 +28,7 @@ import static org.es.network.ExchangeProtos.Request.Code.MEDIA_STOP;
 import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
-/**
- * @author Cyril Leroux
- */
+/** @author Cyril Leroux */
 public class MediaWidgerProvider extends AppWidgetProvider {
 
 	private static final String TAG = "MediaWidgerProvider";
@@ -65,22 +63,22 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 			Intent previousIntent = new Intent(context, MediaWidgerProvider.class);
 			previousIntent.setAction(ACTION_MEDIA_PREVIOUS);
-			PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+			PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, previousPendingIntent);
 
 			Intent playPauseIntent = new Intent(context, MediaWidgerProvider.class);
 			playPauseIntent.setAction(ACTION_MEDIA_PLAY_PAUSE);
-			PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(context, widgetId, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+			PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(context, widgetId, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdPlayPause, playPausePendingIntent);
 
 			Intent stopIntent = new Intent(context, MediaWidgerProvider.class);
 			stopIntent.setAction(ACTION_MEDIA_STOP);
-			PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, widgetId, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+			PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, widgetId, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdStop, stopPendingIntent);
 
 			Intent nextIntent = new Intent(context, MediaWidgerProvider.class);
 			nextIntent.setAction(ACTION_MEDIA_NEXT);
-			PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT );
+			PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
@@ -118,6 +116,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param context
 	 * @param requestType The request type.
 	 * @param requestCode The request code.
@@ -139,6 +138,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 	/**
 	 * Initialize the toast message handler.
+	 *
 	 * @param _context The context used to display toast messages.
 	 */
 	private static void initHandler(final Context _context) {
@@ -147,11 +147,11 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
-					case MESSAGE_WHAT_TOAST:
-						showStaticToast(_context, (String)_msg.obj);
-						break;
+						case MESSAGE_WHAT_TOAST:
+							showStaticToast(_context, (String) _msg.obj);
+							break;
 
-					default : break;
+						default: break;
 					}
 					super.handleMessage(_msg);
 				}

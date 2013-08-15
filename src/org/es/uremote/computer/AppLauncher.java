@@ -16,9 +16,8 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
 
 /**
  * This Activity displays a list of applications that you can launch on the remote server.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class AppLauncher extends Activity implements OnClickListener {
 
@@ -37,16 +36,16 @@ public class AppLauncher extends Activity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.btnAppGomPlayer:
-			returnAppMessage(Type.APP, Code.GOM_PLAYER_RUN);
-			break;
+			case R.id.btnAppGomPlayer:
+				returnAppMessage(Type.APP, Code.GOM_PLAYER_RUN);
+				break;
 
-		case R.id.btnKillGomPlayer:
-			returnAppMessage(Type.APP, Code.GOM_PLAYER_KILL);
-			break;
+			case R.id.btnKillGomPlayer:
+				returnAppMessage(Type.APP, Code.GOM_PLAYER_KILL);
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 

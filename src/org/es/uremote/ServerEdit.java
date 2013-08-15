@@ -118,36 +118,36 @@ public class ServerEdit extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		switch (item.getItemId()) {
-		case R.id.done:
-			mServerBuilder = new ServerBuilder();
+			case R.id.done:
+				mServerBuilder = new ServerBuilder();
 
-			mServerBuilder.setName(getName());
-			mServerBuilder.setLocalHost(getLocalHost());
-			mServerBuilder.setLocalPort(getLocalPort());
-			mServerBuilder.setBroadcast(getBroadcast());
-			mServerBuilder.setRemoteHost(getRemoteHost());
-			mServerBuilder.setRemotePort(getRemotePort());
-			mServerBuilder.setMacAddress(getMacAddress());
-			mServerBuilder.setConnectionTimeout(getConnectionTimeout());
-			mServerBuilder.setReadTimeout(getReadTimeout());
-			mServerBuilder.setConnectionType(getConnectionType());
+				mServerBuilder.setName(getName());
+				mServerBuilder.setLocalHost(getLocalHost());
+				mServerBuilder.setLocalPort(getLocalPort());
+				mServerBuilder.setBroadcast(getBroadcast());
+				mServerBuilder.setRemoteHost(getRemoteHost());
+				mServerBuilder.setRemotePort(getRemotePort());
+				mServerBuilder.setMacAddress(getMacAddress());
+				mServerBuilder.setConnectionTimeout(getConnectionTimeout());
+				mServerBuilder.setReadTimeout(getReadTimeout());
+				mServerBuilder.setConnectionType(getConnectionType());
 
-			try {
-				ServerSetting server = mServerBuilder.build();
-				Intent data = new Intent();
-				data.putExtra(EXTRA_SERVER_DATA, server);
-				data.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
-				setResult(RESULT_OK, data);
-				finish();
+				try {
+					ServerSetting server = mServerBuilder.build();
+					Intent data = new Intent();
+					data.putExtra(EXTRA_SERVER_DATA, server);
+					data.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
+					setResult(RESULT_OK, data);
+					finish();
 
-			} catch (Exception e) {
-				Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
-				Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
-			}
-			return true;
+				} catch (Exception e) {
+					Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
+					Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
+				}
+				return true;
 
-		default:
-			return super.onOptionsItemSelected(item);
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 

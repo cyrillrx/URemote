@@ -18,14 +18,14 @@ import static org.es.network.ExchangeProtos.Request.Code.NONE;
 
 /**
  * Class that holds the utils to manage network messages
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class MessageHelper {
 
 	/**
 	 * Build a request with both integer and string parameters.
+	 *
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
@@ -52,6 +52,7 @@ public class MessageHelper {
 
 	/**
 	 * Build a request with an integer parameter.
+	 *
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
@@ -64,6 +65,7 @@ public class MessageHelper {
 
 	/**
 	 * Build a request with a string parameter.
+	 *
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
@@ -77,6 +79,7 @@ public class MessageHelper {
 
 	/**
 	 * Build a request with a code and an extra code.
+	 *
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
@@ -89,6 +92,7 @@ public class MessageHelper {
 
 	/**
 	 * Build a request with a code.
+	 *
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
@@ -101,11 +105,11 @@ public class MessageHelper {
 	/**
 	 * This function must be called from a background thread.
 	 * Send a message through a Socket to a server and get the reply.
-	 * 
+	 *
 	 * @param socket The socket on which to send the message.
 	 * @param request Client request.
-	 * 
 	 * @return The server reply.
+	 *
 	 * @throws IOException exception.
 	 */
 	public static Response sendRequest(Socket socket, Request request) throws IOException {

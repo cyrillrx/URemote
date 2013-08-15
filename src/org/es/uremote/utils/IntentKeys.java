@@ -2,8 +2,8 @@ package org.es.uremote.utils;
 
 /**
  * Class that hosts the intent keys of the application.
- * @author Cyril
  *
+ * @author Cyril
  */
 public class IntentKeys {
 	// Intent constants

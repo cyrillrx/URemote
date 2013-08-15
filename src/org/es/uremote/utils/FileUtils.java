@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * Class for file manipulation.
- * 
+ *
  * @author Cyril Leroux
  */
 public class FileUtils {
@@ -13,7 +13,7 @@ public class FileUtils {
 	 * @param filename The filename to test.
 	 * @return True if the file is a video file.
 	 */
-	public static boolean isAVideo(final String filename){
+	public static boolean isAVideo(final String filename) {
 		if (filename == null) {
 			return false;
 		}
@@ -29,6 +29,7 @@ public class FileUtils {
 	/**
 	 * Truncate the file path by deleting the characters after the last occurrence of the file separator.
 	 * Works for both files and directories.
+	 *
 	 * @param filePath The complete path.
 	 * @return The truncated path.
 	 */
@@ -36,7 +37,7 @@ public class FileUtils {
 		// Get the last position of the file separator
 		int separatorPos = filePath.lastIndexOf(File.separator);
 
-		if (separatorPos > 0 && separatorPos <= filePath.length() - 2 ) {
+		if (separatorPos > 0 && separatorPos <= filePath.length() - 2) {
 			return filePath.substring(0, separatorPos);
 		}
 

@@ -41,12 +41,11 @@ import static org.es.uremote.utils.Constants.STATE_OK;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class FragAdmin extends Fragment implements OnClickListener, IRequestSender {
-	private static final String TAG	= "FragAdmin";
+	private static final String TAG = "FragAdmin";
 
 	private Computer mParent;
 
@@ -56,9 +55,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		mParent = (Computer) getActivity();
 	}
 
-	/**
-	 * Called when the application is created.
-	 */
+	/** Called when the application is created. */
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_admin, container, false);
@@ -84,28 +81,28 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 		switch (view.getId()) {
 
-		case R.id.cmdWakeOnLan :
-			wakeOnLan();
-			break;
+			case R.id.cmdWakeOnLan:
+				wakeOnLan();
+				break;
 
-		case R.id.cmdShutdown :
-			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
-			break;
+			case R.id.cmdShutdown:
+				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
+				break;
 
-		case R.id.cmdAiMute :
-			sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
-			break;
+			case R.id.cmdAiMute:
+				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
+				break;
 
-		case R.id.cmdKillServer :
-			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
-			break;
+			case R.id.cmdKillServer:
+				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
+				break;
 
-		case R.id.cmdLock :
-			confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
-			break;
+			case R.id.cmdLock:
+				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
@@ -118,13 +115,13 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-		final String keyHost = getString(resKeyHost);
-		final String defHost = getString(resDefHost);
-		final String host = pref.getString(keyHost, defHost);
+		final String keyHost	= getString(resKeyHost);
+		final String defHost	= getString(resDefHost);
+		final String host		= pref.getString(keyHost, defHost);
 
-		final String keyMAcAddress	= getString(R.string.key_mac_address);
+		final String keyMAcAddress		= getString(R.string.key_mac_address);
 		final String defaultMAcAddress	= getString(R.string.default_mac_address);
-		final String macAddress = pref.getString(keyMAcAddress, defaultMAcAddress);
+		final String macAddress			= pref.getString(keyMAcAddress, defaultMAcAddress);
 
 		new WakeOnLan(Computer.getHandler()).execute(host, macAddress);
 	}
@@ -145,6 +142,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 
 	/**
 	 * Ask for the user to confirm before sending a request to the server.
+	 *
 	 * @param request The request to send.
 	 */
 	public void confirmRequest(final Request request) {
@@ -168,14 +166,12 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
 	 * Specialize for Admin commands.
+	 *
 	 * @author Cyril Leroux
-	 * 
 	 */
 	public class AdminMessageMgr extends AsyncMessageMgr {
 
-		/**
-		 * @param handler The toast messages handler.
-		 */
+		/** @param handler The toast messages handler. */
 		public AdminMessageMgr(Handler handler) {
 			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}

@@ -4,8 +4,8 @@ import android.bluetooth.BluetoothDevice;
 
 /**
  * Simple object that hold the bluetooth device data.
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class BTDevice {
 
@@ -20,6 +20,7 @@ public class BTDevice {
 
 	/**
 	 * Constructor
+	 *
 	 * @param device The {@link BluetoothDevice} used to build the {@link BTDevice} object.
 	 * @param type The device state.
 	 */
@@ -29,23 +30,17 @@ public class BTDevice {
 		mType		= type;
 	}
 
-	/**
-	 * @return the name of the device
-	 */
+	/** @return the name of the device */
 	public String getName() {
 		return mName;
 	}
 
-	/**
-	 * @return the address
-	 */
+	/** @return the address */
 	public String getAddress() {
 		return mAddress;
 	}
 
-	/**
-	 * @return the type
-	 */
+	/** @return the type */
 	public String getType() {
 		return mType;
 	}

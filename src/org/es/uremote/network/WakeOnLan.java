@@ -16,7 +16,6 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
  * This class allow the application to send a Magic Packet on the network to wake a PC up.
  *
  * @author Cyril Leroux
- *
  */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
 
@@ -24,9 +23,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 	private static final int PORT	= 9;
 	private final Handler mHandler;
 
-	/**
-	 * @param handler
-	 */
+	/** @param handler */
 	public WakeOnLan(Handler handler) {
 		mHandler = handler;
 	}
@@ -49,6 +46,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 
 	/**
 	 * Create and send a magic packet to the specified address to wake the PC.
+	 *
 	 * @param broadcastIp The ip address.
 	 * @param macAddress The mac address.
 	 * @return The return message.
@@ -103,9 +101,8 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 			for (int i = 0; i < 6; i++) {
 				bytes[i] = (byte) Integer.parseInt(hex[i], 16);
 			}
-		}
 
-		catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException("Invalid hex digit in MAC address.");
 		}
 

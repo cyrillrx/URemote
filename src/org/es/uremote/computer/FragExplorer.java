@@ -42,7 +42,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  *
  * @author Cyril Leroux
  */
-public class FragExplorer extends ListFragment implements IRequestSender  {
+public class FragExplorer extends ListFragment implements IRequestSender {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
@@ -95,9 +95,10 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Update the view with the content of the new directory
+	 *
 	 * @param dirContent The object that hosts the directory content.
 	 */
-	private void updateView(final DirContent dirContent){
+	private void updateView(final DirContent dirContent) {
 		if (dirContent == null) {
 			return;
 		}
@@ -110,7 +111,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 		setListAdapter(adpt);
 
 		ListView listView = getListView();
-		listView.setOnItemClickListener( new OnItemClickListener() {
+		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				final DirContent.File file = dirContent.getFile(position);
@@ -146,6 +147,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	/**
 	 * Ask the server to list the content of the passed directory.
 	 * Updates the view once the data have been received from the server.
+	 *
 	 * @param dirPath The path of the directory to display.
 	 */
 	private void openDirectory(String dirPath) {
@@ -155,6 +157,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	/**
 	 * Ask the server to list the content of the passed directory's parent.
 	 * Updates the view once the data have been received from the server.
+	 *
 	 * @param dirPath The path of the child directory.
 	 */
 	private void openParentDirectory(String dirPath) {
@@ -166,6 +169,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 	 * Ask the server to list the content of the current directory's parent.
 	 * This method is supposed to be called from the {@link Computer} class.
 	 * Updates the view once the data have been received from the server.
+	 *
 	 * @return true if it is possible to navigate up.
 	 */
 	public boolean navigateUpIfPossible() {
@@ -190,6 +194,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Initializes the message handler then send the request.
+	 *
 	 * @param request The request to send.
 	 */
 	@Override
@@ -203,6 +208,7 @@ public class FragExplorer extends ListFragment implements IRequestSender  {
 
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
+	 *
 	 * @author Cyril Leroux
 	 */
 	private class ExplorerMessageMgr extends AsyncMessageMgr {

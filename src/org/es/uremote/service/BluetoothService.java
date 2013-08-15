@@ -29,30 +29,34 @@ import static org.es.uremote.utils.IntentKeys.TOAST;
  * A thread listens for incoming connections.
  * An other thread for connecting with a device.
  * The last thread performs data transmissions when connected.
+ *
  * @author Cyril Leroux
  */
 public class BluetoothService {
 
-    /** This token is used to synchronize class methods. */
-    private static final Object TOKEN = new Object();
+	/** This token is used to synchronize class methods. */
+	private static final Object TOKEN = new Object();
 
 	// Constants that indicate the current connection state
 	/** Doing nothing. */
-	public static final int STATE_NONE				= 0;
+	public static final int STATE_NONE = 0;
 	/** Doing nothing. */
-	public static final String ACTION_NONE			= "None";
+	public static final String ACTION_NONE = "None";
+
 	/** Listening for incoming connections. */
-	public static final int STATE_LISTEN			= 1;
+	public static final int STATE_LISTEN = 1;
 	/** Listening for incoming connections. */
-	public static final String ACTION_LISTEN		= "Listening";
+	public static final String ACTION_LISTEN = "Listening";
+
 	/** Initiating an outgoing connection. */
-	public static final int STATE_CONNECTING		= 2;
+	public static final int STATE_CONNECTING = 2;
 	/** Initiating an outgoing connection. */
-	public static final String ACTION_CONNECTING	= "Connecting";
+	public static final String ACTION_CONNECTING = "Connecting";
+
 	/** Connected to remote device. */
-	public static final int STATE_CONNECTED			= 3;
+	public static final int STATE_CONNECTED = 3;
 	/** Connected to remote device. */
-	public static final String ACTION_CONNECTED		= "Connected";
+	public static final String ACTION_CONNECTED = "Connected";
 
 	// Name for the SDP record when creating server socket
 	private static final String TAG 			= "BluetoothService";
@@ -86,10 +90,11 @@ public class BluetoothService {
 
 	/**
 	 * Set the current state of the chat connection
+	 *
 	 * @param state An integer defining the current connection state
 	 */
 	private synchronized void setState(int state) {
-        Log.info(TAG, "Synchronized setState() " + getStateAsString(mState) + " -> " + getStateAsString(state));
+		Log.info(TAG, "Synchronized setState() " + getStateAsString(mState) + " -> " + getStateAsString(state));
 		mState = state;
 
 		// Give the new state to the Handler so the UI Activity can update
@@ -97,9 +102,7 @@ public class BluetoothService {
 
 	}
 
-	/**
-	 * @return The current connection state.
-	 */
+	/** @return The current connection state. */
 	public synchronized int getState() {
 		Log.info(TAG, "Synchronized getState(), value : " + getStateAsString(mState));
 		return mState;
@@ -133,7 +136,8 @@ public class BluetoothService {
 
 	/**
 	 * Start the ConnectThread to initiate a connection to a remote device.
-	 * @param device  The BluetoothDevice to connect
+	 *
+	 * @param device The BluetoothDevice to connect
 	 * @param secure Socket Security type - Secure (true) , Insecure (false)
 	 */
 	public synchronized void connect(BluetoothDevice device, boolean secure) {
@@ -155,8 +159,9 @@ public class BluetoothService {
 
 	/**
 	 * Start the ConnectedThread to begin managing a Bluetooth connection
-	 * @param socket  The BluetoothSocket on which the connection was made
-	 * @param device  The BluetoothDevice that has been connected
+	 *
+	 * @param socket The BluetoothSocket on which the connection was made
+	 * @param device The BluetoothDevice that has been connected
 	 * @param socketType
 	 */
 	public synchronized void connected(BluetoothSocket socket, BluetoothDevice device, final String socketType) {
@@ -192,9 +197,7 @@ public class BluetoothService {
 		setState(STATE_CONNECTED);
 	}
 
-	/**
-	 * Stop all threads
-	 */
+	/** Stop all threads */
 	public synchronized void stop() {
 		Log.info(TAG, "Synchronized stop()");
 
@@ -227,23 +230,24 @@ public class BluetoothService {
 	public static String getStateAsString(int state) {
 		switch (state) {
 
-		case STATE_CONNECTED:
-			return ACTION_CONNECTED;
+			case STATE_CONNECTED:
+				return ACTION_CONNECTED;
 
-		case STATE_CONNECTING:
-			return ACTION_CONNECTING;
+			case STATE_CONNECTING:
+				return ACTION_CONNECTING;
 
-		case STATE_LISTEN:
-			return ACTION_LISTEN;
+			case STATE_LISTEN:
+				return ACTION_LISTEN;
 
-		case STATE_NONE:
-			return ACTION_NONE;
+			case STATE_NONE:
+				return ACTION_NONE;
 		}
 		return ACTION_NONE;
 	}
 
 	/**
 	 * Asynchronously write to the ConnectedThread
+	 *
 	 * @param out The bytes to write
 	 * @see ConnectedThread#write(byte[])
 	 */
@@ -261,9 +265,7 @@ public class BluetoothService {
 		r.write(out);
 	}
 
-	/**
-	 * Indicate that the connection attempt failed and notify the UI Activity.
-	 */
+	/** Indicate that the connection attempt failed and notify the UI Activity. */
 	private void connectionFailed() {
 		Log.info(TAG, "connectionFailed()");
 
@@ -278,9 +280,7 @@ public class BluetoothService {
 		BluetoothService.this.start();
 	}
 
-	/**
-	 * Indicate that the connection was lost and notify the UI Activity.
-	 */
+	/** Indicate that the connection was lost and notify the UI Activity. */
 	private void connectionLost() {
 		Log.info(TAG, "connectionLost()");
 
@@ -347,21 +347,21 @@ public class BluetoothService {
 				if (socket != null) {
 					synchronized (BluetoothService.this) {
 						switch (mState) {
-						case STATE_LISTEN:
-						case STATE_CONNECTING:
-							// Situation normal. Start the connected thread.
-							connected(socket, socket.getRemoteDevice(), mSocketType);
-							break;
+							case STATE_LISTEN:
+							case STATE_CONNECTING:
+								// Situation normal. Start the connected thread.
+								connected(socket, socket.getRemoteDevice(), mSocketType);
+								break;
 
-						case STATE_NONE:
-						case STATE_CONNECTED:
-							// Either not ready or already connected. Terminate new socket.
-							try {
-								socket.close();
-							} catch (IOException e) {
-								Log.error(TAG, "Could not close unwanted socket", e);
-							}
-							break;
+							case STATE_NONE:
+							case STATE_CONNECTED:
+								// Either not ready or already connected. Terminate new socket.
+								try {
+									socket.close();
+								} catch (IOException e) {
+									Log.error(TAG, "Could not close unwanted socket", e);
+								}
+								break;
 
 						}
 					}
@@ -450,7 +450,7 @@ public class BluetoothService {
 			try {
 				mmSocket.close();
 			} catch (IOException e) {
-            	Log.error(TAG, "close() of connect " + mSocketType + " socket failed", e);
+				Log.error(TAG, "close() of connect " + mSocketType + " socket failed", e);
 			}
 		}
 	}
@@ -512,7 +512,8 @@ public class BluetoothService {
 
 		/**
 		 * Write to the connected OutStream.
-		 * @param buffer  The bytes to write
+		 *
+		 * @param buffer The bytes to write
 		 */
 		public void write(byte[] buffer) {
 			try {

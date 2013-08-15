@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
  * Activity to control the TV.
  *
  * @author Cyril Leroux
- *
  */
 public class TvDialer extends Activity implements OnClickListener {
 
@@ -23,9 +22,9 @@ public class TvDialer extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		// TODO code controls
-		default:
-			break;
+			// TODO code controls
+			default:
+				break;
 		}
 	}
 

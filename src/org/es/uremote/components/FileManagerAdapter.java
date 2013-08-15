@@ -17,9 +17,8 @@ import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;
 
 /**
  * Adapter used to display an explorer view.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class FileManagerAdapter extends BaseAdapter {
 	private final DirContent mDirContent;
@@ -27,10 +26,11 @@ public class FileManagerAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
+	 *
 	 * @param context the application context.
 	 * @param dirContent the files to display
 	 */
-	public FileManagerAdapter(Context context,  DirContent dirContent) {
+	public FileManagerAdapter(Context context, DirContent dirContent) {
 		mInflater = LayoutInflater.from(context);
 		mDirContent = dirContent;
 	}
@@ -56,8 +56,8 @@ public class FileManagerAdapter extends BaseAdapter {
 
 	/**
 	 * The view holder is the template for the items of the list.
-	 * @author Cyril Leroux
 	 *
+	 * @author Cyril Leroux
 	 */
 	public static class ViewHolder {
 		ImageView ivIcon;

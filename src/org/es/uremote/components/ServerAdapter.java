@@ -15,6 +15,7 @@ import java.util.List;
 
 /**
  * Adapter used to display server list.
+ *
  * @author Cyril Leroux
  */
 public class ServerAdapter extends BaseAdapter {
@@ -23,6 +24,7 @@ public class ServerAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
+	 *
 	 * @param context The application context.
 	 * @param servers The list of {@link org.es.uremote.objects.ServerSetting} to display.
 	 */

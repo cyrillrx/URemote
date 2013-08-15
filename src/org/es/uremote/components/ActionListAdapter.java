@@ -17,9 +17,8 @@ import java.util.List;
 /**
  * Adapter used to display an action list.
  * Used for {@link org.es.uremote.Home} activity.
- * 
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class ActionListAdapter extends BaseAdapter {
 	private final List<ActionItem> mActionList;
@@ -28,13 +27,14 @@ public class ActionListAdapter extends BaseAdapter {
 
 	/**
 	 * Default constructor
+	 *
 	 * @param context The application context.
 	 * @param actions The action list.
 	 * @param typeface The type face to use.
 	 */
 	public ActionListAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
 		mInflater	= LayoutInflater.from(context);
-		mActionList = actions;
+		mActionList	= actions;
 		mTypeface	= typeface;
 	}
 
@@ -61,8 +61,8 @@ public class ActionListAdapter extends BaseAdapter {
 
 	/**
 	 * The view holder is the template for the items of the list.
-	 * @author Cyril Leroux
 	 *
+	 * @author Cyril Leroux
 	 */
 	public static class ViewHolder {
 		ImageView ivActionIcon;

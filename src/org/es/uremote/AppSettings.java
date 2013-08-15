@@ -12,8 +12,8 @@ import java.util.List;
 
 /**
  * Activity that hosts application preferences.
- * @author Cyril Leroux
  *
+ * @author Cyril Leroux
  */
 public class AppSettings extends PreferenceActivity {
 
@@ -27,9 +27,7 @@ public class AppSettings extends PreferenceActivity {
 		loadHeadersFromResource(R.xml.preference_headers, target);
 	}
 
-	/**
-	 * This fragment shows the preferences for the server.
-	 */
+	/** This fragment shows the preferences for the server. */
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
 		private String mKeyLocalHost;
@@ -132,9 +130,7 @@ public class AppSettings extends PreferenceActivity {
 			getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 		}
 
-		/**
-		 * Change the summary of a value whenever the value had been modified.
-		 */
+		/** Change the summary of a value whenever the value had been modified. */
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
 

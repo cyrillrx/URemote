@@ -14,10 +14,10 @@ import java.io.IOException;
  * @author Cyril Leroux
  */
 public class XmlWriter {
-	private static final String TAG					= "XmlWriter";
-	private static final String ENCODING			= "UTF-8";
-	private static final String NAMESPACE			= null;
-    private static final String FEATURE_INDENT		= "http://xmlpull.org/v1/doc/features.html#indent-output";
+	private static final String TAG				= "XmlWriter";
+	private static final String ENCODING		= "UTF-8";
+	private static final String NAMESPACE		= null;
+	private static final String FEATURE_INDENT	= "http://xmlpull.org/v1/doc/features.html#indent-output";
 
 	private final String mRootTag;
 	private final FileOutputStream mFileOutputStream;
@@ -26,7 +26,7 @@ public class XmlWriter {
 	/**
 	 * Constructor.
 	 * Create and initiate the XML file.
-	 * 
+	 *
 	 * @param fos The file output stream to write in.
 	 * @param rootTag Root tag of the file.
 	 * @throws IOException
@@ -44,9 +44,7 @@ public class XmlWriter {
 		mSerializer.startTag(null, rootTag);
 	}
 
-	/**
-	 * Close and save the file.
-	 */
+	/** Close and save the file. */
 	public void closeAndSave() {
 		try {
 			mSerializer.endTag(NAMESPACE, mRootTag);
@@ -60,7 +58,7 @@ public class XmlWriter {
 
 	/**
 	 * Add simple tag (text + tag) in the XML tree.
-	 * 
+	 *
 	 * @param tag Tag name.
 	 * @param text Text to write in the tag.
 	 * @param attribute Attribute to write in the tag (String[] = {"attribute", "value"}.
@@ -85,7 +83,7 @@ public class XmlWriter {
 
 	/**
 	 * Add simple tag (integer + attribute) in the XML tree.
-	 * 
+	 *
 	 * @param tag Tag name.
 	 * @param intValue Integer value to convert and write in the tag.
 	 * @param attribute Attribute to write in the tag (String[] = {"attribute", "value"}.
@@ -98,7 +96,7 @@ public class XmlWriter {
 
 	/**
 	 * This method allow to open a tag from the outside of the class.
-	 * 
+	 *
 	 * @param namespace The namespace to use.
 	 * @param tag Tag name.
 	 */
@@ -112,7 +110,7 @@ public class XmlWriter {
 
 	/**
 	 * This method allow to close a tag from the outside of the class.
-	 * 
+	 *
 	 * @param namespace The namespace to use.
 	 * @param tag Tag name.
 	 */

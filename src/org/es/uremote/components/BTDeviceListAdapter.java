@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Adapter used to display bluetooth device list.
+ *
  * @author Cyril Leroux
  */
 public class BTDeviceListAdapter extends BaseAdapter {
@@ -23,6 +24,7 @@ public class BTDeviceListAdapter extends BaseAdapter {
 
 	/**
 	 * Adapter constructor
+	 *
 	 * @param context The application context.
 	 * @param devices The list of {@link BTDevice} to display.
 	 */
