@@ -340,7 +340,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, IRequestS
 		if (KeyboardMessageMgr.availablePermits() > 0) {
 			new KeyboardMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			Log.warning(TAG, getString(R.string.msg_no_more_permit));
+			Log.warning(TAG, "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit));
 		}
 	}
 

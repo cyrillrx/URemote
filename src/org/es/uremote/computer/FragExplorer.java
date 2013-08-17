@@ -54,7 +54,6 @@ public class FragExplorer extends ListFragment implements IRequestSender {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.debug(TAG, "onCreateView");
 
 		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
@@ -64,7 +63,6 @@ public class FragExplorer extends ListFragment implements IRequestSender {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.debug(TAG, "onActivityCreated");
 
 		// Restoring current directory content
 		if (savedInstanceState != null) {
@@ -74,7 +72,7 @@ public class FragExplorer extends ListFragment implements IRequestSender {
 					mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
 				}
 			} catch (InvalidProtocolBufferException e) {
-				Log.error(TAG, "#onActivityCreated : Error occurred while parsing directory content.", e);
+				Log.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
 			}
 		}
 		// Get the directory content from the server or update the one that already exist.
@@ -103,12 +101,12 @@ public class FragExplorer extends ListFragment implements IRequestSender {
 			return;
 		}
 		if (dirContent.getFileCount() == 0) {
-			Log.warning(TAG, "No file in the directory.");
+			Log.warning(TAG, "#updateView - No file in the directory.");
 			return;
 		}
 
-		final FileManagerAdapter adpt = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
-		setListAdapter(adpt);
+		final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
+		setListAdapter(adapter);
 
 		ListView listView = getListView();
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -221,7 +219,7 @@ public class FragExplorer extends ListFragment implements IRequestSender {
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
 
-			Log.debug(TAG, response.getMessage());
+			Log.debug(TAG, "#onPostExecute - " + response.getMessage());
 			if (RC_ERROR.equals(response.getReturnCode())) {
 				if (!response.getMessage().isEmpty()) {
 					sendToastToUI(response.getMessage());

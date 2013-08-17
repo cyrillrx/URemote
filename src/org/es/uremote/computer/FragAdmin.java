@@ -136,7 +136,7 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		if (AdminMessageMgr.availablePermits() > 0) {
 			new AdminMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			Log.warning(TAG, getString(R.string.msg_no_more_permit));
+			Log.warning(TAG, "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit));
 		}
 	}
 

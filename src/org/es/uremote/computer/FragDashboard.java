@@ -258,7 +258,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		} else {
 			final boolean defineVolume = VOLUME.equals(request.getType()) && DEFINE.equals(request.getCode());
 			if (!defineVolume) {
-				final String message = getString(R.string.msg_no_more_permit) + "\n" + request.toString();
+				final String message = "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit) + "\n" + request.toString();
 				Log.warning(TAG, message);
 			}
 		}
