@@ -2,8 +2,10 @@ package org.es.uremote.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 
+import org.es.exception.AccessStorageOnMainThreadException;
 import org.es.uremote.R;
 import org.es.uremote.components.ServerXmlHandler;
 import org.es.uremote.objects.ServerSetting;
@@ -45,6 +47,10 @@ public class ServerSettingDao {
 	 * @return true if save succeeded, false otherwise.
 	 */
 	public static boolean saveToFile(List<ServerSetting> servers, File confFile) {
+
+		if (Looper.myLooper() == Looper.getMainLooper()) {
+			throw new AccessStorageOnMainThreadException();
+		}
 
 		if (servers == null || servers.isEmpty()) {
 			return false;
@@ -90,6 +96,10 @@ public class ServerSettingDao {
 	 * @return true if load succeeded, false otherwise.
 	 */
 	public static boolean loadFromFile(File configFile, List<ServerSetting> servers) {
+
+		if (Looper.myLooper() == Looper.getMainLooper()) {
+			throw new AccessStorageOnMainThreadException();
+		}
 
 		ServerXmlHandler serverXmlhandler = new ServerXmlHandler();
 		try {
