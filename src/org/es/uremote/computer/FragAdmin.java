@@ -1,6 +1,7 @@
 package org.es.uremote.computer;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -18,13 +19,14 @@ import android.widget.Button;
 
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
+import org.es.network.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.network.WakeOnLan;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -44,15 +46,41 @@ import static org.es.uremote.utils.Constants.STATE_OK;
  *
  * @author Cyril Leroux
  */
-public class FragAdmin extends Fragment implements OnClickListener, IRequestSender {
+public class FragAdmin extends Fragment implements OnClickListener, RequestSender {
+
 	private static final String TAG = "FragAdmin";
 
+	private TaskCallbacks mCallbacks;
 	private Computer mParent;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mCallbacks = (TaskCallbacks) activity;
+		mParent = (Computer) getActivity();
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Retain this fragment across configuration changes.
+		setRetainInstance(true);
+	}
+
+	/**
+	 * Set the callback to null so we don't accidentally leak the
+	 * Activity instance.
+	 */
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (Computer) getActivity();
 	}
 
 	/** Called when the application is created. */
@@ -179,12 +207,14 @@ public class FragAdmin extends Fragment implements OnClickListener, IRequestSend
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			mCallbacks.onPreExecute();
 			mParent.updateConnectionState(STATE_CONNECTING);
 		}
 
 		@Override
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
+			mCallbacks.onPostExecute();
 
 			sendToastToUI(response.getMessage());
 

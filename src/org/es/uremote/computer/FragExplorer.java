@@ -20,7 +20,7 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
+import org.es.network.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
@@ -42,7 +42,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  *
  * @author Cyril Leroux
  */
-public class FragExplorer extends ListFragment implements IRequestSender {
+public class FragExplorer extends ListFragment implements RequestSender {
 	private static final String TAG = "FileManager";
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;

@@ -17,7 +17,7 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
+import org.es.network.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.dao.ServerSettingDao;
@@ -35,7 +35,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  *
  * @author Cyril Leroux
  */
-public class FragKeyboard extends Fragment implements OnClickListener, IRequestSender {
+public class FragKeyboard extends Fragment implements OnClickListener, RequestSender {
 	private static final String TAG = "FragKeyboard";
 	private Computer mParent;
 

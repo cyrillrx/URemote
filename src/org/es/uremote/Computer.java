@@ -35,6 +35,7 @@ import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ import static org.es.uremote.utils.Constants.STATE_OK;
  * @author Cyril Leroux
  *
  */
-public class Computer extends FragmentActivity implements OnPageChangeListener {
+public class Computer extends FragmentActivity implements OnPageChangeListener, TaskCallbacks {
 
 	private static final String TAG = "Computer Activity";
 	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
@@ -68,7 +69,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
 
+
+	private FragAdmin mFragAdmin;
+	private FragDashboard mFragDashboard;
 	private FragExplorer mFragExplorer;
+	private FragKeyboard mFragKeyboard;
+
 	private int mCurrentPage = -1;
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
@@ -106,18 +112,29 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		actionBar.setDisplayHomeAsUpEnabled(true);
 
 		// Fragment to use in each tab
-		FragAdmin fragAdmin				= new FragAdmin();
-		FragDashboard fragDashboard		= new FragDashboard();
-		mFragExplorer					= new FragExplorer();
-		FragKeyboard fragKeyboard		= new FragKeyboard();
+		// If the Fragment is non-null, then it is currently being
+		// retained across a configuration change.
+		if (mFragAdmin == null) {
+			mFragAdmin = new FragAdmin();
+		}
+		if (mFragDashboard == null) {
+			mFragDashboard = new FragDashboard();
+		}
+		if (mFragExplorer == null) {
+			mFragExplorer = new FragExplorer();
+		}
+		if (mFragKeyboard == null) {
+			mFragKeyboard = new FragKeyboard();
+		}
+
 		List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
-		fragments.add(fragAdmin);
-		fragments.add(fragDashboard);
+		fragments.add(mFragAdmin);
+		fragments.add(mFragDashboard);
 		fragments.add(mFragExplorer);
-		fragments.add(fragKeyboard);
+		fragments.add(mFragKeyboard);
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
-		MyPagerAdapter pagerAdapter = new MyPagerAdapter(super.getSupportFragmentManager(), fragments);
+		ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
 		viewPager.setAdapter(pagerAdapter);
 		viewPager.setOnPageChangeListener(this);
 		viewPager.setCurrentItem(mCurrentPage);
@@ -274,7 +291,27 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		}
 	}
 
-	private class MyPagerAdapter extends FragmentPagerAdapter {
+	@Override
+	public void onPreExecute() {
+
+	}
+
+	@Override
+	public void onProgressUpdate(int percent) {
+
+	}
+
+	@Override
+	public void onCancelled() {
+
+	}
+
+	@Override
+	public void onPostExecute() {
+
+	}
+
+	private class ComputerPagerAdapter extends FragmentPagerAdapter {
 
 		private final List<Fragment> mFragments;
 
@@ -282,7 +319,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener {
 		 * @param fm The fragment manager
 		 * @param fragments The fragments list.
 		 */
-		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+		public ComputerPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 			super(fm);
 			mFragments = fragments;
 		}

@@ -7,7 +7,7 @@ import org.es.network.ExchangeProtos.Request;
  *
  * @author Cyril
  */
-public interface IRequestSender {
+public interface RequestSender {
 	/**
 	 * Initializes the message handler then send the request.
 	 *

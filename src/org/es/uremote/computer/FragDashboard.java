@@ -24,7 +24,7 @@ import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
 import org.es.network.ExchangeProtos.Response;
-import org.es.network.IRequestSender;
+import org.es.network.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.dao.ServerSettingDao;
@@ -46,7 +46,7 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  *
  * @author Cyril Leroux
  */
-public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, IRequestSender {
+public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, RequestSender {
 	private static final String TAG	= "FragDashboard";
 	/** ActivityForResults request codes */
 	private static final int RC_APP_LAUNCHER = 0;
