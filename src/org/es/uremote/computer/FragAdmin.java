@@ -57,7 +57,6 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		mCallbacks = (TaskCallbacks) activity;
-		mParent = (Computer) getActivity();
 	}
 
 	@Override
@@ -81,6 +80,7 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		mParent = (Computer) getActivity();
 	}
 
 	/** Called when the application is created. */
@@ -208,21 +208,13 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 		protected void onPreExecute() {
 			super.onPreExecute();
 			mCallbacks.onPreExecute();
-			mParent.updateConnectionState(STATE_CONNECTING);
 		}
 
 		@Override
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
-			mCallbacks.onPostExecute();
-
+			mCallbacks.onPostExecute(response);
 			sendToastToUI(response.getMessage());
-
-			if (RC_ERROR.equals(response.getReturnCode())) {
-				mParent.updateConnectionState(STATE_KO);
-			} else {
-				mParent.updateConnectionState(STATE_OK);
-			}
 		}
 	}
 }

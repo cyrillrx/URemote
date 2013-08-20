@@ -4,6 +4,7 @@ package org.es.uremote.computer;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -31,6 +32,7 @@ import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.utils.IntentKeys;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.app.Activity.RESULT_OK;
@@ -47,7 +49,9 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  * @author Cyril Leroux
  */
 public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, RequestSender {
+
 	private static final String TAG	= "FragDashboard";
+
 	/** ActivityForResults request codes */
 	private static final int RC_APP_LAUNCHER = 0;
 
@@ -58,6 +62,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private static final int DELAY		= 500;
 	private static final int DURATION	= 500;
 
+	private TaskCallbacks mCallbacks;
+
 	private ObjectAnimator mFadeIn;
 	private ObjectAnimator mFadeOut;
 
@@ -65,6 +71,30 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private ImageButton mIbMute;
 	private SeekBar mSbVolume;
 	private Computer mParent;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mCallbacks = (TaskCallbacks) activity;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Retain this fragment across configuration changes.
+		setRetainInstance(true);
+	}
+
+	/**
+	 * Set the callback to null so we don't accidentally leak the
+	 * Activity instance.
+	 */
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -279,21 +309,16 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mParent.updateConnectionState(STATE_CONNECTING);
+			mCallbacks.onPreExecute();
 		}
 
 		@Override
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
+			mCallbacks.onPostExecute(response);
+
 			final String message = response.getMessage();
 			Log.debug(TAG, "#onPostExecute - Sending response : " + message);
-
-			// TODO handle return better than that
-			if (RC_ERROR.equals(response.getReturnCode())) {
-				mParent.updateConnectionState(STATE_KO);
-			} else {
-				mParent.updateConnectionState(STATE_OK);
-			}
 
 			final Type type = response.getRequestType();
 			final Code code = response.getRequestCode();

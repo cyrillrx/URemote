@@ -23,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
@@ -51,9 +52,11 @@ import static org.es.network.ExchangeProtos.Request.Code.DOWN;
 import static org.es.network.ExchangeProtos.Request.Code.UP;
 import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
 import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
+import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_OK;
+import static org.es.uremote.utils.Constants.STATE_KO;
 
 /**
  * @author Cyril Leroux
@@ -293,22 +296,22 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 	@Override
 	public void onPreExecute() {
-
+		updateConnectionState(STATE_CONNECTING);
 	}
 
 	@Override
-	public void onProgressUpdate(int percent) {
-
-	}
+	public void onProgressUpdate(int percent) { }
 
 	@Override
-	public void onCancelled() {
-
-	}
+	public void onCancelled() { }
 
 	@Override
-	public void onPostExecute() {
-
+	public void onPostExecute(Response response) {
+		if (RC_ERROR.equals(response.getReturnCode())) {
+			updateConnectionState(STATE_KO);
+		} else {
+			updateConnectionState(STATE_OK);
+		}
 	}
 
 	private class ComputerPagerAdapter extends FragmentPagerAdapter {
@@ -359,17 +362,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	/**
 	 * Update the connection state of the UI
 	 *
-	 * @param _state The state of the connection <br />
-	 * ({@link Constants#STATE_OK}, <br />
-	 * {@link Constants#STATE_KO}, <br />
-	 * {@link Constants#STATE_CONNECTING})
+	 * @param state The state of the connection :
+	 * <ul>
+	 * <li>{@link Constants#STATE_OK}</li>
+	 * <li>{@link Constants#STATE_KO}</li>
+	 * <li>{@link Constants#STATE_CONNECTING}</li>
+	 * </ul>
 	 */
-	public void updateConnectionState(int _state) {
+	public void updateConnectionState(int state) {
 		int drawableResId;
 		int messageResId;
 		int visibility;
 
-		switch (_state) {
+		switch (state) {
 			case STATE_OK:
 				drawableResId = android.R.drawable.presence_online;
 				messageResId = R.string.msg_command_succeeded;

@@ -1,5 +1,7 @@
 package org.es.uremote.utils;
 
+import org.es.network.ExchangeProtos.Response;
+
 /**
  * Callback interface through which the fragment will report the
  * task's progress and results back to the Activity.
@@ -14,5 +16,5 @@ public interface TaskCallbacks {
 
 	void onCancelled();
 
-	void onPostExecute();
+	void onPostExecute(Response response);
 }

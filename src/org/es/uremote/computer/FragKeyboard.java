@@ -1,6 +1,7 @@
 package org.es.uremote.computer;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.utils.Constants;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -36,13 +38,41 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  * @author Cyril Leroux
  */
 public class FragKeyboard extends Fragment implements OnClickListener, RequestSender {
+
 	private static final String TAG = "FragKeyboard";
+
+	private TaskCallbacks mCallbacks;
+
 	private Computer mParent;
 
 	private ToggleButton mTbControl;
 	private ToggleButton mTbAlt;
 	private ToggleButton mTbShift;
 	private ToggleButton mTbWindows;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mCallbacks = (TaskCallbacks) activity;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Retain this fragment across configuration changes.
+		setRetainInstance(true);
+	}
+
+	/**
+	 * Set the callback to null so we don't accidentally leak the
+	 * Activity instance.
+	 */
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -381,20 +411,15 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			mParent.updateConnectionState(Constants.STATE_CONNECTING);
+			mCallbacks.onPreExecute();
 		}
 
 		@Override
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
+			mCallbacks.onPostExecute(response);
 
 			sendToastToUI(response.getMessage());
-
-			if (RC_ERROR.equals(response.getReturnCode())) {
-				mParent.updateConnectionState(Constants.STATE_KO);
-			} else {
-				mParent.updateConnectionState(Constants.STATE_OK);
-			}
 		}
 	}
 }

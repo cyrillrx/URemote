@@ -1,5 +1,6 @@
 package org.es.uremote.computer;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ListFragment;
@@ -28,6 +29,7 @@ import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.utils.FileUtils;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import java.io.File;
@@ -43,14 +45,42 @@ import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
  * @author Cyril Leroux
  */
 public class FragExplorer extends ListFragment implements RequestSender {
+
 	private static final String TAG = "FileManager";
+
 	private static final int MAX_PATH_PORTRAIT = 40;
 	private static final int MAX_PATH_LANDSCAPE = 70;
 	private static final String DEFAULT_PATH = "L:";
 	private static final String DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
 
+	private TaskCallbacks mCallbacks;
+
 	private TextView mTvPath;
 	private DirContent mDirectoryContent = null;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mCallbacks = (TaskCallbacks) activity;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// Retain this fragment across configuration changes.
+		setRetainInstance(true);
+	}
+
+	/**
+	 * Set the callback to null so we don't accidentally leak the
+	 * Activity instance.
+	 */
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mCallbacks = null;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -216,8 +246,15 @@ public class FragExplorer extends ListFragment implements RequestSender {
 		}
 
 		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			mCallbacks.onPreExecute();
+		}
+
+		@Override
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
+			mCallbacks.onPostExecute(response);
 
 			Log.debug(TAG, "#onPostExecute - " + response.getMessage());
 			if (RC_ERROR.equals(response.getReturnCode())) {
