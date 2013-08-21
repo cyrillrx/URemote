@@ -27,6 +27,7 @@ import org.es.network.ExchangeProtos.Response;
 import org.es.network.ExchangeProtos.Request;
 import org.es.network.ExchangeProtos.Request.Code;
 import org.es.network.ExchangeProtos.Request.Type;
+import org.es.security.Md5;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
@@ -238,7 +239,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		final String securityToken = pref.getString(keySecurityToken, defaultSecurityToken);
 
 		// TODO hash the security token
-		AsyncMessageMgr.setSecurityToken(securityToken);
+		AsyncMessageMgr.setSecurityToken(Md5.encode(securityToken));
 
 		return ServerSettingDao.loadFromPreferences(getApplicationContext());
 	}
