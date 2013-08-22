@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static org.es.uremote.objects.ServerSetting.SAVE_FILE;
+import static org.es.uremote.objects.ServerSetting.FILENAME;
 import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
 import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
@@ -44,7 +44,7 @@ public class ServerList extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_list);
 		mServers = new ArrayList<>();
-		mConfFile = new File(getApplicationContext().getExternalFilesDir(null), SAVE_FILE);
+		mConfFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
 		loadServerList();
 	}
 

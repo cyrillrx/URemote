@@ -12,7 +12,7 @@ import android.os.Parcelable;
  */
 public class ServerSetting implements Parcelable {
 
-	public static final String SAVE_FILE = "serverConfig.xml";
+	public static final String FILENAME = "serverConfig.xml";
 
 	/** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
 	public static final Parcelable.Creator<ServerSetting> CREATOR = new Parcelable.Creator<ServerSetting>() {
