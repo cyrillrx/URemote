@@ -5,11 +5,12 @@ package org.es.exception;
  */
 public class AccessStorageOnMainThreadException extends RuntimeException {
 
-	public AccessStorageOnMainThreadException() {
-		super("You cannot access storage on the main thread. Use AsyncTask, Callable on Thread classes.");
-	}
+	private static final String DEFAULT_MESSAGE = " - You cannot access storage on the main thread. Use AsyncTask, Callable or Thread classes.";
 
-	public AccessStorageOnMainThreadException(String detailMessage) {
-		super(detailMessage);
+	/**
+	 * @param source A String that identify the source of the error (class, method, etc.)
+	 */
+	public AccessStorageOnMainThreadException(String source) {
+		super(source + DEFAULT_MESSAGE);
 	}
 }

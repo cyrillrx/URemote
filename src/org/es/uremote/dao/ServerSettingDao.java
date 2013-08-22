@@ -25,18 +25,18 @@ import javax.xml.parsers.SAXParserFactory;
 /** Created by Cyril Leroux on 10/08/13. */
 public class ServerSettingDao {
 
-	public static final String TAG_ROOT = "servers";
-	public static final String TAG_SERVER = "server";
-	public static final String TAG_NAME = "name";
-	public static final String TAG_LOCAL_HOST = "local_ip_address";
-	public static final String TAG_LOCAL_PORT = "local_port";
-	public static final String TAG_BROADCAST = "broadcast_address";
-	public static final String TAG_REMOTE_HOST = "remote_ip_address";
-	public static final String TAG_REMOTE_PORT = "remote_port";
-	public static final String TAG_MAC_ADDRESS = "mac_address";
+	public static final String TAG_ROOT				= "servers";
+	public static final String TAG_SERVER			= "server";
+	public static final String TAG_NAME				= "name";
+	public static final String TAG_LOCAL_HOST		= "local_ip_address";
+	public static final String TAG_LOCAL_PORT		= "local_port";
+	public static final String TAG_BROADCAST		= "broadcast_address";
+	public static final String TAG_REMOTE_HOST		= "remote_ip_address";
+	public static final String TAG_REMOTE_PORT		= "remote_port";
+	public static final String TAG_MAC_ADDRESS		= "mac_address";
 	public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
-	public static final String TAG_READ_TIMEOUT = "read_timeout";
-	public static final String TAG_CONNECTION_TYPE = "connection_type";
+	public static final String TAG_READ_TIMEOUT		= "read_timeout";
+	public static final String TAG_CONNECTION_TYPE	= "connection_type";
 	private static String TAG = "ServerSettingDao";
 
 	/**
@@ -49,7 +49,7 @@ public class ServerSettingDao {
 	public static boolean saveToFile(List<ServerSetting> servers, File confFile) {
 
 		if (Looper.myLooper() == Looper.getMainLooper()) {
-			throw new AccessStorageOnMainThreadException();
+			throw new AccessStorageOnMainThreadException("ServerSettingDao #saveToFile");
 		}
 
 		if (servers == null || servers.isEmpty()) {
@@ -98,7 +98,7 @@ public class ServerSettingDao {
 	public static boolean loadFromFile(File configFile, List<ServerSetting> servers) {
 
 		if (Looper.myLooper() == Looper.getMainLooper()) {
-			throw new AccessStorageOnMainThreadException();
+			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
 		}
 
 		ServerXmlHandler serverXmlhandler = new ServerXmlHandler();
