@@ -41,6 +41,7 @@
 	<string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
 	<string name="power">Power</string>
 	<string name="add">Add</string>
+	<string name="load_from_file">Charger depuis un fichier</string>
 	<string name="progress">0%</string>
 	<string name="no_content">Aucun élément à afficher</string>
 

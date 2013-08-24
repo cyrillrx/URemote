@@ -70,15 +70,15 @@ public class AppSettings extends PreferenceActivity {
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
 
-			mKeyLocalHost	= getString(R.string.key_local_host);
-			mKeyLocalPort	= getString(R.string.key_local_port);
-			mKeyBroadcast	= getString(R.string.key_broadcast);
-			mKeyRemoteHost	= getString(R.string.key_remote_host);
-			mKeyRemotePort	= getString(R.string.key_remote_port);
+			mKeyLocalHost			= getString(R.string.key_local_host);
+			mKeyLocalPort			= getString(R.string.key_local_port);
+			mKeyBroadcast			= getString(R.string.key_broadcast);
+			mKeyRemoteHost			= getString(R.string.key_remote_host);
+			mKeyRemotePort			= getString(R.string.key_remote_port);
 			mKeySecurityToken		= getString(R.string.key_security_token);
 			mKeyConnectionTimeout	= getString(R.string.key_connection_timeout);
 			mKeyReadTimeout			= getString(R.string.key_read_timeout);
-			mKeyMacAddress	= getString(R.string.key_mac_address);
+			mKeyMacAddress			= getString(R.string.key_mac_address);
 
 			mDefaultLocalHost	= getString(R.string.default_local_host);
 			mDefaultLocalPort	= getString(R.string.default_local_port);

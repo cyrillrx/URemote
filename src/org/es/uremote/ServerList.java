@@ -97,6 +97,11 @@ public class ServerList extends ListActivity {
 				startActivityForResult(addIntent, RC_ADD_SERVER);
 				return true;
 
+			case R.id.load_from_file:
+				//Intent loadIntent = new Intent.ACTION_GET_CONTENT;
+				//addIntent.setAction(ACTION_ADD_SERVER);
+				//startActivityForResult(addIntent, RC_ADD_SERVER);
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

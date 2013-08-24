@@ -37,7 +37,8 @@
 	<string name="filemanager_image_description">Image that represents the file or folder</string>
 	<string name="filemanager_empty_directory">This directory is empty.</string>
 	<string name="power">Power</string>
-	<string name="add">Ajouter</string>
+	<string name="add">Add</string>
+	<string name="load_from_file">Load from file</string>
 	<string name="progress">0%</string>
 	<string name="no_content">No item to display</string>
 
