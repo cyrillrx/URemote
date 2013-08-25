@@ -29,9 +29,9 @@ import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /** @author Cyril Leroux */
-public class MediaWidgerProvider extends AppWidgetProvider {
+public class MediaWidgetProvider extends AppWidgetProvider {
 
-	private static final String TAG = "MediaWidgerProvider";
+	private static final String TAG = "MediaWidgetProvider";
 
 	private static final String ACTION_MEDIA_PREVIOUS	= "ACTION_MEDIA_PREVIOUS";
 	private static final String ACTION_MEDIA_PLAY_PAUSE	= "ACTION_MEDIA_PLAY_PAUSE";
@@ -52,7 +52,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
 		// Get ids of all the instances of the widget
-		ComponentName widget = new ComponentName(context, MediaWidgerProvider.class);
+		ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
 		int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
 
 		for (int widgetId : widgetIds) {
@@ -61,22 +61,22 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 
 			// Register onClickListeners
 
-			Intent previousIntent = new Intent(context, MediaWidgerProvider.class);
+			Intent previousIntent = new Intent(context, MediaWidgetProvider.class);
 			previousIntent.setAction(ACTION_MEDIA_PREVIOUS);
 			PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, previousPendingIntent);
 
-			Intent playPauseIntent = new Intent(context, MediaWidgerProvider.class);
+			Intent playPauseIntent = new Intent(context, MediaWidgetProvider.class);
 			playPauseIntent.setAction(ACTION_MEDIA_PLAY_PAUSE);
 			PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(context, widgetId, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdPlayPause, playPausePendingIntent);
 
-			Intent stopIntent = new Intent(context, MediaWidgerProvider.class);
+			Intent stopIntent = new Intent(context, MediaWidgetProvider.class);
 			stopIntent.setAction(ACTION_MEDIA_STOP);
 			PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, widgetId, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdStop, stopPendingIntent);
 
-			Intent nextIntent = new Intent(context, MediaWidgerProvider.class);
+			Intent nextIntent = new Intent(context, MediaWidgetProvider.class);
 			nextIntent.setAction(ACTION_MEDIA_NEXT);
 			PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
@@ -90,7 +90,7 @@ public class MediaWidgerProvider extends AppWidgetProvider {
 		// TODO Auto-generated method stub
 		super.onReceive(context, intent);
 
-		Log.debug(TAG, "MediaWidgerProvider onReceive");
+		Log.debug(TAG, "MediaWidgetProvider onReceive");
 
 		final String mediaCommand = intent.getAction();
 		Log.debug(TAG, "Action : " + intent.getAction());
