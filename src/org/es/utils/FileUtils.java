@@ -1,6 +1,8 @@
-package org.es.uremote.utils;
+package org.es.utils;
 
 import java.io.File;
+import java.io.FilenameFilter;
+import java.util.List;
 
 /**
  * Class for file manipulation.
@@ -8,6 +10,30 @@ import java.io.File;
  * @author Cyril Leroux
  */
 public class FileUtils {
+
+	/**
+	 * List all files and directory with a specific extension in a given directory.
+	 * @param dirPath Path of the root directory.
+	 * @param extensions List of accepted extensions.
+	 * @return An array containing the found files.
+	 */
+	public static File[] listFiles(String dirPath, final String[] extensions) {
+
+		FilenameFilter extensionFilter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String filename) {
+				for (String extension : extensions) {
+					if (filename.endsWith(extension)) {
+						return true;
+					}
+				}
+				return false;
+			}
+		};
+
+		File root = new File(dirPath);
+		return root.listFiles();
+	}
 
 	/**
 	 * @param filename The filename to test.
@@ -43,5 +69,4 @@ public class FileUtils {
 
 		return filePath;
 	}
-	//-------------------------------------------------
 }

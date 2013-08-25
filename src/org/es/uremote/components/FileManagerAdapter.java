@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import org.es.network.ExchangeProtos.DirContent;
 import org.es.uremote.R;
-import org.es.uremote.utils.FileUtils;
+import org.es.utils.FileUtils;
 
 import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
 import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;

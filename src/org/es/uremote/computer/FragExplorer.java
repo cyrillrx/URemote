@@ -28,7 +28,7 @@ import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
-import org.es.uremote.utils.FileUtils;
+import org.es.utils.FileUtils;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
