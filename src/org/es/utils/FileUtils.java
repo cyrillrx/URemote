@@ -2,7 +2,6 @@ package org.es.utils;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.List;
 
 /**
  * Class for file manipulation.
@@ -22,6 +21,10 @@ public class FileUtils {
 		FilenameFilter extensionFilter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
+				if (dir.isDirectory()) {
+					return true;
+				}
+
 				for (String extension : extensions) {
 					if (filename.endsWith(extension)) {
 						return true;
@@ -32,7 +35,7 @@ public class FileUtils {
 		};
 
 		File root = new File(dirPath);
-		return root.listFiles();
+		return root.listFiles(extensionFilter);
 	}
 
 	/**

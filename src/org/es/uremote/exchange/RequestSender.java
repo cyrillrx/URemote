@@ -1,6 +1,6 @@
-package org.es.network;
+package org.es.uremote.exchange;
 
-import org.es.network.ExchangeProtos.Request;
+import org.es.uremote.exchange.ExchangeMessages.Request;
 
 /**
  * Interface to send a request.

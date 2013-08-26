@@ -16,12 +16,12 @@ import android.widget.Toast;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import org.es.network.ExchangeProtos.DirContent;
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.RequestSender;
+import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Request.Code;
+import org.es.uremote.exchange.ExchangeMessages.Request.Type;
+import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
@@ -34,9 +34,9 @@ import org.es.utils.Log;
 
 import java.io.File;
 
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
+import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
 
 /**
  * File explorer fragment.

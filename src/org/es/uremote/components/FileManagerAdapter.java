@@ -8,12 +8,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.es.network.ExchangeProtos.DirContent;
+import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.R;
 import org.es.utils.FileUtils;
 
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.DIRECTORY;
-import static org.es.network.ExchangeProtos.DirContent.File.FileType.FILE;
+import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
+import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.FILE;
 
 /**
  * Adapter used to display an explorer view.

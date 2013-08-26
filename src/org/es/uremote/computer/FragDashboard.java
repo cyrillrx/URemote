@@ -21,11 +21,11 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.RequestSender;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Request.Code;
+import org.es.uremote.exchange.ExchangeMessages.Request.Type;
+import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.dao.ServerSettingDao;
@@ -37,11 +37,10 @@ import org.es.utils.Log;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.network.ExchangeProtos.Request.Code.DEFINE;
-import static org.es.network.ExchangeProtos.Request.Code.MUTE;
-import static org.es.network.ExchangeProtos.Request.Type.KEYBOARD;
-import static org.es.network.ExchangeProtos.Request.Type.VOLUME;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DEFINE;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MUTE;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.

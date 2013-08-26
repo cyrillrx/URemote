@@ -1,6 +1,6 @@
 package org.es.uremote.utils;
 
-import org.es.network.ExchangeProtos.Response;
+import org.es.uremote.exchange.ExchangeMessages.Response;
 
 /**
  * Callback interface through which the fragment will report the

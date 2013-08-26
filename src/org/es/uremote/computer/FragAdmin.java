@@ -17,9 +17,9 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.RequestSender;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.dao.ServerSettingDao;
@@ -30,16 +30,12 @@ import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.network.ExchangeProtos.Request.Code.KILL_SERVER;
-import static org.es.network.ExchangeProtos.Request.Code.LOCK;
-import static org.es.network.ExchangeProtos.Request.Code.MUTE;
-import static org.es.network.ExchangeProtos.Request.Code.SHUTDOWN;
-import static org.es.network.ExchangeProtos.Request.Type.AI;
-import static org.es.network.ExchangeProtos.Request.Type.SIMPLE;
-import static org.es.network.ExchangeProtos.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.utils.Constants.STATE_CONNECTING;
-import static org.es.uremote.utils.Constants.STATE_KO;
-import static org.es.uremote.utils.Constants.STATE_OK;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.KILL_SERVER;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LOCK;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MUTE;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.SHUTDOWN;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Type.AI;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.

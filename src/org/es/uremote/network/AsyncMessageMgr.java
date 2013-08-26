@@ -4,9 +4,9 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Response;
-import org.es.network.ExchangeProtos.Response.ReturnCode;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode;
 import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 

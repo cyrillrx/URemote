@@ -4,17 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import org.es.network.ExchangeProtos.Request;
-import org.es.network.ExchangeProtos.Request.Code;
-import org.es.network.ExchangeProtos.Request.Type;
-import org.es.network.ExchangeProtos.Response;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Request.Code;
+import org.es.uremote.exchange.ExchangeMessages.Request.Type;
+import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import static org.es.network.ExchangeProtos.Request.Code.NONE;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
 
 /**
  * Class that holds the utils to manage network messages
