@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
  * Class to encode into MD5
  *
  * @author Cyril Leroux
+ * Created on 11/11/12.
  */
 public class Md5 {
 	/**

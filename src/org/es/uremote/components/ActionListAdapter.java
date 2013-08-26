@@ -19,6 +19,7 @@ import java.util.List;
  * Used for {@link org.es.uremote.Home} activity.
  *
  * @author Cyril Leroux
+ * Created on 05/11/12.
  */
 public class ActionListAdapter extends BaseAdapter {
 	private final List<ActionItem> mActionList;

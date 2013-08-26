@@ -27,6 +27,7 @@ import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
  * This component allow to parse a XML file that contains server connection information.
  *
  * @author Cyril Leroux
+ * Created on 22/05/13.
  */
 public class ServerXmlHandler extends DefaultHandler {
 	private boolean mCurrentElement	= false;

@@ -22,7 +22,10 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-/** Created by Cyril Leroux on 10/08/13. */
+/**
+ * @author Cyril Leroux
+ * Created on 10/08/13.
+ */
 public class ServerSettingDao {
 
 	public static final String TAG_ROOT				= "servers";

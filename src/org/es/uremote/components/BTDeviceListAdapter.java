@@ -16,6 +16,7 @@ import java.util.List;
  * Adapter used to display bluetooth device list.
  *
  * @author Cyril Leroux
+ * Created on 23/10/12.
  */
 public class BTDeviceListAdapter extends BaseAdapter {
 

@@ -17,6 +17,7 @@ import java.util.List;
  * Adapter used to display server list.
  *
  * @author Cyril Leroux
+ * Created on 22/05/13.
  */
 public class ServerAdapter extends BaseAdapter {
 	private List<ServerSetting> mServers = null;

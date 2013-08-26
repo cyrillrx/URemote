@@ -1,7 +1,8 @@
 package org.es.exception;
 
 /**
- * Created by Cyril Leroux on 17/08/13.
+ * @author Cyril Leroux
+ * Created on 17/08/13.
  */
 public class AccessStorageOnMainThreadException extends RuntimeException {
 
