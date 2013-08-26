@@ -21,7 +21,7 @@ import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.utils.TaskCallbacks;

@@ -1,4 +1,4 @@
-package org.es.uremote.widget;
+package org.es.uremote.computer.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -15,7 +15,7 @@ import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.R;
-import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.utils.Log;
@@ -28,7 +28,10 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_STOP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
-/** @author Cyril Leroux */
+/**
+ * @author Cyril Leroux.
+ * Created on 25/04/13.
+ */
 public class MediaWidgetProvider extends AppWidgetProvider {
 
 	private static final String TAG = "MediaWidgetProvider";

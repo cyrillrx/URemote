@@ -1,4 +1,4 @@
-package org.es.uremote.dao;
+package org.es.uremote.computer.dao;
 
 import android.content.Context;
 import android.content.SharedPreferences;

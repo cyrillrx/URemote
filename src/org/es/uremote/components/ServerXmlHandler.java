@@ -10,18 +10,18 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.es.uremote.dao.ServerSettingDao.TAG_BROADCAST;
-import static org.es.uremote.dao.ServerSettingDao.TAG_CONNECTION_TIMEOUT;
-import static org.es.uremote.dao.ServerSettingDao.TAG_CONNECTION_TYPE;
-import static org.es.uremote.dao.ServerSettingDao.TAG_LOCAL_HOST;
-import static org.es.uremote.dao.ServerSettingDao.TAG_LOCAL_PORT;
-import static org.es.uremote.dao.ServerSettingDao.TAG_MAC_ADDRESS;
-import static org.es.uremote.dao.ServerSettingDao.TAG_NAME;
-import static org.es.uremote.dao.ServerSettingDao.TAG_READ_TIMEOUT;
-import static org.es.uremote.dao.ServerSettingDao.TAG_REMOTE_HOST;
-import static org.es.uremote.dao.ServerSettingDao.TAG_REMOTE_PORT;
-import static org.es.uremote.dao.ServerSettingDao.TAG_ROOT;
-import static org.es.uremote.dao.ServerSettingDao.TAG_SERVER;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_BROADCAST;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_CONNECTION_TIMEOUT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_CONNECTION_TYPE;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_LOCAL_HOST;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_LOCAL_PORT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_MAC_ADDRESS;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_NAME;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_READ_TIMEOUT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_HOST;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_PORT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_ROOT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
 
 /**
  * This component allow to parse a XML file that contains server connection information.

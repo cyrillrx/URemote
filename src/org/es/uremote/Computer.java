@@ -32,7 +32,7 @@ import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragExplorer;
 import org.es.uremote.computer.FragKeyboard;
-import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.MessageHelper;
 import org.es.uremote.objects.ServerSetting;

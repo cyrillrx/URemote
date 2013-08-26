@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.es.uremote.components.ServerAdapter;
-import org.es.uremote.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
 
 import java.io.File;

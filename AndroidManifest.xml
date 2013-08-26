@@ -56,7 +56,7 @@
 
 		<!-- Widgets -->
 		<receiver
-				android:name="org.es.uremote.widget.MediaWidgetProvider"
+				android:name=".computer.widget.MediaWidgetProvider"
 				android:icon="@drawable/ic_launcher"
 				android:label="URemote Media Widget">
 			<intent-filter>
