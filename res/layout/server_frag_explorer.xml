@@ -20,13 +20,17 @@
 			android:gravity="center"
 			android:padding="6dp"
 			android:text="@string/filemanager_empty_directory"
-			android:textSize="20sp" />
+			android:textSize="24sp" />
 
 	<TextView
 			android:id="@+id/tvPath"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+			android:textSize="16sp"
 			android:background="@android:color/background_light"
-			android:textColor="@android:color/holo_blue_light" />
+			android:textColor="@android:color/holo_blue_light"
+			android:ellipsize="start"
+			android:singleLine="true" />
 
 </LinearLayout>

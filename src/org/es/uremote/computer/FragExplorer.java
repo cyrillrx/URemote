@@ -46,12 +46,10 @@ import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ER
  */
 public class FragExplorer extends ListFragment implements RequestSender {
 
-	private static final String TAG = "FileManager";
+	private static final String TAG = "FragExplorer";
 
-	private static final int MAX_PATH_PORTRAIT = 40;
-	private static final int MAX_PATH_LANDSCAPE = 70;
-	private static final String DEFAULT_PATH = "L:";
-	private static final String DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
+	private static final String DEFAULT_PATH		= "";
+	private static final String DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
 	private TaskCallbacks mCallbacks;
 
@@ -164,12 +162,7 @@ public class FragExplorer extends ListFragment implements RequestSender {
 			}
 		});
 
-		// If path is to big, just show the last characters.
-		int pathLength = mDirectoryContent.getPath().length();
-		int rotation = getActivity().getWindowManager().getDefaultDisplay().getRotation();
-		int maxPath = (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180) ? MAX_PATH_PORTRAIT : MAX_PATH_LANDSCAPE;
-		String path = (pathLength > maxPath) ? "..." + mDirectoryContent.getPath().substring(pathLength - maxPath + 3, pathLength) : mDirectoryContent.getPath();
-		mTvPath.setText(path);
+		mTvPath.setText(mDirectoryContent.getPath());
 	}
 
 	/**
