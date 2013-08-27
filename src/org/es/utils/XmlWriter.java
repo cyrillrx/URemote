@@ -12,6 +12,7 @@ import java.io.IOException;
  * Default encoding : UTF-8
  *
  * @author Cyril Leroux
+ * Created on 04/06/13.
  */
 public class XmlWriter {
 	private static final String TAG				= "XmlWriter";

@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
  * Simple object that hold the bluetooth device data.
  *
  * @author Cyril Leroux
+ * Created on 23/10/12.
  */
 public class BTDevice {
 

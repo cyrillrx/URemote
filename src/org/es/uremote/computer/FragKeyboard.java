@@ -34,6 +34,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
  * Class to connect and send commands to a remote server through AsyncTask.
  *
  * @author Cyril Leroux
+ * Created on 22/04/12.
  */
 public class FragKeyboard extends Fragment implements OnClickListener, RequestSender {
 

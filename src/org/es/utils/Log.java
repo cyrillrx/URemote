@@ -9,6 +9,7 @@ import static org.es.uremote.BuildConfig.DEBUG;
  * The log is only displayed if {@link BuildConfig#DEBUG} is true.
  *
  * @author Cyril Leroux
+ * Created on 03/09/12.
  */
 public class Log {
 

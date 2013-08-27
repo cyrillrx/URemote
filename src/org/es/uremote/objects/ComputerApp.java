@@ -1,5 +1,9 @@
 //package org.es.uremote.objects;
 //
+///**
+// * @author Cyril Leroux
+// * Created before first commit (08/04/12).
+// */
 //public class ComputerApp {
 //
 //	private int mImageResource;

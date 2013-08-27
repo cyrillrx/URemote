@@ -6,6 +6,7 @@ package org.es.uremote.objects;
  * Used in Home Activity
  *
  * @author Cyril Leroux
+ * Created 05/11/12.
  */
 public class ActionItem {
 

@@ -18,6 +18,7 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
  * This Activity displays a list of applications that you can launch on the remote server.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class AppLauncher extends Activity implements OnClickListener {
 

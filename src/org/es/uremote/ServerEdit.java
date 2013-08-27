@@ -20,7 +20,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
- *
+ * Created on 07/06/13.
  */
 public class ServerEdit extends Activity {
 

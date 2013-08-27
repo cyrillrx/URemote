@@ -42,6 +42,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ER
  * This fragment allow you to browse your PC content through the application.
  *
  * @author Cyril Leroux
+ * Created on 21/04/12.
  */
 public class FragExplorer extends ListFragment implements RequestSender {
 

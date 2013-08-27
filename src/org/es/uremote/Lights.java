@@ -8,9 +8,10 @@ import android.os.Bundle;
  * Activity that allow to control lights.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class Lights extends Activity {
-	/** Called when the activity is first created. */
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

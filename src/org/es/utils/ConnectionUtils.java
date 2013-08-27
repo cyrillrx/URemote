@@ -10,6 +10,7 @@ import java.net.UnknownHostException;
  * This class manage connections to WIFI, mobile data, Bluetooth, etc.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class ConnectionUtils {
 	private static final String TAG = "WebUtils";

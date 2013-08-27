@@ -61,7 +61,7 @@ import static org.es.uremote.utils.Constants.STATE_KO;
 
 /**
  * @author Cyril Leroux
- *
+ * Created on 10/05/12.
  */
 public class Computer extends FragmentActivity implements OnPageChangeListener, TaskCallbacks {
 

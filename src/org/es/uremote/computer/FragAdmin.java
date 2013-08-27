@@ -41,6 +41,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
  * Class to connect and send commands to a remote server through AsyncTask.
  *
  * @author Cyril Leroux
+ * Created on 22/05/12.
  */
 public class FragAdmin extends Fragment implements OnClickListener, RequestSender {
 

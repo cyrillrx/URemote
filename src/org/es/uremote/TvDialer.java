@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
  * Activity to control the TV.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class TvDialer extends Activity implements OnClickListener {
 

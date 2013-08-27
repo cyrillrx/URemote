@@ -14,10 +14,10 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  * Activity to control robots and electronic devices.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class RobotControl extends Activity implements OnClickListener {
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

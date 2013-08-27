@@ -5,7 +5,8 @@ import org.es.uremote.exchange.ExchangeMessages.Request;
 /**
  * Interface to send a request.
  *
- * @author Cyril
+ * @author Cyril Leroux
+ * Created on 26/08/12.
  */
 public interface RequestSender {
 	/**

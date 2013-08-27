@@ -4,9 +4,10 @@ import org.es.uremote.objects.ServerSetting.ConnectionType;
 
 
 /**
- * Class that holds server connection informations.
+ * Class that holds server connection data.
  *
  * @author Cyril Leroux
+ * Created on 03/06/13.
  */
 public class ServerBuilder {
 

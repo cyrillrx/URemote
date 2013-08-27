@@ -4,7 +4,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-/** @author Cyril Leroux */
+/**
+ * @author Cyril Leroux
+ * Created on 15/05/13.
+ */
 public class SendRequestService extends Service {
 
 	@Override

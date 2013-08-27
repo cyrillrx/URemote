@@ -31,6 +31,7 @@ import static org.es.uremote.utils.IntentKeys.TOAST;
  * The last thread performs data transmissions when connected.
  *
  * @author Cyril Leroux
+ * Created on 23/10/12.
  */
 public class BluetoothService {
 

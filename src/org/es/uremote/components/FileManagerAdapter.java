@@ -19,6 +19,7 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * Adapter used to display an explorer view.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class FileManagerAdapter extends BaseAdapter {
 	private final DirContent mDirContent;

@@ -20,6 +20,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
  * Class that holds the utils to manage network messages
  *
  * @author Cyril Leroux
+ * Created on 15/05/13.
  */
 public class MessageHelper {
 

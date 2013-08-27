@@ -30,6 +30,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
+ * Created on 31/05/13.
  */
 public class ServerList extends ListActivity {
 

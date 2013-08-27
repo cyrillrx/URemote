@@ -9,6 +9,7 @@ import android.os.Parcelable;
  * Parcelable class that holds server connection settings.
  *
  * @author Cyril Leroux
+ * Created on 19/05/13.
  */
 public class ServerSetting implements Parcelable {
 

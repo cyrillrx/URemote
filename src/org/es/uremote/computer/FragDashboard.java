@@ -46,6 +46,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
  * Class to connect and send commands to a remote server through AsyncTask.
  *
  * @author Cyril Leroux
+ * Created on 21/04/12.
  */
 public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, RequestSender {
 

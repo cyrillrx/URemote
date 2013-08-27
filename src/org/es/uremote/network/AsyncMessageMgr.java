@@ -22,6 +22,7 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
  * Class that handle asynchronous messages to send to the server.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2, true);

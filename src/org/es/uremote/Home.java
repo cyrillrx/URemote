@@ -26,6 +26,7 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  * The dashboard class that leads everywhere in the application.
  *
  * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class Home extends ListActivity implements OnItemClickListener {
 

@@ -16,6 +16,7 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
  * This class allow the application to send a Magic Packet on the network to wake a PC up.
  *
  * @author Cyril Leroux
+ * Created on 08/05/12.
  */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
 

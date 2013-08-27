@@ -14,6 +14,7 @@ import java.util.List;
  * Activity that hosts application preferences.
  *
  * @author Cyril Leroux
+ * Created on 05/05/12.
  */
 public class AppSettings extends PreferenceActivity {
 

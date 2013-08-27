@@ -7,6 +7,7 @@ import java.io.FilenameFilter;
  * Class for file manipulation.
  *
  * @author Cyril Leroux
+ * Created on 26/08/12.
  */
 public class FileUtils {
 
