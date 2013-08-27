@@ -1,14 +1,12 @@
 package org.es.uremote.objects;
 
-import android.bluetooth.BluetoothDevice;
-
 /**
  * Simple object that hold the bluetooth device data.
  *
  * @author Cyril Leroux
  * Created on 23/10/12.
  */
-public class BTDevice {
+public class BluetoothDevice {
 
 	/** Device paired */
 	public static final String TYPE_PAIRED = "paired";
@@ -22,10 +20,10 @@ public class BTDevice {
 	/**
 	 * Constructor
 	 *
-	 * @param device The {@link BluetoothDevice} used to build the {@link BTDevice} object.
+	 * @param device The {@link android.bluetooth.BluetoothDevice} used to build the {@link BluetoothDevice} object.
 	 * @param type The device state.
 	 */
-	public BTDevice(BluetoothDevice device, String type) {
+	public BluetoothDevice(android.bluetooth.BluetoothDevice device, String type) {
 		mName		= device.getName();
 		mAddress	= device.getAddress();
 		mType		= type;

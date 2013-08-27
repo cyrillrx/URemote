@@ -60,7 +60,7 @@ public class ServerSetting implements Parcelable {
 						 final int connectionTimeout, final int readTimeout,
 						 final ConnectionType connectionType) {
 
-		mName = name;
+		mName				= name;
 		mLocalHost			= localHost;
 		mLocalPort			= localPort;
 		mBroadcast			= broadcastIp;
@@ -200,4 +200,9 @@ public class ServerSetting implements Parcelable {
 		/** The server IS NOT in the same network than the device. It must be accessed remotely. */
 		REMOTE
 	}
+
+	/**
+	 *
+	 */
+	public class Builder {}
 }

@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.objects.BTDevice;
+import org.es.uremote.objects.BluetoothDevice;
 
 import java.util.List;
 
@@ -18,18 +18,18 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 23/10/12.
  */
-public class BTDeviceListAdapter extends BaseAdapter {
+public class BluetoothDeviceListAdapter extends BaseAdapter {
 
 	private final LayoutInflater mInflater;
-	private final List<BTDevice> mBtDevices;
+	private final List<BluetoothDevice> mBtDevices;
 
 	/**
 	 * Adapter constructor
 	 *
 	 * @param context The application context.
-	 * @param devices The list of {@link BTDevice} to display.
+	 * @param devices The list of {@link org.es.uremote.objects.BluetoothDevice} to display.
 	 */
-	public BTDeviceListAdapter(Context context, final List<BTDevice> devices) {
+	public BluetoothDeviceListAdapter(Context context, final List<BluetoothDevice> devices) {
 		mInflater = LayoutInflater.from(context);
 		mBtDevices = devices;
 	}
@@ -76,7 +76,7 @@ public class BTDeviceListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		BTDevice device = mBtDevices.get(position);
+		BluetoothDevice device = mBtDevices.get(position);
 		holder.tvDeviceName.setText(device.getName());
 		holder.tvDeviceAddress.setText(device.getAddress());
 		holder.tvDeviceType.setText(device.getType());

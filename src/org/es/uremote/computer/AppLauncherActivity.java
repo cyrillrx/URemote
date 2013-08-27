@@ -20,7 +20,7 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class AppLauncher extends Activity implements OnClickListener {
+public class AppLauncherActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
