@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
 import org.es.utils.Log;
@@ -25,7 +24,6 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 public class ServerEdit extends Activity {
 
 	private static final String TAG = "EditServer";
-	private ServerBuilder mServerBuilder;
 
 	private EditText mServerName;
 	private EditText mLocalHost1;
@@ -119,23 +117,23 @@ public class ServerEdit extends Activity {
 
 		switch (item.getItemId()) {
 			case R.id.done:
-				mServerBuilder = new ServerBuilder();
+				ServerSetting.Builder builder = new ServerSetting.Builder();
 
-				mServerBuilder.setName(getName());
-				mServerBuilder.setLocalHost(getLocalHost());
-				mServerBuilder.setLocalPort(getLocalPort());
-				mServerBuilder.setBroadcast(getBroadcast());
-				mServerBuilder.setRemoteHost(getRemoteHost());
-				mServerBuilder.setRemotePort(getRemotePort());
-				mServerBuilder.setMacAddress(getMacAddress());
-				mServerBuilder.setConnectionTimeout(getConnectionTimeout());
-				mServerBuilder.setReadTimeout(getReadTimeout());
-				mServerBuilder.setConnectionType(getConnectionType());
+				builder.setName(getName());
+				builder.setLocalHost(getLocalHost());
+				builder.setLocalPort(getLocalPort());
+				builder.setBroadcast(getBroadcast());
+				builder.setRemoteHost(getRemoteHost());
+				builder.setRemotePort(getRemotePort());
+				builder.setMacAddress(getMacAddress());
+				builder.setConnectionTimeout(getConnectionTimeout());
+				builder.setReadTimeout(getReadTimeout());
+				builder.setConnectionType(getConnectionType());
 
 				try {
-					ServerSetting server = mServerBuilder.build();
+					ServerSetting server = builder.build();
 					Intent data = new Intent();
-					data.putExtra(EXTRA_SERVER_DATA, server);
+					data.putExtra(EXTRA_SERVER_DATA, builder.build());
 					data.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
 					setResult(RESULT_OK, data);
 					finish();

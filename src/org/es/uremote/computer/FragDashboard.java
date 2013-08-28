@@ -176,7 +176,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				break;
 
 			case R.id.btnAppLauncher:
-				startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncher.class), RC_APP_LAUNCHER);
+				startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncherActivity.class), RC_APP_LAUNCHER);
 				break;
 
 			case R.id.cmdGomStretch:
@@ -302,8 +302,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 */
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
-		public DashboardMessageMgr(Handler _handler) {
-			super(_handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public DashboardMessageMgr(Handler handler) {
+			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

@@ -5,6 +5,9 @@ import android.net.wifi.WifiManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.es.utils.Log;
+import org.es.utils.StringUtils;
+
 /**
  * Parcelable class that holds server connection settings.
  *
@@ -54,11 +57,12 @@ public class ServerSetting implements Parcelable {
 	 * @param readTimeout
 	 * @param connectionType
 	 */
-	public ServerSetting(final String name, final String localHost, final int localPort,
-						 final String broadcastIp, final String remoteHost, final int remotePort,
-						 final String macAddress,
-						 final int connectionTimeout, final int readTimeout,
-						 final ConnectionType connectionType) {
+	private ServerSetting(
+			final String name, final String localHost, final int localPort,
+			final String broadcastIp, final String remoteHost, final int remotePort,
+			final String macAddress,
+			final int connectionTimeout, final int readTimeout,
+			final ConnectionType connectionType) {
 
 		mName				= name;
 		mLocalHost			= localHost;
@@ -85,6 +89,8 @@ public class ServerSetting implements Parcelable {
 		mReadTimeout		= src.readInt();
 		mConnectionType		= ConnectionType.valueOf(src.readString());
 	}
+
+
 
 	/**
 	 * Update the server with the object passed.
@@ -202,7 +208,122 @@ public class ServerSetting implements Parcelable {
 	}
 
 	/**
+	 * Class that holds server connection data.
 	 *
+	 * @author Cyril Leroux
+	 * Created on 03/06/13.
 	 */
-	public class Builder {}
+	public static class Builder {
+
+		private String mName		= "";
+		private String mLocalHost	= "";
+		private int mLocalPort		= 0000;
+		private String mBroadcast	= "";
+		private String mRemoteHost	= "";
+		private int mRemotePort		= 0000;
+		private String mMacAddress	= "";
+		private ConnectionType mConnectionType	= ConnectionType.LOCAL;
+		/** If the connection with the remote server is not established within this timeout, it is dismissed. */
+		private int mConnectionTimeout	= 500;
+		private int mReadTimeout		= 500;
+
+		public Builder() { }
+
+		/**
+		 * @return A fully loaded {@link ServerSetting} object.
+		 *
+		 * @throws Exception if the builder has not all the data to build the object.
+		 */
+		public ServerSetting build() throws Exception {
+
+			boolean error = false;
+
+			StringBuilder sb = new StringBuilder();
+
+			if (StringUtils.isNullOrEmpty(mName)) {
+				error = true;
+				sb.append("- Name is null or empty.\n");
+			}
+
+			if (StringUtils.isNullOrEmpty(mLocalHost)) {
+				error = true;
+				sb.append("- Localhost is empty.\n");
+			}
+
+			if (mLocalPort == 0) {
+				error = true;
+				sb.append("- Local port is 0.\n");
+			}
+
+			if (StringUtils.isNullOrEmpty(mBroadcast)) {
+				error = true;
+				sb.append("- Broadcast is empty.\n");
+			}
+
+			if (StringUtils.isNullOrEmpty(mRemoteHost)) {
+				error = true;
+				sb.append("- Remote host is empty.\n");
+			}
+
+			if (mRemotePort == 0) {
+				error = true;
+				sb.append("- Remote port is 0.\n");
+			}
+
+			if (StringUtils.isNullOrEmpty(mMacAddress)) {
+				error = true;
+				sb.append("- Mac address is empty.\n");
+			}
+
+			if (error) {
+				throw new Exception("ServerSetting #build() - Can not build the Server :\n" + sb.toString());
+			}
+
+			return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mConnectionType);
+		}
+
+		public void setConnectionType(ConnectionType type) {
+			mConnectionType = type;
+		}
+
+		public void setName(final String name) {
+			mName = name;
+		}
+
+		public void setLocalHost(final String ipAddress) {
+			mLocalHost = ipAddress;
+		}
+
+		public void setLocalPort(final int port) {
+			mLocalPort = port;
+		}
+
+		public void setBroadcast(final String broadcastAddress) {
+			mBroadcast = broadcastAddress;
+		}
+
+		public void setRemoteHost(final String ipAddress) {
+			mRemoteHost = ipAddress;
+		}
+
+		public void setRemotePort(final int port) {
+			mRemotePort = port;
+		}
+
+		public void setMacAddress(final String macAddress) {
+			mMacAddress = macAddress;
+		}
+
+		/**
+		 * If the connection with the remote server is not established
+		 * within this timeout, it is dismissed.
+		 */
+		public void setConnectionTimeout(final int timeout) {
+			mConnectionTimeout = timeout;
+		}
+
+		public void setReadTimeout(final int timeout) {
+			mReadTimeout = timeout;
+		}
+	}
 }

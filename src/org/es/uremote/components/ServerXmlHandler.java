@@ -1,6 +1,5 @@
 package org.es.uremote.components;
 
-import org.es.uremote.objects.ServerBuilder;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
 import org.xml.sax.Attributes;
@@ -34,7 +33,7 @@ public class ServerXmlHandler extends DefaultHandler {
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
 
-	private ServerBuilder mBuilder;
+	private ServerSetting.Builder mBuilder;
 	private List<ServerSetting> mServers;
 
 	/** Called tag opening (<tag>). */
@@ -47,7 +46,7 @@ public class ServerXmlHandler extends DefaultHandler {
 			mServers = new ArrayList<>();
 
 		} else if (localName.equals(TAG_SERVER)) {
-			mBuilder = new ServerBuilder();
+			mBuilder = new ServerSetting.Builder();
 		}
 	}
 
@@ -89,7 +88,7 @@ public class ServerXmlHandler extends DefaultHandler {
 		} else if (localName.equals(TAG_SERVER)) {
 			try {
 				ServerSetting server = mBuilder.build();
-				mServers.add(server);
+				mServers.add(mBuilder.build());
 			} catch (Exception e) {
 
 			}

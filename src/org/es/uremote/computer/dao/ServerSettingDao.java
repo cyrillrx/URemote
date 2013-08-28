@@ -40,7 +40,8 @@ public class ServerSettingDao {
 	public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
 	public static final String TAG_READ_TIMEOUT		= "read_timeout";
 	public static final String TAG_CONNECTION_TYPE	= "connection_type";
-	private static String TAG = "ServerSettingDao";
+
+	private static final String TAG = "ServerSettingDao";
 
 	/**
 	 * Save the object attributes into a XML file.
@@ -139,28 +140,38 @@ public class ServerSettingDao {
 		final String keyReadTimeout = context.getString(R.string.key_read_timeout);
 
 		// Get default values for Host and Port
-		final String defaultLocalHost = context.getString(R.string.default_local_host);
-		final String defaultLocalPort = context.getString(R.string.default_local_port);
-		final String defaultBroadcast = context.getString(R.string.default_broadcast);
-		final String defaultRemoteHost = context.getString(R.string.default_remote_host);
-		final String defaultRemotePort = context.getString(R.string.default_remote_port);
-		final String defaultMacAddress = context.getString(R.string.default_mac_address);
+		final String defaultLocalHost	= context.getString(R.string.default_local_host);
+		final int defaultLocalPort		= context.getResources().getInteger(R.string.default_local_port);
+		final String defaultBroadcast	= context.getString(R.string.default_broadcast);
+		final String defaultRemoteHost	= context.getString(R.string.default_remote_host);
+		final int defaultRemotePort		= context.getResources().getInteger(R.string.default_remote_port);
+		final String defaultMacAddress	= context.getString(R.string.default_mac_address);
 
 		// Get default values for other properties
-		final String defaultConnectionTimeout = context.getString(R.string.default_connection_timeout);
-		final String defaultReadTimeout = context.getString(R.string.default_read_timeout);
+		final int defaultConnectionTimeout	= context.getResources().getInteger(R.string.default_connection_timeout);
+		final int defaultReadTimeout		= context.getResources().getInteger(R.string.default_read_timeout);
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		final String localHost = pref.getString(keyLocalHost, defaultLocalHost);
-		final int localPort = Integer.parseInt(pref.getString(keyLocalPort, defaultLocalPort));
-		final String broadcast = pref.getString(keyBroadcast, defaultBroadcast);
-		final String remoteHost = pref.getString(keyRemoteHost, defaultRemoteHost);
-		final int remotePort = Integer.parseInt(pref.getString(keyRemotePort, defaultRemotePort));
-		final String macAddress = pref.getString(keyMacAddress, defaultMacAddress);
-		final int connectionTimeout = Integer.parseInt(pref.getString(keyConnectionTimeout, defaultConnectionTimeout));
-		final int readTimeout = Integer.parseInt(pref.getString(keyReadTimeout, defaultReadTimeout));
 
-		return new ServerSetting("", localHost, localPort, broadcast, remoteHost, remotePort, macAddress, connectionTimeout, readTimeout, ServerSetting.ConnectionType.LOCAL);
+		ServerSetting.Builder builder = new ServerSetting.Builder();
+
+		builder.setName("Preference Server");
+		builder.setLocalHost(pref.getString(keyLocalHost, defaultLocalHost));
+		builder.setLocalPort(pref.getInt(keyLocalPort, defaultLocalPort));
+		builder.setBroadcast(pref.getString(keyBroadcast, defaultBroadcast));
+		builder.setRemoteHost(pref.getString(keyRemoteHost, defaultRemoteHost));
+		builder.setRemotePort(pref.getInt(keyRemotePort, defaultRemotePort));
+		builder.setMacAddress(pref.getString(keyMacAddress, defaultMacAddress));
+		builder.setConnectionTimeout(pref.getInt(keyConnectionTimeout, defaultConnectionTimeout));
+		builder.setReadTimeout(pref.getInt(keyReadTimeout, defaultReadTimeout));
+		builder.setConnectionType(ServerSetting.ConnectionType.LOCAL);
+
+		try {
+			return builder.build();
+		} catch (Exception e) {
+			Log.error(TAG, "#loadFromPreferences()", e);
+			return null;
+		}
 	}
 }
