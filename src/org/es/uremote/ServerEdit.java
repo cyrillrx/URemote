@@ -117,7 +117,7 @@ public class ServerEdit extends Activity {
 
 		switch (item.getItemId()) {
 			case R.id.done:
-				ServerSetting.Builder builder = new ServerSetting.Builder();
+				ServerSetting.Builder builder = ServerSetting.newBuilder();
 
 				builder.setName(getName());
 				builder.setLocalHost(getLocalHost());

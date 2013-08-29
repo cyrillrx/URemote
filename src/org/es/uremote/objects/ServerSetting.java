@@ -90,8 +90,6 @@ public class ServerSetting implements Parcelable {
 		mConnectionType		= ConnectionType.valueOf(src.readString());
 	}
 
-
-
 	/**
 	 * Update the server with the object passed.
 	 *
@@ -208,6 +206,13 @@ public class ServerSetting implements Parcelable {
 	}
 
 	/**
+	 * @return An instance of ServerSetting.Builder.
+	 */
+	public static Builder newBuilder() {
+		return new Builder();
+	}
+
+	/**
 	 * Class that holds server connection data.
 	 *
 	 * @author Cyril Leroux
@@ -227,7 +232,7 @@ public class ServerSetting implements Parcelable {
 		private int mConnectionTimeout	= 500;
 		private int mReadTimeout		= 500;
 
-		public Builder() { }
+		private Builder() { }
 
 		/**
 		 * @return A fully loaded {@link ServerSetting} object.

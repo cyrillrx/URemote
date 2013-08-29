@@ -46,7 +46,7 @@ public class ServerXmlHandler extends DefaultHandler {
 			mServers = new ArrayList<>();
 
 		} else if (localName.equals(TAG_SERVER)) {
-			mBuilder = new ServerSetting.Builder();
+			mBuilder = ServerSetting.newBuilder();
 		}
 	}
 

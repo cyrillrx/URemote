@@ -154,7 +154,7 @@ public class ServerSettingDao {
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
-		ServerSetting.Builder builder = new ServerSetting.Builder();
+		ServerSetting.Builder builder = ServerSetting.newBuilder();
 
 		builder.setName("Preference Server");
 		builder.setLocalHost(pref.getString(keyLocalHost, defaultLocalHost));
