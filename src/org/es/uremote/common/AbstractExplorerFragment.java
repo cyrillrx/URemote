@@ -1,8 +1,6 @@
 package org.es.uremote.common;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,32 +9,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
-import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessageUtils;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.RequestSender;
-import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.uremote.utils.TaskCallbacks;
-import org.es.utils.FileUtils;
 import org.es.utils.Log;
 
 import java.io.File;
 
 import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
-import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
 
 /**
  * File explorer fragment.
@@ -49,11 +31,12 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
 	private static final String TAG = "AbstractExplorerFragment";
 
-	private static final String DEFAULT_PATH		= "";
-	private static final String DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
+	private static final String DEFAULT_PATH			= "";
+	private static final String PREVIOUS_DIRECTORY_PATH	= "..";
+	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
 	private TextView mTvPath;
-	private DirContent mDirectoryContent = null;
+	private DirContent mCurrentContent = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,39 +50,39 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
+		DirContent dirContent = null;
+
 		// Restoring current directory content
 		if (savedInstanceState != null) {
-			byte[] dirContent = savedInstanceState.getByteArray(DIRECTORY_CONTENT);
-			mDirectoryContent = ExchangeMessageUtils.createDirectoryContent(dirContent);
+			byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
+			dirContent = ExchangeMessageUtils.createDirectoryContent(dirContentAsByteArray);
 		}
 
 		// Get the directory content from the server or update the one that already exist.
-		if (mDirectoryContent == null) {
-			// TODO see if function make sense here
-			onDirectoryClick(DEFAULT_PATH);
+		if (dirContent == null) {
+			navigateTo(DEFAULT_PATH);
 		} else {
-			updateView(mDirectoryContent);
+			updateView(dirContent);
 		}
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		if (mDirectoryContent != null) {
-			outState.putByteArray(DIRECTORY_CONTENT, mDirectoryContent.toByteArray());
+		if (mCurrentContent != null) {
+			outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentContent.toByteArray());
 		}
 		super.onSaveInstanceState(outState);
 	}
 
-	// TODO change comment
 	/**
-	 * Update the view with the content of the new directory
+	 * Updates the view with the content passed directory.
 	 *
-	 * @param dirContent The object that hosts the directory content.
+	 * @param dirContent The object that represents the directory content.
 	 */
 	private void updateView(final DirContent dirContent) {
-		if (dirContent == null) {
-			return;
-		}
+
+		mCurrentContent = dirContent;
+
 		if (dirContent.getFileCount() == 0) {
 			Log.warning(TAG, "#updateView - No file in the directory.");
 			return;
@@ -114,34 +97,37 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				final DirContent.File file = dirContent.getFile(position);
 				final String filename = file.getName();
-				final String currentDirPath = dirContent.getPath();
+				final String fullPath = dirContent.getPath()+ File.separator + filename;
 
 				if (DIRECTORY.equals(file.getType())) {
 
-					if ("..".equals(filename)) {
+					if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
 						navigateUp();
 
 					} else {
-						final String dirPath = currentDirPath + File.separator + filename;
-						onDirectoryClick(dirPath);
+						onDirectoryClick(fullPath);
 					}
 
 				} else {
-					// Open the file with the default program.
-					final String fullPath = currentDirPath + File.separator + filename;
 					onFileClick(fullPath);
-
 				}
 			}
 		});
 
-		mTvPath.setText(mDirectoryContent.getPath());
+		mTvPath.setText(dirContent.getPath());
 	}
 
-	// TODO change comment
 	/**
-	 * Ask the server to list the content of the current directory's parent.
-	 * This method is supposed to be called from the {@link org.es.uremote.Computer} class.
+	 * Lists the content of the passed directory.
+	 * Updates the view once the data have been received.
+	 *
+	 * @param dirPath The path of the directory to display.
+	 */
+	protected abstract void navigateTo(String dirPath);
+
+	/**
+	 * Navigates up if possible.
+	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).
 	 * Updates the view once the data have been received from the server.
 	 */
 	public void navigateUp() {
@@ -157,20 +143,22 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	protected abstract boolean canNavigateUp();
 
 	/**
-	 * List the content of parent directory.
+	 * Lists the content of parent directory.
 	 * Updates the view once the data have been received.
 	 */
 	protected abstract void doNavigateUp();
 
-	// TODO change comment
 	/**
-	 * Ask the server to list the content of the passed directory.
-	 * Updates the view once the data have been received from the server.
+	 * Callback triggered when the user clicks on a directory.
 	 *
-	 * @param dirPath The path of the directory to display.
+	 * @param dirPath The path of the clicked directory to display.
 	 */
 	protected abstract void onDirectoryClick(String dirPath);
 
-	// TODO add comment
+	/**
+	 * Callback triggered when the user clicks on a file.
+	 *
+	 * @param filename The path of the clicked file.
+	 */
 	protected abstract void onFileClick(String filename);
 }
