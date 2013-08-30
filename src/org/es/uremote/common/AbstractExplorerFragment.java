@@ -21,7 +21,7 @@ import java.io.File;
 import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 
 /**
- * File explorer fragment.
+ * File explorer fragment.<br />
  * This fragment allow you to browse a list of files.
  *
  * @author Cyril Leroux
@@ -58,7 +58,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			dirContent = ExchangeMessageUtils.createDirectoryContent(dirContentAsByteArray);
 		}
 
-		// Get the directory content from the server or update the one that already exist.
+		// Get the directory content or update the one that already exist.
 		if (dirContent == null) {
 			navigateTo(DEFAULT_PATH);
 		} else {
@@ -118,7 +118,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	}
 
 	/**
-	 * Lists the content of the passed directory.
+	 * Lists the content of the passed directory.<br />
 	 * Updates the view once the data have been received.
 	 *
 	 * @param dirPath The path of the directory to display.
@@ -126,8 +126,8 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	protected abstract void navigateTo(String dirPath);
 
 	/**
-	 * Navigates up if possible.
-	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).
+	 * Navigates up if possible.<br />
+	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
 	 * Updates the view once the data have been received from the server.
 	 */
 	public void navigateUp() {
@@ -143,7 +143,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	protected abstract boolean canNavigateUp();
 
 	/**
-	 * Lists the content of parent directory.
+	 * Lists the content of parent directory.<br />
 	 * Updates the view once the data have been received.
 	 */
 	protected abstract void doNavigateUp();
