@@ -62,7 +62,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		if (dirContent == null) {
 			navigateTo(DEFAULT_PATH);
 		} else {
-			updateView(dirContent);
+			//updateView(dirContent);
 		}
 	}
 
@@ -79,7 +79,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	 *
 	 * @param dirContent The object that represents the directory content.
 	 */
-	private void updateView(final DirContent dirContent) {
+	protected void updateView(final DirContent dirContent) {
 
 		mCurrentContent = dirContent;
 

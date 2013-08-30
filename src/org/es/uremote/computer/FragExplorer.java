@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
@@ -44,17 +45,11 @@ import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ER
  * @author Cyril Leroux
  * Created on 21/04/12.
  */
-public class FragExplorer extends ListFragment implements RequestSender {
+public class FragExplorer extends AbstractExplorerFragment implements RequestSender {
 
 	private static final String TAG = "FragExplorer";
 
-	private static final String DEFAULT_PATH		= "";
-	private static final String DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
-
 	private TaskCallbacks mCallbacks;
-
-	private TextView mTvPath;
-	private DirContent mDirectoryContent = null;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -78,45 +73,6 @@ public class FragExplorer extends ListFragment implements RequestSender {
 	public void onDetach() {
 		super.onDetach();
 		mCallbacks = null;
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
-		mTvPath = (TextView) view.findViewById(R.id.tvPath);
-		return view;
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-		// Restoring current directory content
-		if (savedInstanceState != null) {
-			try {
-				byte[] dirContent = savedInstanceState.getByteArray(DIRECTORY_CONTENT);
-				if (dirContent != null) {
-					mDirectoryContent = DirContent.parseFrom(savedInstanceState.getByteArray(DIRECTORY_CONTENT));
-				}
-			} catch (InvalidProtocolBufferException e) {
-				Log.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
-			}
-		}
-		// Get the directory content from the server or update the one that already exist.
-		if (mDirectoryContent == null) {
-			openDirectory(DEFAULT_PATH);
-		} else {
-			updateView(mDirectoryContent);
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		if (mDirectoryContent != null) {
-			outState.putByteArray(DIRECTORY_CONTENT, mDirectoryContent.toByteArray());
-		}
-		super.onSaveInstanceState(outState);
 	}
 
 	/**
