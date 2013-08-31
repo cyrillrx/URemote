@@ -143,9 +143,10 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	 */
 	private Socket connectToRemoteSocket(ServerSetting server) throws IOException {
 
-		final String host = server.getLocalHost();
-		final int port = server.getLocalPort();
+		final String host	= server.getLocalHost();
+		final int port		= server.getLocalPort();
 		final SocketAddress socketAddress = new InetSocketAddress(host, port);
+
 		Socket socket = new Socket();
 		socket.setSoTimeout(server.getReadTimeout());
 		socket.connect(socketAddress, server.getConnectionTimeout());

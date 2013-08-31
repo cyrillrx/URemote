@@ -141,7 +141,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	/**
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
-	protected abstract boolean canNavigateUp();
+	public abstract boolean canNavigateUp();
 
 	/**
 	 * Lists the content of parent directory.<br />

@@ -185,7 +185,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			return true;
 
 		} else if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.navigateUpIfPossible()) {
+			if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.canNavigateUp()) {
 				return true;
 			}
 		}

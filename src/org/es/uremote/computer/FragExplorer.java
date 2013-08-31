@@ -97,7 +97,7 @@ public class FragExplorer extends AbstractExplorerFragment implements RequestSen
 	}
 
 	@Override
-	protected boolean canNavigateUp() {
+	public boolean canNavigateUp() {
 		return mCurrentDirContent != null &&
 				mCurrentDirContent.getPath().contains(File.separator);
 	}
