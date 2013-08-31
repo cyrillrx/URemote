@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 
 import org.es.exception.AccessStorageOnMainThreadException;
 import org.es.uremote.R;
-import org.es.uremote.components.ServerXmlHandler;
 import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 import org.es.utils.XmlWriter;
@@ -68,18 +67,20 @@ public class ServerSettingDao {
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
 			for (ServerSetting server : servers) {
-				xmlWriter.startTag(null, TAG_SERVER);
-				xmlWriter.addChild(TAG_NAME, server.getName(), null);
-				xmlWriter.addChild(TAG_LOCAL_HOST, server.getLocalHost(), null);
-				xmlWriter.addChild(TAG_LOCAL_PORT, server.getLocalPort(), null);
-				xmlWriter.addChild(TAG_BROADCAST, server.getBroadcast(), null);
-				xmlWriter.addChild(TAG_REMOTE_HOST, server.getRemoteHost(), null);
-				xmlWriter.addChild(TAG_REMOTE_PORT, server.getRemotePort(), null);
 
-				xmlWriter.addChild(TAG_MAC_ADDRESS, server.getMacAddress(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, server.getConnectionTimeout(), null);
-				xmlWriter.addChild(TAG_READ_TIMEOUT, server.getReadTimeout(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TYPE, server.getConnectionType().toString(), null);
+				xmlWriter.startTag(null, TAG_SERVER);
+
+				xmlWriter.addChild(TAG_NAME,				server.getName(), null);
+				xmlWriter.addChild(TAG_LOCAL_HOST,			server.getLocalHost(), null);
+				xmlWriter.addChild(TAG_LOCAL_PORT,			server.getLocalPort(), null);
+				xmlWriter.addChild(TAG_BROADCAST,			server.getBroadcast(), null);
+				xmlWriter.addChild(TAG_REMOTE_HOST,			server.getRemoteHost(), null);
+				xmlWriter.addChild(TAG_REMOTE_PORT,			server.getRemotePort(), null);
+				xmlWriter.addChild(TAG_MAC_ADDRESS,			server.getMacAddress(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,	server.getConnectionTimeout(), null);
+				xmlWriter.addChild(TAG_READ_TIMEOUT,		server.getReadTimeout(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TYPE,		server.getConnectionType().toString(), null);
+
 				xmlWriter.endTag(null, TAG_SERVER);
 			}
 
@@ -105,11 +106,11 @@ public class ServerSettingDao {
 			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
 		}
 
-		ServerXmlHandler serverXmlhandler = new ServerXmlHandler();
+		ServerSettingXmlHandler xmlHandler = new ServerSettingXmlHandler();
 		try {
 			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
 			XMLReader reader = parserFactory.newSAXParser().getXMLReader();
-			reader.setContentHandler(serverXmlhandler);
+			reader.setContentHandler(xmlHandler);
 			reader.parse(new InputSource(new FileInputStream(configFile)));
 
 		} catch (Exception e) {
@@ -117,7 +118,7 @@ public class ServerSettingDao {
 			return false;
 		}
 
-		servers.addAll(serverXmlhandler.getServers());
+		servers.addAll(xmlHandler.getServers());
 		return true;
 	}
 
@@ -128,12 +129,12 @@ public class ServerSettingDao {
 	public static ServerSetting loadFromPreferences(Context context) {
 
 		// Get Host and Port key
-		final String keyLocalHost = context.getString(R.string.key_local_host);
-		final String keyLocalPort = context.getString(R.string.key_local_port);
-		final String keyBroadcast = context.getString(R.string.key_broadcast);
-		final String keyRemoteHost = context.getString(R.string.key_remote_host);
-		final String keyRemotePort = context.getString(R.string.key_remote_port);
-		final String keyMacAddress = context.getString(R.string.key_mac_address);
+		final String keyLocalHost	= context.getString(R.string.key_local_host);
+		final String keyLocalPort	= context.getString(R.string.key_local_port);
+		final String keyBroadcast	= context.getString(R.string.key_broadcast);
+		final String keyRemoteHost	= context.getString(R.string.key_remote_host);
+		final String keyRemotePort	= context.getString(R.string.key_remote_port);
+		final String keyMacAddress	= context.getString(R.string.key_mac_address);
 
 		// Get key for other properties
 		final String keyConnectionTimeout = context.getString(R.string.key_connection_timeout);

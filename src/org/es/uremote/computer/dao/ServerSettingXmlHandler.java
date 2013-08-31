@@ -1,4 +1,4 @@
-package org.es.uremote.components;
+package org.es.uremote.computer.dao;
 
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
@@ -28,7 +28,7 @@ import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
  * @author Cyril Leroux
  * Created on 22/05/13.
  */
-public class ServerXmlHandler extends DefaultHandler {
+public class ServerSettingXmlHandler extends DefaultHandler {
 	private boolean mCurrentElement	= false;
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
