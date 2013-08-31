@@ -30,7 +30,7 @@ import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.security.Md5;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
-import org.es.uremote.computer.FragExplorer;
+import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -76,7 +76,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 	private FragAdmin mFragAdmin;
 	private FragDashboard mFragDashboard;
-	private FragExplorer mFragExplorer;
+	private RemoteExplorerFragment mExplorerFragment;
 	private FragKeyboard mFragKeyboard;
 
 	private int mCurrentPage = -1;
@@ -124,8 +124,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		if (mFragDashboard == null) {
 			mFragDashboard = new FragDashboard();
 		}
-		if (mFragExplorer == null) {
-			mFragExplorer = new FragExplorer();
+		if (mExplorerFragment == null) {
+			mExplorerFragment = new RemoteExplorerFragment();
 		}
 		if (mFragKeyboard == null) {
 			mFragKeyboard = new FragKeyboard();
@@ -134,7 +134,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
 		fragments.add(mFragAdmin);
 		fragments.add(mFragDashboard);
-		fragments.add(mFragExplorer);
+		fragments.add(mExplorerFragment);
 		fragments.add(mFragKeyboard);
 
 		ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
@@ -185,7 +185,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			return true;
 
 		} else if (keyCode == KeyEvent.KEYCODE_BACK) {
-			if (mCurrentPage == EXPLORER_PAGE_ID && mFragExplorer.canNavigateUp()) {
+			if (mCurrentPage == EXPLORER_PAGE_ID && mExplorerFragment.canNavigateUp()) {
 				return true;
 			}
 		}

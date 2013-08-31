@@ -45,9 +45,9 @@ import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ER
  * @author Cyril Leroux
  * Created on 21/04/12.
  */
-public class FragExplorer extends AbstractExplorerFragment implements RequestSender {
+public class RemoteExplorerFragment extends AbstractExplorerFragment implements RequestSender {
 
-	private static final String TAG = "FragExplorer";
+	private static final String TAG = "RemoteExplorerFragment";
 
 	private TaskCallbacks mCallbacks;
 
