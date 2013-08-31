@@ -2,10 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 		  package="org.es.uremote"
 		  android:versionCode="2"
-		  android:versionName="0.8.5">
+		  android:versionName="0.8.8">
 
 	<uses-sdk
-			android:minSdkVersion="15"
+			android:minSdkVersion="18"
 			android:targetSdkVersion="18" />
 
 	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -38,7 +38,7 @@
 		<activity android:name=".ServerList" />
 		<activity android:name=".ServerEdit" />
 		<activity
-				android:name=".computer.AppLauncher"
+				android:name=".computer.AppLauncherActivity"
 				android:label="@string/title_application_launcher"
 				android:theme="@android:style/Theme.Dialog" />
 		<activity
