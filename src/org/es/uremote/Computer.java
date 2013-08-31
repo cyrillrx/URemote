@@ -34,7 +34,7 @@ import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
@@ -346,7 +346,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
-		Request request = MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
+		Request request = ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
 
 		if (request == null) {
 			Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();

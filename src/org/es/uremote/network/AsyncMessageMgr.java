@@ -7,6 +7,7 @@ import android.os.Message;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
@@ -68,7 +69,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 			// Socket creation
 			mSocket = connectToRemoteSocket(mServerSetting);
 			if (mSocket != null && mSocket.isConnected()) {
-				return MessageHelper.sendRequest(mSocket, request);
+				return ExchangeMessagesUtils.sendRequest(mSocket, request);
 			}
 			errorMessage = "Socket null or not connected";
 

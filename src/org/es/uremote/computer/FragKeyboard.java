@@ -23,7 +23,7 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -343,7 +343,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param extraCode The request extra code.
 	 */
 	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
 	}
 
 
@@ -356,7 +356,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param stringParam A string parameter.
 	 */
 	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
 	}
 
 	/**

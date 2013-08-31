@@ -12,8 +12,9 @@ import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.exchange.ExchangeMessageUtils;
+import org.es.uremote.exchange.DirContentFactory;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.utils.FileUtils;
 import org.es.utils.Log;
 
 import java.io.File;
@@ -55,7 +56,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		// Restoring current directory content
 		if (savedInstanceState != null) {
 			byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
-			dirContent = ExchangeMessageUtils.createDirectoryContent(dirContentAsByteArray);
+			dirContent = DirContentFactory.createFromByteArray(dirContentAsByteArray);
 		}
 
 		// Get the directory content or update the one that already exist.
@@ -139,15 +140,24 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	}
 
 	/**
+	 * Call by the activity that holds the fragment if the back button is override.
+	 * If the function returns true, the back button is override to go up.
+	 * Else, it behaves normally.
+	 *
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
-	public abstract boolean canNavigateUp();
+	public boolean canNavigateUp() {
+		return mCurrentDirContent != null &&
+				mCurrentDirContent.getPath().contains(File.separator);
+	}
 
 	/**
-	 * Lists the content of parent directory.<br />
-	 * Updates the view once the data have been received.
+	 * Call navigateTo on the parent directory.
 	 */
-	protected abstract void doNavigateUp();
+	protected void doNavigateUp() {
+		final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
+		navigateTo(parentPath);
+	}
 
 	/**
 	 * Callback triggered when the user clicks on a directory.

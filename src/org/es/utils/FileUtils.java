@@ -17,13 +17,13 @@ public class FileUtils {
 	 * @param extensions List of accepted extensions.
 	 * @return An array containing the found files.
 	 */
-	public static File[] listFiles(String dirPath, final String[] extensions) {
+	public static File[] listFiles(final String dirPath, final String[] extensions, final boolean listDirectories) {
 
 		FilenameFilter extensionFilter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
 				if (dir.isDirectory()) {
-					return true;
+					return listDirectories;
 				}
 
 				for (String extension : extensions) {

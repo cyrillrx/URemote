@@ -30,7 +30,7 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
@@ -215,7 +215,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
+				sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -262,7 +262,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param intParam An integer parameter.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode, int intParam) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
 	}
 
 	/**
@@ -272,7 +272,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
 	}
 
 	/**

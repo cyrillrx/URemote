@@ -17,7 +17,7 @@ import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.utils.Log;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -125,7 +125,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
-		Request request = MessageHelper.buildRequest(MessageHelper.getSecurityToken(context), requestType, requestCode);
+		Request request = ExchangeMessagesUtils.buildRequest(ExchangeMessagesUtils.getSecurityToken(context), requestType, requestCode);
 
 		if (request == null) {
 			Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();

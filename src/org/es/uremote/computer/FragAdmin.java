@@ -24,7 +24,7 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
@@ -111,19 +111,19 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 				break;
 
 			case R.id.cmdShutdown:
-				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
 				break;
 
 			case R.id.cmdAiMute:
-				sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
+				sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
 				break;
 
 			case R.id.cmdKillServer:
-				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
 				break;
 
 			case R.id.cmdLock:
-				confirmRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
 				break;
 
 			default:

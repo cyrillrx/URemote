@@ -3,44 +3,28 @@ package org.es.uremote.computer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
+import org.es.uremote.Computer;
+import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
-import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.components.FileManagerAdapter;
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.network.MessageHelper;
-import org.es.utils.FileUtils;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
-import java.io.File;
-
-import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
 import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
 
 /**
- * File explorer fragment.
- * This fragment allow you to browse your PC content through the application.
+ * Remote file explorer fragment.
+ * This fragment allow you to browse the content of a remote device.
  *
  * @author Cyril Leroux
  * Created on 21/04/12.
@@ -82,7 +66,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
 	@Override
 	protected void onFileClick(String filename) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
 	}
 
 	/**
@@ -93,23 +77,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	 */
 	@Override
 	protected void navigateTo(String dirPath) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
-	}
-
-	@Override
-	public boolean canNavigateUp() {
-		return mCurrentDirContent != null &&
-				mCurrentDirContent.getPath().contains(File.separator);
-	}
-
-	/**
-	 * Ask the server to list the content of the parent directory.
-	 * Updates the view once the data have been received from the server.
-	 */
-	@Override
-	protected void doNavigateUp() {
-		final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
-		navigateTo(parentPath);
+		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 	}
 
 	////////////////////////////////////////////////////////////////////

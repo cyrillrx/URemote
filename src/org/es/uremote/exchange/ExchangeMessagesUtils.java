@@ -1,16 +1,21 @@
-package org.es.uremote.network;
+package org.es.uremote.exchange;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.R;
+import org.es.utils.FileUtils;
+import org.es.utils.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -22,7 +27,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
  * @author Cyril Leroux
  * Created on 15/05/13.
  */
-public class MessageHelper {
+public class ExchangeMessagesUtils {
 
 	/**
 	 * Build a request with both integer and string parameters.
