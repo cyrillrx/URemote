@@ -36,7 +36,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
 	private TextView mTvPath;
-	private DirContent mCurrentContent = null;
+	protected DirContent mCurrentDirContent = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,14 +62,15 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		if (dirContent == null) {
 			navigateTo(DEFAULT_PATH);
 		} else {
+			// TODO uncomment after test
 			//updateView(dirContent);
 		}
 	}
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		if (mCurrentContent != null) {
-			outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentContent.toByteArray());
+		if (mCurrentDirContent != null) {
+			outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentDirContent.toByteArray());
 		}
 		super.onSaveInstanceState(outState);
 	}
@@ -81,7 +82,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	 */
 	protected void updateView(final DirContent dirContent) {
 
-		mCurrentContent = dirContent;
+		mCurrentDirContent = dirContent;
 
 		if (dirContent.getFileCount() == 0) {
 			Log.warning(TAG, "#updateView - No file in the directory.");
@@ -151,7 +152,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	/**
 	 * Callback triggered when the user clicks on a directory.
 	 *
-	 * @param dirPath The path of the clicked directory to display.
+	 * @param dirPath The path of the clicked directory.
 	 */
 	protected abstract void onDirectoryClick(String dirPath);
 

@@ -75,50 +75,14 @@ public class FragExplorer extends AbstractExplorerFragment implements RequestSen
 		mCallbacks = null;
 	}
 
-	/**
-	 * Update the view with the content of the new directory
-	 *
-	 * @param dirContent The object that hosts the directory content.
-	 */
-	private void updateView(final DirContent dirContent) {
-		if (dirContent == null) {
-			return;
-		}
-		if (dirContent.getFileCount() == 0) {
-			Log.warning(TAG, "#updateView - No file in the directory.");
-			return;
-		}
+	@Override
+	protected void onDirectoryClick(String dirPath) {
+		navigateTo(dirPath);
+	}
 
-		final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
-		setListAdapter(adapter);
-
-		ListView listView = getListView();
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				final DirContent.File file = dirContent.getFile(position);
-				final String filename = file.getName();
-				final String currentDirPath = dirContent.getPath();
-
-				if (DIRECTORY.equals(file.getType())) {
-
-					if ("..".equals(filename)) {
-						openParentDirectory(currentDirPath);
-					} else {
-						final String dirPath = currentDirPath + File.separator + filename;
-						openDirectory(dirPath);
-					}
-
-				} else {
-					// Open the file with the default program.
-					final String fullPath = currentDirPath + File.separator + filename;
-					openFile(fullPath);
-
-				}
-			}
-		});
-
-		mTvPath.setText(mDirectoryContent.getPath());
+	@Override
+	protected void onFileClick(String filename) {
+		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
 	}
 
 	/**
@@ -127,42 +91,25 @@ public class FragExplorer extends AbstractExplorerFragment implements RequestSen
 	 *
 	 * @param dirPath The path of the directory to display.
 	 */
-	private void openDirectory(String dirPath) {
+	@Override
+	protected void navigateTo(String dirPath) {
 		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 	}
 
-	/**
-	 * Ask the server to list the content of the passed directory's parent.
-	 * Updates the view once the data have been received from the server.
-	 *
-	 * @param dirPath The path of the child directory.
-	 */
-	private void openParentDirectory(String dirPath) {
-		final String parentPath = FileUtils.truncatePath(dirPath);
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, parentPath));
+	@Override
+	protected boolean canNavigateUp() {
+		return mCurrentDirContent != null &&
+				mCurrentDirContent.getPath().contains(File.separator);
 	}
 
 	/**
-	 * Ask the server to list the content of the current directory's parent.
-	 * This method is supposed to be called from the {@link Computer} class.
+	 * Ask the server to list the content of the parent directory.
 	 * Updates the view once the data have been received from the server.
-	 *
-	 * @return true if it is possible to navigate up.
 	 */
-	public boolean navigateUpIfPossible() {
-		if (mDirectoryContent == null) {
-			return false;
-		}
-		final String dirPath = mDirectoryContent.getPath();
-		if (dirPath.contains(File.separator)) {
-			openParentDirectory(dirPath);
-			return true;
-		}
-		return false;
-	}
-
-	private void openFile(String filename) {
-		sendAsyncRequest(MessageHelper.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
+	@Override
+	protected void doNavigateUp() {
+		final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
+		navigateTo(parentPath);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -212,12 +159,11 @@ public class FragExplorer extends AbstractExplorerFragment implements RequestSen
 				}
 				return;
 			}
-			//TODO clean
-			//} else if (_response.hasRequest() && GET_FILE_LIST.equals(response.getRequest().getCode())) {
+
 			if (!response.getMessage().isEmpty()) {
 				sendToastToUI(response.getMessage());
 			}
-			mDirectoryContent = response.getDirContent();
+			mCurrentDirContent = response.getDirContent();
 			updateView(response.getDirContent());
 
 		}
