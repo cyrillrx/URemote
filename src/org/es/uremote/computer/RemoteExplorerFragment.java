@@ -66,7 +66,21 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
 	@Override
 	protected void onFileClick(String filename) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.OPEN_FILE, NONE, filename));
+
+		Request request = null;
+		try {
+			ExchangeMessagesUtils.buildRequest(
+					AsyncMessageMgr.getSecurityToken(),
+					Type.EXPLORER,
+					Code.OPEN_FILE,
+					NONE,
+					filename);
+
+		} catch (Exception e) {
+			Toast.makeText(getActivity(), R.string.build_request_error, Toast.LENGTH_LONG).show();
+			return;
+		}
+		sendAsyncRequest(request);
 	}
 
 	/**
@@ -94,7 +108,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 		if (ExplorerMessageMgr.availablePermits() > 0) {
 			new ExplorerMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			Toast.makeText(getActivity().getApplicationContext(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -123,13 +137,13 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			Log.debug(TAG, "#onPostExecute - " + response.getMessage());
 			if (RC_ERROR.equals(response.getReturnCode())) {
 				if (!response.getMessage().isEmpty()) {
-					sendToastToUI(response.getMessage());
+					Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
 				}
 				return;
 			}
 
 			if (!response.getMessage().isEmpty()) {
-				sendToastToUI(response.getMessage());
+				Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
 			}
 			mCurrentDirContent = response.getDirContent();
 			updateView(response.getDirContent());

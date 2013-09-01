@@ -42,13 +42,13 @@ public class AppSettings extends PreferenceActivity {
 		private String mKeyMacAddress;
 
 		private String mDefaultLocalHost;
-		private String mDefaultLocalPort;
+		private int mDefaultLocalPort;
 		private String mDefaultBroadcast;
 		private String mDefaultRemoteHost;
-		private String mDefaultRemotePort;
+		private int mDefaultRemotePort;
 		private String mDefaultSecurityToken;
-		private String mDefaultConnectionTimeout;
-		private String mDefaultReadTimeout;
+		private int mDefaultConnectionTimeout;
+		private int mDefaultReadTimeout;
 		private String mDefaultMacAddress;
 
 		private EditTextPreference mPrefLocalHost;
@@ -82,13 +82,13 @@ public class AppSettings extends PreferenceActivity {
 			mKeyMacAddress			= getString(R.string.key_mac_address);
 
 			mDefaultLocalHost	= getString(R.string.default_local_host);
-			mDefaultLocalPort	= getString(R.string.default_local_port);
+			mDefaultLocalPort	= getResources().getInteger(R.integer.default_local_port);
 			mDefaultBroadcast	= getString(R.string.default_broadcast);
 			mDefaultRemoteHost	= getString(R.string.default_remote_host);
-			mDefaultRemotePort	= getString(R.string.default_remote_port);
+			mDefaultRemotePort	= getResources().getInteger(R.integer.default_remote_port);
 			mDefaultSecurityToken		= getString(R.string.default_security_token);
-			mDefaultConnectionTimeout	= getString(R.string.default_connection_timeout);
-			mDefaultReadTimeout			= getString(R.string.default_read_timeout);
+			mDefaultConnectionTimeout	= getResources().getInteger(R.integer.default_connection_timeout);
+			mDefaultReadTimeout			= getResources().getInteger(R.integer.default_read_timeout);
 			mDefaultMacAddress	= getString(R.string.default_mac_address);
 
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
@@ -110,13 +110,13 @@ public class AppSettings extends PreferenceActivity {
 
 			// Setup the initial values
 			mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
-			mPrefLocalPort.setSummary(pref.getString(mKeyLocalPort, mDefaultLocalPort));
+			mPrefLocalPort.setSummary(pref.getInt(mKeyLocalPort, mDefaultLocalPort));
 			mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
 			mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
-			mPrefRemotePort.setSummary(pref.getString(mKeyRemotePort, mDefaultRemotePort));
+			mPrefRemotePort.setSummary(pref.getInt(mKeyRemotePort, mDefaultRemotePort));
 			mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
-			mPrefConnectionTimeout.setSummary(pref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
-			mPrefReadTimeout.setSummary(pref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+			mPrefConnectionTimeout.setSummary(pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
+			mPrefReadTimeout.setSummary(pref.getInt(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
 			mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			// Set up a listener whenever a key changes
@@ -139,7 +139,7 @@ public class AppSettings extends PreferenceActivity {
 				mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
 
 			} else if (key.equals(mKeyLocalPort)) {
-				mPrefLocalPort.setSummary(pref.getString(mKeyLocalPort, mDefaultLocalPort));
+				mPrefLocalPort.setSummary(pref.getInt(mKeyLocalPort, mDefaultLocalPort));
 
 			} else if (key.equals(mKeyBroadcast)) {
 				mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
@@ -148,16 +148,16 @@ public class AppSettings extends PreferenceActivity {
 				mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
 
 			} else if (key.equals(mKeyLocalHost)) {
-				mPrefRemotePort.setSummary(pref.getString(mKeyRemotePort, mDefaultRemotePort));
+				mPrefRemotePort.setSummary(pref.getInt(mKeyRemotePort, mDefaultRemotePort));
 
 			} else if (key.equals(mKeySecurityToken)) {
 				mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
 
 			} else if (key.equals(mKeyConnectionTimeout)) {
-				mPrefConnectionTimeout.setSummary(pref.getString(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
+				mPrefConnectionTimeout.setSummary(pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
 
 			} else if (key.equals(mKeyReadTimeout)) {
-				mPrefReadTimeout.setSummary(pref.getString(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+				mPrefReadTimeout.setSummary(pref.getInt(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
 
 			} else if (key.equals(mKeyMacAddress)) {
 				mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));

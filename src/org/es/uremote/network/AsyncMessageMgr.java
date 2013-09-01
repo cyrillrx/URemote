@@ -29,7 +29,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2, true);
 	private static final String TAG = "AsyncMessageMgr";
 
-	private static String sSecurityToken;
+	private static String sSecurityToken = null;
 
 	protected Handler mHandler;
 

@@ -3,15 +3,18 @@ package org.es.uremote.utils;
 /**
  * Class that hosts the intent keys of the application.
  *
- * @author Cyril
+ * @author Cyril Leroux
+ * Created before first commit (08/04/12).
  */
 public class IntentKeys {
-	// Intent constants
 	/** The request type key. */
 	public static final String REQUEST_TYPE = "REQUEST_TYPE";
 
 	/** The request code key. */
 	public static final String REQUEST_CODE = "REQUEST_CODE";
+
+	/** Key related to a path value */
+	public static final String DIRECTORY_PATH	= "directory_path";
 
 	/** Device Address key. */
 	public static String EXTRA_DEVICE_ADDRESS	= "device_address";
@@ -20,6 +23,7 @@ public class IntentKeys {
 
 	public static String ACTION_EDIT_SERVER		= "edit_server";
 	public static String ACTION_ADD_SERVER		= "add_server";
+	public static String ACTION_LOAD_SERVER		= "load_server";
 
 	// Key names received from the BluetoothChatService Handler
 	public static final String DEVICE_NAME		= "device_name";

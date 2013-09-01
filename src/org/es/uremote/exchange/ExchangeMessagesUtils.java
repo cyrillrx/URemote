@@ -41,6 +41,7 @@ public class ExchangeMessagesUtils {
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
 	private static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final int intParam, final String stringParam) {
+
 		Request request = Request.newBuilder()
 				.setSecurityToken(securityToken) // Add the security token
 				.setType(type)

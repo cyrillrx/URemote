@@ -23,18 +23,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.security.Md5;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
-import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.FragKeyboard;
+import org.es.uremote.computer.RemoteExplorerFragment;
+import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Request.Code;
+import org.es.uremote.exchange.ExchangeMessages.Request.Type;
+import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
@@ -56,8 +57,8 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
-import static org.es.uremote.utils.Constants.STATE_OK;
 import static org.es.uremote.utils.Constants.STATE_KO;
+import static org.es.uremote.utils.Constants.STATE_OK;
 
 /**
  * @author Cyril Leroux
@@ -72,7 +73,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
-
 
 	private FragAdmin mFragAdmin;
 	private FragDashboard mFragDashboard;
@@ -90,15 +90,18 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		return sHandler;
 	}
 
-	private ServerSetting getCurrentServer() {
-		return ServerSettingDao.loadFromPreferences(getApplicationContext());
-	}
-
 	private String getServerString() {
-		if (getCurrentServer().isLocal(getApplicationContext())) {
-			return getCurrentServer().getFullLocal();
+
+		ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
+
+		if (serverSetting == null) {
+			return getString(R.string.no_server_configured);
 		}
-		return getCurrentServer().getFullRemote();
+
+		if (serverSetting.isLocal(getApplicationContext())) {
+			return serverSetting.getFullLocal();
+		}
+		return serverSetting.getFullRemote();
 	}
 
 	@Override
@@ -145,6 +148,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 		mTvServerState = (TextView) findViewById(R.id.tvServerState);
 		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
+
 		((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString());
 
 		if (savedInstanceState != null) {
@@ -215,7 +219,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 				return true;
 
 			case R.id.server_list:
-				startActivity(new Intent(getApplicationContext(), ServerList.class));
+				startActivity(new Intent(getApplicationContext(), ServerListActivity.class));
 				return true;
 
 			default:
@@ -346,6 +350,14 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 * @param requestCode The request code.
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
+
+		final ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
+
+		if (serverSetting == null) {
+			Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
+			return;
+		}
+
 		Request request = ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
 
 		if (request == null) {
@@ -354,7 +366,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerSettingDao.loadFromPreferences(getApplicationContext())).execute(request);
+			new AsyncMessageMgr(sHandler, serverSetting).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}

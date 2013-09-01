@@ -14,6 +14,7 @@ import org.es.uremote.R;
 import org.es.uremote.components.FileManagerAdapter;
 import org.es.uremote.exchange.DirContentFactory;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.uremote.utils.IntentKeys;
 import org.es.utils.FileUtils;
 import org.es.utils.Log;
 
@@ -32,7 +33,6 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
 	private static final String TAG = "AbstractExplorerFragment";
 
-	private static final String DEFAULT_PATH			= "";
 	private static final String PREVIOUS_DIRECTORY_PATH	= "..";
 	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
@@ -40,7 +40,13 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	protected DirContent mCurrentDirContent = null;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		super.onCreateView(inflater, container, savedInstanceState);
 
 		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
 		mTvPath = (TextView) view.findViewById(R.id.tvPath);
@@ -61,10 +67,11 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
 		// Get the directory content or update the one that already exist.
 		if (dirContent == null) {
-			navigateTo(DEFAULT_PATH);
+			String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
+			navigateTo(path);
 		} else {
 			// TODO uncomment after test
-			//updateView(dirContent);
+			updateView(dirContent);
 		}
 	}
 
@@ -74,6 +81,27 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentDirContent.toByteArray());
 		}
 		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	public void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		final DirContent.File file = mCurrentDirContent.getFile(position);
+		final String filename = file.getName();
+		final String fullPath = mCurrentDirContent.getPath()+ File.separator + filename;
+
+		if (DIRECTORY.equals(file.getType())) {
+
+			if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
+				navigateUp();
+
+			} else {
+				onDirectoryClick(fullPath);
+			}
+
+		} else {
+			onFileClick(fullPath);
+		}
 	}
 
 	/**
@@ -90,32 +118,11 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			return;
 		}
 
+
 		final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
 		setListAdapter(adapter);
 
 		ListView listView = getListView();
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				final DirContent.File file = dirContent.getFile(position);
-				final String filename = file.getName();
-				final String fullPath = dirContent.getPath()+ File.separator + filename;
-
-				if (DIRECTORY.equals(file.getType())) {
-
-					if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
-						navigateUp();
-
-					} else {
-						onDirectoryClick(fullPath);
-					}
-
-				} else {
-					onFileClick(fullPath);
-				}
-			}
-		});
-
 		mTvPath.setText(dirContent.getPath());
 	}
 
