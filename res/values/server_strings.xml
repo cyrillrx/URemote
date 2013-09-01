@@ -13,15 +13,12 @@
 	<string name="key_mac_address">mac_address</string>
 
 	<!-- Default values -->
+	<string name="no_server_configured">No server configured.</string>
 	<string name="default_server_label">Server</string>
 	<string name="default_local_host">192.168.0.1</string>
-	<string name="default_local_port">0000</string>
 	<string name="default_broadcast">192.168.0.255</string>
 	<string name="default_remote_host">0.0.0.0</string>
-	<string name="default_remote_port">0000</string>
 	<string name="default_security_token">0000</string>
-	<string name="default_connection_timeout">500</string>
-	<string name="default_read_timeout">1000</string>
 	<string name="default_mac_address">00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00</string>
 
 	<string name="dot">.</string>
@@ -60,5 +57,6 @@
 	<!-- Messages -->
 	<string name="server_saved">Server settings saved.</string>
 	<string name="server_not_saved">Error while saving servers.</string>
+	<string name="build_request_error">Error, couldn\'t build the request.</string>
 
 </resources>

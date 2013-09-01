@@ -110,7 +110,7 @@
 				android:gravity="center"
 				android:inputType="number"
 				android:maxLength="4"
-				android:text="@string/default_local_port" />
+				android:text="@integer/default_local_port" />
 	</LinearLayout>
 
 	<!-- Broadcast address label -->
@@ -281,7 +281,7 @@
 				android:gravity="center"
 				android:inputType="number"
 				android:maxLength="4"
-				android:text="@string/default_remote_port" />
+				android:text="@integer/default_remote_port" />
 	</LinearLayout>
 
 	<TextView
@@ -418,7 +418,7 @@
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:inputType="number"
-				android:text="@string/default_connection_timeout" />
+				android:text="@integer/default_connection_timeout" />
 
 		<TextView
 				android:layout_width="wrap_content"
@@ -451,7 +451,7 @@
 				android:layout_height="wrap_content"
 				android:gravity="center"
 				android:inputType="number"
-				android:text="@string/default_read_timeout" />
+				android:text="@integer/default_read_timeout" />
 
 		<TextView
 				android:layout_width="wrap_content"
