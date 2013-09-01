@@ -22,7 +22,7 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * Created before first commit (08/04/12).
  */
 public class FileManagerAdapter extends BaseAdapter {
-	private final DirContent mDirContent;
+	private DirContent mDirContent;
 	private final LayoutInflater mInflater;
 
 	/**
@@ -33,6 +33,10 @@ public class FileManagerAdapter extends BaseAdapter {
 	 */
 	public FileManagerAdapter(Context context, DirContent dirContent) {
 		mInflater = LayoutInflater.from(context);
+		mDirContent = dirContent;
+	}
+
+	public void setDirContent(DirContent dirContent) {
 		mDirContent = dirContent;
 	}
 

@@ -118,11 +118,16 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			return;
 		}
 
+		if (getListAdapter() == null) {
+			final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
+			adapter.notifyDataSetChanged();
+			setListAdapter(adapter);
+		} else {
+			((FileManagerAdapter) getListAdapter()).setDirContent(dirContent);
+		}
 
-		final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
-		setListAdapter(adapter);
+		((FileManagerAdapter) getListAdapter()).notifyDataSetChanged();
 
-		ListView listView = getListView();
 		mTvPath.setText(dirContent.getPath());
 	}
 
