@@ -1,4 +1,4 @@
-package org.es.uremote;
+package org.es.uremote.computer;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.es.uremote.R;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
 import org.es.utils.Log;
@@ -21,7 +22,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  * @author Cyril Leroux
  * Created on 07/06/13.
  */
-public class ServerEdit extends Activity {
+public class ServerEditActivity extends Activity {
 
 	private static final String TAG = "EditServer";
 

@@ -1,9 +1,10 @@
-package org.es.uremote;
+package org.es.uremote.computer;
 
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,9 +14,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import org.es.uremote.Computer;
+import org.es.uremote.R;
 import org.es.uremote.components.ServerAdapter;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.utils.IntentKeys;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,6 +28,7 @@ import java.util.List;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static org.es.uremote.objects.ServerSetting.FILENAME;
 import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
+import static org.es.uremote.utils.IntentKeys.ACTION_LOAD_SERVER;
 import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
@@ -32,11 +37,13 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  * @author Cyril Leroux
  * Created on 31/05/13.
  */
-public class ServerList extends ListActivity {
+public class ServerListActivity extends ListActivity {
 
-	private static final String TAG = "ServerList";
+	private static final String TAG = "ServerListActivity";
+
 	private static final int RC_ADD_SERVER = 0;
 	private static final int RC_EDIT_SERVER = 1;
+	private static final int RC_LOAD_SERVER = 2;
 	List<ServerSetting> mServers;
 	File mConfFile;
 
@@ -45,7 +52,7 @@ public class ServerList extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_list);
 		mServers = new ArrayList<>();
-		mConfFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
+		mConfFile = new File(getExternalFilesDir(null), FILENAME);
 		loadServerList();
 	}
 
@@ -66,7 +73,7 @@ public class ServerList extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ServerSetting server = servers.get(position);
-				Intent editIntent = new Intent(getApplicationContext(), ServerEdit.class);
+				Intent editIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
 				editIntent.putExtra(EXTRA_SERVER_DATA, server);
 				editIntent.putExtra(EXTRA_SERVER_ID, position);
 				editIntent.setAction(ACTION_EDIT_SERVER);
@@ -93,16 +100,19 @@ public class ServerList extends ListActivity {
 				return true;
 
 			case R.id.add_server:
-				Intent addIntent = new Intent(getApplicationContext(), ServerEdit.class);
+				Intent addIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
 				addIntent.setAction(ACTION_ADD_SERVER);
 				startActivityForResult(addIntent, RC_ADD_SERVER);
 				return true;
 
 			case R.id.load_from_file:
 				//Intent loadIntent = new Intent.ACTION_GET_CONTENT;
-				//addIntent.setAction(ACTION_ADD_SERVER);
-				//startActivityForResult(addIntent, RC_ADD_SERVER);
+				Intent loadIntent = new Intent(getApplicationContext(), LoadServerActivity.class);
+				loadIntent.setAction(ACTION_LOAD_SERVER);
+				loadIntent.putExtra(IntentKeys.DIRECTORY_PATH, Environment.getExternalStorageDirectory().getPath());
+				startActivityForResult(loadIntent, RC_LOAD_SERVER);
 				return true;
+
 			default:
 				return super.onOptionsItemSelected(item);
 		}
