@@ -56,7 +56,9 @@
 
 	<!-- Messages -->
 	<string name="server_saved">Configuration sauvegardée.</string>
-	<string name="server_not_saved">Erreur lors de la sauvegarde.</string>
+	<string name="error_while_saving_servers">Erreur lors de la sauvegarde des serveur.</string>
+	<string name="server_loaded">Configuration chargée avec succès.</string>
+	<string name="error_while_loading_servers">Erreur lors du chargement des serveurs.</string>
 	<string name="build_request_error">Erreur, impossible de construire la requête.</string>
 
 </resources>

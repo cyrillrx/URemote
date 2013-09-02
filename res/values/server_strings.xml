@@ -56,7 +56,9 @@
 
 	<!-- Messages -->
 	<string name="server_saved">Server settings saved.</string>
-	<string name="server_not_saved">Error while saving servers.</string>
+	<string name="error_while_saving_servers">Error while saving servers.</string>
+	<string name="server_loaded">Server settings successfully loaded.</string>
+	<string name="error_while_loading_servers">Error while loading servers.</string>
 	<string name="build_request_error">Error, couldn\'t build the request.</string>
 
 </resources>
