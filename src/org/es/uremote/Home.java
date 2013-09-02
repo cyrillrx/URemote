@@ -1,15 +1,12 @@
 package org.es.uremote;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -104,13 +101,19 @@ public class Home extends ListActivity implements OnItemClickListener {
 	}
 
 	private void startRobotControl() {
-		// If Bluetooth is disabled, ask for activation
-		BluetoothManager manager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
-		BluetoothAdapter mBluetoothAdapter = manager.getAdapter();
 
-		//if (!BluetoothAdapter.getDefaultAdapter().isEnabled()) {
-		if (!mBluetoothAdapter.isEnabled()) {
-			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+		BluetoothAdapter bluetoothAdapter = null;
+
+		//if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		//} else {
+		//	BluetoothManager manager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
+		//	bluetoothAdapter = manager.getAdapter();
+		//}
+
+		// If Bluetooth is disabled, ask for activation
+		if (!bluetoothAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 			startActivityForResult(enableIntent, RC_ENABLE_BT);
 		} else {
 			startActivity(new Intent(getApplicationContext(), RobotControl.class));
