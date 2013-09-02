@@ -5,13 +5,11 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.components.FileManagerAdapter;
+import org.es.uremote.components.ExplorerAdapter;
 import org.es.uremote.exchange.DirContentFactory;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.utils.IntentKeys;
@@ -119,14 +117,15 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		}
 
 		if (getListAdapter() == null) {
-			final FileManagerAdapter adapter = new FileManagerAdapter(getActivity().getApplicationContext(), dirContent);
-			adapter.notifyDataSetChanged();
+			final ExplorerAdapter adapter = new ExplorerAdapter(getActivity().getApplicationContext(), dirContent);
 			setListAdapter(adapter);
 		} else {
-			((FileManagerAdapter) getListAdapter()).setDirContent(dirContent);
+			((ExplorerAdapter) getListAdapter()).setDirContent(dirContent);
 		}
 
-		((FileManagerAdapter) getListAdapter()).notifyDataSetChanged();
+		((ExplorerAdapter) getListAdapter()).notifyDataSetChanged();
+		getListView().invalidate();
+		getListView().invalidateViews();
 
 		mTvPath.setText(dirContent.getPath());
 	}

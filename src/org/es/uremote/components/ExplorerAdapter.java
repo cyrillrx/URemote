@@ -21,7 +21,7 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class FileManagerAdapter extends BaseAdapter {
+public class ExplorerAdapter extends BaseAdapter {
 	private DirContent mDirContent;
 	private final LayoutInflater mInflater;
 
@@ -31,7 +31,7 @@ public class FileManagerAdapter extends BaseAdapter {
 	 * @param context the application context.
 	 * @param dirContent the files to display
 	 */
-	public FileManagerAdapter(Context context, DirContent dirContent) {
+	public ExplorerAdapter(Context context, DirContent dirContent) {
 		mInflater = LayoutInflater.from(context);
 		mDirContent = dirContent;
 	}

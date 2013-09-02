@@ -53,7 +53,9 @@ public class ServerListActivity extends ListActivity {
 		setContentView(R.layout.server_list);
 		mServers = new ArrayList<>();
 		mConfFile = new File(getExternalFilesDir(null), FILENAME);
-		loadServerList();
+		if (mConfFile.exists()) {
+			loadServerList();
+		}
 	}
 
 	private void loadServerList() {
@@ -175,10 +177,10 @@ public class ServerListActivity extends ListActivity {
 		protected void onPostExecute(Boolean saved) {
 			updateView(mServers);
 			if (saved) {
-				Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.server_loaded, Toast.LENGTH_SHORT).show();
 
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.server_not_saved, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.error_while_loading_servers, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -201,7 +203,7 @@ public class ServerListActivity extends ListActivity {
 				Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
 
 			} else {
-				Toast.makeText(getApplicationContext(), R.string.server_not_saved, Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), R.string.error_while_saving_servers, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

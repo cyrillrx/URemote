@@ -37,10 +37,10 @@ public class LoadServerActivity extends FragmentActivity {
 		fragmentArg.putString(IntentKeys.DIRECTORY_PATH, path);
 
 		if (savedInstanceState == null) {
-			LocalExplorerFragment fragment = new LocalExplorerFragment();
-			fragment.setArguments(fragmentArg);
+			mFragment = new LocalExplorerFragment();
+			mFragment.setArguments(fragmentArg);
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-			ft.add(android.R.id.content, fragment).commit();
+			ft.add(android.R.id.content, mFragment).commit();
 		}
 
 		setContentView(R.layout.activity_explorer_load);
