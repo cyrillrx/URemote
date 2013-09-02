@@ -3,15 +3,27 @@ package org.es.uremote.computer;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 
 import org.es.uremote.R;
 import org.es.uremote.common.LocalExplorerFragment;
 import org.es.uremote.utils.IntentKeys;
+import org.es.utils.Log;
+
+import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
+import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 
 /**
  * Created by Cyril on 31/08/13.
  */
 public class LoadServerActivity extends FragmentActivity {
+
+    private static final String TAG = "LoadServerActivity";
+
+    private LocalExplorerFragment mFragment = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,5 +67,21 @@ public class LoadServerActivity extends FragmentActivity {
 		Environment.getExternalStorageDirectory();
 		String path = "/sdcard";
 		*/
+	}
+
+	/**
+	 * Handle volume physical buttons.
+	 */
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (mFragment.canNavigateUp()) {
+				Log.debug(TAG, "#onKeyDown - Back key overridden.");
+				return true;
+			}
+		}
+		Log.debug(TAG, "#onKeyDown - Normal key behavior.");
+		return super.onKeyDown(keyCode, event);
 	}
 }
