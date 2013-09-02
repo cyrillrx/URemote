@@ -106,6 +106,11 @@ public class ServerSettingDao {
 			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
 		}
 
+		if (!configFile.exists()) {
+			Log.warning(TAG, "#loadFromFile - File is null or does not exist");
+			return false;
+		}
+
 		ServerSettingXmlHandler xmlHandler = new ServerSettingXmlHandler();
 		try {
 			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
