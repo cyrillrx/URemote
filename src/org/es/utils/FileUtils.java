@@ -22,7 +22,9 @@ public class FileUtils {
 		FilenameFilter extensionFilter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String filename) {
-				if (dir.isDirectory()) {
+
+				final File file = new File(dir, filename);
+				if (file.isDirectory()) {
 					return listDirectories;
 				}
 
