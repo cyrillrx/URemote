@@ -12,6 +12,9 @@ import org.es.uremote.utils.IntentKeys;
 import org.es.utils.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Local file explorer fragment.
@@ -20,15 +23,19 @@ import java.io.File;
  * @author Cyril Leroux
  * Created on 31/08/13.
  */
-public class LocalExplorerFragment extends AbstractExplorerFragment {
+public class LocalExplorerFragment extends AbstractExplorerFragment2 {
 
 	@Override
 	protected void navigateTo(String dirPath) {
 
-		// TODO change static extension for a variable
-		final ExchangeMessages.DirContent content
-				= DirContentFactory.createFromLocalPath(dirPath, new String[]{".xml"}, true);
-		updateView(content);
+		File[] fileTab = FileUtils.listFiles(dirPath, new String[]{".xml"}, true);
+
+		List<File> fileList = new ArrayList<>();
+		for (File file : fileTab) {
+			fileList.add(file);
+		}
+
+		updateView(dirPath, fileList);
 	}
 
 	@Override
