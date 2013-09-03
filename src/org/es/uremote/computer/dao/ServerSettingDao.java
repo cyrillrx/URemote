@@ -176,7 +176,7 @@ public class ServerSettingDao {
 		try {
 			return builder.build();
 		} catch (Exception e) {
-			Log.error(TAG, "#loadFromPreferences()", e);
+			Log.warning(TAG, "#loadFromPreferences() - " + e.getMessage());
 			return null;
 		}
 	}
