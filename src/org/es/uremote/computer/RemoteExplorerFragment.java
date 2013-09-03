@@ -91,7 +91,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	 */
 	@Override
 	protected void navigateTo(String dirPath) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+		if (dirPath != null) {
+			sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////
