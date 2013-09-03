@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.common.LoadServerActivity2;
+import org.es.uremote.common.LoadServerStandAloneActivity;
 import org.es.uremote.components.ServerAdapter;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
@@ -110,7 +110,7 @@ public class ServerListActivity extends ListActivity {
 
 			case R.id.load_from_file:
 				//Intent loadIntent = new Intent.ACTION_GET_CONTENT;
-				Intent loadIntent = new Intent(getApplicationContext(), LoadServerActivity2.class);
+				Intent loadIntent = new Intent(getApplicationContext(), LoadServerStandAloneActivity.class);
 				loadIntent.setAction(ACTION_LOAD_SERVER);
 				loadIntent.putExtra(IntentKeys.DIRECTORY_PATH, Environment.getExternalStorageDirectory().getPath());
 				startActivityForResult(loadIntent, RC_LOAD_SERVER);

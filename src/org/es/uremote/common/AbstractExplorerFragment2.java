@@ -35,13 +35,10 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
 	private TextView mTvPath;
-	protected List<File> mFiles		= null;
-	protected String mCurrentPath	= null;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+	private String mRoot = null;
+	protected List<File> mCurrentFiles	= null;
+	protected String mCurrentPath		= null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +64,7 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 		// Get the directory content or update the one that already exist.
 		if (files == null) {
 			path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
+			mRoot = path;
 			navigateTo(path);
 		} else {
 			updateView(path, files);
@@ -78,7 +76,7 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 		if (mCurrentPath != null) {
 			outState.putString(KEY_DIRECTORY_CONTENT, mCurrentPath);
 		}
-		if (mFiles != null) {
+		if (mCurrentFiles != null) {
 			// Parcelable Files
 		}
 		super.onSaveInstanceState(outState);
@@ -87,7 +85,7 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		final File file = mFiles.get(position);
+		final File file = mCurrentFiles.get(position);
 		final String filename = file.getName();
 		final String fullPath = file.getAbsolutePath();
 
@@ -112,13 +110,8 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	 */
 	protected void updateView(final String dirPath, final List<File> files) {
 
-		mFiles = files;
-
-		if (files.size() == 0) {
-			Log.warning(TAG, "#updateView - No file in the directory.");
-			return;
-		}
-
+		mCurrentPath	= dirPath;
+		mCurrentFiles	= files;
 
 		if (getListAdapter() == null) {
 			final ExplorerAdapter2 adapter = new ExplorerAdapter2(getActivity().getApplicationContext(), files);
@@ -163,8 +156,8 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
 	public boolean canNavigateUp() {
-		return mCurrentPath != null &&
-				mCurrentPath.contains(File.separator);
+		//
+		return mCurrentPath != null && !mCurrentPath.equals(mRoot);
 	}
 
 	/**
