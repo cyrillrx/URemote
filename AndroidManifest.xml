@@ -39,7 +39,7 @@
 		<activity android:name=".computer.ServerListActivity" />
 		<activity android:name=".computer.ServerEditActivity" />
 		<activity android:name=".computer.LoadServerActivity" />
-		<activity android:name=".common.LoadServerActivity2" />
+		<activity android:name=".common.LoadServerStandAloneActivity" />
 		<activity
 				android:name=".computer.AppLauncherActivity"
 				android:label="@string/title_application_launcher"
