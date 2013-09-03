@@ -9,18 +9,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.common.LoadServerStandAloneActivity;
-import org.es.uremote.components.ServerAdapter;
+import org.es.uremote.components.ServerArrayAdapter;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.IntentKeys;
+import org.es.utils.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,8 +28,9 @@ import java.util.List;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static org.es.uremote.objects.ServerSetting.FILENAME;
 import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
-import static org.es.uremote.utils.IntentKeys.ACTION_LOAD_SERVER;
 import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
+import static org.es.uremote.utils.IntentKeys.ACTION_LOAD_SERVER;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_CONF_FILE;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
@@ -45,44 +45,49 @@ public class ServerListActivity extends ListActivity {
 	private static final int RC_ADD_SERVER = 0;
 	private static final int RC_EDIT_SERVER = 1;
 	private static final int RC_LOAD_SERVER = 2;
-	List<ServerSetting> mServers;
-	File mConfFile;
+
+	List<ServerSetting> mServers = new ArrayList<>();
+	File mConfFile = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.server_list);
-		mServers = new ArrayList<>();
+
 		mConfFile = new File(getExternalFilesDir(null), FILENAME);
 		if (mConfFile.exists()) {
-			loadServerList();
+			asyncLoadServers(mConfFile, mServers);
 		}
 	}
 
-	private void loadServerList() {
-		(new AsyncLoadServer()).execute();
+	private void asyncLoadServers(File configFile, List<ServerSetting> servers) {
+		(new AsyncLoadServer(configFile, servers)).execute();
 	}
 
-	private void saveServers(List<ServerSetting> servers) {
-		(new AsyncSaveServer()).execute();
+	private void asyncSaveServers(List<ServerSetting> servers, File configFile) {
+		(new AsyncSaveServer(servers, configFile)).execute();
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+
+		ServerSetting server = ((ServerArrayAdapter)getListAdapter()).getItem(position);
+		Intent editIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
+		editIntent.putExtra(EXTRA_SERVER_DATA, server);
+		editIntent.putExtra(EXTRA_SERVER_ID, position);
+		editIntent.setAction(ACTION_EDIT_SERVER);
+		startActivityForResult(editIntent, RC_EDIT_SERVER);
 	}
 
 	private void updateView(final List<ServerSetting> servers) {
-		ServerAdapter adapter = new ServerAdapter(getApplicationContext(), servers);
-		setListAdapter(adapter);
 
-		ListView listView = getListView();
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				ServerSetting server = servers.get(position);
-				Intent editIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
-				editIntent.putExtra(EXTRA_SERVER_DATA, server);
-				editIntent.putExtra(EXTRA_SERVER_ID, position);
-				editIntent.setAction(ACTION_EDIT_SERVER);
-				startActivityForResult(editIntent, RC_EDIT_SERVER);
-			}
-		});
+		if (getListAdapter() == null) {
+			ServerArrayAdapter adapter = new ServerArrayAdapter(getApplicationContext(), servers);
+			setListAdapter(adapter);
+		} else {
+			asyncSaveServers(servers, mConfFile);
+		}
 	}
 
 	@Override
@@ -109,7 +114,6 @@ public class ServerListActivity extends ListActivity {
 				return true;
 
 			case R.id.load_from_file:
-				//Intent loadIntent = new Intent.ACTION_GET_CONTENT;
 				Intent loadIntent = new Intent(getApplicationContext(), LoadServerStandAloneActivity.class);
 				loadIntent.setAction(ACTION_LOAD_SERVER);
 				loadIntent.putExtra(IntentKeys.DIRECTORY_PATH, Environment.getExternalStorageDirectory().getPath());
@@ -125,23 +129,31 @@ public class ServerListActivity extends ListActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		if (resultCode != RESULT_OK) {
+			Log.debug(TAG, "#onActivityResult - resultCode != RESULT_OK : " + resultCode);
 			return;
 		}
 
-		ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
-		if (server == null) {
-			return;
-		}
+		final ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
 
-		if (requestCode == RC_ADD_SERVER) {
-			addServer(server);
+		switch (requestCode) {
 
-		} else if (requestCode == RC_EDIT_SERVER) {
-			final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
-			if (serverId == -1) {
-				return;
-			}
-			updateServer(serverId, server);
+			case RC_ADD_SERVER:
+				if (server != null) {
+					addServer(server);
+				}
+				break;
+
+			case RC_EDIT_SERVER:
+				if (server != null) {
+					final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
+					updateServer(serverId, server);
+				}
+				break;
+
+			case RC_LOAD_SERVER:
+				final String filePath = data.getStringExtra(EXTRA_SERVER_CONF_FILE);
+				asyncLoadServers(new File(filePath), mServers);
+				break;
 		}
 	}
 
@@ -152,13 +164,13 @@ public class ServerListActivity extends ListActivity {
 	 */
 	private void addServer(ServerSetting server) {
 		mServers.add(server);
-		saveServers(mServers);
+		asyncSaveServers(mServers, mConfFile);
 		updateView(mServers);
 	}
 
 	private void updateServer(int serverId, ServerSetting newData) {
 		mServers.get(serverId).update(newData);
-		saveServers(mServers);
+		asyncSaveServers(mServers, mConfFile);
 		updateView(mServers);
 	}
 
@@ -169,17 +181,26 @@ public class ServerListActivity extends ListActivity {
 	 */
 	private class AsyncLoadServer extends AsyncTask<Void, Void, Boolean> {
 
-		@Override
-		protected Boolean doInBackground(Void... voids) {
-			return ServerSettingDao.loadFromFile(mConfFile, mServers);
+		final File mSourceFile;
+		final List<ServerSetting> mDestination;
+
+		private AsyncLoadServer(File configFile, List<ServerSetting> servers) {
+			mSourceFile		= configFile;
+			mDestination	= servers;
 		}
 
 		@Override
-		protected void onPostExecute(Boolean saved) {
-			updateView(mServers);
-			if (saved) {
-				Toast.makeText(getApplicationContext(), R.string.server_loaded, Toast.LENGTH_SHORT).show();
+		protected Boolean doInBackground(Void... voids) {
+			return ServerSettingDao.loadFromFile(mSourceFile, mDestination);
+		}
 
+		@Override
+		protected void onPostExecute(Boolean loaded) {
+
+			updateView(mDestination);
+
+			if (loaded) {
+				Toast.makeText(getApplicationContext(), R.string.server_loaded, Toast.LENGTH_SHORT).show();
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.error_while_loading_servers, Toast.LENGTH_SHORT).show();
 			}
@@ -193,16 +214,24 @@ public class ServerListActivity extends ListActivity {
 	 */
 	private class AsyncSaveServer extends AsyncTask<Void, Void, Boolean> {
 
+		final List<ServerSetting> mSource;
+		final File mTargetFile;
+
+		private AsyncSaveServer(List<ServerSetting> servers, File targetFile) {
+			mSource		= servers;
+			mTargetFile	= targetFile;
+		}
+
 		@Override
 		protected Boolean doInBackground(Void... voids) {
-			return ServerSettingDao.saveToFile(mServers, mConfFile);
+			return ServerSettingDao.saveToFile(mSource, mTargetFile);
 		}
 
 		@Override
 		protected void onPostExecute(Boolean saved) {
+
 			if (saved) {
 				Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
-
 			} else {
 				Toast.makeText(getApplicationContext(), R.string.error_while_saving_servers, Toast.LENGTH_SHORT).show();
 			}

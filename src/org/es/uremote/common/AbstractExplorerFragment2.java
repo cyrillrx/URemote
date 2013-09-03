@@ -9,16 +9,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.components.ExplorerAdapter;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.FileUtils;
-import org.es.utils.Log;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 
 /**
  * File explorer fragment.<br />
@@ -114,14 +109,14 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 		mCurrentFiles	= files;
 
 		if (getListAdapter() == null) {
-			final ExplorerAdapter2 adapter = new ExplorerAdapter2(getActivity().getApplicationContext(), files);
+			final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
 			setListAdapter(adapter);
 		} else {
-			((ExplorerAdapter2) getListAdapter()).clear();
-			((ExplorerAdapter2) getListAdapter()).addAll(files);
+			((ExplorerArrayAdapter) getListAdapter()).clear();
+			((ExplorerArrayAdapter) getListAdapter()).addAll(files);
 		}
 
-		((ExplorerAdapter2) getListAdapter()).notifyDataSetChanged();
+		((ExplorerArrayAdapter) getListAdapter()).notifyDataSetChanged();
 		getListView().invalidate();
 		getListView().invalidateViews();
 

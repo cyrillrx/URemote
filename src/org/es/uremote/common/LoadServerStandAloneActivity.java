@@ -1,9 +1,8 @@
 package org.es.uremote.common;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -18,6 +17,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_CONF_FILE;
+
 /**
  * Created by Cyril on 03/09/13.
  */
@@ -26,6 +27,7 @@ public class LoadServerStandAloneActivity extends ListActivity {
     private static final String TAG = "LoadServerActivity";
 
 	private static final String PREVIOUS_DIRECTORY_PATH	= "..";
+	private static String[] mExtensions = new String[] {".xml"};
 
 	private TextView mTvPath;
 
@@ -43,7 +45,7 @@ public class LoadServerStandAloneActivity extends ListActivity {
 		// Load from caller activity
 		mRoot	= getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
 
-		File[] fileTab = FileUtils.listFiles(mRoot, new String[]{".xml"}, true);
+		File[] fileTab = FileUtils.listFiles(mRoot, mExtensions, true);
 
 		List<File> fileList = new ArrayList<>();
 		for (File file : fileTab) {
@@ -86,11 +88,11 @@ public class LoadServerStandAloneActivity extends ListActivity {
 		mCurrentFiles	= files;
 
 		if (getListAdapter() == null) {
-			final ExplorerAdapter2 adapter = new ExplorerAdapter2(getApplicationContext(), files);
+			final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getApplicationContext(), files);
 			setListAdapter(adapter);
 		} else {
-			((ExplorerAdapter2) getListAdapter()).clear();
-			((ExplorerAdapter2) getListAdapter()).addAll(files);
+			((ExplorerArrayAdapter) getListAdapter()).clear();
+			((ExplorerArrayAdapter) getListAdapter()).addAll(files);
 		}
 
 		mTvPath.setText(dirPath);
@@ -135,7 +137,7 @@ public class LoadServerStandAloneActivity extends ListActivity {
 	 */
 	protected void navigateTo(String dirPath) {
 
-		File[] fileTab = FileUtils.listFiles(dirPath, new String[]{".xml"}, true);
+		File[] fileTab = FileUtils.listFiles(dirPath, mExtensions, true);
 
 		List<File> fileList = new ArrayList<>();
 		for (File file : fileTab) {
@@ -161,6 +163,10 @@ public class LoadServerStandAloneActivity extends ListActivity {
 	 */
 	protected void onFileClick(String filename) {
 		// Returns the value to the parent
+		Intent data = new Intent();
+		data.putExtra(EXTRA_SERVER_CONF_FILE, filename);
+		setResult(RESULT_OK, data);
+		finish();
 	}
 
 	/**

@@ -220,20 +220,46 @@ public class ServerSetting implements Parcelable {
 	 */
 	public static class Builder {
 
-		private String mName		= "";
-		private String mLocalHost	= "";
-		private int mLocalPort		= 0000;
-		private String mBroadcast	= "";
-		private String mRemoteHost	= "";
-		private int mRemotePort		= 0000;
-		private String mMacAddress	= "";
-		private ConnectionType mConnectionType	= ConnectionType.LOCAL;
+		private static String DEFAULT_NAME = "";
+		private static String DEFAULT_LOCAL_HOST	= "";
+		private static int DEFAULT_LOCAL_PORT		= 0000;
+		private static String DEFAULT_BROADCAST		= "";
+		private static String DEFAULT_REMOTE_HOST	= "";
+		private static int DEFAULT_REMOTE_PORT		= 0000;
+		private static String DEFAULT_MAC_ADDRESS	= "";
+		private static ConnectionType DEFAULT_CONNECTION	= ConnectionType.LOCAL;
+		private static int DEFAULT_CONNECTION_TIMEOUT	= 500;
+		private static int DEFAULT_READ_TIMEOUT			= 500;
+
+		private String mName		= DEFAULT_NAME;
+		private String mLocalHost	= DEFAULT_LOCAL_HOST;
+		private int mLocalPort		= DEFAULT_LOCAL_PORT;
+		private String mBroadcast	= DEFAULT_BROADCAST;
+		private String mRemoteHost	= DEFAULT_REMOTE_HOST;
+		private int mRemotePort		= DEFAULT_REMOTE_PORT;
+		private String mMacAddress	= DEFAULT_MAC_ADDRESS;
+		private ConnectionType mConnectionType	= DEFAULT_CONNECTION;
 		/** If the connection with the remote server is not established within this timeout, it is dismissed. */
-		private int mConnectionTimeout	= 500;
-		private int mReadTimeout		= 500;
+		private int mConnectionTimeout	= DEFAULT_CONNECTION_TIMEOUT;
+		private int mReadTimeout		= DEFAULT_READ_TIMEOUT;
 
 		private Builder() { }
 
+		/**
+		 * Reset builder
+		 */
+		public void clear() {
+			mName		= DEFAULT_NAME;
+			mLocalHost	= DEFAULT_LOCAL_HOST;
+			mLocalPort	= DEFAULT_LOCAL_PORT;
+			mBroadcast	= DEFAULT_BROADCAST;
+			mRemoteHost	= DEFAULT_REMOTE_HOST;
+			mRemotePort	= DEFAULT_REMOTE_PORT;
+			mMacAddress	= DEFAULT_MAC_ADDRESS;
+			mConnectionType		= DEFAULT_CONNECTION;
+			mConnectionTimeout	= DEFAULT_CONNECTION_TIMEOUT;
+			mReadTimeout		= DEFAULT_READ_TIMEOUT;
+		}
 		/**
 		 * @return A fully loaded {@link ServerSetting} object.
 		 *

@@ -132,7 +132,6 @@ public class ServerEditActivity extends Activity {
 				builder.setConnectionType(getConnectionType());
 
 				try {
-					ServerSetting server = builder.build();
 					Intent data = new Intent();
 					data.putExtra(EXTRA_SERVER_DATA, builder.build());
 					data.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));

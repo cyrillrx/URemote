@@ -123,8 +123,7 @@ public class ServerSettingDao {
 			return false;
 		}
 
-		servers.addAll(xmlHandler.getServers());
-		return true;
+		return servers.addAll(xmlHandler.getServers());
 	}
 
 	/**

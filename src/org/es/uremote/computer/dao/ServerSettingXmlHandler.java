@@ -2,6 +2,7 @@ package org.es.uremote.computer.dao;
 
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
+import org.es.utils.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -29,6 +30,9 @@ import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
  * Created on 22/05/13.
  */
 public class ServerSettingXmlHandler extends DefaultHandler {
+
+	private static final String TAG = "ServerSettingXmlHandler";
+
 	private boolean mCurrentElement	= false;
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
@@ -46,7 +50,11 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 			mServers = new ArrayList<>();
 
 		} else if (localName.equals(TAG_SERVER)) {
-			mBuilder = ServerSetting.newBuilder();
+			if (mBuilder == null) {
+				mBuilder = ServerSetting.newBuilder();
+			} else {
+				mBuilder.clear();
+			}
 		}
 	}
 
@@ -87,10 +95,9 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		} else if (localName.equals(TAG_SERVER)) {
 			try {
-				ServerSetting server = mBuilder.build();
 				mServers.add(mBuilder.build());
 			} catch (Exception e) {
-
+				Log.error(TAG, "#endElement", e);
 			}
 
 		} else if (localName.equals(TAG_ROOT)) {
