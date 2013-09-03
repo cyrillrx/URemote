@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,8 +20,8 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 22/05/13.
  */
-public class ServerAdapter extends BaseAdapter {
-	private List<ServerSetting> mServers = null;
+public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
+
 	private final LayoutInflater mInflater;
 
 	/**
@@ -29,40 +30,15 @@ public class ServerAdapter extends BaseAdapter {
 	 * @param context The application context.
 	 * @param servers The list of {@link org.es.uremote.objects.ServerSetting} to display.
 	 */
-	public ServerAdapter(Context context, List<ServerSetting> servers) {
+	public ServerArrayAdapter(Context context, List<ServerSetting> servers) {
+		super(context, 0, servers);
 		mInflater = LayoutInflater.from(context);
-		mServers = servers;
 	}
 
-	@Override
-	public int getCount() {
-		if (mServers == null) {
-			return 0;
-		}
-
-		return mServers.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		if (mServers == null) {
-			return null;
-		}
-
-		return mServers.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
-	}
-
-	/**
-	 * @author Cyril Leroux
-	 *
-	 */
+	/** Template for the list items. */
 	public static class ViewHolder {
-		ImageView ivThumbnail;
+		// TODO add thumbnail
+		//ImageView ivThumbnail;
 		TextView tvName;
 		TextView tvLocalhost;
 		TextView tvRemoteHost;
@@ -75,7 +51,8 @@ public class ServerAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.server_item, null);
 			holder = new ViewHolder();
-			//					holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.ivThumbnail);
+			// TODO add thumbnail
+			// holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.ivThumbnail);
 			holder.tvName		= (TextView) convertView.findViewById(R.id.server_name);
 			holder.tvLocalhost	= (TextView) convertView.findViewById(R.id.local_host);
 			holder.tvRemoteHost	= (TextView) convertView.findViewById(R.id.remote_host);
@@ -85,14 +62,8 @@ public class ServerAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final ServerSetting server = mServers.get(position);
-		//				final Bitmap bmp = card.getThumbBitmap();
-		//				if (bmp != null && !bmp.isRecycled()) {
-		//					holder.ivThumbnail.setImageBitmap(bmp);
-		//				} else {
-		//					holder.ivThumbnail.setVisibility(View.GONE);
-		//				}
-
+		final ServerSetting server = getItem(position);
+		// TODO add thumbnail
 		holder.tvName.setText(server.getName());
 		holder.tvLocalhost.setText(server.getFullLocal());
 		holder.tvRemoteHost.setText(server.getFullRemote());

@@ -25,9 +25,8 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * @author Cyril Leroux
  * Created on 03/09/13.
  */
-public class ExplorerAdapter2 extends ArrayAdapter<File> {
+public class ExplorerArrayAdapter extends ArrayAdapter<File> {
 
-	private List<File> mEntries;
 	private LayoutInflater mInflater;
 
 	/**
@@ -36,17 +35,12 @@ public class ExplorerAdapter2 extends ArrayAdapter<File> {
 	 * @param context the application context.
 	 * @param entries the files to display
 	 */
-	public ExplorerAdapter2(Context context, List<File> entries) {
+	public ExplorerArrayAdapter(Context context, List<File> entries) {
 		super(context, 0, entries);
 		mInflater	= LayoutInflater.from(context);
-		mEntries	= entries;
 	}
 
-	/**
-	 * The view holder is the template for the items of the list.
-	 *
-	 * @author Cyril Leroux
-	 */
+	/** Template for the list items. */
 	public static class ViewHolder {
 		ImageView ivIcon;
 		TextView tvName;
@@ -69,7 +63,7 @@ public class ExplorerAdapter2 extends ArrayAdapter<File> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final File file = mEntries.get(position);
+		final File file = getItem(position);
 
 		int iconRes = R.drawable.filemanager_blank;
 
