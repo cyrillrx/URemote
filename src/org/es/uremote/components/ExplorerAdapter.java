@@ -12,6 +12,8 @@ import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.R;
 import org.es.utils.FileUtils;
 
+import java.util.List;
+
 import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.FILE;
 
@@ -22,38 +24,43 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * Created before first commit (08/04/12).
  */
 public class ExplorerAdapter extends BaseAdapter {
-	private DirContent mDirContent;
-	private final LayoutInflater mInflater;
+
+	private List<DirContent.File> mEntries;
+	private LayoutInflater mInflater;
 
 	/**
 	 * Default constructor
 	 *
 	 * @param context the application context.
-	 * @param dirContent the files to display
+	 * @param entries the files to display
 	 */
-	public ExplorerAdapter(Context context, DirContent dirContent) {
-		mInflater = LayoutInflater.from(context);
-		mDirContent = dirContent;
+	public ExplorerAdapter(Context context, List<DirContent.File> entries) {
+		mInflater	= LayoutInflater.from(context);
+		mEntries	= entries;
 	}
 
-	public void setDirContent(DirContent dirContent) {
-		mDirContent = dirContent;
+	public void clear() {
+		mEntries.clear();
+	}
+
+	public void addEntries(List<DirContent.File> entries) {
+		mEntries.addAll(entries);
 	}
 
 	@Override
 	public int getCount() {
-		if (mDirContent == null) {
+		if (mEntries == null) {
 			return 0;
 		}
-		return mDirContent.getFileCount();
+		return mEntries.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		if (mDirContent == null) {
+		if (mEntries == null) {
 			return null;
 		}
-		return mDirContent.getFile(position);
+		return mEntries.get(position);
 	}
 
 	@Override
@@ -72,9 +79,11 @@ public class ExplorerAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+
+		final ViewHolder holder;
+
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.filemanager_item, null);
+			convertView = mInflater.inflate(R.layout.explorer_item, null);
 			holder = new ViewHolder();
 			holder.ivIcon	= (ImageView) convertView.findViewById(R.id.ivIcon);
 			holder.tvName	= (TextView) convertView.findViewById(R.id.tvName);
@@ -84,7 +93,7 @@ public class ExplorerAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final DirContent.File file = mDirContent.getFile(position);
+		final DirContent.File file = mEntries.get(position);
 
 		int iconRes = R.drawable.filemanager_blank;
 

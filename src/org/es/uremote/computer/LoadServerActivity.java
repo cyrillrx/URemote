@@ -28,6 +28,7 @@ public class LoadServerActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_explorer_load);
 
 		// Load from caller activity
 		final String path = getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
@@ -42,8 +43,6 @@ public class LoadServerActivity extends FragmentActivity {
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			ft.add(android.R.id.content, mFragment).commit();
 		}
-
-		setContentView(R.layout.activity_explorer_load);
 
 		/////////////////////////////////
 		/*
@@ -77,6 +76,7 @@ public class LoadServerActivity extends FragmentActivity {
 
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (mFragment.canNavigateUp()) {
+				mFragment.navigateUp();
 				Log.debug(TAG, "#onKeyDown - Back key overridden.");
 				return true;
 			}

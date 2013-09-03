@@ -232,7 +232,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 *
 	 * @return The {@link org.es.uremote.objects.ServerSetting} loaded from preferences.
 	 */
-	private ServerSetting initServer() {
+	private void initServer() {
 
 		// Get key for other properties
 		final String keySecurityToken		= getString(R.string.key_security_token);
@@ -244,8 +244,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(Md5.encode(securityToken));
-
-		return ServerSettingDao.loadFromPreferences(getApplicationContext());
 	}
 
 	/**

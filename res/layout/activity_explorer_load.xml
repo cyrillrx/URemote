@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-		  xmlns:tools="http://schemas.android.com/tools"
 		  android:layout_width="match_parent"
 		  android:layout_height="match_parent"
-	android:name="org.es.uremote.common.LocalExplorerFragment"
-	android:id="@+id/fragment_local_explorer"
-	tools:layout="@layout/server_frag_explorer">
-
+		  android:name="org.es.uremote.common.LocalExplorerFragment">
 </fragment>

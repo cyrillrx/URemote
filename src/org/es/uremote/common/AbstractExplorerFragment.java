@@ -17,6 +17,8 @@ import org.es.utils.FileUtils;
 import org.es.utils.Log;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 
@@ -68,7 +70,6 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
 			navigateTo(path);
 		} else {
-			// TODO uncomment after test
 			updateView(dirContent);
 		}
 	}
@@ -116,16 +117,16 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			return;
 		}
 
+		List<DirContent.File> files = new ArrayList<>();
+		files.addAll(dirContent.getFileList());
+
 		if (getListAdapter() == null) {
-			final ExplorerAdapter adapter = new ExplorerAdapter(getActivity().getApplicationContext(), dirContent);
+			final ExplorerAdapter adapter = new ExplorerAdapter(getActivity().getApplicationContext(), files);
 			setListAdapter(adapter);
 		} else {
-			((ExplorerAdapter) getListAdapter()).setDirContent(dirContent);
+			((ExplorerAdapter) getListAdapter()).clear();
+			((ExplorerAdapter) getListAdapter()).addEntries(files);
 		}
-
-		((ExplorerAdapter) getListAdapter()).notifyDataSetChanged();
-		getListView().invalidate();
-		getListView().invalidateViews();
 
 		mTvPath.setText(dirContent.getPath());
 	}
