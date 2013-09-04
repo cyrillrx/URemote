@@ -151,7 +151,7 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
 	public boolean canNavigateUp() {
-		//
+		// The top level is the path passed at the creation of the fragment.
 		return mCurrentPath != null && !mCurrentPath.equals(mRoot);
 	}
 
