@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory android:title="@string/title_local">
+		<EditTextPreference
+				android:defaultValue="@string/default_local_host"
+				android:key="@string/key_local_host"
+				android:title="@string/local_ip_address" />
+		<EditTextPreference
+				android:defaultValue="@integer/default_local_port"
+				android:key="@string/key_local_port"
+				android:title="@string/local_port" />
+		<EditTextPreference
+				android:defaultValue="@string/default_broadcast"
+				android:key="@string/key_broadcast"
+				android:title="@string/broadcast_address" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/title_remote">
+		<EditTextPreference
+				android:defaultValue="@string/default_remote_host"
+				android:key="@string/key_remote_host"
+				android:title="@string/remote_ip_address" />
+		<EditTextPreference
+				android:defaultValue="@integer/default_remote_port"
+				android:key="@string/key_remote_port"
+				android:title="@string/remote_port" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/title_security">
+		<EditTextPreference
+				android:defaultValue="@string/default_security_token"
+				android:key="@string/key_security_token"
+				android:title="@string/security_token" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/title_other">
+		<EditTextPreference
+				android:defaultValue="@integer/default_connection_timeout"
+				android:key="@string/key_connection_timeout"
+				android:title="@string/connection_timeout" />
+		<EditTextPreference
+				android:defaultValue="@integer/default_read_timeout"
+				android:key="@string/key_read_timeout"
+				android:title="@string/read_timeout" />
+		<EditTextPreference
+				android:defaultValue="@string/default_mac_address"
+				android:key="@string/key_mac_address"
+				android:title="@string/mac_address" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

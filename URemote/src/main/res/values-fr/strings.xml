@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="app_name">URemote</string>
+
+	<!-- Activités -->
+	<string name="title_preferences">Préférences</string>
+	<string name="title_tv">Contrôle de la TV</string>
+	<string name="title_robots">Robots</string>
+	<string name="title_lights">Lumières</string>
+	<string name="title_hifi">Hifi</string>
+	<string name="title_settings">Paramètres</string>
+	<string name="title_computer">Ordinateur</string>
+	<string name="title_application_launcher">Applications</string>
+	<string name="title_filemanager">Explorateur de fichiers</string>
+	<string name="title_admin">Admin</string>
+
+	<!-- Menu -->
+	<string name="menu_server_list">Gérer des serveurs</string>
+	<string name="menu_settings">Configuration</string>
+	<string name="menu_refresh">Rafraichir</string>
+
+	<!-- Autre -->
+	<string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore
+		disponible
+	</string>
+	<string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore
+		disponible
+	</string>
+	<string name="msg_command_succeeded">Commande effectuée</string>
+	<string name="msg_command_running">Commande en cours…</string>
+	<string name="msg_command_failed">La commande a échouée</string>
+	<string name="msg_no_more_permit">Plus de permis disponible !</string>
+	<string name="msg_null_request">La requête est null</string>
+	<string name="confirm_kill_server">Voulez-vous vraiment tuer le serveur ?</string>
+	<string name="confirm_command">Confirmez la commande ?</string>
+	<string name="action_image_description">Icône de l\'action</string>
+	<string name="server_image_description">Icône du serveur</string>
+	<string name="filemanager_image_description">Image représentant le fichier ou le répertoire
+	</string>
+	<string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
+	<string name="power">Démarrer</string>
+	<string name="add">Ajouter</string>
+	<string name="load_from_file">Charger depuis un fichier</string>
+	<string name="progress">0%</string>
+	<string name="no_content">Aucun élément à afficher</string>
+
+</resources>
