@@ -142,7 +142,9 @@ public class LoadServerStandAloneActivity extends ListActivity {
 
 		File[] fileTab = FileUtils.listFiles(dirPath, mExtensions, true);
 
-		List<File> fileList = new ArrayList<>();
+		// TODO Implement diamond operator when supported
+//		List<File> fileList = new ArrayList<>();
+		List<File> fileList = new ArrayList<File>();
 		for (File file : fileTab) {
 			fileList.add(file);
 		}
