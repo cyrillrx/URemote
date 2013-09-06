@@ -134,7 +134,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			mFragKeyboard = new FragKeyboard();
 		}
 
-		List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
+		// TODO Implement diamond operator when supported
+		//List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
+		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
 		fragments.add(mFragAdmin);
 		fragments.add(mFragDashboard);
 		fragments.add(mExplorerFragment);

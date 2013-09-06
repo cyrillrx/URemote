@@ -117,7 +117,9 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 			return;
 		}
 
-		List<DirContent.File> files = new ArrayList<>();
+		// TODO Implement diamond operator when supported
+//		List<DirContent.File> files = new ArrayList<>();
+		List<DirContent.File> files = new ArrayList<DirContent.File>();
 		files.addAll(dirContent.getFileList());
 
 		if (getListAdapter() == null) {

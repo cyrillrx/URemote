@@ -30,7 +30,9 @@ public class LocalExplorerFragment extends AbstractExplorerFragment2 {
 
 		File[] fileTab = FileUtils.listFiles(dirPath, new String[]{".xml"}, true);
 
-		List<File> fileList = new ArrayList<>();
+		// TODO Implement diamond operator when supported
+//		List<File> fileList = new ArrayList<>();
+		List<File> fileList = new ArrayList<File>();
 		for (File file : fileTab) {
 			fileList.add(file);
 		}
