@@ -6,6 +6,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:0.5.+'
     }
 }
+
 apply plugin: 'android'
 
 repositories {
@@ -24,6 +25,5 @@ android {
 
 dependencies {
 	compile 'com.android.support:support-v4:18.0.0'
-	compile 'protobuf-java-2.5.0.jar'
 	compile group: 'com.google.protobuf', name: 'protobuf-java', version: '2.5.0'
 }
