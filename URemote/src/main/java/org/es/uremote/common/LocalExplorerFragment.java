@@ -1,19 +1,10 @@
 package org.es.uremote.common;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import org.es.uremote.R;
-import org.es.uremote.exchange.DirContentFactory;
-import org.es.uremote.exchange.ExchangeMessages;
-import org.es.uremote.utils.IntentKeys;
+import org.es.uremote.computer.LoadServerActivity;
 import org.es.utils.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -48,5 +39,6 @@ public class LocalExplorerFragment extends AbstractExplorerFragment2 {
 	@Override
 	protected void onFileClick(String filename) {
 		// Returns the value to the parent
+		((LoadServerActivity)getActivity()).onFileClick(filename);
 	}
 }

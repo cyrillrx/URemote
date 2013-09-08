@@ -116,10 +116,6 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 			((ExplorerArrayAdapter) getListAdapter()).addAll(files);
 		}
 
-		((ExplorerArrayAdapter) getListAdapter()).notifyDataSetChanged();
-		getListView().invalidate();
-		getListView().invalidateViews();
-
 		mTvPath.setText(dirPath);
 	}
 
@@ -135,12 +131,16 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	 * Navigates up if possible.<br />
 	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
 	 * Updates the view once the data have been received from the server.
+	 *
+	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
-	public void navigateUp() {
+	public boolean navigateUp() {
 
 		if (canNavigateUp()) {
 			doNavigateUp();
+			return true;
 		}
+		return false;
 	}
 
 	/**
@@ -150,7 +150,7 @@ public abstract class AbstractExplorerFragment2 extends ListFragment {
 	 *
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
-	public boolean canNavigateUp() {
+	protected boolean canNavigateUp() {
 		// The top level is the path passed at the creation of the fragment.
 		return mCurrentPath != null && !mCurrentPath.equals(mRoot);
 	}
