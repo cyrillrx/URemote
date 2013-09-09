@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,8 +21,8 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 05/11/12.
  */
-public class ActionListAdapter extends BaseAdapter {
-	private final List<ActionItem> mActionList;
+public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
+
 	private final LayoutInflater mInflater;
 	private final Typeface mTypeface;
 
@@ -33,31 +33,10 @@ public class ActionListAdapter extends BaseAdapter {
 	 * @param actions The action list.
 	 * @param typeface The type face to use.
 	 */
-	public ActionListAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
+	public ActionArrayAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
+		super(context, 0, actions);
 		mInflater	= LayoutInflater.from(context);
-		mActionList	= actions;
 		mTypeface	= typeface;
-	}
-
-	@Override
-	public int getCount() {
-		if (mActionList == null) {
-			return 0;
-		}
-		return mActionList.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		if (mActionList == null) {
-			return null;
-		}
-		return mActionList.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
 	}
 
 	/**
@@ -85,7 +64,7 @@ public class ActionListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final ActionItem action = mActionList.get(position);
+		final ActionItem action = getItem(position);
 
 		holder.ivActionIcon.setImageResource(action.getImageResource());
 		holder.tvActionTitle.setText(action.getTitle());

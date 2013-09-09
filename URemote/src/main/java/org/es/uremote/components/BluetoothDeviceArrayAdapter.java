@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.es.uremote.R;
@@ -18,10 +18,9 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 23/10/12.
  */
-public class BluetoothDeviceListAdapter extends BaseAdapter {
+public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
 
 	private final LayoutInflater mInflater;
-	private final List<BluetoothDevice> mBtDevices;
 
 	/**
 	 * Adapter constructor
@@ -29,30 +28,9 @@ public class BluetoothDeviceListAdapter extends BaseAdapter {
 	 * @param context The application context.
 	 * @param devices The list of {@link org.es.uremote.objects.BluetoothDevice} to display.
 	 */
-	public BluetoothDeviceListAdapter(Context context, final List<BluetoothDevice> devices) {
+	public BluetoothDeviceArrayAdapter(Context context, final List<BluetoothDevice> devices) {
+		super(context, 0, devices);
 		mInflater = LayoutInflater.from(context);
-		mBtDevices = devices;
-	}
-
-	@Override
-	public int getCount() {
-		if (mBtDevices == null) {
-			return 0;
-		}
-		return mBtDevices.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		if (mBtDevices == null) {
-			return null;
-		}
-		return mBtDevices.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
 	}
 
 	/** Device information view */
@@ -76,7 +54,7 @@ public class BluetoothDeviceListAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		BluetoothDevice device = mBtDevices.get(position);
+		BluetoothDevice device = getItem(position);
 		holder.tvDeviceName.setText(device.getName());
 		holder.tvDeviceAddress.setText(device.getAddress());
 		holder.tvDeviceType.setText(device.getType());

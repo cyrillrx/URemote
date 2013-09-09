@@ -14,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-import org.es.uremote.components.ActionListAdapter;
+import org.es.uremote.components.ActionArrayAdapter;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class Home extends ListActivity implements OnItemClickListener {
 		final Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.action_title_font));
 		initActionList();
 
-		final ActionListAdapter adpt = new ActionListAdapter(getApplicationContext(), mActionList, typeface);
+		final ActionArrayAdapter adpt = new ActionArrayAdapter(getApplicationContext(), mActionList, typeface);
 		setListAdapter(adpt);
 		getListView().setOnItemClickListener(this);
 	}

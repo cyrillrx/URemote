@@ -4,12 +4,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.R;
+import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.utils.FileUtils;
 
 import java.util.List;
@@ -23,9 +23,8 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class ExplorerAdapter extends BaseAdapter {
+public class ExplorerAdapter extends ArrayAdapter<DirContent.File> {
 
-	private List<DirContent.File> mEntries;
 	private LayoutInflater mInflater;
 
 	/**
@@ -35,36 +34,9 @@ public class ExplorerAdapter extends BaseAdapter {
 	 * @param entries the files to display
 	 */
 	public ExplorerAdapter(Context context, List<DirContent.File> entries) {
+		super(context, 0, entries);
 		mInflater	= LayoutInflater.from(context);
-		mEntries	= entries;
 	}
-
-	public void clear() {
-		mEntries.clear();
-	}
-
-	public void addEntries(List<DirContent.File> entries) {
-		mEntries.addAll(entries);
-	}
-
-	@Override
-	public int getCount() {
-		if (mEntries == null) {
-			return 0;
-		}
-		return mEntries.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		if (mEntries == null) {
-			return null;
-		}
-		return mEntries.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) { return position; }
 
 	/**
 	 * The view holder is the template for the items of the list.
@@ -93,7 +65,7 @@ public class ExplorerAdapter extends BaseAdapter {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final DirContent.File file = mEntries.get(position);
+		final DirContent.File file = getItem(position);
 
 		int iconRes = R.drawable.filemanager_blank;
 
