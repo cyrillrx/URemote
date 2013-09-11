@@ -9,7 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.components.ExplorerAdapter;
+import org.es.uremote.components.ExplorerArrayAdapter;
 import org.es.uremote.exchange.DirContentFactory;
 import org.es.uremote.exchange.ExchangeMessages.DirContent;
 import org.es.uremote.utils.IntentKeys;
@@ -37,6 +37,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
 
 	private TextView mTvPath;
+
 	protected DirContent mCurrentDirContent = null;
 
 	@Override
@@ -67,7 +68,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
 		// Get the directory content or update the one that already exist.
 		if (dirContent == null) {
-			String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
+			final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
 			navigateTo(path);
 		} else {
 			updateView(dirContent);
@@ -123,11 +124,11 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		files.addAll(dirContent.getFileList());
 
 		if (getListAdapter() == null) {
-			final ExplorerAdapter adapter = new ExplorerAdapter(getActivity().getApplicationContext(), files);
+			final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
 			setListAdapter(adapter);
 		} else {
-			((ExplorerAdapter) getListAdapter()).clear();
-			((ExplorerAdapter) getListAdapter()).addEntries(files);
+			((ExplorerArrayAdapter) getListAdapter()).clear();
+			((ExplorerArrayAdapter) getListAdapter()).addAll(files);
 		}
 
 		mTvPath.setText(dirContent.getPath());
@@ -145,12 +146,16 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	 * Navigates up if possible.<br />
 	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
 	 * Updates the view once the data have been received from the server.
+	 *
+	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
-	public void navigateUp() {
+	public boolean navigateUp() {
 
 		if (canNavigateUp()) {
 			doNavigateUp();
+			return true;
 		}
+		return false;
 	}
 
 	/**

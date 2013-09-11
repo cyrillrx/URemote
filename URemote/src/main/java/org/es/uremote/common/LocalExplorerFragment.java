@@ -1,11 +1,15 @@
 package org.es.uremote.common;
 
 import org.es.uremote.computer.LoadServerActivity;
+import org.es.uremote.exchange.DirContentFactory;
+import org.es.uremote.exchange.ExchangeMessages;
 import org.es.utils.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.es.uremote.exchange.ExchangeMessages.*;
 
 /**
  * Local file explorer fragment.
@@ -14,21 +18,13 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 31/08/13.
  */
-public class LocalExplorerFragment extends AbstractExplorerFragment2 {
+public class LocalExplorerFragment extends AbstractExplorerFragment {
 
 	@Override
 	protected void navigateTo(String dirPath) {
 
-		File[] fileTab = FileUtils.listFiles(dirPath, new String[]{".xml"}, true);
-
-		// TODO Implement diamond operator when supported
-//		List<File> fileList = new ArrayList<>();
-		List<File> fileList = new ArrayList<File>();
-		for (File file : fileTab) {
-			fileList.add(file);
-		}
-
-		updateView(dirPath, fileList);
+		final DirContent dirContent = DirContentFactory.createFromLocalPath(dirPath, new String[]{".xml"}, true);
+		updateView(dirContent);
 	}
 
 	@Override

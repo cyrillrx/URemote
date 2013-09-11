@@ -7,6 +7,8 @@ import org.es.utils.Log;
 
 import java.io.File;
 
+import static org.es.uremote.exchange.ExchangeMessages.*;
+
 /**
  * Creates DirContent objects from various entries.
  *
@@ -22,10 +24,10 @@ public class DirContentFactory {
 	 * @param directoryContent The directory content as a byte array.
 	 * @return A DirContent object.
 	 */
-	public static ExchangeMessages.DirContent createFromByteArray(final byte[] directoryContent) {
+	public static DirContent createFromByteArray(final byte[] directoryContent) {
 
 		try {
-			return ExchangeMessages.DirContent.parseFrom(directoryContent);
+			return DirContent.parseFrom(directoryContent);
 		} catch (InvalidProtocolBufferException e) {
 			Log.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
 		}
@@ -38,19 +40,30 @@ public class DirContentFactory {
 	 * @param dirPath The path of the directory.
 	 * @return A DirContent object.
 	 */
-	public static ExchangeMessages.DirContent createFromLocalPath(final String dirPath, final String[] extensions, final boolean listDirectories) {
+	public static DirContent createFromLocalPath(final String dirPath, final String[] extensions, final boolean listDirectories) {
 
 		File[] files = FileUtils.listFiles(dirPath, extensions, listDirectories);
 
-		ExchangeMessages.DirContent.Builder dirBuilder = ExchangeMessages.DirContent.newBuilder();
+		DirContent.Builder dirBuilder = DirContent.newBuilder();
 		dirBuilder.setPath(dirPath);
 
-		ExchangeMessages.DirContent.File.Builder fileBuilder = ExchangeMessages.DirContent.File.newBuilder();
+		DirContent.File.Builder fileBuilder = DirContent.File.newBuilder();
 		for (File file : files) {
-			dirBuilder.addFile(fillFileBuilder(fileBuilder, file));
+			dirBuilder.addFile(populateFileBuilder(fileBuilder, file));
 		}
 
 		return dirBuilder.build();
+	}
+
+	/**
+	 * Create a protobuf-ready File from a java.io.File.
+	 * @return A DirContent.File object.
+	 */
+	public DirContent.File createExchangeFile(File srcFile) {
+
+		final DirContent.File.Builder builder = DirContent.File.newBuilder();
+		populateFileBuilder(builder, srcFile);
+		return builder.build();
 	}
 
 	/**
@@ -59,11 +72,11 @@ public class DirContentFactory {
 	 * @param file
 	 * @return The file builder filled.
 	 */
-	private static ExchangeMessages.DirContent.File.Builder fillFileBuilder(ExchangeMessages.DirContent.File.Builder fileBuilder, File file) {
+	private static DirContent.File.Builder populateFileBuilder(DirContent.File.Builder fileBuilder, File file) {
 
 		fileBuilder.clear();
 
-		final ExchangeMessages.DirContent.File.FileType fileType = (file.isDirectory()) ? ExchangeMessages.DirContent.File.FileType.DIRECTORY : ExchangeMessages.DirContent.File.FileType.FILE;
+		final DirContent.File.FileType fileType = (file.isDirectory()) ? DirContent.File.FileType.DIRECTORY : DirContent.File.FileType.FILE;
 
 		fileBuilder.setName(file.getName());
 		fileBuilder.setType(fileType);
