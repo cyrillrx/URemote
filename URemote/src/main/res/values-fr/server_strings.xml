@@ -2,6 +2,8 @@
 <resources>
 
 	<!-- Preference keys -->
+	<string name="key_server_id">server_id</string>
+
 	<string name="key_local_host">local_host</string>
 	<string name="key_local_port">local_port</string>
 	<string name="key_broadcast">broadcast</string>
@@ -13,7 +15,6 @@
 	<string name="key_mac_address">mac_address</string>
 
 	<!-- Default values -->
-	<string name="no_server_configured">Aucun server configuré.</string>
 	<string name="default_server_label">Serveur</string>
 	<string name="default_local_host">192.168.0.1</string>
 	<string name="default_broadcast">192.168.0.255</string>
@@ -40,6 +41,7 @@
 	<string name="title_other">Autre</string>
 
 	<!-- Preference names -->
+	<string name="selected_server">Serveur cible</string>
 	<string name="local_ip_address">Adresse ip locale</string>
 	<string name="local_port">Port d\'écoute local</string>
 	<string name="broadcast_address">Adresse de broadcast</string>
@@ -55,6 +57,7 @@
 	<string name="website_address">http://www.essaion-soft.com</string>
 
 	<!-- Messages -->
+	<string name="no_server_configured">Aucun server configuré.</string>
 	<string name="server_saved">Configuration sauvegardée.</string>
 	<string name="error_while_saving_servers">Erreur lors de la sauvegarde des serveur.</string>
 	<string name="server_loaded">Configuration chargée avec succès.</string>

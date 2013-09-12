@@ -31,6 +31,7 @@ public class AppSettings extends PreferenceActivity {
 	/** This fragment shows the preferences for the server. */
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
+		private String mKeyServerId;
 		private String mKeyLocalHost;
 		private String mKeyLocalPort;
 		private String mKeyBroadcast;
@@ -41,6 +42,7 @@ public class AppSettings extends PreferenceActivity {
 		private String mKeyReadTimeout;
 		private String mKeyMacAddress;
 
+		private int mDefaultServerId;
 		private String mDefaultLocalHost;
 		private int mDefaultLocalPort;
 		private String mDefaultBroadcast;
@@ -51,6 +53,7 @@ public class AppSettings extends PreferenceActivity {
 		private int mDefaultReadTimeout;
 		private String mDefaultMacAddress;
 
+		private EditTextPreference mPrefServerId;
 		private EditTextPreference mPrefLocalHost;
 		private EditTextPreference mPrefLocalPort;
 		private EditTextPreference mPrefBroadcast;
@@ -71,6 +74,7 @@ public class AppSettings extends PreferenceActivity {
 		public void onActivityCreated(Bundle savedInstanceState) {
 			super.onActivityCreated(savedInstanceState);
 
+			mKeyServerId			= getString(R.string.key_server_id);
 			mKeyLocalHost			= getString(R.string.key_local_host);
 			mKeyLocalPort			= getString(R.string.key_local_port);
 			mKeyBroadcast			= getString(R.string.key_broadcast);
@@ -81,6 +85,7 @@ public class AppSettings extends PreferenceActivity {
 			mKeyReadTimeout			= getString(R.string.key_read_timeout);
 			mKeyMacAddress			= getString(R.string.key_mac_address);
 
+			mDefaultServerId	= getResources().getInteger(R.integer.default_server_id);
 			mDefaultLocalHost	= getString(R.string.default_local_host);
 			mDefaultLocalPort	= getResources().getInteger(R.integer.default_local_port);
 			mDefaultBroadcast	= getString(R.string.default_broadcast);
@@ -91,6 +96,7 @@ public class AppSettings extends PreferenceActivity {
 			mDefaultReadTimeout			= getResources().getInteger(R.integer.default_read_timeout);
 			mDefaultMacAddress	= getString(R.string.default_mac_address);
 
+			mPrefServerId	= (EditTextPreference) findPreference(mKeyServerId);
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
 			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);
 			mPrefBroadcast	= (EditTextPreference) findPreference(mKeyBroadcast);
@@ -109,6 +115,10 @@ public class AppSettings extends PreferenceActivity {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
 			// Setup the initial values
+			// TODO Replace serverId by server name in the summary
+			// final int serverId = pref.getInt(mKeyServerId, mDefaultServerId)
+			// => mPrefServerId.setSummary(getServerName(serverId));
+			mPrefServerId.setSummary(pref.getInt(mKeyServerId, mDefaultServerId));
 			mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
 			mPrefLocalPort.setSummary(pref.getInt(mKeyLocalPort, mDefaultLocalPort));
 			mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
@@ -135,7 +145,14 @@ public class AppSettings extends PreferenceActivity {
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
 
-			if (key.equals(mKeyLocalHost)) {
+
+			if (key.equals(mKeyServerId)) {
+				// TODO Replace serverId by server name in the summary
+				// final int serverId = pref.getInt(mKeyServerId, mDefaultServerId)
+				// => mPrefServerId.setSummary(getServerName(serverId));
+				mPrefServerId.setSummary(pref.getInt(mKeyServerId, mDefaultServerId));
+
+			} else if (key.equals(mKeyLocalHost)) {
 				mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
 
 			} else if (key.equals(mKeyLocalPort)) {

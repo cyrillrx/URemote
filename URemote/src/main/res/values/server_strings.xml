@@ -2,6 +2,8 @@
 <resources>
 
 	<!-- Preference keys -->
+	<string name="key_server_id">server_id</string>
+
 	<string name="key_local_host">local_host</string>
 	<string name="key_local_port">local_port</string>
 	<string name="key_broadcast">broadcast</string>
@@ -13,7 +15,6 @@
 	<string name="key_mac_address">mac_address</string>
 
 	<!-- Default values -->
-	<string name="no_server_configured">No server configured.</string>
 	<string name="default_server_label">Server</string>
 	<string name="default_local_host">192.168.0.1</string>
 	<string name="default_broadcast">192.168.0.255</string>
@@ -33,6 +34,7 @@
 	<string name="server_name">Server Name</string>
 
 	<!-- Titles -->
+	<string name="selected_server">Target server</string>
 	<string name="title_server_settings">Server Settings</string>
 	<string name="title_local">Local access</string>
 	<string name="title_remote">Remote access</string>
@@ -55,6 +57,7 @@
 	<string name="website_address">http://www.essaion-soft.com</string>
 
 	<!-- Messages -->
+	<string name="no_server_configured">No server configured.</string>
 	<string name="server_saved">Server settings saved.</string>
 	<string name="error_while_saving_servers">Error while saving servers.</string>
 	<string name="server_loaded">Server settings successfully loaded.</string>
