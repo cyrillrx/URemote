@@ -8,6 +8,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import org.es.utils.EditIntPreference;
+
 import java.util.List;
 
 /**
@@ -53,15 +55,15 @@ public class AppSettings extends PreferenceActivity {
 		private int mDefaultReadTimeout;
 		private String mDefaultMacAddress;
 
-		private EditTextPreference mPrefServerId;
+		private EditIntPreference mPrefServerId;
 		private EditTextPreference mPrefLocalHost;
-		private EditTextPreference mPrefLocalPort;
+		private EditIntPreference mPrefLocalPort;
 		private EditTextPreference mPrefBroadcast;
 		private EditTextPreference mPrefRemoteHost;
-		private EditTextPreference mPrefRemotePort;
+		private EditIntPreference mPrefRemotePort;
 		private EditTextPreference mPrefSecurityToken;
-		private EditTextPreference mPrefConnectionTimeout;
-		private EditTextPreference mPrefReadTimeout;
+		private EditIntPreference mPrefConnectionTimeout;
+		private EditIntPreference mPrefReadTimeout;
 		private EditTextPreference mPrefMacAddress;
 
 		@Override
@@ -96,15 +98,15 @@ public class AppSettings extends PreferenceActivity {
 			mDefaultReadTimeout			= getResources().getInteger(R.integer.default_read_timeout);
 			mDefaultMacAddress	= getString(R.string.default_mac_address);
 
-			mPrefServerId	= (EditTextPreference) findPreference(mKeyServerId);
+			mPrefServerId	= (EditIntPreference) findPreference(mKeyServerId);
 			mPrefLocalHost	= (EditTextPreference) findPreference(mKeyLocalHost);
-			mPrefLocalPort	= (EditTextPreference) findPreference(mKeyLocalPort);
+			mPrefLocalPort	= (EditIntPreference) findPreference(mKeyLocalPort);
 			mPrefBroadcast	= (EditTextPreference) findPreference(mKeyBroadcast);
 			mPrefRemoteHost	= (EditTextPreference) findPreference(mKeyRemoteHost);
-			mPrefRemotePort	= (EditTextPreference) findPreference(mKeyRemotePort);
+			mPrefRemotePort	= (EditIntPreference) findPreference(mKeyRemotePort);
 			mPrefSecurityToken		= (EditTextPreference) findPreference(mKeySecurityToken);
-			mPrefConnectionTimeout	= (EditTextPreference) findPreference(mKeyConnectionTimeout);
-			mPrefReadTimeout		= (EditTextPreference) findPreference(mKeyReadTimeout);
+			mPrefConnectionTimeout	= (EditIntPreference) findPreference(mKeyConnectionTimeout);
+			mPrefReadTimeout		= (EditIntPreference) findPreference(mKeyReadTimeout);
 			mPrefMacAddress	= (EditTextPreference) findPreference(mKeyMacAddress);
 		}
 
@@ -114,25 +116,16 @@ public class AppSettings extends PreferenceActivity {
 
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-			// Setup the initial values
-			final int serverId		= pref.getInt(mKeyServerId, mDefaultServerId);
-			final int localPort		= pref.getInt(mKeyLocalPort, mDefaultLocalPort);
-			final int remotePort	= pref.getInt(mKeyRemotePort, mDefaultRemotePort);
-			final int connTimeout	= pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout);
-			final int readTimeout	= pref.getInt(mKeyReadTimeout, mDefaultReadTimeout);
-
-			// TODO Replace serverId by server name in the summary
-			//			mPrefServerId.setSummary(getServerName(serverId));
-			mPrefServerId.setSummary(String.valueOf(serverId));
-			mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
-			mPrefLocalPort.setSummary(String.valueOf(localPort));
-			mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
-			mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
-			mPrefRemotePort.setSummary(String.valueOf(remotePort));
-			mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
-			mPrefConnectionTimeout.setSummary(connTimeout  + " ms");
-			mPrefReadTimeout.setSummary(readTimeout + " ms");
-			mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
+			mPrefServerId.setSummary(getSummaryTargetServer(pref));
+			mPrefLocalHost.setSummary(getSummaryLocalHost(pref));
+			mPrefLocalPort.setSummary(getSummaryLocalPort(pref));
+			mPrefBroadcast.setSummary(getSummaryBroadcast(pref));
+			mPrefRemoteHost.setSummary(getSummaryRemoteHost(pref));
+			mPrefRemotePort.setSummary(getSummaryRemotePort(pref));
+			mPrefSecurityToken.setSummary(getSummarySecurityToken(pref));
+			mPrefConnectionTimeout.setSummary(getSummaryConnectionTimeout(pref));
+			mPrefReadTimeout.setSummary(getSummaryReadTimeout(pref));
+			mPrefMacAddress.setSummary(getSummaryMacAddress(pref));
 
 			// Set up a listener whenever a key changes
 			getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
@@ -150,41 +143,84 @@ public class AppSettings extends PreferenceActivity {
 		@Override
 		public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
 
-
 			if (key.equals(mKeyServerId)) {
-				// TODO Replace serverId by server name in the summary
-				// final int serverId = pref.getInt(mKeyServerId, mDefaultServerId)
-				// => mPrefServerId.setSummary(getServerName(serverId));
-				mPrefServerId.setSummary(pref.getInt(mKeyServerId, mDefaultServerId));
+				mPrefServerId.setSummary(getSummaryTargetServer(pref));
 
 			} else if (key.equals(mKeyLocalHost)) {
-				mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
+				mPrefLocalHost.setSummary(getSummaryLocalHost(pref));
 
 			} else if (key.equals(mKeyLocalPort)) {
-				mPrefLocalPort.setSummary(pref.getInt(mKeyLocalPort, mDefaultLocalPort));
+				mPrefLocalPort.setSummary(getSummaryLocalPort(pref));
 
 			} else if (key.equals(mKeyBroadcast)) {
-				mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
+				mPrefBroadcast.setSummary(getSummaryBroadcast(pref));
 
 			} else if (key.equals(mKeyRemoteHost)) {
-				mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
+				mPrefRemoteHost.setSummary(getSummaryRemoteHost(pref));
 
 			} else if (key.equals(mKeyLocalHost)) {
-				mPrefRemotePort.setSummary(pref.getInt(mKeyRemotePort, mDefaultRemotePort));
+				mPrefRemotePort.setSummary(getSummaryRemotePort(pref));
 
 			} else if (key.equals(mKeySecurityToken)) {
-				mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
+				mPrefSecurityToken.setSummary(getSummarySecurityToken(pref));
 
 			} else if (key.equals(mKeyConnectionTimeout)) {
-				mPrefConnectionTimeout.setSummary(pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
+				mPrefConnectionTimeout.setSummary(getSummaryConnectionTimeout(pref));
 
 			} else if (key.equals(mKeyReadTimeout)) {
-				mPrefReadTimeout.setSummary(pref.getInt(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+				mPrefReadTimeout.setSummary(getSummaryReadTimeout(pref));
 
 			} else if (key.equals(mKeyMacAddress)) {
-				mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
-
+				mPrefMacAddress.setSummary(getSummaryMacAddress(pref));
 			}
+		}
+
+		private String getSummaryTargetServer(SharedPreferences pref) {
+			final int serverId = pref.getInt(mKeyServerId, mDefaultServerId);
+			// TODO Replace serverId by server name in the summary
+			// => return getServerName(serverId);
+			return String.valueOf(serverId);
+		}
+
+		private String getSummaryLocalHost(SharedPreferences pref) {
+			return pref.getString(mKeyLocalHost, mDefaultLocalHost);
+		}
+
+		private String getSummaryLocalPort(SharedPreferences pref) {
+			final int localPort = pref.getInt(mKeyLocalPort, mDefaultLocalPort);
+			return String.valueOf(localPort);
+		}
+
+		private String getSummaryBroadcast(SharedPreferences pref) {
+			return pref.getString(mKeyBroadcast, mDefaultBroadcast);
+		}
+
+		private String getSummaryRemoteHost(SharedPreferences pref) {
+			return pref.getString(mKeyRemoteHost, mDefaultRemoteHost);
+		}
+
+		private String getSummaryRemotePort(SharedPreferences pref) {
+			final int remotePort = pref.getInt(mKeyRemotePort, mDefaultRemotePort);
+			return String.valueOf(remotePort);
+		}
+
+		private String getSummarySecurityToken(SharedPreferences pref) {
+			// TODO If no pass => warn user. else display ***
+			return pref.getString(mKeySecurityToken, mDefaultSecurityToken);
+		}
+
+		private String getSummaryConnectionTimeout(SharedPreferences pref) {
+			final int connTimeout = pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout);
+			return connTimeout  + " ms";
+		}
+
+		private String getSummaryReadTimeout(SharedPreferences pref) {
+			final int readTimeout = pref.getInt(mKeyReadTimeout, mDefaultReadTimeout);
+			return readTimeout + " ms";
+		}
+
+		private String getSummaryMacAddress(SharedPreferences pref) {
+			return pref.getString(mKeyMacAddress, mDefaultMacAddress);
 		}
 	}
 }
