@@ -115,18 +115,23 @@ public class AppSettings extends PreferenceActivity {
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
 			// Setup the initial values
+			final int serverId		= pref.getInt(mKeyServerId, mDefaultServerId);
+			final int localPort		= pref.getInt(mKeyLocalPort, mDefaultLocalPort);
+			final int remotePort	= pref.getInt(mKeyRemotePort, mDefaultRemotePort);
+			final int connTimeout	= pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout);
+			final int readTimeout	= pref.getInt(mKeyReadTimeout, mDefaultReadTimeout);
+
 			// TODO Replace serverId by server name in the summary
-			// final int serverId = pref.getInt(mKeyServerId, mDefaultServerId)
-			// => mPrefServerId.setSummary(getServerName(serverId));
-			mPrefServerId.setSummary(pref.getInt(mKeyServerId, mDefaultServerId));
+			//			mPrefServerId.setSummary(getServerName(serverId));
+			mPrefServerId.setSummary(String.valueOf(serverId));
 			mPrefLocalHost.setSummary(pref.getString(mKeyLocalHost, mDefaultLocalHost));
-			mPrefLocalPort.setSummary(pref.getInt(mKeyLocalPort, mDefaultLocalPort));
+			mPrefLocalPort.setSummary(String.valueOf(localPort));
 			mPrefBroadcast.setSummary(pref.getString(mKeyBroadcast, mDefaultBroadcast));
 			mPrefRemoteHost.setSummary(pref.getString(mKeyRemoteHost, mDefaultRemoteHost));
-			mPrefRemotePort.setSummary(pref.getInt(mKeyRemotePort, mDefaultRemotePort));
+			mPrefRemotePort.setSummary(String.valueOf(remotePort));
 			mPrefSecurityToken.setSummary(pref.getString(mKeySecurityToken, mDefaultSecurityToken));
-			mPrefConnectionTimeout.setSummary(pref.getInt(mKeyConnectionTimeout, mDefaultConnectionTimeout) + " ms");
-			mPrefReadTimeout.setSummary(pref.getInt(mKeyReadTimeout, mDefaultReadTimeout) + " ms");
+			mPrefConnectionTimeout.setSummary(connTimeout  + " ms");
+			mPrefReadTimeout.setSummary(readTimeout + " ms");
 			mPrefMacAddress.setSummary(pref.getString(mKeyMacAddress, mDefaultMacAddress));
 
 			// Set up a listener whenever a key changes

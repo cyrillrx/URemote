@@ -163,13 +163,22 @@ public class ServerSettingDao {
 
 		builder.setName("Preference Server");
 		builder.setLocalHost(pref.getString(keyLocalHost, defaultLocalHost));
-		builder.setLocalPort(pref.getInt(keyLocalPort, defaultLocalPort));
+		// TODO update
+//		builder.setLocalPort(pref.getInt(keyLocalPort, defaultLocalPort));
+		builder.setLocalPort(Integer.parseInt(pref.getString(keyLocalPort, String.valueOf(defaultLocalPort))));
 		builder.setBroadcast(pref.getString(keyBroadcast, defaultBroadcast));
 		builder.setRemoteHost(pref.getString(keyRemoteHost, defaultRemoteHost));
-		builder.setRemotePort(pref.getInt(keyRemotePort, defaultRemotePort));
+		// TODO update
+//		builder.setRemotePort(pref.getInt(keyRemotePort, defaultRemotePort));
+		builder.setRemotePort(Integer.parseInt(pref.getString(keyRemotePort, String.valueOf(defaultRemotePort))));
 		builder.setMacAddress(pref.getString(keyMacAddress, defaultMacAddress));
-		builder.setConnectionTimeout(pref.getInt(keyConnectionTimeout, defaultConnectionTimeout));
-		builder.setReadTimeout(pref.getInt(keyReadTimeout, defaultReadTimeout));
+		// TODO update
+//		builder.setConnectionTimeout(pref.getInt(keyConnectionTimeout, defaultConnectionTimeout));
+		builder.setConnectionTimeout(Integer.parseInt(pref.getString(keyConnectionTimeout, String.valueOf(defaultConnectionTimeout))));
+		// TODO update
+//		builder.setReadTimeout(pref.getInt(keyReadTimeout, defaultReadTimeout));
+		builder.setReadTimeout(Integer.parseInt(pref.getString(keyReadTimeout, String.valueOf(defaultReadTimeout))));
+
 		builder.setConnectionType(ServerSetting.ConnectionType.LOCAL);
 
 		try {
