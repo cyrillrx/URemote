@@ -177,6 +177,10 @@ public class AppSettings extends PreferenceActivity {
 
 		private String getSummaryTargetServer(SharedPreferences pref) {
 			final int serverId = pref.getInt(mKeyServerId, mDefaultServerId);
+			if (serverId == -1) {
+				return getString(R.string.no_server_configured);
+			}
+			
 			// TODO Replace serverId by server name in the summary
 			// => return getServerName(serverId);
 			return String.valueOf(serverId);

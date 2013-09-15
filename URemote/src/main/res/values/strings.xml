@@ -27,11 +27,9 @@
 	<string name="msg_command_running">Command is running…</string>
 	<string name="msg_command_failed">Command failed</string>
 	<string name="msg_null_request">Request is null</string>
-	<string name="msg_no_more_permit">No more permit available !</string>
-	<string name="confirm_kill_server">You are about to kill the server. Would you like to continue
-		?
-	</string>
-	<string name="confirm_command">Confirm the command ?</string>
+	<string name="msg_no_more_permit">No more permit available!</string>
+	<string name="confirm_kill_server">You are about to kill the server. Would you like to continue?</string>
+	<string name="confirm_command">Confirm the command?</string>
 	<string name="action_image_description">Action icon</string>
 	<string name="server_image_description">Server icon</string>
 	<string name="filemanager_image_description">Image that represents the file or folder</string>
