@@ -2,15 +2,22 @@ package org.es.uremote;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
+import org.es.uremote.computer.dao.ServerSettingDao;
+import org.es.uremote.objects.ServerSetting;
 import org.es.utils.EditIntPreference;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.es.uremote.objects.ServerSetting.FILENAME;
 
 /**
  * Activity that hosts application preferences.
@@ -180,7 +187,8 @@ public class AppSettings extends PreferenceActivity {
 			if (serverId == -1) {
 				return getString(R.string.no_server_configured);
 			}
-			
+
+			(new AsyncLoadServer()).execute(serverId);
 			// TODO Replace serverId by server name in the summary
 			// => return getServerName(serverId);
 			return String.valueOf(serverId);
@@ -225,6 +233,27 @@ public class AppSettings extends PreferenceActivity {
 
 		private String getSummaryMacAddress(SharedPreferences pref) {
 			return pref.getString(mKeyMacAddress, mDefaultMacAddress);
+		}
+
+		/**
+		 * Load the servers from a list of {@link java.io.File} objects.
+		 *
+		 * @author Cyril Leroux
+		 */
+		private class AsyncLoadServer extends AsyncTask<Integer, Void, ServerSetting> {
+			@Override
+			protected ServerSetting doInBackground(Integer... intValues) {
+				final File confFile = new File(getActivity().getApplicationContext().getExternalFilesDir(null), FILENAME);
+				// TODO Implement diamond operator when supported
+				final List<ServerSetting> servers = new ArrayList<ServerSetting>();
+				ServerSettingDao.loadFromFile(confFile, servers);
+				return servers.get(intValues[0]);
+			}
+
+			@Override
+			protected void onPostExecute(ServerSetting selectedServer) {
+				mPrefServerId.setSummary(selectedServer.getName());
+			}
 		}
 	}
 }
