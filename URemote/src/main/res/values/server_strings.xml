@@ -10,6 +10,7 @@
 	<string name="key_remote_host">remote_host</string>
 	<string name="key_remote_port">remote_port</string>
 	<string name="key_security_token">security_token</string>
+	<string name="security_token_summary">Used to authenticate the user on the remote server.</string>
 	<string name="key_connection_timeout">connection_timeout</string>
 	<string name="key_read_timeout">read_timeout</string>
 	<string name="key_mac_address">mac_address</string>
@@ -58,6 +59,8 @@
 
 	<!-- Messages -->
 	<string name="no_server_configured">No server configured.</string>
+	<string name="select_server">Select a server</string>
+	<string name="server_loading">Loading server...</string>
 	<string name="server_saved">Server settings saved.</string>
 	<string name="error_while_saving_servers">Error while saving servers.</string>
 	<string name="server_loaded">Server settings successfully loaded.</string>

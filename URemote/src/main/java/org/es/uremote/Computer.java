@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,9 +39,11 @@ import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
+import org.es.uremote.utils.PrefKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.objects.ServerSetting.FILENAME;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
@@ -85,23 +89,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 	private static Toast sToast = null;
 
+	private ServerSetting mSelectedServer = null;
+
 	/** @return the handler used to display the toast messages. */
 	public static Handler getHandler() {
 		return sHandler;
-	}
-
-	private String getServerString() {
-
-		ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
-
-		if (serverSetting == null) {
-			return getString(R.string.no_server_configured);
-		}
-
-		if (serverSetting.isLocal(getApplicationContext())) {
-			return serverSetting.getFullLocal();
-		}
-		return serverSetting.getFullRemote();
 	}
 
 	@Override
@@ -151,7 +143,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		mTvServerState = (TextView) findViewById(R.id.tvServerState);
 		mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
-		((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString());
+		((TextView) findViewById(R.id.tvServerInfos)).setText(R.string.no_server_configured);
 
 		if (savedInstanceState != null) {
 			final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
@@ -236,13 +228,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 */
 	private void initServer() {
 
-		// Get key for other properties
-		final String keySecurityToken		= getString(R.string.key_security_token);
-		final String defaultSecurityToken	= getString(R.string.default_security_token);
-
+		(new AsyncLoadServer()).execute();
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final String securityToken = pref.getString(keySecurityToken, defaultSecurityToken);
+		final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
+
 
 		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(Md5.encode(securityToken));
@@ -413,4 +403,46 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		mPbConnection.setVisibility(visibility);
 	}
 
+	/**
+	 * Load the servers from a list of {@link java.io.File} objects.
+	 *
+	 * @author Cyril Leroux
+	 */
+	private class AsyncLoadServer extends AsyncTask<Void, Void, ServerSetting> {
+
+		@Override
+		protected ServerSetting doInBackground(Void... params) {
+
+			final File confFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
+			// TODO Implement diamond operator when supported
+			final List<ServerSetting> servers = new ArrayList<ServerSetting>();
+			ServerSettingDao.loadFromFile(confFile, servers);
+
+			// Get the properties values
+			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			final int serverId = pref.getInt(PrefKeys.KEY_SERVER_ID, PrefKeys.DEFAULT_SERVER_ID);
+			try {
+				return servers.get(serverId);
+			} catch (IndexOutOfBoundsException e) {
+				return null;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(ServerSetting selectedServer) {
+			mSelectedServer = selectedServer;
+			((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
+		}
+	}
+
+	private String getServerString(ServerSetting serverSetting) {
+		if (serverSetting == null) {
+			return getString(R.string.no_server_configured);
+		}
+
+		if (serverSetting.isLocal(getApplicationContext())) {
+			return serverSetting.getFullLocal();
+		}
+		return serverSetting.getFullRemote();
+	}
 }

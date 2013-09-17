@@ -47,7 +47,8 @@
 	<string name="broadcast_address">Adresse de broadcast</string>
 	<string name="remote_ip_address">Adresse ip distante</string>
 	<string name="remote_port">Port d\'écoute distant</string>
-	<string name="security_token">Jeton de sécurité</string>
+	<string name="security_token">Clé de sécurité</string>
+	<string name="security_token_summary">Permet à l\'utilisateur de s\'authentifier auprès du serveur distant.</string>
 	<string name="connection_timeout">Timeout de connexion</string>
 	<string name="read_timeout">Timeout de lecture</string>
 	<string name="mac_address">Adresse Mac</string>
@@ -57,10 +58,12 @@
 	<string name="website_address">http://www.essaion-soft.com</string>
 
 	<!-- Messages -->
-	<string name="no_server_configured">Aucun server configuré.</string>
-	<string name="server_saved">Configuration sauvegardée.</string>
+	<string name="no_server_configured">Aucun server configuré</string>
+	<string name="select_server">Sélectionner un serveur</string>
+	<string name="server_loading">Chargement du serveur...</string>
+	<string name="server_saved">Configuration sauvegardée</string>
 	<string name="error_while_saving_servers">Erreur lors de la sauvegarde des serveur.</string>
-	<string name="server_loaded">Configuration chargée avec succès.</string>
+	<string name="server_loaded">Configuration chargée avec succès</string>
 	<string name="error_while_loading_servers">Erreur lors du chargement des serveurs.</string>
 	<string name="build_request_error">Erreur, impossible de construire la requête.</string>
 

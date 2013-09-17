@@ -123,7 +123,7 @@ public class AppSettings extends PreferenceActivity {
 
 			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
-			mPrefServerId.setSummary(getSummaryTargetServer(pref));
+			setSummaryTargetServer(pref);
 			mPrefLocalHost.setSummary(getSummaryLocalHost(pref));
 			mPrefLocalPort.setSummary(getSummaryLocalPort(pref));
 			mPrefBroadcast.setSummary(getSummaryBroadcast(pref));
@@ -151,7 +151,7 @@ public class AppSettings extends PreferenceActivity {
 		public void onSharedPreferenceChanged(SharedPreferences pref, String key) {
 
 			if (key.equals(mKeyServerId)) {
-				mPrefServerId.setSummary(getSummaryTargetServer(pref));
+				setSummaryTargetServer(pref);
 
 			} else if (key.equals(mKeyLocalHost)) {
 				mPrefLocalHost.setSummary(getSummaryLocalHost(pref));
@@ -182,16 +182,10 @@ public class AppSettings extends PreferenceActivity {
 			}
 		}
 
-		private String getSummaryTargetServer(SharedPreferences pref) {
+		private void setSummaryTargetServer(SharedPreferences pref) {
 			final int serverId = pref.getInt(mKeyServerId, mDefaultServerId);
-			if (serverId == -1) {
-				return getString(R.string.no_server_configured);
-			}
-
+			mPrefServerId.setSummary((serverId == -1) ? R.string.select_server : R.string.server_loading);
 			(new AsyncLoadServer()).execute(serverId);
-			// TODO Replace serverId by server name in the summary
-			// => return getServerName(serverId);
-			return String.valueOf(serverId);
 		}
 
 		private String getSummaryLocalHost(SharedPreferences pref) {
@@ -217,8 +211,9 @@ public class AppSettings extends PreferenceActivity {
 		}
 
 		private String getSummarySecurityToken(SharedPreferences pref) {
+			return getString(R.string.security_token_summary);
 			// TODO If no pass => warn user. else display ***
-			return pref.getString(mKeySecurityToken, mDefaultSecurityToken);
+//			return pref.getString(mKeySecurityToken, mDefaultSecurityToken);
 		}
 
 		private String getSummaryConnectionTimeout(SharedPreferences pref) {
@@ -247,12 +242,21 @@ public class AppSettings extends PreferenceActivity {
 				// TODO Implement diamond operator when supported
 				final List<ServerSetting> servers = new ArrayList<ServerSetting>();
 				ServerSettingDao.loadFromFile(confFile, servers);
-				return servers.get(intValues[0]);
+				final int serverId = intValues[0];
+				try {
+					return servers.get(serverId);
+				} catch (IndexOutOfBoundsException e) {
+					return null;
+				}
 			}
 
 			@Override
 			protected void onPostExecute(ServerSetting selectedServer) {
-				mPrefServerId.setSummary(selectedServer.getName());
+				if (selectedServer != null) {
+					mPrefServerId.setSummary(selectedServer.getName());
+				} else {
+					mPrefServerId.setSummary(R.string.select_server);
+				}
 			}
 		}
 	}
