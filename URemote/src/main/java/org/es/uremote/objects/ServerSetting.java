@@ -5,6 +5,7 @@ import android.net.wifi.WifiManager;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.es.uremote.network.ConnectedDevice;
 import org.es.utils.Log;
 import org.es.utils.StringUtils;
 
@@ -14,7 +15,7 @@ import org.es.utils.StringUtils;
  * @author Cyril Leroux
  * Created on 19/05/13.
  */
-public class ServerSetting implements Parcelable {
+public class ServerSetting extends ConnectedDevice implements Parcelable {
 
 	public static final String FILENAME = "serverConfig.xml";
 
@@ -31,7 +32,6 @@ public class ServerSetting implements Parcelable {
 		}
 	};
 
-	private String mName;
 	private String mLocalHost;
 	private int mLocalPort;
 	private String mBroadcast;
@@ -39,9 +39,6 @@ public class ServerSetting implements Parcelable {
 	private int mRemotePort;
 	private String mMacAddress;
 	private ConnectionType mConnectionType;
-	/** If the connection with the remote server is not established within this timeout, it is dismiss. */
-	private int mConnectionTimeout;
-	private int mReadTimeout;
 
 	/**
 	 * Constructor with parameters
@@ -147,11 +144,6 @@ public class ServerSetting implements Parcelable {
 		return mRemoteHost + ":" + mRemotePort;
 	}
 
-	/** @return The server name. */
-	public String getName() {
-		return mName;
-	}
-
 	/** @return The ip address of the local server. */
 	public String getLocalHost() {
 		return mLocalHost;
@@ -180,16 +172,6 @@ public class ServerSetting implements Parcelable {
 	/** @return The mac address of the server. */
 	public String getMacAddress() {
 		return mMacAddress;
-	}
-
-	/** @return Timeout connection in milliseconds. */
-	public int getConnectionTimeout() {
-		return mConnectionTimeout;
-	}
-
-	/** @return Read timeout in milliseconds. */
-	public int getReadTimeout() {
-		return mReadTimeout;
 	}
 
 	/** @return The type of connection (remote or local). */

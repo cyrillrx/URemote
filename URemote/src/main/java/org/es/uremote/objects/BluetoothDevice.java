@@ -1,19 +1,20 @@
 package org.es.uremote.objects;
 
+import org.es.uremote.network.ConnectedDevice;
+
 /**
  * Simple object that hold the bluetooth device data.
  *
  * @author Cyril Leroux
  * Created on 23/10/12.
  */
-public class BluetoothDevice {
+public class BluetoothDevice extends ConnectedDevice {
 
 	/** Device paired */
 	public static final String TYPE_PAIRED = "paired";
 	/** Device discovered */
 	public static final String TYPE_DISCOVERED = "discovered";
 
-	private final String mName;
 	private final String mAddress;
 	private final String mType;
 
@@ -27,11 +28,6 @@ public class BluetoothDevice {
 		mName		= device.getName();
 		mAddress	= device.getAddress();
 		mType		= type;
-	}
-
-	/** @return the name of the device */
-	public String getName() {
-		return mName;
 	}
 
 	/** @return the address */
