@@ -38,6 +38,8 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
 	private TextView mTvPath;
 
+	private String mRoot = null;
+
 	protected DirContent mCurrentDirContent = null;
 
 	@Override
@@ -69,6 +71,9 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 		// Get the directory content or update the one that already exist.
 		if (dirContent == null) {
 			final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
+            if (mRoot == null) {
+                mRoot = path;
+            }
 			navigateTo(path);
 		} else {
 			updateView(dirContent);
@@ -164,8 +169,10 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 	 * @return True if we can navigate up from the current directory. False otherwise.
 	 */
 	public boolean canNavigateUp() {
-		return mCurrentDirContent != null &&
-				mCurrentDirContent.getPath().contains(File.separator);
+		return  mCurrentDirContent != null &&
+				mCurrentDirContent.getPath().contains(File.separator) &&
+                !mCurrentDirContent.getPath().equals(mRoot);
+
 	}
 
 	/**
