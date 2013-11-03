@@ -239,8 +239,8 @@ public class AppSettings extends PreferenceActivity {
 			@Override
 			protected ServerSetting doInBackground(Integer... intValues) {
 				final File confFile = new File(getActivity().getApplicationContext().getExternalFilesDir(null), FILENAME);
-				// TODO Implement diamond operator when supported
-				final List<ServerSetting> servers = new ArrayList<ServerSetting>();
+
+				final List<ServerSetting> servers = new ArrayList<>();
 				ServerSettingDao.loadFromFile(confFile, servers);
 				final int serverId = intValues[0];
 				try {

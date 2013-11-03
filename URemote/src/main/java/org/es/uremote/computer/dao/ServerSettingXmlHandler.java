@@ -47,9 +47,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
-			// TODO Implement diamond operator when supported
-//			mServers = new ArrayList<>();
-			mServers = new ArrayList<ServerSetting>();
+			mServers = new ArrayList<>();
 
 		} else if (localName.equals(TAG_SERVER)) {
 			if (mBuilder == null) {
@@ -122,8 +120,6 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 		if (mLoaded) {
 			return mServers;
 		}
-		// TODO Implement diamond operator when supported
-//		return new ArrayList<>();
-		return new ArrayList<ServerSetting>();
+		return new ArrayList<>();
 	}
 }

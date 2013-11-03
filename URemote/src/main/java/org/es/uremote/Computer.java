@@ -126,9 +126,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			mFragKeyboard = new FragKeyboard();
 		}
 
-		// TODO Implement diamond operator when supported
-		//List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
-		List<Fragment> fragments = new ArrayList<Fragment>(PAGES_COUNT);
+		List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
 		fragments.add(mFragAdmin);
 		fragments.add(mFragDashboard);
 		fragments.add(mExplorerFragment);
@@ -233,8 +231,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
 
-
-		// TODO hash the security token
 		AsyncMessageMgr.setSecurityToken(Md5.encode(securityToken));
 	}
 
@@ -414,7 +410,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		protected ServerSetting doInBackground(Void... params) {
 
 			final File confFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
-			// TODO Implement diamond operator when supported
 			final List<ServerSetting> servers = new ArrayList<ServerSetting>();
 			ServerSettingDao.loadFromFile(confFile, servers);
 

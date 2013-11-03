@@ -45,9 +45,7 @@ public class ServerListActivity extends ListActivity {
 	private static final int RC_EDIT_SERVER = 1;
 	private static final int RC_LOAD_SERVER = 2;
 
-	// TODO Implement diamond operator when supported
-//	List<ServerSetting> mServers = new ArrayList<>();
-	List<ServerSetting> mServers = new ArrayList<ServerSetting>();
+	List<ServerSetting> mServers = new ArrayList<>();
 	File mConfFile = null;
 
 	@Override
