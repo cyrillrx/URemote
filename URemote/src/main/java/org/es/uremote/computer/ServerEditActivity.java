@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.es.security.Md5;
 import org.es.uremote.R;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.objects.ServerSetting.ConnectionType;
@@ -53,6 +54,7 @@ public class ServerEditActivity extends Activity {
 
 	private EditText mConnectionTimeout;
 	private EditText mReadTimeout;
+	private EditText mSecurityToken;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,9 @@ public class ServerEditActivity extends Activity {
 		mMacAddress5	= (EditText)findViewById(R.id.mac_address5);
 		mMacAddress6	= (EditText)findViewById(R.id.mac_address6);
 
-		mConnectionTimeout	= (EditText)findViewById(R.id.connection_timeout);
-		mReadTimeout		= (EditText)findViewById(R.id.read_timeout);
+		mConnectionTimeout  = (EditText)findViewById(R.id.connection_timeout);
+		mReadTimeout        = (EditText)findViewById(R.id.read_timeout);
+        mSecurityToken      = (EditText)findViewById(R.id.security_token);
 
 		if (ACTION_EDIT_SERVER.equals(getIntent().getAction())) {
 			loadServer(getIntent());
@@ -129,6 +132,7 @@ public class ServerEditActivity extends Activity {
 				builder.setMacAddress(getMacAddress());
 				builder.setConnectionTimeout(getConnectionTimeout());
 				builder.setReadTimeout(getReadTimeout());
+                builder.setSecurityToken(getSecurityToken());
 				builder.setConnectionType(getConnectionType());
 
 				try {
@@ -271,6 +275,11 @@ public class ServerEditActivity extends Activity {
 	private int getReadTimeout() {
 		return Integer.valueOf(mReadTimeout.getEditableText().toString());
 	}
+
+    /** @return The encoded (MD5) security token. */
+    private String getSecurityToken() {
+        return Md5.encode(mSecurityToken.getEditableText().toString());
+    }
 
 	private ConnectionType getConnectionType() {
 		// TODO load from IHM

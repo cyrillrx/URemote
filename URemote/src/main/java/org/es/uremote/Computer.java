@@ -24,7 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.es.security.Md5;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragKeyboard;
@@ -75,6 +74,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	private static final int PAGES_COUNT = 4;
 	private static final int EXPLORER_PAGE_ID = 2;
 
+    // TODO replace sHandler by callbacks
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
 
@@ -225,14 +225,18 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 * @return The {@link org.es.uremote.objects.ServerSetting} loaded from preferences.
 	 */
 	private void initServer() {
-
 		(new AsyncLoadServer()).execute();
-		// Get the properties values
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
 
-		AsyncMessageMgr.setSecurityToken(Md5.encode(securityToken));
-	}
+        if (AsyncMessageMgr.getSecurityToken() != null) {
+            return;
+        }
+
+        // Get the properties values
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
+        AsyncMessageMgr.setSecurityToken(securityToken);
+
+    }
 
 	/**
 	 * Initialize the toast message handler.
@@ -410,7 +414,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		protected ServerSetting doInBackground(Void... params) {
 
 			final File confFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
-			final List<ServerSetting> servers = new ArrayList<ServerSetting>();
+			final List<ServerSetting> servers = new ArrayList<>();
 			ServerSettingDao.loadFromFile(confFile, servers);
 
 			// Get the properties values
@@ -426,7 +430,15 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		@Override
 		protected void onPostExecute(ServerSetting selectedServer) {
 			mSelectedServer = selectedServer;
-			((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
+            if (mSelectedServer != null) {
+                AsyncMessageMgr.setSecurityToken(mSelectedServer.getSecurityToken());
+            } else {
+                // Get the properties values
+                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
+                AsyncMessageMgr.setSecurityToken(securityToken);
+            }
+            ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
 		}
 	}
 

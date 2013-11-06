@@ -1,4 +1,4 @@
-package org.es.uremote.network;
+package org.es.uremote.objects;
 
 /**
  * Created by Cyril on 03/11/13.
@@ -30,9 +30,8 @@ public class ConnectedDevice {
         return mReadTimeout;
     }
 
-    /** @return the security token that will be use to authenticate the user. */
+    /** @return The security token that will be use to authenticate the user. */
     public String getSecurityToken() {
         return mSecurityToken;
     }
-
 }

@@ -29,6 +29,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	protected static Semaphore sSemaphore = new Semaphore(2, true);
 	private static final String TAG = "AsyncMessageMgr";
 
+    // TODO delete sSecurityToken. Use ServerSetting.getSecurityToken() instead.
 	private static String sSecurityToken = null;
 
 	protected Handler mHandler;

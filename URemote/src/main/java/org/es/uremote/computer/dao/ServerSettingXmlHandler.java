@@ -21,6 +21,7 @@ import static org.es.uremote.computer.dao.ServerSettingDao.TAG_READ_TIMEOUT;
 import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_HOST;
 import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_PORT;
 import static org.es.uremote.computer.dao.ServerSettingDao.TAG_ROOT;
+import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SECURITY_TOKEN;
 import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
 
 /**
@@ -89,6 +90,9 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		} else if (localName.equals(TAG_READ_TIMEOUT)) {
 			mBuilder.setReadTimeout(Integer.parseInt(mCurrentValue));
+
+        } else if (localName.equals(TAG_SECURITY_TOKEN)) {
+            mBuilder.setSecurityToken(mCurrentValue);
 
 		} else if (localName.equals(TAG_CONNECTION_TYPE)) {
 			mBuilder.setConnectionType(ConnectionType.valueOf(mCurrentValue));

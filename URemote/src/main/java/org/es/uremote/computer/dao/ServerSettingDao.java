@@ -38,7 +38,8 @@ public class ServerSettingDao {
 	public static final String TAG_MAC_ADDRESS		= "mac_address";
 	public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
 	public static final String TAG_READ_TIMEOUT		= "read_timeout";
-	public static final String TAG_CONNECTION_TYPE	= "connection_type";
+    public static final String TAG_SECURITY_TOKEN   = "security_token";
+    public static final String TAG_CONNECTION_TYPE	= "connection_type";
 
 	private static final String TAG = "ServerSettingDao";
 
@@ -70,16 +71,17 @@ public class ServerSettingDao {
 
 				xmlWriter.startTag(null, TAG_SERVER);
 
-				xmlWriter.addChild(TAG_NAME,				server.getName(), null);
-				xmlWriter.addChild(TAG_LOCAL_HOST,			server.getLocalHost(), null);
-				xmlWriter.addChild(TAG_LOCAL_PORT,			server.getLocalPort(), null);
-				xmlWriter.addChild(TAG_BROADCAST,			server.getBroadcast(), null);
-				xmlWriter.addChild(TAG_REMOTE_HOST,			server.getRemoteHost(), null);
-				xmlWriter.addChild(TAG_REMOTE_PORT,			server.getRemotePort(), null);
-				xmlWriter.addChild(TAG_MAC_ADDRESS,			server.getMacAddress(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,	server.getConnectionTimeout(), null);
-				xmlWriter.addChild(TAG_READ_TIMEOUT,		server.getReadTimeout(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TYPE,		server.getConnectionType().toString(), null);
+				xmlWriter.addChild(TAG_NAME,                server.getName(), null);
+				xmlWriter.addChild(TAG_LOCAL_HOST,          server.getLocalHost(), null);
+				xmlWriter.addChild(TAG_LOCAL_PORT,          server.getLocalPort(), null);
+				xmlWriter.addChild(TAG_BROADCAST,           server.getBroadcast(), null);
+				xmlWriter.addChild(TAG_REMOTE_HOST,         server.getRemoteHost(), null);
+				xmlWriter.addChild(TAG_REMOTE_PORT,         server.getRemotePort(), null);
+				xmlWriter.addChild(TAG_MAC_ADDRESS,         server.getMacAddress(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,  server.getConnectionTimeout(), null);
+				xmlWriter.addChild(TAG_READ_TIMEOUT,        server.getReadTimeout(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TYPE,     server.getConnectionType().toString(), null);
+				xmlWriter.addChild(TAG_SECURITY_TOKEN,      server.getSecurityToken(), null);
 
 				xmlWriter.endTag(null, TAG_SERVER);
 			}
@@ -133,52 +135,47 @@ public class ServerSettingDao {
 	public static ServerSetting loadFromPreferences(Context context) {
 
 		// Get Host and Port key
-		final String keyLocalHost	= context.getString(R.string.key_local_host);
-		final String keyLocalPort	= context.getString(R.string.key_local_port);
-		final String keyBroadcast	= context.getString(R.string.key_broadcast);
-		final String keyRemoteHost	= context.getString(R.string.key_remote_host);
-		final String keyRemotePort	= context.getString(R.string.key_remote_port);
-		final String keyMacAddress	= context.getString(R.string.key_mac_address);
+		final String keyLocalHost   = context.getString(R.string.key_local_host);
+		final String keyLocalPort   = context.getString(R.string.key_local_port);
+		final String keyBroadcast   = context.getString(R.string.key_broadcast);
+		final String keyRemoteHost  = context.getString(R.string.key_remote_host);
+		final String keyRemotePort  = context.getString(R.string.key_remote_port);
+		final String keyMacAddress  = context.getString(R.string.key_mac_address);
 
 		// Get key for other properties
-		final String keyConnectionTimeout	= context.getString(R.string.key_connection_timeout);
-		final String keyReadTimeout			= context.getString(R.string.key_read_timeout);
+		final String keyConnectionTimeout   = context.getString(R.string.key_connection_timeout);
+		final String keyReadTimeout         = context.getString(R.string.key_read_timeout);
+		final String keySecurityToken       = context.getString(R.string.key_security_token);
 
 		// Get default values for Host and Port
-		final String defaultLocalHost	= context.getString(R.string.default_local_host);
-		final int defaultLocalPort		= context.getResources().getInteger(R.integer.default_local_port);
-		final String defaultBroadcast	= context.getString(R.string.default_broadcast);
-		final String defaultRemoteHost	= context.getString(R.string.default_remote_host);
-		final int defaultRemotePort		= context.getResources().getInteger(R.integer.default_remote_port);
-		final String defaultMacAddress	= context.getString(R.string.default_mac_address);
+		final String defaultLocalHost   = context.getString(R.string.default_local_host);
+		final int defaultLocalPort      = context.getResources().getInteger(R.integer.default_local_port);
+		final String defaultBroadcast   = context.getString(R.string.default_broadcast);
+		final String defaultRemoteHost  = context.getString(R.string.default_remote_host);
+		final int defaultRemotePort     = context.getResources().getInteger(R.integer.default_remote_port);
+		final String defaultMacAddress  = context.getString(R.string.default_mac_address);
 
 		// Get default values for other properties
-		final int defaultConnectionTimeout	= context.getResources().getInteger(R.integer.default_connection_timeout);
-		final int defaultReadTimeout		= context.getResources().getInteger(R.integer.default_read_timeout);
+		final String defaultServerLabel     = context.getString(R.string.default_server_label);
+		final int defaultConnectionTimeout  = context.getResources().getInteger(R.integer.default_connection_timeout);
+		final int defaultReadTimeout        = context.getResources().getInteger(R.integer.default_read_timeout);
+		final String defaultSecurityToken   = context.getString(R.string.default_security_token);
 
 		// Get the properties values
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
 		ServerSetting.Builder builder = ServerSetting.newBuilder();
 
-		builder.setName("Preference Server");
+		builder.setName(defaultServerLabel);
 		builder.setLocalHost(pref.getString(keyLocalHost, defaultLocalHost));
-		// TODO update
 		builder.setLocalPort(pref.getInt(keyLocalPort, defaultLocalPort));
-//		builder.setLocalPort(Integer.parseInt(pref.getString(keyLocalPort, String.valueOf(defaultLocalPort))));
 		builder.setBroadcast(pref.getString(keyBroadcast, defaultBroadcast));
 		builder.setRemoteHost(pref.getString(keyRemoteHost, defaultRemoteHost));
-		// TODO update
 		builder.setRemotePort(pref.getInt(keyRemotePort, defaultRemotePort));
-//		builder.setRemotePort(Integer.parseInt(pref.getString(keyRemotePort, String.valueOf(defaultRemotePort))));
 		builder.setMacAddress(pref.getString(keyMacAddress, defaultMacAddress));
-		// TODO update
 		builder.setConnectionTimeout(pref.getInt(keyConnectionTimeout, defaultConnectionTimeout));
-//		builder.setConnectionTimeout(Integer.parseInt(pref.getString(keyConnectionTimeout, String.valueOf(defaultConnectionTimeout))));
-		// TODO update
 		builder.setReadTimeout(pref.getInt(keyReadTimeout, defaultReadTimeout));
-//		builder.setReadTimeout(Integer.parseInt(pref.getString(keyReadTimeout, String.valueOf(defaultReadTimeout))));
-
+		builder.setSecurityToken(pref.getString(keySecurityToken, defaultSecurityToken));
 		builder.setConnectionType(ServerSetting.ConnectionType.LOCAL);
 
 		try {

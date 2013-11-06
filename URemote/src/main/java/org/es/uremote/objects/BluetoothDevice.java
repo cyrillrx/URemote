@@ -1,7 +1,5 @@
 package org.es.uremote.objects;
 
-import org.es.uremote.network.ConnectedDevice;
-
 /**
  * Simple object that hold the bluetooth device data.
  *
