@@ -34,11 +34,12 @@ public class Home extends ListActivity implements OnItemClickListener {
 	private static final int RC_ENABLE_BT	= 0;
 	private static final int RC_ENABLE_WIFI	= 1;
 
-	private static final int ACTION_COMPUTER	= 0;
-	private static final int ACTION_LIGHTS		= 1;
-	private static final int ACTION_TV			= 2;
-	private static final int ACTION_ROBOTS		= 3;
-	private static final int ACTION_HIFI		= 4;
+	private static final int ACTION_COMPUTER    = 0;
+    private static final int ACTION_NAO         = 1;
+    private static final int ACTION_LIGHTS      = 2;
+    private static final int ACTION_TV          = 3;
+    private static final int ACTION_ROBOTS      = 4;
+    private static final int ACTION_HIFI        = 5;
 
 	private List<ActionItem> mActionList;
 
@@ -51,8 +52,8 @@ public class Home extends ListActivity implements OnItemClickListener {
 		final Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.action_title_font));
 		initActionList();
 
-		final ActionArrayAdapter adpt = new ActionArrayAdapter(getApplicationContext(), mActionList, typeface);
-		setListAdapter(adpt);
+		final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList, typeface);
+		setListAdapter(adapter);
 		getListView().setOnItemClickListener(this);
 	}
 
@@ -60,8 +61,9 @@ public class Home extends ListActivity implements OnItemClickListener {
 		if (mActionList != null) {
 			return;
 		}
-		mActionList = new ArrayList<ActionItem>(5);
+		mActionList = new ArrayList<>(6);
 		mActionList.add(new ActionItem(getString(R.string.title_computer),	"", R.drawable.home_computer));
+        mActionList.add(new ActionItem(getString(R.string.title_nao),		"", R.drawable.home_nao));
 		mActionList.add(new ActionItem(getString(R.string.title_lights),	"", R.drawable.home_light));
 		mActionList.add(new ActionItem(getString(R.string.title_tv),		"", R.drawable.home_tv));
 		mActionList.add(new ActionItem(getString(R.string.title_robots),	"", R.drawable.home_robot));
@@ -78,6 +80,10 @@ public class Home extends ListActivity implements OnItemClickListener {
 			case ACTION_COMPUTER:
 				startComputerRemote();
 				break;
+
+            case ACTION_NAO:
+                startNaoActivity();
+                break;
 
 			case ACTION_LIGHTS:
 				Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
@@ -104,6 +110,7 @@ public class Home extends ListActivity implements OnItemClickListener {
 
 		BluetoothAdapter bluetoothAdapter = null;
 
+        // TODO update for backward compatibility
 		//if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		//} else {
@@ -130,6 +137,10 @@ public class Home extends ListActivity implements OnItemClickListener {
 			startActivity(new Intent(getApplicationContext(), Computer.class));
 		}
 	}
+
+    private void startNaoActivity() {
+        startActivity(new Intent(getApplicationContext(), Nao.class));
+    }
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {

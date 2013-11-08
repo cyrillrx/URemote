@@ -43,6 +43,9 @@
 				android:name=".computer.AppLauncherActivity"
 				android:label="@string/title_application_launcher"
 				android:theme="@android:style/Theme.Dialog" />
+        <activity
+                android:name=".Nao"
+                android:label="@string/title_nao" />
 		<activity
 				android:name=".Lights"
 				android:label="@string/title_lights" />
