@@ -62,12 +62,12 @@ public class Home extends ListActivity implements OnItemClickListener {
 			return;
 		}
 		mActionList = new ArrayList<>(6);
-		mActionList.add(new ActionItem(getString(R.string.title_computer),	"", R.drawable.home_computer));
-        mActionList.add(new ActionItem(getString(R.string.title_nao),		"", R.drawable.home_nao));
-		mActionList.add(new ActionItem(getString(R.string.title_lights),	"", R.drawable.home_light));
-		mActionList.add(new ActionItem(getString(R.string.title_tv),		"", R.drawable.home_tv));
-		mActionList.add(new ActionItem(getString(R.string.title_robots),	"", R.drawable.home_robot));
-		mActionList.add(new ActionItem(getString(R.string.title_hifi),		"", R.drawable.home_hifi));
+		mActionList.add(ACTION_COMPUTER, new ActionItem(getString(R.string.title_computer),	"", R.drawable.home_computer));
+        mActionList.add(ACTION_NAO,      new ActionItem(getString(R.string.title_nao),		"", R.drawable.home_nao));
+		mActionList.add(ACTION_LIGHTS,   new ActionItem(getString(R.string.title_lights),	"", R.drawable.home_light));
+		mActionList.add(ACTION_TV,       new ActionItem(getString(R.string.title_tv),		"", R.drawable.home_tv));
+		mActionList.add(ACTION_ROBOTS,   new ActionItem(getString(R.string.title_robots),	"", R.drawable.home_robot));
+		mActionList.add(ACTION_HIFI,     new ActionItem(getString(R.string.title_hifi),		"", R.drawable.home_hifi));
 
 	}
 
