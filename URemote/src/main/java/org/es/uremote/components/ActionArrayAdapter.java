@@ -26,8 +26,18 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 	private final LayoutInflater mInflater;
 	private final Typeface mTypeface;
 
+    /**
+     * Default constructor
+     *
+     * @param context The application context.
+     * @param actions The action list.
+     */
+    public ActionArrayAdapter(final Context context, final List<ActionItem> actions) {
+        this(context, actions, null);
+    }
+
 	/**
-	 * Default constructor
+	 * Constructor with typeface.
 	 *
 	 * @param context The application context.
 	 * @param actions The action list.
@@ -68,7 +78,9 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 
 		holder.ivActionIcon.setImageResource(action.getImageResource());
 		holder.tvActionTitle.setText(action.getTitle());
-		holder.tvActionTitle.setTypeface(mTypeface);
+        if (mTypeface != null) {
+		    holder.tvActionTitle.setTypeface(mTypeface);
+        }
 		holder.tvActionSummary.setText(action.getSummary());
 
 		return convertView;
