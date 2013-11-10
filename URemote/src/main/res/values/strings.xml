@@ -16,6 +16,10 @@
 	<string name="title_filemanager">File Explorer</string>
 	<string name="title_admin">Admin</string>
 
+    <!-- Nao activity -->
+	<string name="title_app_list">Applications</string>
+	<string name="title_app_store">App Store</string>
+
 	<!-- Menu -->
 	<string name="menu_server_list">Manage servers</string>
 	<string name="menu_settings">Settings</string>

@@ -72,10 +72,10 @@ public class Home extends ListActivity implements OnItemClickListener {
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> _parent, View _view, int _position, long _id) {
-		_view.performHapticFeedback(VIRTUAL_KEY);
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		view.performHapticFeedback(VIRTUAL_KEY);
 
-		switch (_position) {
+		switch (position) {
 
 			case ACTION_COMPUTER:
 				startComputerRemote();
