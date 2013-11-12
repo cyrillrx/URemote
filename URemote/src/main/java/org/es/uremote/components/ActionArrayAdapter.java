@@ -25,6 +25,8 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 
 	private final LayoutInflater mInflater;
 	private final Typeface mTypeface;
+	private final int mTitleColorRes;
+	private final int mSummaryColorRes;
 
     /**
      * Default constructor
@@ -33,7 +35,7 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
      * @param actions The action list.
      */
     public ActionArrayAdapter(final Context context, final List<ActionItem> actions) {
-        this(context, actions, null);
+        this(context, actions, -1, -1, null);
     }
 
 	/**
@@ -44,12 +46,27 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 	 * @param typeface The type face to use.
 	 */
 	public ActionArrayAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
-		super(context, 0, actions);
-		mInflater	= LayoutInflater.from(context);
-		mTypeface	= typeface;
+        this(context, actions, -1, -1, typeface);
 	}
 
-	/**
+    /**
+     * Constructor with typeface and color.
+     *
+     * @param context The application context.
+     * @param actions The action list.
+     * @param titleColor Color apply to the action title.
+     * @param summaryColor Color to apply to the action summary.
+     * @param typeface The type face to use.
+     */
+    public ActionArrayAdapter(final Context context, final List<ActionItem> actions, final int titleColor, final int summaryColor, final Typeface typeface) {
+        super(context, 0, actions);
+        mInflater        = LayoutInflater.from(context);
+        mTypeface        = typeface;
+        mTitleColorRes   = titleColor;
+        mSummaryColorRes = summaryColor;
+    }
+
+    /**
 	 * The view holder is the template for the items of the list.
 	 *
 	 * @author Cyril Leroux
@@ -77,11 +94,21 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 		final ActionItem action = getItem(position);
 
 		holder.ivActionIcon.setImageResource(action.getImageResource());
+
 		holder.tvActionTitle.setText(action.getTitle());
+        holder.tvActionSummary.setText(action.getSummary());
+
         if (mTypeface != null) {
-		    holder.tvActionTitle.setTypeface(mTypeface);
+            holder.tvActionTitle.setTypeface(mTypeface);
+            holder.tvActionSummary.setTypeface(mTypeface);
         }
-		holder.tvActionSummary.setText(action.getSummary());
+
+        if (mTitleColorRes != -1) {
+            holder.tvActionTitle.setTextColor(mTitleColorRes);
+        }
+        if (mSummaryColorRes != -1) {
+            holder.tvActionSummary.setTextColor(mSummaryColorRes);
+        }
 
 		return convertView;
 	}
