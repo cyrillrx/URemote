@@ -12,7 +12,7 @@
 			android:layout_margin="10dp"
 			android:contentDescription="@string/action_image_description" />
 
-	<LinearLayout
+	<LinearLayout android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="10dp">
@@ -27,7 +27,6 @@
 				android:id="@+id/tvActionSummary"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:gravity="right"
 				android:textSize="18sp" />
 	</LinearLayout>
 

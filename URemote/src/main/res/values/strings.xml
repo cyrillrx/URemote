@@ -18,7 +18,7 @@
 
     <!-- Nao activity -->
 	<string name="title_app_list">Applications</string>
-	<string name="title_app_store">App Store</string>
+    <string name="title_app_store">Robot App Store</string>
 
 	<!-- Menu -->
 	<string name="menu_server_list">Manage servers</string>

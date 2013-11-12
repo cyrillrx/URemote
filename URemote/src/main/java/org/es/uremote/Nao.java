@@ -2,6 +2,7 @@ package org.es.uremote;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,7 +33,9 @@ public class Nao extends ListActivity implements OnItemClickListener {
 
         initActionList();
 
-        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList);
+        final int colorRes1 = getResources().getColor(android.R.color.secondary_text_light);
+        final int colorRes2 = getResources().getColor(android.R.color.secondary_text_light);
+        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList, colorRes1, colorRes2, null);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
@@ -42,8 +45,8 @@ public class Nao extends ListActivity implements OnItemClickListener {
             return;
         }
         mActionList = new ArrayList<>(2);
-        mActionList.add(ACTION_APP,     new ActionItem(getString(R.string.title_app_list),  "", R.drawable.home_nao));
-        mActionList.add(ACTION_STORE,   new ActionItem(getString(R.string.title_app_store), "", R.drawable.home_nao));
+        mActionList.add(ACTION_APP,     new ActionItem(getString(R.string.title_app_list),  R.drawable.home_nao));
+        mActionList.add(ACTION_STORE,   new ActionItem(getString(R.string.title_app_store), R.drawable.nao_app_store));
     }
 
     @Override

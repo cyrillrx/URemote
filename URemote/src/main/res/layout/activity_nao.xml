@@ -5,7 +5,8 @@
 			  android:layout_gravity="center"
 			  android:orientation="vertical"
               android:gravity="center"
-			  android:padding="10dp">
+
+			  android:padding="5dp">
 
     <ListView android:id="@android:id/list"
               android:layout_width="match_parent"
