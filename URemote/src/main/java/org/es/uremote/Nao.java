@@ -1,14 +1,14 @@
 package org.es.uremote;
 
-import android.app.Activity;
 import android.app.ListActivity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import org.es.uremote.components.ActionArrayAdapter;
+import org.es.uremote.computer.AppLauncherActivity;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;
@@ -23,6 +23,9 @@ public class Nao extends ListActivity implements OnItemClickListener {
 
     private static final int ACTION_APP     = 0;
     private static final int ACTION_STORE   = 1;
+
+    /** ActivityForResults request code */
+    private static final int RC_APP_LAUNCHER = 0;
 
     private List<ActionItem> mActionList;
 
@@ -53,6 +56,17 @@ public class Nao extends ListActivity implements OnItemClickListener {
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         view.performHapticFeedback(VIRTUAL_KEY);
+        switch (position) {
 
+            case ACTION_APP:
+                startActivityForResult(new Intent(getApplicationContext(), AppLauncherActivity.class), RC_APP_LAUNCHER);
+                break;
+
+            case ACTION_STORE:
+                break;
+
+            default:
+                break;
+        }
     }
 }
