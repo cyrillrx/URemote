@@ -55,10 +55,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	/** ActivityForResults request codes */
 	private static final int RC_APP_LAUNCHER = 0;
 
-	private static final int STATE_KO	= 0;
-	private static final int STATE_OK	= 1;
-	private static final int STATE_CONNECTING	= 2;
-
 	private static final int DELAY		= 500;
 	private static final int DURATION	= 500;
 
