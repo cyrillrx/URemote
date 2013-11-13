@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import org.es.uremote.components.ActionArrayAdapter;
-import org.es.uremote.computer.AppLauncherActivity;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;

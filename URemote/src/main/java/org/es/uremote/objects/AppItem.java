@@ -35,7 +35,7 @@ public class AppItem implements Parcelable {
      * @param path
      * @param resId
      */
-    private AppItem(final String label, final String path, final int resId) {
+    public AppItem(final String label, final String path, final int resId) {
         mLabel = label;
         mPath = path;
         mImageResource = resId;

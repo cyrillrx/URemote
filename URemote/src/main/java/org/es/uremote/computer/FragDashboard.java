@@ -21,6 +21,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import org.es.uremote.AppLauncherActivity;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
@@ -31,9 +32,13 @@ import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.objects.AppItem;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -172,7 +177,12 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				break;
 
 			case R.id.btnAppLauncher:
-				startActivityForResult(new Intent(getActivity().getApplicationContext(), AppLauncherActivity.class), RC_APP_LAUNCHER);
+				final Intent appLauncherIntent = new Intent(getActivity().getApplicationContext(), AppLauncherActivity.class);
+                ArrayList<AppItem> applicationList = new ArrayList<>();
+                applicationList.add(new AppItem(getString(R.string.cmd_gom_start), "", R.drawable.app_gom_player));
+                applicationList.add(new AppItem(getString(R.string.cmd_gom_kill), "", R.drawable.app_gom_player));
+                appLauncherIntent.putParcelableArrayListExtra(IntentKeys.EXTRA_APPLICATION_LIST, applicationList);
+				startActivityForResult(appLauncherIntent, RC_APP_LAUNCHER);
 				break;
 
 			case R.id.cmdGomStretch:
