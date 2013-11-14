@@ -1,22 +1,17 @@
 package org.es.uremote;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.R;
 import org.es.uremote.objects.AppItem;
 
 import java.util.ArrayList;
@@ -43,21 +38,11 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
 
         GridLayout gridLayout = new GridLayout(this);
         GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
-        //gridLayout.setLayoutParams(layoutParams);
         gridLayout.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
         gridLayout.setBackgroundColor(Color.TRANSPARENT);
         gridLayout.setColumnCount(3);
         gridLayout.setRowCount(5);
         gridLayout.setOrientation(GridLayout.HORIZONTAL);
-
-//        android:layout_width="match_parent"
-//        android:layout_height="match_parent"
-//        android:layout_margin="10dp"
-//        android:alignmentMode="alignBounds"
-//        android:background="@android:color/transparent"
-//        android:columnCount="3"
-//        android:orientation="horizontal"
-//        android:rowCount="5">
 
         mApplications = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
 
@@ -105,12 +90,22 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
             imageButton.setContentDescription(app.getLabel());
             imageButton.setImageResource(app.getImageResource());
             imageButton.setOnClickListener(this);
+            imageButton.setId(((Object) app).hashCode()); // TODO How to define id
             gridLayout.addView(imageButton);
         }
     }
 
 	@Override
 	public void onClick(View v) {
+
+        final int id = v.getId();
+
+        // TODO How to catch the right id
+//        for (AppItem app : mApplications) {
+//            if (id == ((Object)app).hashCode()) {
+//                // Do something => missing Type and code
+//            }
+//        }
 
 		switch (v.getId()) {
 			case R.id.btnAppGomPlayer:
