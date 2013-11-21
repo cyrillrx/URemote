@@ -32,9 +32,9 @@ proguard/
 *.iws
 #.idea/
 .idea/workspace.xml
-.idea/libraries/
-.idea/dictionaries/
-.idea/copyright/
+.idea/libraries
+.idea/dictionaries
+.idea/copyright
 
 # Gradle
 .gradle
