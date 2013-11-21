@@ -31,10 +31,10 @@ proguard/
 *.ipr
 *.iws
 #.idea/
-/.idea/workspace.xml
-/.idea/libraries/
-/.idea/dictionaries/
-/.idea/copyright/
+.idea/workspace.xml
+.idea/libraries/
+.idea/dictionaries/
+.idea/copyright/
 
 # Gradle
 .gradle
