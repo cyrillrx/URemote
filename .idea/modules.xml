@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/URemote.iml" filepath="$PROJECT_DIR$/URemote.iml" />
-      <module fileurl="file://$PROJECT_DIR$/URemote/URemote-URemote.iml" filepath="$PROJECT_DIR$/URemote/URemote-URemote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/URemote/URemote.iml" filepath="$PROJECT_DIR$/URemote/URemote.iml" />
+      <module fileurl="file://$PROJECT_DIR$/URemoteProject.iml" filepath="$PROJECT_DIR$/URemoteProject.iml" />
     </modules>
   </component>
 </project>
