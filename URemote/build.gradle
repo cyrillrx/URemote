@@ -29,6 +29,6 @@ android {
 }
 
 dependencies {
-	compile group: 'com.google.android', name: 'support-v4', version: 'r7'
-	compile group: 'com.google.protobuf', name: 'protobuf-java', version: '2.5.0'
+	compile 'com.google.android:support-v4:r7'
+	compile 'com.google.protobuf:protobuf-java:2.5.0'
 }
