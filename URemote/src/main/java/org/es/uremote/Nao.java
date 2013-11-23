@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import org.es.uremote.components.ActionArrayAdapter;
+import org.es.uremote.nao.OpenGLActivity;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;
@@ -20,8 +21,9 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  */
 public class Nao extends ListActivity implements OnItemClickListener {
 
-    private static final int ACTION_APP     = 0;
-    private static final int ACTION_STORE   = 1;
+    private static final int ACTION_APP      = 0;
+    private static final int ACTION_STORE    = 1;
+    private static final int ACTION_SHOW_NAO = 2;
 
     /** ActivityForResults request code */
     private static final int RC_APP_LAUNCHER = 0;
@@ -47,8 +49,9 @@ public class Nao extends ListActivity implements OnItemClickListener {
             return;
         }
         mActionList = new ArrayList<>(2);
-        mActionList.add(ACTION_APP,     new ActionItem(getString(R.string.title_app_list),  R.drawable.home_nao));
-        mActionList.add(ACTION_STORE,   new ActionItem(getString(R.string.title_app_store), R.drawable.nao_app_store));
+        mActionList.add(ACTION_APP,      new ActionItem(getString(R.string.title_app_list),  R.drawable.home_nao));
+        mActionList.add(ACTION_STORE,    new ActionItem(getString(R.string.title_app_store), R.drawable.nao_app_store));
+        mActionList.add(ACTION_SHOW_NAO, new ActionItem(getString(R.string.title_show_nao), R.drawable.home_nao));
     }
 
     @Override
@@ -62,6 +65,10 @@ public class Nao extends ListActivity implements OnItemClickListener {
                 break;
 
             case ACTION_STORE:
+                break;
+
+            case ACTION_SHOW_NAO:
+                startActivity(new Intent(getApplicationContext(), OpenGLActivity.class));
                 break;
 
             default:

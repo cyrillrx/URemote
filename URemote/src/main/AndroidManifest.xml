@@ -46,6 +46,9 @@
         <activity
                 android:name=".Nao"
                 android:label="@string/title_nao" />
+        <activity
+                android:name=".nao.OpenGLActivity"
+                android:label="@string/title_nao" />
 		<activity
 				android:name=".Lights"
 				android:label="@string/title_lights" />

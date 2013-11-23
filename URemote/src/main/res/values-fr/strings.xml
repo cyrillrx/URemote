@@ -19,6 +19,7 @@
     <!-- Activité Nao -->
     <string name="title_app_list">Applications</string>
     <string name="title_app_store">Robot App Store</string>
+    <string name="title_show_nao">Voir mon Nao</string>
 
 	<!-- Menu -->
 	<string name="menu_server_list">Gérer des serveurs</string>
