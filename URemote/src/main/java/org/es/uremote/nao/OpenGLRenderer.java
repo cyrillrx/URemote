@@ -12,7 +12,9 @@ import javax.microedition.khronos.opengles.GL10;
 public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
     private Cube mCube = new Cube();
-    private float mCubeRotation;
+    private float mCubeRotationX;
+    private float mCubeRotationY;
+    private float mCubeRotationZ;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -33,13 +35,15 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
 
         gl.glTranslatef(0.0f, 0.0f, -10.0f);
-        gl.glRotatef(mCubeRotation, 3.0f, 3.0f, 3.0f);
+        gl.glRotatef(mCubeRotationX, 1.0f, 0.0f, 0.0f);
+        gl.glRotatef(mCubeRotationY, 0.0f, 1.0f, 0.0f);
+        gl.glRotatef(mCubeRotationZ, 0.0f, 0.0f, 1.0f);
 
         mCube.draw(gl);
 
         gl.glLoadIdentity();
 
-        mCubeRotation -= 0.15f;
+        //mCubeRotationX -= 0.30f;
     }
 
     @Override
@@ -53,5 +57,11 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
+    }
+
+    public void rotateXYZ(float x, float y, float z) {
+       mCubeRotationX += x;
+       mCubeRotationY += y;
+       mCubeRotationZ += z;
     }
 }
