@@ -3,7 +3,6 @@ package org.es.uremote.nao;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -12,7 +11,10 @@ import android.view.View;
  */
 public class OpenGLActivity extends Activity implements View.OnTouchListener {
 
-    OpenGLRenderer mRenderer;
+    private OpenGLRenderer mRenderer;
+
+    private float mLastValueX = Float.MIN_VALUE;
+    private float mLastValueY = Float.MIN_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,22 @@ public class OpenGLActivity extends Activity implements View.OnTouchListener {
         switch (action) {
 
             case MotionEvent.ACTION_MOVE:
-                // Get offset event.getX() getCenterY()
-                mRenderer.rotateXYZ(-1.0f, -1.0f, -1.0f);
+                float offsetX = 0.0f;
+                float offsetY = 0.0f;
+
+                if (mLastValueX != Float.MIN_VALUE && mLastValueY != Float.MIN_VALUE) {
+                    offsetX = event.getX() - mLastValueX;
+                    offsetY = event.getY() - mLastValueY;
+                }
+                mLastValueX = event.getX();
+                mLastValueY = event.getY();
+
+                mRenderer.rotateXYZ(offsetY, offsetX, 0.0f);
                 return true;
 
             default:
+                mLastValueX = Float.MIN_VALUE;
+                mLastValueY = Float.MIN_VALUE;
                 return true;
         }
     }
