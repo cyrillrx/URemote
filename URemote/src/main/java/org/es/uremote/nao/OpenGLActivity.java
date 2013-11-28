@@ -11,6 +11,7 @@ import android.view.View;
  */
 public class OpenGLActivity extends Activity implements View.OnTouchListener {
 
+    private GLSurfaceView mGLView;
     private OpenGLRenderer mRenderer;
 
     private float mLastValueX = Float.MIN_VALUE;
@@ -21,11 +22,11 @@ public class OpenGLActivity extends Activity implements View.OnTouchListener {
         super.onCreate(savedInstanceState);
 
         //
-        GLSurfaceView view = new GLSurfaceView(this);
+        mGLView = new GLSurfaceView(this);
         mRenderer = new OpenGLRenderer();
-        view.setRenderer(mRenderer);
-        view.setOnTouchListener(this);
-        setContentView(view);
+        mGLView.setRenderer(mRenderer);
+        mGLView.setOnTouchListener(this);
+        setContentView(mGLView);
     }
 
     @Override
@@ -54,5 +55,17 @@ public class OpenGLActivity extends Activity implements View.OnTouchListener {
                 mLastValueY = Float.MIN_VALUE;
                 return true;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mGLView.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mGLView.onResume();
     }
 }
