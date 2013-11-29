@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.objects.ServerSetting;
 
 import java.util.List;
@@ -37,8 +38,7 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 
 	/** Template for the list items. */
 	public static class ViewHolder {
-		// TODO add thumbnail
-		//ImageView ivThumbnail;
+		ImageView ivThumbnail;
 		TextView tvName;
 		TextView tvLocalhost;
 		TextView tvRemoteHost;
@@ -47,27 +47,31 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+
 		ViewHolder holder;
+
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.server_item, null);
 			holder = new ViewHolder();
-			// TODO add thumbnail
-			// holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.ivThumbnail);
+			holder.ivThumbnail	= (ImageView) convertView.findViewById(R.id.thumbnail);
 			holder.tvName		= (TextView) convertView.findViewById(R.id.server_name);
 			holder.tvLocalhost	= (TextView) convertView.findViewById(R.id.local_host);
 			holder.tvRemoteHost	= (TextView) convertView.findViewById(R.id.remote_host);
 			holder.tvMacAddress	= (TextView) convertView.findViewById(R.id.mac_address);
 			convertView.setTag(holder);
+
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
 		final ServerSetting server = getItem(position);
-		// TODO add thumbnail
+
+		holder.ivThumbnail.setImageDrawable(new ConnectedDeviceDrawable(server));
 		holder.tvName.setText(server.getName());
 		holder.tvLocalhost.setText(server.getFullLocal());
 		holder.tvRemoteHost.setText(server.getFullRemote());
 		holder.tvMacAddress.setText(server.getMacAddress());
+
 		return convertView;
 	}
 }

@@ -47,7 +47,7 @@ public class OpenGLActivity extends Activity implements View.OnTouchListener {
                 mLastValueX = event.getX();
                 mLastValueY = event.getY();
 
-                mRenderer.rotateXYZ(offsetY, offsetX, 0.0f);
+                mRenderer.rotateXYZ(offsetY/2, offsetX/2, 0.0f);
                 return true;
 
             default:
