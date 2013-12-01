@@ -35,8 +35,8 @@ public class ConnectedDeviceDrawable extends Drawable {
         // Text
         mTextPaint = new Paint();
         mTextBounds = new Rect();
-        mTextPaint.setColor(Color.WHITE);
-//        mTextPaint.setARGB(0, 255, 255, 255);
+        //mTextPaint.setColor(Color.WHITE);
+        mTextPaint.setARGB(0, 70, 200, 200);
 //        mTextPaint.setAntiAlias(true);
 //        mTextPaint.setSubpixelText(true);
 //        mTextPaint.setTextAlign(Paint.Align.CENTER); // Important to centre horizontally in the background RectF
