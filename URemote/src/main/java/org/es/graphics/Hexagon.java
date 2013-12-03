@@ -12,12 +12,29 @@ public class Hexagon {
         public static final int FLAT    = 1;
     }
 
-    private Type mType;
+    private float mSide;
+    private int mType = Type.POINTY;
 
-    public Hexagon() { }
+    private float h;
+    private float r;
 
-    public Hexagon(Type type) {
+    public Hexagon(final float side) {
+        mSide = side;
+        r = calculateR(side);
+        h = calculateH(side);
+    }
+
+    public Hexagon(final float side, final int type) {
+        this(side);
         mType = type;
+    }
+
+    public float getHeight() {
+        return mSide + 2 * h;
+    }
+
+    public float getWidth() {
+        return mSide + 2 * h;
     }
 
     private static float calculateH(final float side) {
@@ -32,8 +49,21 @@ public class Hexagon {
         return (float) (Math.cos(Math.toRadians(30)) * side);
     }
 
-//    private static Pointf[] getCoordinates(PointF firstCoordinates) {
-//        PointF[6] cooridinates = new PointF()
-//        return
-//    }
+    public static PointF[] getCoordinates(final float side, final PointF center) {
+
+        final float r = calculateR(side);
+        final float h = calculateH(side);
+
+        final PointF origin = new PointF(center.x, center.y - h - side / 2);
+        PointF[] coordinates = new PointF[6];
+
+        coordinates[0].set(origin.x, origin.y);
+        coordinates[1].set(origin.x + r, origin.y + h);
+        coordinates[2].set(origin.x + r, origin.y + h + side);
+        coordinates[3].set(origin.x, origin.y + h + side + h);
+        coordinates[4].set(origin.x - r, origin.y + h + side);
+        coordinates[5].set(origin.x - r, origin.y + h);
+
+        return coordinates;
+    }
 }
