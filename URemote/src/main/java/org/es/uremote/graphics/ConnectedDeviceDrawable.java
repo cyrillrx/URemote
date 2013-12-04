@@ -14,10 +14,21 @@ import android.graphics.drawable.Drawable;
 import org.es.graphics.Hexagon;
 import org.es.uremote.objects.ConnectedDevice;
 
+import java.util.Random;
+
 /**
  * Created by Cyril Leroux on 29/11/13.
  */
 public class ConnectedDeviceDrawable extends Drawable {
+
+    /** The paint's text size. */
+    private static final int TEXT_SIZE = 80;
+    /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
+    private static final int STROKE_WIDTH = 3;
+    /** Coefficient to calculate the side size of the outer hexagon. */
+    private static final float OUTER_HEXAGON_SIDE_COEF = 0.4f;
+    /** Coefficient to calculate the side size of the inner hexagon. */
+    private static final float INNER_HEXAGON_SIDE_COEF = 0.35f;
 
     private final String mText;
     private final Paint mPaint;
@@ -32,9 +43,9 @@ public class ConnectedDeviceDrawable extends Drawable {
         mPaint = new Paint();
         mPaint.setARGB(255, 70, 200, 200);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(80);
+        mPaint.setTextSize(TEXT_SIZE);
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
-        mPaint.setStrokeWidth(3);
+        mPaint.setStrokeWidth(STROKE_WIDTH);
 
         // Text bounds
         mTextBounds = new Rect();
@@ -44,8 +55,6 @@ public class ConnectedDeviceDrawable extends Drawable {
     @Override
     public void draw(Canvas canvas) {
 
-        // Hexagon side is 40% of canvas height (50% fills all the space)
-        final float hexagonSide = canvas.getHeight() * 0.4f;
         final float centerX = canvas.getWidth()  / 2;
         final float centerY = canvas.getHeight() / 2;
 
@@ -54,9 +63,16 @@ public class ConnectedDeviceDrawable extends Drawable {
         final float textOriginY = centerY + mTextBounds.height() / 2;
         canvas.drawText(mText, textOriginX, textOriginY, mPaint);
 
-        // Draw the hexagon
-        Hexagon hex = new Hexagon(hexagonSide);
-        hex.draw(canvas, mPaint, new PointF(centerX, centerY));
+        // Draw the outer hexagon
+        final float outerHexagonSide = canvas.getHeight() * OUTER_HEXAGON_SIDE_COEF;
+        Hexagon outerHex = new Hexagon(outerHexagonSide);
+        outerHex.draw(canvas, mPaint, new PointF(centerX, centerY));
+
+        // Draw two random sides of the inner hexagon
+        final float innerHexagonSide = canvas.getHeight() * INNER_HEXAGON_SIDE_COEF;
+        Hexagon innerHex = new Hexagon(innerHexagonSide);
+        Random rand = new Random();
+        innerHex.drawSides(canvas, mPaint, new PointF(centerX, centerY), new int[]{rand.nextInt(5), rand.nextInt(5)});
     }
 
     @Override

@@ -81,7 +81,26 @@ public class Hexagon {
         final int count = coordinates.length;
         for (int p = 0; p < count; p++) {
             PointF start = coordinates[p];
-            PointF stop  = coordinates[(p+1)%count];
+            PointF stop  = coordinates[(p+1) % count];
+            canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
+        }
+    }
+
+    /**
+     * Draw only specific sides of the hexagon at the given position.
+     * @param canvas The canvas in which to draw.
+     * @param paint The paint that holds the style and color to draw.
+     * @param center The point at the center of the hexagon.
+     * @param ids Ids of the sides to draw (value range is 0 to 5).
+     */
+    public void drawSides(Canvas canvas, Paint paint, PointF center, int[] ids) {
+
+        PointF[] coordinates = getCoordinates(center);
+        final int count = coordinates.length;
+
+        for (int id : ids) {
+            PointF start = coordinates[id];
+            PointF stop  = coordinates[(id+1) % count];
             canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
         }
     }
