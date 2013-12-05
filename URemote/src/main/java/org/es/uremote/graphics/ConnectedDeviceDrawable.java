@@ -25,9 +25,9 @@ public class ConnectedDeviceDrawable extends Drawable {
     private static final int TEXT_SIZE = 80;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
     private static final int STROKE_WIDTH = 3;
-    /** Coefficient to calculate the side size of the outer hexagon. */
+    /** Coefficient to compute the outer hexagon side. */
     private static final float OUTER_HEXAGON_SIDE_COEF = 0.4f;
-    /** Coefficient to calculate the side size of the inner hexagon. */
+    /** Coefficient to compute the inner hexagon side. */
     private static final float INNER_HEXAGON_SIDE_COEF = 0.35f;
 
     private final String mText;

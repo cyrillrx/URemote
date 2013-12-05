@@ -55,9 +55,12 @@
 		<activity
 				android:name=".RobotControl"
 				android:label="@string/title_robots" />
-		<activity
-				android:name=".TvDialer"
-				android:label="@string/title_tv" />
+        <activity
+                android:name=".TvDialer"
+                android:label="@string/title_tv" />
+        <activity
+                android:name=".HexHome"
+                android:label="@string/app_name" />
 
 		<service android:name=".service.BluetoothService" />
 		<service android:name=".service.SendRequestService" />

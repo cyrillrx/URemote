@@ -98,7 +98,8 @@ public class Home extends ListActivity implements OnItemClickListener {
 				break;
 
 			case ACTION_HIFI:
-				Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), HexHome.class));
+				//Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
 				break;
 
 			default:
