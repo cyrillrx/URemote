@@ -68,7 +68,6 @@ public class Home extends ListActivity implements OnItemClickListener {
 		mActionList.add(ACTION_TV,       new ActionItem(getString(R.string.title_tv),       R.drawable.home_tv));
 		mActionList.add(ACTION_ROBOTS,   new ActionItem(getString(R.string.title_robots),   R.drawable.home_robot));
 		mActionList.add(ACTION_HIFI,     new ActionItem(getString(R.string.title_hifi),     R.drawable.home_hifi));
-
 	}
 
 	@Override
@@ -98,8 +97,8 @@ public class Home extends ListActivity implements OnItemClickListener {
 				break;
 
 			case ACTION_HIFI:
+                Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), HexHome.class));
-				//Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
 				break;
 
 			default:

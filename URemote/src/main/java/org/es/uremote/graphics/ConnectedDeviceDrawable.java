@@ -23,6 +23,10 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     /** The paint's text size. */
     private static final int TEXT_SIZE = 80;
+    /** The paint's text size. */
+    private static final int SUBSCRIPT_SIZE = 20;
+    private static final int SUBSCRIPT_PADDING = 2;
+
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
     private static final int STROKE_WIDTH = 3;
     /** Coefficient to compute the outer hexagon side. */
@@ -43,12 +47,12 @@ public class ConnectedDeviceDrawable extends Drawable {
         mPaint = new Paint();
         mPaint.setARGB(255, 70, 200, 200);
         mPaint.setAntiAlias(true);
-        mPaint.setTextSize(TEXT_SIZE);
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setStrokeWidth(STROKE_WIDTH);
 
         // Text bounds
         mTextBounds = new Rect();
+        mPaint.setTextSize(TEXT_SIZE);
         mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
     }
 
@@ -59,9 +63,28 @@ public class ConnectedDeviceDrawable extends Drawable {
         final float centerY = canvas.getHeight() / 2;
 
         // Draw the text
+        mPaint.setTextSize(TEXT_SIZE);
         final float textOriginX = centerX - mTextBounds.width()  / 2;
         final float textOriginY = centerY + mTextBounds.height() / 2;
         canvas.drawText(mText, textOriginX, textOriginY, mPaint);
+
+        // Draw subscript
+        final String subscript = getSubscript();
+        if (subscript != null && !subscript.isEmpty()) {
+            mPaint.setTextSize(SUBSCRIPT_SIZE);
+            final float subscriptOriginX = centerX + mTextBounds.width()  / 2 + SUBSCRIPT_PADDING;
+            final float subscriptOriginY = centerY + mTextBounds.height() / 2 + SUBSCRIPT_SIZE;
+            canvas.drawText(subscript, subscriptOriginX, subscriptOriginY, mPaint);
+        }
+
+        // Draw superscript
+        final String superscript = getSuperscript();
+        if (superscript != null && !superscript.isEmpty()) {
+            mPaint.setTextSize(SUBSCRIPT_SIZE);
+            final float superscriptOriginX = centerX + mTextBounds.width()  / 2 + SUBSCRIPT_PADDING;
+            final float superscriptOriginY = centerY - mTextBounds.height() / 2;
+            canvas.drawText(superscript, superscriptOriginX, superscriptOriginY, mPaint);
+        }
 
         // Draw the outer hexagon
         final float outerHexagonSide = canvas.getHeight() * OUTER_HEXAGON_SIDE_COEF;
@@ -88,5 +111,15 @@ public class ConnectedDeviceDrawable extends Drawable {
     }
 
     @Override
-    public int getOpacity() { return PixelFormat.TRANSLUCENT; }
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
+    }
+
+    protected String getSubscript() {
+        return null;
+    }
+
+    protected String getSuperscript() {
+        return null;
+    }
 }
