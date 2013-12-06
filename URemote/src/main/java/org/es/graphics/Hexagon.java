@@ -9,34 +9,35 @@ import android.graphics.PointF;
  */
 public class Hexagon {
 
-    public static class Type {
-        public static final int POINTY  = 0;
-        public static final int FLAT    = 1;
+    public static class Orientation {
+        public static final int VERTICAL = 0;
+        public static final int HORIZONTAL = 1;
     }
 
-    private float mSide;
-    private int mType = Type.POINTY;
+    private final float mSide;
+    private final PointF mPosition;
+    private final int mOrientation;
 
-    private float h;
-    private float r;
+    private final float h;
+    private final float r;
 
-    public Hexagon(final float side) {
+
+    public Hexagon(final float side, final int orientation, final PointF position) {
+
         mSide = side;
+        mOrientation = orientation;
+        mPosition = position;
+
         r = calculateR(side);
         h = calculateH(side);
     }
 
-    public Hexagon(final float side, final int type) {
-        this(side);
-        mType = type;
-    }
-
-    public float getHeight() {
-        return mSide + 2 * h;
-    }
-
-    public float getWidth() {
-        return mSide + 2 * h;
+    /**
+     * Constructor that creates a vertical oriented hexagon.
+     * @param side
+     */
+    public Hexagon(final float side) {
+        this(side, Orientation.VERTICAL, new PointF());
     }
 
     private static float calculateH(final float side) {
@@ -47,79 +48,111 @@ public class Hexagon {
         return (float) (Math.cos(Math.toRadians(30)) * side);
     }
 
-    private PointF[] getCoordinates(final PointF center) {
-
-        // Calculate the origin point from the center.
-        final PointF origin = new PointF(center.x, center.y - h - mSide / 2);
-
-        return getCoordinatesFromOrigin(origin);
+    public float getHeight() {
+        if (mOrientation == Orientation.HORIZONTAL) {
+            return 2 * r;
+        }
+        return mSide + 2 * h;
     }
 
-    private PointF[] getCoordinatesFromOrigin(final PointF origin) {
+    public float getWidth() {
+        if (mOrientation == Orientation.HORIZONTAL) {
+            return mSide + 2 * h;
+        }
+        return 2 * r;
+    }
+
+    public PointF getCenter() {
+        if (mOrientation == Orientation.HORIZONTAL) {
+            // TODO
+            throw new RuntimeException("getCenter not available for horizontal orientation.");
+        }
+        return new PointF(mPosition.x, mPosition.y + getHeight() / 2.0f);
+    }
+
+    /**
+     * Move the origin point of the hexagon to the given position.
+     * The origin depends on the mOrientation attribute of the object.
+     * @param posX The abscissa of the new position.
+     * @param posY The ordinate of the new position.
+     */
+    public void moveTo(final float posX, final float posY) {
+        mPosition.set(posX, posY);
+    }
+
+    /**
+     * Move the center point of the hexagon to the given position.
+     * @param centerX The abscissa of the new center.
+     * @param centerY The ordinate of the new center.
+     */
+    public void moveCenterTo(final float centerX, final float centerY) {
+        if (mOrientation == Orientation.HORIZONTAL) {
+            // TODO
+            throw new RuntimeException("moveCenterTo not available for horizontal orientation.");
+        }
+        mPosition.set(centerX, centerY - getHeight() / 2.0f);
+    }
+
+    private PointF[] getCoordinates() {
 
         PointF[] coordinates = new PointF[6];
 
-        coordinates[0] = new PointF(origin.x, origin.y);
-        coordinates[1] = new PointF(origin.x + r, origin.y + h);
-        coordinates[2] = new PointF(origin.x + r, origin.y + h + mSide);
-        coordinates[3] = new PointF(origin.x, origin.y + h + mSide + h);
-        coordinates[4] = new PointF(origin.x - r, origin.y + h + mSide);
-        coordinates[5] = new PointF(origin.x - r, origin.y + h);
+        if (mOrientation == Orientation.HORIZONTAL) {
+            // TODO
+            throw new RuntimeException("getCoordinates not available for horizontal orientation.");
+//            coordinates[0] = new PointF(origin.x, origin.y);
+//            coordinates[1] = new PointF(origin.x + r, origin.y + h);
+//            coordinates[2] = new PointF(origin.x + r, origin.y + h + mSide);
+//            coordinates[3] = new PointF(origin.x, origin.y + h + mSide + h);
+//            coordinates[4] = new PointF(origin.x - r, origin.y + h + mSide);
+//            coordinates[5] = new PointF(origin.x - r, origin.y + h);
+//
+//            return coordinates;
+        } else {
+            coordinates[0] = mPosition;
+            coordinates[1] = new PointF(mPosition.x + r, mPosition.y + h);
+            coordinates[2] = new PointF(mPosition.x + r, mPosition.y + h + mSide);
+            coordinates[3] = new PointF(mPosition.x,     mPosition.y + h + mSide + h);
+            coordinates[4] = new PointF(mPosition.x - r, mPosition.y + h + mSide);
+            coordinates[5] = new PointF(mPosition.x - r, mPosition.y + h);
+        }
 
         return coordinates;
     }
 
     /**
-     * Draw the hexagon at the given position.
+     * Draw the hexagon at its current position.
+     *
      * @param canvas The canvas in which to draw.
      * @param paint The paint that holds the style and color to draw.
-     * @param center The point at the center of the hexagon.
      */
-    public void draw(Canvas canvas, Paint paint, PointF center) {
+    public void draw(Canvas canvas, Paint paint) {
 
-        PointF[] coordinates = getCoordinates(center);
+        PointF[] coordinates = getCoordinates();
 
         final int count = coordinates.length;
         for (int p = 0; p < count; p++) {
             PointF start = coordinates[p];
-            PointF stop  = coordinates[(p+1) % count];
-            canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
-        }
-    }
-
-    /**
-     * Draw the hexagon at the given position.
-     * @param canvas The canvas in which to draw.
-     * @param paint The paint that holds the style and color to draw.
-     * @param origin The origin point of the hexagon.
-     */
-    public void drawFromOrigin(Canvas canvas, Paint paint, PointF origin) {
-
-        PointF[] coordinates = getCoordinatesFromOrigin(origin);
-
-        final int count = coordinates.length;
-        for (int p = 0; p < count; p++) {
-            PointF start = coordinates[p];
-            PointF stop  = coordinates[(p+1) % count];
+            PointF stop = coordinates[(p + 1) % count];
             canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
         }
     }
 
     /**
      * Draw only specific sides of the hexagon at the given position.
+     *
      * @param canvas The canvas in which to draw.
      * @param paint The paint that holds the style and color to draw.
-     * @param center The point at the center of the hexagon.
      * @param ids Ids of the sides to draw (value range is 0 to 5).
      */
-    public void drawSides(Canvas canvas, Paint paint, PointF center, int[] ids) {
+    public void drawSides(Canvas canvas, Paint paint, int[] ids) {
 
-        PointF[] coordinates = getCoordinates(center);
+        PointF[] coordinates = getCoordinates();
         final int count = coordinates.length;
 
         for (int id : ids) {
             PointF start = coordinates[id];
-            PointF stop  = coordinates[(id+1) % count];
+            PointF stop = coordinates[(id + 1) % count];
             canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
         }
     }

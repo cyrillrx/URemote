@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Typeface;
 import android.view.SurfaceView;
+import android.view.View;
 
 import org.es.graphics.Hexagon;
 
@@ -14,10 +15,10 @@ import java.util.Random;
 /**
  * Created by Cyril Leroux on 05/12/13.
  */
-public class HexagonalHomeView extends SurfaceView {
+public class HexagonalHomeView extends View {
 
     /** Coefficient to compute the hexagon side. */
-    private static final float HEXAGON_SIDE_COEF = 0.15f;
+    private static final float HEXAGON_SIDE_COEF = 0.2f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
     private static final int STROKE_WIDTH = 3;
 
@@ -35,8 +36,8 @@ public class HexagonalHomeView extends SurfaceView {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        super.draw(canvas);
+    protected void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
 
         final float centerX = canvas.getWidth()  / 2;
         final float centerY = canvas.getHeight() / 2;
@@ -45,16 +46,16 @@ public class HexagonalHomeView extends SurfaceView {
         final float hexagonSide = canvas.getWidth() * HEXAGON_SIDE_COEF;
         Hexagon hexagon = new Hexagon(hexagonSide);
 
-        PointF origin1 = new PointF(centerX, centerY - hexagon.getHeight() - (1 / 2 * hexagonSide));
-        hexagon.drawFromOrigin(canvas, mPaint, origin1);
+        hexagon.moveTo(centerX, centerY - hexagon.getHeight() - hexagonSide / 2);
+        hexagon.draw(canvas, mPaint);
 
-        PointF origin2 = new PointF(centerX - hexagon.getWidth() / 2, centerY);
-        hexagon.draw(canvas, mPaint, origin2);
+        hexagon.moveCenterTo(centerX - hexagon.getWidth() / 2, centerY);
+        hexagon.draw(canvas, mPaint);
 
-        PointF origin3 = new PointF(centerX + hexagon.getWidth() / 2, centerY);
-        hexagon.draw(canvas, mPaint, origin3);
+        hexagon.moveCenterTo(centerX + hexagon.getWidth() / 2, centerY);
+        hexagon.draw(canvas, mPaint);
 
-        PointF origin4 = new PointF(centerX, centerY + (1 / 2 * hexagonSide));
-        hexagon.drawFromOrigin(canvas, mPaint, origin4);
+        hexagon.moveTo(centerX, centerY + hexagonSide / 2);
+        hexagon.draw(canvas, mPaint);
     }
 }

@@ -66,13 +66,15 @@ public class ConnectedDeviceDrawable extends Drawable {
         // Draw the outer hexagon
         final float outerHexagonSide = canvas.getHeight() * OUTER_HEXAGON_SIDE_COEF;
         Hexagon outerHex = new Hexagon(outerHexagonSide);
-        outerHex.draw(canvas, mPaint, new PointF(centerX, centerY));
+        outerHex.moveCenterTo(centerX, centerY);
+        outerHex.draw(canvas, mPaint);
 
         // Draw two random sides of the inner hexagon
         final float innerHexagonSide = canvas.getHeight() * INNER_HEXAGON_SIDE_COEF;
         Hexagon innerHex = new Hexagon(innerHexagonSide);
+        innerHex.moveCenterTo(centerX, centerY);
         Random rand = new Random();
-        innerHex.drawSides(canvas, mPaint, new PointF(centerX, centerY), new int[]{rand.nextInt(5), rand.nextInt(5)});
+        innerHex.drawSides(canvas, mPaint, new int[]{rand.nextInt(5), rand.nextInt(5)});
     }
 
     @Override
