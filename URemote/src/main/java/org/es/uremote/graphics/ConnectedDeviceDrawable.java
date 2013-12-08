@@ -22,18 +22,18 @@ import java.util.Random;
  */
 public class ConnectedDeviceDrawable extends Drawable {
 
-    /** The paint's text size. */
-    private static final int TEXT_SIZE = 80;
-    /** The paint's text size. */
-    private static final int SUBSCRIPT_SIZE = 20;
-    private static final int SUBSCRIPT_PADDING = 2;
+    /** The paint's text coefficient. Used to deduce text size from the canvas.*/
+    private static final float TEXT_SIZE_COEF = 0.42f;
+    /** The paint's subscript and superscript coefficient. Used to deduce text size from the canvas.*/
+    private static final float SUBSCRIPT_SIZE_COEF = 0.1f;
+    /** Coefficient to compute the outer hexagon side from canvas size. */
+    private static final float OUTER_HEXAGON_SIDE_COEF = 0.42f;
+    /** Coefficient to compute the inner hexagon side from canvas size. */
+    private static final float INNER_HEXAGON_SIDE_COEF = 0.37f;
 
+    private static final float SUBSCRIPT_PADDING = 1f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
-    private static final int STROKE_WIDTH = 3;
-    /** Coefficient to compute the outer hexagon side. */
-    private static final float OUTER_HEXAGON_SIDE_COEF = 0.4f;
-    /** Coefficient to compute the inner hexagon side. */
-    private static final float INNER_HEXAGON_SIDE_COEF = 0.35f;
+    private static final float STROKE_WIDTH = 2.5f;
 
     private final Paint mPaint;
 
@@ -52,7 +52,7 @@ public class ConnectedDeviceDrawable extends Drawable {
         mPaint = new Paint();
         mPaint.setARGB(255, 70, 200, 200);
         mPaint.setAntiAlias(true);
-        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+//        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setStrokeWidth(STROKE_WIDTH);
 
         // Text : first letter of the device name
@@ -62,46 +62,52 @@ public class ConnectedDeviceDrawable extends Drawable {
 
         // Text bounds
         mTextBounds = new Rect();
-        mPaint.setTextSize(TEXT_SIZE);
-        mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
+//        mPaint.setTextSize(TEXT_SIZE);
+//        mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
 
-        // Text bounds
+        // Subscript bounds
         mSubscriptBounds = new Rect();
-        mPaint.setTextSize(SUBSCRIPT_SIZE);
-        mPaint.getTextBounds(mSubscript, 0, mSubscript.length(), mSubscriptBounds);
+//        mPaint.setTextSize(SUBSCRIPT_SIZE);
+//        mPaint.getTextBounds(mSubscript, 0, mSubscript.length(), mSubscriptBounds);
 
-        // Text bounds
+        // Superscript bounds
         mSuperscriptBounds = new Rect();
-        mPaint.getTextBounds(mSuperscript, 0, mSuperscript.length(), mSuperscriptBounds);
+//        mPaint.getTextBounds(mSuperscript, 0, mSuperscript.length(), mSuperscriptBounds);
     }
 
     @Override
     public void draw(Canvas canvas) {
 
-        final float centerX = canvas.getWidth()  / 2;
-        final float centerY = canvas.getHeight() / 2;
+        final float centerX = canvas.getWidth()  / 2f;
+        final float centerY = canvas.getHeight() / 2f;
+
+        final float textSize        = canvas.getHeight() * TEXT_SIZE_COEF;
+        final float subscriptSize   = canvas.getHeight() * SUBSCRIPT_SIZE_COEF;
 
         // Draw the text
-        mPaint.setTextSize(TEXT_SIZE);
-        final float textOriginX = centerX - mTextBounds.width()  / 2 - Math.max(mSubscriptBounds.width(), mSuperscriptBounds.width()) / 2;
-        final float textOriginY = centerY + mTextBounds.height() / 2;
+        mPaint.setTextSize(textSize);
+        mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
+        final float textOriginX = centerX - mTextBounds.width()  / 2f - Math.max(mSubscriptBounds.width(), mSuperscriptBounds.width()) / 2f;
+        final float textOriginY = centerY + mTextBounds.height() / 2f;
         canvas.drawText(mText, textOriginX, textOriginY, mPaint);
 
-//        // Draw subscript
-//        if (!mSubscript.isEmpty()) {
-//            mPaint.setTextSize(SUBSCRIPT_SIZE);
-//            final float subscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
-//            final float subscriptOriginY = textOriginY + mTextBounds.height() + SUBSCRIPT_SIZE;
-//            canvas.drawText(mSubscript, subscriptOriginX, subscriptOriginY, mPaint);
-//        }
-//
-//        // Draw superscript
-//        if (!mSuperscript.isEmpty()) {
-//            mPaint.setTextSize(SUBSCRIPT_SIZE);
-//            final float superscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
-//            final float superscriptOriginY = textOriginY - mTextBounds.height();
-//            canvas.drawText(mSuperscript, superscriptOriginX, superscriptOriginY, mPaint);
-//        }
+        // Draw subscript
+        if (!mSubscript.isEmpty()) {
+            mPaint.setTextSize(subscriptSize);
+            mPaint.getTextBounds(mSubscript, 0, mSubscript.length(), mSubscriptBounds);
+            final float subscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
+            final float subscriptOriginY = textOriginY + subscriptSize / 2f;
+            canvas.drawText(mSubscript, subscriptOriginX, subscriptOriginY, mPaint);
+        }
+
+        // Draw superscript
+        if (!mSuperscript.isEmpty()) {
+            mPaint.setTextSize(subscriptSize);
+            mPaint.getTextBounds(mSuperscript, 0, mSuperscript.length(), mSuperscriptBounds);
+            final float superscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
+            final float superscriptOriginY = textOriginY - mTextBounds.height() / 2f;
+            canvas.drawText(mSuperscript, superscriptOriginX, superscriptOriginY, mPaint);
+        }
 
         // Draw the outer hexagon
         final float outerHexagonSide = canvas.getHeight() * OUTER_HEXAGON_SIDE_COEF;
@@ -139,13 +145,13 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     protected String getSubscript(final ConnectedDevice device) {
 
-//        if (device instanceof ServerSetting) {
-//            String ip = ((ServerSetting) device).getLocalHost();
-//            final int pos = ip.lastIndexOf('.');
-//            return ip.substring(pos+1);
-//        }
+        if (device instanceof ServerSetting) {
+            String ip = ((ServerSetting) device).getLocalHost();
+            final int pos = ip.lastIndexOf('.');
+            return ip.substring(pos+1);
+        }
 
-        return "1";
+        return "";
     }
 
     protected String getSuperscript(final ConnectedDevice device) {
