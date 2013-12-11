@@ -60,7 +60,8 @@
                 android:label="@string/title_tv" />
         <activity
                 android:name=".HexHome"
-                android:label="@string/app_name" />
+                android:label="@string/app_name"
+                android:theme="@android:style/Theme.Holo" />
 
 		<service android:name=".service.BluetoothService" />
 		<service android:name=".service.SendRequestService" />

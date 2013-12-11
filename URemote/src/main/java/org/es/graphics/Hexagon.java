@@ -5,6 +5,17 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 
 /**
+ *
+ *   0 __ 1
+ * 5 /    \ 2
+ *   \ __ /
+ *   4    3
+ *
+ *      0
+ *  5  ^ 1
+ *   |    |
+ *  4  ^  2
+ *      3
  * Created by Cyril on 01/12/13.
  */
 public class Hexagon {
@@ -155,5 +166,19 @@ public class Hexagon {
             PointF stop = coordinates[(id + 1) % count];
             canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
         }
+    }
+
+    public boolean pointInHexagon(final float posX, final float posY) {
+
+        PointF[] coordinates = getCoordinates();
+
+        // check rect
+        if (posX < coordinates[5].x || posX > coordinates[2].x ||
+                posY < coordinates[0].y || posY > coordinates[3].y) {
+            return false;
+        }
+
+        // TODO more checks here
+        return true;
     }
 }

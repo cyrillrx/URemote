@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Typeface;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 
@@ -58,4 +59,15 @@ public class HexagonalHomeView extends View {
         hexagon.moveTo(centerX, centerY + hexagonSide / 2);
         hexagon.draw(canvas, mPaint);
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return super.onTouchEvent(event);
+    }
+
 }

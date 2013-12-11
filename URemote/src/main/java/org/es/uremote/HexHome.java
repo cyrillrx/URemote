@@ -2,6 +2,8 @@ package org.es.uremote;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 
 import org.es.components.HexagonalHomeView;
 import org.es.uremote.objects.ActionItem;
@@ -33,7 +35,7 @@ public class HexHome extends Activity {
         super.onCreate(savedInstanceState);
 
         mView = new HexagonalHomeView(this);
-        //        mView.setOnTouchListener(this);
+//        mView.setOnTouchListener(this);
         setContentView(mView);
     }
 
@@ -50,4 +52,10 @@ public class HexHome extends Activity {
         mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
 
     }
+
+//    @Override
+//    public boolean onTouch(View v, MotionEvent event) {
+//        v.dispatchTouchEvent(event);
+//        return true;
+//    }
 }
