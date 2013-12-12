@@ -50,12 +50,5 @@ public class HexHome extends Activity {
         mActionList.add(ACTION_TV, new ActionItem(getString(R.string.title_tv), R.drawable.home_tv));
         mActionList.add(ACTION_ROBOTS, new ActionItem(getString(R.string.title_robots), R.drawable.home_robot));
         mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
-
     }
-
-//    @Override
-//    public boolean onTouch(View v, MotionEvent event) {
-//        v.dispatchTouchEvent(event);
-//        return true;
-//    }
 }

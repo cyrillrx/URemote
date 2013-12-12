@@ -25,6 +25,8 @@ public class HexagonalHomeView extends View {
 
     private final Paint mPaint;
 
+    private Hexagon mHexagon = null;
+
     public HexagonalHomeView(Context context) {
         super(context);
 
@@ -38,36 +40,42 @@ public class HexagonalHomeView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        super.onDraw(canvas);
 
         final float centerX = canvas.getWidth()  / 2;
         final float centerY = canvas.getHeight() / 2;
 
         // Draw the hexagons
         final float hexagonSide = canvas.getWidth() * HEXAGON_SIDE_COEF;
-        Hexagon hexagon = new Hexagon(hexagonSide);
+        mHexagon = new Hexagon(hexagonSide);
 
-        hexagon.moveTo(centerX, centerY - hexagon.getHeight() - hexagonSide / 2);
-        hexagon.draw(canvas, mPaint);
+        mHexagon.moveTo(centerX, centerY - mHexagon.getHeight() - hexagonSide / 2);
+        mHexagon.draw(canvas, mPaint);
 
-        hexagon.moveCenterTo(centerX - hexagon.getWidth() / 2, centerY);
-        hexagon.draw(canvas, mPaint);
+        mHexagon.moveCenterTo(centerX - mHexagon.getWidth() / 2, centerY);
+        mHexagon.draw(canvas, mPaint);
 
-        hexagon.moveCenterTo(centerX + hexagon.getWidth() / 2, centerY);
-        hexagon.draw(canvas, mPaint);
+        mHexagon.moveCenterTo(centerX + mHexagon.getWidth() / 2, centerY);
+        mHexagon.draw(canvas, mPaint);
 
-        hexagon.moveTo(centerX, centerY + hexagonSide / 2);
-        hexagon.draw(canvas, mPaint);
+        mHexagon.moveTo(centerX, centerY + hexagonSide / 2);
+        mHexagon.draw(canvas, mPaint);
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+
+        if (mHexagon == null) {
+            return super.onTouchEvent(event);
+        }
         return super.dispatchTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
+        if (mHexagon == null) {
+            return super.onTouchEvent(event);
+        }
         return super.onTouchEvent(event);
     }
-
 }
