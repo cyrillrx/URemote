@@ -5,24 +5,30 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 
 /**
+ * The hexagon can be either FLAT or POINTY
  *
+ *    FLAT
  *   0 __ 1
  * 5 /    \ 2
  *   \ __ /
  *   4    3
  *
- *      0
- *  5  ^ 1
- *   |    |
- *  4  ^  2
- *      3
+ *   POINTY
+ *        0
+ *        ^
+ *  5  /     \ 1
+ *    |       |
+ *  4  \     / 2
+ *
+ *       3
+ *
  * Created by Cyril on 01/12/13.
  */
 public class Hexagon {
 
     public static class Orientation {
-        public static final int VERTICAL = 0;
-        public static final int HORIZONTAL = 1;
+        public static final int POINTY  = 0;
+        public static final int FLAT    = 1;
     }
 
     private final float mSide;
@@ -44,11 +50,11 @@ public class Hexagon {
     }
 
     /**
-     * Constructor that creates a vertical oriented hexagon.
+     * Constructor that creates a pointy hexagon.
      * @param side
      */
     public Hexagon(final float side) {
-        this(side, Orientation.VERTICAL, new PointF());
+        this(side, Orientation.POINTY, new PointF());
     }
 
     private static float calculateH(final float side) {
@@ -60,23 +66,24 @@ public class Hexagon {
     }
 
     public float getHeight() {
-        if (mOrientation == Orientation.HORIZONTAL) {
+        if (mOrientation == Orientation.FLAT) {
             return 2 * r;
         }
         return mSide + 2 * h;
     }
 
     public float getWidth() {
-        if (mOrientation == Orientation.HORIZONTAL) {
+        if (mOrientation == Orientation.FLAT) {
             return mSide + 2 * h;
         }
         return 2 * r;
     }
 
     public PointF getCenter() {
-        if (mOrientation == Orientation.HORIZONTAL) {
+
+        if (mOrientation == Orientation.FLAT) {
             // TODO
-            throw new RuntimeException("getCenter not available for horizontal orientation.");
+            throw new RuntimeException("getCenter not available for flat orientation.");
         }
         return new PointF(mPosition.x, mPosition.y + getHeight() / 2.0f);
     }
@@ -97,9 +104,10 @@ public class Hexagon {
      * @param centerY The ordinate of the new center.
      */
     public void moveCenterTo(final float centerX, final float centerY) {
-        if (mOrientation == Orientation.HORIZONTAL) {
+
+        if (mOrientation == Orientation.FLAT) {
             // TODO
-            throw new RuntimeException("moveCenterTo not available for horizontal orientation.");
+            throw new RuntimeException("moveCenterTo not available for flat orientation.");
         }
         mPosition.set(centerX, centerY - getHeight() / 2.0f);
     }
@@ -108,9 +116,9 @@ public class Hexagon {
 
         PointF[] coordinates = new PointF[6];
 
-        if (mOrientation == Orientation.HORIZONTAL) {
+        if (mOrientation == Orientation.FLAT) {
             // TODO
-            throw new RuntimeException("getCoordinates not available for horizontal orientation.");
+            throw new RuntimeException("getCoordinates not available for flat orientation.");
 //            coordinates[0] = new PointF(origin.x, origin.y);
 //            coordinates[1] = new PointF(origin.x + r, origin.y + h);
 //            coordinates[2] = new PointF(origin.x + r, origin.y + h + mSide);
@@ -172,9 +180,14 @@ public class Hexagon {
 
         PointF[] coordinates = getCoordinates();
 
+        // Min and max are the same for pointy and flat hexagons
+        final float xMin = coordinates[5].x;
+        final float xMax = coordinates[2].x;
+        final float yMin = coordinates[0].y;
+        final float yMax = coordinates[3].y;
+
         // check rect
-        if (posX < coordinates[5].x || posX > coordinates[2].x ||
-                posY < coordinates[0].y || posY > coordinates[3].y) {
+        if (posX < xMin || posX > xMax || posY < yMin || posY > yMax) {
             return false;
         }
 
