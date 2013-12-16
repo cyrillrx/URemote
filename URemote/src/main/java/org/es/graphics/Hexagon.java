@@ -24,7 +24,7 @@ import android.graphics.PointF;
  *
  * Created by Cyril on 01/12/13.
  */
-public class Hexagon {
+public class Hexagon extends Polygon {
 
     public static class Orientation {
         public static final int POINTY  = 0;
@@ -80,10 +80,8 @@ public class Hexagon {
     }
 
     public PointF getCenter() {
-
         if (mOrientation == Orientation.FLAT) {
-            // TODO
-            throw new RuntimeException("getCenter not available for flat orientation.");
+            return new PointF(mPosition.x + mSide / 2.0f, mPosition.y + getHeight() / 2.0f);
         }
         return new PointF(mPosition.x, mPosition.y + getHeight() / 2.0f);
     }
@@ -106,27 +104,24 @@ public class Hexagon {
     public void moveCenterTo(final float centerX, final float centerY) {
 
         if (mOrientation == Orientation.FLAT) {
-            // TODO
-            throw new RuntimeException("moveCenterTo not available for flat orientation.");
+            mPosition.set(centerX - mSide / 2.0f, centerY - getHeight() / 2.0f);
         }
         mPosition.set(centerX, centerY - getHeight() / 2.0f);
     }
 
-    private PointF[] getCoordinates() {
+    @Override
+    protected PointF[] getCoordinates() {
 
         PointF[] coordinates = new PointF[6];
 
         if (mOrientation == Orientation.FLAT) {
-            // TODO
-            throw new RuntimeException("getCoordinates not available for flat orientation.");
-//            coordinates[0] = new PointF(origin.x, origin.y);
-//            coordinates[1] = new PointF(origin.x + r, origin.y + h);
-//            coordinates[2] = new PointF(origin.x + r, origin.y + h + mSide);
-//            coordinates[3] = new PointF(origin.x, origin.y + h + mSide + h);
-//            coordinates[4] = new PointF(origin.x - r, origin.y + h + mSide);
-//            coordinates[5] = new PointF(origin.x - r, origin.y + h);
-//
-//            return coordinates;
+            coordinates[0] = mPosition;
+            coordinates[1] = new PointF(mPosition.x + mSide, mPosition.y);
+            coordinates[2] = new PointF(mPosition.x + mSide + h, mPosition.y + r);
+            coordinates[3] = new PointF(mPosition.x + mSide, mPosition.y + r * 2);
+            coordinates[4] = new PointF(mPosition.x, mPosition.y + r * 2);
+            coordinates[5] = new PointF(mPosition.x - h, mPosition.y + r);
+
         } else {
             coordinates[0] = mPosition;
             coordinates[1] = new PointF(mPosition.x + r, mPosition.y + h);
@@ -138,6 +133,14 @@ public class Hexagon {
 
         return coordinates;
     }
+
+    protected float getLeft()   { return getCoordinates()[5].x; }
+
+    protected float getTop()    { return getCoordinates()[0].x; }
+
+    protected float getRight()  { return getCoordinates()[2].x; }
+
+    protected float getBottom() { return getCoordinates()[3].x; }
 
     /**
      * Draw the hexagon at its current position.
@@ -174,24 +177,5 @@ public class Hexagon {
             PointF stop = coordinates[(id + 1) % count];
             canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
         }
-    }
-
-    public boolean pointInHexagon(final float posX, final float posY) {
-
-        PointF[] coordinates = getCoordinates();
-
-        // Min and max are the same for pointy and flat hexagons
-        final float xMin = coordinates[5].x;
-        final float xMax = coordinates[2].x;
-        final float yMin = coordinates[0].y;
-        final float yMax = coordinates[3].y;
-
-        // check rect
-        if (posX < xMin || posX > xMax || posY < yMin || posY > yMax) {
-            return false;
-        }
-
-        // TODO more checks here
-        return true;
     }
 }
