@@ -24,8 +24,10 @@ public class HexagonalHomeView extends View {
     private static final int STROKE_WIDTH = 3;
 
     private final Paint mPaint;
+    private final Paint mPaintOnTouch;
 
     private Hexagon mHexagon = null;
+    private boolean mIsTouched = false;
 
     public HexagonalHomeView(Context context) {
         super(context);
@@ -36,6 +38,10 @@ public class HexagonalHomeView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setStrokeWidth(STROKE_WIDTH);
+
+        // Paint
+        mPaintOnTouch = new Paint(mPaint);
+        mPaintOnTouch.setARGB(255, 255, 255, 255);
     }
 
     @Override
@@ -58,23 +64,35 @@ public class HexagonalHomeView extends View {
         mHexagon.draw(canvas, mPaint);
 
         mHexagon.moveTo(centerX, centerY + hexagonSide / 2);
-        mHexagon.draw(canvas, mPaint);
+        mHexagon.draw(canvas, mIsTouched ? mPaintOnTouch : mPaint);
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-
-        if (mHexagon == null) {
-            return super.onTouchEvent(event);
-        }
-        return super.dispatchTouchEvent(event);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent event) {
+//
+//        if (mHexagon == null) {
+//            return super.onTouchEvent(event);
+//        }
+//
+//        final boolean isTouched = mHexagon.pointInHexagon(event.getX(), event.getY());
+//        if (isTouched != mIsTouched) {
+//            mIsTouched = isTouched;
+//            invalidate();
+//        }
+//        return super.dispatchTouchEvent(event);
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 
         if (mHexagon == null) {
             return super.onTouchEvent(event);
+        }
+
+        final boolean isTouched = mHexagon.pointInHexagon(event.getX(), event.getY());
+        if (isTouched != mIsTouched) {
+            mIsTouched = isTouched;
+            invalidate();
         }
         return super.onTouchEvent(event);
     }

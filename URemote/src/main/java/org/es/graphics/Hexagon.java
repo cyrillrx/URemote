@@ -136,11 +136,11 @@ public class Hexagon extends Polygon {
 
     protected float getLeft()   { return getCoordinates()[5].x; }
 
-    protected float getTop()    { return getCoordinates()[0].x; }
+    protected float getTop()    { return getCoordinates()[0].y; }
 
     protected float getRight()  { return getCoordinates()[2].x; }
 
-    protected float getBottom() { return getCoordinates()[3].x; }
+    protected float getBottom() { return getCoordinates()[3].y; }
 
     /**
      * Draw the hexagon at its current position.

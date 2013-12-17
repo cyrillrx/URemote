@@ -25,9 +25,22 @@ public abstract class Polygon {
         }
 
         PointF[] coordinates = getCoordinates();
+        final int verticesCount = coordinates.length;
 
-        // TODO more checks here
+        // nvert: Number of vertices in the polygon. Whether to repeat the first vertex at the end.
+        // vertx, verty: Arrays containing the x- and y-coordinates of the polygon's vertices.
+        // testx, testy: X- and y-coordinate of the test point.
 
-        return true;
+//        int i, j, c = 0;
+        boolean pointIsInPolygon = false;
+        for (int i = 0, j = verticesCount - 1; i < verticesCount; j = i++) {
+            if (((coordinates[i].y > pointY) != (coordinates[j].y > pointY)) &&
+                    (pointX < (coordinates[j].x - coordinates[i].x) * (pointY - coordinates[i].y) / (coordinates[j].y - coordinates[i].y) + coordinates[i].x)) {
+                pointIsInPolygon = !pointIsInPolygon;
+            }
+        }
+        //            return c;
+
+        return pointIsInPolygon;
     }
 }
