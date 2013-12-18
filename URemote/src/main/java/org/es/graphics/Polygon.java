@@ -1,5 +1,7 @@
 package org.es.graphics;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.PointF;
 
 /**
@@ -16,6 +18,24 @@ public abstract class Polygon {
     protected abstract float getRight();
 
     protected abstract float getBottom();
+
+    /**
+     * Draw the polygon at its current position.
+     *
+     * @param canvas The canvas in which to draw.
+     * @param paint The paint that holds the style and color to draw.
+     */
+    public void draw(Canvas canvas, Paint paint) {
+
+        PointF[] coordinates = getCoordinates();
+
+        final int count = coordinates.length;
+        for (int p = 0; p < count; p++) {
+            PointF start = coordinates[p];
+            PointF stop = coordinates[(p + 1) % count];
+            canvas.drawLine(start.x, start.y, stop.x, stop.y, paint);
+        }
+    }
 
     public boolean pointInHexagon(final float pointX, final float pointY) {
 

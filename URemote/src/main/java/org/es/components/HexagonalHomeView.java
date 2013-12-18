@@ -26,7 +26,7 @@ public class HexagonalHomeView extends View {
     private final Paint mPaint;
     private final Paint mPaintOnTouch;
 
-    private Hexagon mHexagon = null;
+    private Hexagon[] mHexagon = new Hexagon[4];
     private boolean mIsTouched = false;
 
     public HexagonalHomeView(Context context) {
@@ -52,19 +52,21 @@ public class HexagonalHomeView extends View {
 
         // Draw the hexagons
         final float hexagonSide = canvas.getWidth() * HEXAGON_SIDE_COEF;
-        mHexagon = new Hexagon(hexagonSide);
 
-        mHexagon.moveTo(centerX, centerY - mHexagon.getHeight() - hexagonSide / 2);
-        mHexagon.draw(canvas, mPaint);
+        if (mHexagon[0] == null) {
+            mHexagon[0] = new Hexagon(hexagonSide);
+        }
+        mHexagon[0].moveTo(centerX, centerY - mHexagon[0].getHeight() - hexagonSide / 2);
+        mHexagon[0].draw(canvas, mPaint);
 
-        mHexagon.moveCenterTo(centerX - mHexagon.getWidth() / 2, centerY);
-        mHexagon.draw(canvas, mPaint);
+        mHexagon[0].moveCenterTo(centerX - mHexagon[0].getWidth() / 2, centerY);
+        mHexagon[0].draw(canvas, mPaint);
 
-        mHexagon.moveCenterTo(centerX + mHexagon.getWidth() / 2, centerY);
-        mHexagon.draw(canvas, mPaint);
+        mHexagon[0].moveCenterTo(centerX + mHexagon[0].getWidth() / 2, centerY);
+        mHexagon[0].draw(canvas, mPaint);
 
-        mHexagon.moveTo(centerX, centerY + hexagonSide / 2);
-        mHexagon.draw(canvas, mIsTouched ? mPaintOnTouch : mPaint);
+        mHexagon[0].moveTo(centerX, centerY + hexagonSide / 2);
+        mHexagon[0].draw(canvas, mIsTouched ? mPaintOnTouch : mPaint);
     }
 
 //    @Override
@@ -89,7 +91,7 @@ public class HexagonalHomeView extends View {
             return super.onTouchEvent(event);
         }
 
-        final boolean isTouched = mHexagon.pointInHexagon(event.getX(), event.getY());
+        final boolean isTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
         if (isTouched != mIsTouched) {
             mIsTouched = isTouched;
             invalidate();
