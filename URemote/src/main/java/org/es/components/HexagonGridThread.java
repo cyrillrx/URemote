@@ -3,20 +3,15 @@ package org.es.components;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.PointF;
 import android.graphics.Typeface;
-import android.view.MotionEvent;
-import android.view.SurfaceView;
-import android.view.View;
+import android.view.SurfaceHolder;
 
 import org.es.graphics.Hexagon;
 
-import java.util.Random;
-
 /**
- * Created by Cyril Leroux on 05/12/13.
+ * Created by Cyril on 22/09/13.
  */
-public class HexagonalHomeView extends View {
+public class HexagonGridThread extends DrawingThread {
 
     /** Coefficient to compute the hexagon side. */
     private static final float HEXAGON_SIDE_COEF = 0.2f;
@@ -29,8 +24,9 @@ public class HexagonalHomeView extends View {
     private Hexagon[] mHexagon = new Hexagon[4];
     private boolean mIsTouched = false;
 
-    public HexagonalHomeView(Context context) {
-        super(context);
+
+    public HexagonGridThread(SurfaceHolder surfaceHolder, Context context) {
+        super(surfaceHolder, context);
 
         // Paint
         mPaint = new Paint();
@@ -45,7 +41,50 @@ public class HexagonalHomeView extends View {
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void updateSurfaceSize(int surfaceWidth, int surfaceHeight) { }
+
+    @Override
+    protected boolean update() {
+
+        boolean updated = false;
+
+        if (mHexagon[0] == null) {
+            return false;
+        }
+
+//        final boolean isTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
+//        if (isTouched != mIsTouched) {
+//            mIsTouched = isTouched;
+////            invalidate();
+//        }
+//        return super.onTouchEvent(event);
+//        }
+//
+////        while (!mEventQueue.isEmpty()) {
+////            processEvent(mEventQueue.poll());
+////        }
+////        updated |= mHero.update();
+//
+        return updated;
+    }
+
+    @Override
+    protected void processEvent(UserEvent event) {
+
+        final int keyCode = event.getKeyCode();
+        final int action = event.getAction();
+
+        if (keyCode == UserEvent.KEYCODE_LEFT && action == UserEvent.ACTION_DOWN) {
+
+        } else if (keyCode == UserEvent.KEYCODE_RIGHT && action == UserEvent.ACTION_DOWN) {
+
+        } else if (action == UserEvent.ACTION_UP) {
+
+        }
+    }
+
+    @Override
+    protected void doDraw(Canvas canvas) {
 
         final float centerX = canvas.getWidth()  / 2;
         final float centerY = canvas.getHeight() / 2;
@@ -67,35 +106,5 @@ public class HexagonalHomeView extends View {
 
         mHexagon[0].moveTo(centerX, centerY + hexagonSide / 2);
         mHexagon[0].draw(canvas, mIsTouched ? mPaintOnTouch : mPaint);
-    }
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent event) {
-//
-//        if (mHexagon == null) {
-//            return super.onTouchEvent(event);
-//        }
-//
-//        final boolean isTouched = mHexagon.pointInHexagon(event.getX(), event.getY());
-//        if (isTouched != mIsTouched) {
-//            mIsTouched = isTouched;
-//            invalidate();
-//        }
-//        return super.dispatchTouchEvent(event);
-//    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-
-        if (mHexagon == null) {
-            return super.onTouchEvent(event);
-        }
-
-        final boolean isTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
-        if (isTouched != mIsTouched) {
-            mIsTouched = isTouched;
-            invalidate();
-        }
-        return super.onTouchEvent(event);
     }
 }

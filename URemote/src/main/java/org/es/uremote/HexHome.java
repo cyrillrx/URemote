@@ -2,10 +2,8 @@ package org.es.uremote;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 
-import org.es.components.HexagonalHomeView;
+import org.es.components.HexagonGridView;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;
@@ -27,28 +25,25 @@ public class HexHome extends Activity {
 
     private List<ActionItem> mActionList;
 
-    private HexagonalHomeView mView;
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mView = new HexagonalHomeView(this);
-//        mView.setOnTouchListener(this);
-        setContentView(mView);
+        HexagonGridView view = new HexagonGridView(this, null);
+        setContentView(view);
     }
 
-    private void initActionList() {
-        if (mActionList != null) {
-            return;
-        }
-        mActionList = new ArrayList<>(6);
-        mActionList.add(ACTION_COMPUTER, new ActionItem(getString(R.string.title_computer), R.drawable.home_computer));
-        mActionList.add(ACTION_NAO, new ActionItem(getString(R.string.title_nao), R.drawable.home_nao));
-        mActionList.add(ACTION_LIGHTS, new ActionItem(getString(R.string.title_lights), R.drawable.home_light));
-        mActionList.add(ACTION_TV, new ActionItem(getString(R.string.title_tv), R.drawable.home_tv));
-        mActionList.add(ACTION_ROBOTS, new ActionItem(getString(R.string.title_robots), R.drawable.home_robot));
-        mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
-    }
+//    private void initActionList() {
+//        if (mActionList != null) {
+//            return;
+//        }
+//        mActionList = new ArrayList<>(6);
+//        mActionList.add(ACTION_COMPUTER, new ActionItem(getString(R.string.title_computer), R.drawable.home_computer));
+//        mActionList.add(ACTION_NAO, new ActionItem(getString(R.string.title_nao), R.drawable.home_nao));
+//        mActionList.add(ACTION_LIGHTS, new ActionItem(getString(R.string.title_lights), R.drawable.home_light));
+//        mActionList.add(ACTION_TV, new ActionItem(getString(R.string.title_tv), R.drawable.home_tv));
+//        mActionList.add(ACTION_ROBOTS, new ActionItem(getString(R.string.title_robots), R.drawable.home_robot));
+//        mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
+//    }
 }
