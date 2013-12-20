@@ -48,23 +48,10 @@ public class HexagonGridThread extends DrawingThread {
 
         boolean updated = false;
 
-        if (mHexagon[0] == null) {
-            return false;
+        while (!mEventQueue.isEmpty()) {
+            processEvent(mEventQueue.poll());
         }
 
-//        final boolean isTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
-//        if (isTouched != mIsTouched) {
-//            mIsTouched = isTouched;
-////            invalidate();
-//        }
-//        return super.onTouchEvent(event);
-//        }
-//
-////        while (!mEventQueue.isEmpty()) {
-////            processEvent(mEventQueue.poll());
-////        }
-////        updated |= mHero.update();
-//
         return updated;
     }
 
@@ -74,12 +61,12 @@ public class HexagonGridThread extends DrawingThread {
         final int keyCode = event.getKeyCode();
         final int action = event.getAction();
 
-        if (keyCode == UserEvent.KEYCODE_LEFT && action == UserEvent.ACTION_DOWN) {
-
-        } else if (keyCode == UserEvent.KEYCODE_RIGHT && action == UserEvent.ACTION_DOWN) {
-
-        } else if (action == UserEvent.ACTION_UP) {
-
+        if (keyCode == UserEvent.KEYCODE_TOUCH) {
+            if (action == UserEvent.ACTION_UP) {
+                mIsTouched = false;
+            } else {
+                mIsTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
+            }
         }
     }
 

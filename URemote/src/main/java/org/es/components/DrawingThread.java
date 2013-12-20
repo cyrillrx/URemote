@@ -15,17 +15,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public abstract class DrawingThread extends Thread {
 
-    private static final String TAG = "org.es.Userengine.DrawingThread";
+    private static final String TAG = "DrawingThread";
 
     protected SurfaceHolder mSurfaceHolder = null;
     protected Resources mResources = null;
     protected ConcurrentLinkedQueue<UserEvent> mEventQueue = new ConcurrentLinkedQueue<UserEvent>();
 
-    /** Number of frame we wish to draw per second. */
+    /** Number of frame to draw per second. */
     private int mFrameRate = 20;
     /** The time a frame is suppose to stay on screen in milliseconds. */
     private int mFrameDuration = 1000 / mFrameRate;
-    /** Indicate whether the thread is suppose to draw or not. */
+    /** Indicate whether the thread should draw or not. */
     private boolean mRunning = true;
 
     public DrawingThread(SurfaceHolder surfaceHolder, Context context) {
@@ -47,7 +47,7 @@ public abstract class DrawingThread extends Thread {
                 try {
                     sleep(waitingTimeMillis);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "DrawingThread - Crash on run()", e);
                     mRunning = false;
                 }
             } else {
