@@ -1,18 +1,20 @@
 package org.es.uremote.network;
 
+import android.text.TextUtils;
+
 /**
  * Created by Cyril on 03/11/13.
  */
 public class IpV4 {
 
-    private static final char SEPARATOR = '.';
-    private int[] mParts = new int[4];
+    private static final CharSequence SEPARATOR = ".";
+    private Integer[] mParts = new Integer[4];
     private int mPort;
 
-    public IpV4(final String host, final int port) {
-        //mHost = host;
-        mPort = port;
-    }
+//    public IpV4(final String host, final int port) {
+//        //mHost = host;
+//        mPort = port;
+//    }
 
     public IpV4(final int part1, final int part2, final int part3, final int part4, final int port) {
         mParts[0]   = part1;
@@ -23,11 +25,8 @@ public class IpV4 {
     }
 
     public String getHost() {
-        //return StringUtils mHost;
-        return null;
+        return TextUtils.join(SEPARATOR, mParts);
     }
 
-    public int getPort() {
-        return mPort;
-    }
+    public int getPort() { return mPort; }
 }

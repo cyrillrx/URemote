@@ -4,8 +4,7 @@ import android.content.Context;
 import android.net.wifi.WifiManager;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import org.es.utils.StringUtils;
+import android.text.TextUtils;
 
 /**
  * Parcelable class that holds server connection settings.
@@ -262,12 +261,12 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 
 			StringBuilder sb = new StringBuilder();
 
-			if (StringUtils.isNullOrEmpty(mName)) {
+			if (TextUtils.isEmpty(mName)) {
 				error = true;
 				sb.append("- Name is null or empty.\n");
 			}
 
-			if (StringUtils.isNullOrEmpty(mLocalHost)) {
+			if (TextUtils.isEmpty(mLocalHost)) {
 				error = true;
 				sb.append("- Localhost is empty.\n");
 			}
@@ -277,12 +276,12 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 				sb.append("- Local port is 0.\n");
 			}
 
-			if (StringUtils.isNullOrEmpty(mBroadcast)) {
+			if (TextUtils.isEmpty(mBroadcast)) {
 				error = true;
 				sb.append("- Broadcast is empty.\n");
 			}
 
-			if (StringUtils.isNullOrEmpty(mRemoteHost)) {
+			if (TextUtils.isEmpty(mRemoteHost)) {
 				error = true;
 				sb.append("- Remote host is empty.\n");
 			}
@@ -292,7 +291,7 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 				sb.append("- Remote port is 0.\n");
 			}
 
-			if (StringUtils.isNullOrEmpty(mMacAddress)) {
+			if (TextUtils.isEmpty(mMacAddress)) {
 				error = true;
 				sb.append("- Mac address is empty.\n");
 			}
