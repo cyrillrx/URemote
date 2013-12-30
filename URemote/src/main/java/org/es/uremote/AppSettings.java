@@ -8,6 +8,7 @@ import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
@@ -37,7 +38,13 @@ public class AppSettings extends PreferenceActivity {
 		loadHeadersFromResource(R.xml.preference_headers, target);
 	}
 
-	/** This fragment shows the preferences for the server. */
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        Log.d("AppSettings", "Fragment name : fragmentName | class name " + AppSettings.class.getName());
+        return AppSettings.class.getName().equals(fragmentName);
+    }
+
+    /** This fragment shows the preferences for the server. */
 	public static class PrefServer extends PreferenceFragment implements OnSharedPreferenceChangeListener {
 
 		private String mKeyServerId;
