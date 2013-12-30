@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.6.+'
+        classpath 'com.android.tools.build:gradle:0.7.+'
     }
 }
 
@@ -15,7 +15,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19"
+    buildToolsVersion '19'
 
     defaultConfig {
         minSdkVersion 16
@@ -29,6 +29,6 @@ android {
 }
 
 dependencies {
-	compile 'com.google.android:support-v4:r7'
-	compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'com.google.android:support-v4:r7'
+    compile 'com.google.protobuf:protobuf-java:2.5.0'
 }
