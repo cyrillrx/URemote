@@ -40,8 +40,9 @@ public class AppSettings extends PreferenceActivity {
 
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        Log.d("AppSettings", "Fragment name : fragmentName | class name " + AppSettings.class.getName());
-        return AppSettings.class.getName().equals(fragmentName);
+        //Log.d("AppSettings", "isValidFragment Fragment name : " + fragmentName);
+		//Log.d("AppSettings", "isValidFragment Class name " + this.getClass().getName());
+        return "org.es.uremote.AppSettings$PrefServer".equals(fragmentName);
     }
 
     /** This fragment shows the preferences for the server. */
