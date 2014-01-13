@@ -11,6 +11,8 @@ import android.os.Message;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import org.es.uremote.Computer;
+import org.es.uremote.Home;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
@@ -36,10 +38,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
 	private static final String TAG = "MediaWidgetProvider";
 
-	private static final String ACTION_MEDIA_PREVIOUS	= "ACTION_MEDIA_PREVIOUS";
-	private static final String ACTION_MEDIA_PLAY_PAUSE	= "ACTION_MEDIA_PLAY_PAUSE";
-	private static final String ACTION_MEDIA_STOP		= "ACTION_MEDIA_STOP";
-	private static final String ACTION_MEDIA_NEXT		= "ACTION_MEDIA_NEXT";
+	private static final String ACTION_START_ACTIVITY   = "ACTION_START_ACTIVITY";
+	private static final String ACTION_MEDIA_PREVIOUS   = "ACTION_MEDIA_PREVIOUS";
+	private static final String ACTION_MEDIA_PLAY_PAUSE = "ACTION_MEDIA_PLAY_PAUSE";
+	private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
+	private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
 
 	/** Handler the display of toast messages. */
 	private static Handler sHandler;
@@ -63,8 +66,12 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_media);
 
 			// Register onClickListeners
+            Intent startActivityIntent = new Intent(context, MediaWidgetProvider.class);
+            startActivityIntent.setAction(ACTION_START_ACTIVITY);
+            PendingIntent startActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.widgetTitle, startActivityPendingIntent);
 
-			Intent previousIntent = new Intent(context, MediaWidgetProvider.class);
+            Intent previousIntent = new Intent(context, MediaWidgetProvider.class);
 			previousIntent.setAction(ACTION_MEDIA_PREVIOUS);
 			PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, previousPendingIntent);
@@ -90,27 +97,32 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// TODO Auto-generated method stub
 		super.onReceive(context, intent);
 
 		Log.debug(TAG, "MediaWidgetProvider onReceive");
 
-		final String mediaCommand = intent.getAction();
+		final String action = intent.getAction();
 		Log.debug(TAG, "Action : " + intent.getAction());
 
-		if (ACTION_MEDIA_PREVIOUS.equals(mediaCommand)) {
+        if (ACTION_START_ACTIVITY.equals(action)) {
+            Toast.makeText(context, "START_ACTIVITY", LENGTH_SHORT).show();
+            Intent startActivityIntent = new Intent(context, Computer.class);
+            startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(startActivityIntent);
+
+        } else if (ACTION_MEDIA_PREVIOUS.equals(action)) {
 			Toast.makeText(context, "MEDIA_PREVIOUS", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_PREVIOUS);
 
-		} else if (ACTION_MEDIA_PLAY_PAUSE.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_PLAY_PAUSE.equals(action)) {
 			Toast.makeText(context, "MEDIA_PLAY_PAUSE", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_PLAY_PAUSE);
 
-		} else if (ACTION_MEDIA_STOP.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_STOP.equals(action)) {
 			Toast.makeText(context, "MEDIA_STOP", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_STOP);
 
-		} else if (ACTION_MEDIA_NEXT.equals(mediaCommand)) {
+		} else if (ACTION_MEDIA_NEXT.equals(action)) {
 			Toast.makeText(context, "MEDIA_NEXT", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_NEXT);
 
@@ -142,16 +154,16 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 	/**
 	 * Initialize the toast message handler.
 	 *
-	 * @param _context The context used to display toast messages.
+	 * @param context The context used to display toast messages.
 	 */
-	private static void initHandler(final Context _context) {
+	private static void initHandler(final Context context) {
 		if (sHandler == null) {
 			sHandler = new Handler() {
 				@Override
 				public void handleMessage(Message _msg) {
 					switch (_msg.what) {
 						case MESSAGE_WHAT_TOAST:
-							showStaticToast(_context, (String) _msg.obj);
+							showStaticToast(context, (String) _msg.obj);
 							break;
 
 						default: break;
@@ -163,11 +175,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 		}
 	}
 
-	private static void showStaticToast(final Context _context, final String _message) {
+	private static void showStaticToast(final Context context, final String message) {
 		if (sToast == null) {
-			sToast = Toast.makeText(_context, "", LENGTH_SHORT);
+			sToast = Toast.makeText(context, "", LENGTH_SHORT);
 		}
-		sToast.setText(_message);
+		sToast.setText(message);
 		sToast.show();
 	}
 }
