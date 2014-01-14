@@ -24,11 +24,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.ACTION_DELETE;
+import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static org.es.uremote.objects.ServerSetting.FILENAME;
-import static org.es.uremote.utils.IntentKeys.ACTION_ADD_SERVER;
-import static org.es.uremote.utils.IntentKeys.ACTION_EDIT_SERVER;
-import static org.es.uremote.utils.IntentKeys.ACTION_LOAD_SERVER;
+import static org.es.uremote.utils.IntentKeys.ACTION_ADD;
+import static org.es.uremote.utils.IntentKeys.ACTION_LOAD;
+import static org.es.uremote.utils.IntentKeys.ACTION_SAVE;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ACTION;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_CONF_FILE;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
@@ -75,7 +78,7 @@ public class ServerListActivity extends ListActivity {
 		Intent editIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
 		editIntent.putExtra(EXTRA_SERVER_DATA, server);
 		editIntent.putExtra(EXTRA_SERVER_ID, position);
-		editIntent.setAction(ACTION_EDIT_SERVER);
+		editIntent.setAction(ACTION_EDIT);
 		startActivityForResult(editIntent, RC_EDIT_SERVER);
 	}
 
@@ -108,13 +111,13 @@ public class ServerListActivity extends ListActivity {
 
 			case R.id.add_server:
 				Intent addIntent = new Intent(getApplicationContext(), ServerEditActivity.class);
-				addIntent.setAction(ACTION_ADD_SERVER);
+				addIntent.setAction(ACTION_ADD);
 				startActivityForResult(addIntent, RC_ADD_SERVER);
 				return true;
 
 			case R.id.load_from_file:
 				Intent loadIntent = new Intent(getApplicationContext(), LoadServerActivity.class);
-				loadIntent.setAction(ACTION_LOAD_SERVER);
+				loadIntent.setAction(ACTION_LOAD);
 				loadIntent.putExtra(IntentKeys.DIRECTORY_PATH, Environment.getExternalStorageDirectory().getPath());
 				startActivityForResult(loadIntent, RC_LOAD_SERVER);
 				return true;
@@ -143,8 +146,12 @@ public class ServerListActivity extends ListActivity {
 				break;
 
 			case RC_EDIT_SERVER:
-				if (server != null) {
-					final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
+                final String action = data.getStringExtra(EXTRA_SERVER_ACTION);
+                final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
+
+                if (ACTION_DELETE.equals(action)) {
+                    deleteServer(serverId);
+                } else if (ACTION_SAVE.equals(action) && server != null) {
 					updateServer(serverId, server);
 				}
 				break;
@@ -167,11 +174,28 @@ public class ServerListActivity extends ListActivity {
 		updateView(mServers);
 	}
 
+    /**
+     * Edit the selected server.
+     *
+     * @param serverId
+     * @param newData
+     */
 	private void updateServer(int serverId, ServerSetting newData) {
 		mServers.get(serverId).update(newData);
 		asyncSaveServers(mServers, mConfFile);
 		updateView(mServers);
 	}
+
+    /**
+     * Delete the selected server from the list.
+     *
+     * @param serverId
+     */
+    private void deleteServer(int serverId) {
+        mServers.remove(serverId);
+        asyncSaveServers(mServers, mConfFile);
+        updateView(mServers);
+    }
 
 	/**
 	 * Load the servers from a list of {@link File} objects.
