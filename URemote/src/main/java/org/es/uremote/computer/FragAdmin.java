@@ -204,7 +204,9 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 
 		/** @param handler The toast messages handler. */
 		public AdminMessageMgr(Handler handler) {
-			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+            super(handler, getServerSetting());
+            // TODO clean
+            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

@@ -128,7 +128,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
 		public ExplorerMessageMgr(Handler handler) {
-			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+            super(handler, getServerSetting());
+            // TODO clean
+            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

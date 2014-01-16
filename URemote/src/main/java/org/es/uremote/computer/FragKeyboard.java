@@ -409,7 +409,9 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 
 		/** @param handler */
 		public KeyboardMessageMgr(Handler handler) {
-			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+            super(handler, getServerSetting());
+            // TODO clean
+            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

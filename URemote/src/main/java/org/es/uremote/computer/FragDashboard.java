@@ -315,7 +315,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
 		public DashboardMessageMgr(Handler handler) {
-			super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+			super(handler, getServerSetting());
+            // TODO clean
+			//super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
 		}
 
 		@Override

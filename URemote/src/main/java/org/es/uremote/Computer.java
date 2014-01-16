@@ -149,7 +149,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
 		} else {
-			sendAsyncRequest(SIMPLE, Code.HELLO);
+            // TODO clean
+			// sendAsyncRequest(SIMPLE, Code.HELLO);
 		}
 	}
 
@@ -345,7 +346,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 */
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
 
-		final ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
+        final ServerSetting serverSetting = getServer();
+        // TODO clean
+        // final ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
 
 		if (serverSetting == null) {
 			Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
@@ -436,7 +439,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			mSelectedServer = selectedServer;
             if (mSelectedServer != null) {
                 AsyncMessageMgr.setSecurityToken(mSelectedServer.getSecurityToken());
+                sendAsyncRequest(SIMPLE, Code.HELLO);
+
             } else {
+                // TODO clean
+                Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
+
                 // Get the properties values
                 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
