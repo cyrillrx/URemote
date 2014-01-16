@@ -65,26 +65,32 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		final Request request = requests[0];
 		String errorMessage = "";
 
-		mSocket = null;
-		try {
-			// Socket creation
-			mSocket = connectToRemoteSocket(mServerSetting);
-			if (mSocket != null && mSocket.isConnected()) {
-				return ExchangeMessagesUtils.sendRequest(mSocket, request);
-			}
-			errorMessage = "Socket null or not connected";
+        if (mServerSetting == null) {
+            errorMessage = "Connected device is null. Nowhere to send data";
+            Log.error(TAG, errorMessage);
 
-		} catch (IOException e) {
-			errorMessage = "IOException" + e;
-			Log.error(TAG, errorMessage);
+        } else {
+            mSocket = null;
+            try {
+                // Socket creation
+                mSocket = connectToRemoteSocket(mServerSetting);
+                if (mSocket != null && mSocket.isConnected()) {
+                    return ExchangeMessagesUtils.sendRequest(mSocket, request);
+                }
+                errorMessage = "Socket null or not connected";
 
-		} catch (Exception e) {
-			errorMessage = "Exception" + e;
-			Log.error(TAG, errorMessage);
+            } catch (IOException e) {
+                errorMessage = "IOException" + e;
+                Log.error(TAG, errorMessage, e);
 
-		} finally {
-			closeSocketIO();
-		}
+            } catch (Exception e) {
+                errorMessage = "Exception" + e;
+                Log.error(TAG, errorMessage, e);
+
+            } finally {
+                closeSocketIO();
+            }
+        }
 
 		return Response.newBuilder()
 				.setReturnCode(ReturnCode.RC_ERROR)
