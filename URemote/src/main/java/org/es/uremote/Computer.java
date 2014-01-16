@@ -270,6 +270,10 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		sToast.show();
 	}
 
+    public ServerSetting getServer() {
+        return mSelectedServer;
+    }
+
 	@Override
 	public void onPageScrollStateChanged(int arg0) {}
 

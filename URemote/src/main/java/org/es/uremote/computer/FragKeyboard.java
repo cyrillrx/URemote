@@ -24,6 +24,7 @@ import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -182,135 +183,135 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 				break;
 
 			case R.id.kbEnter:
-				sendAsyncRequest(KEYBOARD, Code.KB_RETURN, extraCode);
+				sendRequest(KEYBOARD, Code.KB_RETURN, extraCode);
 				break;
 
 			case R.id.kbSpace:
-				sendAsyncRequest(KEYBOARD, Code.KB_SPACE, extraCode);
+				sendRequest(KEYBOARD, Code.KB_SPACE, extraCode);
 				break;
 
 			case R.id.kbBackspace:
-				sendAsyncRequest(KEYBOARD, Code.KB_BACKSPACE, extraCode);
+				sendRequest(KEYBOARD, Code.KB_BACKSPACE, extraCode);
 				break;
 
 			case R.id.kbEscape:
-				sendAsyncRequest(KEYBOARD, Code.KB_ESCAPE, extraCode);
+				sendRequest(KEYBOARD, Code.KB_ESCAPE, extraCode);
 				break;
 
 			case R.id.kbAltF4:
-				sendAsyncRequest(KEYBOARD, Code.KB_F4, Code.KB_ALT);
+				sendRequest(KEYBOARD, Code.KB_F4, Code.KB_ALT);
 				break;
 
 			case R.id.kb0:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "0");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "0");
 				break;
 
 			case R.id.kb1:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "1");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "1");
 				break;
 
 			case R.id.kb2:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "2");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "2");
 				break;
 			case R.id.kb3:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "3");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "3");
 				break;
 			case R.id.kb4:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "4");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "4");
 				break;
 			case R.id.kb5:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "5");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "5");
 				break;
 			case R.id.kb6:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "6");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "6");
 				break;
 			case R.id.kb7:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "7");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "7");
 				break;
 			case R.id.kb8:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "8");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "8");
 				break;
 			case R.id.kb9:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "9");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "9");
 				break;
 
 			case R.id.kbA:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "A");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "A");
 				break;
 			case R.id.kbB:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "B");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "B");
 				break;
 			case R.id.kbC:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "C");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "C");
 				break;
 			case R.id.kbD:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "D");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "D");
 				break;
 			case R.id.kbE:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "E");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "E");
 				break;
 			case R.id.kbF:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "F");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "F");
 				break;
 			case R.id.kbG:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "G");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "G");
 				break;
 			case R.id.kbH:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "H");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "H");
 				break;
 			case R.id.kbI:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "I");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "I");
 				break;
 			case R.id.kbJ:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "J");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "J");
 				break;
 			case R.id.kbK:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "K");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "K");
 				break;
 			case R.id.kbL:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "L");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "L");
 				break;
 			case R.id.kbM:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "M");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "M");
 				break;
 			case R.id.kbN:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "N");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "N");
 				break;
 			case R.id.kbO:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "O");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "O");
 				break;
 			case R.id.kbP:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "P");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "P");
 				break;
 			case R.id.kbQ:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "Q");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "Q");
 				break;
 			case R.id.kbR:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "R");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "R");
 				break;
 			case R.id.kbS:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "S");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "S");
 				break;
 			case R.id.kbT:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "T");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "T");
 				break;
 			case R.id.kbU:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "U");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "U");
 				break;
 			case R.id.kbV:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "V");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "V");
 				break;
 			case R.id.kbW:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "W");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "W");
 				break;
 			case R.id.kbX:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "X");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "X");
 				break;
 			case R.id.kbY:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "Y");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "Y");
 				break;
 			case R.id.kbZ:
-				sendAsyncRequest(KEYBOARD, Code.DEFINE, extraCode, "Z");
+				sendRequest(KEYBOARD, Code.DEFINE, extraCode, "Z");
 				break;
 
 			default:
@@ -342,10 +343,14 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param code The request code.
 	 * @param extraCode The request extra code.
 	 */
-	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
+	public void sendRequest(final Type type, final Code code, final Code extraCode) {
+		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
 	}
 
+    @Override
+    public ServerSetting getServerSetting() {
+        return ((Computer)mCallbacks).getServer();
+    }
 
 	/**
 	 * Initializes the message handler then send the request.
@@ -355,8 +360,8 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param extraCode The request extra code.
 	 * @param stringParam A string parameter.
 	 */
-	public void sendAsyncRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
+	public void sendRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
+		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
 	}
 
 	/**
@@ -365,11 +370,11 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param request The request.
 	 */
 	@Override
-	public void sendAsyncRequest(Request request) {
+	public void sendRequest(Request request) {
 		if (KeyboardMessageMgr.availablePermits() > 0) {
 			new KeyboardMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			Log.warning(TAG, "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit));
+			Log.warning(TAG, "#sendRequest - " + getString(R.string.msg_no_more_permit));
 		}
 	}
 
@@ -386,7 +391,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Send the request if the user confirms it
-				sendAsyncRequest(request);
+				sendRequest(request);
 			}
 		});
 

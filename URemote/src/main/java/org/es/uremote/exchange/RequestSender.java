@@ -1,6 +1,7 @@
 package org.es.uremote.exchange;
 
 import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.objects.ServerSetting;
 
 /**
  * Interface to send a request.
@@ -9,10 +10,14 @@ import org.es.uremote.exchange.ExchangeMessages.Request;
  * Created on 26/08/12.
  */
 public interface RequestSender {
+
 	/**
 	 * Initializes the message handler then send the request.
 	 *
 	 * @param request The request to send.
 	 */
-	public void sendAsyncRequest(Request request);
+	public void sendRequest(Request request);
+
+    /** @return The current server configuration. */
+    public ServerSetting getServerSetting();
 }

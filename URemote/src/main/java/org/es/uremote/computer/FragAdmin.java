@@ -26,6 +26,7 @@ import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.WakeOnLan;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -115,7 +116,7 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 				break;
 
 			case R.id.cmdAiMute:
-				sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
+				sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
 				break;
 
 			case R.id.cmdKillServer:
@@ -156,16 +157,21 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	////////////////////////////////////////////////////////////////////
 
 	@Override
-	public void sendAsyncRequest(Request request) {
+	public void sendRequest(Request request) {
 
 		if (AdminMessageMgr.availablePermits() > 0) {
 			new AdminMessageMgr(Computer.getHandler()).execute(request);
 		} else {
-			Log.warning(TAG, "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit));
+			Log.warning(TAG, "#sendRequest - " + getString(R.string.msg_no_more_permit));
 		}
 	}
 
-	/**
+    @Override
+    public ServerSetting getServerSetting() {
+        return ((Computer)mCallbacks).getServer();
+    }
+
+    /**
 	 * Ask for the user to confirm before sending a request to the server.
 	 *
 	 * @param request The request to send.
@@ -180,7 +186,7 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 			@Override
 			public void onClick(DialogInterface dialog, int id) {
 				// Send the request if the user confirms it
-				sendAsyncRequest(request);
+				sendRequest(request);
 			}
 		});
 

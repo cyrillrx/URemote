@@ -33,6 +33,7 @@ import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.objects.AppItem;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
@@ -149,31 +150,31 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		switch (_view.getId()) {
 
 			case R.id.kbLeft:
-				sendAsyncRequest(KEYBOARD, Code.LEFT);
+				sendRequest(KEYBOARD, Code.LEFT);
 				break;
 
 			case R.id.kbRight:
-				sendAsyncRequest(KEYBOARD, Code.RIGHT);
+				sendRequest(KEYBOARD, Code.RIGHT);
 				break;
 
 			case R.id.kbUp:
-				sendAsyncRequest(KEYBOARD, Code.UP);
+				sendRequest(KEYBOARD, Code.UP);
 				break;
 
 			case R.id.kbDown:
-				sendAsyncRequest(KEYBOARD, Code.DOWN);
+				sendRequest(KEYBOARD, Code.DOWN);
 				break;
 
 			case R.id.kbOk:
-				sendAsyncRequest(KEYBOARD, Code.KB_RETURN);
+				sendRequest(KEYBOARD, Code.KB_RETURN);
 				break;
 
 			case R.id.cmdTest:
-				sendAsyncRequest(Type.SIMPLE, Code.TEST);
+				sendRequest(Type.SIMPLE, Code.TEST);
 				break;
 
 			case R.id.cmdSwitch:
-				sendAsyncRequest(Type.SIMPLE, Code.SWITCH_WINDOW);
+				sendRequest(Type.SIMPLE, Code.SWITCH_WINDOW);
 				break;
 
 			case R.id.btnAppLauncher:
@@ -186,27 +187,27 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				break;
 
 			case R.id.cmdGomStretch:
-				sendAsyncRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
+				sendRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
 				break;
 
 			case R.id.cmdPrevious:
-				sendAsyncRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
+				sendRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
 				break;
 
 			case R.id.cmdPlayPause:
-				sendAsyncRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
+				sendRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
 				break;
 
 			case R.id.cmdStop:
-				sendAsyncRequest(KEYBOARD, Code.MEDIA_STOP);
+				sendRequest(KEYBOARD, Code.MEDIA_STOP);
 				break;
 
 			case R.id.cmdNext:
-				sendAsyncRequest(KEYBOARD, Code.MEDIA_NEXT);
+				sendRequest(KEYBOARD, Code.MEDIA_NEXT);
 				break;
 
 			case R.id.cmdMute:
-				sendAsyncRequest(VOLUME, Code.MUTE);
+				sendRequest(VOLUME, Code.MUTE);
 				break;
 
 			default:
@@ -221,7 +222,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
+				sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -245,7 +246,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			return;
 		}
 		final int volume = seekBar.getProgress();
-		sendAsyncRequest(VOLUME, Code.DEFINE, volume);
+		sendRequest(VOLUME, Code.DEFINE, volume);
 	}
 
 	@Override
@@ -267,8 +268,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestCode The request code.
 	 * @param intParam An integer parameter.
 	 */
-	public void sendAsyncRequest(Type requestType, Code requestCode, int intParam) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
+	public void sendRequest(Type requestType, Code requestCode, int intParam) {
+		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
 	}
 
 	/**
@@ -277,8 +278,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestType The request type.
 	 * @param requestCode The request code.
 	 */
-	public void sendAsyncRequest(Type requestType, Code requestCode) {
-		sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
+	public void sendRequest(Type requestType, Code requestCode) {
+		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
 	}
 
 	/**
@@ -287,18 +288,23 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param request The request to send.
 	 */
 	@Override
-	public void sendAsyncRequest(Request request) {
+	public void sendRequest(Request request) {
 
 		if (DashboardMessageMgr.availablePermits() > 0) {
 			new DashboardMessageMgr(Computer.getHandler()).execute(request);
 		} else {
 			final boolean defineVolume = VOLUME.equals(request.getType()) && DEFINE.equals(request.getCode());
 			if (!defineVolume) {
-				final String message = "#sendAsyncRequest - " + getString(R.string.msg_no_more_permit) + "\n" + request.toString();
+				final String message = "#sendRequest - " + getString(R.string.msg_no_more_permit) + "\n" + request.toString();
 				Log.warning(TAG, message);
 			}
 		}
 	}
+
+    @Override
+    public ServerSetting getServerSetting() {
+        return ((Computer)mCallbacks).getServer();
+    }
 
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.

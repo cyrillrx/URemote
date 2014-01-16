@@ -16,6 +16,7 @@ import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -80,7 +81,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			Toast.makeText(getActivity(), R.string.build_request_error, Toast.LENGTH_LONG).show();
 			return;
 		}
-		sendAsyncRequest(request);
+		sendRequest(request);
 	}
 
 	/**
@@ -92,7 +93,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	@Override
 	protected void navigateTo(String dirPath) {
 		if (dirPath != null) {
-			sendAsyncRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+			sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 		}
 	}
 
@@ -106,13 +107,18 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	 * @param request The request to send.
 	 */
 	@Override
-	public void sendAsyncRequest(Request request) {
+	public void sendRequest(Request request) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
 			new ExplorerMessageMgr(Computer.getHandler()).execute(request);
 		} else {
 			Toast.makeText(getActivity(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
 	}
+
+    @Override
+    public ServerSetting getServerSetting() {
+        return ((Computer)mCallbacks).getServer();
+    }
 
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
