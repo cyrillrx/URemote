@@ -42,7 +42,6 @@ import org.es.uremote.utils.PrefKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +56,6 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.objects.ServerSetting.FILENAME;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
@@ -419,20 +417,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
 		@Override
 		protected ServerSetting doInBackground(Void... params) {
-
-			final File confFile = new File(getApplicationContext().getExternalFilesDir(null), FILENAME);
-			final List<ServerSetting> servers = new ArrayList<>();
-			ServerSettingDao.loadFromFile(confFile, servers);
-
-			// Get the properties values
-			SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			final int serverId = pref.getInt(PrefKeys.KEY_SERVER_ID, PrefKeys.DEFAULT_SERVER_ID);
-			try {
-				return servers.get(serverId);
-			} catch (IndexOutOfBoundsException e) {
-				return null;
-			}
-		}
+			return ServerSettingDao.loadSelected(getApplicationContext());
+        }
 
 		@Override
 		protected void onPostExecute(ServerSetting selectedServer) {

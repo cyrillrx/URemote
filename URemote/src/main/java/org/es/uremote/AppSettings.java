@@ -8,17 +8,12 @@ import android.preference.EditTextPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.objects.ServerSetting;
 import org.es.utils.EditIntPreference;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.es.uremote.objects.ServerSetting.FILENAME;
 
 /**
  * Activity that hosts application preferences.
@@ -246,10 +241,7 @@ public class AppSettings extends PreferenceActivity {
 		private class AsyncLoadServer extends AsyncTask<Integer, Void, ServerSetting> {
 			@Override
 			protected ServerSetting doInBackground(Integer... intValues) {
-				final File confFile = new File(getActivity().getApplicationContext().getExternalFilesDir(null), FILENAME);
-
-				final List<ServerSetting> servers = new ArrayList<>();
-				ServerSettingDao.loadFromFile(confFile, servers);
+				final List<ServerSetting> servers = ServerSettingDao.loadList(getActivity().getApplicationContext());
 				final int serverId = intValues[0];
 				try {
 					return servers.get(serverId);

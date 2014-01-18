@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import org.es.exception.AccessStorageOnMainThreadException;
 import org.es.uremote.R;
 import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.utils.PrefKeys;
 import org.es.utils.Log;
 import org.es.utils.XmlWriter;
 import org.xml.sax.InputSource;
@@ -17,9 +18,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
+
+import static org.es.uremote.objects.ServerSetting.FILENAME;
 
 /**
  * @author Cyril Leroux
@@ -97,6 +101,7 @@ public class ServerSettingDao {
 
 	/**
 	 * Load the server settings from an XML file into the server list.
+     * Use this function to update an existing server list.
 	 *
 	 * @param configFile The file to read.
 	 * @param servers The list to fill with loaded data.
@@ -128,9 +133,47 @@ public class ServerSettingDao {
 		return servers.addAll(xmlHandler.getServers());
 	}
 
+    /**
+     * Load the server list from the default XML file and returns it.
+     * Use this function to load the list of servers.
+     *
+     * @param context The application context.
+     * @return The server list or null if an error occurred.
+     */
+    public static List<ServerSetting> loadList(Context context) {
+
+        final File confFile = new File(context.getExternalFilesDir(null), FILENAME);
+        final List<ServerSetting> servers = new ArrayList<>();
+        if (loadFromFile(confFile, servers)) {
+            return servers;
+        }
+        return null;
+    }
+
+    /**
+     * Load the selected server.
+     *
+     * @param context The application context.
+     * @return The selected server.
+     */
+    public static ServerSetting loadSelected(Context context) {
+
+        final List<ServerSetting> servers = loadList(context);
+
+        // Get the properties values
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        final int serverId = pref.getInt(PrefKeys.KEY_SERVER_ID, PrefKeys.DEFAULT_SERVER_ID);
+        try {
+            return servers.get(serverId);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            return null;
+        }
+    }
+
 	/**
 	 * @param context The application context.
 	 * @return The Server connection settings stored in User Preferences
+     * @deprecated use {@link #loadList(android.content.Context)} instead.
 	 */
 	public static ServerSetting loadFromPreferences(Context context) {
 

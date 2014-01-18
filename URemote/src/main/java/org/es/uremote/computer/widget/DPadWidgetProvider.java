@@ -147,7 +147,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, ServerSettingDao.loadFromPreferences(context)).execute(request);
+			new AsyncMessageMgr(sHandler, ServerSettingDao.loadSelected(context)).execute(request);
 		} else {
 			Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
