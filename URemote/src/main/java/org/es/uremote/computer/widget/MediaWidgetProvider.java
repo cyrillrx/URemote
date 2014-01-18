@@ -125,7 +125,6 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 		} else if (ACTION_MEDIA_NEXT.equals(action)) {
 			Toast.makeText(context, "MEDIA_NEXT", LENGTH_SHORT).show();
 			sendAsyncRequest(context, KEYBOARD, MEDIA_NEXT);
-
 		}
 	}
 

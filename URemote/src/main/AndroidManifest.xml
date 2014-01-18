@@ -67,22 +67,31 @@
 		<service android:name=".service.SendRequestService" />
 
 		<!-- Widgets -->
-		<receiver
-				android:name=".computer.widget.MediaWidgetProvider"
-				android:icon="@drawable/ic_launcher"
-				android:label="URemote Media Widget">
-			<intent-filter>
-				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-				<action android:name="ACTION_MEDIA_PREVIOUS" />
-				<action android:name="ACTION_MEDIA_PLAY_PAUSE" />
-				<action android:name="ACTION_MEDIA_STOP" />
-				<action android:name="ACTION_MEDIA_NEXT" />
-			</intent-filter>
+        <receiver
+                android:name=".computer.widget.MediaWidgetProvider"
+                android:icon="@drawable/ic_launcher"
+                android:label="URemote Media">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
 
-			<meta-data
-					android:name="android.appwidget.provider"
-					android:resource="@xml/widget_media_info" />
-		</receiver>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_media_info" />
+        </receiver>
+
+        <receiver
+                android:name=".computer.widget.DPadWidgetProvider"
+                android:icon="@drawable/ic_launcher"
+                android:label="URemote DPad">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_dpad_info" />
+        </receiver>
 	</application>
 
 </manifest>

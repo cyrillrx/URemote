@@ -72,10 +72,10 @@
 	-->
 
 	<!-- Touches directionnelles -->
-	<string name="kb_left">Left</string>
-	<string name="kb_up">Up</string>
-	<string name="kb_right">Right</string>
-	<string name="kb_down">Down</string>
+	<string name="left">Left</string>
+	<string name="up">Up</string>
+	<string name="right">Right</string>
+	<string name="down">Down</string>
 
 	<!-- Autres touches -->
 	<string name="kb_control">Ctrl</string>

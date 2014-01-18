@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/layout"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:layout_margin="8dip"
+			  android:background="@drawable/widget_media_shape"
+			  android:orientation="vertical">
+
+	<TextView
+			style="@android:style/TextAppearance.Medium"
+            android:id="@+id/widgetTitle"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+            android:layout_margin="4dp"
+			android:gravity="center_horizontal|center_vertical"
+			android:text="@string/app_name" />
+
+    <!-- Directional keys -->
+
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageButton
+                    android:id="@+id/dpadUp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/up"
+                    android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageButton
+                    android:id="@+id/dpadLeft"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/left"
+                    android:src="@android:drawable/arrow_up_float" />
+
+            <Button
+                    android:id="@+id/dpadOk"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="@android:string/ok" />
+
+            <ImageButton
+                    android:id="@+id/dpadRight"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/right"
+                    android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+
+        <TableRow android:gravity="center_horizontal">
+
+            <ImageButton
+                    android:id="@+id/dpadDown"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/down"
+                    android:src="@android:drawable/arrow_up_float" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
