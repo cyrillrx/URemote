@@ -25,12 +25,14 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
- * Created by Cyril Leroux on 18/01/14.
+ * @author Cyril Leroux.
+ *         Created on 18/01/14.
  */
 public class DPadWidgetProvider extends AppWidgetProvider {
 
 	private static final String TAG = "DPadWidgetProvider";
 
+    private static final String ACTION_START_ACTIVITY   = "ACTION_START_ACTIVITY";
 	private static final String ACTION_OK    = "ACTION_OK";
 	private static final String ACTION_LEFT  = "ACTION_LEFT";
     private static final String ACTION_RIGHT = "ACTION_RIGHT";
@@ -59,10 +61,10 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 			RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_dpad);
 
 			// Register onClickListeners
-            Intent okActivityIntent = new Intent(context, DPadWidgetProvider.class);
-            okActivityIntent.setAction(ACTION_OK);
-            PendingIntent okActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, okActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadOk, okActivityPendingIntent);
+            Intent okIntent = new Intent(context, DPadWidgetProvider.class);
+            okIntent.setAction(ACTION_OK);
+            PendingIntent okPendingIntent = PendingIntent.getBroadcast(context, widgetId, okIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.dpadOk, okPendingIntent);
 
             Intent leftIntent = new Intent(context, DPadWidgetProvider.class);
             leftIntent.setAction(ACTION_LEFT);
@@ -81,8 +83,13 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 
 			Intent downIntent = new Intent(context, DPadWidgetProvider.class);
 			downIntent.setAction(ACTION_DOWN);
-			PendingIntent downPendingIntent = PendingIntent.getBroadcast(context, widgetId, downIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent downPendingIntent = PendingIntent.getBroadcast(context, widgetId, downIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			remoteViews.setOnClickPendingIntent(R.id.dpadDown, downPendingIntent);
+
+            Intent startActivityIntent = new Intent(context, MediaWidgetProvider.class);
+            startActivityIntent.setAction(ACTION_START_ACTIVITY);
+            PendingIntent startActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            remoteViews.setOnClickPendingIntent(R.id.launchApp, startActivityPendingIntent);
 
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 		}
@@ -99,9 +106,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 
         if (ACTION_OK.equals(action)) {
             Toast.makeText(context, "OK", LENGTH_SHORT).show();
-            Intent startActivityIntent = new Intent(context, Computer.class);
-            startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(startActivityIntent);
+            sendAsyncRequest(context, Type.KEYBOARD, Code.KB_RETURN);
 
         } else if (ACTION_LEFT.equals(action)) {
 			Toast.makeText(context, "LEFT", LENGTH_SHORT).show();
@@ -118,7 +123,12 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 		} else if (ACTION_DOWN.equals(action)) {
 			Toast.makeText(context, "DOWN", LENGTH_SHORT).show();
 			sendAsyncRequest(context, Type.KEYBOARD, Code.DOWN);
-		}
+
+		} else if (ACTION_START_ACTIVITY.equals(action)) {
+            Intent startActivityIntent = new Intent(context, Computer.class);
+            startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(startActivityIntent);
+        }
 	}
 
 	/**
