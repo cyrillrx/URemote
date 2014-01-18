@@ -3,7 +3,8 @@
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent">
 
-	<TableLayout
+	<LinearLayout
+            android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:gravity="center"
@@ -11,7 +12,8 @@
 
 		<!-- First line of controls -->
 
-		<TableRow
+		<LinearLayout
+                android:orientation="horizontal"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 
@@ -38,112 +40,114 @@
 					android:layout_weight="1"
 					android:drawableTop="@drawable/switch_window"
 					android:text="@string/cmd_switch_window" />
-		</TableRow>
+		</LinearLayout>
 
 		<Space
+                android:layout_width="match_parent"
 				android:layout_height="0px"
 				android:layout_weight="1" />
 
 		<!-- Directional keys -->
 
-		<TableLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+		<GridLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+                android:columnCount="5"
+                android:rowCount="4">
 
-			<TableRow android:gravity="center_horizontal">
+            <!-- DPad row 1 -->
 
-				<ImageButton
+            <Space />
+            <Space />
+
+            <ImageButton
 						android:id="@+id/kbUp"
 						android:layout_width="60dp"
 						android:layout_height="60dp"
 						android:contentDescription="@string/up"
 						android:src="@android:drawable/arrow_up_float" />
-			</TableRow>
 
-			<TableRow android:gravity="center_horizontal">
+            <Space />
+            <Space />
 
-				<ImageButton
-						android:id="@+id/kbLeft"
-						android:layout_width="60dp"
-						android:layout_height="60dp"
-						android:contentDescription="@string/left"
-						android:src="@android:drawable/arrow_up_float" />
+            <!-- DPad row 2 -->
 
-				<Button
-						android:id="@+id/kbOk"
-						android:layout_width="60dp"
-						android:layout_height="60dp"
-						android:text="@android:string/ok" />
+            <Space />
+            <ImageButton
+                    android:id="@+id/kbLeft"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/left"
+                    android:src="@android:drawable/arrow_up_float" />
 
-				<ImageButton
-						android:id="@+id/kbRight"
-						android:layout_width="60dp"
-						android:layout_height="60dp"
-						android:contentDescription="@string/right"
-						android:src="@android:drawable/arrow_up_float" />
-			</TableRow>
+            <Button
+                    android:id="@+id/kbOk"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="@android:string/ok" />
 
-			<TableRow android:gravity="center_horizontal">
+            <ImageButton
+                    android:id="@+id/kbRight"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/right"
+                    android:src="@android:drawable/arrow_up_float" />
 
-				<ImageButton
-						android:id="@+id/kbDown"
-						android:layout_width="60dp"
-						android:layout_height="60dp"
-						android:contentDescription="@string/down"
-						android:src="@android:drawable/arrow_up_float" />
-			</TableRow>
-		</TableLayout>
+            <Space />
 
-		<Space
-				android:layout_height="0px"
-				android:layout_weight="1" />
+            <!-- DPad row 3 -->
 
-		<!-- Media controls -->
+            <Space />
+            <Space />
+            <ImageButton
+                    android:id="@+id/kbDown"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/down"
+                    android:src="@android:drawable/arrow_up_float" />
+            <Space />
+            <Space />
 
-		<TableRow>
+            <!-- Media controls -->
+            <ImageButton
+                    android:id="@+id/cmdPrevious"
+                    style="@style/media_button"
+                    android:layout_width="60dp"
+                    android:contentDescription="@string/cmd_preview"
+                    android:src="@drawable/media_previous" />
 
-			<ImageButton
-					android:id="@+id/cmdPrevious"
-					style="@style/media_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:contentDescription="@string/cmd_preview"
-					android:src="@drawable/media_previous" />
+            <ImageButton
+                    android:id="@+id/cmdPlayPause"
+                    style="@style/media_button"
+                    android:layout_width="60dp"
+                    android:contentDescription="@string/cmd_play_pause"
+                    android:src="@drawable/media_play" />
 
-			<ImageButton
-					android:id="@+id/cmdPlayPause"
-					style="@style/media_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:contentDescription="@string/cmd_play_pause"
-					android:src="@drawable/media_play" />
+            <ImageButton
+                    android:id="@+id/cmdStop"
+                    style="@style/media_button"
+                    android:layout_width="60dp"
+                    android:contentDescription="@string/cmd_stop"
+                    android:src="@drawable/media_stop" />
 
-			<ImageButton
-					android:id="@+id/cmdStop"
-					style="@style/media_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:contentDescription="@string/cmd_stop"
-					android:src="@drawable/media_stop" />
+            <ImageButton
+                    android:id="@+id/cmdNext"
+                    style="@style/media_button"
+                    android:layout_width="60dp"
+                    android:contentDescription="@string/cmd_next"
+                    android:src="@drawable/media_next" />
 
-			<ImageButton
-					android:id="@+id/cmdNext"
-					style="@style/media_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:contentDescription="@string/cmd_next"
-					android:src="@drawable/media_next" />
+            <ImageButton
+                    android:id="@+id/cmdMute"
+                    style="@style/media_button"
+                    android:layout_width="60dp"
+                    android:contentDescription="@string/cmd_mute"
+                    android:src="@drawable/volume_on" />
 
-			<ImageButton
-					android:id="@+id/cmdMute"
-					style="@style/media_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:contentDescription="@string/cmd_mute"
-					android:src="@drawable/volume_on" />
-		</TableRow>
+		</GridLayout>
 
 		<Space
+                android:layout_width="wrap_content"
 				android:layout_height="0px"
 				android:layout_weight="1" />
 
@@ -153,15 +157,13 @@
 				android:layout_height="wrap_content"
 				android:max="100" />
 
-		<TableRow android:gravity="center_horizontal">
 
-			<Button
-					android:id="@+id/btnAppLauncher"
-					style="@style/command_button"
-					android:drawableTop="@drawable/app_launcher"
-					android:text="@string/btn_app_launcher" />
-		</TableRow>
-	</TableLayout>
+        <Button
+                android:id="@+id/btnAppLauncher"
+                style="@style/command_button"
+                android:drawableTop="@drawable/app_launcher"
+                android:text="@string/btn_app_launcher" />
+	</LinearLayout>
 
 	<TextView
 			android:id="@+id/toastText"
