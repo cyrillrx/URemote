@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 
+import org.es.uremote.ToastSender;
 import org.es.utils.Log;
 
 import java.net.DatagramPacket;
@@ -22,11 +23,12 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 
 	private static final String TAG	= "WakeOnLan";
 	private static final int PORT	= 9;
-	private final Handler mHandler;
 
-	/** @param handler */
-	public WakeOnLan(Handler handler) {
-		mHandler = handler;
+	private final ToastSender mHolder;
+
+	/** @param holder */
+	public WakeOnLan(ToastSender holder) {
+        mHolder = holder;
 	}
 
 	@Override
@@ -36,13 +38,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 
 	@Override
 	protected void onPostExecute(String result) {
-
-		Message msg = new Message();
-		msg.what = MESSAGE_WHAT_TOAST;
-		msg.obj = result;
-		mHandler.sendMessage(msg);
-
-		super.onPostExecute(result);
+        mHolder.sendToast(result);
 	}
 
 	/**

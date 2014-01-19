@@ -12,7 +12,6 @@ public class PrefKeys {
 	public static final String KEY_BROADCAST			= "broadcast";
 	public static final String KEY_REMOTE_HOST			= "remote_host";
 	public static final String KEY_REMOTE_PORT			= "remote_port";
-	public static final String KEY_SECURITY_TOKEN		= "security_token";
 	public static final String KEY_CONNECTION_TIMEOUT	= "connection_timeout";
 	public static final String KEY_READ_TIMEOUT			= "read_timeout";
 	public static final String KEY_MAC_ADDRESS			= "mac_address";
@@ -25,7 +24,6 @@ public class PrefKeys {
 	public static final String DEFAULT_BROADCAST			= "192.168.0.255";
 	public static final String DEFAULT_REMOTE_HOST			= "0.0.0.0";
 	public static final int DEFAULT_REMOTE_PORT				= 0000;
-	public static final String DEFAULT_SECURITY_TOKEN		= "0000";
 	public static final int DEFAULT_CONNECTION_TIMEOUT		= 500;
 	public static final int DEFAULT_READ_TIMEOUT			= 1000;
 	public static final String DEFAULT_MAC_ADDRESS			= "00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00";

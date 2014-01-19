@@ -8,23 +8,21 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.ToastSender;
+import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
@@ -47,9 +45,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
 public class FragAdmin extends Fragment implements OnClickListener, RequestSender {
 
 	private static final String TAG = "FragAdmin";
-
 	private TaskCallbacks mCallbacks;
-	private Computer mParent;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -78,7 +74,6 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (Computer) getActivity();
 	}
 
 	/** Called when the application is created. */
@@ -86,11 +81,11 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_admin, container, false);
 
-		((Button) view.findViewById(R.id.cmdWakeOnLan)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdShutdown)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdAiMute)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdKillServer)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdLock)).setOnClickListener(this);
+		view.findViewById(R.id.cmdWakeOnLan)  .setOnClickListener(this);
+		view.findViewById(R.id.cmdShutdown)   .setOnClickListener(this);
+		view.findViewById(R.id.cmdAiMute)     .setOnClickListener(this);
+		view.findViewById(R.id.cmdKillServer) .setOnClickListener(this);
+		view.findViewById(R.id.cmdLock)       .setOnClickListener(this);
 
 		return view;
 	}
@@ -112,19 +107,19 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 				break;
 
 			case R.id.cmdShutdown:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, SHUTDOWN));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, SHUTDOWN));
 				break;
 
 			case R.id.cmdAiMute:
-				sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), AI, MUTE));
+				sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), AI, MUTE));
 				break;
 
 			case R.id.cmdKillServer:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, KILL_SERVER));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, KILL_SERVER));
 				break;
 
 			case R.id.cmdLock:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), SIMPLE, LOCK));
+				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, LOCK));
 				break;
 
 			default:
@@ -149,7 +144,7 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 		final String defaultMAcAddress	= getString(R.string.default_mac_address);
 		final String macAddress			= pref.getString(keyMAcAddress, defaultMAcAddress);
 
-		new WakeOnLan(Computer.getHandler()).execute(host, macAddress);
+		new WakeOnLan((ToastSender) mCallbacks).execute(host, macAddress);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -160,7 +155,7 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	public void sendRequest(Request request) {
 
 		if (AdminMessageMgr.availablePermits() > 0) {
-			new AdminMessageMgr(Computer.getHandler()).execute(request);
+			new AdminMessageMgr().execute(request);
 		} else {
 			Log.warning(TAG, "#sendRequest - " + getString(R.string.msg_no_more_permit));
 		}
@@ -168,7 +163,15 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 
     @Override
     public ServerSetting getServerSetting() {
-        return ((Computer)mCallbacks).getServer();
+        return ((Computer) mCallbacks).getServer();
+    }
+
+    public String getSecurityToken() {
+        ServerSetting settings = getServerSetting();
+        if (settings != null) {
+            return settings.getSecurityToken();
+        }
+        return null;
     }
 
     /**
@@ -202,11 +205,8 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 	 */
 	public class AdminMessageMgr extends AsyncMessageMgr {
 
-		/** @param handler The toast messages handler. */
-		public AdminMessageMgr(Handler handler) {
-            super(handler, getServerSetting());
-            // TODO clean
-            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public AdminMessageMgr() {
+            super(getServerSetting());
 		}
 
 		@Override
@@ -219,7 +219,6 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
 			mCallbacks.onPostExecute(response);
-			sendToastToUI(response.getMessage());
 		}
 	}
 }

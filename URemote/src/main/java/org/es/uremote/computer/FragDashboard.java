@@ -15,23 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import org.es.uremote.AppLauncherActivity;
+import org.es.uremote.Computer;
+import org.es.uremote.R;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.RequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.AppItem;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.IntentKeys;
@@ -39,7 +37,6 @@ import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -72,7 +69,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	private TextView mTvVolume;
 	private ImageButton mIbMute;
 	private SeekBar mSbVolume;
-	private Computer mParent;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -101,7 +97,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (Computer) getActivity();
 	}
 
 	/** Called when the application is created. */
@@ -109,21 +104,21 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.server_frag_dashboard, container, false);
 
-		((ImageButton) view.findViewById(R.id.kbLeft)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.kbRight)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.kbUp)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.kbDown)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbOk)).setOnClickListener(this);
+		view.findViewById(R.id.kbLeft).setOnClickListener(this);
+		view.findViewById(R.id.kbRight).setOnClickListener(this);
+		view.findViewById(R.id.kbUp).setOnClickListener(this);
+		view.findViewById(R.id.kbDown).setOnClickListener(this);
+		view.findViewById(R.id.kbOk).setOnClickListener(this);
 
-		((Button) view.findViewById(R.id.cmdTest)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdSwitch)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.cmdGomStretch)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.btnAppLauncher)).setOnClickListener(this);
+		view.findViewById(R.id.cmdTest).setOnClickListener(this);
+		view.findViewById(R.id.cmdSwitch).setOnClickListener(this);
+		view.findViewById(R.id.cmdGomStretch).setOnClickListener(this);
+		view.findViewById(R.id.btnAppLauncher).setOnClickListener(this);
 
-		((ImageButton) view.findViewById(R.id.cmdPrevious)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdPlayPause)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdStop)).setOnClickListener(this);
-		((ImageButton) view.findViewById(R.id.cmdNext)).setOnClickListener(this);
+		view.findViewById(R.id.cmdPrevious).setOnClickListener(this);
+		view.findViewById(R.id.cmdPlayPause).setOnClickListener(this);
+		view.findViewById(R.id.cmdStop).setOnClickListener(this);
+		view.findViewById(R.id.cmdNext).setOnClickListener(this);
 
 		mTvVolume = (TextView) view.findViewById(R.id.toastText);
 		mTvVolume.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
@@ -222,7 +217,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code));
+				sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -269,7 +264,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param intParam An integer parameter.
 	 */
 	public void sendRequest(Type requestType, Code requestCode, int intParam) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode, intParam));
+		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode, intParam));
 	}
 
 	/**
@@ -279,7 +274,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestCode The request code.
 	 */
 	public void sendRequest(Type requestType, Code requestCode) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode));
+		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode));
 	}
 
 	/**
@@ -291,7 +286,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	public void sendRequest(Request request) {
 
 		if (DashboardMessageMgr.availablePermits() > 0) {
-			new DashboardMessageMgr(Computer.getHandler()).execute(request);
+			new DashboardMessageMgr().execute(request);
 		} else {
 			final boolean defineVolume = VOLUME.equals(request.getType()) && DEFINE.equals(request.getCode());
 			if (!defineVolume) {
@@ -306,6 +301,14 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         return ((Computer)mCallbacks).getServer();
     }
 
+    public String getSecurityToken() {
+        ServerSetting settings = getServerSetting();
+        if (settings != null) {
+            return settings.getSecurityToken();
+        }
+        return "";
+    }
+
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
 	 * Specialize for Dashboard.
@@ -314,10 +317,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 */
 	private class DashboardMessageMgr extends AsyncMessageMgr {
 
-		public DashboardMessageMgr(Handler handler) {
-			super(handler, getServerSetting());
-            // TODO clean
-			//super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public DashboardMessageMgr() {
+			super(getServerSetting());
 		}
 
 		@Override
@@ -339,7 +340,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
 			boolean usingVolumeSeekbar = VOLUME.equals(type) && DEFINE.equals(code);
 			if (!usingVolumeSeekbar) {
-				sendToastToUI(message);
+                // TODO specify when to display a message => Wrap Request
+				//sendToastToUI(message);
 			} else {
 				final int volume = response.getIntValue();
 

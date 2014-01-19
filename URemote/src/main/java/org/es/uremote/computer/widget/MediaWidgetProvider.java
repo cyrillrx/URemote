@@ -6,14 +6,11 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
@@ -27,7 +24,6 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_PLAY_P
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_PREVIOUS;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_STOP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
  * @author Cyril Leroux.
@@ -44,13 +40,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
 
     /** Handler the display of toast messages. */
-    private static Handler sHandler;
     private static Toast sToast = null;
 
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-        initHandler(context);
     }
 
     @Override
@@ -144,41 +138,9 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(sHandler, ServerSettingDao.loadSelected(context)).execute(request);
+            new AsyncMessageMgr(context).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }
-    }
-
-    /**
-     * Initialize the toast message handler.
-     *
-     * @param context The context used to display toast messages.
-     */
-    private static void initHandler(final Context context) {
-        if (sHandler == null) {
-            sHandler = new Handler() {
-                @Override
-                public void handleMessage(Message _msg) {
-                    switch (_msg.what) {
-                        case MESSAGE_WHAT_TOAST:
-                            showStaticToast(context, (String) _msg.obj);
-                            break;
-
-                        default: break;
-                    }
-                    super.handleMessage(_msg);
-                }
-
-            };
-        }
-    }
-
-    private static void showStaticToast(final Context context, final String message) {
-        if (sToast == null) {
-            sToast = Toast.makeText(context, "", LENGTH_SHORT);
-        }
-        sToast.setText(message);
-        sToast.show();
     }
 }

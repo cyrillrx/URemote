@@ -15,7 +15,7 @@ public class Cube {
     private FloatBuffer mColorBuffer;
     private ByteBuffer mIndexBuffer;
 
-    private float vertices[] = {
+    private static final float vertices[] = {
            -1.0f, -1.0f, -1.0f,
             1.0f, -1.0f, -1.0f,
             1.0f,  1.0f, -1.0f,
@@ -26,7 +26,7 @@ public class Cube {
            -1.0f,  1.0f,  1.0f
     };
 
-    private float colors[] = {
+    private static final float colors[] = {
             0.0f,  1.0f,  0.0f,  1.0f,
             0.0f,  1.0f,  0.0f,  1.0f,
             1.0f,  0.5f,  0.0f,  1.0f,
@@ -37,7 +37,7 @@ public class Cube {
             1.0f,  0.0f,  1.0f,  1.0f
     };
 
-    private byte indices[] = {
+    private static final byte indices[] = {
             0, 4, 5, 0, 5, 1,
             1, 5, 6, 1, 6, 2,
             2, 6, 7, 2, 7, 3,

@@ -2,13 +2,11 @@ package org.es.uremote.computer;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
@@ -71,7 +69,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 		Request request = null;
 		try {
 			ExchangeMessagesUtils.buildRequest(
-					AsyncMessageMgr.getSecurityToken(),
+					getSecurityToken(),
 					Type.EXPLORER,
 					Code.OPEN_FILE,
 					NONE,
@@ -93,7 +91,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	@Override
 	protected void navigateTo(String dirPath) {
 		if (dirPath != null) {
-			sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+			sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 		}
 	}
 
@@ -109,7 +107,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	@Override
 	public void sendRequest(Request request) {
 		if (ExplorerMessageMgr.availablePermits() > 0) {
-			new ExplorerMessageMgr(Computer.getHandler()).execute(request);
+			new ExplorerMessageMgr().execute(request);
 		} else {
 			Toast.makeText(getActivity(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
 		}
@@ -120,6 +118,14 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
         return ((Computer)mCallbacks).getServer();
     }
 
+    public String getSecurityToken() {
+        ServerSetting settings = getServerSetting();
+        if (settings != null) {
+            return settings.getSecurityToken();
+        }
+        return null;
+    }
+
 	/**
 	 * Class that handle asynchronous requests sent to a remote server.
 	 *
@@ -127,10 +133,8 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	 */
 	private class ExplorerMessageMgr extends AsyncMessageMgr {
 
-		public ExplorerMessageMgr(Handler handler) {
-            super(handler, getServerSetting());
-            // TODO clean
-            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public ExplorerMessageMgr() {
+            super(getServerSetting());
 		}
 
 		@Override

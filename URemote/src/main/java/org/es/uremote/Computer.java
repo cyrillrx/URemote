@@ -1,15 +1,10 @@
 package org.es.uremote;
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -38,7 +33,6 @@ import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.Constants;
-import org.es.uremote.utils.PrefKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -56,7 +50,6 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
@@ -65,16 +58,12 @@ import static org.es.uremote.utils.Constants.STATE_OK;
  * @author Cyril Leroux
  * Created on 10/05/12.
  */
-public class Computer extends FragmentActivity implements OnPageChangeListener, TaskCallbacks {
+public class Computer extends FragmentActivity implements OnPageChangeListener, TaskCallbacks, ToastSender {
 
 	private static final String TAG = "Computer Activity";
 	private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
 	private static final int PAGES_COUNT = 4;
 	private static final int EXPLORER_PAGE_ID = 2;
-
-    // TODO replace sHandler by callbacks
-	/** Handler the display of toast messages. */
-	private static Handler sHandler;
 
 	private FragAdmin mFragAdmin;
 	private FragDashboard mFragDashboard;
@@ -85,21 +74,15 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	private TextView mTvServerState;
 	private ProgressBar mPbConnection;
 
-	private static Toast sToast = null;
+	private static Toast mToast = null;
 
 	private ServerSetting mSelectedServer = null;
-
-	/** @return the handler used to display the toast messages. */
-	public static Handler getHandler() {
-		return sHandler;
-	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_computer);
 
-		initHandler(getApplicationContext());
 		initServer();
 
 		// ActionBar configuration
@@ -146,9 +129,6 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 			if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
 				actionBar.setSelectedNavigationItem(newTabIndex);
 			}
-		} else {
-            // TODO clean
-			// sendAsyncRequest(SIMPLE, Code.HELLO);
 		}
 	}
 
@@ -225,48 +205,14 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	 */
 	private void initServer() {
 		(new AsyncLoadServer()).execute();
-
-        if (AsyncMessageMgr.getSecurityToken() != null) {
-            return;
-        }
-
-        // Get the properties values
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
-        AsyncMessageMgr.setSecurityToken(securityToken);
-
     }
 
-	/**
-	 * Initialize the toast message handler.
-	 *
-	 * @param context The context used to display toast messages.
-	 */
-	private static void initHandler(final Context context) {
-		if (sHandler == null) {
-			sHandler = new Handler() {
-				@Override
-				public void handleMessage(Message _msg) {
-					switch (_msg.what) {
-						case MESSAGE_WHAT_TOAST:
-							showStaticToast(context, (String) _msg.obj);
-							break;
-
-						default: break;
-					}
-					super.handleMessage(_msg);
-				}
-
-			};
+	public void sendToast(final String message) {
+		if (mToast == null) {
+            mToast = Toast.makeText(getApplicationContext(), "", LENGTH_SHORT);
 		}
-	}
-
-	private static void showStaticToast(final Context context, final String message) {
-		if (sToast == null) {
-			sToast = Toast.makeText(context, "", LENGTH_SHORT);
-		}
-		sToast.setText(message);
-		sToast.show();
+        mToast.setText(message);
+        mToast.show();
 	}
 
     public ServerSetting getServer() {
@@ -345,15 +291,13 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 	public void sendAsyncRequest(Type requestType, Code requestCode) {
 
         final ServerSetting serverSetting = getServer();
-        // TODO clean
-        // final ServerSetting serverSetting = ServerSettingDao.loadFromPreferences(getApplicationContext());
 
 		if (serverSetting == null) {
 			Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
 			return;
 		}
 
-		Request request = ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), requestType, requestCode);
+		Request request = ExchangeMessagesUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
 
 		if (request == null) {
 			Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();
@@ -361,7 +305,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		}
 
 		if (AsyncMessageMgr.availablePermits() > 0) {
-			new AsyncMessageMgr(sHandler, serverSetting).execute(request);
+			new AsyncMessageMgr(serverSetting).execute(request);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.msg_no_more_permit, LENGTH_SHORT).show();
 		}
@@ -424,17 +368,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 		protected void onPostExecute(ServerSetting selectedServer) {
 			mSelectedServer = selectedServer;
             if (mSelectedServer != null) {
-                AsyncMessageMgr.setSecurityToken(mSelectedServer.getSecurityToken());
                 sendAsyncRequest(SIMPLE, Code.HELLO);
 
             } else {
                 // TODO clean
                 Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
-
-                // Get the properties values
-                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                final String securityToken = pref.getString(PrefKeys.KEY_SECURITY_TOKEN, PrefKeys.DEFAULT_SECURITY_TOKEN);
-                AsyncMessageMgr.setSecurityToken(securityToken);
             }
             ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
 		}

@@ -245,7 +245,8 @@ public class AppSettings extends PreferenceActivity {
 				final int serverId = intValues[0];
 				try {
 					return servers.get(serverId);
-				} catch (IndexOutOfBoundsException e) {
+				} catch (IndexOutOfBoundsException | NullPointerException e) {
+                    // TODO Return serverConfig exception
 					return null;
 				}
 			}

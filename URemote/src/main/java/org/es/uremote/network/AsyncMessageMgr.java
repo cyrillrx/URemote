@@ -1,9 +1,9 @@
 package org.es.uremote.network;
 
+import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode;
@@ -17,8 +17,6 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.util.concurrent.Semaphore;
 
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
-
 /**
  * Class that handle asynchronous messages to send to the server.
  *
@@ -26,28 +24,26 @@ import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
  * Created before first commit (08/04/12).
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
+
 	protected static Semaphore sSemaphore = new Semaphore(2, true);
 	private static final String TAG = "AsyncMessageMgr";
 
-    // TODO delete sSecurityToken. Use ServerSetting.getSecurityToken() instead.
-	private static String sSecurityToken = null;
-
-	protected Handler mHandler;
-
-	//TODO
 	protected final ServerSetting mServerSetting;
 	private Socket mSocket;
 
-	/**
-	 * Initialize class with the message handler as a parameter.
-	 *
-	 * @param handler The handler for toast messages.
-	 * @param serverSetting Server connection settings.
-	 */
-	public AsyncMessageMgr(Handler handler, ServerSetting serverSetting) {
-		mHandler = handler;
-		mServerSetting = serverSetting;
-	}
+    /**
+     * @param serverSetting Server connection settings.
+     */
+    public AsyncMessageMgr(ServerSetting serverSetting) {
+        mServerSetting = serverSetting;
+    }
+
+    /**
+     * @param context The application context.
+     */
+    public AsyncMessageMgr(Context context) {
+        this(ServerSettingDao.loadSelected(context));
+    }
 
 	@Override
 	protected void onPreExecute() {
@@ -125,23 +121,6 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	}
 
 	/**
-	 * Send a toast message on the UI thread.
-	 *
-	 * @param toastMessage The message to display.
-	 */
-	protected void sendToastToUI(String toastMessage) {
-		if (mHandler == null) {
-			Log.error(TAG, "showToast() handler is null");
-			return;
-		}
-
-		Message msg = new Message();
-		msg.what = MESSAGE_WHAT_TOAST;
-		msg.obj = toastMessage;
-		mHandler.sendMessage(msg);
-	}
-
-	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 *
 	 * @param server The object that holds server connection settings.
@@ -188,19 +167,5 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	/** @return The count of available permits. */
 	public static int availablePermits() {
 		return sSemaphore.availablePermits();
-	}
-
-	/**
-	 * Set the security token that will be use to authenticate the user.
-	 *
-	 * @param securityToken the security token.
-	 */
-	public static void setSecurityToken(final String securityToken) {
-		sSecurityToken = securityToken;
-	}
-
-	/** @return the security token that will be use to authenticate the user. */
-	public static String getSecurityToken() {
-		return sSecurityToken;
 	}
 }

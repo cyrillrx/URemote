@@ -11,19 +11,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ToggleButton;
 
+import org.es.uremote.Computer;
+import org.es.uremote.R;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.RequestSender;
-import org.es.uremote.Computer;
-import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
@@ -42,8 +40,6 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	private static final String TAG = "FragKeyboard";
 
 	private TaskCallbacks mCallbacks;
-
-	private Computer mParent;
 
 	private ToggleButton mTbControl;
 	private ToggleButton mTbAlt;
@@ -77,7 +73,6 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		mParent = (Computer) getActivity();
 	}
 
 	/** Called after {@link #onActivityCreated(Bundle)} */
@@ -95,49 +90,49 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 		mTbShift.setOnClickListener(this);
 		mTbWindows.setOnClickListener(this);
 
-		((Button) view.findViewById(R.id.kbEnter)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbSpace)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbBackspace)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbEscape)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbAltF4)).setOnClickListener(this);
+		view.findViewById(R.id.kbEnter).setOnClickListener(this);
+		view.findViewById(R.id.kbSpace).setOnClickListener(this);
+		view.findViewById(R.id.kbBackspace).setOnClickListener(this);
+		view.findViewById(R.id.kbEscape).setOnClickListener(this);
+		view.findViewById(R.id.kbAltF4).setOnClickListener(this);
 
-		((Button) view.findViewById(R.id.kb0)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb1)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb2)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb3)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb4)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb5)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb6)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb7)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb8)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kb9)).setOnClickListener(this);
+		view.findViewById(R.id.kb0).setOnClickListener(this);
+		view.findViewById(R.id.kb1).setOnClickListener(this);
+		view.findViewById(R.id.kb2).setOnClickListener(this);
+		view.findViewById(R.id.kb3).setOnClickListener(this);
+		view.findViewById(R.id.kb4).setOnClickListener(this);
+		view.findViewById(R.id.kb5).setOnClickListener(this);
+		view.findViewById(R.id.kb6).setOnClickListener(this);
+		view.findViewById(R.id.kb7).setOnClickListener(this);
+		view.findViewById(R.id.kb8).setOnClickListener(this);
+		view.findViewById(R.id.kb9).setOnClickListener(this);
 
-		((Button) view.findViewById(R.id.kbA)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbB)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbC)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbD)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbE)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbF)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbG)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbH)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbI)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbJ)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbK)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbL)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbM)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbN)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbO)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbP)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbQ)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbR)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbS)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbT)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbU)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbV)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbW)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbX)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbY)).setOnClickListener(this);
-		((Button) view.findViewById(R.id.kbZ)).setOnClickListener(this);
+		view.findViewById(R.id.kbA).setOnClickListener(this);
+		view.findViewById(R.id.kbB).setOnClickListener(this);
+		view.findViewById(R.id.kbC).setOnClickListener(this);
+		view.findViewById(R.id.kbD).setOnClickListener(this);
+		view.findViewById(R.id.kbE).setOnClickListener(this);
+		view.findViewById(R.id.kbF).setOnClickListener(this);
+		view.findViewById(R.id.kbG).setOnClickListener(this);
+		view.findViewById(R.id.kbH).setOnClickListener(this);
+		view.findViewById(R.id.kbI).setOnClickListener(this);
+		view.findViewById(R.id.kbJ).setOnClickListener(this);
+		view.findViewById(R.id.kbK).setOnClickListener(this);
+		view.findViewById(R.id.kbL).setOnClickListener(this);
+		view.findViewById(R.id.kbM).setOnClickListener(this);
+		view.findViewById(R.id.kbN).setOnClickListener(this);
+		view.findViewById(R.id.kbO).setOnClickListener(this);
+		view.findViewById(R.id.kbP).setOnClickListener(this);
+		view.findViewById(R.id.kbQ).setOnClickListener(this);
+		view.findViewById(R.id.kbR).setOnClickListener(this);
+		view.findViewById(R.id.kbS).setOnClickListener(this);
+		view.findViewById(R.id.kbT).setOnClickListener(this);
+		view.findViewById(R.id.kbU).setOnClickListener(this);
+		view.findViewById(R.id.kbV).setOnClickListener(this);
+		view.findViewById(R.id.kbW).setOnClickListener(this);
+		view.findViewById(R.id.kbX).setOnClickListener(this);
+		view.findViewById(R.id.kbY).setOnClickListener(this);
+		view.findViewById(R.id.kbZ).setOnClickListener(this);
 
 		return view;
 	}
@@ -344,12 +339,20 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param extraCode The request extra code.
 	 */
 	public void sendRequest(final Type type, final Code code, final Code extraCode) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode));
+		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code, extraCode));
 	}
 
     @Override
     public ServerSetting getServerSetting() {
         return ((Computer)mCallbacks).getServer();
+    }
+
+    public String getSecurityToken() {
+        ServerSetting settings = getServerSetting();
+        if (settings != null) {
+            return settings.getSecurityToken();
+        }
+        return null;
     }
 
 	/**
@@ -361,7 +364,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param stringParam A string parameter.
 	 */
 	public void sendRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(AsyncMessageMgr.getSecurityToken(), type, code, extraCode, stringParam));
+		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code, extraCode, stringParam));
 	}
 
 	/**
@@ -372,7 +375,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	@Override
 	public void sendRequest(Request request) {
 		if (KeyboardMessageMgr.availablePermits() > 0) {
-			new KeyboardMessageMgr(Computer.getHandler()).execute(request);
+			new KeyboardMessageMgr().execute(request);
 		} else {
 			Log.warning(TAG, "#sendRequest - " + getString(R.string.msg_no_more_permit));
 		}
@@ -407,11 +410,8 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 */
 	public class KeyboardMessageMgr extends AsyncMessageMgr {
 
-		/** @param handler */
-		public KeyboardMessageMgr(Handler handler) {
-            super(handler, getServerSetting());
-            // TODO clean
-            //super(handler, ServerSettingDao.loadFromPreferences(getActivity().getApplicationContext()));
+		public KeyboardMessageMgr() {
+            super(getServerSetting());
 		}
 
 		@Override
@@ -424,8 +424,6 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 		protected void onPostExecute(Response response) {
 			super.onPostExecute(response);
 			mCallbacks.onPostExecute(response);
-
-			sendToastToUI(response.getMessage());
 		}
 	}
 }

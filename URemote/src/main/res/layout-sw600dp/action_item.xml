@@ -13,6 +13,7 @@
 			android:contentDescription="@string/action_image_description" />
 
 	<LinearLayout
+            android:orientation="vertical"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginLeft="20dp">
