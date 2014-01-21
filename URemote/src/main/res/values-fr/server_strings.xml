@@ -4,16 +4,6 @@
 	<!-- Preference keys -->
 	<string name="key_server_id">server_id</string>
 
-	<string name="key_local_host">local_host</string>
-	<string name="key_local_port">local_port</string>
-	<string name="key_broadcast">broadcast</string>
-	<string name="key_remote_host">remote_host</string>
-	<string name="key_remote_port">remote_port</string>
-	<string name="key_security_token">security_token</string>
-	<string name="key_connection_timeout">connection_timeout</string>
-	<string name="key_read_timeout">read_timeout</string>
-	<string name="key_mac_address">mac_address</string>
-
 	<!-- Default values -->
 	<string name="default_server_label">Serveur</string>
 	<string name="default_local_host">192.168.0.1</string>
