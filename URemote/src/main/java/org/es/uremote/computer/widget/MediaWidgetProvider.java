@@ -11,11 +11,13 @@ import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.objects.ServerSetting;
 import org.es.utils.Log;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -39,8 +41,8 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
     private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
 
-    /** Handler the display of toast messages. */
-    private static Toast sToast = null;
+    private ServerSetting mSettings = null;
+    private String mDefaultSecurityToken = null;
 
     @Override
     public void onEnabled(Context context) {
@@ -49,6 +51,10 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+
+        // TODO : add check if changed
+        mSettings = ServerSettingDao.loadSelected(context);
+        mDefaultSecurityToken = context.getString(R.string.default_security_token);
 
         // Get ids of all the instances of the widget
         ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
@@ -130,7 +136,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
      * @param requestCode The request code.
      */
     public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
-        Request request = ExchangeMessagesUtils.buildRequest(ExchangeMessagesUtils.getSecurityToken(context), requestType, requestCode);
+        Request request = ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -142,5 +148,12 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }
+    }
+
+    public String getSecurityToken() {
+        if (mSettings != null) {
+            return mSettings.getSecurityToken();
+        }
+        return mDefaultSecurityToken;
     }
 }

@@ -6,7 +6,6 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 
 import org.es.exception.AccessStorageOnMainThreadException;
-import org.es.uremote.R;
 import org.es.uremote.objects.ServerSetting;
 import org.es.uremote.utils.PrefKeys;
 import org.es.utils.Log;
@@ -27,7 +26,7 @@ import static org.es.uremote.objects.ServerSetting.FILENAME;
 
 /**
  * @author Cyril Leroux
- * Created on 10/08/13.
+ *         Created on 10/08/13.
  */
 public class ServerSettingDao {
 
@@ -170,63 +169,4 @@ public class ServerSettingDao {
             return null;
         }
     }
-
-	/**
-	 * @param context The application context.
-	 * @return The Server connection settings stored in User Preferences
-     * @deprecated use {@link #loadList(android.content.Context)} instead.
-	 */
-	public static ServerSetting loadFromPreferences(Context context) {
-
-		// Get Host and Port key
-		final String keyLocalHost   = context.getString(R.string.key_local_host);
-		final String keyLocalPort   = context.getString(R.string.key_local_port);
-		final String keyBroadcast   = context.getString(R.string.key_broadcast);
-		final String keyRemoteHost  = context.getString(R.string.key_remote_host);
-		final String keyRemotePort  = context.getString(R.string.key_remote_port);
-		final String keyMacAddress  = context.getString(R.string.key_mac_address);
-
-		// Get key for other properties
-		final String keyConnectionTimeout   = context.getString(R.string.key_connection_timeout);
-		final String keyReadTimeout         = context.getString(R.string.key_read_timeout);
-		final String keySecurityToken       = context.getString(R.string.key_security_token);
-
-		// Get default values for Host and Port
-		final String defaultLocalHost   = context.getString(R.string.default_local_host);
-		final int defaultLocalPort      = context.getResources().getInteger(R.integer.default_local_port);
-		final String defaultBroadcast   = context.getString(R.string.default_broadcast);
-		final String defaultRemoteHost  = context.getString(R.string.default_remote_host);
-		final int defaultRemotePort     = context.getResources().getInteger(R.integer.default_remote_port);
-		final String defaultMacAddress  = context.getString(R.string.default_mac_address);
-
-		// Get default values for other properties
-		final String defaultServerLabel     = context.getString(R.string.default_server_label);
-		final int defaultConnectionTimeout  = context.getResources().getInteger(R.integer.default_connection_timeout);
-		final int defaultReadTimeout        = context.getResources().getInteger(R.integer.default_read_timeout);
-		final String defaultSecurityToken   = context.getString(R.string.default_security_token);
-
-		// Get the properties values
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-
-		ServerSetting.Builder builder = ServerSetting.newBuilder();
-
-		builder.setName(defaultServerLabel);
-		builder.setLocalHost(pref.getString(keyLocalHost, defaultLocalHost));
-		builder.setLocalPort(pref.getInt(keyLocalPort, defaultLocalPort));
-		builder.setBroadcast(pref.getString(keyBroadcast, defaultBroadcast));
-		builder.setRemoteHost(pref.getString(keyRemoteHost, defaultRemoteHost));
-		builder.setRemotePort(pref.getInt(keyRemotePort, defaultRemotePort));
-		builder.setMacAddress(pref.getString(keyMacAddress, defaultMacAddress));
-		builder.setConnectionTimeout(pref.getInt(keyConnectionTimeout, defaultConnectionTimeout));
-		builder.setReadTimeout(pref.getInt(keyReadTimeout, defaultReadTimeout));
-		builder.setSecurityToken(pref.getString(keySecurityToken, defaultSecurityToken));
-		builder.setConnectionType(ServerSetting.ConnectionType.LOCAL);
-
-		try {
-			return builder.build();
-		} catch (Exception e) {
-			Log.warning(TAG, "#loadFromPreferences() - " + e.getMessage());
-			return null;
-		}
-	}
 }

@@ -131,20 +131,21 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 
 		final WifiManager wifiMgr = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		final boolean wifi = wifiMgr.isWifiEnabled();
-		final int resKeyHost = wifi ? R.string.key_broadcast : R.string.key_remote_host;
-		final int resDefHost = wifi ? R.string.default_broadcast : R.string.default_remote_host;
 
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+		final int defaultHostResId     = wifi ? R.string.default_broadcast : R.string.default_remote_host;
+        final String defaultHost	   = getString(defaultHostResId);
+        final String defaultMacAddress = getString(R.string.default_mac_address);
 
-		final String keyHost	= getString(resKeyHost);
-		final String defHost	= getString(resDefHost);
-		final String host		= pref.getString(keyHost, defHost);
-
-		final String keyMAcAddress		= getString(R.string.key_mac_address);
-		final String defaultMAcAddress	= getString(R.string.default_mac_address);
-		final String macAddress			= pref.getString(keyMAcAddress, defaultMAcAddress);
-
+        final ServerSetting settings = getServerSetting();
+        String host       = defaultHost;
+        String macAddress = defaultMacAddress;
+        if (settings != null) {
+            host = wifi ? settings.getBroadcast() : settings.getRemoteHost();
+            macAddress = settings.getMacAddress();
+        }
 		new WakeOnLan((ToastSender) mCallbacks).execute(host, macAddress);
+
+        // TODO : if server, run. else error toast
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -171,7 +172,8 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
         if (settings != null) {
             return settings.getSecurityToken();
         }
-        return null;
+
+        return getString(R.string.default_security_token);
     }
 
     /**

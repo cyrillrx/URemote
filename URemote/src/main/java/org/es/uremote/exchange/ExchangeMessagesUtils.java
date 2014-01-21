@@ -1,21 +1,11 @@
 package org.es.uremote.exchange;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.R;
-import org.es.utils.FileUtils;
-import org.es.utils.Log;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -43,7 +33,7 @@ public class ExchangeMessagesUtils {
 	private static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final int intParam, final String stringParam) {
 
 		Request request = Request.newBuilder()
-				.setSecurityToken(securityToken) // Add the security token
+				.setSecurityToken(securityToken)
 				.setType(type)
 				.setCode(code)
 				.setExtraCode(extraCode)
@@ -134,17 +124,5 @@ public class ExchangeMessagesUtils {
 			return Response.parseDelimitedFrom(socket.getInputStream());
 		}
 		return null;
-	}
-
-	/**
-	 * @param context The application context
-	 * @return The Security token stored in User Preferences
-	 */
-	public static String getSecurityToken(Context context) {
-		final String keySecurityToken		= context.getString(R.string.key_security_token);
-		final String defaultSecurityToken	= context.getString(R.string.default_security_token);
-
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-		return pref.getString(keySecurityToken, defaultSecurityToken);
 	}
 }

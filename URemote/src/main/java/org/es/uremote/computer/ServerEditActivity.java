@@ -70,7 +70,7 @@ public class ServerEditActivity extends Activity {
         mLocalHost2 = (EditText) findViewById(R.id.local_host2);
         mLocalHost3 = (EditText) findViewById(R.id.local_host3);
         mLocalHost4 = (EditText) findViewById(R.id.local_host4);
-        mLocalPort = (EditText) findViewById(R.id.local_port);
+        mLocalPort  = (EditText) findViewById(R.id.local_port);
 
         mBroadcast1 = (EditText) findViewById(R.id.broadcast1);
         mBroadcast2 = (EditText) findViewById(R.id.broadcast2);
@@ -81,7 +81,7 @@ public class ServerEditActivity extends Activity {
         mRemoteHost2 = (EditText) findViewById(R.id.remote_host2);
         mRemoteHost3 = (EditText) findViewById(R.id.remote_host3);
         mRemoteHost4 = (EditText) findViewById(R.id.remote_host4);
-        mRemotePort = (EditText) findViewById(R.id.remote_port);
+        mRemotePort  = (EditText) findViewById(R.id.remote_port);
 
         mMacAddress1 = (EditText) findViewById(R.id.mac_address1);
         mMacAddress2 = (EditText) findViewById(R.id.mac_address2);
@@ -100,7 +100,7 @@ public class ServerEditActivity extends Activity {
     }
 
     private void loadServer(Intent data) {
-        ServerSetting server = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
+        ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
         if (server == null) {
             finishActivity(Activity.RESULT_CANCELED);
         }
