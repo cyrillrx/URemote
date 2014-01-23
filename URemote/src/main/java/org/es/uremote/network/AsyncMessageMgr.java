@@ -38,12 +38,12 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
         mServerSetting = serverSetting;
     }
 
-    /**
-     * @param context The application context.
-     */
-    public AsyncMessageMgr(Context context) {
-        this(ServerSettingDao.loadSelected(context));
-    }
+//    /**
+//     * @param context The application context.
+//     */
+//    public AsyncMessageMgr(Context context) {
+//        this(ServerSettingDao.loadSelected(context));
+//    }
 
 	@Override
 	protected void onPreExecute() {

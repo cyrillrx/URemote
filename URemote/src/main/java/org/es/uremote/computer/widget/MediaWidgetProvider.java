@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -41,9 +42,6 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
     private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
 
-    private ServerSetting mSettings = null;
-    private String mDefaultSecurityToken = null;
-
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
@@ -51,10 +49,6 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
-        // TODO : add check if changed
-        mSettings = ServerSettingDao.loadSelected(context);
-        mDefaultSecurityToken = context.getString(R.string.default_security_token);
 
         // Get ids of all the instances of the widget
         ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
@@ -136,7 +130,10 @@ public class MediaWidgetProvider extends AppWidgetProvider {
      * @param requestCode The request code.
      */
     public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
-        Request request = ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode);
+
+        final ServerSetting settings = ServerSettingDao.loadSelected(context);
+        final String securityToken = (settings == null) ? "" : settings.getSecurityToken();
+        final Request request = ExchangeMessagesUtils.buildRequest(securityToken, requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -144,16 +141,9 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(context).execute(request);
+            new AsyncMessageMgr(settings).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }
-    }
-
-    public String getSecurityToken() {
-        if (mSettings != null) {
-            return mSettings.getSecurityToken();
-        }
-        return mDefaultSecurityToken;
     }
 }
