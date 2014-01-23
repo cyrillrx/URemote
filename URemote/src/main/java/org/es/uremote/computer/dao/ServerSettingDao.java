@@ -109,8 +109,7 @@ public class ServerSettingDao {
 	public static boolean loadFromFile(File configFile, List<ServerSetting> servers) {
 
 		if (Looper.myLooper() == Looper.getMainLooper()) {
-//            TODO uncomment
-//			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
+			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
 		}
 
 		if (!configFile.exists()) {
