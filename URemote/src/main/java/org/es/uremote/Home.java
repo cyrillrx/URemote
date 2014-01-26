@@ -131,7 +131,8 @@ public class Home extends ListActivity implements OnItemClickListener {
 		// If Wifi is disabled, ask for activation
 		final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 		if (!wifiMgr.isWifiEnabled()) {
-			Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                // Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                Toast.makeText(Home.this, "Wifi is not enable. You are using 3G remote control.", Toast.LENGTH_SHORT).show();
 			startActivityForResult(enableIntent, RC_ENABLE_WIFI);
 		} else {
 			startActivity(new Intent(getApplicationContext(), Computer.class));
