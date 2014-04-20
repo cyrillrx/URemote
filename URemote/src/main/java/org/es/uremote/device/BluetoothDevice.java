@@ -1,4 +1,4 @@
-package org.es.uremote.objects;
+package org.es.uremote.device;
 
 /**
  * Simple object that hold the bluetooth device data.

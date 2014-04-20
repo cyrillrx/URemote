@@ -5,13 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 	 * Default constructor
 	 *
 	 * @param context The application context.
-	 * @param servers The list of {@link org.es.uremote.objects.ServerSetting} to display.
+	 * @param servers The list of {@link org.es.uremote.device.ServerSetting} to display.
 	 */
 	public ServerArrayAdapter(Context context, List<ServerSetting> servers) {
 		super(context, 0, servers);

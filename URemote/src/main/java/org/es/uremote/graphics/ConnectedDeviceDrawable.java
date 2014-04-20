@@ -1,19 +1,15 @@
 package org.es.uremote.graphics;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
-import android.graphics.PointF;
 import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import org.es.graphics.Hexagon;
-import org.es.uremote.objects.ConnectedDevice;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ConnectedDevice;
+import org.es.uremote.device.ServerSetting;
 
 import java.util.Random;
 

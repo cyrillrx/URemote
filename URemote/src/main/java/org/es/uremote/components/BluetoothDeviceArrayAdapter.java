@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.objects.BluetoothDevice;
+import org.es.uremote.device.BluetoothDevice;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
 	 * Adapter constructor
 	 *
 	 * @param context The application context.
-	 * @param devices The list of {@link org.es.uremote.objects.BluetoothDevice} to display.
+	 * @param devices The list of {@link org.es.uremote.device.BluetoothDevice} to display.
 	 */
 	public BluetoothDeviceArrayAdapter(Context context, final List<BluetoothDevice> devices) {
 		super(context, 0, devices);

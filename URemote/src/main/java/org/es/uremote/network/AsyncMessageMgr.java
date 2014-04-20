@@ -1,14 +1,12 @@
 package org.es.uremote.network;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.utils.Log;
 
 import java.io.IOException;

@@ -14,7 +14,7 @@ import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
@@ -92,7 +92,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	protected void navigateTo(String dirPath) {
 		if (dirPath != null) {
 			sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
-		}
+		} else {
+            Toast.makeText(getActivity(), R.string.msg_no_path_defined, Toast.LENGTH_SHORT).show();
+        }
 	}
 
 	////////////////////////////////////////////////////////////////////

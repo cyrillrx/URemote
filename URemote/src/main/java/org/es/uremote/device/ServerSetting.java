@@ -1,4 +1,4 @@
-package org.es.uremote.objects;
+package org.es.uremote.device;
 
 import android.content.Context;
 import android.net.wifi.WifiManager;

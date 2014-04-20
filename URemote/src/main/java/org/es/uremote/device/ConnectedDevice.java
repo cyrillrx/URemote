@@ -1,4 +1,4 @@
-package org.es.uremote.objects;
+package org.es.uremote.device;
 
 /**
  * Created by Cyril on 03/11/13.

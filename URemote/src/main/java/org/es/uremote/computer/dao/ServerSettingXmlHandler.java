@@ -1,7 +1,7 @@
 package org.es.uremote.computer.dao;
 
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.objects.ServerSetting.ConnectionType;
+import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.ServerSetting.ConnectionType;
 import org.es.utils.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -119,7 +119,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 		mCurrentElement = false;
 	}
 
-	/** @return A list of {@link org.es.uremote.objects.ServerSetting}. */
+	/** @return A list of {@link org.es.uremote.device.ServerSetting}. */
 	public List<ServerSetting> getServers() {
 		if (mLoaded) {
 			return mServers;

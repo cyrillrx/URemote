@@ -9,7 +9,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 
 import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.utils.EditIntPreference;
 
 import java.util.List;

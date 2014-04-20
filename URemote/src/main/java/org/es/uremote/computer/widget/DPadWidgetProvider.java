@@ -17,7 +17,7 @@ import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.utils.Log;
 
 import static android.widget.Toast.LENGTH_SHORT;

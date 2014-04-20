@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,7 @@ import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 

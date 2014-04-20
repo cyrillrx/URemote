@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import org.es.security.Md5;
 import org.es.uremote.R;
-import org.es.uremote.objects.ServerSetting;
-import org.es.uremote.objects.ServerSetting.ConnectionType;
+import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.ServerSetting.ConnectionType;
 import org.es.utils.Log;
 
 import static android.content.Intent.ACTION_DELETE;

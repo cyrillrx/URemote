@@ -6,7 +6,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 
 import org.es.exception.AccessStorageOnMainThreadException;
-import org.es.uremote.objects.ServerSetting;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.utils.PrefKeys;
 import org.es.utils.Log;
 import org.es.utils.XmlWriter;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import static org.es.uremote.objects.ServerSetting.FILENAME;
+import static org.es.uremote.device.ServerSetting.FILENAME;
 
 /**
  * @author Cyril Leroux
