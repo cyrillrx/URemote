@@ -33,6 +33,20 @@
         <activity
                 android:name=".computer.ServerListActivity"
                 android:theme="@style/PopupTheme" />
+        <activity
+                android:name=".computer.widget.MediaWidgetConfigureActivity"
+                android:theme="@style/PopupTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".computer.widget.DPadWidgetConfigureActivity"
+                android:theme="@style/PopupTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".computer.ServerEditActivity" />
         <activity android:name=".computer.LoadServerActivity" />
         <activity

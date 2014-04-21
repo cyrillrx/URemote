@@ -83,7 +83,6 @@ public class Home extends ListActivity implements OnItemClickListener {
 
             case ACTION_COMPUTER:
                 startActivityForResult(new Intent(getApplicationContext(), ServerListActivity.class).setAction(ACTION_SELECT), RC_SELECT_SERVER);
-                //                serverDialog();
                 break;
 
             case ACTION_NAO:
@@ -111,20 +110,6 @@ public class Home extends ListActivity implements OnItemClickListener {
                 break;
         }
     }
-
-    //    private  void serverDialog() {
-    //        FragmentManager fragmentManager = getC getSupportFragmentManager();
-    //        ServerListDialogFragment fragment = new CustomDialogFragment();
-    //
-    //        // 1. Instantiate an AlertDialog.Builder with its constructor
-    //        AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
-    //
-    //        // 2. Chain together various setter methods to set the dialog characteristics
-    //        builder.setMessage(R.string.dialog_message).setTitle(R.string.dialog_title);
-    //
-    //        // 3. Get the AlertDialog from create()
-    //        AlertDialog dialog = builder.create();
-    //    }
 
     private void startComputerRemote(final ServerSetting server) {
         // If Wifi is disabled, ask for activation

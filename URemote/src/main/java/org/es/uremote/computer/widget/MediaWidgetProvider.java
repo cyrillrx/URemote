@@ -20,12 +20,14 @@ import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.device.ServerSetting;
 import org.es.utils.Log;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_NEXT;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_PLAY_PAUSE;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_PREVIOUS;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MEDIA_STOP;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 
 /**
  * @author Cyril Leroux.
@@ -40,6 +42,8 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_MEDIA_PLAY_PAUSE = "ACTION_MEDIA_PLAY_PAUSE";
     private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
     private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
+
+    private ServerSetting mServer;
 
     @Override
     public void onEnabled(Context context) {
@@ -92,19 +96,20 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
 
-        Log.debug(TAG, "MediaWidgetProvider onReceive");
-
         final String action = intent.getAction();
         Log.debug(TAG, "Action : " + intent.getAction());
 
-        if (ACTION_START_ACTIVITY.equals(action)) {
+        if (ACTION_APPWIDGET_UPDATE.equals(action)) {
+            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+
+        } else if (ACTION_START_ACTIVITY.equals(action)) {
             Toast.makeText(context, "START_ACTIVITY", LENGTH_SHORT).show();
             Intent startActivityIntent = new Intent(context, Computer.class);
             startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(startActivityIntent);
 
         } else if (ACTION_MEDIA_PREVIOUS.equals(action)) {
-            Toast.makeText(context, "MEDIA_PREVIOUS", LENGTH_SHORT).show();
+            Toast.makeText(context, MEDIA_PREVIOUS.name(), LENGTH_SHORT).show();
             sendAsyncRequest(context, KEYBOARD, MEDIA_PREVIOUS);
 
         } else if (ACTION_MEDIA_PLAY_PAUSE.equals(action)) {
@@ -116,7 +121,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
             sendAsyncRequest(context, KEYBOARD, MEDIA_STOP);
 
         } else if (ACTION_MEDIA_NEXT.equals(action)) {
-            Toast.makeText(context, "MEDIA_NEXT", LENGTH_SHORT).show();
+            Toast.makeText(context, MEDIA_NEXT.name(), LENGTH_SHORT).show();
             sendAsyncRequest(context, KEYBOARD, MEDIA_NEXT);
         }
     }
@@ -130,9 +135,12 @@ public class MediaWidgetProvider extends AppWidgetProvider {
      */
     public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
 
-        final ServerSetting settings = ServerSettingDao.loadSelected(context);
-        final String securityToken = (settings == null) ? "" : settings.getSecurityToken();
-        final Request request = ExchangeMessagesUtils.buildRequest(securityToken, requestType, requestCode);
+        if (mServer == null) {
+            Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
+            return;
+        }
+
+        final Request request = ExchangeMessagesUtils.buildRequest(mServer.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -140,7 +148,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(settings).execute(request);
+            new AsyncMessageMgr(mServer).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }

@@ -1,6 +1,8 @@
 package org.es.uremote.computer;
 
 import android.app.ListActivity;
+import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,9 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.es.uremote.BuildConfig;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.components.ServerArrayAdapter;
@@ -25,6 +29,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE;
 import static android.content.Intent.ACTION_DELETE;
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
@@ -50,8 +55,8 @@ public class ServerListActivity extends ListActivity {
     private static final int RC_EDIT_SERVER = 1;
     private static final int RC_LOAD_SERVER = 2;
 
-
-    private String mMode;
+    private int mAppWidgetId;
+    private String mAction;
     private List<ServerSetting> mServers = new ArrayList<>();
     private File mConfFile = null;
 
@@ -60,10 +65,14 @@ public class ServerListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_list);
 
-        mMode = getIntent().getAction();
-        if (mMode == null) { mMode = ACTION_SELECT; }
+        final Intent intent = getIntent();
 
-        ((TextView) findViewById(R.id.server_list_title)).setText(ACTION_SELECT.equals(mMode) ? R.string.title_server_select : R.string.title_server_edit);
+        mAppWidgetId = initAppWidgetId(intent.getExtras());
+
+        mAction = intent.getAction();
+        if (mAction == null) { mAction = ACTION_SELECT; }
+
+        ((TextView) findViewById(R.id.server_list_title)).setText(ACTION_EDIT.equals(mAction) ? R.string.title_server_edit : R.string.title_server_select);
 
         mConfFile = new File(getExternalFilesDir(null), FILENAME);
         if (mConfFile.exists()) {
@@ -76,6 +85,15 @@ public class ServerListActivity extends ListActivity {
                 addServer();
             }
         });
+    }
+
+    /**
+     * Initialize mAppWidgetId in case the activity has been launch by a widget.
+     */
+    protected int initAppWidgetId(final Bundle extras) {
+        return (extras != null) ?
+                extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID) :
+                AppWidgetManager.INVALID_APPWIDGET_ID; // Default value
     }
 
     private void asyncLoadServers(File configFile, List<ServerSetting> servers) {
@@ -94,15 +112,34 @@ public class ServerListActivity extends ListActivity {
         Intent intent = new Intent(getApplicationContext(), ServerEditActivity.class);
         intent.putExtra(EXTRA_SERVER_DATA, server);
 
-        if (ACTION_SELECT.equals(mMode)) {
+        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction)) {
+            if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+                updateWidget(intent, mAppWidgetId);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        } else if (ACTION_SELECT.equals(mAction)) {
             setResult(RESULT_OK, intent);
             finish();
 
-        } else if (ACTION_EDIT.equals(mMode)) {
+        } else if (ACTION_EDIT.equals(mAction)) {
             intent.putExtra(EXTRA_SERVER_ID, position);
             intent.setAction(ACTION_EDIT);
             startActivityForResult(intent, RC_EDIT_SERVER);
         }
+    }
+
+    /**
+     * Called when the activity is used to configure a widget.
+     * <ul>
+     * <li>Updates the widget view.</li>
+     * <li>Updates the intent used to configure the widget.</li>
+     * </ul>
+     * @param intent the intent to update.
+     * @param appWidgetId The widget id used to update the widget.
+     */
+    protected void updateWidget(final Intent intent, final int appWidgetId) {
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
     }
 
     private void updateView(final List<ServerSetting> servers) {
@@ -250,7 +287,9 @@ public class ServerListActivity extends ListActivity {
             updateView(mDestination);
 
             if (loaded) {
-                Toast.makeText(getApplicationContext(), R.string.server_loaded, Toast.LENGTH_SHORT).show();
+                if (BuildConfig.DEBUG) {
+                    Toast.makeText(getApplicationContext(), R.string.server_loaded, Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(getApplicationContext(), R.string.error_while_loading_servers, Toast.LENGTH_SHORT).show();
             }

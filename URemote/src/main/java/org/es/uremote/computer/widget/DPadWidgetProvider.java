@@ -20,7 +20,9 @@ import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.device.ServerSetting;
 import org.es.utils.Log;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 
 /**
  * @author Cyril Leroux.
@@ -31,11 +33,13 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DPadWidgetProvider";
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
-    private static final String ACTION_OK = "ACTION_OK";
-    private static final String ACTION_LEFT = "ACTION_LEFT";
+    private static final String ACTION_OK    = "ACTION_OK";
+    private static final String ACTION_LEFT  = "ACTION_LEFT";
     private static final String ACTION_RIGHT = "ACTION_RIGHT";
-    private static final String ACTION_UP = "ACTION_UP";
-    private static final String ACTION_DOWN = "ACTION_DOWN";
+    private static final String ACTION_UP    = "ACTION_UP";
+    private static final String ACTION_DOWN  = "ACTION_DOWN";
+
+    private ServerSetting mServer;
 
     @Override
     public void onEnabled(Context context) {
@@ -95,7 +99,10 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.debug(TAG, "Action : " + intent.getAction());
 
-        if (ACTION_OK.equals(action)) {
+        if (ACTION_APPWIDGET_UPDATE.equals(action)) {
+            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+
+        } else if (ACTION_OK.equals(action)) {
             Toast.makeText(context, "OK", LENGTH_SHORT).show();
             sendAsyncRequest(context, Type.KEYBOARD, Code.KB_RETURN);
 
@@ -131,9 +138,12 @@ public class DPadWidgetProvider extends AppWidgetProvider {
      */
     public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
 
-        final ServerSetting settings = ServerSettingDao.loadSelected(context);
-        final String securityToken = (settings == null) ? "" : settings.getSecurityToken();
-        final Request request = ExchangeMessagesUtils.buildRequest(securityToken, requestType, requestCode);
+        if (mServer == null) {
+            Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
+            return;
+        }
+
+        final Request request = ExchangeMessagesUtils.buildRequest(mServer.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -141,7 +151,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(settings).execute(request);
+            new AsyncMessageMgr(mServer).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }
