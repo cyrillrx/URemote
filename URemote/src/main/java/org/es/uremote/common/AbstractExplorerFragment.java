@@ -27,173 +27,180 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * This fragment allow you to browse a list of files.
  *
  * @author Cyril Leroux
- * Created on 29/08/13.
+ *         Created on 29/08/13.
  */
 public abstract class AbstractExplorerFragment extends ListFragment {
 
-	private static final String TAG = "AbstractExplorerFragment";
+    private static final String TAG = "AbstractExplorerFragment";
 
-	private static final String PREVIOUS_DIRECTORY_PATH	= "..";
-	private static final String KEY_DIRECTORY_CONTENT	= "DIRECTORY_CONTENT";
+    private static final String PREVIOUS_DIRECTORY_PATH = "..";
+    private static final String KEY_DIRECTORY_CONTENT   = "DIRECTORY_CONTENT";
+    private static final String DEFAULT_DIRECTORY_PATH  = "default_path";
 
-	private TextView mTvPath;
+    private TextView mTvPath;
 
-	private String mRoot = null;
+    private String mRoot = null;
 
-	protected DirContent mCurrentDirContent = null;
+    protected DirContent mCurrentDirContent = null;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
-		View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
-		mTvPath = (TextView) view.findViewById(R.id.tvPath);
-		return view;
-	}
+        View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
+        mTvPath = (TextView) view.findViewById(R.id.tvPath);
+        return view;
+    }
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-		DirContent dirContent = null;
+        DirContent dirContent = null;
 
-		// Restoring current directory content
-		if (savedInstanceState != null) {
-			byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
-			dirContent = DirContentFactory.createFromByteArray(dirContentAsByteArray);
-		}
+        // Restoring current directory content
+        if (savedInstanceState != null) {
+            byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
+            dirContent = DirContentFactory.createFromByteArray(dirContentAsByteArray);
+        }
 
-		// Get the directory content or update the one that already exist.
-		if (dirContent == null) {
-			final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
+        // Get the directory content or update the one that already exist.
+        if (dirContent == null) {
+            final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
             if (mRoot == null) {
                 mRoot = path;
             }
-			navigateTo(path);
-		} else {
-			updateView(dirContent);
-		}
-	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		if (mCurrentDirContent != null) {
-			outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentDirContent.toByteArray());
-		}
-		super.onSaveInstanceState(outState);
-	}
+            if (path != null) {
+                navigateTo(path);
+            } else {
+                navigateTo(DEFAULT_DIRECTORY_PATH);
+            }
 
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		final DirContent.File file = mCurrentDirContent.getFile(position);
-		final String filename = file.getName();
-		final String fullPath = mCurrentDirContent.getPath()+ File.separator + filename;
+        } else {
+            updateView(dirContent);
+        }
+    }
 
-		if (DIRECTORY.equals(file.getType())) {
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (mCurrentDirContent != null) {
+            outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentDirContent.toByteArray());
+        }
+        super.onSaveInstanceState(outState);
+    }
 
-			if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
-				navigateUp();
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        final DirContent.File file = mCurrentDirContent.getFile(position);
+        final String filename = file.getName();
+        final String fullPath = mCurrentDirContent.getPath() + File.separator + filename;
 
-			} else {
-				onDirectoryClick(fullPath);
-			}
+        if (DIRECTORY.equals(file.getType())) {
 
-		} else {
-			onFileClick(fullPath);
-		}
-	}
+            if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
+                navigateUp();
 
-	/**
-	 * Updates the view with the content passed directory.
-	 *
-	 * @param dirContent The object that represents the directory content.
-	 */
-	protected void updateView(final DirContent dirContent) {
+            } else {
+                onDirectoryClick(fullPath);
+            }
 
-		mCurrentDirContent = dirContent;
+        } else {
+            onFileClick(fullPath);
+        }
+    }
 
-		if (dirContent.getFileCount() == 0) {
-			Log.warning(TAG, "#updateView - No file in the directory.");
-			return;
-		}
+    /**
+     * Updates the view with the content passed directory.
+     *
+     * @param dirContent The object that represents the directory content.
+     */
+    protected void updateView(final DirContent dirContent) {
+
+        mCurrentDirContent = dirContent;
+
+        if (dirContent.getFileCount() == 0) {
+            Log.warning(TAG, "#updateView - No file in the directory.");
+            return;
+        }
 
         List<DirContent.File> files = new ArrayList<>();
-		files.addAll(dirContent.getFileList());
+        files.addAll(dirContent.getFileList());
 
-		if (getListAdapter() == null) {
-			final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
-			setListAdapter(adapter);
-		} else {
-			((ExplorerArrayAdapter) getListAdapter()).clear();
-			((ExplorerArrayAdapter) getListAdapter()).addAll(files);
-		}
+        if (getListAdapter() == null) {
+            final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
+            setListAdapter(adapter);
+        } else {
+            ((ExplorerArrayAdapter) getListAdapter()).clear();
+            ((ExplorerArrayAdapter) getListAdapter()).addAll(files);
+        }
 
-		mTvPath.setText(dirContent.getPath());
-	}
+        mTvPath.setText(dirContent.getPath());
+    }
 
-	/**
-	 * Lists the content of the passed directory.<br />
-	 * Updates the view once the data have been received.
-	 *
-	 * @param dirPath The path of the directory to display.
-	 */
-	protected abstract void navigateTo(String dirPath);
+    /**
+     * Lists the content of the passed directory.<br />
+     * Updates the view once the data have been received.
+     *
+     * @param dirPath The path of the directory to display.
+     */
+    protected abstract void navigateTo(String dirPath);
 
-	/**
-	 * Navigates up if possible.<br />
-	 * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
-	 * Updates the view once the data have been received from the server.
-	 *
-	 * @return True if we can navigate up from the current directory. False otherwise.
-	 */
-	public boolean navigateUp() {
+    /**
+     * Navigates up if possible.<br />
+     * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
+     * Updates the view once the data have been received from the server.
+     *
+     * @return True if we can navigate up from the current directory. False otherwise.
+     */
+    public boolean navigateUp() {
 
-		if (canNavigateUp()) {
-			doNavigateUp();
-			return true;
-		}
-		return false;
-	}
+        if (canNavigateUp()) {
+            doNavigateUp();
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Call by the activity that holds the fragment if the back button is override.
-	 * If the function returns true, the back button is override to go up.
-	 * Else, it behaves normally.
-	 *
-	 * @return True if we can navigate up from the current directory. False otherwise.
-	 */
-	public boolean canNavigateUp() {
-		return  mCurrentDirContent != null &&
-				mCurrentDirContent.getPath().contains(File.separator) &&
+    /**
+     * Call by the activity that holds the fragment if the back button is override.
+     * If the function returns true, the back button is override to go up.
+     * Else, it behaves normally.
+     *
+     * @return True if we can navigate up from the current directory. False otherwise.
+     */
+    public boolean canNavigateUp() {
+        return mCurrentDirContent != null &&
+                mCurrentDirContent.getPath().contains(File.separator) &&
                 !mCurrentDirContent.getPath().equals(mRoot);
 
-	}
+    }
 
-	/**
-	 * Call navigateTo on the parent directory.
-	 */
-	protected void doNavigateUp() {
-		final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
-		navigateTo(parentPath);
-	}
+    /**
+     * Call navigateTo on the parent directory.
+     */
+    protected void doNavigateUp() {
+        final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
+        navigateTo(parentPath);
+    }
 
-	/**
-	 * Callback triggered when the user clicks on a directory.
-	 *
-	 * @param dirPath The path of the clicked directory.
-	 */
-	protected abstract void onDirectoryClick(String dirPath);
+    /**
+     * Callback triggered when the user clicks on a directory.
+     *
+     * @param dirPath The path of the clicked directory.
+     */
+    protected abstract void onDirectoryClick(String dirPath);
 
-	/**
-	 * Callback triggered when the user clicks on a file.
-	 *
-	 * @param filename The path of the clicked file.
-	 */
-	protected abstract void onFileClick(String filename);
+    /**
+     * Callback triggered when the user clicks on a file.
+     *
+     * @param filename The path of the clicked file.
+     */
+    protected abstract void onFileClick(String filename);
 }
