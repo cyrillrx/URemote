@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
@@ -61,6 +62,8 @@ public class ServerListActivity extends ListActivity {
 
         mMode = getIntent().getAction();
         if (mMode == null) { mMode = ACTION_SELECT; }
+
+        ((TextView) findViewById(R.id.server_list_title)).setText(ACTION_SELECT.equals(mMode) ? R.string.title_server_select : R.string.title_server_edit);
 
         mConfFile = new File(getExternalFilesDir(null), FILENAME);
         if (mConfFile.exists()) {
