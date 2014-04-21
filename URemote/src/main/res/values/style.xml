@@ -18,4 +18,7 @@
 	<style name="media_button" parent="@style/command_button">
 		<item name="android:padding">10dp</item>
 	</style>
+
+    <style name="PopupTheme" parent="android:Theme.Holo.Light.Dialog.NoActionBar" />
+
 </resources>

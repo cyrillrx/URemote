@@ -1,60 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		  package="org.es.uremote"
-		  android:versionCode="1"
-		  android:versionName="0.8.9">
+          package="org.es.uremote"
+          android:versionCode="1"
+          android:versionName="0.8.9">
 
-	<uses-sdk
-			android:minSdkVersion="16"
-			android:targetSdkVersion="19" />
+    <uses-sdk
+            android:minSdkVersion="16"
+            android:targetSdkVersion="19" />
 
-	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
-	<application
-			android:allowBackup="true"
-			android:icon="@drawable/ic_launcher"
-			android:label="@string/app_name"
-			android:theme="@style/AppTheme">
-		<activity
-				android:name=".Home"
-				android:label="@string/app_name"
-				android:theme="@android:style/Theme.Holo">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+    <application
+            android:allowBackup="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+        <activity
+                android:name=".Home"
+                android:label="@string/app_name"
+                android:theme="@android:style/Theme.Holo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity
-				android:name=".AppSettings"
-				android:label="@string/title_preferences" />
-		<activity
-				android:name=".Computer"
-				android:label="@string/title_computer" />
-		<activity android:name=".computer.ServerListActivity" />
-		<activity android:name=".computer.ServerEditActivity" />
-		<activity android:name=".computer.LoadServerActivity" />
-		<activity
-				android:name=".AppLauncherActivity"
-				android:label="@string/title_application_launcher"
-				android:theme="@android:style/Theme.Dialog" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".AppSettings"
+                android:label="@string/title_preferences" />
+        <activity
+                android:name=".Computer"
+                android:label="@string/title_computer" />
+        <activity
+                android:name=".computer.ServerListActivity"
+                android:theme="@style/PopupTheme" />
+        <activity android:name=".computer.ServerEditActivity" />
+        <activity android:name=".computer.LoadServerActivity" />
+        <activity
+                android:name=".AppLauncherActivity"
+                android:label="@string/title_application_launcher"
+                android:theme="@style/PopupTheme" />
         <activity
                 android:name=".Nao"
                 android:label="@string/title_nao" />
         <activity
                 android:name=".nao.OpenGLActivity"
                 android:label="@string/title_nao" />
-		<activity
-				android:name=".Lights"
-				android:label="@string/title_lights" />
-		<activity
-				android:name=".RobotControl"
-				android:label="@string/title_robots" />
+        <activity
+                android:name=".Lights"
+                android:label="@string/title_lights" />
+        <activity
+                android:name=".RobotControl"
+                android:label="@string/title_robots" />
         <activity
                 android:name=".TvDialer"
                 android:label="@string/title_tv" />
@@ -63,10 +65,10 @@
                 android:label="@string/app_name"
                 android:theme="@android:style/Theme.Holo" />
 
-		<service android:name=".service.BluetoothService" />
-		<service android:name=".service.SendRequestService" />
+        <service android:name=".service.BluetoothService" />
+        <service android:name=".service.SendRequestService" />
 
-		<!-- Widgets -->
+        <!-- Widgets -->
         <receiver
                 android:name=".computer.widget.MediaWidgetProvider"
                 android:icon="@drawable/ic_launcher"
@@ -92,6 +94,6 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_dpad_info" />
         </receiver>
-	</application>
+    </application>
 
 </manifest>

@@ -7,4 +7,7 @@
 
     <dimen name="media_button_width">100dp</dimen>
     <dimen name="media_button_height">100dp</dimen>
+
+    <dimen name="popup_width">450dp</dimen>
+
 </resources>
