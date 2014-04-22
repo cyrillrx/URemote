@@ -22,6 +22,10 @@ import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LEFT;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.RIGHT;
+import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 
 /**
@@ -107,20 +111,20 @@ public class DPadWidgetProvider extends AppWidgetProvider {
             sendAsyncRequest(context, Type.KEYBOARD, Code.KB_RETURN);
 
         } else if (ACTION_LEFT.equals(action)) {
-            Toast.makeText(context, "LEFT", LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, Code.LEFT);
+            Toast.makeText(context, LEFT.name(), LENGTH_SHORT).show();
+            sendAsyncRequest(context, Type.KEYBOARD, LEFT);
 
         } else if (ACTION_RIGHT.equals(action)) {
-            Toast.makeText(context, "RIGHT", LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, Code.RIGHT);
+            Toast.makeText(context, RIGHT.name(), LENGTH_SHORT).show();
+            sendAsyncRequest(context, Type.KEYBOARD, RIGHT);
 
         } else if (ACTION_UP.equals(action)) {
-            Toast.makeText(context, "UP", LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, Code.UP);
+            Toast.makeText(context, UP.name(), LENGTH_SHORT).show();
+            sendAsyncRequest(context, Type.KEYBOARD, UP);
 
         } else if (ACTION_DOWN.equals(action)) {
-            Toast.makeText(context, "DOWN", LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, Code.DOWN);
+            Toast.makeText(context, DOWN.name(), LENGTH_SHORT).show();
+            sendAsyncRequest(context, Type.KEYBOARD, DOWN);
 
         } else if (ACTION_START_ACTIVITY.equals(action)) {
             Intent startActivityIntent = new Intent(context, Computer.class);

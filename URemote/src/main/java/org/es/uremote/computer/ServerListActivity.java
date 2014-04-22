@@ -114,8 +114,10 @@ public class ServerListActivity extends ListActivity {
 
         if (ACTION_APPWIDGET_CONFIGURE.equals(mAction)) {
             if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-                updateWidget(intent, mAppWidgetId);
-                setResult(RESULT_OK, intent);
+                final Intent widgetIntent = new Intent();
+                widgetIntent.putExtra(EXTRA_SERVER_DATA, server);
+                updateWidget(widgetIntent, mAppWidgetId);
+                setResult(RESULT_OK, widgetIntent);
                 finish();
             }
         } else if (ACTION_SELECT.equals(mAction)) {
@@ -136,10 +138,10 @@ public class ServerListActivity extends ListActivity {
      * <li>Updates the intent used to configure the widget.</li>
      * </ul>
      * @param intent the intent to update.
-     * @param appWidgetId The widget id used to update the widget.
+     * @param widgetId The widget id used to update the widget.
      */
-    protected void updateWidget(final Intent intent, final int appWidgetId) {
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+    protected void updateWidget(final Intent intent, final int widgetId) {
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
     }
 
     private void updateView(final List<ServerSetting> servers) {

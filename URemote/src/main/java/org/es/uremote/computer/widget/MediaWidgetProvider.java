@@ -113,11 +113,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
             sendAsyncRequest(context, KEYBOARD, MEDIA_PREVIOUS);
 
         } else if (ACTION_MEDIA_PLAY_PAUSE.equals(action)) {
-            Toast.makeText(context, "MEDIA_PLAY_PAUSE", LENGTH_SHORT).show();
+            Toast.makeText(context, MEDIA_PLAY_PAUSE.name(), LENGTH_SHORT).show();
             sendAsyncRequest(context, KEYBOARD, MEDIA_PLAY_PAUSE);
 
         } else if (ACTION_MEDIA_STOP.equals(action)) {
-            Toast.makeText(context, "MEDIA_STOP", LENGTH_SHORT).show();
+            Toast.makeText(context, MEDIA_STOP.name(), LENGTH_SHORT).show();
             sendAsyncRequest(context, KEYBOARD, MEDIA_STOP);
 
         } else if (ACTION_MEDIA_NEXT.equals(action)) {
