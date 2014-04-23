@@ -72,7 +72,7 @@ public class ServerListActivity extends ListActivity {
         mAction = intent.getAction();
         if (mAction == null) { mAction = ACTION_SELECT; }
 
-        ((TextView) findViewById(R.id.server_list_title)).setText(ACTION_EDIT.equals(mAction) ? R.string.title_server_edit : R.string.title_server_select);
+        setTitle(ACTION_EDIT.equals(mAction) ? R.string.title_server_edit : R.string.title_server_select);
 
         mConfFile = new File(getExternalFilesDir(null), FILENAME);
         if (mConfFile.exists()) {
