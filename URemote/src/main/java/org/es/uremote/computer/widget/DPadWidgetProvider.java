@@ -11,17 +11,16 @@ import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.device.ServerSetting;
 import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
+import static org.es.uremote.exchange.ExchangeMessages.Request;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LEFT;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.RIGHT;
@@ -37,13 +36,13 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DPadWidgetProvider";
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
-    private static final String ACTION_OK    = "ACTION_OK";
-    private static final String ACTION_LEFT  = "ACTION_LEFT";
+    private static final String ACTION_OK = "ACTION_OK";
+    private static final String ACTION_LEFT = "ACTION_LEFT";
     private static final String ACTION_RIGHT = "ACTION_RIGHT";
-    private static final String ACTION_UP    = "ACTION_UP";
-    private static final String ACTION_DOWN  = "ACTION_DOWN";
+    private static final String ACTION_UP = "ACTION_UP";
+    private static final String ACTION_DOWN = "ACTION_DOWN";
 
-    private ServerSetting mServer;
+//    private ServerSetting mServer;
 
     @Override
     public void onEnabled(Context context) {
@@ -54,46 +53,50 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // Get ids of all the instances of the widget
-        ComponentName widget = new ComponentName(context, DPadWidgetProvider.class);
-        int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
+        final ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
+        final int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
 
         for (int widgetId : widgetIds) {
-
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_dpad);
-
-            // Register onClickListeners
-            Intent okIntent = new Intent(context, DPadWidgetProvider.class);
-            okIntent.setAction(ACTION_OK);
-            PendingIntent okPendingIntent = PendingIntent.getBroadcast(context, widgetId, okIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadOk, okPendingIntent);
-
-            Intent leftIntent = new Intent(context, DPadWidgetProvider.class);
-            leftIntent.setAction(ACTION_LEFT);
-            PendingIntent leftPendingIntent = PendingIntent.getBroadcast(context, widgetId, leftIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadLeft, leftPendingIntent);
-
-            Intent rightIntent = new Intent(context, DPadWidgetProvider.class);
-            rightIntent.setAction(ACTION_RIGHT);
-            PendingIntent rightPendingIntent = PendingIntent.getBroadcast(context, widgetId, rightIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadRight, rightPendingIntent);
-
-            Intent upIntent = new Intent(context, DPadWidgetProvider.class);
-            upIntent.setAction(ACTION_UP);
-            PendingIntent upPendingIntent = PendingIntent.getBroadcast(context, widgetId, upIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadUp, upPendingIntent);
-
-            Intent downIntent = new Intent(context, DPadWidgetProvider.class);
-            downIntent.setAction(ACTION_DOWN);
-            PendingIntent downPendingIntent = PendingIntent.getBroadcast(context, widgetId, downIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.dpadDown, downPendingIntent);
-
-            Intent startActivityIntent = new Intent(context, MediaWidgetProvider.class);
-            startActivityIntent.setAction(ACTION_START_ACTIVITY);
-            PendingIntent startActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setOnClickPendingIntent(R.id.launchApp, startActivityPendingIntent);
-
-            appWidgetManager.updateAppWidget(widgetId, remoteViews);
+            updateWidget(context, appWidgetManager, widgetId, null);
         }
+    }
+
+    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, ServerSetting server) {
+
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_dpad);
+
+        // Register onClickListeners
+        final Intent okIntent = new Intent(context, DPadWidgetProvider.class);
+        okIntent.setAction(ACTION_OK);
+        PendingIntent okPendingIntent = PendingIntent.getBroadcast(context, widgetId, okIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.dpadOk, okPendingIntent);
+
+        final Intent leftIntent = new Intent(context, DPadWidgetProvider.class);
+        leftIntent.setAction(ACTION_LEFT);
+        PendingIntent leftPendingIntent = PendingIntent.getBroadcast(context, widgetId, leftIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.dpadLeft, leftPendingIntent);
+
+        final Intent rightIntent = new Intent(context, DPadWidgetProvider.class);
+        rightIntent.setAction(ACTION_RIGHT);
+        PendingIntent rightPendingIntent = PendingIntent.getBroadcast(context, widgetId, rightIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.dpadRight, rightPendingIntent);
+
+        final Intent upIntent = new Intent(context, DPadWidgetProvider.class);
+        upIntent.setAction(ACTION_UP);
+        PendingIntent upPendingIntent = PendingIntent.getBroadcast(context, widgetId, upIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.dpadUp, upPendingIntent);
+
+        final Intent downIntent = new Intent(context, DPadWidgetProvider.class);
+        downIntent.setAction(ACTION_DOWN);
+        PendingIntent downPendingIntent = PendingIntent.getBroadcast(context, widgetId, downIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.dpadDown, downPendingIntent);
+
+        final Intent startActivityIntent = new Intent(context, MediaWidgetProvider.class);
+        startActivityIntent.setAction(ACTION_START_ACTIVITY);
+        PendingIntent startActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.launchApp, startActivityPendingIntent);
+
+        appWidgetManager.updateAppWidget(widgetId, remoteViews);
     }
 
     @Override
@@ -103,51 +106,63 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.debug(TAG, "Action : " + intent.getAction());
 
-        if (ACTION_APPWIDGET_UPDATE.equals(action)) {
-            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
 
-        } else if (ACTION_OK.equals(action)) {
-            Toast.makeText(context, "OK", LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, Code.KB_RETURN);
+        switch (action) {
+            case ACTION_APPWIDGET_UPDATE:
+                //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                break;
 
-        } else if (ACTION_LEFT.equals(action)) {
-            Toast.makeText(context, LEFT.name(), LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, LEFT);
+            case ACTION_OK:
+                Toast.makeText(context, "OK", LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KB_RETURN);
+                break;
 
-        } else if (ACTION_RIGHT.equals(action)) {
-            Toast.makeText(context, RIGHT.name(), LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, RIGHT);
+            case ACTION_LEFT:
+                Toast.makeText(context, LEFT.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, LEFT);
+                break;
 
-        } else if (ACTION_UP.equals(action)) {
-            Toast.makeText(context, UP.name(), LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, UP);
+            case ACTION_RIGHT:
+                Toast.makeText(context, RIGHT.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, RIGHT);
+                break;
 
-        } else if (ACTION_DOWN.equals(action)) {
-            Toast.makeText(context, DOWN.name(), LENGTH_SHORT).show();
-            sendAsyncRequest(context, Type.KEYBOARD, DOWN);
+            case ACTION_UP:
+                Toast.makeText(context, UP.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, UP);
+                break;
 
-        } else if (ACTION_START_ACTIVITY.equals(action)) {
-            Intent startActivityIntent = new Intent(context, Computer.class);
-            startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(startActivityIntent);
+            case ACTION_DOWN:
+                Toast.makeText(context, DOWN.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, DOWN);
+                break;
+
+            case ACTION_START_ACTIVITY:
+                Intent startActivityIntent = new Intent(context, Computer.class);
+                startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(startActivityIntent);
+                break;
         }
     }
 
     /**
      * Initializes the message handler then send the request.
      *
-     * @param context
+     * @param server The server to control.
+     * @param context The application context.
      * @param requestType The request type.
      * @param requestCode The request code.
      */
-    public void sendAsyncRequest(Context context, Type requestType, Code requestCode) {
+    public static void sendAsyncRequest(ServerSetting server, Context context, Type requestType, Code requestCode) {
 
-        if (mServer == null) {
+        if (server == null) {
             Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
             return;
         }
 
-        final Request request = ExchangeMessagesUtils.buildRequest(mServer.getSecurityToken(), requestType, requestCode);
+        final Request request = ExchangeMessagesUtils.buildRequest(server.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();
@@ -155,7 +170,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(mServer).execute(request);
+            new AsyncMessageMgr(server).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }

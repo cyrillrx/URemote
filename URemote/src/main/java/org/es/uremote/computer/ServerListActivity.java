@@ -1,8 +1,6 @@
 package org.es.uremote.computer;
 
 import android.app.ListActivity;
-import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,8 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.RemoteViews;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.es.uremote.BuildConfig;
@@ -29,7 +25,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE;
 import static android.content.Intent.ACTION_DELETE;
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
@@ -55,8 +50,7 @@ public class ServerListActivity extends ListActivity {
     private static final int RC_EDIT_SERVER = 1;
     private static final int RC_LOAD_SERVER = 2;
 
-    private int mAppWidgetId;
-    private String mAction;
+    protected String mAction;
     private List<ServerSetting> mServers = new ArrayList<>();
     private File mConfFile = null;
 
@@ -65,11 +59,7 @@ public class ServerListActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_list);
 
-        final Intent intent = getIntent();
-
-        mAppWidgetId = initAppWidgetId(intent.getExtras());
-
-        mAction = intent.getAction();
+        mAction = getIntent().getAction();
         if (mAction == null) { mAction = ACTION_SELECT; }
 
         setTitle(ACTION_EDIT.equals(mAction) ? R.string.title_server_edit : R.string.title_server_select);
@@ -79,6 +69,9 @@ public class ServerListActivity extends ListActivity {
             asyncLoadServers(mConfFile, mServers);
         }
 
+        // Handle "Add server" button
+        // TODO replace by lambda whenever possible
+        //        findViewById(R.id.add_server).setOnClickListener((view) -> addServer());
         findViewById(R.id.add_server).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,18 +81,21 @@ public class ServerListActivity extends ListActivity {
     }
 
     /**
-     * Initialize mAppWidgetId in case the activity has been launch by a widget.
+     * Load the server list from the specified file.
+     *
+     * @param configFile
+     * @param servers
      */
-    protected int initAppWidgetId(final Bundle extras) {
-        return (extras != null) ?
-                extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID) :
-                AppWidgetManager.INVALID_APPWIDGET_ID; // Default value
-    }
-
     private void asyncLoadServers(File configFile, List<ServerSetting> servers) {
         (new AsyncLoadServer(configFile, servers)).execute();
     }
 
+    /**
+     * Save the server list in the specified file.
+     *
+     * @param servers
+     * @param configFile
+     */
     private void asyncSaveServers(List<ServerSetting> servers, File configFile) {
         (new AsyncSaveServer(servers, configFile)).execute();
     }
@@ -108,40 +104,21 @@ public class ServerListActivity extends ListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
-        Intent intent = new Intent(getApplicationContext(), ServerEditActivity.class);
-        intent.putExtra(EXTRA_SERVER_DATA, server);
+        final ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
-        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction)) {
-            if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-                final Intent widgetIntent = new Intent();
-                widgetIntent.putExtra(EXTRA_SERVER_DATA, server);
-                updateWidget(widgetIntent, mAppWidgetId);
-                setResult(RESULT_OK, widgetIntent);
-                finish();
-            }
-        } else if (ACTION_SELECT.equals(mAction)) {
+        final Intent intent = new Intent();
+        intent.putExtra(EXTRA_SERVER_DATA, server);
+        intent.putExtra(EXTRA_SERVER_ID, position);
+
+        if (ACTION_SELECT.equals(mAction)) {
             setResult(RESULT_OK, intent);
             finish();
 
         } else if (ACTION_EDIT.equals(mAction)) {
-            intent.putExtra(EXTRA_SERVER_ID, position);
+            intent.setClass(getApplicationContext(), ServerEditActivity.class);
             intent.setAction(ACTION_EDIT);
             startActivityForResult(intent, RC_EDIT_SERVER);
         }
-    }
-
-    /**
-     * Called when the activity is used to configure a widget.
-     * <ul>
-     * <li>Updates the widget view.</li>
-     * <li>Updates the intent used to configure the widget.</li>
-     * </ul>
-     * @param intent the intent to update.
-     * @param widgetId The widget id used to update the widget.
-     */
-    protected void updateWidget(final Intent intent, final int widgetId) {
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
     }
 
     private void updateView(final List<ServerSetting> servers) {
@@ -263,11 +240,7 @@ public class ServerListActivity extends ListActivity {
         updateView(mServers);
     }
 
-    /**
-     * Load the servers from a list of {@link File} objects.
-     *
-     * @author Cyril Leroux
-     */
+    /** Load the servers from a list of {@link File} objects. */
     private class AsyncLoadServer extends AsyncTask<Void, Void, Boolean> {
 
         final File mSourceFile;
@@ -298,11 +271,7 @@ public class ServerListActivity extends ListActivity {
         }
     }
 
-    /**
-     * Save the servers to a {@link File} .
-     *
-     * @author Cyril Leroux
-     */
+    /** Save the servers to a {@link File} . */
     private class AsyncSaveServer extends AsyncTask<Void, Void, Boolean> {
 
         final List<ServerSetting> mSource;
