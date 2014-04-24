@@ -1,9 +1,9 @@
 package org.es.uremote;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,6 +15,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +26,6 @@ import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragKeyboard;
 import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.ServerListActivity;
-import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
@@ -41,8 +42,10 @@ import java.util.List;
 
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.view.KeyEvent.KEYCODE_A;
 import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
 import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
+import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static android.widget.Toast.LENGTH_SHORT;
@@ -191,6 +194,18 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
     }
 
     @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KEYCODE_A) {
+
+            Toast.makeText(getApplicationContext(), "A key up", LENGTH_SHORT).show();
+//            sendAsyncRequest(ExchangeMessagesUtils.buildRequest(mSelectedServer.getSecurityToken(),
+//                    KEYBOARD, Code.DEFINE, Code.NONE, "Q"));
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.server, menu);
@@ -205,6 +220,14 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
                 Intent intent = new Intent(getApplicationContext(), Home.class);
                 intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                return true;
+
+            case R.id.server_keyboard:
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInput(0, 0);
+
+                View specialKeyboard = findViewById(R.id.panSpecialKeyboard);
+                specialKeyboard.setVisibility((specialKeyboard.getVisibility() == GONE) ? VISIBLE : GONE);
                 return true;
 
             case R.id.server_settings:
@@ -233,10 +256,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
     }
 
     @Override
-    public void onPageScrollStateChanged(int arg0) {}
+    public void onPageScrollStateChanged(int arg0) {
+    }
 
     @Override
-    public void onPageScrolled(int arg0, float arg1, int arg2) {}
+    public void onPageScrolled(int arg0, float arg1, int arg2) {
+    }
 
     @Override
     public void onPageSelected(int position) {
@@ -257,10 +282,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
     }
 
     @Override
-    public void onProgressUpdate(int percent) { }
+    public void onProgressUpdate(int percent) {
+    }
 
     @Override
-    public void onCancelled() { }
+    public void onCancelled() {
+    }
 
     @Override
     public void onPostExecute(Response response) {
@@ -276,7 +303,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         private final List<Fragment> mFragments;
 
         /**
-         * @param fm The fragment manager
+         * @param fm        The fragment manager
          * @param fragments The fragments list.
          */
         public ComputerPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
@@ -328,11 +355,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
      * Update the connection state of the UI
      *
      * @param state The state of the connection :
-     * <ul>
-     * <li>{@link Constants#STATE_OK}</li>
-     * <li>{@link Constants#STATE_KO}</li>
-     * <li>{@link Constants#STATE_CONNECTING}</li>
-     * </ul>
+     *              <ul>
+     *              <li>{@link Constants#STATE_OK}</li>
+     *              <li>{@link Constants#STATE_KO}</li>
+     *              <li>{@link Constants#STATE_CONNECTING}</li>
+     *              </ul>
      */
     public void updateConnectionState(int state) {
         int drawableResId;
