@@ -2,14 +2,8 @@ package org.es.uremote.common;
 
 import org.es.uremote.computer.LoadServerActivity;
 import org.es.uremote.exchange.DirContentFactory;
-import org.es.uremote.exchange.ExchangeMessages;
-import org.es.utils.FileUtils;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.es.uremote.exchange.ExchangeMessages.*;
+import static org.es.uremote.exchange.ExchangeMessages.DirContent;
 
 /**
  * Local file explorer fragment.

@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.device.ServerSetting;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
 
 import java.util.List;
 

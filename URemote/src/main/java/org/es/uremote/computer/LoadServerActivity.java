@@ -3,19 +3,12 @@ package org.es.uremote.computer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 
 import org.es.uremote.R;
 import org.es.uremote.common.LocalExplorerFragment;
-import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
-import static android.view.KeyEvent.KEYCODE_VOLUME_DOWN;
-import static android.view.KeyEvent.KEYCODE_VOLUME_UP;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_CONF_FILE;
 
 /**

@@ -16,13 +16,13 @@ import android.view.ViewGroup;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.ToastSender;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.WakeOnLan;
-import org.es.uremote.device.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 

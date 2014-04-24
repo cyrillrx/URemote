@@ -6,7 +6,6 @@ import android.os.Bundle;
 import org.es.components.HexagonGridView;
 import org.es.uremote.objects.ActionItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

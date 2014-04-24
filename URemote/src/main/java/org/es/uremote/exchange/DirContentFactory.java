@@ -7,7 +7,7 @@ import org.es.utils.Log;
 
 import java.io.File;
 
-import static org.es.uremote.exchange.ExchangeMessages.*;
+import static org.es.uremote.exchange.ExchangeMessages.DirContent;
 
 /**
  * Creates DirContent objects from various entries.

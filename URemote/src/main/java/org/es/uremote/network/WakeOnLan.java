@@ -1,8 +1,6 @@
 package org.es.uremote.network;
 
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
 
 import org.es.uremote.ToastSender;
 import org.es.utils.Log;
@@ -10,8 +8,6 @@ import org.es.utils.Log;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
-import static org.es.uremote.utils.Constants.MESSAGE_WHAT_TOAST;
 
 /**
  * This class allow the application to send a Magic Packet on the network to wake a PC up.

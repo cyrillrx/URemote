@@ -7,6 +7,7 @@ import android.widget.Toast;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
+import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
@@ -14,7 +15,6 @@ import org.es.uremote.exchange.ExchangeMessages.Response;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.device.ServerSetting;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 

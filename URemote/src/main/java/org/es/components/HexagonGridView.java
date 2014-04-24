@@ -1,21 +1,10 @@
 package org.es.components;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.PointF;
-import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.SurfaceView;
-import android.view.View;
-
-import org.es.graphics.Hexagon;
-
-import java.util.Random;
 
 /**
  * Created by Cyril Leroux on 05/12/13.
