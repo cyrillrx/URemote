@@ -3,6 +3,8 @@ package org.es.uremote;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -223,11 +225,32 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
                 return true;
 
             case R.id.server_keyboard:
-                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                final View mainView = findViewById(R.id.vpMain);
+                final View specialKeyboard = findViewById(R.id.panSpecialKeyboard);
+                final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputMethodManager.toggleSoftInput(0, 0);
 
-                View specialKeyboard = findViewById(R.id.panSpecialKeyboard);
-                specialKeyboard.setVisibility((specialKeyboard.getVisibility() == GONE) ? VISIBLE : GONE);
+                // Toggle special keyboard visibility
+                if (specialKeyboard.getVisibility() == GONE) {
+                    specialKeyboard.setVisibility(VISIBLE);
+                } else {
+                    specialKeyboard.setVisibility(GONE);
+                    inputMethodManager.hideSoftInputFromWindow(mainView.getWindowToken(), 0);
+                }
+//                // TODO handle hardware keyboard
+//                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//                inputMethodManager.toggleSoftInput(0, 0);
+//
+//                Rect visibleRect = new Rect();
+//
+//                mainView.getWindowVisibleDisplayFrame(visibleRect);
+//
+//                int heightDiff = mainView.getRootView().getHeight() - visibleRect.height();
+//                final boolean showSpecialPanel = inputMethodManager.isActive() || heightDiff > 100; // if more than 100 pixels, its probably a keyboard.
+//
+////                specialKeyboard.setVisibility((specialKeyboard.getVisibility() == GONE) ? VISIBLE : GONE);
+//                specialKeyboard.setVisibility(showSpecialPanel ? VISIBLE : GONE);
                 return true;
 
             case R.id.server_settings:
