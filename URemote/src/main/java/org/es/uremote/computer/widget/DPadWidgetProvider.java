@@ -53,7 +53,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
         // Get ids of all the instances of the widget
-        final ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
+        final ComponentName widget = new ComponentName(context, DPadWidgetProvider.class);
         final int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
 
         for (int widgetId : widgetIds) {
@@ -91,7 +91,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         PendingIntent downPendingIntent = PendingIntent.getBroadcast(context, widgetId, downIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.dpadDown, downPendingIntent);
 
-        final Intent startActivityIntent = new Intent(context, MediaWidgetProvider.class);
+        final Intent startActivityIntent = new Intent(context, DPadWidgetProvider.class);
         startActivityIntent.setAction(ACTION_START_ACTIVITY);
         PendingIntent startActivityPendingIntent = PendingIntent.getBroadcast(context, widgetId, startActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.launchApp, startActivityPendingIntent);
