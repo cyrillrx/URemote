@@ -1,12 +1,15 @@
 package org.es.uremote.service;
 
+import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 
 import org.es.utils.Log;
@@ -79,11 +82,14 @@ public class BluetoothService {
 	private ConnectedThread mConnectedThread;
 	private int mState;
 
-	/**
-	 * @param context
+    public BluetoothService() {
+        this(null);
+    }
+
+    /**
 	 * @param handler
 	 */
-	public BluetoothService(Context context, Handler handler) {
+	public BluetoothService(Handler handler) {
 		mAdapter	= BluetoothAdapter.getDefaultAdapter();
 		mState		= STATE_NONE;
 		mHandler	= handler;
