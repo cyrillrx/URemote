@@ -14,6 +14,7 @@ import org.es.uremote.device.ServerSetting;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
@@ -48,12 +49,12 @@ public class DPadWidgetConfigureActivity extends ServerListActivity {
             final ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
             final Intent widgetIntent = new Intent();
-            widgetIntent.putExtra(EXTRA_SERVER_DATA, server);
+            widgetIntent.putExtra(EXTRA_SERVER_ID, position);
+//            widgetIntent.putExtra(EXTRA_SERVER_DATA, server);
             widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);
             setResult(RESULT_OK, widgetIntent);
 
-            updateWidget(mWidgetId, server);
-
+            updateWidget(mWidgetId, server, position);
             finish();
         }
     }
@@ -67,11 +68,11 @@ public class DPadWidgetConfigureActivity extends ServerListActivity {
      *
      * @param widgetId The widget id used to update the widget.
      */
-    protected void updateWidget(final int widgetId, ServerSetting server) {
+    protected void updateWidget(int widgetId, final ServerSetting server, int serverId) {
 
         final Context context = getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        DPadWidgetProvider.updateWidget(context, appWidgetManager, widgetId, server);
+        DPadWidgetProvider.updateWidget(context, appWidgetManager, widgetId, server, serverId);
     }
 
 }

@@ -10,6 +10,7 @@ import android.widget.ListView;
 import org.es.uremote.components.ServerArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.ServerSetting;
+import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -21,11 +22,14 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class MediaWidgetConfigureActivity extends ServerListActivity {
 
+    private static final String TAG = "MediaWidgetConfigureActivity";
+
     private int mWidgetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.warning(TAG, "onCreate");
 
         mWidgetId = initAppWidgetId(getIntent().getExtras());
         setResult(RESULT_CANCELED);
@@ -35,14 +39,20 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
      * Initialize mAppWidgetId in case the activity has been launch by a widget.
      */
     protected int initAppWidgetId(final Bundle extras) {
-        return (extras != null) ?
+
+        int widgetId = (extras != null) ?
                 extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID) :
                 AppWidgetManager.INVALID_APPWIDGET_ID; // Default value
+
+        Log.warning(TAG, "initAppWidgetId - id : " + widgetId);
+
+        return widgetId;
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        Log.warning(TAG, "onListItemClick");
 
         if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) &&  mWidgetId != INVALID_APPWIDGET_ID) {
             final ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
@@ -54,7 +64,6 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
             setResult(RESULT_OK, widgetIntent);
 
             updateWidget(mWidgetId, server, position);
-
             finish();
         }
     }
@@ -68,7 +77,8 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
      *
      * @param widgetId The widget id used to update the widget.
      */
-    protected void updateWidget(final int widgetId, ServerSetting server, int serverId) {
+    protected void updateWidget(int widgetId, final ServerSetting server, int serverId) {
+        Log.warning(TAG, "updateWidget - id : " + widgetId + " - serverId : " + serverId);
 
         final Context context = getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

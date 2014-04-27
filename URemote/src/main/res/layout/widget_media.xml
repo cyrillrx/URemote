@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
-			  android:padding="8dp"
-			  android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="8dp"
+              android:orientation="horizontal"
               android:background="@drawable/widget_media_shape">
 
-	<TextView
-			style="@android:style/TextAppearance.Medium"
-            android:id="@+id/widgetTitle"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-            android:layout_margin="4dp"
-			android:gravity="center_horizontal|center_vertical"
-			android:text="@string/app_name" />
+    <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/server_image_description" />
 
-	<!-- Media controls -->
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-	<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal">
+        <TextView
+                style="@android:style/TextAppearance.Medium"
+                android:id="@+id/widgetTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="4dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/app_name" />
 
-		<ImageButton
-				android:id="@+id/cmdPrevious"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_preview"
-				android:src="@android:drawable/ic_media_rew" />
+        <!-- Media controls -->
 
-		<ImageButton
-				android:id="@+id/cmdPlayPause"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_play_pause"
-				android:src="@android:drawable/ic_media_play" />
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-		<ImageButton
-				android:id="@+id/cmdStop"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_stop"
-				android:src="@android:drawable/ic_media_pause" />
+            <ImageButton
+                    android:id="@+id/cmdPrevious"
+                    style="@style/media_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cmd_preview"
+                    android:src="@android:drawable/ic_media_rew" />
 
-		<ImageButton
-				android:id="@+id/cmdNext"
-				style="@style/media_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:contentDescription="@string/cmd_next"
-				android:src="@android:drawable/ic_media_ff" />
-	</LinearLayout>
+            <ImageButton
+                    android:id="@+id/cmdPlayPause"
+                    style="@style/media_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cmd_play_pause"
+                    android:src="@android:drawable/ic_media_play" />
+
+            <ImageButton
+                    android:id="@+id/cmdStop"
+                    style="@style/media_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cmd_stop"
+                    android:src="@android:drawable/ic_media_pause" />
+
+            <ImageButton
+                    android:id="@+id/cmdNext"
+                    style="@style/media_button"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cmd_next"
+                    android:src="@android:drawable/ic_media_ff" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

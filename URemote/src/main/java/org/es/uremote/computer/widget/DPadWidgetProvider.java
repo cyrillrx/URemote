@@ -6,15 +6,20 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
+import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.utils.Log;
 
@@ -25,7 +30,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LEFT;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.RIGHT;
 import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux.
@@ -42,8 +47,6 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_UP = "ACTION_UP";
     private static final String ACTION_DOWN = "ACTION_DOWN";
 
-//    private ServerSetting mServer;
-
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
@@ -52,20 +55,31 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
+        Log.warning(TAG, "onUpdate");
+
         // Get ids of all the instances of the widget
         final ComponentName widget = new ComponentName(context, DPadWidgetProvider.class);
         final int[] widgetIds = appWidgetManager.getAppWidgetIds(widget);
 
         for (int widgetId : widgetIds) {
-            updateWidget(context, appWidgetManager, widgetId, null);
+            updateWidget(context, appWidgetManager, widgetId, null, -1);
         }
     }
 
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, ServerSetting server) {
+    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, ServerSetting server, int serverId) {
+
+        Log.warning(TAG, "updateWidget serverId : " + serverId);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_dpad);
 
+        if (server != null) {
+            final Drawable drawable = new ConnectedDeviceDrawable(server);
+            final Bitmap bmp = GraphicUtil.drawableToBitmap(drawable);
+            remoteViews.setImageViewBitmap(R.id.thumbnail, bmp);
+        }
+
         // Register onClickListeners
+
         final Intent okIntent = new Intent(context, DPadWidgetProvider.class);
         okIntent.setAction(ACTION_OK);
         PendingIntent okPendingIntent = PendingIntent.getBroadcast(context, widgetId, okIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -104,14 +118,22 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         final String action = intent.getAction();
-        Log.debug(TAG, "Action : " + intent.getAction());
+        Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
-        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+        //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+        final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+        final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
+
+        Log.warning(TAG, "onReceive serverId : " + serverId);
 
         switch (action) {
             case ACTION_APPWIDGET_UPDATE:
+
+                final int serverId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+                Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE serverId : " + serverId2);
+
                 //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                //                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
                 break;
 
             case ACTION_OK:

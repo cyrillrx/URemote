@@ -155,6 +155,23 @@ public class ServerSettingDao {
      * @param context The application context.
      * @return The selected server.
      */
+    public static ServerSetting loadServer(Context context, int serverId) {
+
+        final List<ServerSetting> servers = loadList(context);
+
+        try {
+            return servers.get(serverId);
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Load the selected server.
+     *
+     * @param context The application context.
+     * @return The selected server.
+     */
     public static ServerSetting loadSelected(Context context) {
 
         final List<ServerSetting> servers = loadList(context);

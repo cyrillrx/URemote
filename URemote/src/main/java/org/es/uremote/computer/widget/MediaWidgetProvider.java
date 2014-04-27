@@ -6,16 +6,21 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.ExchangeMessages.Request;
 import org.es.uremote.exchange.ExchangeMessages.Request.Code;
 import org.es.uremote.exchange.ExchangeMessages.Request.Type;
 import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
+import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.utils.Log;
 
@@ -43,15 +48,16 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
     private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
 
-//    private ServerSetting mServer;
-
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
+        Log.warning(TAG, "onEnabled");
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+
+        Log.warning(TAG, "onUpdate");
 
         // Get ids of all the instances of the widget
         final ComponentName widget = new ComponentName(context, MediaWidgetProvider.class);
@@ -67,6 +73,12 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         Log.warning(TAG, "updateWidget serverId : " + serverId);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_media);
+
+        if (server != null) {
+            final Drawable drawable = new ConnectedDeviceDrawable(server);
+            final Bitmap bmp = GraphicUtil.drawableToBitmap(drawable);
+            remoteViews.setImageViewBitmap(R.id.thumbnail, bmp);
+        }
 
         // Register onClickListeners
 
@@ -111,12 +123,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         super.onReceive(context, intent);
 
         final String action = intent.getAction();
-        Log.debug(TAG, "Action : " + intent.getAction());
+        Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
 //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
         final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-
-        final ServerSetting server = null;
+        final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
 
         Log.warning(TAG, "onReceive serverId : " + serverId);
 
