@@ -26,19 +26,26 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('../../keystore/debug.keystore')
+            storeFile rootProject.file('../keystore/debug.keystore')
         }
 
         release {
-            storeFile file('../../keystore/release.keystore')
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-            keyAlias System.getenv("KEY_ALIAS")
-            keyPassword System.getenv("KEY_PASSWORD")
+            storeFile rootProject.file('../keystore/release.keystore')
+
+            def propsFile = rootProject.file('../keystore/keystore.properties')
+            def props = new Properties()
+            props.load(new FileInputStream(propsFile))
+
+            storePassword props['storePassword']
+            keyAlias      props['keyAlias']
+            keyPassword   props['keyPassword']
         }
     }
 
     buildTypes {
         debug {
+            packageNameSuffix ".debug"
+
             jniDebugBuild true
             debuggable true
             signingConfig signingConfigs.debug
