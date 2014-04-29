@@ -22,6 +22,15 @@ android {
         targetSdkVersion 19
         versionCode 1
         versionName "0.9"
+
+        applicationVariants.all { variant ->
+
+            def file = variant.outputFile
+            def date = (new Date()).format('yyyy-MM-dd')
+
+            variant.outputFile = new File(file.parent,
+                    date + "_" + project.name + "-v" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk")
+        }
     }
 
     signingConfigs {
@@ -37,8 +46,8 @@ android {
             props.load(new FileInputStream(propsFile))
 
             storePassword props['storePassword']
-            keyAlias      props['keyAlias']
-            keyPassword   props['keyPassword']
+            keyAlias props['keyAlias']
+            keyPassword props['keyPassword']
         }
     }
 
