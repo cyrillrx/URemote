@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+          android:keyWidth="25%p"
+          android:keyHeight="10%p">
+
+    <Row>
+        <Key
+                android:codes="55"
+                android:keyLabel="@string/kb_escape"
+                android:keyEdgeFlags="left" />
+        <Key
+                android:codes="56"
+                android:keyLabel="@string/kb_alt_f4" />
+        <Key
+                android:codes="57"
+                android:keyLabel="@string/kb_backspace" />
+        <Key
+                android:codes="65"
+                android:keyLabel="@string/kb_enter"
+                android:keyEdgeFlags="right" />
+    </Row>
+
+    <Row>
+        <Key
+                android:codes="55"
+                android:isSticky="true"
+                android:keyLabel="@string/kb_control"
+                android:keyEdgeFlags="left" />
+        <Key
+                android:codes="56"
+                android:isSticky="true"
+                android:keyLabel="@string/kb_shift" />
+        <Key
+                android:codes="57"
+                android:isSticky="true"
+                android:keyLabel="@string/kb_windows" />
+        <Key
+                android:codes="65"
+                android:isSticky="true"
+                android:keyLabel="@string/kb_alt"
+                android:keyEdgeFlags="right" />
+    </Row>
+
+</Keyboard>

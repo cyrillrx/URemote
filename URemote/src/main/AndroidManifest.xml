@@ -81,7 +81,7 @@
         <receiver
                 android:name=".computer.widget.MediaWidgetProvider"
                 android:icon="@drawable/ic_launcher"
-                android:label="URemote Media">
+                android:label="@string/widget_media_controller">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -94,7 +94,7 @@
         <receiver
                 android:name=".computer.widget.DPadWidgetProvider"
                 android:icon="@drawable/ic_launcher"
-                android:label="URemote DPad">
+                android:label="@string/widget_dpad">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

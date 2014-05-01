@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">URemote</string>
+    <string name="widget_media_controller">Media controller</string>
+    <string name="widget_dpad">D-pad</string>
 
     <!-- Activities -->
     <string name="title_preferences">Preferences</string>

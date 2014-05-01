@@ -49,7 +49,7 @@
 	<!-- Messages -->
 	<string name="no_server_configured">No server configured.</string>
 	<string name="select_server">Select a server</string>
-	<string name="server_loading">Loading server...</string>
+	<string name="server_loading">Loading server…</string>
 	<string name="server_saved">Server settings saved.</string>
 	<string name="error_while_saving_servers">Error while saving servers.</string>
 	<string name="server_loaded">Server settings successfully loaded.</string>

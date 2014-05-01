@@ -3,9 +3,9 @@ package org.es.uremote;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.inputmethodservice.Keyboard;
+import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -26,6 +26,7 @@ import android.widget.Toast;
 import org.es.uremote.computer.FragAdmin;
 import org.es.uremote.computer.FragDashboard;
 import org.es.uremote.computer.FragKeyboard;
+import org.es.uremote.computer.KeyboardListener;
 import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.ServerSetting;
@@ -85,10 +86,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
     private ServerSetting mSelectedServer = null;
 
+    private KeyboardView mKeyboardView = null;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
+
+        // Create custom keyboard
+        Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.keyboard);
+        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+        mKeyboardView.setKeyboard(keyboard);
+        mKeyboardView.setPreviewEnabled(false);
+        mKeyboardView.setOnKeyboardActionListener(new KeyboardListener());
 
         // Server info default value.
         ((TextView) findViewById(R.id.tvServerInfos)).setText(R.string.no_server_configured);
@@ -200,8 +210,8 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         if (keyCode == KEYCODE_A) {
 
             Toast.makeText(getApplicationContext(), "A key up", LENGTH_SHORT).show();
-//            sendAsyncRequest(ExchangeMessagesUtils.buildRequest(mSelectedServer.getSecurityToken(),
-//                    KEYBOARD, Code.DEFINE, Code.NONE, "Q"));
+            //            sendAsyncRequest(ExchangeMessagesUtils.buildRequest(mSelectedServer.getSecurityToken(),
+            //                    KEYBOARD, Code.DEFINE, Code.NONE, "Q"));
             return true;
         }
         return super.onKeyUp(keyCode, event);
@@ -226,31 +236,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
             case R.id.server_keyboard:
 
-                final View mainView = findViewById(R.id.vpMain);
-                final View specialKeyboard = findViewById(R.id.panSpecialKeyboard);
-                final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInput(0, 0);
-
-                // Toggle special keyboard visibility
-                if (specialKeyboard.getVisibility() == GONE) {
-                    specialKeyboard.setVisibility(VISIBLE);
+                // Toggle custom keyboard visibility
+                if (mKeyboardView.getVisibility() == GONE) {
+                    showCustomKeyboard();
                 } else {
-                    specialKeyboard.setVisibility(GONE);
-                    inputMethodManager.hideSoftInputFromWindow(mainView.getWindowToken(), 0);
+                    hideCustomKeyboard();
                 }
-//                // TODO handle hardware keyboard
-//                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-//                inputMethodManager.toggleSoftInput(0, 0);
-//
-//                Rect visibleRect = new Rect();
-//
-//                mainView.getWindowVisibleDisplayFrame(visibleRect);
-//
-//                int heightDiff = mainView.getRootView().getHeight() - visibleRect.height();
-//                final boolean showSpecialPanel = inputMethodManager.isActive() || heightDiff > 100; // if more than 100 pixels, its probably a keyboard.
-//
-////                specialKeyboard.setVisibility((specialKeyboard.getVisibility() == GONE) ? VISIBLE : GONE);
-//                specialKeyboard.setVisibility(showSpecialPanel ? VISIBLE : GONE);
                 return true;
 
             case R.id.server_settings:
@@ -264,6 +255,21 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showCustomKeyboard() {
+
+        final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(findViewById(R.id.vpMain).getWindowToken(), 0);
+
+        mKeyboardView.setVisibility(View.VISIBLE);
+        mKeyboardView.setEnabled(true);
+
+    }
+
+    private void hideCustomKeyboard() {
+        mKeyboardView.setVisibility(View.GONE);
+        mKeyboardView.setEnabled(false);
     }
 
     public void sendToast(final String message) {
@@ -326,7 +332,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         private final List<Fragment> mFragments;
 
         /**
-         * @param fm        The fragment manager
+         * @param fm The fragment manager
          * @param fragments The fragments list.
          */
         public ComputerPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
@@ -378,11 +384,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
      * Update the connection state of the UI
      *
      * @param state The state of the connection :
-     *              <ul>
-     *              <li>{@link Constants#STATE_OK}</li>
-     *              <li>{@link Constants#STATE_KO}</li>
-     *              <li>{@link Constants#STATE_CONNECTING}</li>
-     *              </ul>
+     * <ul>
+     * <li>{@link Constants#STATE_OK}</li>
+     * <li>{@link Constants#STATE_KO}</li>
+     * <li>{@link Constants#STATE_CONNECTING}</li>
+     * </ul>
      */
     public void updateConnectionState(int state) {
         int drawableResId;
