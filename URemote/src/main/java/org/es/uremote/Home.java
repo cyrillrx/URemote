@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import org.es.uremote.components.ActionArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.ServerSetting;
@@ -52,6 +53,8 @@ public class Home extends ListActivity implements OnItemClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Crashlytics.start(this);
+
         setContentView(R.layout.activity_home);
 
         final Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.action_title_font));

@@ -103,6 +103,10 @@
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_dpad_info" />
         </receiver>
+
+        <meta-data
+                android:name="com.crashlytics.ApiKey"
+                android:value="7986327b08b775719b8d4de12506e38dc83980cd" />
     </application>
 
 </manifest>
