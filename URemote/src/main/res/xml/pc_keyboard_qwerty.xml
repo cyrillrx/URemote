@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:keyHeight="@fraction/key_height"
+    android:keyWidth="12.5%p">
+
+    <Row>
+        <Key
+            android:codes="@string/code_q"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_lowercase_q" />
+        <Key
+            android:codes="@string/code_w"
+            android:keyLabel="@string/kb_lowercase_w" />
+        <Key
+            android:codes="@string/code_e"
+            android:keyLabel="@string/kb_lowercase_e" />
+        <Key
+            android:codes="@string/code_r"
+            android:keyLabel="@string/kb_lowercase_r" />
+        <Key
+            android:codes="@string/code_t"
+            android:keyLabel="@string/kb_lowercase_t" />
+        <Key
+            android:codes="@string/code_y"
+            android:keyLabel="@string/kb_lowercase_y" />
+        <Key
+            android:codes="@string/code_u"
+            android:keyLabel="@string/kb_lowercase_u" />
+        <Key
+            android:codes="@string/code_i"
+            android:keyLabel="@string/kb_lowercase_i" />
+        <Key
+            android:codes="@string/code_o"
+            android:keyLabel="@string/kb_lowercase_o" />
+        <Key
+            android:codes="@string/code_p"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_lowercase_p" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@string/code_a"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_lowercase_a" />
+        <Key
+            android:codes="@string/code_s"
+            android:keyLabel="@string/kb_lowercase_s" />
+        <Key
+            android:codes="@string/code_d"
+            android:keyLabel="@string/kb_lowercase_d" />
+        <Key
+            android:codes="@string/code_f"
+            android:keyLabel="@string/kb_lowercase_f" />
+        <Key
+            android:codes="@string/code_g"
+            android:keyLabel="@string/kb_lowercase_g" />
+        <Key
+            android:codes="@string/code_h"
+            android:keyLabel="@string/kb_lowercase_h" />
+        <Key
+            android:codes="@string/code_j"
+            android:keyLabel="@string/kb_lowercase_j" />
+        <Key
+            android:codes="@string/code_k"
+            android:keyLabel="@string/kb_lowercase_k" />
+        <Key
+            android:codes="@string/code_l"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_lowercase_l" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@string/code_shift"
+            android:isSticky="true"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_shift" />
+        <Key
+            android:codes="@string/code_z"
+            android:keyLabel="@string/kb_lowercase_z" />
+        <Key
+            android:codes="@string/code_x"
+            android:keyLabel="@string/kb_lowercase_x" />
+        <Key
+            android:codes="@string/code_c"
+            android:keyLabel="@string/kb_lowercase_c" />
+        <Key
+            android:codes="@string/code_v"
+            android:keyLabel="@string/kb_lowercase_v" />
+        <Key
+            android:codes="@string/code_b"
+            android:keyLabel="@string/kb_lowercase_b" />
+        <Key
+            android:codes="@string/code_n"
+            android:keyLabel="@string/kb_lowercase_n" />
+        <Key
+            android:codes="@string/code_m"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_lowercase_m" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@string/code_ctrl"
+            android:isSticky="true"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_ctrl" />
+        <Key
+            android:codes="@string/code_windows"
+            android:keyLabel="@string/kb_windows" />
+        <Key
+            android:codes="@string/code_alt"
+            android:keyLabel="@string/kb_alt" />
+        <Key
+            android:codes="@string/code_space"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_space"
+            android:keyWidth="50%p" />
+    </Row>
+
+</Keyboard>

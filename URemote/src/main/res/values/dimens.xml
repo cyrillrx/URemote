@@ -6,5 +6,7 @@
 
     <dimen name="media_button_width">60dp</dimen>
     <dimen name="media_button_height">60dp</dimen>
+    
+    <fraction name="key_height">5%p</fraction>
 
 </resources>

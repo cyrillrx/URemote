@@ -32,6 +32,12 @@
     <string name="menu_delete">Supprimer</string>
     <string name="menu_keyboard">Clavier virtuel</string>
 
+    <!-- Directions -->
+    <string name="left">Gauche</string>
+    <string name="up">Haut</string>
+    <string name="right">Droite</string>
+    <string name="down">Bas</string>
+
     <!-- Autre -->
     <string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>
     <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>

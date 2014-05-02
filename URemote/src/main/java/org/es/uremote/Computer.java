@@ -1,5 +1,6 @@
 package org.es.uremote;
 
+import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
@@ -87,6 +88,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
     private ServerSetting mSelectedServer = null;
 
     private KeyboardView mKeyboardView = null;
+    private KeyboardView mExtendedKeyboardView = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,11 +96,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         setContentView(R.layout.activity_computer);
 
         // Create custom keyboard
-        Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.keyboard);
-        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardview);
+        final KeyboardListener keyboardListener = new KeyboardListener();
+
+        final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
+        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
         mKeyboardView.setKeyboard(keyboard);
         mKeyboardView.setPreviewEnabled(false);
-        mKeyboardView.setOnKeyboardActionListener(new KeyboardListener());
+        mKeyboardView.setOnKeyboardActionListener(keyboardListener);
+
+        final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
+        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
+        mExtendedKeyboardView.setKeyboard(extendedKeyboard);
+        mExtendedKeyboardView.setPreviewEnabled(false);
+        mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
 
         // Server info default value.
         ((TextView) findViewById(R.id.tvServerInfos)).setText(R.string.no_server_configured);
@@ -257,19 +267,33 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         }
     }
 
+    /** Show the custom keyboard. */
     private void showCustomKeyboard() {
 
         final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(findViewById(R.id.vpMain).getWindowToken(), 0);
 
         mKeyboardView.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(mKeyboardView, "translationY", 100f, 0f)
+                .setDuration(100)
+                .start();
         mKeyboardView.setEnabled(true);
 
+        mExtendedKeyboardView.setVisibility(View.VISIBLE);
+        ObjectAnimator.ofFloat(mExtendedKeyboardView, "translationY", -100f, 0f)
+                .setDuration(100)
+                .start();
+        mExtendedKeyboardView.setEnabled(true);
     }
 
+    /** Hide the custom keyboard. */
     private void hideCustomKeyboard() {
+
         mKeyboardView.setVisibility(View.GONE);
         mKeyboardView.setEnabled(false);
+
+        mExtendedKeyboardView.setVisibility(View.GONE);
+        mExtendedKeyboardView.setEnabled(false);
     }
 
     public void sendToast(final String message) {

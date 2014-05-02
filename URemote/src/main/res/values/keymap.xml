@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Special keys -->
+    <string translatable="false" name="code_ctrl">1</string>
+    <string translatable="false" name="code_alt">1</string>
+    <string translatable="false" name="code_shift">1</string>
+    <string translatable="false" name="code_windows">1</string>
+    <string translatable="false" name="code_enter">1</string>
+    <string translatable="false" name="code_space">1</string>
+    <string translatable="false" name="code_backspace">1</string>
+    <string translatable="false" name="code_escape">1</string>
+
+    <!-- D-pad keys -->
+    <string translatable="false" name="code_left">1</string>
+    <string translatable="false" name="code_up">1</string>
+    <string translatable="false" name="code_right">1</string>
+    <string translatable="false" name="code_down">1</string>
+
+    <!-- Combination -->
+    <string translatable="false" name="code_alt_f4">1</string>
+    <string translatable="false" name="code_ctrl_enter">1</string>
+
+    <!-- Other keys -->
+    <string translatable="false" name="code_a">1</string>
+    <string translatable="false" name="code_b">1</string>
+    <string translatable="false" name="code_c">1</string>
+    <string translatable="false" name="code_d">1</string>
+    <string translatable="false" name="code_e">1</string>
+    <string translatable="false" name="code_f">1</string>
+    <string translatable="false" name="code_g">1</string>
+    <string translatable="false" name="code_h">1</string>
+    <string translatable="false" name="code_i">1</string>
+    <string translatable="false" name="code_j">1</string>
+    <string translatable="false" name="code_k">1</string>
+    <string translatable="false" name="code_l">1</string>
+    <string translatable="false" name="code_m">1</string>
+    <string translatable="false" name="code_n">1</string>
+    <string translatable="false" name="code_o">1</string>
+    <string translatable="false" name="code_p">1</string>
+    <string translatable="false" name="code_q">1</string>
+    <string translatable="false" name="code_r">1</string>
+    <string translatable="false" name="code_s">1</string>
+    <string translatable="false" name="code_t">1</string>
+    <string translatable="false" name="code_u">1</string>
+    <string translatable="false" name="code_v">1</string>
+    <string translatable="false" name="code_w">1</string>
+    <string translatable="false" name="code_x">1</string>
+    <string translatable="false" name="code_y">1</string>
+    <string translatable="false" name="code_z">1</string>
+
+</resources>

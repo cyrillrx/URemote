@@ -46,9 +46,17 @@
     </LinearLayout>
 
     <android.inputmethodservice.KeyboardView
-            android:id="@+id/keyboardview"
+            android:id="@+id/keyboardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:visibility="gone" />
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboardViewExtended"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:visibility="gone" />
 
 </FrameLayout>

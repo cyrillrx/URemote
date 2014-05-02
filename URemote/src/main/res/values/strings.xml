@@ -32,6 +32,12 @@
     <string name="menu_delete">Delete</string>
     <string name="menu_keyboard">Virtual keyboard</string>
 
+    <!-- Directions -->
+    <string name="left">Left</string>
+    <string name="up">Up</string>
+    <string name="right">Right</string>
+    <string name="down">Down</string>
+
     <!-- Other -->
     <string name="msg_light_control_not_available">Lights control is not available yet</string>
     <string name="msg_hifi_control_not_available">Hifi control is not available yet</string>

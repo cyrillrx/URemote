@@ -257,8 +257,8 @@
 				android:layout_height="match_parent"
 				android:layout_span="2"
 				android:padding="0dp"
-				android:textOff="@string/kb_control"
-				android:textOn="@string/kb_control" />
+				android:textOff="@string/kb_ctrl"
+				android:textOn="@string/kb_ctrl" />
 
 		<ToggleButton
 				android:id="@+id/kbWindows"
