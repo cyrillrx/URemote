@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.objects.AppItem;
 
 import java.util.ArrayList;

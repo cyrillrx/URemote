@@ -1,9 +1,9 @@
 package org.es.uremote.common;
 
 import org.es.uremote.computer.LoadServerActivity;
-import org.es.uremote.exchange.DirContentFactory;
+import org.es.uremote.exchange.FileInfoFactory;
 
-import static org.es.uremote.exchange.ExchangeMessages.DirContent;
+import static org.es.uremote.exchange.Message.FileInfo;
 
 /**
  * Local file explorer fragment.
@@ -17,7 +17,7 @@ public class LocalExplorerFragment extends AbstractExplorerFragment {
 	@Override
 	protected void navigateTo(String dirPath) {
 
-		final DirContent dirContent = DirContentFactory.createFromLocalPath(dirPath, new String[]{".xml"}, true);
+		final FileInfo dirContent = FileInfoFactory.createFromLocalPath(dirPath, new String[]{".xml"}, true);
 		updateView(dirContent);
 	}
 

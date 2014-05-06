@@ -8,18 +8,18 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
-import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.exchange.Message.Request.Code.NONE;
+import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 
 /**
  * Remote file explorer fragment.
@@ -68,12 +68,12 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
 		Request request = null;
 		try {
-			ExchangeMessagesUtils.buildRequest(
-					getSecurityToken(),
-					Type.EXPLORER,
-					Code.OPEN_FILE,
-					NONE,
-					filename);
+			MessageUtils.buildRequest(
+                    getSecurityToken(),
+                    Type.EXPLORER,
+                    Code.OPEN_FILE,
+                    NONE,
+                    filename);
 
 		} catch (Exception e) {
 			Toast.makeText(getActivity(), R.string.build_request_error, Toast.LENGTH_LONG).show();
@@ -91,7 +91,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	@Override
 	protected void navigateTo(String dirPath) {
 		if (dirPath != null) {
-			sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+			sendRequest(MessageUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
 		} else {
             Toast.makeText(getActivity(), R.string.msg_no_path_defined, Toast.LENGTH_SHORT).show();
         }
@@ -161,8 +161,8 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			if (!response.getMessage().isEmpty()) {
 				Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
 			}
-			mCurrentDirContent = response.getDirContent();
-			updateView(response.getDirContent());
+			mCurrentFileInfo = response.getFile();
+			updateView(response.getFile());
 
 		}
 	}

@@ -9,13 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.uremote.exchange.Message.FileInfo;
 import org.es.utils.FileUtils;
 
 import java.util.List;
-
-import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
-import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.FILE;
 
 /**
  * Adapter used to display an explorer view.
@@ -23,7 +20,7 @@ import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class ExplorerArrayAdapter extends ArrayAdapter<DirContent.File> {
+public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
 
 	private LayoutInflater mInflater;
 
@@ -33,7 +30,7 @@ public class ExplorerArrayAdapter extends ArrayAdapter<DirContent.File> {
 	 * @param context the application context.
 	 * @param entries the files to display
 	 */
-	public ExplorerArrayAdapter(Context context, List<DirContent.File> entries) {
+	public ExplorerArrayAdapter(Context context, List<FileInfo> entries) {
 		super(context, 0, entries);
 		mInflater	= LayoutInflater.from(context);
 	}
@@ -61,18 +58,18 @@ public class ExplorerArrayAdapter extends ArrayAdapter<DirContent.File> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final DirContent.File file = getItem(position);
+		final FileInfo file = getItem(position);
 
 		int iconRes = R.drawable.filemanager_blank;
 
-		if (DIRECTORY.equals(file.getType())) {
+		if (file.getIsDirectory()) {
 			iconRes = R.drawable.filemanager_folder;
-		} else if (FILE.equals(file.getType()) && FileUtils.isAVideo(file.getName())) {
+		} else if (!file.getIsDirectory() && FileUtils.isAVideo(file.getFilename())) {
 			iconRes = R.drawable.filemanager_video;
 		}
 
 		holder.ivIcon.setImageResource(iconRes);
-		holder.tvName.setText(file.getName());
+		holder.tvName.setText(file.getFilename());
 		holder.tvSize.setText(String.valueOf(file.getSize()));
 
 		return convertView;

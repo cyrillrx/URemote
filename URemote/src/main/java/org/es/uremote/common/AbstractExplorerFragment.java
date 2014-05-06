@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.components.ExplorerArrayAdapter;
-import org.es.uremote.exchange.DirContentFactory;
-import org.es.uremote.exchange.ExchangeMessages.DirContent;
+import org.es.uremote.exchange.FileInfoFactory;
+import org.es.uremote.exchange.Message.FileInfo;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.FileUtils;
 import org.es.utils.Log;
@@ -19,8 +19,6 @@ import org.es.utils.Log;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.es.uremote.exchange.ExchangeMessages.DirContent.File.FileType.DIRECTORY;
 
 /**
  * File explorer fragment.<br />
@@ -41,7 +39,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
     private String mRoot = null;
 
-    protected DirContent mCurrentDirContent = null;
+    protected FileInfo mCurrentFileInfo = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,12 +59,12 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        DirContent dirContent = null;
+        FileInfo dirContent = null;
 
         // Restoring current directory content
         if (savedInstanceState != null) {
             byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
-            dirContent = DirContentFactory.createFromByteArray(dirContentAsByteArray);
+            dirContent = FileInfoFactory.createFromByteArray(dirContentAsByteArray);
         }
 
         // Get the directory content or update the one that already exist.
@@ -89,8 +87,8 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        if (mCurrentDirContent != null) {
-            outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentDirContent.toByteArray());
+        if (mCurrentFileInfo != null) {
+            outState.putByteArray(KEY_DIRECTORY_CONTENT, mCurrentFileInfo.toByteArray());
         }
         super.onSaveInstanceState(outState);
     }
@@ -98,11 +96,11 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        final DirContent.File file = mCurrentDirContent.getFile(position);
-        final String filename = file.getName();
-        final String fullPath = mCurrentDirContent.getPath() + File.separator + filename;
+        final FileInfo file = mCurrentFileInfo.getChild(position);
+        final String filename = file.getFilename();
+        final String fullPath = mCurrentFileInfo.getAbsoluteFilePath() + File.separator + filename;
 
-        if (DIRECTORY.equals(file.getType())) {
+        if (file.getIsDirectory()) {
 
             if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
                 navigateUp();
@@ -121,17 +119,17 @@ public abstract class AbstractExplorerFragment extends ListFragment {
      *
      * @param dirContent The object that represents the directory content.
      */
-    protected void updateView(final DirContent dirContent) {
+    protected void updateView(final FileInfo dirContent) {
 
-        mCurrentDirContent = dirContent;
+        mCurrentFileInfo = dirContent;
 
-        if (dirContent.getFileCount() == 0) {
+        if (dirContent.getChildCount() == 0) {
             Log.warning(TAG, "#updateView - No file in the directory.");
             return;
         }
 
-        List<DirContent.File> files = new ArrayList<>();
-        files.addAll(dirContent.getFileList());
+        List<FileInfo> files = new ArrayList<>();
+        files.addAll(dirContent.getChildList());
 
         if (getListAdapter() == null) {
             final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
@@ -141,7 +139,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
             ((ExplorerArrayAdapter) getListAdapter()).addAll(files);
         }
 
-        mTvPath.setText(dirContent.getPath());
+        mTvPath.setText(dirContent.getAbsoluteFilePath());
     }
 
     /**
@@ -176,9 +174,9 @@ public abstract class AbstractExplorerFragment extends ListFragment {
      * @return True if we can navigate up from the current directory. False otherwise.
      */
     public boolean canNavigateUp() {
-        return mCurrentDirContent != null &&
-                mCurrentDirContent.getPath().contains(File.separator) &&
-                !mCurrentDirContent.getPath().equals(mRoot);
+        return mCurrentFileInfo != null &&
+                mCurrentFileInfo.getAbsoluteFilePath().contains(File.separator) &&
+                !mCurrentFileInfo.getAbsoluteFilePath().equals(mRoot);
 
     }
 
@@ -186,7 +184,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
      * Call navigateTo on the parent directory.
      */
     protected void doNavigateUp() {
-        final String parentPath = FileUtils.truncatePath(mCurrentDirContent.getPath());
+        final String parentPath = FileUtils.truncatePath(mCurrentFileInfo.getAbsoluteFilePath());
         navigateTo(parentPath);
     }
 

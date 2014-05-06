@@ -1,15 +1,15 @@
 package org.es.uremote.exchange;
 
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.Message.Response;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
+import static org.es.uremote.exchange.Message.Request.Code.NONE;
 
 /**
  * Class that holds the utils to manage network messages
@@ -17,7 +17,7 @@ import static org.es.uremote.exchange.ExchangeMessages.Request.Code.NONE;
  * @author Cyril Leroux
  * Created on 15/05/13.
  */
-public class ExchangeMessagesUtils {
+public class MessageUtils {
 
 	/**
 	 * Build a request with both integer and string parameters.

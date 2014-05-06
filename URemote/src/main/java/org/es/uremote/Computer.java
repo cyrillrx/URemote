@@ -31,11 +31,11 @@ import org.es.uremote.computer.KeyboardListener;
 import org.es.uremote.computer.RemoteExplorerFragment;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
@@ -53,11 +53,11 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
-import static org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.exchange.Message.Request.Code.DOWN;
+import static org.es.uremote.exchange.Message.Request.Code.UP;
+import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
+import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
+import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
@@ -390,7 +390,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
             return;
         }
 
-        Request request = ExchangeMessagesUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
+        Request request = MessageUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(getApplicationContext(), R.string.msg_null_request, LENGTH_SHORT).show();

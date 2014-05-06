@@ -1,7 +1,7 @@
 package org.es.uremote.exchange;
 
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
+import org.es.uremote.exchange.Message.Request;
 
 /**
  * Interface to send a request.

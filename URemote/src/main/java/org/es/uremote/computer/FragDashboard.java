@@ -23,11 +23,11 @@ import org.es.uremote.AppLauncherActivity;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.AppItem;
@@ -39,10 +39,10 @@ import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DEFINE;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MUTE;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.VOLUME;
+import static org.es.uremote.exchange.Message.Request.Code.DEFINE;
+import static org.es.uremote.exchange.Message.Request.Code.MUTE;
+import static org.es.uremote.exchange.Message.Request.Type.KEYBOARD;
+import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -216,7 +216,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 			final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
 			if (type != null && code != null) {
-				sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code));
+				sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code));
 			}
 		}
 	}
@@ -263,7 +263,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param intParam An integer parameter.
 	 */
 	public void sendRequest(Type requestType, Code requestCode, int intParam) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode, intParam));
+		sendRequest(MessageUtils.buildRequest(getSecurityToken(), requestType, requestCode, intParam));
 	}
 
 	/**
@@ -273,7 +273,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 	 * @param requestCode The request code.
 	 */
 	public void sendRequest(Type requestType, Code requestCode) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), requestType, requestCode));
+		sendRequest(MessageUtils.buildRequest(getSecurityToken(), requestType, requestCode));
 	}
 
 	/**

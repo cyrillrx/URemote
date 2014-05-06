@@ -3,10 +3,10 @@ package org.es.uremote.network;
 import android.os.AsyncTask;
 
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessages.Response.ReturnCode;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.Message.Response.ReturnCode;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.utils.Log;
 
 import java.io.IOException;
@@ -69,7 +69,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
                 // Socket creation
                 mSocket = connectToRemoteSocket(mServerSetting);
                 if (mSocket != null && mSocket.isConnected()) {
-                    return ExchangeMessagesUtils.sendRequest(mSocket, request);
+                    return MessageUtils.sendRequest(mSocket, request);
                 }
                 errorMessage = "Socket null or not connected";
 

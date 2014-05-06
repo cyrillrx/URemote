@@ -15,9 +15,9 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -25,11 +25,11 @@ import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.uremote.exchange.ExchangeMessages.Request;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.DOWN;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LEFT;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.RIGHT;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.UP;
+import static org.es.uremote.exchange.Message.Request;
+import static org.es.uremote.exchange.Message.Request.Code.DOWN;
+import static org.es.uremote.exchange.Message.Request.Code.LEFT;
+import static org.es.uremote.exchange.Message.Request.Code.RIGHT;
+import static org.es.uremote.exchange.Message.Request.Code.UP;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
@@ -184,7 +184,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        final Request request = ExchangeMessagesUtils.buildRequest(server.getSecurityToken(), requestType, requestCode);
+        final Request request = MessageUtils.buildRequest(server.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();

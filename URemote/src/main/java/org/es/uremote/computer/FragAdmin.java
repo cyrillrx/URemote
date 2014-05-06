@@ -17,9 +17,9 @@ import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.ToastSender;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.network.WakeOnLan;
@@ -27,12 +27,12 @@ import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.KILL_SERVER;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.LOCK;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.MUTE;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Code.SHUTDOWN;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.AI;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.SIMPLE;
+import static org.es.uremote.exchange.Message.Request.Code.KILL_SERVER;
+import static org.es.uremote.exchange.Message.Request.Code.LOCK;
+import static org.es.uremote.exchange.Message.Request.Code.MUTE;
+import static org.es.uremote.exchange.Message.Request.Code.SHUTDOWN;
+import static org.es.uremote.exchange.Message.Request.Type.AI;
+import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -105,19 +105,19 @@ public class FragAdmin extends Fragment implements OnClickListener, RequestSende
 				break;
 
 			case R.id.cmdShutdown:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, SHUTDOWN));
+				confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, SHUTDOWN));
 				break;
 
 			case R.id.cmdAiMute:
-				sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), AI, MUTE));
+				sendRequest(MessageUtils.buildRequest(getSecurityToken(), AI, MUTE));
 				break;
 
 			case R.id.cmdKillServer:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, KILL_SERVER));
+				confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, KILL_SERVER));
 				break;
 
 			case R.id.cmdLock:
-				confirmRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), SIMPLE, LOCK));
+				confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, LOCK));
 				break;
 
 			default:

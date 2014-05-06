@@ -15,18 +15,18 @@ import android.widget.ToggleButton;
 import org.es.uremote.Computer;
 import org.es.uremote.R;
 import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.ExchangeMessages.Request;
-import org.es.uremote.exchange.ExchangeMessages.Request.Code;
-import org.es.uremote.exchange.ExchangeMessages.Request.Type;
-import org.es.uremote.exchange.ExchangeMessages.Response;
-import org.es.uremote.exchange.ExchangeMessagesUtils;
+import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.exchange.Message.Request.Code;
+import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.exchange.ExchangeMessages.Request.Type.KEYBOARD;
+import static org.es.uremote.exchange.Message.Request.Type.KEYBOARD;
 
 /**
  * Class to connect and send commands to a remote server through AsyncTask.
@@ -338,7 +338,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param extraCode The request extra code.
 	 */
 	public void sendRequest(final Type type, final Code code, final Code extraCode) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code, extraCode));
+		sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code, extraCode));
 	}
 
     @Override
@@ -363,7 +363,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 	 * @param stringParam A string parameter.
 	 */
 	public void sendRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-		sendRequest(ExchangeMessagesUtils.buildRequest(getSecurityToken(), type, code, extraCode, stringParam));
+		sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code, extraCode, stringParam));
 	}
 
 	/**
