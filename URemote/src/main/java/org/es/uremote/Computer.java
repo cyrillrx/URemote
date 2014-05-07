@@ -95,17 +95,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
 
+        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
+        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
+
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener();
+        keyboardListener.setHapticFeedbackView(mKeyboardView);
 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
-        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
         mKeyboardView.setKeyboard(keyboard);
         mKeyboardView.setPreviewEnabled(false);
         mKeyboardView.setOnKeyboardActionListener(keyboardListener);
 
         final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
-        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
         mExtendedKeyboardView.setKeyboard(extendedKeyboard);
         mExtendedKeyboardView.setPreviewEnabled(false);
         mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
@@ -166,23 +168,19 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
     /**
      * Initialize the server.
+     * <p/>
      * <ul>
-     * <li>Send Hello message to the server.</li>
+     * <li>Send ping message to the server.</li>
      * <li>Update server info TextView.</li>
      * </ul>
      *
-     * @param selectedServer
+     * @param selectedServer Server use to initialize MUST NOT be null.
      */
     protected void initServer(final ServerSetting selectedServer) {
         mSelectedServer = selectedServer;
-        if (mSelectedServer != null) {
-            sendAsyncRequest(SIMPLE, Code.HELLO);
-            ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
+        sendAsyncRequest(SIMPLE, Code.HELLO);
+        ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
 
-        } else {
-            // TODO clean
-            Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -267,7 +265,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         }
     }
 
-    /** Show the custom keyboard. */
+    /**
+     * Show the custom keyboard.
+     */
     private void showCustomKeyboard() {
 
         final InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -286,7 +286,9 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         mExtendedKeyboardView.setEnabled(true);
     }
 
-    /** Hide the custom keyboard. */
+    /**
+     * Hide the custom keyboard.
+     */
     private void hideCustomKeyboard() {
 
         mKeyboardView.setVisibility(View.GONE);
@@ -356,7 +358,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         private final List<Fragment> mFragments;
 
         /**
-         * @param fm The fragment manager
+         * @param fm        The fragment manager
          * @param fragments The fragments list.
          */
         public ComputerPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
@@ -408,11 +410,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
      * Update the connection state of the UI
      *
      * @param state The state of the connection :
-     * <ul>
-     * <li>{@link Constants#STATE_OK}</li>
-     * <li>{@link Constants#STATE_KO}</li>
-     * <li>{@link Constants#STATE_CONNECTING}</li>
-     * </ul>
+     *              <ul>
+     *              <li>{@link Constants#STATE_OK}</li>
+     *              <li>{@link Constants#STATE_KO}</li>
+     *              <li>{@link Constants#STATE_CONNECTING}</li>
+     *              </ul>
      */
     public void updateConnectionState(int state) {
         int drawableResId;

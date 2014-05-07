@@ -6,115 +6,153 @@
 
     <Row>
         <Key
-            android:codes="@string/code_q"
+            android:codes="@integer/code_1"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_1" />
+        <Key
+            android:codes="@integer/code_2"
+            android:keyLabel="@string/kb_2" />
+        <Key
+            android:codes="@integer/code_3"
+            android:keyLabel="@string/kb_3" />
+        <Key
+            android:codes="@integer/code_4"
+            android:keyLabel="@string/kb_4" />
+        <Key
+            android:codes="@integer/code_5"
+            android:keyLabel="@string/kb_5" />
+        <Key
+            android:codes="@integer/code_6"
+            android:keyLabel="@string/kb_6" />
+        <Key
+            android:codes="@integer/code_7"
+            android:keyLabel="@string/kb_7" />
+        <Key
+            android:codes="@integer/code_8"
+            android:keyLabel="@string/kb_8" />
+        <Key
+            android:codes="@integer/code_9"
+            android:keyLabel="@string/kb_9" />
+        <Key
+            android:codes="@integer/code_0"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_0" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="@integer/code_lowercase_q"
             android:keyEdgeFlags="left"
             android:keyLabel="@string/kb_lowercase_q" />
         <Key
-            android:codes="@string/code_w"
+            android:codes="@integer/code_lowercase_w"
             android:keyLabel="@string/kb_lowercase_w" />
         <Key
-            android:codes="@string/code_e"
+            android:codes="@integer/code_lowercase_e"
             android:keyLabel="@string/kb_lowercase_e" />
         <Key
-            android:codes="@string/code_r"
+            android:codes="@integer/code_lowercase_r"
             android:keyLabel="@string/kb_lowercase_r" />
         <Key
-            android:codes="@string/code_t"
+            android:codes="@integer/code_lowercase_t"
             android:keyLabel="@string/kb_lowercase_t" />
         <Key
-            android:codes="@string/code_y"
+            android:codes="@integer/code_lowercase_y"
             android:keyLabel="@string/kb_lowercase_y" />
         <Key
-            android:codes="@string/code_u"
+            android:codes="@integer/code_lowercase_u"
             android:keyLabel="@string/kb_lowercase_u" />
         <Key
-            android:codes="@string/code_i"
+            android:codes="@integer/code_lowercase_i"
             android:keyLabel="@string/kb_lowercase_i" />
         <Key
-            android:codes="@string/code_o"
+            android:codes="@integer/code_lowercase_o"
             android:keyLabel="@string/kb_lowercase_o" />
         <Key
-            android:codes="@string/code_p"
+            android:codes="@integer/code_lowercase_p"
             android:keyEdgeFlags="right"
             android:keyLabel="@string/kb_lowercase_p" />
     </Row>
 
     <Row>
         <Key
-            android:codes="@string/code_a"
+            android:codes="@integer/code_lowercase_a"
             android:keyEdgeFlags="left"
             android:keyLabel="@string/kb_lowercase_a" />
         <Key
-            android:codes="@string/code_s"
+            android:codes="@integer/code_lowercase_s"
             android:keyLabel="@string/kb_lowercase_s" />
         <Key
-            android:codes="@string/code_d"
+            android:codes="@integer/code_lowercase_d"
             android:keyLabel="@string/kb_lowercase_d" />
         <Key
-            android:codes="@string/code_f"
+            android:codes="@integer/code_lowercase_f"
             android:keyLabel="@string/kb_lowercase_f" />
         <Key
-            android:codes="@string/code_g"
+            android:codes="@integer/code_lowercase_g"
             android:keyLabel="@string/kb_lowercase_g" />
         <Key
-            android:codes="@string/code_h"
+            android:codes="@integer/code_lowercase_h"
             android:keyLabel="@string/kb_lowercase_h" />
         <Key
-            android:codes="@string/code_j"
+            android:codes="@integer/code_lowercase_j"
             android:keyLabel="@string/kb_lowercase_j" />
         <Key
-            android:codes="@string/code_k"
+            android:codes="@integer/code_lowercase_k"
             android:keyLabel="@string/kb_lowercase_k" />
         <Key
-            android:codes="@string/code_l"
+            android:codes="@integer/code_lowercase_l"
             android:keyEdgeFlags="right"
             android:keyLabel="@string/kb_lowercase_l" />
     </Row>
 
     <Row>
         <Key
-            android:codes="@string/code_shift"
+            android:codes="@integer/code_shift"
             android:isSticky="true"
             android:keyEdgeFlags="left"
             android:keyLabel="@string/kb_shift" />
         <Key
-            android:codes="@string/code_z"
+            android:codes="@integer/code_lowercase_z"
             android:keyLabel="@string/kb_lowercase_z" />
         <Key
-            android:codes="@string/code_x"
+            android:codes="@integer/code_lowercase_x"
             android:keyLabel="@string/kb_lowercase_x" />
         <Key
-            android:codes="@string/code_c"
+            android:codes="@integer/code_lowercase_c"
             android:keyLabel="@string/kb_lowercase_c" />
         <Key
-            android:codes="@string/code_v"
+            android:codes="@integer/code_lowercase_v"
             android:keyLabel="@string/kb_lowercase_v" />
         <Key
-            android:codes="@string/code_b"
+            android:codes="@integer/code_lowercase_b"
             android:keyLabel="@string/kb_lowercase_b" />
         <Key
-            android:codes="@string/code_n"
+            android:codes="@integer/code_lowercase_n"
             android:keyLabel="@string/kb_lowercase_n" />
         <Key
-            android:codes="@string/code_m"
+            android:codes="@integer/code_lowercase_m"
             android:keyEdgeFlags="right"
             android:keyLabel="@string/kb_lowercase_m" />
     </Row>
 
     <Row>
         <Key
-            android:codes="@string/code_ctrl"
+            android:codes="@integer/code_ctrl"
             android:isSticky="true"
             android:keyEdgeFlags="left"
             android:keyLabel="@string/kb_ctrl" />
         <Key
-            android:codes="@string/code_windows"
-            android:keyLabel="@string/kb_windows" />
+            android:codes="@integer/code_windows"
+            android:isSticky="true"
+            android:keyLabel="@string/kb_windows"
+            android:keyWidth="25%p" />
         <Key
-            android:codes="@string/code_alt"
+            android:codes="@integer/code_alt"
+            android:isSticky="true"
             android:keyLabel="@string/kb_alt" />
         <Key
-            android:codes="@string/code_space"
+            android:codes="@integer/code_space"
             android:keyEdgeFlags="right"
             android:keyLabel="@string/kb_space"
             android:keyWidth="50%p" />

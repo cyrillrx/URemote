@@ -13,7 +13,7 @@
 	<string translatable="false" name="kb_9">9</string>
 	<string translatable="false" name="kb_0">0</string>
 
-	<!-- Lower case letters -->
+	<!-- Lowercase letters -->
 	<string translatable="false" name="kb_lowercase_a">a</string>
 	<string translatable="false" name="kb_lowercase_b">b</string>
 	<string translatable="false" name="kb_lowercase_c">c</string>
@@ -41,8 +41,7 @@
 	<string translatable="false" name="kb_lowercase_y">y</string>
 	<string translatable="false" name="kb_lowercase_z">z</string>
 
-	<!-- Upper case letters -->
-	<!--
+	<!-- Upperccase letters -->
 	<string translatable="false" name="kb_uppercase_a">A</string>
 	<string translatable="false" name="kb_uppercase_b">B</string>
 	<string translatable="false" name="kb_uppercase_c">C</string>
@@ -69,7 +68,6 @@
 	<string translatable="false" name="kb_uppercase_x">X</string>
 	<string translatable="false" name="kb_uppercase_y">Y</string>
 	<string translatable="false" name="kb_uppercase_z">Z</string>
-	-->
 
 	<!-- Directional keys -->
 	<string translatable="false" name="kb_left">Left</string>

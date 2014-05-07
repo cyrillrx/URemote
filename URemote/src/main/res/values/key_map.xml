@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Special keys -->
+    <integer translatable="false" name="code_ctrl">23</integer>
+    <integer translatable="false" name="code_alt">1</integer>
+    <integer translatable="false" name="code_shift">59</integer>
+    <integer translatable="false" name="code_windows">82</integer>
+    <integer translatable="false" name="code_enter">66</integer>
+    <integer translatable="false" name="code_space">62</integer>
+    <integer translatable="false" name="code_backspace">67</integer>
+    <integer translatable="false" name="code_escape">4</integer>
+
+    <!-- D-pad keys -->
+    <integer translatable="false" name="code_left">1</integer>
+    <integer translatable="false" name="code_up">1</integer>
+    <integer translatable="false" name="code_right">1</integer>
+    <integer translatable="false" name="code_down">1</integer>
+
+    <!-- Combination -->
+    <integer translatable="false" name="code_alt_f4">1</integer>
+    <integer translatable="false" name="code_ctrl_enter">1</integer>
+
+    <!-- Digit keys (based on ASCII table) -->
+    <integer translatable="false" name="code_0">48</integer>
+    <integer translatable="false" name="code_1">49</integer>
+    <integer translatable="false" name="code_2">50</integer>
+    <integer translatable="false" name="code_3">51</integer>
+    <integer translatable="false" name="code_4">52</integer>
+    <integer translatable="false" name="code_5">53</integer>
+    <integer translatable="false" name="code_6">54</integer>
+    <integer translatable="false" name="code_7">55</integer>
+    <integer translatable="false" name="code_8">56</integer>
+    <integer translatable="false" name="code_9">57</integer>
+
+    <!-- Uppercase keys (based on ASCII table) -->
+    <integer translatable="false" name="code_uppercase_a">65</integer>
+    <integer translatable="false" name="code_uppercase_b">66</integer>
+    <integer translatable="false" name="code_uppercase_c">67</integer>
+    <integer translatable="false" name="code_uppercase_d">68</integer>
+    <integer translatable="false" name="code_uppercase_e">69</integer>
+    <integer translatable="false" name="code_uppercase_f">70</integer>
+    <integer translatable="false" name="code_uppercase_g">71</integer>
+    <integer translatable="false" name="code_uppercase_h">72</integer>
+    <integer translatable="false" name="code_uppercase_i">73</integer>
+    <integer translatable="false" name="code_uppercase_j">74</integer>
+    <integer translatable="false" name="code_uppercase_k">75</integer>
+    <integer translatable="false" name="code_uppercase_l">76</integer>
+    <integer translatable="false" name="code_uppercase_m">77</integer>
+    <integer translatable="false" name="code_uppercase_n">78</integer>
+    <integer translatable="false" name="code_uppercase_o">79</integer>
+    <integer translatable="false" name="code_uppercase_p">80</integer>
+    <integer translatable="false" name="code_uppercase_q">81</integer>
+    <integer translatable="false" name="code_uppercase_r">82</integer>
+    <integer translatable="false" name="code_uppercase_s">83</integer>
+    <integer translatable="false" name="code_uppercase_t">84</integer>
+    <integer translatable="false" name="code_uppercase_u">85</integer>
+    <integer translatable="false" name="code_uppercase_v">86</integer>
+    <integer translatable="false" name="code_uppercase_w">87</integer>
+    <integer translatable="false" name="code_uppercase_x">88</integer>
+    <integer translatable="false" name="code_uppercase_y">89</integer>
+    <integer translatable="false" name="code_uppercase_z">90</integer>
+
+    <!-- Lowercase keys (based on ASCII table) -->
+    <integer translatable="false" name="code_lowercase_a">97</integer>
+    <integer translatable="false" name="code_lowercase_b">98</integer>
+    <integer translatable="false" name="code_lowercase_c">99</integer>
+    <integer translatable="false" name="code_lowercase_d">100</integer>
+    <integer translatable="false" name="code_lowercase_e">101</integer>
+    <integer translatable="false" name="code_lowercase_f">102</integer>
+    <integer translatable="false" name="code_lowercase_g">103</integer>
+    <integer translatable="false" name="code_lowercase_h">104</integer>
+    <integer translatable="false" name="code_lowercase_i">105</integer>
+    <integer translatable="false" name="code_lowercase_j">106</integer>
+    <integer translatable="false" name="code_lowercase_k">107</integer>
+    <integer translatable="false" name="code_lowercase_l">108</integer>
+    <integer translatable="false" name="code_lowercase_m">109</integer>
+    <integer translatable="false" name="code_lowercase_n">110</integer>
+    <integer translatable="false" name="code_lowercase_o">111</integer>
+    <integer translatable="false" name="code_lowercase_p">112</integer>
+    <integer translatable="false" name="code_lowercase_q">113</integer>
+    <integer translatable="false" name="code_lowercase_r">114</integer>
+    <integer translatable="false" name="code_lowercase_s">115</integer>
+    <integer translatable="false" name="code_lowercase_t">116</integer>
+    <integer translatable="false" name="code_lowercase_u">117</integer>
+    <integer translatable="false" name="code_lowercase_v">118</integer>
+    <integer translatable="false" name="code_lowercase_w">119</integer>
+    <integer translatable="false" name="code_lowercase_x">120</integer>
+    <integer translatable="false" name="code_lowercase_y">121</integer>
+    <integer translatable="false" name="code_lowercase_z">122</integer>
+
+</resources>
