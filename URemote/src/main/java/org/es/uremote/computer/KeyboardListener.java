@@ -45,7 +45,7 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             case Message.Request.Code.KB_WINDOWS_VALUE:
                 break;
 
-            case Message.Request.Code.KB_RETURN_VALUE:
+            case Message.Request.Code.KB_ENTER_VALUE:
                 break;
 
             case Message.Request.Code.KB_SPACE_VALUE:

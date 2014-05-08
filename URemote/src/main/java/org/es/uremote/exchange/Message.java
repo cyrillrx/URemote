@@ -363,9 +363,9 @@ public final class Message {
        */
       OFF(4, 4),
       /**
-       * <code>HELLO = 5;</code>
+       * <code>PING = 5;</code>
        */
-      HELLO(5, 5),
+      PING(5, 5),
       /**
        * <code>TEST = 6;</code>
        */
@@ -411,313 +411,405 @@ public final class Message {
        */
       SAY(16, 16),
       /**
-       * <code>GET_FILE_LIST = 20;</code>
+       * <code>QUERY_ROOTS = 17;</code>
        */
-      GET_FILE_LIST(17, 20),
+      QUERY_ROOTS(17, 17),
       /**
-       * <code>OPEN_FILE = 21;</code>
+       * <code>QUERY_CHILDREN = 18;</code>
        */
-      OPEN_FILE(18, 21),
+      QUERY_CHILDREN(18, 18),
       /**
-       * <code>MEDIA_PLAY_PAUSE = 30;</code>
+       * <code>OPEN_FILE_SERVER_SIDE = 19;</code>
        */
-      MEDIA_PLAY_PAUSE(19, 30),
+      OPEN_FILE_SERVER_SIDE(19, 19),
       /**
-       * <code>MEDIA_STOP = 31;</code>
+       * <code>OPEN_FILE_CLIENT_SIDE = 20;</code>
        */
-      MEDIA_STOP(20, 31),
+      OPEN_FILE_CLIENT_SIDE(20, 20),
       /**
-       * <code>MEDIA_PREVIOUS = 32;</code>
+       * <code>MEDIA_PLAY_PAUSE = 21;</code>
        */
-      MEDIA_PREVIOUS(21, 32),
+      MEDIA_PLAY_PAUSE(21, 21),
       /**
-       * <code>MEDIA_NEXT = 33;</code>
+       * <code>MEDIA_STOP = 22;</code>
        */
-      MEDIA_NEXT(22, 33),
+      MEDIA_STOP(22, 22),
       /**
-       * <code>MEDIA_FF = 34;</code>
+       * <code>MEDIA_PREVIOUS = 23;</code>
        */
-      MEDIA_FF(23, 34),
+      MEDIA_PREVIOUS(23, 23),
       /**
-       * <code>MEDIA_REWIND = 35;</code>
+       * <code>MEDIA_NEXT = 24;</code>
        */
-      MEDIA_REWIND(24, 35),
+      MEDIA_NEXT(24, 24),
       /**
-       * <code>KB_CTRL = 40;</code>
+       * <code>MEDIA_FF = 25;</code>
        */
-      KB_CTRL(25, 40),
+      MEDIA_FF(25, 25),
       /**
-       * <code>KB_SHIFT = 41;</code>
+       * <code>MEDIA_REWIND = 26;</code>
        */
-      KB_SHIFT(26, 41),
+      MEDIA_REWIND(26, 26),
       /**
-       * <code>KB_ALT = 42;</code>
+       * <code>GOM_PLAYER_RUN = 27;</code>
        */
-      KB_ALT(27, 42),
+      GOM_PLAYER_RUN(27, 27),
       /**
-       * <code>KB_ALTGR = 43;</code>
+       * <code>GOM_PLAYER_KILL = 28;</code>
        */
-      KB_ALTGR(28, 43),
+      GOM_PLAYER_KILL(28, 28),
       /**
-       * <code>KB_WINDOWS = 44;</code>
+       * <code>GOM_PLAYER_STRETCH = 29;</code>
        */
-      KB_WINDOWS(29, 44),
+      GOM_PLAYER_STRETCH(29, 29),
       /**
-       * <code>KB_RETURN = 45;</code>
+       * <code>KB_CTRL = 30;</code>
        */
-      KB_RETURN(30, 45),
+      KB_CTRL(30, 30),
       /**
-       * <code>KB_SPACE = 46;</code>
+       * <code>KB_SHIFT = 31;</code>
        */
-      KB_SPACE(31, 46),
+      KB_SHIFT(31, 31),
       /**
-       * <code>KB_BACKSPACE = 47;</code>
+       * <code>KB_ALT = 32;</code>
        */
-      KB_BACKSPACE(32, 47),
+      KB_ALT(32, 32),
       /**
-       * <code>KB_ESCAPE = 48;</code>
+       * <code>KB_ALTGR = 33;</code>
        */
-      KB_ESCAPE(33, 48),
+      KB_ALTGR(33, 33),
       /**
-       * <code>KB_TAB = 49;</code>
+       * <code>KB_WINDOWS = 34;</code>
        */
-      KB_TAB(34, 49),
+      KB_WINDOWS(34, 34),
       /**
-       * <code>KB_F4 = 50;</code>
+       * <code>KB_ENTER = 35;</code>
        */
-      KB_F4(35, 50),
+      KB_ENTER(35, 35),
       /**
-       * <code>GOM_PLAYER_RUN = 60;</code>
+       * <code>KB_SPACE = 36;</code>
        */
-      GOM_PLAYER_RUN(36, 60),
+      KB_SPACE(36, 36),
       /**
-       * <code>GOM_PLAYER_KILL = 61;</code>
+       * <code>KB_BACKSPACE = 37;</code>
        */
-      GOM_PLAYER_KILL(37, 61),
+      KB_BACKSPACE(37, 37),
       /**
-       * <code>GOM_PLAYER_STRETCH = 62;</code>
+       * <code>KB_ESCAPE = 38;</code>
        */
-      GOM_PLAYER_STRETCH(38, 62),
+      KB_ESCAPE(38, 38),
+      /**
+       * <code>KB_TAB = 39;</code>
+       */
+      KB_TAB(39, 39),
+      /**
+       * <code>KB_F4 = 40;</code>
+       */
+      KB_F4(40, 40),
+      /**
+       * <code>KB_NUMBER_0 = 48;</code>
+       */
+      KB_NUMBER_0(41, 48),
+      /**
+       * <code>KB_NUMBER_1 = 49;</code>
+       */
+      KB_NUMBER_1(42, 49),
+      /**
+       * <code>KB_NUMBER_2 = 50;</code>
+       */
+      KB_NUMBER_2(43, 50),
+      /**
+       * <code>KB_NUMBER_3 = 51;</code>
+       */
+      KB_NUMBER_3(44, 51),
+      /**
+       * <code>KB_NUMBER_4 = 52;</code>
+       */
+      KB_NUMBER_4(45, 52),
+      /**
+       * <code>KB_NUMBER_5 = 53;</code>
+       */
+      KB_NUMBER_5(46, 53),
+      /**
+       * <code>KB_NUMBER_6 = 54;</code>
+       */
+      KB_NUMBER_6(47, 54),
+      /**
+       * <code>KB_NUMBER_7 = 55;</code>
+       */
+      KB_NUMBER_7(48, 55),
+      /**
+       * <code>KB_NUMBER_8 = 56;</code>
+       */
+      KB_NUMBER_8(49, 56),
+      /**
+       * <code>KB_NUMBER_9 = 57;</code>
+       */
+      KB_NUMBER_9(50, 57),
+      /**
+       * <code>KB_COLON = 58;</code>
+       */
+      KB_COLON(51, 58),
+      /**
+       * <code>KB_SEMI_COLON = 59;</code>
+       */
+      KB_SEMI_COLON(52, 59),
+      /**
+       * <code>KB_OPENING_ANGLE_BRACKET = 60;</code>
+       */
+      KB_OPENING_ANGLE_BRACKET(53, 60),
+      /**
+       * <code>KB_EQUAL = 61;</code>
+       */
+      KB_EQUAL(54, 61),
+      /**
+       * <code>KB_CLOSIGN_ANGLE_BRACKET = 62;</code>
+       */
+      KB_CLOSIGN_ANGLE_BRACKET(55, 62),
+      /**
+       * <code>KB_QUESTION_MARK = 63;</code>
+       */
+      KB_QUESTION_MARK(56, 63),
+      /**
+       * <code>KB_AT_SIGN = 64;</code>
+       */
+      KB_AT_SIGN(57, 64),
       /**
        * <code>KB_UPPERCASE_A = 65;</code>
        */
-      KB_UPPERCASE_A(39, 65),
+      KB_UPPERCASE_A(58, 65),
       /**
        * <code>KB_UPPERCASE_B = 66;</code>
        */
-      KB_UPPERCASE_B(40, 66),
+      KB_UPPERCASE_B(59, 66),
       /**
        * <code>KB_UPPERCASE_C = 67;</code>
        */
-      KB_UPPERCASE_C(41, 67),
+      KB_UPPERCASE_C(60, 67),
       /**
        * <code>KB_UPPERCASE_D = 68;</code>
        */
-      KB_UPPERCASE_D(42, 68),
+      KB_UPPERCASE_D(61, 68),
       /**
        * <code>KB_UPPERCASE_E = 69;</code>
        */
-      KB_UPPERCASE_E(43, 69),
+      KB_UPPERCASE_E(62, 69),
       /**
        * <code>KB_UPPERCASE_F = 70;</code>
        */
-      KB_UPPERCASE_F(44, 70),
+      KB_UPPERCASE_F(63, 70),
       /**
        * <code>KB_UPPERCASE_G = 71;</code>
        */
-      KB_UPPERCASE_G(45, 71),
+      KB_UPPERCASE_G(64, 71),
       /**
        * <code>KB_UPPERCASE_H = 72;</code>
        */
-      KB_UPPERCASE_H(46, 72),
+      KB_UPPERCASE_H(65, 72),
       /**
        * <code>KB_UPPERCASE_I = 73;</code>
        */
-      KB_UPPERCASE_I(47, 73),
+      KB_UPPERCASE_I(66, 73),
       /**
        * <code>KB_UPPERCASE_J = 74;</code>
        */
-      KB_UPPERCASE_J(48, 74),
+      KB_UPPERCASE_J(67, 74),
       /**
        * <code>KB_UPPERCASE_K = 75;</code>
        */
-      KB_UPPERCASE_K(49, 75),
+      KB_UPPERCASE_K(68, 75),
       /**
        * <code>KB_UPPERCASE_L = 76;</code>
        */
-      KB_UPPERCASE_L(50, 76),
+      KB_UPPERCASE_L(69, 76),
       /**
        * <code>KB_UPPERCASE_M = 77;</code>
        */
-      KB_UPPERCASE_M(51, 77),
+      KB_UPPERCASE_M(70, 77),
       /**
        * <code>KB_UPPERCASE_N = 78;</code>
        */
-      KB_UPPERCASE_N(52, 78),
+      KB_UPPERCASE_N(71, 78),
       /**
        * <code>KB_UPPERCASE_O = 79;</code>
        */
-      KB_UPPERCASE_O(53, 79),
+      KB_UPPERCASE_O(72, 79),
       /**
        * <code>KB_UPPERCASE_P = 80;</code>
        */
-      KB_UPPERCASE_P(54, 80),
+      KB_UPPERCASE_P(73, 80),
       /**
        * <code>KB_UPPERCASE_Q = 81;</code>
        */
-      KB_UPPERCASE_Q(55, 81),
+      KB_UPPERCASE_Q(74, 81),
       /**
        * <code>KB_UPPERCASE_R = 82;</code>
        */
-      KB_UPPERCASE_R(56, 82),
+      KB_UPPERCASE_R(75, 82),
       /**
        * <code>KB_UPPERCASE_S = 83;</code>
        */
-      KB_UPPERCASE_S(57, 83),
+      KB_UPPERCASE_S(76, 83),
       /**
        * <code>KB_UPPERCASE_T = 84;</code>
        */
-      KB_UPPERCASE_T(58, 84),
+      KB_UPPERCASE_T(77, 84),
       /**
        * <code>KB_UPPERCASE_U = 85;</code>
        */
-      KB_UPPERCASE_U(59, 85),
+      KB_UPPERCASE_U(78, 85),
       /**
        * <code>KB_UPPERCASE_V = 86;</code>
        */
-      KB_UPPERCASE_V(60, 86),
+      KB_UPPERCASE_V(79, 86),
       /**
        * <code>KB_UPPERCASE_W = 87;</code>
        */
-      KB_UPPERCASE_W(61, 87),
+      KB_UPPERCASE_W(80, 87),
       /**
        * <code>KB_UPPERCASE_X = 88;</code>
        */
-      KB_UPPERCASE_X(62, 88),
+      KB_UPPERCASE_X(81, 88),
       /**
        * <code>KB_UPPERCASE_Y = 89;</code>
        */
-      KB_UPPERCASE_Y(63, 89),
+      KB_UPPERCASE_Y(82, 89),
       /**
        * <code>KB_UPPERCASE_Z = 90;</code>
        */
-      KB_UPPERCASE_Z(64, 90),
+      KB_UPPERCASE_Z(83, 90),
+      /**
+       * <code>KB_OPENING_BRACKET = 91;</code>
+       */
+      KB_OPENING_BRACKET(84, 91),
+      /**
+       * <code>KB_BACKSLASH = 92;</code>
+       */
+      KB_BACKSLASH(85, 92),
+      /**
+       * <code>KB_CLOSING_BRACKET = 93;</code>
+       */
+      KB_CLOSING_BRACKET(86, 93),
+      /**
+       * <code>KB_UNDERSCORE = 95;</code>
+       */
+      KB_UNDERSCORE(87, 95),
       /**
        * <code>KB_LOWERCASE_A = 97;</code>
        */
-      KB_LOWERCASE_A(65, 97),
+      KB_LOWERCASE_A(88, 97),
       /**
        * <code>KB_LOWERCASE_B = 98;</code>
        */
-      KB_LOWERCASE_B(66, 98),
+      KB_LOWERCASE_B(89, 98),
       /**
        * <code>KB_LOWERCASE_C = 99;</code>
        */
-      KB_LOWERCASE_C(67, 99),
+      KB_LOWERCASE_C(90, 99),
       /**
        * <code>KB_LOWERCASE_D = 100;</code>
        */
-      KB_LOWERCASE_D(68, 100),
+      KB_LOWERCASE_D(91, 100),
       /**
        * <code>KB_LOWERCASE_E = 101;</code>
        */
-      KB_LOWERCASE_E(69, 101),
+      KB_LOWERCASE_E(92, 101),
       /**
        * <code>KB_LOWERCASE_F = 102;</code>
        */
-      KB_LOWERCASE_F(70, 102),
+      KB_LOWERCASE_F(93, 102),
       /**
        * <code>KB_LOWERCASE_G = 103;</code>
        */
-      KB_LOWERCASE_G(71, 103),
+      KB_LOWERCASE_G(94, 103),
       /**
        * <code>KB_LOWERCASE_H = 104;</code>
        */
-      KB_LOWERCASE_H(72, 104),
+      KB_LOWERCASE_H(95, 104),
       /**
        * <code>KB_LOWERCASE_I = 105;</code>
        */
-      KB_LOWERCASE_I(73, 105),
+      KB_LOWERCASE_I(96, 105),
       /**
        * <code>KB_LOWERCASE_J = 106;</code>
        */
-      KB_LOWERCASE_J(74, 106),
+      KB_LOWERCASE_J(97, 106),
       /**
        * <code>KB_LOWERCASE_K = 107;</code>
        */
-      KB_LOWERCASE_K(75, 107),
+      KB_LOWERCASE_K(98, 107),
       /**
        * <code>KB_LOWERCASE_L = 108;</code>
        */
-      KB_LOWERCASE_L(76, 108),
+      KB_LOWERCASE_L(99, 108),
       /**
        * <code>KB_LOWERCASE_M = 109;</code>
        */
-      KB_LOWERCASE_M(77, 109),
+      KB_LOWERCASE_M(100, 109),
       /**
        * <code>KB_LOWERCASE_N = 110;</code>
        */
-      KB_LOWERCASE_N(78, 110),
+      KB_LOWERCASE_N(101, 110),
       /**
        * <code>KB_LOWERCASE_O = 111;</code>
        */
-      KB_LOWERCASE_O(79, 111),
+      KB_LOWERCASE_O(102, 111),
       /**
        * <code>KB_LOWERCASE_P = 112;</code>
        */
-      KB_LOWERCASE_P(80, 112),
+      KB_LOWERCASE_P(103, 112),
       /**
        * <code>KB_LOWERCASE_Q = 113;</code>
        */
-      KB_LOWERCASE_Q(81, 113),
+      KB_LOWERCASE_Q(104, 113),
       /**
        * <code>KB_LOWERCASE_R = 114;</code>
        */
-      KB_LOWERCASE_R(82, 114),
+      KB_LOWERCASE_R(105, 114),
       /**
        * <code>KB_LOWERCASE_S = 115;</code>
        */
-      KB_LOWERCASE_S(83, 115),
+      KB_LOWERCASE_S(106, 115),
       /**
        * <code>KB_LOWERCASE_T = 116;</code>
        */
-      KB_LOWERCASE_T(84, 116),
+      KB_LOWERCASE_T(107, 116),
       /**
        * <code>KB_LOWERCASE_U = 117;</code>
        */
-      KB_LOWERCASE_U(85, 117),
+      KB_LOWERCASE_U(108, 117),
       /**
        * <code>KB_LOWERCASE_V = 118;</code>
        */
-      KB_LOWERCASE_V(86, 118),
+      KB_LOWERCASE_V(109, 118),
       /**
        * <code>KB_LOWERCASE_W = 119;</code>
        */
-      KB_LOWERCASE_W(87, 119),
+      KB_LOWERCASE_W(110, 119),
       /**
        * <code>KB_LOWERCASE_X = 120;</code>
        */
-      KB_LOWERCASE_X(88, 120),
+      KB_LOWERCASE_X(111, 120),
       /**
        * <code>KB_LOWERCASE_Y = 121;</code>
        */
-      KB_LOWERCASE_Y(89, 121),
+      KB_LOWERCASE_Y(112, 121),
       /**
        * <code>KB_LOWERCASE_Z = 122;</code>
        */
-      KB_LOWERCASE_Z(90, 122),
+      KB_LOWERCASE_Z(113, 122),
       /**
-       * <code>KB_OPENNING_CURLY_BRACKET = 123;</code>
+       * <code>KB_OPENING_CURLY_BRACKET = 123;</code>
        */
-      KB_OPENNING_CURLY_BRACKET(91, 123),
+      KB_OPENING_CURLY_BRACKET(114, 123),
       /**
        * <code>KB_PIPE = 124;</code>
        */
-      KB_PIPE(92, 124),
+      KB_PIPE(115, 124),
       /**
        * <code>KB_CLOSING_CURLY_BRACKET = 125;</code>
        */
-      KB_CLOSING_CURLY_BRACKET(93, 125),
+      KB_CLOSING_CURLY_BRACKET(116, 125),
       ;
 
       /**
@@ -741,9 +833,9 @@ public final class Message {
        */
       public static final int OFF_VALUE = 4;
       /**
-       * <code>HELLO = 5;</code>
+       * <code>PING = 5;</code>
        */
-      public static final int HELLO_VALUE = 5;
+      public static final int PING_VALUE = 5;
       /**
        * <code>TEST = 6;</code>
        */
@@ -789,93 +881,169 @@ public final class Message {
        */
       public static final int SAY_VALUE = 16;
       /**
-       * <code>GET_FILE_LIST = 20;</code>
+       * <code>QUERY_ROOTS = 17;</code>
        */
-      public static final int GET_FILE_LIST_VALUE = 20;
+      public static final int QUERY_ROOTS_VALUE = 17;
       /**
-       * <code>OPEN_FILE = 21;</code>
+       * <code>QUERY_CHILDREN = 18;</code>
        */
-      public static final int OPEN_FILE_VALUE = 21;
+      public static final int QUERY_CHILDREN_VALUE = 18;
       /**
-       * <code>MEDIA_PLAY_PAUSE = 30;</code>
+       * <code>OPEN_FILE_SERVER_SIDE = 19;</code>
        */
-      public static final int MEDIA_PLAY_PAUSE_VALUE = 30;
+      public static final int OPEN_FILE_SERVER_SIDE_VALUE = 19;
       /**
-       * <code>MEDIA_STOP = 31;</code>
+       * <code>OPEN_FILE_CLIENT_SIDE = 20;</code>
        */
-      public static final int MEDIA_STOP_VALUE = 31;
+      public static final int OPEN_FILE_CLIENT_SIDE_VALUE = 20;
       /**
-       * <code>MEDIA_PREVIOUS = 32;</code>
+       * <code>MEDIA_PLAY_PAUSE = 21;</code>
        */
-      public static final int MEDIA_PREVIOUS_VALUE = 32;
+      public static final int MEDIA_PLAY_PAUSE_VALUE = 21;
       /**
-       * <code>MEDIA_NEXT = 33;</code>
+       * <code>MEDIA_STOP = 22;</code>
        */
-      public static final int MEDIA_NEXT_VALUE = 33;
+      public static final int MEDIA_STOP_VALUE = 22;
       /**
-       * <code>MEDIA_FF = 34;</code>
+       * <code>MEDIA_PREVIOUS = 23;</code>
        */
-      public static final int MEDIA_FF_VALUE = 34;
+      public static final int MEDIA_PREVIOUS_VALUE = 23;
       /**
-       * <code>MEDIA_REWIND = 35;</code>
+       * <code>MEDIA_NEXT = 24;</code>
        */
-      public static final int MEDIA_REWIND_VALUE = 35;
+      public static final int MEDIA_NEXT_VALUE = 24;
       /**
-       * <code>KB_CTRL = 40;</code>
+       * <code>MEDIA_FF = 25;</code>
        */
-      public static final int KB_CTRL_VALUE = 40;
+      public static final int MEDIA_FF_VALUE = 25;
       /**
-       * <code>KB_SHIFT = 41;</code>
+       * <code>MEDIA_REWIND = 26;</code>
        */
-      public static final int KB_SHIFT_VALUE = 41;
+      public static final int MEDIA_REWIND_VALUE = 26;
       /**
-       * <code>KB_ALT = 42;</code>
+       * <code>GOM_PLAYER_RUN = 27;</code>
        */
-      public static final int KB_ALT_VALUE = 42;
+      public static final int GOM_PLAYER_RUN_VALUE = 27;
       /**
-       * <code>KB_ALTGR = 43;</code>
+       * <code>GOM_PLAYER_KILL = 28;</code>
        */
-      public static final int KB_ALTGR_VALUE = 43;
+      public static final int GOM_PLAYER_KILL_VALUE = 28;
       /**
-       * <code>KB_WINDOWS = 44;</code>
+       * <code>GOM_PLAYER_STRETCH = 29;</code>
        */
-      public static final int KB_WINDOWS_VALUE = 44;
+      public static final int GOM_PLAYER_STRETCH_VALUE = 29;
       /**
-       * <code>KB_RETURN = 45;</code>
+       * <code>KB_CTRL = 30;</code>
        */
-      public static final int KB_RETURN_VALUE = 45;
+      public static final int KB_CTRL_VALUE = 30;
       /**
-       * <code>KB_SPACE = 46;</code>
+       * <code>KB_SHIFT = 31;</code>
        */
-      public static final int KB_SPACE_VALUE = 46;
+      public static final int KB_SHIFT_VALUE = 31;
       /**
-       * <code>KB_BACKSPACE = 47;</code>
+       * <code>KB_ALT = 32;</code>
        */
-      public static final int KB_BACKSPACE_VALUE = 47;
+      public static final int KB_ALT_VALUE = 32;
       /**
-       * <code>KB_ESCAPE = 48;</code>
+       * <code>KB_ALTGR = 33;</code>
        */
-      public static final int KB_ESCAPE_VALUE = 48;
+      public static final int KB_ALTGR_VALUE = 33;
       /**
-       * <code>KB_TAB = 49;</code>
+       * <code>KB_WINDOWS = 34;</code>
        */
-      public static final int KB_TAB_VALUE = 49;
+      public static final int KB_WINDOWS_VALUE = 34;
       /**
-       * <code>KB_F4 = 50;</code>
+       * <code>KB_ENTER = 35;</code>
        */
-      public static final int KB_F4_VALUE = 50;
+      public static final int KB_ENTER_VALUE = 35;
       /**
-       * <code>GOM_PLAYER_RUN = 60;</code>
+       * <code>KB_SPACE = 36;</code>
        */
-      public static final int GOM_PLAYER_RUN_VALUE = 60;
+      public static final int KB_SPACE_VALUE = 36;
       /**
-       * <code>GOM_PLAYER_KILL = 61;</code>
+       * <code>KB_BACKSPACE = 37;</code>
        */
-      public static final int GOM_PLAYER_KILL_VALUE = 61;
+      public static final int KB_BACKSPACE_VALUE = 37;
       /**
-       * <code>GOM_PLAYER_STRETCH = 62;</code>
+       * <code>KB_ESCAPE = 38;</code>
        */
-      public static final int GOM_PLAYER_STRETCH_VALUE = 62;
+      public static final int KB_ESCAPE_VALUE = 38;
+      /**
+       * <code>KB_TAB = 39;</code>
+       */
+      public static final int KB_TAB_VALUE = 39;
+      /**
+       * <code>KB_F4 = 40;</code>
+       */
+      public static final int KB_F4_VALUE = 40;
+      /**
+       * <code>KB_NUMBER_0 = 48;</code>
+       */
+      public static final int KB_NUMBER_0_VALUE = 48;
+      /**
+       * <code>KB_NUMBER_1 = 49;</code>
+       */
+      public static final int KB_NUMBER_1_VALUE = 49;
+      /**
+       * <code>KB_NUMBER_2 = 50;</code>
+       */
+      public static final int KB_NUMBER_2_VALUE = 50;
+      /**
+       * <code>KB_NUMBER_3 = 51;</code>
+       */
+      public static final int KB_NUMBER_3_VALUE = 51;
+      /**
+       * <code>KB_NUMBER_4 = 52;</code>
+       */
+      public static final int KB_NUMBER_4_VALUE = 52;
+      /**
+       * <code>KB_NUMBER_5 = 53;</code>
+       */
+      public static final int KB_NUMBER_5_VALUE = 53;
+      /**
+       * <code>KB_NUMBER_6 = 54;</code>
+       */
+      public static final int KB_NUMBER_6_VALUE = 54;
+      /**
+       * <code>KB_NUMBER_7 = 55;</code>
+       */
+      public static final int KB_NUMBER_7_VALUE = 55;
+      /**
+       * <code>KB_NUMBER_8 = 56;</code>
+       */
+      public static final int KB_NUMBER_8_VALUE = 56;
+      /**
+       * <code>KB_NUMBER_9 = 57;</code>
+       */
+      public static final int KB_NUMBER_9_VALUE = 57;
+      /**
+       * <code>KB_COLON = 58;</code>
+       */
+      public static final int KB_COLON_VALUE = 58;
+      /**
+       * <code>KB_SEMI_COLON = 59;</code>
+       */
+      public static final int KB_SEMI_COLON_VALUE = 59;
+      /**
+       * <code>KB_OPENING_ANGLE_BRACKET = 60;</code>
+       */
+      public static final int KB_OPENING_ANGLE_BRACKET_VALUE = 60;
+      /**
+       * <code>KB_EQUAL = 61;</code>
+       */
+      public static final int KB_EQUAL_VALUE = 61;
+      /**
+       * <code>KB_CLOSIGN_ANGLE_BRACKET = 62;</code>
+       */
+      public static final int KB_CLOSIGN_ANGLE_BRACKET_VALUE = 62;
+      /**
+       * <code>KB_QUESTION_MARK = 63;</code>
+       */
+      public static final int KB_QUESTION_MARK_VALUE = 63;
+      /**
+       * <code>KB_AT_SIGN = 64;</code>
+       */
+      public static final int KB_AT_SIGN_VALUE = 64;
       /**
        * <code>KB_UPPERCASE_A = 65;</code>
        */
@@ -981,6 +1149,22 @@ public final class Message {
        */
       public static final int KB_UPPERCASE_Z_VALUE = 90;
       /**
+       * <code>KB_OPENING_BRACKET = 91;</code>
+       */
+      public static final int KB_OPENING_BRACKET_VALUE = 91;
+      /**
+       * <code>KB_BACKSLASH = 92;</code>
+       */
+      public static final int KB_BACKSLASH_VALUE = 92;
+      /**
+       * <code>KB_CLOSING_BRACKET = 93;</code>
+       */
+      public static final int KB_CLOSING_BRACKET_VALUE = 93;
+      /**
+       * <code>KB_UNDERSCORE = 95;</code>
+       */
+      public static final int KB_UNDERSCORE_VALUE = 95;
+      /**
        * <code>KB_LOWERCASE_A = 97;</code>
        */
       public static final int KB_LOWERCASE_A_VALUE = 97;
@@ -1085,9 +1269,9 @@ public final class Message {
        */
       public static final int KB_LOWERCASE_Z_VALUE = 122;
       /**
-       * <code>KB_OPENNING_CURLY_BRACKET = 123;</code>
+       * <code>KB_OPENING_CURLY_BRACKET = 123;</code>
        */
-      public static final int KB_OPENNING_CURLY_BRACKET_VALUE = 123;
+      public static final int KB_OPENING_CURLY_BRACKET_VALUE = 123;
       /**
        * <code>KB_PIPE = 124;</code>
        */
@@ -1107,7 +1291,7 @@ public final class Message {
           case 2: return STATUS;
           case 3: return ON;
           case 4: return OFF;
-          case 5: return HELLO;
+          case 5: return PING;
           case 6: return TEST;
           case 7: return KILL_SERVER;
           case 8: return SHUTDOWN;
@@ -1119,28 +1303,47 @@ public final class Message {
           case 14: return RIGHT;
           case 15: return MUTE;
           case 16: return SAY;
-          case 20: return GET_FILE_LIST;
-          case 21: return OPEN_FILE;
-          case 30: return MEDIA_PLAY_PAUSE;
-          case 31: return MEDIA_STOP;
-          case 32: return MEDIA_PREVIOUS;
-          case 33: return MEDIA_NEXT;
-          case 34: return MEDIA_FF;
-          case 35: return MEDIA_REWIND;
-          case 40: return KB_CTRL;
-          case 41: return KB_SHIFT;
-          case 42: return KB_ALT;
-          case 43: return KB_ALTGR;
-          case 44: return KB_WINDOWS;
-          case 45: return KB_RETURN;
-          case 46: return KB_SPACE;
-          case 47: return KB_BACKSPACE;
-          case 48: return KB_ESCAPE;
-          case 49: return KB_TAB;
-          case 50: return KB_F4;
-          case 60: return GOM_PLAYER_RUN;
-          case 61: return GOM_PLAYER_KILL;
-          case 62: return GOM_PLAYER_STRETCH;
+          case 17: return QUERY_ROOTS;
+          case 18: return QUERY_CHILDREN;
+          case 19: return OPEN_FILE_SERVER_SIDE;
+          case 20: return OPEN_FILE_CLIENT_SIDE;
+          case 21: return MEDIA_PLAY_PAUSE;
+          case 22: return MEDIA_STOP;
+          case 23: return MEDIA_PREVIOUS;
+          case 24: return MEDIA_NEXT;
+          case 25: return MEDIA_FF;
+          case 26: return MEDIA_REWIND;
+          case 27: return GOM_PLAYER_RUN;
+          case 28: return GOM_PLAYER_KILL;
+          case 29: return GOM_PLAYER_STRETCH;
+          case 30: return KB_CTRL;
+          case 31: return KB_SHIFT;
+          case 32: return KB_ALT;
+          case 33: return KB_ALTGR;
+          case 34: return KB_WINDOWS;
+          case 35: return KB_ENTER;
+          case 36: return KB_SPACE;
+          case 37: return KB_BACKSPACE;
+          case 38: return KB_ESCAPE;
+          case 39: return KB_TAB;
+          case 40: return KB_F4;
+          case 48: return KB_NUMBER_0;
+          case 49: return KB_NUMBER_1;
+          case 50: return KB_NUMBER_2;
+          case 51: return KB_NUMBER_3;
+          case 52: return KB_NUMBER_4;
+          case 53: return KB_NUMBER_5;
+          case 54: return KB_NUMBER_6;
+          case 55: return KB_NUMBER_7;
+          case 56: return KB_NUMBER_8;
+          case 57: return KB_NUMBER_9;
+          case 58: return KB_COLON;
+          case 59: return KB_SEMI_COLON;
+          case 60: return KB_OPENING_ANGLE_BRACKET;
+          case 61: return KB_EQUAL;
+          case 62: return KB_CLOSIGN_ANGLE_BRACKET;
+          case 63: return KB_QUESTION_MARK;
+          case 64: return KB_AT_SIGN;
           case 65: return KB_UPPERCASE_A;
           case 66: return KB_UPPERCASE_B;
           case 67: return KB_UPPERCASE_C;
@@ -1167,6 +1370,10 @@ public final class Message {
           case 88: return KB_UPPERCASE_X;
           case 89: return KB_UPPERCASE_Y;
           case 90: return KB_UPPERCASE_Z;
+          case 91: return KB_OPENING_BRACKET;
+          case 92: return KB_BACKSLASH;
+          case 93: return KB_CLOSING_BRACKET;
+          case 95: return KB_UNDERSCORE;
           case 97: return KB_LOWERCASE_A;
           case 98: return KB_LOWERCASE_B;
           case 99: return KB_LOWERCASE_C;
@@ -1193,7 +1400,7 @@ public final class Message {
           case 120: return KB_LOWERCASE_X;
           case 121: return KB_LOWERCASE_Y;
           case 122: return KB_LOWERCASE_Z;
-          case 123: return KB_OPENNING_CURLY_BRACKET;
+          case 123: return KB_OPENING_CURLY_BRACKET;
           case 124: return KB_PIPE;
           case 125: return KB_CLOSING_CURLY_BRACKET;
           default: return null;
@@ -4365,67 +4572,78 @@ public final class Message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\nnetwork_io\"\231\017\n\007Request\022" +
+      "\n\rmessage.proto\022\nnetwork_io\"\337\022\n\007Request\022" +
       "&\n\004type\030\001 \002(\0162\030.network_io.Request.Type\022" +
       "&\n\004code\030\002 \002(\0162\030.network_io.Request.Code\022" +
       "+\n\textraCode\030\003 \002(\0162\030.network_io.Request." +
       "Code\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intParam\030" +
       "\005 \001(\005\022\023\n\013stringParam\030\006 \001(\t\"K\n\004Type\022\n\n\006SI" +
       "MPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI" +
-      "\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\205\r\n\004Code\022\010\n\004NONE" +
+      "\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\313\020\n\004Code\022\010\n\004NONE" +
       "\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OF" +
-      "F\020\004\022\t\n\005HELLO\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020",
-      "\007\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LO" +
-      "CK\020\n\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r\022\t\n\005RIGH" +
-      "T\020\016\022\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\021\n\rGET_FILE_LIST\020" +
-      "\024\022\r\n\tOPEN_FILE\020\025\022\024\n\020MEDIA_PLAY_PAUSE\020\036\022\016" +
-      "\n\nMEDIA_STOP\020\037\022\022\n\016MEDIA_PREVIOUS\020 \022\016\n\nME" +
-      "DIA_NEXT\020!\022\014\n\010MEDIA_FF\020\"\022\020\n\014MEDIA_REWIND" +
-      "\020#\022\013\n\007KB_CTRL\020(\022\014\n\010KB_SHIFT\020)\022\n\n\006KB_ALT\020" +
-      "*\022\014\n\010KB_ALTGR\020+\022\016\n\nKB_WINDOWS\020,\022\r\n\tKB_RE" +
-      "TURN\020-\022\014\n\010KB_SPACE\020.\022\020\n\014KB_BACKSPACE\020/\022\r" +
-      "\n\tKB_ESCAPE\0200\022\n\n\006KB_TAB\0201\022\t\n\005KB_F4\0202\022\022\n\016",
-      "GOM_PLAYER_RUN\020<\022\023\n\017GOM_PLAYER_KILL\020=\022\026\n" +
-      "\022GOM_PLAYER_STRETCH\020>\022\022\n\016KB_UPPERCASE_A\020" +
-      "A\022\022\n\016KB_UPPERCASE_B\020B\022\022\n\016KB_UPPERCASE_C\020" +
-      "C\022\022\n\016KB_UPPERCASE_D\020D\022\022\n\016KB_UPPERCASE_E\020" +
-      "E\022\022\n\016KB_UPPERCASE_F\020F\022\022\n\016KB_UPPERCASE_G\020" +
-      "G\022\022\n\016KB_UPPERCASE_H\020H\022\022\n\016KB_UPPERCASE_I\020" +
-      "I\022\022\n\016KB_UPPERCASE_J\020J\022\022\n\016KB_UPPERCASE_K\020" +
-      "K\022\022\n\016KB_UPPERCASE_L\020L\022\022\n\016KB_UPPERCASE_M\020" +
-      "M\022\022\n\016KB_UPPERCASE_N\020N\022\022\n\016KB_UPPERCASE_O\020" +
-      "O\022\022\n\016KB_UPPERCASE_P\020P\022\022\n\016KB_UPPERCASE_Q\020",
-      "Q\022\022\n\016KB_UPPERCASE_R\020R\022\022\n\016KB_UPPERCASE_S\020" +
-      "S\022\022\n\016KB_UPPERCASE_T\020T\022\022\n\016KB_UPPERCASE_U\020" +
-      "U\022\022\n\016KB_UPPERCASE_V\020V\022\022\n\016KB_UPPERCASE_W\020" +
-      "W\022\022\n\016KB_UPPERCASE_X\020X\022\022\n\016KB_UPPERCASE_Y\020" +
-      "Y\022\022\n\016KB_UPPERCASE_Z\020Z\022\022\n\016KB_LOWERCASE_A\020" +
-      "a\022\022\n\016KB_LOWERCASE_B\020b\022\022\n\016KB_LOWERCASE_C\020" +
-      "c\022\022\n\016KB_LOWERCASE_D\020d\022\022\n\016KB_LOWERCASE_E\020" +
-      "e\022\022\n\016KB_LOWERCASE_F\020f\022\022\n\016KB_LOWERCASE_G\020" +
-      "g\022\022\n\016KB_LOWERCASE_H\020h\022\022\n\016KB_LOWERCASE_I\020" +
-      "i\022\022\n\016KB_LOWERCASE_J\020j\022\022\n\016KB_LOWERCASE_K\020",
-      "k\022\022\n\016KB_LOWERCASE_L\020l\022\022\n\016KB_LOWERCASE_M\020" +
-      "m\022\022\n\016KB_LOWERCASE_N\020n\022\022\n\016KB_LOWERCASE_O\020" +
-      "o\022\022\n\016KB_LOWERCASE_P\020p\022\022\n\016KB_LOWERCASE_Q\020" +
-      "q\022\022\n\016KB_LOWERCASE_R\020r\022\022\n\016KB_LOWERCASE_S\020" +
-      "s\022\022\n\016KB_LOWERCASE_T\020t\022\022\n\016KB_LOWERCASE_U\020" +
-      "u\022\022\n\016KB_LOWERCASE_V\020v\022\022\n\016KB_LOWERCASE_W\020" +
-      "w\022\022\n\016KB_LOWERCASE_X\020x\022\022\n\016KB_LOWERCASE_Y\020" +
-      "y\022\022\n\016KB_LOWERCASE_Z\020z\022\035\n\031KB_OPENNING_CUR" +
-      "LY_BRACKET\020{\022\013\n\007KB_PIPE\020|\022\034\n\030KB_CLOSING_" +
-      "CURLY_BRACKET\020}\"~\n\010FileInfo\022\030\n\020absoluteF",
-      "ilePath\030\001 \002(\t\022\020\n\010filename\030\002 \002(\t\022\023\n\013isDir" +
-      "ectory\030\003 \002(\010\022\014\n\004size\030\004 \002(\005\022#\n\005child\030\005 \003(" +
-      "\0132\024.network_io.FileInfo\"\232\002\n\010Response\022-\n\013" +
-      "requestType\030\001 \001(\0162\030.network_io.Request.T" +
-      "ype\022-\n\013requestCode\030\002 \001(\0162\030.network_io.Re" +
-      "quest.Code\022=\n\nreturnCode\030\003 \001(\0162\037.network" +
-      "_io.Response.ReturnCode:\010RC_ERROR\022\017\n\007mes" +
-      "sage\030\004 \001(\t\022\020\n\010intValue\030\005 \001(\005\022\"\n\004file\030\006 \001" +
-      "(\0132\024.network_io.FileInfo\"*\n\nReturnCode\022\016" +
-      "\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B\"\n\027org.es.u",
-      "remote.exchangeB\007Message"
+      "F\020\004\022\010\n\004PING\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007",
+      "\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOC" +
+      "K\020\n\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r\022\t\n\005RIGHT" +
+      "\020\016\022\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\017\n\013QUERY_ROOTS\020\021\022\022" +
+      "\n\016QUERY_CHILDREN\020\022\022\031\n\025OPEN_FILE_SERVER_S" +
+      "IDE\020\023\022\031\n\025OPEN_FILE_CLIENT_SIDE\020\024\022\024\n\020MEDI" +
+      "A_PLAY_PAUSE\020\025\022\016\n\nMEDIA_STOP\020\026\022\022\n\016MEDIA_" +
+      "PREVIOUS\020\027\022\016\n\nMEDIA_NEXT\020\030\022\014\n\010MEDIA_FF\020\031" +
+      "\022\020\n\014MEDIA_REWIND\020\032\022\022\n\016GOM_PLAYER_RUN\020\033\022\023" +
+      "\n\017GOM_PLAYER_KILL\020\034\022\026\n\022GOM_PLAYER_STRETC" +
+      "H\020\035\022\013\n\007KB_CTRL\020\036\022\014\n\010KB_SHIFT\020\037\022\n\n\006KB_ALT",
+      "\020 \022\014\n\010KB_ALTGR\020!\022\016\n\nKB_WINDOWS\020\"\022\014\n\010KB_E" +
+      "NTER\020#\022\014\n\010KB_SPACE\020$\022\020\n\014KB_BACKSPACE\020%\022\r" +
+      "\n\tKB_ESCAPE\020&\022\n\n\006KB_TAB\020\'\022\t\n\005KB_F4\020(\022\017\n\013" +
+      "KB_NUMBER_0\0200\022\017\n\013KB_NUMBER_1\0201\022\017\n\013KB_NUM" +
+      "BER_2\0202\022\017\n\013KB_NUMBER_3\0203\022\017\n\013KB_NUMBER_4\020" +
+      "4\022\017\n\013KB_NUMBER_5\0205\022\017\n\013KB_NUMBER_6\0206\022\017\n\013K" +
+      "B_NUMBER_7\0207\022\017\n\013KB_NUMBER_8\0208\022\017\n\013KB_NUMB" +
+      "ER_9\0209\022\014\n\010KB_COLON\020:\022\021\n\rKB_SEMI_COLON\020;\022" +
+      "\034\n\030KB_OPENING_ANGLE_BRACKET\020<\022\014\n\010KB_EQUA" +
+      "L\020=\022\034\n\030KB_CLOSIGN_ANGLE_BRACKET\020>\022\024\n\020KB_",
+      "QUESTION_MARK\020?\022\016\n\nKB_AT_SIGN\020@\022\022\n\016KB_UP" +
+      "PERCASE_A\020A\022\022\n\016KB_UPPERCASE_B\020B\022\022\n\016KB_UP" +
+      "PERCASE_C\020C\022\022\n\016KB_UPPERCASE_D\020D\022\022\n\016KB_UP" +
+      "PERCASE_E\020E\022\022\n\016KB_UPPERCASE_F\020F\022\022\n\016KB_UP" +
+      "PERCASE_G\020G\022\022\n\016KB_UPPERCASE_H\020H\022\022\n\016KB_UP" +
+      "PERCASE_I\020I\022\022\n\016KB_UPPERCASE_J\020J\022\022\n\016KB_UP" +
+      "PERCASE_K\020K\022\022\n\016KB_UPPERCASE_L\020L\022\022\n\016KB_UP" +
+      "PERCASE_M\020M\022\022\n\016KB_UPPERCASE_N\020N\022\022\n\016KB_UP" +
+      "PERCASE_O\020O\022\022\n\016KB_UPPERCASE_P\020P\022\022\n\016KB_UP" +
+      "PERCASE_Q\020Q\022\022\n\016KB_UPPERCASE_R\020R\022\022\n\016KB_UP",
+      "PERCASE_S\020S\022\022\n\016KB_UPPERCASE_T\020T\022\022\n\016KB_UP" +
+      "PERCASE_U\020U\022\022\n\016KB_UPPERCASE_V\020V\022\022\n\016KB_UP" +
+      "PERCASE_W\020W\022\022\n\016KB_UPPERCASE_X\020X\022\022\n\016KB_UP" +
+      "PERCASE_Y\020Y\022\022\n\016KB_UPPERCASE_Z\020Z\022\026\n\022KB_OP" +
+      "ENING_BRACKET\020[\022\020\n\014KB_BACKSLASH\020\\\022\026\n\022KB_" +
+      "CLOSING_BRACKET\020]\022\021\n\rKB_UNDERSCORE\020_\022\022\n\016" +
+      "KB_LOWERCASE_A\020a\022\022\n\016KB_LOWERCASE_B\020b\022\022\n\016" +
+      "KB_LOWERCASE_C\020c\022\022\n\016KB_LOWERCASE_D\020d\022\022\n\016" +
+      "KB_LOWERCASE_E\020e\022\022\n\016KB_LOWERCASE_F\020f\022\022\n\016" +
+      "KB_LOWERCASE_G\020g\022\022\n\016KB_LOWERCASE_H\020h\022\022\n\016",
+      "KB_LOWERCASE_I\020i\022\022\n\016KB_LOWERCASE_J\020j\022\022\n\016" +
+      "KB_LOWERCASE_K\020k\022\022\n\016KB_LOWERCASE_L\020l\022\022\n\016" +
+      "KB_LOWERCASE_M\020m\022\022\n\016KB_LOWERCASE_N\020n\022\022\n\016" +
+      "KB_LOWERCASE_O\020o\022\022\n\016KB_LOWERCASE_P\020p\022\022\n\016" +
+      "KB_LOWERCASE_Q\020q\022\022\n\016KB_LOWERCASE_R\020r\022\022\n\016" +
+      "KB_LOWERCASE_S\020s\022\022\n\016KB_LOWERCASE_T\020t\022\022\n\016" +
+      "KB_LOWERCASE_U\020u\022\022\n\016KB_LOWERCASE_V\020v\022\022\n\016" +
+      "KB_LOWERCASE_W\020w\022\022\n\016KB_LOWERCASE_X\020x\022\022\n\016" +
+      "KB_LOWERCASE_Y\020y\022\022\n\016KB_LOWERCASE_Z\020z\022\034\n\030" +
+      "KB_OPENING_CURLY_BRACKET\020{\022\013\n\007KB_PIPE\020|\022",
+      "\034\n\030KB_CLOSING_CURLY_BRACKET\020}\"~\n\010FileInf" +
+      "o\022\030\n\020absoluteFilePath\030\001 \002(\t\022\020\n\010filename\030" +
+      "\002 \002(\t\022\023\n\013isDirectory\030\003 \002(\010\022\014\n\004size\030\004 \002(\005" +
+      "\022#\n\005child\030\005 \003(\0132\024.network_io.FileInfo\"\232\002" +
+      "\n\010Response\022-\n\013requestType\030\001 \001(\0162\030.networ" +
+      "k_io.Request.Type\022-\n\013requestCode\030\002 \001(\0162\030" +
+      ".network_io.Request.Code\022=\n\nreturnCode\030\003" +
+      " \001(\0162\037.network_io.Response.ReturnCode:\010R" +
+      "C_ERROR\022\017\n\007message\030\004 \001(\t\022\020\n\010intValue\030\005 \001" +
+      "(\005\022\"\n\004file\030\006 \001(\0132\024.network_io.FileInfo\"*",
+      "\n\nReturnCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR" +
+      "\020\001B\"\n\027org.es.uremote.exchangeB\007Message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {

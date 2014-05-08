@@ -177,7 +177,7 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 				break;
 
 			case R.id.kbEnter:
-				sendRequest(KEYBOARD, Code.KB_RETURN, extraCode);
+				sendRequest(KEYBOARD, Code.KB_ENTER, extraCode);
 				break;
 
 			case R.id.kbSpace:

@@ -178,7 +178,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
      */
     protected void initServer(final ServerSetting selectedServer) {
         mSelectedServer = selectedServer;
-        sendAsyncRequest(SIMPLE, Code.HELLO);
+        sendAsyncRequest(SIMPLE, Code.PING);
         ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
 
     }

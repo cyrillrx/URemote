@@ -160,7 +160,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				break;
 
 			case R.id.kbOk:
-				sendRequest(KEYBOARD, Code.KB_RETURN);
+				sendRequest(KEYBOARD, Code.KB_ENTER);
 				break;
 
 			case R.id.cmdTest:

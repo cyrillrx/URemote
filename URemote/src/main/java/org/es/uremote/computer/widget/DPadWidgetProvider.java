@@ -138,7 +138,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 
             case ACTION_OK:
                 Toast.makeText(context, "OK", LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KB_RETURN);
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KB_ENTER);
                 break;
 
             case ACTION_LEFT:

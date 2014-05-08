@@ -18,7 +18,6 @@ import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
-import static org.es.uremote.exchange.Message.Request.Code.NONE;
 import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 
 /**
@@ -71,8 +70,8 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			MessageUtils.buildRequest(
                     getSecurityToken(),
                     Type.EXPLORER,
-                    Code.OPEN_FILE,
-                    NONE,
+                    Code.OPEN_FILE_SERVER_SIDE,
+                    Code.NONE,
                     filename);
 
 		} catch (Exception e) {
@@ -91,7 +90,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	@Override
 	protected void navigateTo(String dirPath) {
 		if (dirPath != null) {
-			sendRequest(MessageUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.GET_FILE_LIST, NONE, dirPath));
+			sendRequest(MessageUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.QUERY_CHILDREN, Code.NONE, dirPath));
 		} else {
             Toast.makeText(getActivity(), R.string.msg_no_path_defined, Toast.LENGTH_SHORT).show();
         }
