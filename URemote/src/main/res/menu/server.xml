@@ -8,7 +8,7 @@
         android:title="@string/menu_server_list" />
     <item
         android:id="@+id/server_keyboard"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_menu_keyboard"
         android:showAsAction="ifRoom"
         android:title="@string/menu_keyboard" />
 
