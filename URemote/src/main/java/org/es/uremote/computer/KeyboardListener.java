@@ -2,6 +2,7 @@ package org.es.uremote.computer;
 
 import android.inputmethodservice.KeyboardView;
 import android.view.HapticFeedbackConstants;
+import android.view.KeyEvent;
 import android.view.View;
 
 import org.es.uremote.exchange.Message;
@@ -10,7 +11,9 @@ import org.es.uremote.exchange.Message;
  * @author Cyril Leroux
  *         Created 01/05/2014.
  */
-public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
+public class KeyboardListener implements KeyboardView.OnKeyListener {
+
+    private static final int NO_FLAG = 0;
 
     private View mHapticFeedbackView;
 
@@ -25,175 +28,252 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
     }
 
     @Override
-    public void onPress(int primaryCode) {
+    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
 
-        performHapticFeedback();
+        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
 
-        switch (primaryCode) {
+        int extraCodes = getExtraCodes(keyEvent);
+        switch (keyCode) {
 
             // Special Keys
 
-            case Message.Request.Code.KB_CTRL_VALUE:
-                break;
+            case KeyEvent.KEYCODE_CTRL_LEFT:
+            case KeyEvent.KEYCODE_CTRL_RIGHT:
+                sendKey(Message.Request.Code.KEYCODE_CTRL, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_ALT_VALUE:
-                break;
+            case KeyEvent.KEYCODE_ALT_LEFT:
+                sendKey(Message.Request.Code.KEYCODE_ALT_LEFT, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_SHIFT_VALUE:
-                break;
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+                sendKey(Message.Request.Code.KEYCODE_ALT_RIGHT, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_WINDOWS_VALUE:
-                break;
+            case KeyEvent.KEYCODE_SHIFT_LEFT:
+            case KeyEvent.KEYCODE_SHIFT_RIGHT:
+                sendKey(Message.Request.Code.KEYCODE_SHIFT, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_ENTER_VALUE:
-                break;
+            case KeyEvent.KEYCODE_HOME:
+                sendKey(Message.Request.Code.KEYCODE_WINDOWS, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_SPACE_VALUE:
-                break;
+            case KeyEvent.KEYCODE_ENTER:
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                sendKey(Message.Request.Code.KEYCODE_ENTER, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_BACKSPACE_VALUE:
-                break;
+            case KeyEvent.KEYCODE_SPACE:
+                sendKey(Message.Request.Code.KEYCODE_SPACE, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_ESCAPE_VALUE:
-                break;
+            case KeyEvent.KEYCODE_DEL:
+                sendKey(Message.Request.Code.KEYCODE_BACKSPACE, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_FORWARD_DEL:
+                sendKey(Message.Request.Code.KEYCODE_DELETE, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_ESCAPE:
+                sendKey(Message.Request.Code.KEYCODE_ESCAPE, extraCodes);
+                return true;
 
             // D-pad keys
 
-            case Message.Request.Code.LEFT_VALUE:
-                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                sendKey(Message.Request.Code.DPAD_LEFT, extraCodes);
+                return true;
 
-            case Message.Request.Code.UP_VALUE:
-                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+                sendKey(Message.Request.Code.DPAD_UP, extraCodes);
+                return true;
 
-            case Message.Request.Code.RIGHT_VALUE:
-                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                sendKey(Message.Request.Code.DPAD_RIGHT, extraCodes);
+                return true;
 
-            case Message.Request.Code.DOWN_VALUE:
-                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                sendKey(Message.Request.Code.DPAD_DOWN, extraCodes);
+                return true;
 
             // Combination
-//
-//            case ExchangeMessages.Request.Code.ALTLEFT_VALUE:
-//                break;
+            //
+            //            case ExchangeMessages.Request.Code.ALTLEFT_VALUE:
+            //                return true;
 
-//            <!-- Combination -->
-//            <string translatable="false" name="code_alt_f4">1</string>
-//            <string translatable="false" name="code_ctrl_enter">1</string>
-//
-//            <!-- Other keys -->
+            //            <!-- Combination -->
+            //            <string translatable="false" name="code_alt_f4">1</string>
+            //            <string translatable="false" name="code_ctrl_enter">1</string>
+            //
+            // Number keys
 
-            case Message.Request.Code.KB_LOWERCASE_A_VALUE:
-                break;
+            case KeyEvent.KEYCODE_0:
+                sendKey(Message.Request.Code.KEYCODE_0, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_B_VALUE:
-                break;
+            case KeyEvent.KEYCODE_1:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_C_VALUE:
-                break;
+            case KeyEvent.KEYCODE_2:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_D_VALUE:
-                break;
+            case KeyEvent.KEYCODE_3:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_E_VALUE:
-                break;
+            case KeyEvent.KEYCODE_4:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_F_VALUE:
-                break;
+            case KeyEvent.KEYCODE_5:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_G_VALUE:
-                break;
+            case KeyEvent.KEYCODE_6:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_H_VALUE:
-                break;
+            case KeyEvent.KEYCODE_7:
+                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_I_VALUE:
-                break;
+            // Letter keys
 
-            case Message.Request.Code.KB_LOWERCASE_J_VALUE:
-                break;
+            case KeyEvent.KEYCODE_A:
+                sendKey(Message.Request.Code.KEYCODE_A, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_K_VALUE:
-                break;
+            case KeyEvent.KEYCODE_B:
+                sendKey(Message.Request.Code.KEYCODE_B, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_L_VALUE:
-                break;
+            case KeyEvent.KEYCODE_C:
+                sendKey(Message.Request.Code.KEYCODE_C, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_M_VALUE:
-                break;
+            case KeyEvent.KEYCODE_D:
+                sendKey(Message.Request.Code.KEYCODE_D, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_N_VALUE:
-                break;
+            case KeyEvent.KEYCODE_E:
+                sendKey(Message.Request.Code.KEYCODE_E, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_O_VALUE:
-                break;
+            case KeyEvent.KEYCODE_F:
+                sendKey(Message.Request.Code.KEYCODE_F, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_P_VALUE:
-                break;
+            case KeyEvent.KEYCODE_G:
+                sendKey(Message.Request.Code.KEYCODE_G, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_Q_VALUE:
-                break;
+            case KeyEvent.KEYCODE_H:
+                sendKey(Message.Request.Code.KEYCODE_H, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_R_VALUE:
-                break;
+            case KeyEvent.KEYCODE_I:
+                sendKey(Message.Request.Code.KEYCODE_I, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_S_VALUE:
-                break;
+            case KeyEvent.KEYCODE_J:
+                sendKey(Message.Request.Code.KEYCODE_J, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_T_VALUE:
-                break;
+            case KeyEvent.KEYCODE_K:
+                sendKey(Message.Request.Code.KEYCODE_K, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_U_VALUE:
-                break;
+            case KeyEvent.KEYCODE_L:
+                sendKey(Message.Request.Code.KEYCODE_L, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_V_VALUE:
-                break;
+            case KeyEvent.KEYCODE_M:
+                sendKey(Message.Request.Code.KEYCODE_M, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_W_VALUE:
-                break;
+            case KeyEvent.KEYCODE_N:
+                sendKey(Message.Request.Code.KEYCODE_N, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_X_VALUE:
-                break;
+            case KeyEvent.KEYCODE_O:
+                sendKey(Message.Request.Code.KEYCODE_O, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_Y_VALUE:
-                break;
+            case KeyEvent.KEYCODE_P:
+                sendKey(Message.Request.Code.KEYCODE_P, extraCodes);
+                return true;
 
-            case Message.Request.Code.KB_LOWERCASE_Z_VALUE:
-                break;
+            case KeyEvent.KEYCODE_Q:
+                sendKey(Message.Request.Code.KEYCODE_Q, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_R:
+                sendKey(Message.Request.Code.KEYCODE_R, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_S:
+                sendKey(Message.Request.Code.KEYCODE_S, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_T:
+                sendKey(Message.Request.Code.KEYCODE_T, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_U:
+                sendKey(Message.Request.Code.KEYCODE_U, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_V:
+                sendKey(Message.Request.Code.KEYCODE_V, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_W:
+                sendKey(Message.Request.Code.KEYCODE_W, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_X:
+                sendKey(Message.Request.Code.KEYCODE_X, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_Y:
+                sendKey(Message.Request.Code.KEYCODE_Y, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_Z:
+                sendKey(Message.Request.Code.KEYCODE_Z, extraCodes);
+                return true;
+
         }
+
+        return false;
     }
 
-    @Override
-    public void onRelease(int primaryCode) {
-
+    /**
+     * Modifier
+     * ----------
+     * True if the key code is one of
+     * - KEYCODE_SHIFT_LEFT,
+     * - KEYCODE_SHIFT_RIGHT,
+     * - KEYCODE_ALT_LEFT,
+     * - KEYCODE_ALT_RIGHT,
+     * - KEYCODE_CTRL_LEFT,
+     * - KEYCODE_CTRL_RIGHT,
+     * - KEYCODE_META_LEFT,
+     * - KEYCODE_META_RIGHT,
+     * - KEYCODE_SYM,
+     * - KEYCODE_NUM,
+     * - KEYCODE_FUNCTION.
+     */
+    private int getExtraCodes(KeyEvent keyEvent) {
+        // TODO get the extra codes from keyEvent parameter
+        return NO_FLAG;
     }
 
-    @Override
-    public void onKey(int primaryCode, int[] keyCodes) {
-
-    }
-
-    @Override
-    public void onText(CharSequence text) {
-
-    }
-
-    @Override
-    public void swipeLeft() {
-
-    }
-
-    @Override
-    public void swipeRight() {
-
-    }
-
-    @Override
-    public void swipeDown() {
-
-    }
-
-    @Override
-    public void swipeUp() {
-
+    private void sendKey(Message.Request.Code primaryCode, int extraCodes) {
+        // TODO send request
     }
 }
