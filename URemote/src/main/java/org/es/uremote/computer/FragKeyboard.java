@@ -177,23 +177,23 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 				break;
 
 			case R.id.kbEnter:
-				sendRequest(KEYBOARD, Code.KB_ENTER, extraCode);
+				sendRequest(KEYBOARD, Code.KEYCODE_ENTER, extraCode);
 				break;
 
 			case R.id.kbSpace:
-				sendRequest(KEYBOARD, Code.KB_SPACE, extraCode);
+				sendRequest(KEYBOARD, Code.KEYCODE_SPACE, extraCode);
 				break;
 
 			case R.id.kbBackspace:
-				sendRequest(KEYBOARD, Code.KB_BACKSPACE, extraCode);
+				sendRequest(KEYBOARD, Code.KEYCODE_BACKSPACE, extraCode);
 				break;
 
 			case R.id.kbEscape:
-				sendRequest(KEYBOARD, Code.KB_ESCAPE, extraCode);
+				sendRequest(KEYBOARD, Code.KEYCODE_ESCAPE, extraCode);
 				break;
 
 			case R.id.kbAltF4:
-				sendRequest(KEYBOARD, Code.KB_F4, Code.KB_ALT);
+				sendRequest(KEYBOARD, Code.KEYCODE_F4, Code.KEYCODE_ALT_LEFT);
 				break;
 
 			case R.id.kb0:
@@ -315,13 +315,13 @@ public class FragKeyboard extends Fragment implements OnClickListener, RequestSe
 
 	private Code getExtraCode(View view) {
 		if (mTbControl.isChecked()) {
-			return Code.KB_CTRL;
+			return Code.KEYCODE_CTRL;
 		} else if (mTbAlt.isChecked()) {
-			return Code.KB_ALT;
+			return Code.KEYCODE_ALT_LEFT;
 		} else if (mTbShift.isChecked()) {
-			return Code.KB_SHIFT;
+			return Code.KEYCODE_SHIFT;
 		} else if (mTbWindows.isChecked()) {
-			return Code.KB_WINDOWS;
+			return Code.KEYCODE_WINDOWS;
 		}
 		return Code.NONE;
 	}

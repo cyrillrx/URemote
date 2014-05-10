@@ -70,7 +70,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			MessageUtils.buildRequest(
                     getSecurityToken(),
                     Type.EXPLORER,
-                    Code.OPEN_FILE_SERVER_SIDE,
+                    Code.OPEN_SERVER_SIDE,
                     Code.NONE,
                     filename);
 

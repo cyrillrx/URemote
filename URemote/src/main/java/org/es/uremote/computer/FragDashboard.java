@@ -144,23 +144,23 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 		switch (_view.getId()) {
 
 			case R.id.kbLeft:
-				sendRequest(KEYBOARD, Code.LEFT);
+				sendRequest(KEYBOARD, Code.DPAD_LEFT);
 				break;
 
 			case R.id.kbRight:
-				sendRequest(KEYBOARD, Code.RIGHT);
+				sendRequest(KEYBOARD, Code.DPAD_RIGHT);
 				break;
 
 			case R.id.kbUp:
-				sendRequest(KEYBOARD, Code.UP);
+				sendRequest(KEYBOARD, Code.DPAD_UP);
 				break;
 
 			case R.id.kbDown:
-				sendRequest(KEYBOARD, Code.DOWN);
+				sendRequest(KEYBOARD, Code.DPAD_DOWN);
 				break;
 
 			case R.id.kbOk:
-				sendRequest(KEYBOARD, Code.KB_ENTER);
+				sendRequest(KEYBOARD, Code.KEYCODE_ENTER);
 				break;
 
 			case R.id.cmdTest:
@@ -181,7 +181,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				break;
 
 			case R.id.cmdGomStretch:
-				sendRequest(Type.APP, Code.GOM_PLAYER_STRETCH);
+				sendRequest(Type.APP, Code.KEYCODE_0);
 				break;
 
 			case R.id.cmdPrevious:

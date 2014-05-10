@@ -35,6 +35,7 @@ import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.exchange.Message.Response.ReturnCode;
 import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
@@ -53,11 +54,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.uremote.exchange.Message.Request.Code.DOWN;
-import static org.es.uremote.exchange.Message.Request.Code.UP;
-import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
-import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
-import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
@@ -105,12 +101,12 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
         mKeyboardView.setKeyboard(keyboard);
         mKeyboardView.setPreviewEnabled(false);
-        mKeyboardView.setOnKeyboardActionListener(keyboardListener);
+        mKeyboardView.setOnKeyListener(keyboardListener);
 
         final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
         mExtendedKeyboardView.setKeyboard(extendedKeyboard);
         mExtendedKeyboardView.setPreviewEnabled(false);
-        mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
+        mExtendedKeyboardView.setOnKeyListener(keyboardListener);
 
         // Server info default value.
         ((TextView) findViewById(R.id.tvServerInfos)).setText(R.string.no_server_configured);
@@ -178,7 +174,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
      */
     protected void initServer(final ServerSetting selectedServer) {
         mSelectedServer = selectedServer;
-        sendAsyncRequest(SIMPLE, Code.PING);
+        sendAsyncRequest(Type.SIMPLE, Code.PING);
         ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
 
     }
@@ -197,11 +193,11 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KEYCODE_VOLUME_UP) {
-            sendAsyncRequest(VOLUME, UP);
+            sendAsyncRequest(Type.VOLUME, Code.DPAD_UP);
             return true;
 
         } else if (keyCode == KEYCODE_VOLUME_DOWN) {
-            sendAsyncRequest(VOLUME, DOWN);
+            sendAsyncRequest(Type.VOLUME, Code.DPAD_DOWN);
             return true;
 
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -346,7 +342,7 @@ public class Computer extends FragmentActivity implements OnPageChangeListener, 
 
     @Override
     public void onPostExecute(Response response) {
-        if (RC_ERROR.equals(response.getReturnCode())) {
+        if (ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
             updateConnectionState(STATE_KO);
         } else {
             updateConnectionState(STATE_OK);

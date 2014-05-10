@@ -26,19 +26,19 @@ public class MessageUtils {
 	 * @param type The request type.
 	 * @param code The request code.
 	 * @param extraCode The request extra code.
-	 * @param intParam An integer parameter.
-	 * @param stringParam A string parameter.
+	 * @param intExtra An integer parameter.
+	 * @param stringExtra A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	private static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final int intParam, final String stringParam) {
+	private static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final int intExtra, final String stringExtra) {
 
 		Request request = Request.newBuilder()
 				.setSecurityToken(securityToken)
 				.setType(type)
 				.setCode(code)
 				.setExtraCode(extraCode)
-				.setIntParam(intParam)
-				.setStringParam(stringParam)
+				.setIntExtra(intExtra)
+				.setStringExtra(stringExtra)
 				.build();
 
 		if (request.isInitialized()) {
@@ -53,11 +53,11 @@ public class MessageUtils {
 	 * @param securityToken The security token that identify the user.
 	 * @param type The request type.
 	 * @param code The request code.
-	 * @param intParam An integer parameter.
+	 * @param intExtra An integer parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(final String securityToken, final Type type, final Code code, final int intParam) {
-		return buildRequest(securityToken, type, code, NONE, intParam, "");
+	public static Request buildRequest(final String securityToken, final Type type, final Code code, final int intExtra) {
+		return buildRequest(securityToken, type, code, NONE, intExtra, "");
 	}
 
 	/**
@@ -67,11 +67,11 @@ public class MessageUtils {
 	 * @param type The request type.
 	 * @param code The request code.
 	 * @param extraCode The request extra code.
-	 * @param stringParam A string parameter.
+	 * @param stringExtra A string parameter.
 	 * @return The request if it had been initialized. Return null otherwise.
 	 */
-	public static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final String stringParam) {
-		return buildRequest(securityToken, type, code, extraCode, 0, stringParam);
+	public static Request buildRequest(final String securityToken, final Type type, final Code code, final Code extraCode, final String stringExtra) {
+		return buildRequest(securityToken, type, code, extraCode, 0, stringExtra);
 	}
 
 	/**

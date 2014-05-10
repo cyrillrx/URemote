@@ -56,30 +56,30 @@ public final class Message {
     com.google.protobuf.ByteString
         getSecurityTokenBytes();
 
-    // optional int32 intParam = 5;
+    // optional int32 intExtra = 5;
     /**
-     * <code>optional int32 intParam = 5;</code>
+     * <code>optional int32 intExtra = 5;</code>
      */
-    boolean hasIntParam();
+    boolean hasIntExtra();
     /**
-     * <code>optional int32 intParam = 5;</code>
+     * <code>optional int32 intExtra = 5;</code>
      */
-    int getIntParam();
+    int getIntExtra();
 
-    // optional string stringParam = 6;
+    // optional string stringExtra = 6;
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
-    boolean hasStringParam();
+    boolean hasStringExtra();
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
-    java.lang.String getStringParam();
+    java.lang.String getStringExtra();
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
     com.google.protobuf.ByteString
-        getStringParamBytes();
+        getStringExtraBytes();
   }
   /**
    * Protobuf type {@code network_io.Request}
@@ -172,12 +172,12 @@ public final class Message {
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              intParam_ = input.readInt32();
+              intExtra_ = input.readInt32();
               break;
             }
             case 50: {
               bitField0_ |= 0x00000020;
-              stringParam_ = input.readBytes();
+              stringExtra_ = input.readBytes();
               break;
             }
           }
@@ -387,429 +387,481 @@ public final class Message {
        */
       LOCK(10, 10),
       /**
-       * <code>UP = 11;</code>
+       * <code>MUTE = 11;</code>
        */
-      UP(11, 11),
+      MUTE(11, 11),
       /**
-       * <code>DOWN = 12;</code>
+       * <code>SAY = 12;</code>
        */
-      DOWN(12, 12),
+      SAY(12, 12),
       /**
-       * <code>LEFT = 13;</code>
+       * <code>DPAD_UP = 13;</code>
        */
-      LEFT(13, 13),
+      DPAD_UP(13, 13),
       /**
-       * <code>RIGHT = 14;</code>
+       * <code>DPAD_DOWN = 14;</code>
        */
-      RIGHT(14, 14),
+      DPAD_DOWN(14, 14),
       /**
-       * <code>MUTE = 15;</code>
+       * <code>DPAD_LEFT = 15;</code>
        */
-      MUTE(15, 15),
+      DPAD_LEFT(15, 15),
       /**
-       * <code>SAY = 16;</code>
+       * <code>DPAD_RIGHT = 16;</code>
        */
-      SAY(16, 16),
+      DPAD_RIGHT(16, 16),
       /**
-       * <code>QUERY_ROOTS = 17;</code>
+       * <code>MEDIA_PLAY_PAUSE = 20;</code>
        */
-      QUERY_ROOTS(17, 17),
+      MEDIA_PLAY_PAUSE(17, 20),
       /**
-       * <code>QUERY_CHILDREN = 18;</code>
+       * <code>MEDIA_STOP = 21;</code>
        */
-      QUERY_CHILDREN(18, 18),
+      MEDIA_STOP(18, 21),
       /**
-       * <code>OPEN_FILE_SERVER_SIDE = 19;</code>
+       * <code>MEDIA_PREVIOUS = 22;</code>
        */
-      OPEN_FILE_SERVER_SIDE(19, 19),
+      MEDIA_PREVIOUS(19, 22),
       /**
-       * <code>OPEN_FILE_CLIENT_SIDE = 20;</code>
+       * <code>MEDIA_NEXT = 23;</code>
        */
-      OPEN_FILE_CLIENT_SIDE(20, 20),
+      MEDIA_NEXT(20, 23),
       /**
-       * <code>MEDIA_PLAY_PAUSE = 21;</code>
+       * <code>MEDIA_FF = 24;</code>
        */
-      MEDIA_PLAY_PAUSE(21, 21),
+      MEDIA_FF(21, 24),
       /**
-       * <code>MEDIA_STOP = 22;</code>
+       * <code>MEDIA_REWIND = 25;</code>
        */
-      MEDIA_STOP(22, 22),
+      MEDIA_REWIND(22, 25),
       /**
-       * <code>MEDIA_PREVIOUS = 23;</code>
+       * <code>QUERY_ROOTS = 26;</code>
        */
-      MEDIA_PREVIOUS(23, 23),
+      QUERY_ROOTS(23, 26),
       /**
-       * <code>MEDIA_NEXT = 24;</code>
+       * <code>QUERY_CHILDREN = 27;</code>
        */
-      MEDIA_NEXT(24, 24),
+      QUERY_CHILDREN(24, 27),
       /**
-       * <code>MEDIA_FF = 25;</code>
+       * <code>OPEN_SERVER_SIDE = 28;</code>
        */
-      MEDIA_FF(25, 25),
+      OPEN_SERVER_SIDE(25, 28),
       /**
-       * <code>MEDIA_REWIND = 26;</code>
+       * <code>OPEN_CLIENT_SIDE = 29;</code>
        */
-      MEDIA_REWIND(26, 26),
+      OPEN_CLIENT_SIDE(26, 29),
       /**
-       * <code>GOM_PLAYER_RUN = 27;</code>
+       * <code>KEYCODE_CTRL = 30;</code>
        */
-      GOM_PLAYER_RUN(27, 27),
+      KEYCODE_CTRL(27, 30),
       /**
-       * <code>GOM_PLAYER_KILL = 28;</code>
+       * <code>KEYCODE_SHIFT = 31;</code>
        */
-      GOM_PLAYER_KILL(28, 28),
+      KEYCODE_SHIFT(28, 31),
       /**
-       * <code>GOM_PLAYER_STRETCH = 29;</code>
+       * <code>KEYCODE_ALT_LEFT = 32;</code>
        */
-      GOM_PLAYER_STRETCH(29, 29),
+      KEYCODE_ALT_LEFT(29, 32),
       /**
-       * <code>KB_CTRL = 30;</code>
+       * <code>KEYCODE_ALT_RIGHT = 33;</code>
        */
-      KB_CTRL(30, 30),
+      KEYCODE_ALT_RIGHT(30, 33),
       /**
-       * <code>KB_SHIFT = 31;</code>
+       * <code>KEYCODE_WINDOWS = 34;</code>
        */
-      KB_SHIFT(31, 31),
+      KEYCODE_WINDOWS(31, 34),
       /**
-       * <code>KB_ALT = 32;</code>
+       * <code>KEYCODE_ENTER = 40;</code>
        */
-      KB_ALT(32, 32),
+      KEYCODE_ENTER(32, 40),
       /**
-       * <code>KB_ALTGR = 33;</code>
+       * <code>KEYCODE_ESCAPE = 41;</code>
        */
-      KB_ALTGR(33, 33),
+      KEYCODE_ESCAPE(33, 41),
       /**
-       * <code>KB_WINDOWS = 34;</code>
+       * <code>KEYCODE_DELETE = 42;</code>
        */
-      KB_WINDOWS(34, 34),
+      KEYCODE_DELETE(34, 42),
       /**
-       * <code>KB_ENTER = 35;</code>
+       * <code>KEYCODE_SPACE = 43;</code>
        */
-      KB_ENTER(35, 35),
+      KEYCODE_SPACE(35, 43),
       /**
-       * <code>KB_SPACE = 36;</code>
+       * <code>KEYCODE_BACKSPACE = 44;</code>
        */
-      KB_SPACE(36, 36),
+      KEYCODE_BACKSPACE(36, 44),
       /**
-       * <code>KB_BACKSPACE = 37;</code>
+       * <code>KEYCODE_TAB = 45;</code>
        */
-      KB_BACKSPACE(37, 37),
+      KEYCODE_TAB(37, 45),
       /**
-       * <code>KB_ESCAPE = 38;</code>
+       * <code>KEYCODE_0 = 50;</code>
        */
-      KB_ESCAPE(38, 38),
+      KEYCODE_0(38, 50),
       /**
-       * <code>KB_TAB = 39;</code>
+       * <code>KEYCODE_1 = 51;</code>
        */
-      KB_TAB(39, 39),
+      KEYCODE_1(39, 51),
       /**
-       * <code>KB_F4 = 40;</code>
+       * <code>KEYCODE_2 = 52;</code>
        */
-      KB_F4(40, 40),
+      KEYCODE_2(40, 52),
       /**
-       * <code>KB_NUMBER_0 = 48;</code>
+       * <code>KEYCODE_3 = 53;</code>
        */
-      KB_NUMBER_0(41, 48),
+      KEYCODE_3(41, 53),
       /**
-       * <code>KB_NUMBER_1 = 49;</code>
+       * <code>KEYCODE_4 = 54;</code>
        */
-      KB_NUMBER_1(42, 49),
+      KEYCODE_4(42, 54),
       /**
-       * <code>KB_NUMBER_2 = 50;</code>
+       * <code>KEYCODE_5 = 55;</code>
        */
-      KB_NUMBER_2(43, 50),
+      KEYCODE_5(43, 55),
       /**
-       * <code>KB_NUMBER_3 = 51;</code>
+       * <code>KEYCODE_6 = 56;</code>
        */
-      KB_NUMBER_3(44, 51),
+      KEYCODE_6(44, 56),
       /**
-       * <code>KB_NUMBER_4 = 52;</code>
+       * <code>KEYCODE_7 = 57;</code>
        */
-      KB_NUMBER_4(45, 52),
+      KEYCODE_7(45, 57),
       /**
-       * <code>KB_NUMBER_5 = 53;</code>
+       * <code>KEYCODE_8 = 58;</code>
        */
-      KB_NUMBER_5(46, 53),
+      KEYCODE_8(46, 58),
       /**
-       * <code>KB_NUMBER_6 = 54;</code>
+       * <code>KEYCODE_9 = 59;</code>
        */
-      KB_NUMBER_6(47, 54),
+      KEYCODE_9(47, 59),
       /**
-       * <code>KB_NUMBER_7 = 55;</code>
+       * <code>KEYCODE_A = 60;</code>
        */
-      KB_NUMBER_7(48, 55),
+      KEYCODE_A(48, 60),
       /**
-       * <code>KB_NUMBER_8 = 56;</code>
+       * <code>KEYCODE_B = 61;</code>
        */
-      KB_NUMBER_8(49, 56),
+      KEYCODE_B(49, 61),
       /**
-       * <code>KB_NUMBER_9 = 57;</code>
+       * <code>KEYCODE_C = 62;</code>
        */
-      KB_NUMBER_9(50, 57),
+      KEYCODE_C(50, 62),
       /**
-       * <code>KB_COLON = 58;</code>
+       * <code>KEYCODE_D = 63;</code>
        */
-      KB_COLON(51, 58),
+      KEYCODE_D(51, 63),
       /**
-       * <code>KB_SEMI_COLON = 59;</code>
+       * <code>KEYCODE_E = 64;</code>
        */
-      KB_SEMI_COLON(52, 59),
+      KEYCODE_E(52, 64),
       /**
-       * <code>KB_OPENING_ANGLE_BRACKET = 60;</code>
+       * <code>KEYCODE_F = 65;</code>
        */
-      KB_OPENING_ANGLE_BRACKET(53, 60),
+      KEYCODE_F(53, 65),
       /**
-       * <code>KB_EQUAL = 61;</code>
+       * <code>KEYCODE_G = 66;</code>
        */
-      KB_EQUAL(54, 61),
+      KEYCODE_G(54, 66),
       /**
-       * <code>KB_CLOSIGN_ANGLE_BRACKET = 62;</code>
+       * <code>KEYCODE_H = 67;</code>
        */
-      KB_CLOSIGN_ANGLE_BRACKET(55, 62),
+      KEYCODE_H(55, 67),
       /**
-       * <code>KB_QUESTION_MARK = 63;</code>
+       * <code>KEYCODE_I = 68;</code>
        */
-      KB_QUESTION_MARK(56, 63),
+      KEYCODE_I(56, 68),
       /**
-       * <code>KB_AT_SIGN = 64;</code>
+       * <code>KEYCODE_J = 69;</code>
        */
-      KB_AT_SIGN(57, 64),
+      KEYCODE_J(57, 69),
       /**
-       * <code>KB_UPPERCASE_A = 65;</code>
+       * <code>KEYCODE_K = 70;</code>
        */
-      KB_UPPERCASE_A(58, 65),
+      KEYCODE_K(58, 70),
       /**
-       * <code>KB_UPPERCASE_B = 66;</code>
+       * <code>KEYCODE_L = 71;</code>
        */
-      KB_UPPERCASE_B(59, 66),
+      KEYCODE_L(59, 71),
       /**
-       * <code>KB_UPPERCASE_C = 67;</code>
+       * <code>KEYCODE_M = 72;</code>
        */
-      KB_UPPERCASE_C(60, 67),
+      KEYCODE_M(60, 72),
       /**
-       * <code>KB_UPPERCASE_D = 68;</code>
+       * <code>KEYCODE_N = 73;</code>
        */
-      KB_UPPERCASE_D(61, 68),
+      KEYCODE_N(61, 73),
       /**
-       * <code>KB_UPPERCASE_E = 69;</code>
+       * <code>KEYCODE_O = 74;</code>
        */
-      KB_UPPERCASE_E(62, 69),
+      KEYCODE_O(62, 74),
       /**
-       * <code>KB_UPPERCASE_F = 70;</code>
+       * <code>KEYCODE_P = 75;</code>
        */
-      KB_UPPERCASE_F(63, 70),
+      KEYCODE_P(63, 75),
       /**
-       * <code>KB_UPPERCASE_G = 71;</code>
+       * <code>KEYCODE_Q = 76;</code>
        */
-      KB_UPPERCASE_G(64, 71),
+      KEYCODE_Q(64, 76),
       /**
-       * <code>KB_UPPERCASE_H = 72;</code>
+       * <code>KEYCODE_R = 77;</code>
        */
-      KB_UPPERCASE_H(65, 72),
+      KEYCODE_R(65, 77),
       /**
-       * <code>KB_UPPERCASE_I = 73;</code>
+       * <code>KEYCODE_S = 78;</code>
        */
-      KB_UPPERCASE_I(66, 73),
+      KEYCODE_S(66, 78),
       /**
-       * <code>KB_UPPERCASE_J = 74;</code>
+       * <code>KEYCODE_T = 79;</code>
        */
-      KB_UPPERCASE_J(67, 74),
+      KEYCODE_T(67, 79),
       /**
-       * <code>KB_UPPERCASE_K = 75;</code>
+       * <code>KEYCODE_U = 80;</code>
        */
-      KB_UPPERCASE_K(68, 75),
+      KEYCODE_U(68, 80),
       /**
-       * <code>KB_UPPERCASE_L = 76;</code>
+       * <code>KEYCODE_V = 81;</code>
        */
-      KB_UPPERCASE_L(69, 76),
+      KEYCODE_V(69, 81),
       /**
-       * <code>KB_UPPERCASE_M = 77;</code>
+       * <code>KEYCODE_W = 82;</code>
        */
-      KB_UPPERCASE_M(70, 77),
+      KEYCODE_W(70, 82),
       /**
-       * <code>KB_UPPERCASE_N = 78;</code>
+       * <code>KEYCODE_X = 83;</code>
        */
-      KB_UPPERCASE_N(71, 78),
+      KEYCODE_X(71, 83),
       /**
-       * <code>KB_UPPERCASE_O = 79;</code>
+       * <code>KEYCODE_Y = 84;</code>
        */
-      KB_UPPERCASE_O(72, 79),
+      KEYCODE_Y(72, 84),
       /**
-       * <code>KB_UPPERCASE_P = 80;</code>
+       * <code>KEYCODE_Z = 85;</code>
        */
-      KB_UPPERCASE_P(73, 80),
+      KEYCODE_Z(73, 85),
       /**
-       * <code>KB_UPPERCASE_Q = 81;</code>
+       * <code>KEYCODE_F1 = 86;</code>
        */
-      KB_UPPERCASE_Q(74, 81),
+      KEYCODE_F1(74, 86),
       /**
-       * <code>KB_UPPERCASE_R = 82;</code>
+       * <code>KEYCODE_F2 = 87;</code>
        */
-      KB_UPPERCASE_R(75, 82),
+      KEYCODE_F2(75, 87),
       /**
-       * <code>KB_UPPERCASE_S = 83;</code>
+       * <code>KEYCODE_F3 = 88;</code>
        */
-      KB_UPPERCASE_S(76, 83),
+      KEYCODE_F3(76, 88),
       /**
-       * <code>KB_UPPERCASE_T = 84;</code>
+       * <code>KEYCODE_F4 = 89;</code>
        */
-      KB_UPPERCASE_T(77, 84),
+      KEYCODE_F4(77, 89),
       /**
-       * <code>KB_UPPERCASE_U = 85;</code>
+       * <code>KEYCODE_F5 = 90;</code>
        */
-      KB_UPPERCASE_U(78, 85),
+      KEYCODE_F5(78, 90),
       /**
-       * <code>KB_UPPERCASE_V = 86;</code>
+       * <code>KEYCODE_F6 = 91;</code>
        */
-      KB_UPPERCASE_V(79, 86),
+      KEYCODE_F6(79, 91),
       /**
-       * <code>KB_UPPERCASE_W = 87;</code>
+       * <code>KEYCODE_F7 = 92;</code>
        */
-      KB_UPPERCASE_W(80, 87),
+      KEYCODE_F7(80, 92),
       /**
-       * <code>KB_UPPERCASE_X = 88;</code>
+       * <code>KEYCODE_F8 = 93;</code>
        */
-      KB_UPPERCASE_X(81, 88),
+      KEYCODE_F8(81, 93),
       /**
-       * <code>KB_UPPERCASE_Y = 89;</code>
+       * <code>KEYCODE_F9 = 94;</code>
        */
-      KB_UPPERCASE_Y(82, 89),
+      KEYCODE_F9(82, 94),
       /**
-       * <code>KB_UPPERCASE_Z = 90;</code>
+       * <code>KEYCODE_F10 = 95;</code>
        */
-      KB_UPPERCASE_Z(83, 90),
+      KEYCODE_F10(83, 95),
       /**
-       * <code>KB_OPENING_BRACKET = 91;</code>
+       * <code>KEYCODE_F11 = 96;</code>
        */
-      KB_OPENING_BRACKET(84, 91),
+      KEYCODE_F11(84, 96),
       /**
-       * <code>KB_BACKSLASH = 92;</code>
+       * <code>KEYCODE_F12 = 97;</code>
        */
-      KB_BACKSLASH(85, 92),
+      KEYCODE_F12(85, 97),
       /**
-       * <code>KB_CLOSING_BRACKET = 93;</code>
+       * <code>KEYCODE_EQUALS = 100;</code>
+       *
+       * <pre>
+       * '='
+       * </pre>
        */
-      KB_CLOSING_BRACKET(86, 93),
+      KEYCODE_EQUALS(86, 100),
       /**
-       * <code>KB_UNDERSCORE = 95;</code>
+       * <code>KEYCODE_MINUS = 101;</code>
+       *
+       * <pre>
+       * '+'
+       * </pre>
        */
-      KB_UNDERSCORE(87, 95),
+      KEYCODE_MINUS(87, 101),
       /**
-       * <code>KB_LOWERCASE_A = 97;</code>
+       * <code>KEYCODE_PLUS = 102;</code>
+       *
+       * <pre>
+       * '-'
+       * </pre>
        */
-      KB_LOWERCASE_A(88, 97),
+      KEYCODE_PLUS(88, 102),
       /**
-       * <code>KB_LOWERCASE_B = 98;</code>
+       * <code>KEYCODE_STAR = 103;</code>
+       *
+       * <pre>
+       * '*'
+       * </pre>
        */
-      KB_LOWERCASE_B(89, 98),
+      KEYCODE_STAR(89, 103),
       /**
-       * <code>KB_LOWERCASE_C = 99;</code>
+       * <code>KEYCODE_SLASH = 104;</code>
+       *
+       * <pre>
+       * '/'
+       * </pre>
        */
-      KB_LOWERCASE_C(90, 99),
+      KEYCODE_SLASH(90, 104),
       /**
-       * <code>KB_LOWERCASE_D = 100;</code>
+       * <code>KEYCODE_BACKSLASH = 105;</code>
+       *
+       * <pre>
+       * '&#92;'
+       * </pre>
        */
-      KB_LOWERCASE_D(91, 100),
+      KEYCODE_BACKSLASH(91, 105),
       /**
-       * <code>KB_LOWERCASE_E = 101;</code>
+       * <code>KEYCODE_UNDERSCORE = 106;</code>
+       *
+       * <pre>
+       * '_'
+       * </pre>
        */
-      KB_LOWERCASE_E(92, 101),
+      KEYCODE_UNDERSCORE(92, 106),
       /**
-       * <code>KB_LOWERCASE_F = 102;</code>
+       * <code>KEYCODE_PIPE = 107;</code>
+       *
+       * <pre>
+       * '|'
+       * </pre>
        */
-      KB_LOWERCASE_F(93, 102),
+      KEYCODE_PIPE(93, 107),
       /**
-       * <code>KB_LOWERCASE_G = 103;</code>
+       * <code>KEYCODE_COMMA = 108;</code>
+       *
+       * <pre>
+       * ','
+       * </pre>
        */
-      KB_LOWERCASE_G(94, 103),
+      KEYCODE_COMMA(94, 108),
       /**
-       * <code>KB_LOWERCASE_H = 104;</code>
+       * <code>KEYCODE_PERIODE = 109;</code>
+       *
+       * <pre>
+       * '.'
+       * </pre>
        */
-      KB_LOWERCASE_H(95, 104),
+      KEYCODE_PERIODE(95, 109),
       /**
-       * <code>KB_LOWERCASE_I = 105;</code>
+       * <code>KEYCODE_COLON = 110;</code>
+       *
+       * <pre>
+       * ':'
+       * </pre>
        */
-      KB_LOWERCASE_I(96, 105),
+      KEYCODE_COLON(96, 110),
       /**
-       * <code>KB_LOWERCASE_J = 106;</code>
+       * <code>KEYCODE_SEMICOLON = 111;</code>
+       *
+       * <pre>
+       * ';'
+       * </pre>
        */
-      KB_LOWERCASE_J(97, 106),
+      KEYCODE_SEMICOLON(97, 111),
       /**
-       * <code>KB_LOWERCASE_K = 107;</code>
+       * <code>KEYCODE_AT = 112;</code>
+       *
+       * <pre>
+       * '@'
+       * </pre>
        */
-      KB_LOWERCASE_K(98, 107),
+      KEYCODE_AT(98, 112),
       /**
-       * <code>KB_LOWERCASE_L = 108;</code>
+       * <code>KEYCODE_APOSTROPHE = 113;</code>
+       *
+       * <pre>
+       * '''
+       * </pre>
        */
-      KB_LOWERCASE_L(99, 108),
+      KEYCODE_APOSTROPHE(99, 113),
       /**
-       * <code>KB_LOWERCASE_M = 109;</code>
+       * <code>KEYCODE_LEFT_PAREN = 120;</code>
+       *
+       * <pre>
+       * '('
+       * </pre>
        */
-      KB_LOWERCASE_M(100, 109),
+      KEYCODE_LEFT_PAREN(100, 120),
       /**
-       * <code>KB_LOWERCASE_N = 110;</code>
+       * <code>KEYCODE_RIGHT_PARENT = 121;</code>
+       *
+       * <pre>
+       * ')'
+       * </pre>
        */
-      KB_LOWERCASE_N(101, 110),
+      KEYCODE_RIGHT_PARENT(101, 121),
       /**
-       * <code>KB_LOWERCASE_O = 111;</code>
+       * <code>KEYCODE_LEFT_BRACKET = 122;</code>
+       *
+       * <pre>
+       * '['
+       * </pre>
        */
-      KB_LOWERCASE_O(102, 111),
+      KEYCODE_LEFT_BRACKET(102, 122),
       /**
-       * <code>KB_LOWERCASE_P = 112;</code>
+       * <code>KEYCODE_RIGHT_BRACKET = 123;</code>
+       *
+       * <pre>
+       * ']'
+       * </pre>
        */
-      KB_LOWERCASE_P(103, 112),
+      KEYCODE_RIGHT_BRACKET(103, 123),
       /**
-       * <code>KB_LOWERCASE_Q = 113;</code>
+       * <code>KEYCODE_LEFT_CURLY_BRACKET = 124;</code>
+       *
+       * <pre>
+       * '{'
+       * </pre>
        */
-      KB_LOWERCASE_Q(104, 113),
+      KEYCODE_LEFT_CURLY_BRACKET(104, 124),
       /**
-       * <code>KB_LOWERCASE_R = 114;</code>
+       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 125;</code>
+       *
+       * <pre>
+       * '}'
+       * </pre>
        */
-      KB_LOWERCASE_R(105, 114),
+      KEYCODE_RIGHT_CURLY_BRACKET(105, 125),
       /**
-       * <code>KB_LOWERCASE_S = 115;</code>
+       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 126;</code>
+       *
+       * <pre>
+       * '&lt;'
+       * </pre>
        */
-      KB_LOWERCASE_S(106, 115),
+      KEYCODE_LEFT_ANGLE_BRACKET(106, 126),
       /**
-       * <code>KB_LOWERCASE_T = 116;</code>
+       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 127;</code>
+       *
+       * <pre>
+       * '&gt;'
+       * </pre>
        */
-      KB_LOWERCASE_T(107, 116),
-      /**
-       * <code>KB_LOWERCASE_U = 117;</code>
-       */
-      KB_LOWERCASE_U(108, 117),
-      /**
-       * <code>KB_LOWERCASE_V = 118;</code>
-       */
-      KB_LOWERCASE_V(109, 118),
-      /**
-       * <code>KB_LOWERCASE_W = 119;</code>
-       */
-      KB_LOWERCASE_W(110, 119),
-      /**
-       * <code>KB_LOWERCASE_X = 120;</code>
-       */
-      KB_LOWERCASE_X(111, 120),
-      /**
-       * <code>KB_LOWERCASE_Y = 121;</code>
-       */
-      KB_LOWERCASE_Y(112, 121),
-      /**
-       * <code>KB_LOWERCASE_Z = 122;</code>
-       */
-      KB_LOWERCASE_Z(113, 122),
-      /**
-       * <code>KB_OPENING_CURLY_BRACKET = 123;</code>
-       */
-      KB_OPENING_CURLY_BRACKET(114, 123),
-      /**
-       * <code>KB_PIPE = 124;</code>
-       */
-      KB_PIPE(115, 124),
-      /**
-       * <code>KB_CLOSING_CURLY_BRACKET = 125;</code>
-       */
-      KB_CLOSING_CURLY_BRACKET(116, 125),
+      KEYCODE_RIGHT_ANGLE_BRACKET(107, 127),
       ;
 
       /**
@@ -857,429 +909,481 @@ public final class Message {
        */
       public static final int LOCK_VALUE = 10;
       /**
-       * <code>UP = 11;</code>
+       * <code>MUTE = 11;</code>
        */
-      public static final int UP_VALUE = 11;
+      public static final int MUTE_VALUE = 11;
       /**
-       * <code>DOWN = 12;</code>
+       * <code>SAY = 12;</code>
        */
-      public static final int DOWN_VALUE = 12;
+      public static final int SAY_VALUE = 12;
       /**
-       * <code>LEFT = 13;</code>
+       * <code>DPAD_UP = 13;</code>
        */
-      public static final int LEFT_VALUE = 13;
+      public static final int DPAD_UP_VALUE = 13;
       /**
-       * <code>RIGHT = 14;</code>
+       * <code>DPAD_DOWN = 14;</code>
        */
-      public static final int RIGHT_VALUE = 14;
+      public static final int DPAD_DOWN_VALUE = 14;
       /**
-       * <code>MUTE = 15;</code>
+       * <code>DPAD_LEFT = 15;</code>
        */
-      public static final int MUTE_VALUE = 15;
+      public static final int DPAD_LEFT_VALUE = 15;
       /**
-       * <code>SAY = 16;</code>
+       * <code>DPAD_RIGHT = 16;</code>
        */
-      public static final int SAY_VALUE = 16;
+      public static final int DPAD_RIGHT_VALUE = 16;
       /**
-       * <code>QUERY_ROOTS = 17;</code>
+       * <code>MEDIA_PLAY_PAUSE = 20;</code>
        */
-      public static final int QUERY_ROOTS_VALUE = 17;
+      public static final int MEDIA_PLAY_PAUSE_VALUE = 20;
       /**
-       * <code>QUERY_CHILDREN = 18;</code>
+       * <code>MEDIA_STOP = 21;</code>
        */
-      public static final int QUERY_CHILDREN_VALUE = 18;
+      public static final int MEDIA_STOP_VALUE = 21;
       /**
-       * <code>OPEN_FILE_SERVER_SIDE = 19;</code>
+       * <code>MEDIA_PREVIOUS = 22;</code>
        */
-      public static final int OPEN_FILE_SERVER_SIDE_VALUE = 19;
+      public static final int MEDIA_PREVIOUS_VALUE = 22;
       /**
-       * <code>OPEN_FILE_CLIENT_SIDE = 20;</code>
+       * <code>MEDIA_NEXT = 23;</code>
        */
-      public static final int OPEN_FILE_CLIENT_SIDE_VALUE = 20;
+      public static final int MEDIA_NEXT_VALUE = 23;
       /**
-       * <code>MEDIA_PLAY_PAUSE = 21;</code>
+       * <code>MEDIA_FF = 24;</code>
        */
-      public static final int MEDIA_PLAY_PAUSE_VALUE = 21;
+      public static final int MEDIA_FF_VALUE = 24;
       /**
-       * <code>MEDIA_STOP = 22;</code>
+       * <code>MEDIA_REWIND = 25;</code>
        */
-      public static final int MEDIA_STOP_VALUE = 22;
+      public static final int MEDIA_REWIND_VALUE = 25;
       /**
-       * <code>MEDIA_PREVIOUS = 23;</code>
+       * <code>QUERY_ROOTS = 26;</code>
        */
-      public static final int MEDIA_PREVIOUS_VALUE = 23;
+      public static final int QUERY_ROOTS_VALUE = 26;
       /**
-       * <code>MEDIA_NEXT = 24;</code>
+       * <code>QUERY_CHILDREN = 27;</code>
        */
-      public static final int MEDIA_NEXT_VALUE = 24;
+      public static final int QUERY_CHILDREN_VALUE = 27;
       /**
-       * <code>MEDIA_FF = 25;</code>
+       * <code>OPEN_SERVER_SIDE = 28;</code>
        */
-      public static final int MEDIA_FF_VALUE = 25;
+      public static final int OPEN_SERVER_SIDE_VALUE = 28;
       /**
-       * <code>MEDIA_REWIND = 26;</code>
+       * <code>OPEN_CLIENT_SIDE = 29;</code>
        */
-      public static final int MEDIA_REWIND_VALUE = 26;
+      public static final int OPEN_CLIENT_SIDE_VALUE = 29;
       /**
-       * <code>GOM_PLAYER_RUN = 27;</code>
+       * <code>KEYCODE_CTRL = 30;</code>
        */
-      public static final int GOM_PLAYER_RUN_VALUE = 27;
+      public static final int KEYCODE_CTRL_VALUE = 30;
       /**
-       * <code>GOM_PLAYER_KILL = 28;</code>
+       * <code>KEYCODE_SHIFT = 31;</code>
        */
-      public static final int GOM_PLAYER_KILL_VALUE = 28;
+      public static final int KEYCODE_SHIFT_VALUE = 31;
       /**
-       * <code>GOM_PLAYER_STRETCH = 29;</code>
+       * <code>KEYCODE_ALT_LEFT = 32;</code>
        */
-      public static final int GOM_PLAYER_STRETCH_VALUE = 29;
+      public static final int KEYCODE_ALT_LEFT_VALUE = 32;
       /**
-       * <code>KB_CTRL = 30;</code>
+       * <code>KEYCODE_ALT_RIGHT = 33;</code>
        */
-      public static final int KB_CTRL_VALUE = 30;
+      public static final int KEYCODE_ALT_RIGHT_VALUE = 33;
       /**
-       * <code>KB_SHIFT = 31;</code>
+       * <code>KEYCODE_WINDOWS = 34;</code>
        */
-      public static final int KB_SHIFT_VALUE = 31;
+      public static final int KEYCODE_WINDOWS_VALUE = 34;
       /**
-       * <code>KB_ALT = 32;</code>
+       * <code>KEYCODE_ENTER = 40;</code>
        */
-      public static final int KB_ALT_VALUE = 32;
+      public static final int KEYCODE_ENTER_VALUE = 40;
       /**
-       * <code>KB_ALTGR = 33;</code>
+       * <code>KEYCODE_ESCAPE = 41;</code>
        */
-      public static final int KB_ALTGR_VALUE = 33;
+      public static final int KEYCODE_ESCAPE_VALUE = 41;
       /**
-       * <code>KB_WINDOWS = 34;</code>
+       * <code>KEYCODE_DELETE = 42;</code>
        */
-      public static final int KB_WINDOWS_VALUE = 34;
+      public static final int KEYCODE_DELETE_VALUE = 42;
       /**
-       * <code>KB_ENTER = 35;</code>
+       * <code>KEYCODE_SPACE = 43;</code>
        */
-      public static final int KB_ENTER_VALUE = 35;
+      public static final int KEYCODE_SPACE_VALUE = 43;
       /**
-       * <code>KB_SPACE = 36;</code>
+       * <code>KEYCODE_BACKSPACE = 44;</code>
        */
-      public static final int KB_SPACE_VALUE = 36;
+      public static final int KEYCODE_BACKSPACE_VALUE = 44;
       /**
-       * <code>KB_BACKSPACE = 37;</code>
+       * <code>KEYCODE_TAB = 45;</code>
        */
-      public static final int KB_BACKSPACE_VALUE = 37;
+      public static final int KEYCODE_TAB_VALUE = 45;
       /**
-       * <code>KB_ESCAPE = 38;</code>
+       * <code>KEYCODE_0 = 50;</code>
        */
-      public static final int KB_ESCAPE_VALUE = 38;
+      public static final int KEYCODE_0_VALUE = 50;
       /**
-       * <code>KB_TAB = 39;</code>
+       * <code>KEYCODE_1 = 51;</code>
        */
-      public static final int KB_TAB_VALUE = 39;
+      public static final int KEYCODE_1_VALUE = 51;
       /**
-       * <code>KB_F4 = 40;</code>
+       * <code>KEYCODE_2 = 52;</code>
        */
-      public static final int KB_F4_VALUE = 40;
+      public static final int KEYCODE_2_VALUE = 52;
       /**
-       * <code>KB_NUMBER_0 = 48;</code>
+       * <code>KEYCODE_3 = 53;</code>
        */
-      public static final int KB_NUMBER_0_VALUE = 48;
+      public static final int KEYCODE_3_VALUE = 53;
       /**
-       * <code>KB_NUMBER_1 = 49;</code>
+       * <code>KEYCODE_4 = 54;</code>
        */
-      public static final int KB_NUMBER_1_VALUE = 49;
+      public static final int KEYCODE_4_VALUE = 54;
       /**
-       * <code>KB_NUMBER_2 = 50;</code>
+       * <code>KEYCODE_5 = 55;</code>
        */
-      public static final int KB_NUMBER_2_VALUE = 50;
+      public static final int KEYCODE_5_VALUE = 55;
       /**
-       * <code>KB_NUMBER_3 = 51;</code>
+       * <code>KEYCODE_6 = 56;</code>
        */
-      public static final int KB_NUMBER_3_VALUE = 51;
+      public static final int KEYCODE_6_VALUE = 56;
       /**
-       * <code>KB_NUMBER_4 = 52;</code>
+       * <code>KEYCODE_7 = 57;</code>
        */
-      public static final int KB_NUMBER_4_VALUE = 52;
+      public static final int KEYCODE_7_VALUE = 57;
       /**
-       * <code>KB_NUMBER_5 = 53;</code>
+       * <code>KEYCODE_8 = 58;</code>
        */
-      public static final int KB_NUMBER_5_VALUE = 53;
+      public static final int KEYCODE_8_VALUE = 58;
       /**
-       * <code>KB_NUMBER_6 = 54;</code>
+       * <code>KEYCODE_9 = 59;</code>
        */
-      public static final int KB_NUMBER_6_VALUE = 54;
+      public static final int KEYCODE_9_VALUE = 59;
       /**
-       * <code>KB_NUMBER_7 = 55;</code>
+       * <code>KEYCODE_A = 60;</code>
        */
-      public static final int KB_NUMBER_7_VALUE = 55;
+      public static final int KEYCODE_A_VALUE = 60;
       /**
-       * <code>KB_NUMBER_8 = 56;</code>
+       * <code>KEYCODE_B = 61;</code>
        */
-      public static final int KB_NUMBER_8_VALUE = 56;
+      public static final int KEYCODE_B_VALUE = 61;
       /**
-       * <code>KB_NUMBER_9 = 57;</code>
+       * <code>KEYCODE_C = 62;</code>
        */
-      public static final int KB_NUMBER_9_VALUE = 57;
+      public static final int KEYCODE_C_VALUE = 62;
       /**
-       * <code>KB_COLON = 58;</code>
+       * <code>KEYCODE_D = 63;</code>
        */
-      public static final int KB_COLON_VALUE = 58;
+      public static final int KEYCODE_D_VALUE = 63;
       /**
-       * <code>KB_SEMI_COLON = 59;</code>
+       * <code>KEYCODE_E = 64;</code>
        */
-      public static final int KB_SEMI_COLON_VALUE = 59;
+      public static final int KEYCODE_E_VALUE = 64;
       /**
-       * <code>KB_OPENING_ANGLE_BRACKET = 60;</code>
+       * <code>KEYCODE_F = 65;</code>
        */
-      public static final int KB_OPENING_ANGLE_BRACKET_VALUE = 60;
+      public static final int KEYCODE_F_VALUE = 65;
       /**
-       * <code>KB_EQUAL = 61;</code>
+       * <code>KEYCODE_G = 66;</code>
        */
-      public static final int KB_EQUAL_VALUE = 61;
+      public static final int KEYCODE_G_VALUE = 66;
       /**
-       * <code>KB_CLOSIGN_ANGLE_BRACKET = 62;</code>
+       * <code>KEYCODE_H = 67;</code>
        */
-      public static final int KB_CLOSIGN_ANGLE_BRACKET_VALUE = 62;
+      public static final int KEYCODE_H_VALUE = 67;
       /**
-       * <code>KB_QUESTION_MARK = 63;</code>
+       * <code>KEYCODE_I = 68;</code>
        */
-      public static final int KB_QUESTION_MARK_VALUE = 63;
+      public static final int KEYCODE_I_VALUE = 68;
       /**
-       * <code>KB_AT_SIGN = 64;</code>
+       * <code>KEYCODE_J = 69;</code>
        */
-      public static final int KB_AT_SIGN_VALUE = 64;
+      public static final int KEYCODE_J_VALUE = 69;
       /**
-       * <code>KB_UPPERCASE_A = 65;</code>
+       * <code>KEYCODE_K = 70;</code>
        */
-      public static final int KB_UPPERCASE_A_VALUE = 65;
+      public static final int KEYCODE_K_VALUE = 70;
       /**
-       * <code>KB_UPPERCASE_B = 66;</code>
+       * <code>KEYCODE_L = 71;</code>
        */
-      public static final int KB_UPPERCASE_B_VALUE = 66;
+      public static final int KEYCODE_L_VALUE = 71;
       /**
-       * <code>KB_UPPERCASE_C = 67;</code>
+       * <code>KEYCODE_M = 72;</code>
        */
-      public static final int KB_UPPERCASE_C_VALUE = 67;
+      public static final int KEYCODE_M_VALUE = 72;
       /**
-       * <code>KB_UPPERCASE_D = 68;</code>
+       * <code>KEYCODE_N = 73;</code>
        */
-      public static final int KB_UPPERCASE_D_VALUE = 68;
+      public static final int KEYCODE_N_VALUE = 73;
       /**
-       * <code>KB_UPPERCASE_E = 69;</code>
+       * <code>KEYCODE_O = 74;</code>
        */
-      public static final int KB_UPPERCASE_E_VALUE = 69;
+      public static final int KEYCODE_O_VALUE = 74;
       /**
-       * <code>KB_UPPERCASE_F = 70;</code>
+       * <code>KEYCODE_P = 75;</code>
        */
-      public static final int KB_UPPERCASE_F_VALUE = 70;
+      public static final int KEYCODE_P_VALUE = 75;
       /**
-       * <code>KB_UPPERCASE_G = 71;</code>
+       * <code>KEYCODE_Q = 76;</code>
        */
-      public static final int KB_UPPERCASE_G_VALUE = 71;
+      public static final int KEYCODE_Q_VALUE = 76;
       /**
-       * <code>KB_UPPERCASE_H = 72;</code>
+       * <code>KEYCODE_R = 77;</code>
        */
-      public static final int KB_UPPERCASE_H_VALUE = 72;
+      public static final int KEYCODE_R_VALUE = 77;
       /**
-       * <code>KB_UPPERCASE_I = 73;</code>
+       * <code>KEYCODE_S = 78;</code>
        */
-      public static final int KB_UPPERCASE_I_VALUE = 73;
+      public static final int KEYCODE_S_VALUE = 78;
       /**
-       * <code>KB_UPPERCASE_J = 74;</code>
+       * <code>KEYCODE_T = 79;</code>
        */
-      public static final int KB_UPPERCASE_J_VALUE = 74;
+      public static final int KEYCODE_T_VALUE = 79;
       /**
-       * <code>KB_UPPERCASE_K = 75;</code>
+       * <code>KEYCODE_U = 80;</code>
        */
-      public static final int KB_UPPERCASE_K_VALUE = 75;
+      public static final int KEYCODE_U_VALUE = 80;
       /**
-       * <code>KB_UPPERCASE_L = 76;</code>
+       * <code>KEYCODE_V = 81;</code>
        */
-      public static final int KB_UPPERCASE_L_VALUE = 76;
+      public static final int KEYCODE_V_VALUE = 81;
       /**
-       * <code>KB_UPPERCASE_M = 77;</code>
+       * <code>KEYCODE_W = 82;</code>
        */
-      public static final int KB_UPPERCASE_M_VALUE = 77;
+      public static final int KEYCODE_W_VALUE = 82;
       /**
-       * <code>KB_UPPERCASE_N = 78;</code>
+       * <code>KEYCODE_X = 83;</code>
        */
-      public static final int KB_UPPERCASE_N_VALUE = 78;
+      public static final int KEYCODE_X_VALUE = 83;
       /**
-       * <code>KB_UPPERCASE_O = 79;</code>
+       * <code>KEYCODE_Y = 84;</code>
        */
-      public static final int KB_UPPERCASE_O_VALUE = 79;
+      public static final int KEYCODE_Y_VALUE = 84;
       /**
-       * <code>KB_UPPERCASE_P = 80;</code>
+       * <code>KEYCODE_Z = 85;</code>
        */
-      public static final int KB_UPPERCASE_P_VALUE = 80;
+      public static final int KEYCODE_Z_VALUE = 85;
       /**
-       * <code>KB_UPPERCASE_Q = 81;</code>
+       * <code>KEYCODE_F1 = 86;</code>
        */
-      public static final int KB_UPPERCASE_Q_VALUE = 81;
+      public static final int KEYCODE_F1_VALUE = 86;
       /**
-       * <code>KB_UPPERCASE_R = 82;</code>
+       * <code>KEYCODE_F2 = 87;</code>
        */
-      public static final int KB_UPPERCASE_R_VALUE = 82;
+      public static final int KEYCODE_F2_VALUE = 87;
       /**
-       * <code>KB_UPPERCASE_S = 83;</code>
+       * <code>KEYCODE_F3 = 88;</code>
        */
-      public static final int KB_UPPERCASE_S_VALUE = 83;
+      public static final int KEYCODE_F3_VALUE = 88;
       /**
-       * <code>KB_UPPERCASE_T = 84;</code>
+       * <code>KEYCODE_F4 = 89;</code>
        */
-      public static final int KB_UPPERCASE_T_VALUE = 84;
+      public static final int KEYCODE_F4_VALUE = 89;
       /**
-       * <code>KB_UPPERCASE_U = 85;</code>
+       * <code>KEYCODE_F5 = 90;</code>
        */
-      public static final int KB_UPPERCASE_U_VALUE = 85;
+      public static final int KEYCODE_F5_VALUE = 90;
       /**
-       * <code>KB_UPPERCASE_V = 86;</code>
+       * <code>KEYCODE_F6 = 91;</code>
        */
-      public static final int KB_UPPERCASE_V_VALUE = 86;
+      public static final int KEYCODE_F6_VALUE = 91;
       /**
-       * <code>KB_UPPERCASE_W = 87;</code>
+       * <code>KEYCODE_F7 = 92;</code>
        */
-      public static final int KB_UPPERCASE_W_VALUE = 87;
+      public static final int KEYCODE_F7_VALUE = 92;
       /**
-       * <code>KB_UPPERCASE_X = 88;</code>
+       * <code>KEYCODE_F8 = 93;</code>
        */
-      public static final int KB_UPPERCASE_X_VALUE = 88;
+      public static final int KEYCODE_F8_VALUE = 93;
       /**
-       * <code>KB_UPPERCASE_Y = 89;</code>
+       * <code>KEYCODE_F9 = 94;</code>
        */
-      public static final int KB_UPPERCASE_Y_VALUE = 89;
+      public static final int KEYCODE_F9_VALUE = 94;
       /**
-       * <code>KB_UPPERCASE_Z = 90;</code>
+       * <code>KEYCODE_F10 = 95;</code>
        */
-      public static final int KB_UPPERCASE_Z_VALUE = 90;
+      public static final int KEYCODE_F10_VALUE = 95;
       /**
-       * <code>KB_OPENING_BRACKET = 91;</code>
+       * <code>KEYCODE_F11 = 96;</code>
        */
-      public static final int KB_OPENING_BRACKET_VALUE = 91;
+      public static final int KEYCODE_F11_VALUE = 96;
       /**
-       * <code>KB_BACKSLASH = 92;</code>
+       * <code>KEYCODE_F12 = 97;</code>
        */
-      public static final int KB_BACKSLASH_VALUE = 92;
+      public static final int KEYCODE_F12_VALUE = 97;
       /**
-       * <code>KB_CLOSING_BRACKET = 93;</code>
+       * <code>KEYCODE_EQUALS = 100;</code>
+       *
+       * <pre>
+       * '='
+       * </pre>
        */
-      public static final int KB_CLOSING_BRACKET_VALUE = 93;
+      public static final int KEYCODE_EQUALS_VALUE = 100;
       /**
-       * <code>KB_UNDERSCORE = 95;</code>
+       * <code>KEYCODE_MINUS = 101;</code>
+       *
+       * <pre>
+       * '+'
+       * </pre>
        */
-      public static final int KB_UNDERSCORE_VALUE = 95;
+      public static final int KEYCODE_MINUS_VALUE = 101;
       /**
-       * <code>KB_LOWERCASE_A = 97;</code>
+       * <code>KEYCODE_PLUS = 102;</code>
+       *
+       * <pre>
+       * '-'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_A_VALUE = 97;
+      public static final int KEYCODE_PLUS_VALUE = 102;
       /**
-       * <code>KB_LOWERCASE_B = 98;</code>
+       * <code>KEYCODE_STAR = 103;</code>
+       *
+       * <pre>
+       * '*'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_B_VALUE = 98;
+      public static final int KEYCODE_STAR_VALUE = 103;
       /**
-       * <code>KB_LOWERCASE_C = 99;</code>
+       * <code>KEYCODE_SLASH = 104;</code>
+       *
+       * <pre>
+       * '/'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_C_VALUE = 99;
+      public static final int KEYCODE_SLASH_VALUE = 104;
       /**
-       * <code>KB_LOWERCASE_D = 100;</code>
+       * <code>KEYCODE_BACKSLASH = 105;</code>
+       *
+       * <pre>
+       * '&#92;'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_D_VALUE = 100;
+      public static final int KEYCODE_BACKSLASH_VALUE = 105;
       /**
-       * <code>KB_LOWERCASE_E = 101;</code>
+       * <code>KEYCODE_UNDERSCORE = 106;</code>
+       *
+       * <pre>
+       * '_'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_E_VALUE = 101;
+      public static final int KEYCODE_UNDERSCORE_VALUE = 106;
       /**
-       * <code>KB_LOWERCASE_F = 102;</code>
+       * <code>KEYCODE_PIPE = 107;</code>
+       *
+       * <pre>
+       * '|'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_F_VALUE = 102;
+      public static final int KEYCODE_PIPE_VALUE = 107;
       /**
-       * <code>KB_LOWERCASE_G = 103;</code>
+       * <code>KEYCODE_COMMA = 108;</code>
+       *
+       * <pre>
+       * ','
+       * </pre>
        */
-      public static final int KB_LOWERCASE_G_VALUE = 103;
+      public static final int KEYCODE_COMMA_VALUE = 108;
       /**
-       * <code>KB_LOWERCASE_H = 104;</code>
+       * <code>KEYCODE_PERIODE = 109;</code>
+       *
+       * <pre>
+       * '.'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_H_VALUE = 104;
+      public static final int KEYCODE_PERIODE_VALUE = 109;
       /**
-       * <code>KB_LOWERCASE_I = 105;</code>
+       * <code>KEYCODE_COLON = 110;</code>
+       *
+       * <pre>
+       * ':'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_I_VALUE = 105;
+      public static final int KEYCODE_COLON_VALUE = 110;
       /**
-       * <code>KB_LOWERCASE_J = 106;</code>
+       * <code>KEYCODE_SEMICOLON = 111;</code>
+       *
+       * <pre>
+       * ';'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_J_VALUE = 106;
+      public static final int KEYCODE_SEMICOLON_VALUE = 111;
       /**
-       * <code>KB_LOWERCASE_K = 107;</code>
+       * <code>KEYCODE_AT = 112;</code>
+       *
+       * <pre>
+       * '@'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_K_VALUE = 107;
+      public static final int KEYCODE_AT_VALUE = 112;
       /**
-       * <code>KB_LOWERCASE_L = 108;</code>
+       * <code>KEYCODE_APOSTROPHE = 113;</code>
+       *
+       * <pre>
+       * '''
+       * </pre>
        */
-      public static final int KB_LOWERCASE_L_VALUE = 108;
+      public static final int KEYCODE_APOSTROPHE_VALUE = 113;
       /**
-       * <code>KB_LOWERCASE_M = 109;</code>
+       * <code>KEYCODE_LEFT_PAREN = 120;</code>
+       *
+       * <pre>
+       * '('
+       * </pre>
        */
-      public static final int KB_LOWERCASE_M_VALUE = 109;
+      public static final int KEYCODE_LEFT_PAREN_VALUE = 120;
       /**
-       * <code>KB_LOWERCASE_N = 110;</code>
+       * <code>KEYCODE_RIGHT_PARENT = 121;</code>
+       *
+       * <pre>
+       * ')'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_N_VALUE = 110;
+      public static final int KEYCODE_RIGHT_PARENT_VALUE = 121;
       /**
-       * <code>KB_LOWERCASE_O = 111;</code>
+       * <code>KEYCODE_LEFT_BRACKET = 122;</code>
+       *
+       * <pre>
+       * '['
+       * </pre>
        */
-      public static final int KB_LOWERCASE_O_VALUE = 111;
+      public static final int KEYCODE_LEFT_BRACKET_VALUE = 122;
       /**
-       * <code>KB_LOWERCASE_P = 112;</code>
+       * <code>KEYCODE_RIGHT_BRACKET = 123;</code>
+       *
+       * <pre>
+       * ']'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_P_VALUE = 112;
+      public static final int KEYCODE_RIGHT_BRACKET_VALUE = 123;
       /**
-       * <code>KB_LOWERCASE_Q = 113;</code>
+       * <code>KEYCODE_LEFT_CURLY_BRACKET = 124;</code>
+       *
+       * <pre>
+       * '{'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_Q_VALUE = 113;
+      public static final int KEYCODE_LEFT_CURLY_BRACKET_VALUE = 124;
       /**
-       * <code>KB_LOWERCASE_R = 114;</code>
+       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 125;</code>
+       *
+       * <pre>
+       * '}'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_R_VALUE = 114;
+      public static final int KEYCODE_RIGHT_CURLY_BRACKET_VALUE = 125;
       /**
-       * <code>KB_LOWERCASE_S = 115;</code>
+       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 126;</code>
+       *
+       * <pre>
+       * '&lt;'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_S_VALUE = 115;
+      public static final int KEYCODE_LEFT_ANGLE_BRACKET_VALUE = 126;
       /**
-       * <code>KB_LOWERCASE_T = 116;</code>
+       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 127;</code>
+       *
+       * <pre>
+       * '&gt;'
+       * </pre>
        */
-      public static final int KB_LOWERCASE_T_VALUE = 116;
-      /**
-       * <code>KB_LOWERCASE_U = 117;</code>
-       */
-      public static final int KB_LOWERCASE_U_VALUE = 117;
-      /**
-       * <code>KB_LOWERCASE_V = 118;</code>
-       */
-      public static final int KB_LOWERCASE_V_VALUE = 118;
-      /**
-       * <code>KB_LOWERCASE_W = 119;</code>
-       */
-      public static final int KB_LOWERCASE_W_VALUE = 119;
-      /**
-       * <code>KB_LOWERCASE_X = 120;</code>
-       */
-      public static final int KB_LOWERCASE_X_VALUE = 120;
-      /**
-       * <code>KB_LOWERCASE_Y = 121;</code>
-       */
-      public static final int KB_LOWERCASE_Y_VALUE = 121;
-      /**
-       * <code>KB_LOWERCASE_Z = 122;</code>
-       */
-      public static final int KB_LOWERCASE_Z_VALUE = 122;
-      /**
-       * <code>KB_OPENING_CURLY_BRACKET = 123;</code>
-       */
-      public static final int KB_OPENING_CURLY_BRACKET_VALUE = 123;
-      /**
-       * <code>KB_PIPE = 124;</code>
-       */
-      public static final int KB_PIPE_VALUE = 124;
-      /**
-       * <code>KB_CLOSING_CURLY_BRACKET = 125;</code>
-       */
-      public static final int KB_CLOSING_CURLY_BRACKET_VALUE = 125;
+      public static final int KEYCODE_RIGHT_ANGLE_BRACKET_VALUE = 127;
 
 
       public final int getNumber() { return value; }
@@ -1297,112 +1401,103 @@ public final class Message {
           case 8: return SHUTDOWN;
           case 9: return SWITCH_WINDOW;
           case 10: return LOCK;
-          case 11: return UP;
-          case 12: return DOWN;
-          case 13: return LEFT;
-          case 14: return RIGHT;
-          case 15: return MUTE;
-          case 16: return SAY;
-          case 17: return QUERY_ROOTS;
-          case 18: return QUERY_CHILDREN;
-          case 19: return OPEN_FILE_SERVER_SIDE;
-          case 20: return OPEN_FILE_CLIENT_SIDE;
-          case 21: return MEDIA_PLAY_PAUSE;
-          case 22: return MEDIA_STOP;
-          case 23: return MEDIA_PREVIOUS;
-          case 24: return MEDIA_NEXT;
-          case 25: return MEDIA_FF;
-          case 26: return MEDIA_REWIND;
-          case 27: return GOM_PLAYER_RUN;
-          case 28: return GOM_PLAYER_KILL;
-          case 29: return GOM_PLAYER_STRETCH;
-          case 30: return KB_CTRL;
-          case 31: return KB_SHIFT;
-          case 32: return KB_ALT;
-          case 33: return KB_ALTGR;
-          case 34: return KB_WINDOWS;
-          case 35: return KB_ENTER;
-          case 36: return KB_SPACE;
-          case 37: return KB_BACKSPACE;
-          case 38: return KB_ESCAPE;
-          case 39: return KB_TAB;
-          case 40: return KB_F4;
-          case 48: return KB_NUMBER_0;
-          case 49: return KB_NUMBER_1;
-          case 50: return KB_NUMBER_2;
-          case 51: return KB_NUMBER_3;
-          case 52: return KB_NUMBER_4;
-          case 53: return KB_NUMBER_5;
-          case 54: return KB_NUMBER_6;
-          case 55: return KB_NUMBER_7;
-          case 56: return KB_NUMBER_8;
-          case 57: return KB_NUMBER_9;
-          case 58: return KB_COLON;
-          case 59: return KB_SEMI_COLON;
-          case 60: return KB_OPENING_ANGLE_BRACKET;
-          case 61: return KB_EQUAL;
-          case 62: return KB_CLOSIGN_ANGLE_BRACKET;
-          case 63: return KB_QUESTION_MARK;
-          case 64: return KB_AT_SIGN;
-          case 65: return KB_UPPERCASE_A;
-          case 66: return KB_UPPERCASE_B;
-          case 67: return KB_UPPERCASE_C;
-          case 68: return KB_UPPERCASE_D;
-          case 69: return KB_UPPERCASE_E;
-          case 70: return KB_UPPERCASE_F;
-          case 71: return KB_UPPERCASE_G;
-          case 72: return KB_UPPERCASE_H;
-          case 73: return KB_UPPERCASE_I;
-          case 74: return KB_UPPERCASE_J;
-          case 75: return KB_UPPERCASE_K;
-          case 76: return KB_UPPERCASE_L;
-          case 77: return KB_UPPERCASE_M;
-          case 78: return KB_UPPERCASE_N;
-          case 79: return KB_UPPERCASE_O;
-          case 80: return KB_UPPERCASE_P;
-          case 81: return KB_UPPERCASE_Q;
-          case 82: return KB_UPPERCASE_R;
-          case 83: return KB_UPPERCASE_S;
-          case 84: return KB_UPPERCASE_T;
-          case 85: return KB_UPPERCASE_U;
-          case 86: return KB_UPPERCASE_V;
-          case 87: return KB_UPPERCASE_W;
-          case 88: return KB_UPPERCASE_X;
-          case 89: return KB_UPPERCASE_Y;
-          case 90: return KB_UPPERCASE_Z;
-          case 91: return KB_OPENING_BRACKET;
-          case 92: return KB_BACKSLASH;
-          case 93: return KB_CLOSING_BRACKET;
-          case 95: return KB_UNDERSCORE;
-          case 97: return KB_LOWERCASE_A;
-          case 98: return KB_LOWERCASE_B;
-          case 99: return KB_LOWERCASE_C;
-          case 100: return KB_LOWERCASE_D;
-          case 101: return KB_LOWERCASE_E;
-          case 102: return KB_LOWERCASE_F;
-          case 103: return KB_LOWERCASE_G;
-          case 104: return KB_LOWERCASE_H;
-          case 105: return KB_LOWERCASE_I;
-          case 106: return KB_LOWERCASE_J;
-          case 107: return KB_LOWERCASE_K;
-          case 108: return KB_LOWERCASE_L;
-          case 109: return KB_LOWERCASE_M;
-          case 110: return KB_LOWERCASE_N;
-          case 111: return KB_LOWERCASE_O;
-          case 112: return KB_LOWERCASE_P;
-          case 113: return KB_LOWERCASE_Q;
-          case 114: return KB_LOWERCASE_R;
-          case 115: return KB_LOWERCASE_S;
-          case 116: return KB_LOWERCASE_T;
-          case 117: return KB_LOWERCASE_U;
-          case 118: return KB_LOWERCASE_V;
-          case 119: return KB_LOWERCASE_W;
-          case 120: return KB_LOWERCASE_X;
-          case 121: return KB_LOWERCASE_Y;
-          case 122: return KB_LOWERCASE_Z;
-          case 123: return KB_OPENING_CURLY_BRACKET;
-          case 124: return KB_PIPE;
-          case 125: return KB_CLOSING_CURLY_BRACKET;
+          case 11: return MUTE;
+          case 12: return SAY;
+          case 13: return DPAD_UP;
+          case 14: return DPAD_DOWN;
+          case 15: return DPAD_LEFT;
+          case 16: return DPAD_RIGHT;
+          case 20: return MEDIA_PLAY_PAUSE;
+          case 21: return MEDIA_STOP;
+          case 22: return MEDIA_PREVIOUS;
+          case 23: return MEDIA_NEXT;
+          case 24: return MEDIA_FF;
+          case 25: return MEDIA_REWIND;
+          case 26: return QUERY_ROOTS;
+          case 27: return QUERY_CHILDREN;
+          case 28: return OPEN_SERVER_SIDE;
+          case 29: return OPEN_CLIENT_SIDE;
+          case 30: return KEYCODE_CTRL;
+          case 31: return KEYCODE_SHIFT;
+          case 32: return KEYCODE_ALT_LEFT;
+          case 33: return KEYCODE_ALT_RIGHT;
+          case 34: return KEYCODE_WINDOWS;
+          case 40: return KEYCODE_ENTER;
+          case 41: return KEYCODE_ESCAPE;
+          case 42: return KEYCODE_DELETE;
+          case 43: return KEYCODE_SPACE;
+          case 44: return KEYCODE_BACKSPACE;
+          case 45: return KEYCODE_TAB;
+          case 50: return KEYCODE_0;
+          case 51: return KEYCODE_1;
+          case 52: return KEYCODE_2;
+          case 53: return KEYCODE_3;
+          case 54: return KEYCODE_4;
+          case 55: return KEYCODE_5;
+          case 56: return KEYCODE_6;
+          case 57: return KEYCODE_7;
+          case 58: return KEYCODE_8;
+          case 59: return KEYCODE_9;
+          case 60: return KEYCODE_A;
+          case 61: return KEYCODE_B;
+          case 62: return KEYCODE_C;
+          case 63: return KEYCODE_D;
+          case 64: return KEYCODE_E;
+          case 65: return KEYCODE_F;
+          case 66: return KEYCODE_G;
+          case 67: return KEYCODE_H;
+          case 68: return KEYCODE_I;
+          case 69: return KEYCODE_J;
+          case 70: return KEYCODE_K;
+          case 71: return KEYCODE_L;
+          case 72: return KEYCODE_M;
+          case 73: return KEYCODE_N;
+          case 74: return KEYCODE_O;
+          case 75: return KEYCODE_P;
+          case 76: return KEYCODE_Q;
+          case 77: return KEYCODE_R;
+          case 78: return KEYCODE_S;
+          case 79: return KEYCODE_T;
+          case 80: return KEYCODE_U;
+          case 81: return KEYCODE_V;
+          case 82: return KEYCODE_W;
+          case 83: return KEYCODE_X;
+          case 84: return KEYCODE_Y;
+          case 85: return KEYCODE_Z;
+          case 86: return KEYCODE_F1;
+          case 87: return KEYCODE_F2;
+          case 88: return KEYCODE_F3;
+          case 89: return KEYCODE_F4;
+          case 90: return KEYCODE_F5;
+          case 91: return KEYCODE_F6;
+          case 92: return KEYCODE_F7;
+          case 93: return KEYCODE_F8;
+          case 94: return KEYCODE_F9;
+          case 95: return KEYCODE_F10;
+          case 96: return KEYCODE_F11;
+          case 97: return KEYCODE_F12;
+          case 100: return KEYCODE_EQUALS;
+          case 101: return KEYCODE_MINUS;
+          case 102: return KEYCODE_PLUS;
+          case 103: return KEYCODE_STAR;
+          case 104: return KEYCODE_SLASH;
+          case 105: return KEYCODE_BACKSLASH;
+          case 106: return KEYCODE_UNDERSCORE;
+          case 107: return KEYCODE_PIPE;
+          case 108: return KEYCODE_COMMA;
+          case 109: return KEYCODE_PERIODE;
+          case 110: return KEYCODE_COLON;
+          case 111: return KEYCODE_SEMICOLON;
+          case 112: return KEYCODE_AT;
+          case 113: return KEYCODE_APOSTROPHE;
+          case 120: return KEYCODE_LEFT_PAREN;
+          case 121: return KEYCODE_RIGHT_PARENT;
+          case 122: return KEYCODE_LEFT_BRACKET;
+          case 123: return KEYCODE_RIGHT_BRACKET;
+          case 124: return KEYCODE_LEFT_CURLY_BRACKET;
+          case 125: return KEYCODE_RIGHT_CURLY_BRACKET;
+          case 126: return KEYCODE_LEFT_ANGLE_BRACKET;
+          case 127: return KEYCODE_RIGHT_ANGLE_BRACKET;
           default: return null;
         }
       }
@@ -1546,36 +1641,36 @@ public final class Message {
       }
     }
 
-    // optional int32 intParam = 5;
-    public static final int INTPARAM_FIELD_NUMBER = 5;
-    private int intParam_;
+    // optional int32 intExtra = 5;
+    public static final int INTEXTRA_FIELD_NUMBER = 5;
+    private int intExtra_;
     /**
-     * <code>optional int32 intParam = 5;</code>
+     * <code>optional int32 intExtra = 5;</code>
      */
-    public boolean hasIntParam() {
+    public boolean hasIntExtra() {
       return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional int32 intParam = 5;</code>
+     * <code>optional int32 intExtra = 5;</code>
      */
-    public int getIntParam() {
-      return intParam_;
+    public int getIntExtra() {
+      return intExtra_;
     }
 
-    // optional string stringParam = 6;
-    public static final int STRINGPARAM_FIELD_NUMBER = 6;
-    private java.lang.Object stringParam_;
+    // optional string stringExtra = 6;
+    public static final int STRINGEXTRA_FIELD_NUMBER = 6;
+    private java.lang.Object stringExtra_;
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
-    public boolean hasStringParam() {
+    public boolean hasStringExtra() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
-    public java.lang.String getStringParam() {
-      java.lang.Object ref = stringParam_;
+    public java.lang.String getStringExtra() {
+      java.lang.Object ref = stringExtra_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
@@ -1583,22 +1678,22 @@ public final class Message {
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
         if (bs.isValidUtf8()) {
-          stringParam_ = s;
+          stringExtra_ = s;
         }
         return s;
       }
     }
     /**
-     * <code>optional string stringParam = 6;</code>
+     * <code>optional string stringExtra = 6;</code>
      */
     public com.google.protobuf.ByteString
-        getStringParamBytes() {
-      java.lang.Object ref = stringParam_;
+        getStringExtraBytes() {
+      java.lang.Object ref = stringExtra_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        stringParam_ = b;
+        stringExtra_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -1610,8 +1705,8 @@ public final class Message {
       code_ = org.es.uremote.exchange.Message.Request.Code.NONE;
       extraCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
       securityToken_ = "";
-      intParam_ = 0;
-      stringParam_ = "";
+      intExtra_ = 0;
+      stringExtra_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1650,10 +1745,10 @@ public final class Message {
         output.writeBytes(4, getSecurityTokenBytes());
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, intParam_);
+        output.writeInt32(5, intExtra_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBytes(6, getStringParamBytes());
+        output.writeBytes(6, getStringExtraBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1682,11 +1777,11 @@ public final class Message {
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, intParam_);
+          .computeInt32Size(5, intExtra_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getStringParamBytes());
+          .computeBytesSize(6, getStringExtraBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1812,9 +1907,9 @@ public final class Message {
         bitField0_ = (bitField0_ & ~0x00000004);
         securityToken_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        intParam_ = 0;
+        intExtra_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        stringParam_ = "";
+        stringExtra_ = "";
         bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
@@ -1863,11 +1958,11 @@ public final class Message {
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.intParam_ = intParam_;
+        result.intExtra_ = intExtra_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.stringParam_ = stringParam_;
+        result.stringExtra_ = stringExtra_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1898,12 +1993,12 @@ public final class Message {
           securityToken_ = other.securityToken_;
           onChanged();
         }
-        if (other.hasIntParam()) {
-          setIntParam(other.getIntParam());
+        if (other.hasIntExtra()) {
+          setIntExtra(other.getIntExtra());
         }
-        if (other.hasStringParam()) {
+        if (other.hasStringExtra()) {
           bitField0_ |= 0x00000020;
-          stringParam_ = other.stringParam_;
+          stringExtra_ = other.stringExtra_;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2127,109 +2222,109 @@ public final class Message {
         return this;
       }
 
-      // optional int32 intParam = 5;
-      private int intParam_ ;
+      // optional int32 intExtra = 5;
+      private int intExtra_ ;
       /**
-       * <code>optional int32 intParam = 5;</code>
+       * <code>optional int32 intExtra = 5;</code>
        */
-      public boolean hasIntParam() {
+      public boolean hasIntExtra() {
         return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional int32 intParam = 5;</code>
+       * <code>optional int32 intExtra = 5;</code>
        */
-      public int getIntParam() {
-        return intParam_;
+      public int getIntExtra() {
+        return intExtra_;
       }
       /**
-       * <code>optional int32 intParam = 5;</code>
+       * <code>optional int32 intExtra = 5;</code>
        */
-      public Builder setIntParam(int value) {
+      public Builder setIntExtra(int value) {
         bitField0_ |= 0x00000010;
-        intParam_ = value;
+        intExtra_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 intParam = 5;</code>
+       * <code>optional int32 intExtra = 5;</code>
        */
-      public Builder clearIntParam() {
+      public Builder clearIntExtra() {
         bitField0_ = (bitField0_ & ~0x00000010);
-        intParam_ = 0;
+        intExtra_ = 0;
         onChanged();
         return this;
       }
 
-      // optional string stringParam = 6;
-      private java.lang.Object stringParam_ = "";
+      // optional string stringExtra = 6;
+      private java.lang.Object stringExtra_ = "";
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
-      public boolean hasStringParam() {
+      public boolean hasStringExtra() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
-      public java.lang.String getStringParam() {
-        java.lang.Object ref = stringParam_;
+      public java.lang.String getStringExtra() {
+        java.lang.Object ref = stringExtra_;
         if (!(ref instanceof java.lang.String)) {
           java.lang.String s = ((com.google.protobuf.ByteString) ref)
               .toStringUtf8();
-          stringParam_ = s;
+          stringExtra_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
       public com.google.protobuf.ByteString
-          getStringParamBytes() {
-        java.lang.Object ref = stringParam_;
+          getStringExtraBytes() {
+        java.lang.Object ref = stringExtra_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          stringParam_ = b;
+          stringExtra_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
-      public Builder setStringParam(
+      public Builder setStringExtra(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000020;
-        stringParam_ = value;
+        stringExtra_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
-      public Builder clearStringParam() {
+      public Builder clearStringExtra() {
         bitField0_ = (bitField0_ & ~0x00000020);
-        stringParam_ = getDefaultInstance().getStringParam();
+        stringExtra_ = getDefaultInstance().getStringExtra();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string stringParam = 6;</code>
+       * <code>optional string stringExtra = 6;</code>
        */
-      public Builder setStringParamBytes(
+      public Builder setStringExtraBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   bitField0_ |= 0x00000020;
-        stringParam_ = value;
+        stringExtra_ = value;
         onChanged();
         return this;
       }
@@ -3443,47 +3538,47 @@ public final class Message {
   public interface ResponseOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // optional .network_io.Request.Type requestType = 1;
+    // required .network_io.Request.Type requestType = 1;
     /**
-     * <code>optional .network_io.Request.Type requestType = 1;</code>
+     * <code>required .network_io.Request.Type requestType = 1;</code>
      */
     boolean hasRequestType();
     /**
-     * <code>optional .network_io.Request.Type requestType = 1;</code>
+     * <code>required .network_io.Request.Type requestType = 1;</code>
      */
     org.es.uremote.exchange.Message.Request.Type getRequestType();
 
-    // optional .network_io.Request.Code requestCode = 2;
+    // required .network_io.Request.Code requestCode = 2;
     /**
-     * <code>optional .network_io.Request.Code requestCode = 2;</code>
+     * <code>required .network_io.Request.Code requestCode = 2;</code>
      */
     boolean hasRequestCode();
     /**
-     * <code>optional .network_io.Request.Code requestCode = 2;</code>
+     * <code>required .network_io.Request.Code requestCode = 2;</code>
      */
     org.es.uremote.exchange.Message.Request.Code getRequestCode();
 
-    // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    // required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
     /**
-     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     boolean hasReturnCode();
     /**
-     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     org.es.uremote.exchange.Message.Response.ReturnCode getReturnCode();
 
-    // optional string message = 4;
+    // required string message = 4;
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     boolean hasMessage();
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     java.lang.String getMessage();
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     com.google.protobuf.ByteString
         getMessageBytes();
@@ -3741,65 +3836,65 @@ public final class Message {
     }
 
     private int bitField0_;
-    // optional .network_io.Request.Type requestType = 1;
+    // required .network_io.Request.Type requestType = 1;
     public static final int REQUESTTYPE_FIELD_NUMBER = 1;
     private org.es.uremote.exchange.Message.Request.Type requestType_;
     /**
-     * <code>optional .network_io.Request.Type requestType = 1;</code>
+     * <code>required .network_io.Request.Type requestType = 1;</code>
      */
     public boolean hasRequestType() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>optional .network_io.Request.Type requestType = 1;</code>
+     * <code>required .network_io.Request.Type requestType = 1;</code>
      */
     public org.es.uremote.exchange.Message.Request.Type getRequestType() {
       return requestType_;
     }
 
-    // optional .network_io.Request.Code requestCode = 2;
+    // required .network_io.Request.Code requestCode = 2;
     public static final int REQUESTCODE_FIELD_NUMBER = 2;
     private org.es.uremote.exchange.Message.Request.Code requestCode_;
     /**
-     * <code>optional .network_io.Request.Code requestCode = 2;</code>
+     * <code>required .network_io.Request.Code requestCode = 2;</code>
      */
     public boolean hasRequestCode() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>optional .network_io.Request.Code requestCode = 2;</code>
+     * <code>required .network_io.Request.Code requestCode = 2;</code>
      */
     public org.es.uremote.exchange.Message.Request.Code getRequestCode() {
       return requestCode_;
     }
 
-    // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+    // required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
     public static final int RETURNCODE_FIELD_NUMBER = 3;
     private org.es.uremote.exchange.Message.Response.ReturnCode returnCode_;
     /**
-     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     public boolean hasReturnCode() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+     * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
      */
     public org.es.uremote.exchange.Message.Response.ReturnCode getReturnCode() {
       return returnCode_;
     }
 
-    // optional string message = 4;
+    // required string message = 4;
     public static final int MESSAGE_FIELD_NUMBER = 4;
     private java.lang.Object message_;
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     public boolean hasMessage() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
@@ -3816,7 +3911,7 @@ public final class Message {
       }
     }
     /**
-     * <code>optional string message = 4;</code>
+     * <code>required string message = 4;</code>
      */
     public com.google.protobuf.ByteString
         getMessageBytes() {
@@ -3883,6 +3978,22 @@ public final class Message {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
+      if (!hasRequestType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasRequestCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasReturnCode()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasMessage()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (hasFile()) {
         if (!getFile().isInitialized()) {
           memoizedIsInitialized = 0;
@@ -4177,6 +4288,22 @@ public final class Message {
       }
 
       public final boolean isInitialized() {
+        if (!hasRequestType()) {
+          
+          return false;
+        }
+        if (!hasRequestCode()) {
+          
+          return false;
+        }
+        if (!hasReturnCode()) {
+          
+          return false;
+        }
+        if (!hasMessage()) {
+          
+          return false;
+        }
         if (hasFile()) {
           if (!getFile().isInitialized()) {
             
@@ -4205,22 +4332,22 @@ public final class Message {
       }
       private int bitField0_;
 
-      // optional .network_io.Request.Type requestType = 1;
+      // required .network_io.Request.Type requestType = 1;
       private org.es.uremote.exchange.Message.Request.Type requestType_ = org.es.uremote.exchange.Message.Request.Type.SIMPLE;
       /**
-       * <code>optional .network_io.Request.Type requestType = 1;</code>
+       * <code>required .network_io.Request.Type requestType = 1;</code>
        */
       public boolean hasRequestType() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>optional .network_io.Request.Type requestType = 1;</code>
+       * <code>required .network_io.Request.Type requestType = 1;</code>
        */
       public org.es.uremote.exchange.Message.Request.Type getRequestType() {
         return requestType_;
       }
       /**
-       * <code>optional .network_io.Request.Type requestType = 1;</code>
+       * <code>required .network_io.Request.Type requestType = 1;</code>
        */
       public Builder setRequestType(org.es.uremote.exchange.Message.Request.Type value) {
         if (value == null) {
@@ -4232,7 +4359,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>optional .network_io.Request.Type requestType = 1;</code>
+       * <code>required .network_io.Request.Type requestType = 1;</code>
        */
       public Builder clearRequestType() {
         bitField0_ = (bitField0_ & ~0x00000001);
@@ -4241,22 +4368,22 @@ public final class Message {
         return this;
       }
 
-      // optional .network_io.Request.Code requestCode = 2;
+      // required .network_io.Request.Code requestCode = 2;
       private org.es.uremote.exchange.Message.Request.Code requestCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
       /**
-       * <code>optional .network_io.Request.Code requestCode = 2;</code>
+       * <code>required .network_io.Request.Code requestCode = 2;</code>
        */
       public boolean hasRequestCode() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>optional .network_io.Request.Code requestCode = 2;</code>
+       * <code>required .network_io.Request.Code requestCode = 2;</code>
        */
       public org.es.uremote.exchange.Message.Request.Code getRequestCode() {
         return requestCode_;
       }
       /**
-       * <code>optional .network_io.Request.Code requestCode = 2;</code>
+       * <code>required .network_io.Request.Code requestCode = 2;</code>
        */
       public Builder setRequestCode(org.es.uremote.exchange.Message.Request.Code value) {
         if (value == null) {
@@ -4268,7 +4395,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>optional .network_io.Request.Code requestCode = 2;</code>
+       * <code>required .network_io.Request.Code requestCode = 2;</code>
        */
       public Builder clearRequestCode() {
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -4277,22 +4404,22 @@ public final class Message {
         return this;
       }
 
-      // optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
+      // required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];
       private org.es.uremote.exchange.Message.Response.ReturnCode returnCode_ = org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
       /**
-       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public boolean hasReturnCode() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public org.es.uremote.exchange.Message.Response.ReturnCode getReturnCode() {
         return returnCode_;
       }
       /**
-       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public Builder setReturnCode(org.es.uremote.exchange.Message.Response.ReturnCode value) {
         if (value == null) {
@@ -4304,7 +4431,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>optional .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
+       * <code>required .network_io.Response.ReturnCode returnCode = 3 [default = RC_ERROR];</code>
        */
       public Builder clearReturnCode() {
         bitField0_ = (bitField0_ & ~0x00000004);
@@ -4313,16 +4440,16 @@ public final class Message {
         return this;
       }
 
-      // optional string message = 4;
+      // required string message = 4;
       private java.lang.Object message_ = "";
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public boolean hasMessage() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
@@ -4336,7 +4463,7 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public com.google.protobuf.ByteString
           getMessageBytes() {
@@ -4352,7 +4479,7 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public Builder setMessage(
           java.lang.String value) {
@@ -4365,7 +4492,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public Builder clearMessage() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -4374,7 +4501,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>optional string message = 4;</code>
+       * <code>required string message = 4;</code>
        */
       public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
@@ -4572,78 +4699,72 @@ public final class Message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\nnetwork_io\"\337\022\n\007Request\022" +
+      "\n\rmessage.proto\022\nnetwork_io\"\344\020\n\007Request\022" +
       "&\n\004type\030\001 \002(\0162\030.network_io.Request.Type\022" +
       "&\n\004code\030\002 \002(\0162\030.network_io.Request.Code\022" +
       "+\n\textraCode\030\003 \002(\0162\030.network_io.Request." +
-      "Code\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intParam\030" +
-      "\005 \001(\005\022\023\n\013stringParam\030\006 \001(\t\"K\n\004Type\022\n\n\006SI" +
+      "Code\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intExtra\030" +
+      "\005 \001(\005\022\023\n\013stringExtra\030\006 \001(\t\"K\n\004Type\022\n\n\006SI" +
       "MPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI" +
-      "\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\313\020\n\004Code\022\010\n\004NONE" +
+      "\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\320\016\n\004Code\022\010\n\004NONE" +
       "\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OF" +
       "F\020\004\022\010\n\004PING\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007",
       "\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOC" +
-      "K\020\n\022\006\n\002UP\020\013\022\010\n\004DOWN\020\014\022\010\n\004LEFT\020\r\022\t\n\005RIGHT" +
-      "\020\016\022\010\n\004MUTE\020\017\022\007\n\003SAY\020\020\022\017\n\013QUERY_ROOTS\020\021\022\022" +
-      "\n\016QUERY_CHILDREN\020\022\022\031\n\025OPEN_FILE_SERVER_S" +
-      "IDE\020\023\022\031\n\025OPEN_FILE_CLIENT_SIDE\020\024\022\024\n\020MEDI" +
-      "A_PLAY_PAUSE\020\025\022\016\n\nMEDIA_STOP\020\026\022\022\n\016MEDIA_" +
-      "PREVIOUS\020\027\022\016\n\nMEDIA_NEXT\020\030\022\014\n\010MEDIA_FF\020\031" +
-      "\022\020\n\014MEDIA_REWIND\020\032\022\022\n\016GOM_PLAYER_RUN\020\033\022\023" +
-      "\n\017GOM_PLAYER_KILL\020\034\022\026\n\022GOM_PLAYER_STRETC" +
-      "H\020\035\022\013\n\007KB_CTRL\020\036\022\014\n\010KB_SHIFT\020\037\022\n\n\006KB_ALT",
-      "\020 \022\014\n\010KB_ALTGR\020!\022\016\n\nKB_WINDOWS\020\"\022\014\n\010KB_E" +
-      "NTER\020#\022\014\n\010KB_SPACE\020$\022\020\n\014KB_BACKSPACE\020%\022\r" +
-      "\n\tKB_ESCAPE\020&\022\n\n\006KB_TAB\020\'\022\t\n\005KB_F4\020(\022\017\n\013" +
-      "KB_NUMBER_0\0200\022\017\n\013KB_NUMBER_1\0201\022\017\n\013KB_NUM" +
-      "BER_2\0202\022\017\n\013KB_NUMBER_3\0203\022\017\n\013KB_NUMBER_4\020" +
-      "4\022\017\n\013KB_NUMBER_5\0205\022\017\n\013KB_NUMBER_6\0206\022\017\n\013K" +
-      "B_NUMBER_7\0207\022\017\n\013KB_NUMBER_8\0208\022\017\n\013KB_NUMB" +
-      "ER_9\0209\022\014\n\010KB_COLON\020:\022\021\n\rKB_SEMI_COLON\020;\022" +
-      "\034\n\030KB_OPENING_ANGLE_BRACKET\020<\022\014\n\010KB_EQUA" +
-      "L\020=\022\034\n\030KB_CLOSIGN_ANGLE_BRACKET\020>\022\024\n\020KB_",
-      "QUESTION_MARK\020?\022\016\n\nKB_AT_SIGN\020@\022\022\n\016KB_UP" +
-      "PERCASE_A\020A\022\022\n\016KB_UPPERCASE_B\020B\022\022\n\016KB_UP" +
-      "PERCASE_C\020C\022\022\n\016KB_UPPERCASE_D\020D\022\022\n\016KB_UP" +
-      "PERCASE_E\020E\022\022\n\016KB_UPPERCASE_F\020F\022\022\n\016KB_UP" +
-      "PERCASE_G\020G\022\022\n\016KB_UPPERCASE_H\020H\022\022\n\016KB_UP" +
-      "PERCASE_I\020I\022\022\n\016KB_UPPERCASE_J\020J\022\022\n\016KB_UP" +
-      "PERCASE_K\020K\022\022\n\016KB_UPPERCASE_L\020L\022\022\n\016KB_UP" +
-      "PERCASE_M\020M\022\022\n\016KB_UPPERCASE_N\020N\022\022\n\016KB_UP" +
-      "PERCASE_O\020O\022\022\n\016KB_UPPERCASE_P\020P\022\022\n\016KB_UP" +
-      "PERCASE_Q\020Q\022\022\n\016KB_UPPERCASE_R\020R\022\022\n\016KB_UP",
-      "PERCASE_S\020S\022\022\n\016KB_UPPERCASE_T\020T\022\022\n\016KB_UP" +
-      "PERCASE_U\020U\022\022\n\016KB_UPPERCASE_V\020V\022\022\n\016KB_UP" +
-      "PERCASE_W\020W\022\022\n\016KB_UPPERCASE_X\020X\022\022\n\016KB_UP" +
-      "PERCASE_Y\020Y\022\022\n\016KB_UPPERCASE_Z\020Z\022\026\n\022KB_OP" +
-      "ENING_BRACKET\020[\022\020\n\014KB_BACKSLASH\020\\\022\026\n\022KB_" +
-      "CLOSING_BRACKET\020]\022\021\n\rKB_UNDERSCORE\020_\022\022\n\016" +
-      "KB_LOWERCASE_A\020a\022\022\n\016KB_LOWERCASE_B\020b\022\022\n\016" +
-      "KB_LOWERCASE_C\020c\022\022\n\016KB_LOWERCASE_D\020d\022\022\n\016" +
-      "KB_LOWERCASE_E\020e\022\022\n\016KB_LOWERCASE_F\020f\022\022\n\016" +
-      "KB_LOWERCASE_G\020g\022\022\n\016KB_LOWERCASE_H\020h\022\022\n\016",
-      "KB_LOWERCASE_I\020i\022\022\n\016KB_LOWERCASE_J\020j\022\022\n\016" +
-      "KB_LOWERCASE_K\020k\022\022\n\016KB_LOWERCASE_L\020l\022\022\n\016" +
-      "KB_LOWERCASE_M\020m\022\022\n\016KB_LOWERCASE_N\020n\022\022\n\016" +
-      "KB_LOWERCASE_O\020o\022\022\n\016KB_LOWERCASE_P\020p\022\022\n\016" +
-      "KB_LOWERCASE_Q\020q\022\022\n\016KB_LOWERCASE_R\020r\022\022\n\016" +
-      "KB_LOWERCASE_S\020s\022\022\n\016KB_LOWERCASE_T\020t\022\022\n\016" +
-      "KB_LOWERCASE_U\020u\022\022\n\016KB_LOWERCASE_V\020v\022\022\n\016" +
-      "KB_LOWERCASE_W\020w\022\022\n\016KB_LOWERCASE_X\020x\022\022\n\016" +
-      "KB_LOWERCASE_Y\020y\022\022\n\016KB_LOWERCASE_Z\020z\022\034\n\030" +
-      "KB_OPENING_CURLY_BRACKET\020{\022\013\n\007KB_PIPE\020|\022",
-      "\034\n\030KB_CLOSING_CURLY_BRACKET\020}\"~\n\010FileInf" +
-      "o\022\030\n\020absoluteFilePath\030\001 \002(\t\022\020\n\010filename\030" +
-      "\002 \002(\t\022\023\n\013isDirectory\030\003 \002(\010\022\014\n\004size\030\004 \002(\005" +
-      "\022#\n\005child\030\005 \003(\0132\024.network_io.FileInfo\"\232\002" +
-      "\n\010Response\022-\n\013requestType\030\001 \001(\0162\030.networ" +
-      "k_io.Request.Type\022-\n\013requestCode\030\002 \001(\0162\030" +
-      ".network_io.Request.Code\022=\n\nreturnCode\030\003" +
-      " \001(\0162\037.network_io.Response.ReturnCode:\010R" +
-      "C_ERROR\022\017\n\007message\030\004 \001(\t\022\020\n\010intValue\030\005 \001" +
-      "(\005\022\"\n\004file\030\006 \001(\0132\024.network_io.FileInfo\"*",
-      "\n\nReturnCode\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR" +
-      "\020\001B\"\n\027org.es.uremote.exchangeB\007Message"
+      "K\020\n\022\010\n\004MUTE\020\013\022\007\n\003SAY\020\014\022\013\n\007DPAD_UP\020\r\022\r\n\tD" +
+      "PAD_DOWN\020\016\022\r\n\tDPAD_LEFT\020\017\022\016\n\nDPAD_RIGHT\020" +
+      "\020\022\024\n\020MEDIA_PLAY_PAUSE\020\024\022\016\n\nMEDIA_STOP\020\025\022" +
+      "\022\n\016MEDIA_PREVIOUS\020\026\022\016\n\nMEDIA_NEXT\020\027\022\014\n\010M" +
+      "EDIA_FF\020\030\022\020\n\014MEDIA_REWIND\020\031\022\017\n\013QUERY_ROO" +
+      "TS\020\032\022\022\n\016QUERY_CHILDREN\020\033\022\024\n\020OPEN_SERVER_" +
+      "SIDE\020\034\022\024\n\020OPEN_CLIENT_SIDE\020\035\022\020\n\014KEYCODE_" +
+      "CTRL\020\036\022\021\n\rKEYCODE_SHIFT\020\037\022\024\n\020KEYCODE_ALT" +
+      "_LEFT\020 \022\025\n\021KEYCODE_ALT_RIGHT\020!\022\023\n\017KEYCOD",
+      "E_WINDOWS\020\"\022\021\n\rKEYCODE_ENTER\020(\022\022\n\016KEYCOD" +
+      "E_ESCAPE\020)\022\022\n\016KEYCODE_DELETE\020*\022\021\n\rKEYCOD" +
+      "E_SPACE\020+\022\025\n\021KEYCODE_BACKSPACE\020,\022\017\n\013KEYC" +
+      "ODE_TAB\020-\022\r\n\tKEYCODE_0\0202\022\r\n\tKEYCODE_1\0203\022" +
+      "\r\n\tKEYCODE_2\0204\022\r\n\tKEYCODE_3\0205\022\r\n\tKEYCODE" +
+      "_4\0206\022\r\n\tKEYCODE_5\0207\022\r\n\tKEYCODE_6\0208\022\r\n\tKE" +
+      "YCODE_7\0209\022\r\n\tKEYCODE_8\020:\022\r\n\tKEYCODE_9\020;\022" +
+      "\r\n\tKEYCODE_A\020<\022\r\n\tKEYCODE_B\020=\022\r\n\tKEYCODE" +
+      "_C\020>\022\r\n\tKEYCODE_D\020?\022\r\n\tKEYCODE_E\020@\022\r\n\tKE" +
+      "YCODE_F\020A\022\r\n\tKEYCODE_G\020B\022\r\n\tKEYCODE_H\020C\022",
+      "\r\n\tKEYCODE_I\020D\022\r\n\tKEYCODE_J\020E\022\r\n\tKEYCODE" +
+      "_K\020F\022\r\n\tKEYCODE_L\020G\022\r\n\tKEYCODE_M\020H\022\r\n\tKE" +
+      "YCODE_N\020I\022\r\n\tKEYCODE_O\020J\022\r\n\tKEYCODE_P\020K\022" +
+      "\r\n\tKEYCODE_Q\020L\022\r\n\tKEYCODE_R\020M\022\r\n\tKEYCODE" +
+      "_S\020N\022\r\n\tKEYCODE_T\020O\022\r\n\tKEYCODE_U\020P\022\r\n\tKE" +
+      "YCODE_V\020Q\022\r\n\tKEYCODE_W\020R\022\r\n\tKEYCODE_X\020S\022" +
+      "\r\n\tKEYCODE_Y\020T\022\r\n\tKEYCODE_Z\020U\022\016\n\nKEYCODE" +
+      "_F1\020V\022\016\n\nKEYCODE_F2\020W\022\016\n\nKEYCODE_F3\020X\022\016\n" +
+      "\nKEYCODE_F4\020Y\022\016\n\nKEYCODE_F5\020Z\022\016\n\nKEYCODE" +
+      "_F6\020[\022\016\n\nKEYCODE_F7\020\\\022\016\n\nKEYCODE_F8\020]\022\016\n",
+      "\nKEYCODE_F9\020^\022\017\n\013KEYCODE_F10\020_\022\017\n\013KEYCOD" +
+      "E_F11\020`\022\017\n\013KEYCODE_F12\020a\022\022\n\016KEYCODE_EQUA" +
+      "LS\020d\022\021\n\rKEYCODE_MINUS\020e\022\020\n\014KEYCODE_PLUS\020" +
+      "f\022\020\n\014KEYCODE_STAR\020g\022\021\n\rKEYCODE_SLASH\020h\022\025" +
+      "\n\021KEYCODE_BACKSLASH\020i\022\026\n\022KEYCODE_UNDERSC" +
+      "ORE\020j\022\020\n\014KEYCODE_PIPE\020k\022\021\n\rKEYCODE_COMMA" +
+      "\020l\022\023\n\017KEYCODE_PERIODE\020m\022\021\n\rKEYCODE_COLON" +
+      "\020n\022\025\n\021KEYCODE_SEMICOLON\020o\022\016\n\nKEYCODE_AT\020" +
+      "p\022\026\n\022KEYCODE_APOSTROPHE\020q\022\026\n\022KEYCODE_LEF" +
+      "T_PAREN\020x\022\030\n\024KEYCODE_RIGHT_PARENT\020y\022\030\n\024K",
+      "EYCODE_LEFT_BRACKET\020z\022\031\n\025KEYCODE_RIGHT_B" +
+      "RACKET\020{\022\036\n\032KEYCODE_LEFT_CURLY_BRACKET\020|" +
+      "\022\037\n\033KEYCODE_RIGHT_CURLY_BRACKET\020}\022\036\n\032KEY" +
+      "CODE_LEFT_ANGLE_BRACKET\020~\022\037\n\033KEYCODE_RIG" +
+      "HT_ANGLE_BRACKET\020\177\"~\n\010FileInfo\022\030\n\020absolu" +
+      "teFilePath\030\001 \002(\t\022\020\n\010filename\030\002 \002(\t\022\023\n\013is" +
+      "Directory\030\003 \002(\010\022\014\n\004size\030\004 \002(\005\022#\n\005child\030\005" +
+      " \003(\0132\024.network_io.FileInfo\"\232\002\n\010Response\022" +
+      "-\n\013requestType\030\001 \002(\0162\030.network_io.Reques" +
+      "t.Type\022-\n\013requestCode\030\002 \002(\0162\030.network_io",
+      ".Request.Code\022=\n\nreturnCode\030\003 \002(\0162\037.netw" +
+      "ork_io.Response.ReturnCode:\010RC_ERROR\022\017\n\007" +
+      "message\030\004 \002(\t\022\020\n\010intValue\030\005 \001(\005\022\"\n\004file\030" +
+      "\006 \001(\0132\024.network_io.FileInfo\"*\n\nReturnCod" +
+      "e\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B\"\n\027org.e" +
+      "s.uremote.exchangeB\007Message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4655,7 +4776,7 @@ public final class Message {
           internal_static_network_io_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_io_Request_descriptor,
-              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntParam", "StringParam", });
+              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntExtra", "StringExtra", });
           internal_static_network_io_FileInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_network_io_FileInfo_fieldAccessorTable = new

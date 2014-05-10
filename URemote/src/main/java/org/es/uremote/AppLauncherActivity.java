@@ -70,11 +70,6 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
         gridLayout.addView(ibStop);
 
         setContentView(gridLayout, layoutParams);
-//		setContentView(R.layout.server_app_launcher);
-
-		// Click listener for all buttons
-//		((ImageButton) findViewById(R.id.btnAppGomPlayer)).setOnClickListener(this);
-//		((ImageButton) findViewById(R.id.btnKillGomPlayer)).setOnClickListener(this);
 	}
 
     private void populateAppGridLayout(final GridLayout gridLayout, ArrayList<AppItem> apps) {
@@ -107,13 +102,13 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
 //            }
 //        }
 
-		switch (v.getId()) {
+		switch (id) {
 			case R.id.btnAppGomPlayer:
-				returnAppMessage(Type.APP, Code.GOM_PLAYER_RUN);
+				returnAppMessage(Type.APP, Code.ON);
 				break;
 
 			case R.id.btnKillGomPlayer:
-				returnAppMessage(Type.APP, Code.GOM_PLAYER_KILL);
+				returnAppMessage(Type.APP, Code.OFF);
 				break;
 
 			default:

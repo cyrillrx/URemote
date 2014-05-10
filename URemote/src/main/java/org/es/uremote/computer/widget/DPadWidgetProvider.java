@@ -26,10 +26,6 @@ import org.es.utils.Log;
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.exchange.Message.Request;
-import static org.es.uremote.exchange.Message.Request.Code.DOWN;
-import static org.es.uremote.exchange.Message.Request.Code.LEFT;
-import static org.es.uremote.exchange.Message.Request.Code.RIGHT;
-import static org.es.uremote.exchange.Message.Request.Code.UP;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
@@ -138,27 +134,27 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 
             case ACTION_OK:
                 Toast.makeText(context, "OK", LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KB_ENTER);
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KEYCODE_ENTER);
                 break;
 
             case ACTION_LEFT:
-                Toast.makeText(context, LEFT.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, LEFT);
+                Toast.makeText(context, Code.DPAD_LEFT.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_LEFT);
                 break;
 
             case ACTION_RIGHT:
-                Toast.makeText(context, RIGHT.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, RIGHT);
+                Toast.makeText(context, Code.DPAD_RIGHT.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_RIGHT);
                 break;
 
             case ACTION_UP:
-                Toast.makeText(context, UP.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, UP);
+                Toast.makeText(context, Code.DPAD_UP.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_UP);
                 break;
 
             case ACTION_DOWN:
-                Toast.makeText(context, DOWN.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, DOWN);
+                Toast.makeText(context, Code.DPAD_DOWN.name(), LENGTH_SHORT).show();
+                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_DOWN);
                 break;
 
             case ACTION_START_ACTIVITY:
