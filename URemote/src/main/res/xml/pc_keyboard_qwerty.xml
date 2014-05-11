@@ -148,7 +148,7 @@
             android:keyLabel="@string/kb_windows"
             android:keyWidth="25%p" />
         <Key
-            android:codes="@integer/code_alt"
+            android:codes="@integer/code_alt_left"
             android:isSticky="true"
             android:keyLabel="@string/kb_alt" />
         <Key
