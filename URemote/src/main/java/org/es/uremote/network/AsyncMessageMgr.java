@@ -36,21 +36,14 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
         mServerSetting = serverSetting;
     }
 
-//    /**
-//     * @param context The application context.
-//     */
-//    public AsyncMessageMgr(Context context) {
-//        this(ServerSettingDao.loadSelected(context));
-//    }
-
 	@Override
 	protected void onPreExecute() {
 		try {
 			sSemaphore.acquire();
 		} catch (InterruptedException e) {
-			Log.error(TAG, "onPreExecute Semaphore acquire error.");
+			Log.error(TAG, "#onPreExecute - Semaphore acquire error.");
 		}
-		Log.info(TAG, "onPreExecute Semaphore acquire. " + sSemaphore.availablePermits() + " left");
+		Log.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left");
 	}
 
 	@Override
@@ -73,10 +66,6 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
                 }
                 errorMessage = "Socket null or not connected";
 
-            } catch (IOException e) {
-                errorMessage = "IOException" + e;
-                Log.error(TAG, errorMessage, e);
-
             } catch (Exception e) {
                 errorMessage = "Exception" + e;
                 Log.error(TAG, errorMessage, e);
@@ -87,6 +76,8 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
         }
 
 		return Response.newBuilder()
+				.setRequestType(request.getType())
+				.setRequestCode(request.getCode())
 				.setReturnCode(ReturnCode.RC_ERROR)
 				.setMessage(errorMessage)
 				.build();
@@ -105,10 +96,15 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		sSemaphore.release();
 		Log.info(TAG, "Semaphore release");
 
+        if (response == null) {
+            Log.error(TAG, "#onPostExecute - Response is null.");
+            return;
+        }
+
 		if (!response.getMessage().isEmpty()) {
-			Log.info(TAG, "onPostExecute message : " + response.getMessage());
+			Log.info(TAG, "#onPostExecute - message : " + response.getMessage());
 		} else {
-			Log.info(TAG, "onPostExecute empty message.");
+			Log.info(TAG, "#onPostExecute - empty message.");
 		}
 	}
 

@@ -146,7 +146,12 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
 		@Override
 		protected void onPostExecute(Response response) {
-			super.onPostExecute(response);
+            if (response == null) {
+                Log.error(TAG, "#onPostExecute - Response is null.");
+                return;
+            }
+
+            super.onPostExecute(response);
 			mCallbacks.onPostExecute(response);
 
 			Log.debug(TAG, "#onPostExecute - " + response.getMessage());

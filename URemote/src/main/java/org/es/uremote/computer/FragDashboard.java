@@ -420,7 +420,6 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 				final float alpha = mView.getAlpha();
 				if (alpha == 1.0) {
 					fadeOut(mView);
-
 				}
 			}
 
