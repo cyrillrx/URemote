@@ -14,6 +14,7 @@
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
+
         <activity
                 android:name=".Home"
                 android:label="@string/app_name"
@@ -25,35 +26,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-                android:name=".AppSettings"
-                android:label="@string/title_preferences" />
+
+        <!-- Computer related activities -->
+
         <activity
                 android:name=".Computer"
-                android:label="@string/title_computer" />
+                android:label="@string/title_computer"
+                android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".computer.ServerListActivity"
                 android:theme="@style/PopupTheme" />
-        <activity
-                android:name=".computer.widget.MediaWidgetConfigureActivity"
-                android:theme="@style/PopupTheme">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
-        <activity
-                android:name=".computer.widget.DPadWidgetConfigureActivity"
-                android:theme="@style/PopupTheme">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            </intent-filter>
-        </activity>
         <activity android:name=".computer.ServerEditActivity" />
         <activity android:name=".computer.LoadServerActivity" />
         <activity
                 android:name=".AppLauncherActivity"
                 android:label="@string/title_application_launcher"
                 android:theme="@style/PopupTheme" />
+
+        <!-- Others activities -->
+
+        <activity
+                android:name=".AppSettings"
+                android:label="@string/title_preferences" />
         <activity
                 android:name=".Nao"
                 android:label="@string/title_nao" />
@@ -74,10 +68,26 @@
                 android:label="@string/app_name"
                 android:theme="@android:style/Theme.Holo" />
 
-        <service android:name=".service.BluetoothService" />
-        <service android:name=".service.SendRequestService" />
+        <!-- Widgets configuration Activities -->
 
-        <!-- Widgets -->
+        <activity
+                android:name=".computer.widget.MediaWidgetConfigureActivity"
+                android:theme="@style/PopupTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+                android:name=".computer.widget.DPadWidgetConfigureActivity"
+                android:theme="@style/PopupTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- Widgets Providers -->
+
         <receiver
                 android:name=".computer.widget.MediaWidgetProvider"
                 android:icon="@drawable/ic_launcher"
@@ -85,7 +95,6 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_media_info" />
@@ -98,11 +107,17 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-
             <meta-data
                     android:name="android.appwidget.provider"
                     android:resource="@xml/widget_dpad_info" />
         </receiver>
+
+        <!-- Services -->
+
+        <service android:name=".service.BluetoothService" />
+        <service android:name=".service.SendRequestService" />
+
+        <!-- External APIs -->
 
         <meta-data
                 android:name="com.crashlytics.ApiKey"

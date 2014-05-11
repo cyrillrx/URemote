@@ -1,4 +1,4 @@
-package org.es.uremote.computer;
+package org.es.uremote.computer.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;

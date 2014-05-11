@@ -11,7 +11,7 @@ import org.es.uremote.exchange.Message;
  * @author Cyril Leroux
  *         Created 01/05/2014.
  */
-public class KeyboardListener implements KeyboardView.OnKeyListener {
+public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private static final int NO_FLAG = 0;
 
@@ -27,12 +27,10 @@ public class KeyboardListener implements KeyboardView.OnKeyListener {
         }
     }
 
-    @Override
-    public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+    public boolean handleKey(int keyCode, int extraCodes) {
 
-        view.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        performHapticFeedback();
 
-        int extraCodes = getExtraCodes(keyEvent);
         switch (keyCode) {
 
             // Special Keys
@@ -118,27 +116,35 @@ public class KeyboardListener implements KeyboardView.OnKeyListener {
                 return true;
 
             case KeyEvent.KEYCODE_2:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_2, extraCodes);
                 return true;
 
             case KeyEvent.KEYCODE_3:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_3, extraCodes);
                 return true;
 
             case KeyEvent.KEYCODE_4:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_4, extraCodes);
                 return true;
 
             case KeyEvent.KEYCODE_5:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_5, extraCodes);
                 return true;
 
             case KeyEvent.KEYCODE_6:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_6, extraCodes);
                 return true;
 
             case KeyEvent.KEYCODE_7:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendKey(Message.Request.Code.KEYCODE_7, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_8:
+                sendKey(Message.Request.Code.KEYCODE_8, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_9:
+                sendKey(Message.Request.Code.KEYCODE_9, extraCodes);
                 return true;
 
             // Letter keys
@@ -276,4 +282,32 @@ public class KeyboardListener implements KeyboardView.OnKeyListener {
     private void sendKey(Message.Request.Code primaryCode, int extraCodes) {
         // TODO send request
     }
+
+    @Override
+    public void onPress(int primaryCode) {
+
+    }
+
+    @Override
+    public void onRelease(int primaryCode) { }
+
+    @Override
+    public void onKey(int primaryCode, int[] keyCodes) {
+
+    }
+
+    @Override
+    public void onText(CharSequence text) { }
+
+    @Override
+    public void swipeLeft() { }
+
+    @Override
+    public void swipeRight() { }
+
+    @Override
+    public void swipeDown() { }
+
+    @Override
+    public void swipeUp() { }
 }

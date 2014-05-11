@@ -6,4 +6,6 @@ package org.es.uremote;
 public interface ToastSender {
 
     void sendToast(final String message);
+
+    void sendToast(final int messageResourceId);
 }
