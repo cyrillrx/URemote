@@ -2,10 +2,10 @@ package org.es.uremote.computer.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
+import org.es.uremote.ToastSender;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
@@ -32,11 +32,13 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	private static final String TAG = "RemoteExplorerFragment";
 
 	private TaskCallbacks mCallbacks;
+	private ToastSender mToastSender;
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		mCallbacks = (TaskCallbacks) activity;
+		mToastSender = (ToastSender) activity;
 	}
 
 	@Override
@@ -55,6 +57,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 	public void onDetach() {
 		super.onDetach();
 		mCallbacks = null;
+        mToastSender = null;
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
                     filename);
 
 		} catch (Exception e) {
-			Toast.makeText(getActivity(), R.string.build_request_error, Toast.LENGTH_LONG).show();
+            mToastSender.sendToast(R.string.build_request_error);
 			return;
 		}
 		sendRequest(request);
@@ -92,7 +95,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 		if (dirPath != null) {
 			sendRequest(MessageUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.QUERY_CHILDREN, Code.NONE, dirPath));
 		} else {
-            Toast.makeText(getActivity(), R.string.msg_no_path_defined, Toast.LENGTH_SHORT).show();
+            mToastSender.sendToast(R.string.msg_no_path_defined);
         }
 	}
 
@@ -110,7 +113,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 		if (ExplorerMessageMgr.availablePermits() > 0) {
 			new ExplorerMessageMgr().execute(request);
 		} else {
-			Toast.makeText(getActivity(), R.string.msg_no_more_permit, Toast.LENGTH_SHORT).show();
+			mToastSender.sendToast(R.string.msg_no_more_permit);
 		}
 	}
 
@@ -157,13 +160,13 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 			Log.debug(TAG, "#onPostExecute - " + response.getMessage());
 			if (RC_ERROR.equals(response.getReturnCode())) {
 				if (!response.getMessage().isEmpty()) {
-					Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
+					mToastSender.sendToast(response.getMessage());
 				}
 				return;
 			}
 
 			if (!response.getMessage().isEmpty()) {
-				Toast.makeText(getActivity(), response.getMessage(), Toast.LENGTH_LONG).show();
+				mToastSender.sendToast(response.getMessage());
 			}
 			mCurrentFileInfo = response.getFile();
 			updateView(response.getFile());
