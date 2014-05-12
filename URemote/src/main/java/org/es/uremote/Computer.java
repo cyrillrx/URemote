@@ -13,7 +13,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -142,18 +141,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
         ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
-            @Override
-            public void onPageSelected(int position) {
-                sendToast("Current page : " + position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) { }
-        });
 
         mTvServerState = (TextView) findViewById(R.id.tvServerState);
         mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);

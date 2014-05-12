@@ -157,7 +157,6 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
             super.onPostExecute(response);
 			mCallbacks.onPostExecute(response);
 
-			Log.debug(TAG, "#onPostExecute - " + response.getMessage());
 			if (RC_ERROR.equals(response.getReturnCode())) {
 				if (!response.getMessage().isEmpty()) {
 					mToastSender.sendToast(response.getMessage());
