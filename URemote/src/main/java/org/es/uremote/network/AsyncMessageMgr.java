@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -27,7 +28,6 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 	private static final String TAG = "AsyncMessageMgr";
 
 	protected final ServerSetting mServerSetting;
-	private Socket mSocket;
 
     /**
      * @param serverSetting Server connection settings.
@@ -54,24 +54,25 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
         if (mServerSetting == null) {
             errorMessage = "Connected device is null. Nowhere to send data";
-            Log.error(TAG, errorMessage);
 
         } else {
-            mSocket = null;
+            Socket socket = null;
             try {
-                // Socket creation
-                mSocket = connectToRemoteSocket(mServerSetting);
-                if (mSocket != null && mSocket.isConnected()) {
-                    return MessageUtils.sendRequest(mSocket, request);
+                socket = connectToRemoteSocket(mServerSetting);
+                if (socket != null && socket.isConnected()) {
+                    return MessageUtils.sendRequest(socket, request);
                 }
                 errorMessage = "Socket null or not connected";
 
+            } catch (SocketTimeoutException e) {
+                errorMessage = "Can't reach remote device (bad config or server down).";
+                Log.warning(TAG, "Can't reach remote device (" + e.getMessage() + ")");
+
             } catch (Exception e) {
-                errorMessage = "Exception" + e;
-                Log.error(TAG, errorMessage, e);
+                errorMessage = "Exception - " + e.getMessage();
 
             } finally {
-                closeSocketIO();
+                closeSocket(socket);
             }
         }
 
@@ -108,12 +109,6 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		}
 	}
 
-	@Override
-	protected void onCancelled() {
-		closeSocketIO();
-		super.cancel(false);
-	}
-
 	/**
 	 * Creates the socket, connects it to the server then returns it.
 	 *
@@ -135,27 +130,28 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 		return socket;
 	}
 
-	/** Close socket IO then close the socket. */
-	private void closeSocketIO() {
-		Log.warning(TAG, "closeSocket");
-		if (mSocket == null) {
-			return;
-		}
+	/** Close socket IOs then close the socket. */
+	private void closeSocket(Socket socket) {
+        if (socket == null) {
+            Log.warning(TAG, "#closeSocketIO - Socket is null.");
+            return;
+        }
 
-		try {
-			if (mSocket.getInputStream() != null) {
-				mSocket.getInputStream().close();
-			}
-		} catch (IOException e) {}
-
-		try {
-			if (mSocket.getOutputStream() != null) {
-				mSocket.getOutputStream().close();
-			}
-		} catch (IOException e) {}
-		try {
-			mSocket.close();
-		} catch (IOException e) {}
+        try {
+            socket.shutdownInput();
+        } catch (IOException e) {
+            Log.warning(TAG, "#closeSocketIO - On socket.shutdownInput() : " + e);
+        }
+        try {
+            socket.shutdownOutput();
+        } catch (IOException e) {
+            Log.warning(TAG, "#closeSocketIO - On socket.shutdownOutput() : " + e);
+        }
+        try {
+            socket.close();
+        } catch (IOException e) {
+            Log.warning(TAG, "#closeSocketIO - On socket.close() : " + e);
+        }
 	}
 
 	/** @return The count of available permits. */
