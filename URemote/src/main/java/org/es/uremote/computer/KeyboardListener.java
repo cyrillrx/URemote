@@ -5,7 +5,9 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 
+import org.es.uremote.utils.ToastSender;
 import org.es.uremote.exchange.Message;
+import org.es.utils.Log;
 
 /**
  * @author Cyril Leroux
@@ -14,21 +16,43 @@ import org.es.uremote.exchange.Message;
 public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private static final int NO_FLAG = 0;
+    private static final String TAG = "org.es.uremote.computer.KeyboardListener";
 
     private View mHapticFeedbackView;
+    private ToastSender mToastSender;
 
+    /**
+     * Sets the view that will be use to perform haptic feedback.
+     * @param view The view that will be use to perform haptic feedback.
+     */
     public void setHapticFeedbackView(final View view) {
         mHapticFeedbackView = view;
     }
 
+    /**
+     * Performs haptic feedback using the view specified through {@link #setHapticFeedbackView(android.view.View)}.
+     */
     private void performHapticFeedback() {
-        if (mHapticFeedbackView != null) {
-            mHapticFeedbackView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        if (mHapticFeedbackView == null) {
+            Log.warning(TAG, "#performHapticFeedback - mHapticFeedbackView is null. Can't perform haptic feedback.");
+            return;
         }
+        mHapticFeedbackView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+    }
+
+    public void setToastSender(final ToastSender toastSender) {
+        mToastSender = toastSender;
+    }
+
+    private void sendToast(final String message) {
+        if (mToastSender == null) {
+            Log.warning(TAG, "#sendToast - mToastSender is null. Can't send toast.");
+            return;
+        }
+        mToastSender.sendToast(message);
     }
 
     public boolean handleKey(int keyCode, int extraCodes) {
-
         performHapticFeedback();
 
         switch (keyCode) {
@@ -253,9 +277,10 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
                 sendKey(Message.Request.Code.KEYCODE_Z, extraCodes);
                 return true;
 
+            default:
+                sendToast("Key not handled : " + keyCode);
+                return false;
         }
-
-        return false;
     }
 
     /**
@@ -281,33 +306,23 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private void sendKey(Message.Request.Code primaryCode, int extraCodes) {
         // TODO send request
+        sendToast("Sending key : " + primaryCode.name());
     }
 
-    @Override
-    public void onPress(int primaryCode) {
-
-    }
-
-    @Override
-    public void onRelease(int primaryCode) { }
+    //
+    // OnKeyboardActionListener methods
+    //
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
-
+        handleKey(primaryCode, getExtraCodes(null));
     }
 
-    @Override
-    public void onText(CharSequence text) { }
-
-    @Override
-    public void swipeLeft() { }
-
-    @Override
-    public void swipeRight() { }
-
-    @Override
-    public void swipeDown() { }
-
-    @Override
-    public void swipeUp() { }
+    @Override public void onPress(int primaryCode) { }
+    @Override public void onRelease(int primaryCode) { }
+    @Override public void onText(CharSequence text) { }
+    @Override public void swipeLeft() { }
+    @Override public void swipeRight() { }
+    @Override public void swipeDown() { }
+    @Override public void swipeUp() { }
 }

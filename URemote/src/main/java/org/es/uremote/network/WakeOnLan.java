@@ -2,7 +2,7 @@ package org.es.uremote.network;
 
 import android.os.AsyncTask;
 
-import org.es.uremote.ToastSender;
+import org.es.uremote.utils.ToastSender;
 import org.es.utils.Log;
 
 import java.net.DatagramPacket;

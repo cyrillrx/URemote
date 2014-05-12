@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.ToastSender;
+import org.es.uremote.utils.ToastSender;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;

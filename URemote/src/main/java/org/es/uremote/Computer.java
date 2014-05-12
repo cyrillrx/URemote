@@ -39,6 +39,7 @@ import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
+import org.es.uremote.utils.ToastSender;
 import org.es.utils.Log;
 
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener();
         keyboardListener.setHapticFeedbackView(mKeyboardView);
+        keyboardListener.setToastSender(this);
 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
         mKeyboardView.setKeyboard(keyboard);

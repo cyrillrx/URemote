@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
-import org.es.uremote.ToastSender;
+import org.es.uremote.utils.ToastSender;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Response;

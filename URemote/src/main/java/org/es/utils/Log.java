@@ -2,8 +2,6 @@ package org.es.utils;
 
 import org.es.uremote.BuildConfig;
 
-import static org.es.uremote.BuildConfig.DEBUG;
-
 /**
  * This class handle conditional log.
  * The log is only displayed if {@link BuildConfig#DEBUG} is true.
@@ -20,7 +18,7 @@ public class Log {
 	 * @param message The message to log.
 	 */
 	public static void info(String tag, String message) {
-		if (DEBUG) {
+		if (BuildConfig.DEBUG) {
 			android.util.Log.i(tag, message);
 		}
 	}
@@ -32,7 +30,7 @@ public class Log {
 	 * @param message The message to log.
 	 */
 	public static void debug(String tag, String message) {
-		if (DEBUG) {
+		if (BuildConfig.DEBUG) {
 			android.util.Log.d(tag, message);
 		}
 	}
@@ -44,7 +42,7 @@ public class Log {
 	 * @param message The message to log.
 	 */
 	public static void warning(String tag, String message) {
-		if (DEBUG) {
+		if (BuildConfig.DEBUG) {
 			android.util.Log.w(tag, message);
 		}
 	}
@@ -56,7 +54,7 @@ public class Log {
 	 * @param message The message to log.
 	 */
 	public static void error(String tag, String message) {
-		if (DEBUG) {
+		if (BuildConfig.DEBUG) {
 			android.util.Log.e(tag, message);
 		}
 	}
@@ -69,7 +67,7 @@ public class Log {
 	 * @param e exception attached to the message
 	 */
 	public static void error(String tag, String message, Exception e) {
-		if (DEBUG) {
+		if (BuildConfig.DEBUG) {
 			android.util.Log.e(tag, message, e);
 		}
 	}
