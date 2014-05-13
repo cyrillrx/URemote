@@ -291,7 +291,7 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         if (context == null) { return; }
 
         if (mToast == null) {
-            mToast = Toast.makeText(context, "", LENGTH_SHORT);
+            mToast = Toast.makeText(context, "", Toast.LENGTH_LONG);
         }
         mToast.setText(message);
         mToast.show();
