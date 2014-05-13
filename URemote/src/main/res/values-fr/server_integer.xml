@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<!-- Default values -->
-	<integer name="default_server_id">-1</integer>
-	<integer name="default_local_port">0000</integer>
-	<integer name="default_remote_port">0000</integer>
-	<integer name="default_connection_timeout">500</integer>
-	<integer name="default_read_timeout">1000</integer>
-</resources>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">URemote</string>
     <string name="widget_media_controller">Media controller</string>
     <string name="widget_dpad">D-pad</string>
 
@@ -43,7 +42,7 @@
     <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
     <string name="msg_command_succeeded">Commande effectuée</string>
     <string name="msg_command_running">Commande en cours…</string>
-    <string name="msg_command_failed">La commande a échouée</string>
+    <string name="msg_command_failed">La commande a échoué</string>
     <string name="msg_no_more_permit">Plus de permis disponible !</string>
     <string name="msg_no_path_defined">Impossible de parcourir les fichiers. Aucun chemin n\'a été défini.</string>
     <string name="msg_null_request">La requête est null</string>

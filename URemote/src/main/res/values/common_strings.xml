@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<!-- Divers -->
-	<string name="tv">Tv</string>
+    <string translatable="false" name="app_name">URemote</string>
+
+	<!-- Misc -->
+	<string translatable="false" name="tv">Tv</string>
 
 	<!-- Dashboard -->
-	<string name="cmd_wake_on_lan">Wake</string>
-	<string name="cmd_shutdown">Shutdown</string>
-	<string name="cmd_kill_server">Kill server</string>
-	<string name="cmd_ai_mute">AI mute</string>
-	<string name="cmd_test">Test</string>
-	<string name="cmd_switch_window">Switch</string>
-	<string name="cmd_gom_stretch">Stretch</string>
-	<string name="cmd_gom_start">Start Gom Player</string>
-	<string name="cmd_gom_kill">Kill Gom Player</string>
-	<string name="cmd_play_pause">Play/Pause</string>
-	<string name="cmd_stop">Stop</string>
-	<string name="cmd_preview">Preview</string>
-	<string name="cmd_next">Next</string>
-	<string name="cmd_mute">Mute</string>
-	<string name="cmd_lock">Lock</string>
-	<string name="btn_app_launcher">Launcher</string>
+	<string translatable="false" name="cmd_wake_on_lan">Wake</string>
+	<string translatable="false" name="cmd_shutdown">Shutdown</string>
+	<string translatable="false" name="cmd_kill_server">Kill server</string>
+	<string translatable="false" name="cmd_ai_mute">AI mute</string>
+	<string translatable="false" name="cmd_test">Test</string>
+	<string translatable="false" name="cmd_switch_window">Switch</string>
+	<string translatable="false" name="cmd_gom_stretch">Stretch</string>
+	<string translatable="false" name="cmd_gom_start">Start Gom Player</string>
+	<string translatable="false" name="cmd_gom_kill">Kill Gom Player</string>
+	<string translatable="false" name="cmd_play_pause">Play/Pause</string>
+	<string translatable="false" name="cmd_stop">Stop</string>
+	<string translatable="false" name="cmd_preview">Preview</string>
+	<string translatable="false" name="cmd_next">Next</string>
+	<string translatable="false" name="cmd_mute">Mute</string>
+	<string translatable="false" name="cmd_lock">Lock</string>
+	<string translatable="false" name="btn_app_launcher">Launcher</string>
 
 </resources>

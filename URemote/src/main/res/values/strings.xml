@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">URemote</string>
     <string name="widget_media_controller">Media controller</string>
     <string name="widget_dpad">D-pad</string>
 

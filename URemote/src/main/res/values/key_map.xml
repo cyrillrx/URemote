@@ -4,102 +4,102 @@
     <!-- Special keys (based on android.view.KeyEvent) -->
 
     <!-- KEYCODE_HOME -->
-    <integer translatable="false" name="code_windows">3</integer>
-    <integer translatable="false" name="code_alt_left">57</integer>
-    <integer translatable="false" name="code_alt_right">58</integer>
+    <integer name="code_windows">3</integer>
+    <integer name="code_alt_left">57</integer>
+    <integer name="code_alt_right">58</integer>
     <!-- KEYCODE_SHIFT_LEFT -->
-    <integer translatable="false" name="code_shift">59</integer>
-    <integer translatable="false" name="code_space">62</integer>
-    <integer translatable="false" name="code_enter">66</integer>
+    <integer name="code_shift">59</integer>
+    <integer name="code_space">62</integer>
+    <integer name="code_enter">66</integer>
     <!-- KEYCODE_DEL -->
-    <integer translatable="false" name="code_backspace">67</integer>
-    <integer translatable="false" name="code_escape">111</integer>
+    <integer name="code_backspace">67</integer>
+    <integer name="code_escape">111</integer>
     <!-- KEYCODE_FORWARD_DEL -->
-    <integer translatable="false" name="code_delete">112</integer>
+    <integer name="code_delete">112</integer>
     <!-- KEYCODE_CTRL_LEFT -->
-    <integer translatable="false" name="code_ctrl">113</integer>
+    <integer name="code_ctrl">113</integer>
 
     <!-- D-pad keys (based on android.view.KeyEvent) -->
 
-    <integer translatable="false" name="code_up">19</integer>
-    <integer translatable="false" name="code_down">20</integer>
-    <integer translatable="false" name="code_left">21</integer>
-    <integer translatable="false" name="code_right">22</integer>
+    <integer name="code_up">19</integer>
+    <integer name="code_down">20</integer>
+    <integer name="code_left">21</integer>
+    <integer name="code_right">22</integer>
 
     <!-- Combination -->
 
-    <integer translatable="false" name="code_alt_f4">1000</integer>
-    <integer translatable="false" name="code_ctrl_enter">1001</integer>
+    <integer name="code_alt_f4">1000</integer>
+    <integer name="code_ctrl_enter">1001</integer>
 
     <!-- Digit keys (based on android.view.KeyEvent) -->
 
-    <integer translatable="false" name="code_0">7</integer>
-    <integer translatable="false" name="code_1">8</integer>
-    <integer translatable="false" name="code_2">9</integer>
-    <integer translatable="false" name="code_3">10</integer>
-    <integer translatable="false" name="code_4">11</integer>
-    <integer translatable="false" name="code_5">12</integer>
-    <integer translatable="false" name="code_6">13</integer>
-    <integer translatable="false" name="code_7">14</integer>
-    <integer translatable="false" name="code_8">15</integer>
-    <integer translatable="false" name="code_9">16</integer>
+    <integer name="code_0">7</integer>
+    <integer name="code_1">8</integer>
+    <integer name="code_2">9</integer>
+    <integer name="code_3">10</integer>
+    <integer name="code_4">11</integer>
+    <integer name="code_5">12</integer>
+    <integer name="code_6">13</integer>
+    <integer name="code_7">14</integer>
+    <integer name="code_8">15</integer>
+    <integer name="code_9">16</integer>
 
     <!-- Uppercase keys (based on android.view.KeyEvent) -->
 
-    <integer translatable="false" name="code_uppercase_a">29</integer>
-    <integer translatable="false" name="code_uppercase_b">30</integer>
-    <integer translatable="false" name="code_uppercase_c">31</integer>
-    <integer translatable="false" name="code_uppercase_d">32</integer>
-    <integer translatable="false" name="code_uppercase_e">33</integer>
-    <integer translatable="false" name="code_uppercase_f">34</integer>
-    <integer translatable="false" name="code_uppercase_g">35</integer>
-    <integer translatable="false" name="code_uppercase_h">36</integer>
-    <integer translatable="false" name="code_uppercase_i">37</integer>
-    <integer translatable="false" name="code_uppercase_j">38</integer>
-    <integer translatable="false" name="code_uppercase_k">39</integer>
-    <integer translatable="false" name="code_uppercase_l">40</integer>
-    <integer translatable="false" name="code_uppercase_m">41</integer>
-    <integer translatable="false" name="code_uppercase_n">42</integer>
-    <integer translatable="false" name="code_uppercase_o">43</integer>
-    <integer translatable="false" name="code_uppercase_p">44</integer>
-    <integer translatable="false" name="code_uppercase_q">45</integer>
-    <integer translatable="false" name="code_uppercase_r">46</integer>
-    <integer translatable="false" name="code_uppercase_s">47</integer>
-    <integer translatable="false" name="code_uppercase_t">48</integer>
-    <integer translatable="false" name="code_uppercase_u">49</integer>
-    <integer translatable="false" name="code_uppercase_v">50</integer>
-    <integer translatable="false" name="code_uppercase_w">51</integer>
-    <integer translatable="false" name="code_uppercase_x">52</integer>
-    <integer translatable="false" name="code_uppercase_y">53</integer>
-    <integer translatable="false" name="code_uppercase_z">54</integer>
+    <integer name="code_uppercase_a">29</integer>
+    <integer name="code_uppercase_b">30</integer>
+    <integer name="code_uppercase_c">31</integer>
+    <integer name="code_uppercase_d">32</integer>
+    <integer name="code_uppercase_e">33</integer>
+    <integer name="code_uppercase_f">34</integer>
+    <integer name="code_uppercase_g">35</integer>
+    <integer name="code_uppercase_h">36</integer>
+    <integer name="code_uppercase_i">37</integer>
+    <integer name="code_uppercase_j">38</integer>
+    <integer name="code_uppercase_k">39</integer>
+    <integer name="code_uppercase_l">40</integer>
+    <integer name="code_uppercase_m">41</integer>
+    <integer name="code_uppercase_n">42</integer>
+    <integer name="code_uppercase_o">43</integer>
+    <integer name="code_uppercase_p">44</integer>
+    <integer name="code_uppercase_q">45</integer>
+    <integer name="code_uppercase_r">46</integer>
+    <integer name="code_uppercase_s">47</integer>
+    <integer name="code_uppercase_t">48</integer>
+    <integer name="code_uppercase_u">49</integer>
+    <integer name="code_uppercase_v">50</integer>
+    <integer name="code_uppercase_w">51</integer>
+    <integer name="code_uppercase_x">52</integer>
+    <integer name="code_uppercase_y">53</integer>
+    <integer name="code_uppercase_z">54</integer>
 
     <!-- Lowercase keys (based on android.view.KeyEvent) -->
 
-    <integer translatable="false" name="code_lowercase_a">29</integer>
-    <integer translatable="false" name="code_lowercase_b">30</integer>
-    <integer translatable="false" name="code_lowercase_c">31</integer>
-    <integer translatable="false" name="code_lowercase_d">32</integer>
-    <integer translatable="false" name="code_lowercase_e">33</integer>
-    <integer translatable="false" name="code_lowercase_f">34</integer>
-    <integer translatable="false" name="code_lowercase_g">35</integer>
-    <integer translatable="false" name="code_lowercase_h">36</integer>
-    <integer translatable="false" name="code_lowercase_i">37</integer>
-    <integer translatable="false" name="code_lowercase_j">38</integer>
-    <integer translatable="false" name="code_lowercase_k">39</integer>
-    <integer translatable="false" name="code_lowercase_l">40</integer>
-    <integer translatable="false" name="code_lowercase_m">41</integer>
-    <integer translatable="false" name="code_lowercase_n">42</integer>
-    <integer translatable="false" name="code_lowercase_o">43</integer>
-    <integer translatable="false" name="code_lowercase_p">44</integer>
-    <integer translatable="false" name="code_lowercase_q">45</integer>
-    <integer translatable="false" name="code_lowercase_r">46</integer>
-    <integer translatable="false" name="code_lowercase_s">47</integer>
-    <integer translatable="false" name="code_lowercase_t">48</integer>
-    <integer translatable="false" name="code_lowercase_u">49</integer>
-    <integer translatable="false" name="code_lowercase_v">50</integer>
-    <integer translatable="false" name="code_lowercase_w">51</integer>
-    <integer translatable="false" name="code_lowercase_x">52</integer>
-    <integer translatable="false" name="code_lowercase_y">53</integer>
-    <integer translatable="false" name="code_lowercase_z">54</integer>
+    <integer name="code_lowercase_a">29</integer>
+    <integer name="code_lowercase_b">30</integer>
+    <integer name="code_lowercase_c">31</integer>
+    <integer name="code_lowercase_d">32</integer>
+    <integer name="code_lowercase_e">33</integer>
+    <integer name="code_lowercase_f">34</integer>
+    <integer name="code_lowercase_g">35</integer>
+    <integer name="code_lowercase_h">36</integer>
+    <integer name="code_lowercase_i">37</integer>
+    <integer name="code_lowercase_j">38</integer>
+    <integer name="code_lowercase_k">39</integer>
+    <integer name="code_lowercase_l">40</integer>
+    <integer name="code_lowercase_m">41</integer>
+    <integer name="code_lowercase_n">42</integer>
+    <integer name="code_lowercase_o">43</integer>
+    <integer name="code_lowercase_p">44</integer>
+    <integer name="code_lowercase_q">45</integer>
+    <integer name="code_lowercase_r">46</integer>
+    <integer name="code_lowercase_s">47</integer>
+    <integer name="code_lowercase_t">48</integer>
+    <integer name="code_lowercase_u">49</integer>
+    <integer name="code_lowercase_v">50</integer>
+    <integer name="code_lowercase_w">51</integer>
+    <integer name="code_lowercase_x">52</integer>
+    <integer name="code_lowercase_y">53</integer>
+    <integer name="code_lowercase_z">54</integer>
 
 </resources>

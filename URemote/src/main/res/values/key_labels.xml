@@ -69,12 +69,6 @@
 	<string translatable="false" name="kb_uppercase_y">Y</string>
 	<string translatable="false" name="kb_uppercase_z">Z</string>
 
-	<!-- Directional keys -->
-	<string translatable="false" name="kb_left">Left</string>
-	<string translatable="false" name="kb_up">Up</string>
-	<string translatable="false" name="kb_right">Right</string>
-	<string translatable="false" name="kb_down">Down</string>
-
 	<!-- Other keys -->
 	<string translatable="false" name="kb_ctrl">Ctrl</string>
 	<string translatable="false" name="kb_alt">Alt</string>
