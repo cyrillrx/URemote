@@ -19,5 +19,5 @@ public interface RequestSender {
 	public void sendRequest(Request request);
 
     /** @return The current server configuration. */
-    public ServerSetting getServerSetting();
+    public ServerSetting getDevice();
 }

@@ -2,7 +2,9 @@ package org.es.uremote;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
@@ -35,6 +37,7 @@ import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
 import org.es.uremote.exchange.Message.Response.ReturnCode;
 import org.es.uremote.exchange.MessageUtils;
+import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
@@ -46,7 +49,6 @@ import java.util.List;
 
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
@@ -56,7 +58,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 10/05/12.
  */
-public class Computer extends FragmentActivity implements TaskCallbacks, ToastSender {
+public class Computer extends FragmentActivity implements TaskCallbacks, ToastSender, RequestSender {
 
     private static final String TAG = "Computer Activity";
     private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
@@ -155,7 +157,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
 
     /**
      * Initialize the server.
-     * <p/>
      * <ul>
      * <li>Send ping message to the server.</li>
      * <li>Update server info TextView.</li>
@@ -302,34 +303,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         sendToast(getString(messageResId));
     }
 
-    public ServerSetting getServer() {
-        return mSelectedServer;
-    }
-
-    //
-    // TaskCallbacks
-    //
-
-    @Override
-    public void onPreExecute() {
-        updateConnectionState(STATE_CONNECTING);
-    }
-
-    @Override
-    public void onProgressUpdate(int percent) { }
-
-    @Override
-    public void onCancelled() { }
-
-    @Override
-    public void onPostExecute(Response response) {
-        if (ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
-            updateConnectionState(STATE_KO);
-        } else {
-            updateConnectionState(STATE_OK);
-        }
-    }
-
     private class ComputerPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragments;
@@ -349,9 +322,7 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         }
 
         @Override
-        public int getCount() {
-            return mFragments.size();
-        }
+        public int getCount() { return mFragments.size();}
     }
 
     /**
@@ -362,25 +333,21 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
      */
     public void sendAsyncRequest(Type requestType, Code requestCode) {
 
-        final ServerSetting serverSetting = getServer();
+        final ServerSetting serverSetting = getDevice();
 
         if (serverSetting == null) {
             sendToast(R.string.no_server_configured);
             return;
         }
 
-        Request request = MessageUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
+        final Request request = MessageUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
 
         if (request == null) {
             sendToast(R.string.msg_null_request);
             return;
         }
 
-        if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(serverSetting).execute(request);
-        } else {
-            sendToast(R.string.msg_no_more_permit);
-        }
+        sendRequest(request);
     }
 
     /**
@@ -430,9 +397,78 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
             return getString(R.string.no_server_configured);
         }
 
+        // TODO : Implement toString() in ConnectedDevice or ServerSetting.
         if (serverSetting.isLocal(getApplicationContext())) {
             return serverSetting.getFullLocal();
         }
         return serverSetting.getFullRemote();
+    }
+
+    //
+    // Request sender
+    //
+
+    @Override
+    public ServerSetting getDevice() {
+        return mSelectedServer;
+    }
+
+    /**
+     * Initializes the message sender manager and send a request.
+     *
+     * @param request The request to send.
+     */
+    @Override
+    public void sendRequest(Request request) {
+        if (AsyncMessageMgr.availablePermits() > 0) {
+            new AsyncMessageMgr(getDevice(), this).execute(request);
+        } else {
+            sendToast(R.string.msg_no_more_permit);
+        }
+    }
+
+    /**
+     * Ask for the user to confirm before sending a request to the server.
+     *
+     * @param request The request to send.
+     */
+    public void confirmRequest(final Request request) {
+        // TODO : clean or implement an RequestSender method.
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_menu_more)
+                .setMessage(R.string.confirm_command)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Send the request if the user confirms it
+                        sendRequest(request);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
+    }
+
+    //
+    // Task Callback
+    //
+
+    @Override
+    public void onPreExecute() {
+        updateConnectionState(STATE_CONNECTING);
+    }
+
+    @Override
+    public void onProgressUpdate(int percent) { }
+
+    @Override
+    public void onCancelled(Response response) { }
+
+    @Override
+    public void onPostExecute(Response response) {
+        if (ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
+            updateConnectionState(STATE_KO);
+        } else {
+            updateConnectionState(STATE_OK);
+        }
     }
 }

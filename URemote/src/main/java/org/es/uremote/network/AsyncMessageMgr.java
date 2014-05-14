@@ -7,6 +7,7 @@ import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Response;
 import org.es.uremote.exchange.Message.Response.ReturnCode;
 import org.es.uremote.exchange.MessageUtils;
+import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import java.io.IOException;
@@ -20,45 +21,52 @@ import java.util.concurrent.Semaphore;
  * Class that handle asynchronous messages to send to the server.
  *
  * @author Cyril Leroux
- * Created before first commit (08/04/12).
+ *         Created before first commit (08/04/12).
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
-	protected static Semaphore sSemaphore = new Semaphore(2, true);
-	private static final String TAG = "AsyncMessageMgr";
+    protected static Semaphore sSemaphore = new Semaphore(2, true);
+    private static final String TAG = "AsyncMessageMgr";
 
-	protected final ServerSetting mServerSetting;
+    protected final ServerSetting mRemoteDevice;
+    private final TaskCallbacks mTaskCallbacks;
 
     /**
-     * @param serverSetting Server connection settings.
+     * @param device The device towards which to send the request.
+     * @param taskCallbacks An object to call back during the task lifecycle
      */
-    public AsyncMessageMgr(ServerSetting serverSetting) {
-        mServerSetting = serverSetting;
+    public AsyncMessageMgr(ServerSetting device, TaskCallbacks taskCallbacks) {
+        mRemoteDevice = device;
+        mTaskCallbacks = taskCallbacks;
     }
 
-	@Override
-	protected void onPreExecute() {
-		try {
-			sSemaphore.acquire();
-		} catch (InterruptedException e) {
-			Log.error(TAG, "#onPreExecute - Semaphore acquire error.");
-		}
-		Log.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left");
-	}
+    @Override
+    protected void onPreExecute() {
+        try {
+            sSemaphore.acquire();
+            Log.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left.");
+        } catch (InterruptedException e) {
+            Log.error(TAG, "#onPreExecute - Semaphore acquire error.");
+        }
 
-	@Override
-	protected Response doInBackground(Request... requests) {
+        if (mTaskCallbacks != null) {
+            mTaskCallbacks.onPreExecute();
+        }
+    }
 
-		final Request request = requests[0];
-		String errorMessage = "";
+    @Override
+    protected Response doInBackground(Request... requests) {
 
-        if (mServerSetting == null) {
+        final Request request = requests[0];
+        String errorMessage = "";
+
+        if (mRemoteDevice == null) {
             errorMessage = "Connected device is null. Nowhere to send data";
 
         } else {
             Socket socket = null;
             try {
-                socket = connectToRemoteSocket(mServerSetting);
+                socket = connectToRemoteSocket(mRemoteDevice);
                 if (socket != null && socket.isConnected()) {
                     return MessageUtils.sendRequest(socket, request);
                 }
@@ -76,62 +84,81 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
             }
         }
 
-		return Response.newBuilder()
-				.setRequestType(request.getType())
-				.setRequestCode(request.getCode())
-				.setReturnCode(ReturnCode.RC_ERROR)
-				.setMessage(errorMessage)
-				.build();
-	}
+        return Response.newBuilder()
+                .setRequestType(request.getType())
+                .setRequestCode(request.getCode())
+                .setReturnCode(ReturnCode.RC_ERROR)
+                .setMessage(errorMessage)
+                .build();
+    }
 
-	/**
-	 * Runs on the UI thread after {@link #doInBackground(Request...)}.
-	 * The specified result is the value returned by {@link #doInBackground(Request...)}.
-	 * This method won't be invoked if the task was canceled.
-	 * It releases the semaphore acquired in OnPreExecute method.
-	 *
-	 * @param response The response from the server returned by {@link #doInBackground(Request...)}.
-	 */
-	@Override
-	protected void onPostExecute(Response response) {
-		sSemaphore.release();
-		Log.info(TAG, "Semaphore release");
+    /**
+     * Runs on the UI thread after {@link #doInBackground(Request...)}.
+     * The specified result is the value returned by {@link #doInBackground(Request...)}.
+     * This method won't be invoked if the task was canceled.
+     * It releases the semaphore acquired in OnPreExecute method.
+     *
+     * @param response The response from the server returned by {@link #doInBackground(Request...)}.
+     */
+    @Override
+    protected void onPostExecute(Response response) {
+        sSemaphore.release();
+        Log.info(TAG, "Semaphore release");
 
         if (response == null) {
             Log.error(TAG, "#onPostExecute - Response is null.");
             return;
         }
 
-		if (!response.getMessage().isEmpty()) {
-			Log.info(TAG, "#onPostExecute - message : " + response.getMessage());
-		} else {
-			Log.info(TAG, "#onPostExecute - empty message.");
-		}
-	}
+        if (!response.getMessage().isEmpty()) {
+            Log.info(TAG, "#onPostExecute - message : " + response.getMessage());
+        } else {
+            Log.info(TAG, "#onPostExecute - empty message.");
+        }
 
-	/**
-	 * Creates the socket, connects it to the server then returns it.
-	 *
-	 * @param server The object that holds server connection settings.
-	 * @return The socket on which to send the message.
-	 *
-	 * @throws IOException exception
-	 */
-	private Socket connectToRemoteSocket(ServerSetting server) throws IOException {
+        if (mTaskCallbacks != null) {
+            mTaskCallbacks.onPostExecute(response);
+        }
+    }
 
-		final String host	= server.getLocalHost();
-		final int port		= server.getLocalPort();
-		final SocketAddress socketAddress = new InetSocketAddress(host, port);
+    @Override
+    protected void onProgressUpdate(int[]... values) {
+        if (mTaskCallbacks != null) {
+            mTaskCallbacks.onProgressUpdate(values[0][0]);
+        }
+    }
 
-		Socket socket = new Socket();
-		socket.setSoTimeout(server.getReadTimeout());
-		socket.connect(socketAddress, server.getConnectionTimeout());
+    @Override
+    protected void onCancelled(Response response) {
+        if (mTaskCallbacks != null) {
+            mTaskCallbacks.onCancelled(response);
+        }
+    }
 
-		return socket;
-	}
+    /**
+     * Creates the socket, connects it to the server then returns it.
+     *
+     * @param server The object that holds server connection settings.
+     * @return The socket on which to send the message.
+     * @throws IOException exception
+     */
+    private Socket connectToRemoteSocket(ServerSetting server) throws IOException {
 
-	/** Close socket IOs then close the socket. */
-	private void closeSocket(Socket socket) {
+        final String host = server.getLocalHost();
+        final int port = server.getLocalPort();
+        final SocketAddress socketAddress = new InetSocketAddress(host, port);
+
+        Socket socket = new Socket();
+        socket.setSoTimeout(server.getReadTimeout());
+        socket.connect(socketAddress, server.getConnectionTimeout());
+
+        return socket;
+    }
+
+    /**
+     * Close socket IOs then close the socket.
+     */
+    private void closeSocket(Socket socket) {
         if (socket == null) {
             Log.warning(TAG, "#closeSocketIO - Socket is null.");
             return;
@@ -152,10 +179,12 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
         } catch (IOException e) {
             Log.warning(TAG, "#closeSocketIO - On socket.close() : " + e);
         }
-	}
+    }
 
-	/** @return The count of available permits. */
-	public static int availablePermits() {
-		return sSemaphore.availablePermits();
-	}
+    /**
+     * @return The count of available permits.
+     */
+    public static int availablePermits() {
+        return sSemaphore.availablePermits();
+    }
 }

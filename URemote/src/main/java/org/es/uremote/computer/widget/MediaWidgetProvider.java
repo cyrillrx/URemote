@@ -192,7 +192,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(server).execute(request);
+            new AsyncMessageMgr(server, null).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }
