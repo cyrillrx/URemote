@@ -85,6 +85,9 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
 
+        mTvServerState = (TextView) findViewById(R.id.tvServerState);
+        mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
+
         mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
         mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
 
@@ -143,9 +146,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
         ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
-
-        mTvServerState = (TextView) findViewById(R.id.tvServerState);
-        mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
         if (savedInstanceState != null) {
             final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);

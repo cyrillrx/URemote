@@ -67,20 +67,17 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     @Override
     protected void onFileClick(String filename) {
 
-        Request request = null;
         try {
-            MessageUtils.buildRequest(
+            sendRequest(MessageUtils.buildRequest(
                     getSecurityToken(),
                     Type.EXPLORER,
                     Code.OPEN_SERVER_SIDE,
                     Code.NONE,
-                    filename);
+                    filename));
 
         } catch (Exception e) {
             mToastSender.sendToast(R.string.build_request_error);
-            return;
         }
-        sendRequest(request);
     }
 
     /**
