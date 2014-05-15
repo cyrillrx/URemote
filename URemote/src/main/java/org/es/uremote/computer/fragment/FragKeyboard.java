@@ -332,15 +332,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
      * @param extraCode The request extra code.
      */
     public void sendRequest(final Type type, final Code code, final Code extraCode) {
-        mRequestSender.sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code, extraCode));
-    }
-
-    public String getSecurityToken() {
-        ServerSetting settings = mRequestSender.getDevice();
-        if (settings != null) {
-            return settings.getSecurityToken();
-        }
-        return null;
+        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), type, code, extraCode));
     }
 
     /**
@@ -352,6 +344,6 @@ public class FragKeyboard extends Fragment implements OnClickListener {
      * @param stringParam A string parameter.
      */
     public void sendRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-        mRequestSender.sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code, extraCode, stringParam));
+        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), type, code, extraCode, stringParam));
     }
 }

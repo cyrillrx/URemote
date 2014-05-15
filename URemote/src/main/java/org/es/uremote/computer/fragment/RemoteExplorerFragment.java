@@ -28,8 +28,6 @@ import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
  */
 public class RemoteExplorerFragment extends AbstractExplorerFragment implements RequestSender {
 
-    private static final String TAG = "RemoteExplorerFragment";
-
     private TaskCallbacks mCallbacks;
     private ToastSender mToastSender;
 

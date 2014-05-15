@@ -20,4 +20,7 @@ public interface RequestSender {
 
     /** @return The current server configuration. */
     public ServerSetting getDevice();
+
+    /** @return The security token. */
+    public String getSecurityToken();
 }

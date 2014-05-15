@@ -5,6 +5,8 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 import android.view.View;
 
+import org.es.uremote.exchange.MessageUtils;
+import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.utils.ToastSender;
 import org.es.uremote.exchange.Message;
 import org.es.utils.Log;
@@ -18,8 +20,13 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
     private static final int NO_FLAG = 0;
     private static final String TAG = "org.es.uremote.computer.KeyboardListener";
 
+    private final RequestSender mRequestSender;
     private View mHapticFeedbackView;
     private ToastSender mToastSender;
+
+    public KeyboardListener(final RequestSender requestSender) {
+        mRequestSender = requestSender;
+    }
 
     /**
      * Sets the view that will be use to perform haptic feedback.
@@ -40,9 +47,7 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         mHapticFeedbackView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
     }
 
-    public void setToastSender(final ToastSender toastSender) {
-        mToastSender = toastSender;
-    }
+    public void setToastSender(final ToastSender toastSender) { mToastSender = toastSender; }
 
     private void sendToast(final String message) {
         if (mToastSender == null) {
@@ -304,9 +309,13 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         return NO_FLAG;
     }
 
-    private void sendKey(Message.Request.Code primaryCode, int extraCodes) {
-        // TODO send request
-        sendToast("Sending key : " + primaryCode.name());
+    private void sendKey(final Message.Request.Code primaryCode, final int extraCodes) {
+        sendRequest(primaryCode, extraCodes);
+    }
+
+    private void sendRequest(Message.Request.Code primaryCode, int extraCodes) {
+        // TODO pass the extra codes instead of Code.NONE
+        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), Message.Request.Type.KEYBOARD, primaryCode, Message.Request.Code.NONE));
     }
 
     //

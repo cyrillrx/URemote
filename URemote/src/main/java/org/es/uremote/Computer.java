@@ -75,7 +75,7 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
 
     private static Toast mToast = null;
 
-    private ServerSetting mSelectedServer = null;
+    private ServerSetting mSelectedDevice = null;
 
     private KeyboardView mKeyboardView = null;
     private KeyboardView mExtendedKeyboardView = null;
@@ -88,32 +88,8 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         mTvServerState = (TextView) findViewById(R.id.tvServerState);
         mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
-        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
-        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
-
-        // Create custom keyboard
-        final KeyboardListener keyboardListener = new KeyboardListener();
-        keyboardListener.setHapticFeedbackView(mKeyboardView);
-        keyboardListener.setToastSender(this);
-
-        final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
-        mKeyboardView.setKeyboard(keyboard);
-        mKeyboardView.setPreviewEnabled(false);
-        mKeyboardView.setOnKeyboardActionListener(keyboardListener);
-
-        final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
-        mExtendedKeyboardView.setKeyboard(extendedKeyboard);
-        mExtendedKeyboardView.setPreviewEnabled(false);
-        mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
-
-        // Server info default value.
-        ((TextView) findViewById(R.id.tvServerInfos)).setText(R.string.no_server_configured);
-
-        final ServerSetting server = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
-        if (server == null) {
-            finish();
-        }
-        initServer(server);
+        initDevice();
+        initKeyboard();
 
         // ActionBar configuration
         ActionBar actionBar = getActionBar();
@@ -156,19 +132,49 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
     }
 
     /**
-     * Initialize the server.
+     * Initializes the server.
      * <ul>
      * <li>Send ping message to the server.</li>
      * <li>Update server info TextView.</li>
      * </ul>
      *
-     * @param selectedServer Server use to initialize MUST NOT be null.
      */
-    protected void initServer(final ServerSetting selectedServer) {
-        mSelectedServer = selectedServer;
-        sendAsyncRequest(Type.SIMPLE, Code.PING);
-        ((TextView) findViewById(R.id.tvServerInfos)).setText(getServerString(mSelectedServer));
+    protected void initDevice() {
 
+        // Server info default value.
+        final TextView tvServerInfo = (TextView) findViewById(R.id.tvServerInfos);
+        tvServerInfo.setText(R.string.no_server_configured);
+
+        mSelectedDevice = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
+        // Quit the activity if the device is not set
+        if (mSelectedDevice == null) {
+            finish();
+        }
+
+        sendAsyncRequest(Type.SIMPLE, Code.PING);
+        tvServerInfo.setText(getServerString(mSelectedDevice));
+    }
+
+    /** Initializes custom keyboard elements. */
+    private void initKeyboard() {
+
+        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
+        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
+
+        // Create custom keyboard
+        final KeyboardListener keyboardListener = new KeyboardListener(this);
+        keyboardListener.setHapticFeedbackView(mKeyboardView);
+        keyboardListener.setToastSender(this);
+
+        final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
+        mKeyboardView.setKeyboard(keyboard);
+        mKeyboardView.setPreviewEnabled(false);
+        mKeyboardView.setOnKeyboardActionListener(keyboardListener);
+
+        final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
+        mExtendedKeyboardView.setKeyboard(extendedKeyboard);
+        mExtendedKeyboardView.setPreviewEnabled(false);
+        mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
     }
 
     @Override
@@ -410,7 +416,17 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
 
     @Override
     public ServerSetting getDevice() {
-        return mSelectedServer;
+        return mSelectedDevice;
+    }
+
+    @Override
+    public String getSecurityToken() {
+        ServerSetting settings = getDevice();
+        if (settings != null) {
+            return settings.getSecurityToken();
+        }
+
+        return getString(R.string.default_security_token);
     }
 
     /**

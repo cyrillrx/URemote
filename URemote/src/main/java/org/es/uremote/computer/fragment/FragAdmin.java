@@ -99,19 +99,19 @@ public class FragAdmin extends Fragment implements OnClickListener {
                 break;
 
             case R.id.cmdShutdown:
-                confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, SHUTDOWN));
+                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, SHUTDOWN));
                 break;
 
             case R.id.cmdAiMute:
-                mRequestSender.sendRequest(MessageUtils.buildRequest(getSecurityToken(), AI, MUTE));
+                mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), AI, MUTE));
                 break;
 
             case R.id.cmdKillServer:
-                confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, KILL_SERVER));
+                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, KILL_SERVER));
                 break;
 
             case R.id.cmdLock:
-                confirmRequest(MessageUtils.buildRequest(getSecurityToken(), SIMPLE, LOCK));
+                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, LOCK));
                 break;
 
             default:
@@ -143,15 +143,6 @@ public class FragAdmin extends Fragment implements OnClickListener {
     ////////////////////////////////////////////////////////////////////
     // *********************** Message Sender *********************** //
     ////////////////////////////////////////////////////////////////////
-
-    public String getSecurityToken() {
-        ServerSetting settings = mRequestSender.getDevice();
-        if (settings != null) {
-            return settings.getSecurityToken();
-        }
-
-        return getString(R.string.default_security_token);
-    }
 
     /**
      * Ask for the user to confirm before sending a request to the server.
