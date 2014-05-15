@@ -70,7 +70,7 @@ public class ServerEditActivity extends Activity {
         mLocalHost2 = (EditText) findViewById(R.id.local_host2);
         mLocalHost3 = (EditText) findViewById(R.id.local_host3);
         mLocalHost4 = (EditText) findViewById(R.id.local_host4);
-        mLocalPort  = (EditText) findViewById(R.id.local_port);
+        mLocalPort = (EditText) findViewById(R.id.local_port);
 
         mBroadcast1 = (EditText) findViewById(R.id.broadcast1);
         mBroadcast2 = (EditText) findViewById(R.id.broadcast2);
@@ -81,7 +81,7 @@ public class ServerEditActivity extends Activity {
         mRemoteHost2 = (EditText) findViewById(R.id.remote_host2);
         mRemoteHost3 = (EditText) findViewById(R.id.remote_host3);
         mRemoteHost4 = (EditText) findViewById(R.id.remote_host4);
-        mRemotePort  = (EditText) findViewById(R.id.remote_port);
+        mRemotePort = (EditText) findViewById(R.id.remote_port);
 
         mMacAddress1 = (EditText) findViewById(R.id.mac_address1);
         mMacAddress2 = (EditText) findViewById(R.id.mac_address2);
@@ -131,19 +131,18 @@ public class ServerEditActivity extends Activity {
                 finish();
 
             case R.id.done:
-                ServerSetting.Builder builder = ServerSetting.newBuilder();
-
-                builder.setName(getName());
-                builder.setLocalHost(getLocalHost());
-                builder.setLocalPort(getLocalPort());
-                builder.setBroadcast(getBroadcast());
-                builder.setRemoteHost(getRemoteHost());
-                builder.setRemotePort(getRemotePort());
-                builder.setMacAddress(getMacAddress());
-                builder.setConnectionTimeout(getConnectionTimeout());
-                builder.setReadTimeout(getReadTimeout());
-                builder.setSecurityToken(getSecurityToken());
-                builder.setConnectionType(getConnectionType());
+                ServerSetting.Builder builder = ServerSetting.newBuilder()
+                        .setName(getName())
+                        .setLocalHost(getLocalHost())
+                        .setLocalPort(getLocalPort())
+                        .setBroadcast(getBroadcast())
+                        .setRemoteHost(getRemoteHost())
+                        .setRemotePort(getRemotePort())
+                        .setMacAddress(getMacAddress())
+                        .setConnectionTimeout(getConnectionTimeout())
+                        .setReadTimeout(getReadTimeout())
+                        .setSecurityToken(getSecurityToken())
+                        .setConnectionType(getConnectionType());
 
                 try {
                     Intent saveIntent = new Intent();
@@ -287,7 +286,9 @@ public class ServerEditActivity extends Activity {
         return Integer.valueOf(mReadTimeout.getEditableText().toString());
     }
 
-    /** @return The encoded (MD5) security token. */
+    /**
+     * @return The encoded (MD5) security token.
+     */
     private String getSecurityToken() {
         return Md5.encode(mSecurityToken.getEditableText().toString());
     }

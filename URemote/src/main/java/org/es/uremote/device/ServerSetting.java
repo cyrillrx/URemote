@@ -303,30 +303,30 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 			return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
 		}
 
-		public void setConnectionType(ConnectionType type) { mConnectionType = type; }
+		public Builder setConnectionType(ConnectionType type) { mConnectionType = type; return this; }
 
-		public void setName(final String name) { mName = name; }
+		public Builder setName(final String name) { mName = name; return this; }
 
-		public void setLocalHost(final String ipAddress) { mLocalHost = ipAddress; }
+		public Builder setLocalHost(final String ipAddress) { mLocalHost = ipAddress; return this; }
 
-		public void setLocalPort(final int port) { mLocalPort = port; }
+		public Builder setLocalPort(final int port) { mLocalPort = port; return this; }
 
-		public void setBroadcast(final String broadcastAddress) { mBroadcast = broadcastAddress; }
+		public Builder setBroadcast(final String broadcastAddress) { mBroadcast = broadcastAddress; return this; }
 
-		public void setRemoteHost(final String ipAddress) { mRemoteHost = ipAddress; }
+		public Builder setRemoteHost(final String ipAddress) { mRemoteHost = ipAddress; return this; }
 
-		public void setRemotePort(final int port) { mRemotePort = port; }
+		public Builder setRemotePort(final int port) { mRemotePort = port; return this; }
 
-		public void setMacAddress(final String macAddress) { mMacAddress = macAddress; }
+		public Builder setMacAddress(final String macAddress) { mMacAddress = macAddress; return this; }
 
 		/**
 		 * If the connection with the remote server is not established
 		 * within this timeout, it is dismissed.
 		 */
-		public void setConnectionTimeout(final int timeout) { mConnectionTimeout = timeout; }
+		public Builder setConnectionTimeout(final int timeout) { mConnectionTimeout = timeout; return this; }
 
-		public void setReadTimeout(final int timeout) { mReadTimeout = timeout; }
+		public Builder setReadTimeout(final int timeout) { mReadTimeout = timeout; return this; }
 
-		public void setSecurityToken(final String securityToken) { mSecurityToken = securityToken; }
+		public Builder setSecurityToken(final String securityToken) { mSecurityToken = securityToken; return this; }
 	}
 }
