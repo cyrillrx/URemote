@@ -176,7 +176,9 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
                 sendKey(Message.Request.Code.KEYCODE_9, extraCodes);
                 return true;
 
-            // Letter keys
+            //
+            // Letter keys (A-Z)
+            //
 
             case KeyEvent.KEYCODE_A:
                 sendKey(Message.Request.Code.KEYCODE_A, extraCodes);
@@ -281,6 +283,164 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             case KeyEvent.KEYCODE_Z:
                 sendKey(Message.Request.Code.KEYCODE_Z, extraCodes);
                 return true;
+
+            //
+            // Special F1 - F12
+            //
+
+            case KeyEvent.KEYCODE_F1:
+                sendKey(Message.Request.Code.KEYCODE_F1, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F2:
+                sendKey(Message.Request.Code.KEYCODE_F2, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F3:
+                sendKey(Message.Request.Code.KEYCODE_F3, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F4:
+                sendKey(Message.Request.Code.KEYCODE_F4, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F5:
+                sendKey(Message.Request.Code.KEYCODE_F5, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F6:
+                sendKey(Message.Request.Code.KEYCODE_F6, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F7:
+                sendKey(Message.Request.Code.KEYCODE_F7, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F8:
+                sendKey(Message.Request.Code.KEYCODE_F8, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F9:
+                sendKey(Message.Request.Code.KEYCODE_F9, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F10:
+                sendKey(Message.Request.Code.KEYCODE_F10, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F11:
+                sendKey(Message.Request.Code.KEYCODE_F11, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_F12:
+                sendKey(Message.Request.Code.KEYCODE_F12, extraCodes);
+                return true;
+
+            //
+            // Special char keys
+            // '=', '-', '+', '*',
+            // '/', '\', '_', '|'
+            // ',', '.', ':', ';', '@', '''
+            //
+
+            case KeyEvent.KEYCODE_EQUALS:
+                sendKey(Message.Request.Code.KEYCODE_EQUALS, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_MINUS:
+                sendKey(Message.Request.Code.KEYCODE_MINUS, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_PLUS:
+                sendKey(Message.Request.Code.KEYCODE_PLUS, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_STAR:
+                sendKey(Message.Request.Code.KEYCODE_STAR, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_SLASH:
+                sendKey(Message.Request.Code.KEYCODE_SLASH, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_BACKSLASH:
+                sendKey(Message.Request.Code.KEYCODE_BACKSLASH, extraCodes);
+                return true;
+
+            // TODO : map underscore '_'
+//            case KeyEvent.KEYCODE_UNDERSCORE:
+//                sendKey(Message.Request.Code.KEYCODE_UNDERSCORE, extraCodes);
+//                return true;
+
+            // TODO : map pipe '|'
+//            case KeyEvent.KEYCODE_PIPE:
+//                sendKey(Message.Request.Code.KEYCODE_PIPE, extraCodes);
+//                return true;
+
+            case KeyEvent.KEYCODE_COMMA:
+                sendKey(Message.Request.Code.KEYCODE_COMMA, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_PERIOD:
+                sendKey(Message.Request.Code.KEYCODE_PERIODE, extraCodes);
+                return true;
+
+            // TODO : map colon ':'
+//            case KeyEvent.KEYCODE_COLON:
+//                sendKey(Message.Request.Code.KEYCODE_COLON, extraCodes);
+//                return true;
+
+            case KeyEvent.KEYCODE_SEMICOLON:
+                sendKey(Message.Request.Code.KEYCODE_SEMICOLON, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_AT:
+                sendKey(Message.Request.Code.KEYCODE_AT, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_APOSTROPHE:
+                sendKey(Message.Request.Code.KEYCODE_APOSTROPHE, extraCodes);
+                return true;
+
+
+            //
+            // Parent and bracket keys
+            // '(', '[', '{', '<'
+            //
+
+            case KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN:
+                sendKey(Message.Request.Code.KEYCODE_LEFT_PAREN, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN:
+                sendKey(Message.Request.Code.KEYCODE_RIGHT_PARENT, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_LEFT_BRACKET:
+                sendKey(Message.Request.Code.KEYCODE_LEFT_BRACKET, extraCodes);
+                return true;
+
+            case KeyEvent.KEYCODE_RIGHT_BRACKET:
+                sendKey(Message.Request.Code.KEYCODE_RIGHT_BRACKET, extraCodes);
+                return true;
+
+            // TODO : map curly brackets '{' and '}'
+//            case KeyEvent.KEYCODE_LEFT_CURLY_BRACKET:
+//                sendKey(Message.Request.Code.KEYCODE_LEFT_CURLY_BRACKET, extraCodes);
+//                return true;
+//
+//            case KeyEvent.KEYCODE_RIGHT_CURLY_BRACKET:
+//                sendKey(Message.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET, extraCodes);
+//                return true;
+
+            // TODO : map curly brackets '<' and '>'
+//            case KeyEvent.KEYCODE_LEFT_ANGLE_BRACKET:
+//                sendKey(Message.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET, extraCodes);
+//                return true;
+//
+//            case KeyEvent.KEYCODE_RIGHT_ANGLE_BRACKET:
+//                sendKey(Message.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET, extraCodes);
+//                return true;
 
             default:
                 sendToast("Key not handled : " + keyCode);
