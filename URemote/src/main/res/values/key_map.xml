@@ -3,12 +3,13 @@
 
     <!-- Special keys (based on android.view.KeyEvent) -->
 
-    <!-- KEYCODE_HOME -->
-    <integer name="code_windows">3</integer>
+    <!-- KEYCODE_WINDOW -->
+    <integer name="code_windows">171</integer>
     <integer name="code_alt_left">57</integer>
     <integer name="code_alt_right">58</integer>
     <!-- KEYCODE_SHIFT_LEFT -->
     <integer name="code_shift">59</integer>
+    <integer name="code_tab">61</integer>
     <integer name="code_space">62</integer>
     <integer name="code_enter">66</integer>
     <!-- KEYCODE_DEL -->
@@ -101,5 +102,118 @@
     <integer name="code_lowercase_x">52</integer>
     <integer name="code_lowercase_y">53</integer>
     <integer name="code_lowercase_z">54</integer>
+
+
+    <!-- Special F1 - F12 keys (based on android.view.KeyEvent) -->
+
+    <integer name="code_F1">131</integer>
+    <integer name="code_F2">132</integer>
+    <integer name="code_F3">133</integer>
+    <integer name="code_F4">134</integer>
+    <integer name="code_F5">135</integer>
+    <integer name="code_F6">136</integer>
+    <integer name="code_F7">137</integer>
+    <integer name="code_F8">138</integer>
+    <integer name="code_F9">139</integer>
+    <integer name="code_F10">140</integer>
+    <integer name="code_F11">141</integer>
+    <integer name="code_F13">142</integer>
+
+    <!-- Special char keys-->
+    <!--'=', '-', '+', '*',-->
+    <!--'/', '\', '_', '|'-->
+    <!--',', '.', ':', ';', '@', '''-->
+
+
+    <!--case KeyEvent.KEYCODE_EQUALS:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_EQUALS, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_MINUS:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_MINUS, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_PLUS:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_PLUS, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_STAR:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_STAR, extraCodes);-->
+    <!--return true;-->
+
+    <integer name="code_slash">76</integer>
+    <integer name="code_backslash">73</integer>
+
+    <!--// TODO : map underscore '_'-->
+    <!--//            case KeyEvent.KEYCODE_UNDERSCORE:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_UNDERSCORE, extraCodes);-->
+    <!--//                return true;-->
+
+    <!--// TODO : map pipe '|'-->
+    <!--//            case KeyEvent.KEYCODE_PIPE:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_PIPE, extraCodes);-->
+    <!--//                return true;-->
+
+    <!--case KeyEvent.KEYCODE_COMMA:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_COMMA, extraCodes);-->
+    <!--return true;-->
+
+
+    <integer name="code_period">56</integer>
+
+    <!--// TODO : map colon ':'-->
+    <!--//            case KeyEvent.KEYCODE_COLON:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_COLON, extraCodes);-->
+    <!--//                return true;-->
+
+    <integer name="code_semicolon">74</integer>
+
+    <!--case KeyEvent.KEYCODE_AT:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_AT, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_APOSTROPHE:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_APOSTROPHE, extraCodes);-->
+    <!--return true;-->
+
+
+    <!--//-->
+    <!--// Parent and bracket keys-->
+    <!--// '(', '[', '{', '<'-->
+    <!--//-->
+
+    <!--case KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_LEFT_PAREN, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_RIGHT_PARENT, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_LEFT_BRACKET:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_LEFT_BRACKET, extraCodes);-->
+    <!--return true;-->
+
+    <!--case KeyEvent.KEYCODE_RIGHT_BRACKET:-->
+    <!--sendKey(Message.Request.Code.KEYCODE_RIGHT_BRACKET, extraCodes);-->
+    <!--return true;-->
+
+    <!--// TODO : map curly brackets '{' and '}'-->
+    <!--//            case KeyEvent.KEYCODE_LEFT_CURLY_BRACKET:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_LEFT_CURLY_BRACKET, extraCodes);-->
+    <!--//                return true;-->
+    <!--//-->
+    <!--//            case KeyEvent.KEYCODE_RIGHT_CURLY_BRACKET:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET, extraCodes);-->
+    <!--//                return true;-->
+
+    <!--// TODO : map curly brackets '<' and '>'-->
+    <!--//            case KeyEvent.KEYCODE_LEFT_ANGLE_BRACKET:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET, extraCodes);-->
+    <!--//                return true;-->
+    <!--//-->
+    <!--//            case KeyEvent.KEYCODE_RIGHT_ANGLE_BRACKET:-->
+    <!--//                sendKey(Message.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET, extraCodes);-->
+    <!--//                return true;-->
 
 </resources>

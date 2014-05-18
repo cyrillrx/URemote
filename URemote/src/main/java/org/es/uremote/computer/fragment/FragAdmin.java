@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import org.es.uremote.R;
 import org.es.uremote.device.ServerSetting;
+import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
@@ -99,19 +100,19 @@ public class FragAdmin extends Fragment implements OnClickListener {
                 break;
 
             case R.id.cmdShutdown:
-                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, SHUTDOWN));
+                confirmRequest(buildRequest(SIMPLE, SHUTDOWN));
                 break;
 
             case R.id.cmdAiMute:
-                mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), AI, MUTE));
+                mRequestSender.sendRequest(buildRequest(AI, MUTE));
                 break;
 
             case R.id.cmdKillServer:
-                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, KILL_SERVER));
+                confirmRequest(buildRequest(SIMPLE, KILL_SERVER));
                 break;
 
             case R.id.cmdLock:
-                confirmRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), SIMPLE, LOCK));
+                confirmRequest(SIMPLE, LOCK);
                 break;
 
             default:
@@ -144,12 +145,28 @@ public class FragAdmin extends Fragment implements OnClickListener {
     // *********************** Message Sender *********************** //
     ////////////////////////////////////////////////////////////////////
 
+    private Request buildRequest(final Request.Type requestType, final Request.Code requestCode) {
+         return Request.newBuilder()
+                .setSecurityToken(mRequestSender.getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .build();
+    }
+
+    private void confirmRequest(final Request.Type requestType, final Request.Code requestCode) {
+        confirmRequest(Request.newBuilder()
+                .setSecurityToken(mRequestSender.getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .build());
+    }
+
     /**
      * Ask for the user to confirm before sending a request to the server.
      *
      * @param request The request to send.
      */
-    public void confirmRequest(final Request request) {
+    private  void confirmRequest(final Request request) {
         int resId = (KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
         new AlertDialog.Builder(getActivity())

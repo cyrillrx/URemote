@@ -11,7 +11,6 @@ import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
@@ -66,12 +65,12 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     protected void onFileClick(String filename) {
 
         try {
-            sendRequest(MessageUtils.buildRequest(
-                    getSecurityToken(),
-                    Type.EXPLORER,
-                    Code.OPEN_SERVER_SIDE,
-                    Code.NONE,
-                    filename));
+            sendRequest(Request.newBuilder()
+                    .setSecurityToken(getSecurityToken())
+                    .setType(Type.EXPLORER)
+                    .setCode(Code.OPEN_SERVER_SIDE)
+                    .setStringExtra(filename)
+                    .build());
 
         } catch (Exception e) {
             mToastSender.sendToast(R.string.build_request_error);
@@ -87,7 +86,12 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     @Override
     protected void navigateTo(String dirPath) {
         if (dirPath != null) {
-            sendRequest(MessageUtils.buildRequest(getSecurityToken(), Type.EXPLORER, Code.QUERY_CHILDREN, Code.NONE, dirPath));
+            sendRequest(Request.newBuilder()
+                    .setSecurityToken(getSecurityToken())
+                    .setType(Type.EXPLORER)
+                    .setCode(Code.QUERY_CHILDREN)
+                    .setStringExtra(dirPath)
+                    .build());
         } else {
             mToastSender.sendToast(R.string.msg_no_path_defined);
         }
@@ -117,7 +121,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     }
 
     public String getSecurityToken() {
-        ServerSetting settings = getDevice();
+        final ServerSetting settings = getDevice();
         if (settings != null) {
             return settings.getSecurityToken();
         }

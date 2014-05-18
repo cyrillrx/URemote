@@ -124,7 +124,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         view.findViewById(R.id.cmdNext).setOnClickListener(this);
 
         mTvVolume = (TextView) view.findViewById(R.id.toastText);
-        mTvVolume.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Thin.ttf"));
+        mTvVolume.setTypeface(Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.volume_toast_font)));
 
         mIbMute = (ImageButton) view.findViewById(R.id.cmdMute);
         mIbMute.setOnClickListener(this);
@@ -214,7 +214,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
             final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
             if (type != null && code != null) {
-                sendRequest(MessageUtils.buildRequest(getSecurityToken(), type, code));
+                sendRequest(type, code);
             }
         }
     }
@@ -224,8 +224,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      * The next message replace the previous one.
      *
      * @param message The message to display.
-     * @param x       The x position to display it.
-     * @param y       The y position to display it.
+     * @param x The x position to display it.
+     * @param y The y position to display it.
      */
     private void showVolumeToast(final String message, final int x, final int y) {
         mTvVolume.setText(message);
@@ -258,10 +258,15 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      *
      * @param requestType The request type.
      * @param requestCode The request code.
-     * @param intParam    An integer parameter.
+     * @param intExtra An integer parameter.
      */
-    public void sendRequest(Type requestType, Code requestCode, int intParam) {
-        sendRequest(MessageUtils.buildRequest(getSecurityToken(), requestType, requestCode, intParam));
+    private void sendRequest(Type requestType, Code requestCode, int intExtra) {
+        sendRequest(Request.newBuilder()
+                .setSecurityToken(getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .setIntExtra(intExtra)
+                .build());
     }
 
     /**
@@ -270,8 +275,12 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      * @param requestType The request type.
      * @param requestCode The request code.
      */
-    public void sendRequest(Type requestType, Code requestCode) {
-        sendRequest(MessageUtils.buildRequest(getSecurityToken(), requestType, requestCode));
+    private void sendRequest(Type requestType, Code requestCode) {
+        sendRequest(Request.newBuilder()
+                .setSecurityToken(getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .build());
     }
 
     /**

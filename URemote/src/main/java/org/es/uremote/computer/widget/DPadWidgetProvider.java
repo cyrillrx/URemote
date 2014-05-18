@@ -17,7 +17,6 @@ import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -116,6 +115,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
+        // TODO clean
         //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
         final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
         final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
@@ -127,7 +127,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
 
                 final int serverId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
                 Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE serverId : " + serverId2);
-
+                // TODO clean
                 //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
                 //                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
                 break;
@@ -180,7 +180,11 @@ public class DPadWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        final Request request = MessageUtils.buildRequest(server.getSecurityToken(), requestType, requestCode);
+        final Request request = Request.newBuilder()
+                .setSecurityToken(server.getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .build();
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();

@@ -1,15 +1,18 @@
 package org.es.uremote.computer;
 
+import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
-import android.view.View;
 
-import org.es.uremote.exchange.MessageUtils;
+import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.utils.ToastSender;
-import org.es.uremote.exchange.Message;
 import org.es.utils.Log;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Cyril Leroux
@@ -17,34 +20,25 @@ import org.es.utils.Log;
  */
 public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
-    private static final int NO_FLAG = 0;
     private static final String TAG = "org.es.uremote.computer.KeyboardListener";
 
+    private static final int FLAG_NONE = 0b00000;
+    private static final int FLAG_CTRL = 0b00001;
+    private static final int FLAG_SHIFT = 0b00010;
+    private static final int FLAG_ALT_LEFT = 0b00100;
+    private static final int FLAG_ALT_RIGHT = 0b01000;
+    private static final int FLAG_WINDOWS = 0b10000;
+
     private final RequestSender mRequestSender;
-    private View mHapticFeedbackView;
+    private KeyboardView mKeyboardView;
     private ToastSender mToastSender;
+    private Set<Keyboard.Key> mModifierKeys;
+    private int mModifierFlag;
 
     public KeyboardListener(final RequestSender requestSender) {
         mRequestSender = requestSender;
-    }
-
-    /**
-     * Sets the view that will be use to perform haptic feedback.
-     * @param view The view that will be use to perform haptic feedback.
-     */
-    public void setHapticFeedbackView(final View view) {
-        mHapticFeedbackView = view;
-    }
-
-    /**
-     * Performs haptic feedback using the view specified through {@link #setHapticFeedbackView(android.view.View)}.
-     */
-    private void performHapticFeedback() {
-        if (mHapticFeedbackView == null) {
-            Log.warning(TAG, "#performHapticFeedback - mHapticFeedbackView is null. Can't perform haptic feedback.");
-            return;
-        }
-        mHapticFeedbackView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        mModifierKeys = new HashSet<>();
+        mModifierFlag = FLAG_NONE;
     }
 
     public void setToastSender(final ToastSender toastSender) { mToastSender = toastSender; }
@@ -57,72 +51,163 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         mToastSender.sendToast(message);
     }
 
-    public boolean handleKey(int keyCode, int extraCodes) {
+    /**
+     * Sets the keyboard view and caches the modifier keys of the attached keyboard.
+     * The attached keyboard must not be null.
+     * The view will be use to check modifier key states and perform haptic feedback.
+     *
+     * @param view The keyboard view.
+     */
+    public void setKeyboardView(final KeyboardView view) {
+        mKeyboardView = view;
+        mModifierKeys.clear();
+
+        final List<Keyboard.Key> keys = view.getKeyboard().getKeys();
+        for (Keyboard.Key key : keys) {
+            if (key.modifier) {
+                mModifierKeys.add(key);
+            }
+        }
+    }
+
+    /**
+     * Performs haptic feedback using the view specified through {@link #setKeyboardView(android.inputmethodservice.KeyboardView)}.
+     */
+    private void performHapticFeedback() {
+        if (mKeyboardView == null) {
+            Log.warning(TAG, "#performHapticFeedback - mKeyboardView is null. Can't perform haptic feedback.");
+            return;
+        }
+        mKeyboardView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+    }
+
+    private void updateModifierKeys() {
+
+        mModifierFlag = FLAG_NONE;
+
+        for (Keyboard.Key key : mModifierKeys) {
+
+            final int code = key.codes[0];
+
+            if (code == KeyEvent.KEYCODE_CTRL_LEFT || code == KeyEvent.KEYCODE_CTRL_RIGHT) {
+                mModifierFlag += key.on ? FLAG_CTRL : FLAG_NONE;
+
+            } else if (code == KeyEvent.KEYCODE_SHIFT_LEFT || code == KeyEvent.KEYCODE_SHIFT_RIGHT) {
+                mModifierFlag += key.on ? FLAG_SHIFT : FLAG_NONE;
+
+            } else if (code == KeyEvent.KEYCODE_ALT_LEFT) {
+                mModifierFlag += key.on ? FLAG_ALT_LEFT : FLAG_NONE;
+
+            } else if (code == KeyEvent.KEYCODE_ALT_RIGHT) {
+                mModifierFlag += key.on ? FLAG_ALT_RIGHT : FLAG_NONE;
+
+            } else if (code == KeyEvent.KEYCODE_WINDOW) {
+                mModifierFlag += key.on ? FLAG_WINDOWS : FLAG_NONE;
+            }
+            sendToast(Integer.toBinaryString(mModifierFlag));
+        }
+    }
+
+    private void sendRequest(final Message.Request.Code primaryCode) {
+        mRequestSender.sendRequest(Message.Request.newBuilder()
+                .setSecurityToken(mRequestSender.getSecurityToken())
+                .setType(Message.Request.Type.KEYBOARD)
+                .setCode(primaryCode)
+                .setIntExtra(mModifierFlag)
+                .build());
+    }
+
+    //
+    // OnKeyboardActionListener methods
+    //
+
+    @Override
+    public void onKey(int primaryCode, int[] keyCodes) {
+        handleKey(primaryCode);
+    }
+
+    @Override
+    public void onPress(int primaryCode) { }
+
+    @Override
+    public void onRelease(int primaryCode) { }
+
+    @Override
+    public void onText(CharSequence text) { }
+
+    @Override
+    public void swipeLeft() { }
+
+    @Override
+    public void swipeRight() { }
+
+    @Override
+    public void swipeDown() { }
+
+    @Override
+    public void swipeUp() { }
+
+    public boolean handleKey(int keyCode) {
+
         performHapticFeedback();
 
         switch (keyCode) {
 
-            // Special Keys
+            // Modifier keys
 
             case KeyEvent.KEYCODE_CTRL_LEFT:
             case KeyEvent.KEYCODE_CTRL_RIGHT:
-                sendKey(Message.Request.Code.KEYCODE_CTRL, extraCodes);
-                return true;
-
-            case KeyEvent.KEYCODE_ALT_LEFT:
-                sendKey(Message.Request.Code.KEYCODE_ALT_LEFT, extraCodes);
-                return true;
-
-            case KeyEvent.KEYCODE_ALT_RIGHT:
-                sendKey(Message.Request.Code.KEYCODE_ALT_RIGHT, extraCodes);
-                return true;
-
             case KeyEvent.KEYCODE_SHIFT_LEFT:
             case KeyEvent.KEYCODE_SHIFT_RIGHT:
-                sendKey(Message.Request.Code.KEYCODE_SHIFT, extraCodes);
+            case KeyEvent.KEYCODE_ALT_LEFT:
+            case KeyEvent.KEYCODE_ALT_RIGHT:
+            case KeyEvent.KEYCODE_WINDOW:
+                updateModifierKeys();
                 return true;
 
-            case KeyEvent.KEYCODE_HOME:
-                sendKey(Message.Request.Code.KEYCODE_WINDOWS, extraCodes);
-                return true;
+            // Special Keys
 
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                sendKey(Message.Request.Code.KEYCODE_ENTER, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_ENTER);
+                return true;
+
+            case KeyEvent.KEYCODE_TAB:
+                sendRequest(Message.Request.Code.KEYCODE_TAB);
                 return true;
 
             case KeyEvent.KEYCODE_SPACE:
-                sendKey(Message.Request.Code.KEYCODE_SPACE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_SPACE);
                 return true;
 
             case KeyEvent.KEYCODE_DEL:
-                sendKey(Message.Request.Code.KEYCODE_BACKSPACE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_BACKSPACE);
                 return true;
 
             case KeyEvent.KEYCODE_FORWARD_DEL:
-                sendKey(Message.Request.Code.KEYCODE_DELETE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_DELETE);
                 return true;
 
             case KeyEvent.KEYCODE_ESCAPE:
-                sendKey(Message.Request.Code.KEYCODE_ESCAPE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_ESCAPE);
                 return true;
 
             // D-pad keys
 
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                sendKey(Message.Request.Code.DPAD_LEFT, extraCodes);
+                sendRequest(Message.Request.Code.DPAD_LEFT);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_UP:
-                sendKey(Message.Request.Code.DPAD_UP, extraCodes);
+                sendRequest(Message.Request.Code.DPAD_UP);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                sendKey(Message.Request.Code.DPAD_RIGHT, extraCodes);
+                sendRequest(Message.Request.Code.DPAD_RIGHT);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                sendKey(Message.Request.Code.DPAD_DOWN, extraCodes);
+                sendRequest(Message.Request.Code.DPAD_DOWN);
                 return true;
 
             // Combination
@@ -137,43 +222,43 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             // Number keys
 
             case KeyEvent.KEYCODE_0:
-                sendKey(Message.Request.Code.KEYCODE_0, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_0);
                 return true;
 
             case KeyEvent.KEYCODE_1:
-                sendKey(Message.Request.Code.KEYCODE_1, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_1);
                 return true;
 
             case KeyEvent.KEYCODE_2:
-                sendKey(Message.Request.Code.KEYCODE_2, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_2);
                 return true;
 
             case KeyEvent.KEYCODE_3:
-                sendKey(Message.Request.Code.KEYCODE_3, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_3);
                 return true;
 
             case KeyEvent.KEYCODE_4:
-                sendKey(Message.Request.Code.KEYCODE_4, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_4);
                 return true;
 
             case KeyEvent.KEYCODE_5:
-                sendKey(Message.Request.Code.KEYCODE_5, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_5);
                 return true;
 
             case KeyEvent.KEYCODE_6:
-                sendKey(Message.Request.Code.KEYCODE_6, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_6);
                 return true;
 
             case KeyEvent.KEYCODE_7:
-                sendKey(Message.Request.Code.KEYCODE_7, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_7);
                 return true;
 
             case KeyEvent.KEYCODE_8:
-                sendKey(Message.Request.Code.KEYCODE_8, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_8);
                 return true;
 
             case KeyEvent.KEYCODE_9:
-                sendKey(Message.Request.Code.KEYCODE_9, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_9);
                 return true;
 
             //
@@ -181,107 +266,107 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_A:
-                sendKey(Message.Request.Code.KEYCODE_A, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_A);
                 return true;
 
             case KeyEvent.KEYCODE_B:
-                sendKey(Message.Request.Code.KEYCODE_B, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_B);
                 return true;
 
             case KeyEvent.KEYCODE_C:
-                sendKey(Message.Request.Code.KEYCODE_C, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_C);
                 return true;
 
             case KeyEvent.KEYCODE_D:
-                sendKey(Message.Request.Code.KEYCODE_D, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_D);
                 return true;
 
             case KeyEvent.KEYCODE_E:
-                sendKey(Message.Request.Code.KEYCODE_E, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_E);
                 return true;
 
             case KeyEvent.KEYCODE_F:
-                sendKey(Message.Request.Code.KEYCODE_F, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F);
                 return true;
 
             case KeyEvent.KEYCODE_G:
-                sendKey(Message.Request.Code.KEYCODE_G, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_G);
                 return true;
 
             case KeyEvent.KEYCODE_H:
-                sendKey(Message.Request.Code.KEYCODE_H, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_H);
                 return true;
 
             case KeyEvent.KEYCODE_I:
-                sendKey(Message.Request.Code.KEYCODE_I, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_I);
                 return true;
 
             case KeyEvent.KEYCODE_J:
-                sendKey(Message.Request.Code.KEYCODE_J, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_J);
                 return true;
 
             case KeyEvent.KEYCODE_K:
-                sendKey(Message.Request.Code.KEYCODE_K, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_K);
                 return true;
 
             case KeyEvent.KEYCODE_L:
-                sendKey(Message.Request.Code.KEYCODE_L, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_L);
                 return true;
 
             case KeyEvent.KEYCODE_M:
-                sendKey(Message.Request.Code.KEYCODE_M, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_M);
                 return true;
 
             case KeyEvent.KEYCODE_N:
-                sendKey(Message.Request.Code.KEYCODE_N, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_N);
                 return true;
 
             case KeyEvent.KEYCODE_O:
-                sendKey(Message.Request.Code.KEYCODE_O, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_O);
                 return true;
 
             case KeyEvent.KEYCODE_P:
-                sendKey(Message.Request.Code.KEYCODE_P, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_P);
                 return true;
 
             case KeyEvent.KEYCODE_Q:
-                sendKey(Message.Request.Code.KEYCODE_Q, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_Q);
                 return true;
 
             case KeyEvent.KEYCODE_R:
-                sendKey(Message.Request.Code.KEYCODE_R, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_R);
                 return true;
 
             case KeyEvent.KEYCODE_S:
-                sendKey(Message.Request.Code.KEYCODE_S, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_S);
                 return true;
 
             case KeyEvent.KEYCODE_T:
-                sendKey(Message.Request.Code.KEYCODE_T, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_T);
                 return true;
 
             case KeyEvent.KEYCODE_U:
-                sendKey(Message.Request.Code.KEYCODE_U, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_U);
                 return true;
 
             case KeyEvent.KEYCODE_V:
-                sendKey(Message.Request.Code.KEYCODE_V, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_V);
                 return true;
 
             case KeyEvent.KEYCODE_W:
-                sendKey(Message.Request.Code.KEYCODE_W, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_W);
                 return true;
 
             case KeyEvent.KEYCODE_X:
-                sendKey(Message.Request.Code.KEYCODE_X, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_X);
                 return true;
 
             case KeyEvent.KEYCODE_Y:
-                sendKey(Message.Request.Code.KEYCODE_Y, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_Y);
                 return true;
 
             case KeyEvent.KEYCODE_Z:
-                sendKey(Message.Request.Code.KEYCODE_Z, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_Z);
                 return true;
 
             //
@@ -289,51 +374,51 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_F1:
-                sendKey(Message.Request.Code.KEYCODE_F1, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F1);
                 return true;
 
             case KeyEvent.KEYCODE_F2:
-                sendKey(Message.Request.Code.KEYCODE_F2, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F2);
                 return true;
 
             case KeyEvent.KEYCODE_F3:
-                sendKey(Message.Request.Code.KEYCODE_F3, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F3);
                 return true;
 
             case KeyEvent.KEYCODE_F4:
-                sendKey(Message.Request.Code.KEYCODE_F4, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F4);
                 return true;
 
             case KeyEvent.KEYCODE_F5:
-                sendKey(Message.Request.Code.KEYCODE_F5, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F5);
                 return true;
 
             case KeyEvent.KEYCODE_F6:
-                sendKey(Message.Request.Code.KEYCODE_F6, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F6);
                 return true;
 
             case KeyEvent.KEYCODE_F7:
-                sendKey(Message.Request.Code.KEYCODE_F7, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F7);
                 return true;
 
             case KeyEvent.KEYCODE_F8:
-                sendKey(Message.Request.Code.KEYCODE_F8, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F8);
                 return true;
 
             case KeyEvent.KEYCODE_F9:
-                sendKey(Message.Request.Code.KEYCODE_F9, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F9);
                 return true;
 
             case KeyEvent.KEYCODE_F10:
-                sendKey(Message.Request.Code.KEYCODE_F10, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F10);
                 return true;
 
             case KeyEvent.KEYCODE_F11:
-                sendKey(Message.Request.Code.KEYCODE_F11, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F11);
                 return true;
 
             case KeyEvent.KEYCODE_F12:
-                sendKey(Message.Request.Code.KEYCODE_F12, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_F12);
                 return true;
 
             //
@@ -344,62 +429,62 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_EQUALS:
-                sendKey(Message.Request.Code.KEYCODE_EQUALS, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_EQUALS);
                 return true;
 
             case KeyEvent.KEYCODE_MINUS:
-                sendKey(Message.Request.Code.KEYCODE_MINUS, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_MINUS);
                 return true;
 
             case KeyEvent.KEYCODE_PLUS:
-                sendKey(Message.Request.Code.KEYCODE_PLUS, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_PLUS);
                 return true;
 
             case KeyEvent.KEYCODE_STAR:
-                sendKey(Message.Request.Code.KEYCODE_STAR, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_STAR);
                 return true;
 
             case KeyEvent.KEYCODE_SLASH:
-                sendKey(Message.Request.Code.KEYCODE_SLASH, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_SLASH);
                 return true;
 
             case KeyEvent.KEYCODE_BACKSLASH:
-                sendKey(Message.Request.Code.KEYCODE_BACKSLASH, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_BACKSLASH);
                 return true;
 
             // TODO : map underscore '_'
-//            case KeyEvent.KEYCODE_UNDERSCORE:
-//                sendKey(Message.Request.Code.KEYCODE_UNDERSCORE, extraCodes);
-//                return true;
+            //            case KeyEvent.KEYCODE_UNDERSCORE:
+            //                sendRequest(Message.Request.Code.KEYCODE_UNDERSCORE);
+            //                return true;
 
             // TODO : map pipe '|'
-//            case KeyEvent.KEYCODE_PIPE:
-//                sendKey(Message.Request.Code.KEYCODE_PIPE, extraCodes);
-//                return true;
+            //            case KeyEvent.KEYCODE_PIPE:
+            //                sendRequest(Message.Request.Code.KEYCODE_PIPE);
+            //                return true;
 
             case KeyEvent.KEYCODE_COMMA:
-                sendKey(Message.Request.Code.KEYCODE_COMMA, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_COMMA);
                 return true;
 
             case KeyEvent.KEYCODE_PERIOD:
-                sendKey(Message.Request.Code.KEYCODE_PERIODE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_PERIODE);
                 return true;
 
             // TODO : map colon ':'
-//            case KeyEvent.KEYCODE_COLON:
-//                sendKey(Message.Request.Code.KEYCODE_COLON, extraCodes);
-//                return true;
+            //            case KeyEvent.KEYCODE_COLON:
+            //                sendRequest(Message.Request.Code.KEYCODE_COLON);
+            //                return true;
 
             case KeyEvent.KEYCODE_SEMICOLON:
-                sendKey(Message.Request.Code.KEYCODE_SEMICOLON, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_SEMICOLON);
                 return true;
 
             case KeyEvent.KEYCODE_AT:
-                sendKey(Message.Request.Code.KEYCODE_AT, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_AT);
                 return true;
 
             case KeyEvent.KEYCODE_APOSTROPHE:
-                sendKey(Message.Request.Code.KEYCODE_APOSTROPHE, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_APOSTROPHE);
                 return true;
 
 
@@ -409,89 +494,42 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN:
-                sendKey(Message.Request.Code.KEYCODE_LEFT_PAREN, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_LEFT_PAREN);
                 return true;
 
             case KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN:
-                sendKey(Message.Request.Code.KEYCODE_RIGHT_PARENT, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_RIGHT_PARENT);
                 return true;
 
             case KeyEvent.KEYCODE_LEFT_BRACKET:
-                sendKey(Message.Request.Code.KEYCODE_LEFT_BRACKET, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_LEFT_BRACKET);
                 return true;
 
             case KeyEvent.KEYCODE_RIGHT_BRACKET:
-                sendKey(Message.Request.Code.KEYCODE_RIGHT_BRACKET, extraCodes);
+                sendRequest(Message.Request.Code.KEYCODE_RIGHT_BRACKET);
                 return true;
 
             // TODO : map curly brackets '{' and '}'
-//            case KeyEvent.KEYCODE_LEFT_CURLY_BRACKET:
-//                sendKey(Message.Request.Code.KEYCODE_LEFT_CURLY_BRACKET, extraCodes);
-//                return true;
-//
-//            case KeyEvent.KEYCODE_RIGHT_CURLY_BRACKET:
-//                sendKey(Message.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET, extraCodes);
-//                return true;
+            //            case KeyEvent.KEYCODE_LEFT_CURLY_BRACKET:
+            //                sendRequest(Message.Request.Code.KEYCODE_LEFT_CURLY_BRACKET);
+            //                return true;
+            //
+            //            case KeyEvent.KEYCODE_RIGHT_CURLY_BRACKET:
+            //                sendRequest(Message.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET);
+            //                return true;
 
             // TODO : map curly brackets '<' and '>'
-//            case KeyEvent.KEYCODE_LEFT_ANGLE_BRACKET:
-//                sendKey(Message.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET, extraCodes);
-//                return true;
-//
-//            case KeyEvent.KEYCODE_RIGHT_ANGLE_BRACKET:
-//                sendKey(Message.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET, extraCodes);
-//                return true;
+            //            case KeyEvent.KEYCODE_LEFT_ANGLE_BRACKET:
+            //                sendRequest(Message.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET);
+            //                return true;
+            //
+            //            case KeyEvent.KEYCODE_RIGHT_ANGLE_BRACKET:
+            //                sendRequest(Message.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET);
+            //                return true;
 
             default:
                 sendToast("Key not handled : " + keyCode);
                 return false;
         }
     }
-
-    /**
-     * Modifier
-     * ----------
-     * True if the key code is one of
-     * - KEYCODE_SHIFT_LEFT,
-     * - KEYCODE_SHIFT_RIGHT,
-     * - KEYCODE_ALT_LEFT,
-     * - KEYCODE_ALT_RIGHT,
-     * - KEYCODE_CTRL_LEFT,
-     * - KEYCODE_CTRL_RIGHT,
-     * - KEYCODE_META_LEFT,
-     * - KEYCODE_META_RIGHT,
-     * - KEYCODE_SYM,
-     * - KEYCODE_NUM,
-     * - KEYCODE_FUNCTION.
-     */
-    private int getExtraCodes(KeyEvent keyEvent) {
-        // TODO get the extra codes from keyEvent parameter
-        return NO_FLAG;
-    }
-
-    private void sendKey(final Message.Request.Code primaryCode, final int extraCodes) {
-        sendRequest(primaryCode, extraCodes);
-    }
-
-    private void sendRequest(Message.Request.Code primaryCode, int extraCodes) {
-        // TODO pass the extra codes instead of Code.NONE
-        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), Message.Request.Type.KEYBOARD, primaryCode, Message.Request.Code.NONE));
-    }
-
-    //
-    // OnKeyboardActionListener methods
-    //
-
-    @Override
-    public void onKey(int primaryCode, int[] keyCodes) {
-        handleKey(primaryCode, getExtraCodes(null));
-    }
-
-    @Override public void onPress(int primaryCode) { }
-    @Override public void onRelease(int primaryCode) { }
-    @Override public void onText(CharSequence text) { }
-    @Override public void swipeLeft() { }
-    @Override public void swipeRight() { }
-    @Override public void swipeDown() { }
-    @Override public void swipeUp() { }
 }

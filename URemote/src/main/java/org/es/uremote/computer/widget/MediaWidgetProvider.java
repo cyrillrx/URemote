@@ -18,7 +18,6 @@ import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -42,11 +41,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
     private static final String TAG = "MediaWidgetProvider";
 
-    private static final String ACTION_START_ACTIVITY   = "ACTION_START_ACTIVITY";
-    private static final String ACTION_MEDIA_PREVIOUS   = "ACTION_MEDIA_PREVIOUS";
+    private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
+    private static final String ACTION_MEDIA_PREVIOUS = "ACTION_MEDIA_PREVIOUS";
     private static final String ACTION_MEDIA_PLAY_PAUSE = "ACTION_MEDIA_PLAY_PAUSE";
-    private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
-    private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
+    private static final String ACTION_MEDIA_STOP = "ACTION_MEDIA_STOP";
+    private static final String ACTION_MEDIA_NEXT = "ACTION_MEDIA_NEXT";
 
     @Override
     public void onEnabled(Context context) {
@@ -115,7 +114,8 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
 
-        appWidgetManager.updateAppWidget(widgetId, remoteViews);;
+        appWidgetManager.updateAppWidget(widgetId, remoteViews);
+        ;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
-//        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+        //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
         final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
         final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
 
@@ -138,7 +138,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
                 Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE serverId : " + serverId2);
 
                 //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-//                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                //                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
                 break;
 
             case ACTION_START_ACTIVITY:
@@ -184,7 +184,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
             return;
         }
 
-        final Request request = MessageUtils.buildRequest(server.getSecurityToken(), requestType, requestCode);
+        final Request request = Request.newBuilder()
+                .setSecurityToken(server.getSecurityToken())
+                .setType(requestType)
+                .setCode(requestCode)
+                .build();
 
         if (request == null) {
             Toast.makeText(context, R.string.msg_null_request, LENGTH_SHORT).show();

@@ -31,52 +31,42 @@ public final class Message {
      */
     org.es.uremote.exchange.Message.Request.Code getCode();
 
-    // required .network_io.Request.Code extraCode = 3;
+    // optional string securityToken = 3;
     /**
-     * <code>required .network_io.Request.Code extraCode = 3;</code>
-     */
-    boolean hasExtraCode();
-    /**
-     * <code>required .network_io.Request.Code extraCode = 3;</code>
-     */
-    org.es.uremote.exchange.Message.Request.Code getExtraCode();
-
-    // optional string securityToken = 4;
-    /**
-     * <code>optional string securityToken = 4;</code>
+     * <code>optional string securityToken = 3;</code>
      */
     boolean hasSecurityToken();
     /**
-     * <code>optional string securityToken = 4;</code>
+     * <code>optional string securityToken = 3;</code>
      */
     java.lang.String getSecurityToken();
     /**
-     * <code>optional string securityToken = 4;</code>
+     * <code>optional string securityToken = 3;</code>
      */
     com.google.protobuf.ByteString
         getSecurityTokenBytes();
 
-    // optional int32 intExtra = 5;
+    // optional int32 intExtra = 4;
     /**
-     * <code>optional int32 intExtra = 5;</code>
+     * <code>optional int32 intExtra = 4;</code>
      */
     boolean hasIntExtra();
     /**
-     * <code>optional int32 intExtra = 5;</code>
+     * <code>optional int32 intExtra = 4;</code>
      */
     int getIntExtra();
 
-    // optional string stringExtra = 6;
+    // optional string stringExtra = 5;
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     boolean hasStringExtra();
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     java.lang.String getStringExtra();
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     com.google.protobuf.ByteString
         getStringExtraBytes();
@@ -154,29 +144,18 @@ public final class Message {
               }
               break;
             }
-            case 24: {
-              int rawValue = input.readEnum();
-              org.es.uremote.exchange.Message.Request.Code value = org.es.uremote.exchange.Message.Request.Code.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(3, rawValue);
-              } else {
-                bitField0_ |= 0x00000004;
-                extraCode_ = value;
-              }
-              break;
-            }
-            case 34: {
-              bitField0_ |= 0x00000008;
+            case 26: {
+              bitField0_ |= 0x00000004;
               securityToken_ = input.readBytes();
               break;
             }
-            case 40: {
-              bitField0_ |= 0x00000010;
+            case 32: {
+              bitField0_ |= 0x00000008;
               intExtra_ = input.readInt32();
               break;
             }
-            case 50: {
-              bitField0_ |= 0x00000020;
+            case 42: {
+              bitField0_ |= 0x00000010;
               stringExtra_ = input.readBytes();
               break;
             }
@@ -451,417 +430,417 @@ public final class Message {
        */
       OPEN_CLIENT_SIDE(26, 29),
       /**
+       * <code>KEYCODE_0 = 500;</code>
+       */
+      KEYCODE_0(27, 500),
+      /**
+       * <code>KEYCODE_1 = 501;</code>
+       */
+      KEYCODE_1(28, 501),
+      /**
+       * <code>KEYCODE_2 = 502;</code>
+       */
+      KEYCODE_2(29, 502),
+      /**
+       * <code>KEYCODE_3 = 503;</code>
+       */
+      KEYCODE_3(30, 503),
+      /**
+       * <code>KEYCODE_4 = 504;</code>
+       */
+      KEYCODE_4(31, 504),
+      /**
+       * <code>KEYCODE_5 = 505;</code>
+       */
+      KEYCODE_5(32, 505),
+      /**
+       * <code>KEYCODE_6 = 506;</code>
+       */
+      KEYCODE_6(33, 506),
+      /**
+       * <code>KEYCODE_7 = 507;</code>
+       */
+      KEYCODE_7(34, 507),
+      /**
+       * <code>KEYCODE_8 = 508;</code>
+       */
+      KEYCODE_8(35, 508),
+      /**
+       * <code>KEYCODE_9 = 509;</code>
+       */
+      KEYCODE_9(36, 509),
+      /**
+       * <code>KEYCODE_A = 510;</code>
+       */
+      KEYCODE_A(37, 510),
+      /**
+       * <code>KEYCODE_B = 511;</code>
+       */
+      KEYCODE_B(38, 511),
+      /**
+       * <code>KEYCODE_C = 512;</code>
+       */
+      KEYCODE_C(39, 512),
+      /**
+       * <code>KEYCODE_D = 513;</code>
+       */
+      KEYCODE_D(40, 513),
+      /**
+       * <code>KEYCODE_E = 514;</code>
+       */
+      KEYCODE_E(41, 514),
+      /**
+       * <code>KEYCODE_F = 515;</code>
+       */
+      KEYCODE_F(42, 515),
+      /**
+       * <code>KEYCODE_G = 516;</code>
+       */
+      KEYCODE_G(43, 516),
+      /**
+       * <code>KEYCODE_H = 517;</code>
+       */
+      KEYCODE_H(44, 517),
+      /**
+       * <code>KEYCODE_I = 518;</code>
+       */
+      KEYCODE_I(45, 518),
+      /**
+       * <code>KEYCODE_J = 519;</code>
+       */
+      KEYCODE_J(46, 519),
+      /**
+       * <code>KEYCODE_K = 520;</code>
+       */
+      KEYCODE_K(47, 520),
+      /**
+       * <code>KEYCODE_L = 521;</code>
+       */
+      KEYCODE_L(48, 521),
+      /**
+       * <code>KEYCODE_M = 522;</code>
+       */
+      KEYCODE_M(49, 522),
+      /**
+       * <code>KEYCODE_N = 523;</code>
+       */
+      KEYCODE_N(50, 523),
+      /**
+       * <code>KEYCODE_O = 524;</code>
+       */
+      KEYCODE_O(51, 524),
+      /**
+       * <code>KEYCODE_P = 525;</code>
+       */
+      KEYCODE_P(52, 525),
+      /**
+       * <code>KEYCODE_Q = 526;</code>
+       */
+      KEYCODE_Q(53, 526),
+      /**
+       * <code>KEYCODE_R = 527;</code>
+       */
+      KEYCODE_R(54, 527),
+      /**
+       * <code>KEYCODE_S = 528;</code>
+       */
+      KEYCODE_S(55, 528),
+      /**
+       * <code>KEYCODE_T = 529;</code>
+       */
+      KEYCODE_T(56, 529),
+      /**
+       * <code>KEYCODE_U = 530;</code>
+       */
+      KEYCODE_U(57, 530),
+      /**
+       * <code>KEYCODE_V = 531;</code>
+       */
+      KEYCODE_V(58, 531),
+      /**
+       * <code>KEYCODE_W = 532;</code>
+       */
+      KEYCODE_W(59, 532),
+      /**
+       * <code>KEYCODE_X = 533;</code>
+       */
+      KEYCODE_X(60, 533),
+      /**
+       * <code>KEYCODE_Y = 534;</code>
+       */
+      KEYCODE_Y(61, 534),
+      /**
+       * <code>KEYCODE_Z = 535;</code>
+       */
+      KEYCODE_Z(62, 535),
+      /**
+       * <code>KEYCODE_F1 = 550;</code>
+       */
+      KEYCODE_F1(63, 550),
+      /**
+       * <code>KEYCODE_F2 = 551;</code>
+       */
+      KEYCODE_F2(64, 551),
+      /**
+       * <code>KEYCODE_F3 = 552;</code>
+       */
+      KEYCODE_F3(65, 552),
+      /**
+       * <code>KEYCODE_F4 = 553;</code>
+       */
+      KEYCODE_F4(66, 553),
+      /**
+       * <code>KEYCODE_F5 = 554;</code>
+       */
+      KEYCODE_F5(67, 554),
+      /**
+       * <code>KEYCODE_F6 = 555;</code>
+       */
+      KEYCODE_F6(68, 555),
+      /**
+       * <code>KEYCODE_F7 = 556;</code>
+       */
+      KEYCODE_F7(69, 556),
+      /**
+       * <code>KEYCODE_F8 = 557;</code>
+       */
+      KEYCODE_F8(70, 557),
+      /**
+       * <code>KEYCODE_F9 = 558;</code>
+       */
+      KEYCODE_F9(71, 558),
+      /**
+       * <code>KEYCODE_F10 = 559;</code>
+       */
+      KEYCODE_F10(72, 559),
+      /**
+       * <code>KEYCODE_F11 = 560;</code>
+       */
+      KEYCODE_F11(73, 560),
+      /**
+       * <code>KEYCODE_F12 = 561;</code>
+       */
+      KEYCODE_F12(74, 561),
+      /**
        * <code>KEYCODE_CTRL = 30;</code>
        */
-      KEYCODE_CTRL(27, 30),
+      KEYCODE_CTRL(75, 30),
       /**
        * <code>KEYCODE_SHIFT = 31;</code>
        */
-      KEYCODE_SHIFT(28, 31),
+      KEYCODE_SHIFT(76, 31),
       /**
        * <code>KEYCODE_ALT_LEFT = 32;</code>
        */
-      KEYCODE_ALT_LEFT(29, 32),
+      KEYCODE_ALT_LEFT(77, 32),
       /**
        * <code>KEYCODE_ALT_RIGHT = 33;</code>
        */
-      KEYCODE_ALT_RIGHT(30, 33),
+      KEYCODE_ALT_RIGHT(78, 33),
       /**
        * <code>KEYCODE_WINDOWS = 34;</code>
        */
-      KEYCODE_WINDOWS(31, 34),
+      KEYCODE_WINDOWS(79, 34),
       /**
        * <code>KEYCODE_ENTER = 40;</code>
        */
-      KEYCODE_ENTER(32, 40),
+      KEYCODE_ENTER(80, 40),
       /**
        * <code>KEYCODE_ESCAPE = 41;</code>
        */
-      KEYCODE_ESCAPE(33, 41),
+      KEYCODE_ESCAPE(81, 41),
       /**
        * <code>KEYCODE_DELETE = 42;</code>
        */
-      KEYCODE_DELETE(34, 42),
+      KEYCODE_DELETE(82, 42),
       /**
        * <code>KEYCODE_SPACE = 43;</code>
        */
-      KEYCODE_SPACE(35, 43),
+      KEYCODE_SPACE(83, 43),
       /**
        * <code>KEYCODE_BACKSPACE = 44;</code>
        */
-      KEYCODE_BACKSPACE(36, 44),
+      KEYCODE_BACKSPACE(84, 44),
       /**
        * <code>KEYCODE_TAB = 45;</code>
        */
-      KEYCODE_TAB(37, 45),
+      KEYCODE_TAB(85, 45),
       /**
-       * <code>KEYCODE_0 = 50;</code>
-       */
-      KEYCODE_0(38, 50),
-      /**
-       * <code>KEYCODE_1 = 51;</code>
-       */
-      KEYCODE_1(39, 51),
-      /**
-       * <code>KEYCODE_2 = 52;</code>
-       */
-      KEYCODE_2(40, 52),
-      /**
-       * <code>KEYCODE_3 = 53;</code>
-       */
-      KEYCODE_3(41, 53),
-      /**
-       * <code>KEYCODE_4 = 54;</code>
-       */
-      KEYCODE_4(42, 54),
-      /**
-       * <code>KEYCODE_5 = 55;</code>
-       */
-      KEYCODE_5(43, 55),
-      /**
-       * <code>KEYCODE_6 = 56;</code>
-       */
-      KEYCODE_6(44, 56),
-      /**
-       * <code>KEYCODE_7 = 57;</code>
-       */
-      KEYCODE_7(45, 57),
-      /**
-       * <code>KEYCODE_8 = 58;</code>
-       */
-      KEYCODE_8(46, 58),
-      /**
-       * <code>KEYCODE_9 = 59;</code>
-       */
-      KEYCODE_9(47, 59),
-      /**
-       * <code>KEYCODE_A = 60;</code>
-       */
-      KEYCODE_A(48, 60),
-      /**
-       * <code>KEYCODE_B = 61;</code>
-       */
-      KEYCODE_B(49, 61),
-      /**
-       * <code>KEYCODE_C = 62;</code>
-       */
-      KEYCODE_C(50, 62),
-      /**
-       * <code>KEYCODE_D = 63;</code>
-       */
-      KEYCODE_D(51, 63),
-      /**
-       * <code>KEYCODE_E = 64;</code>
-       */
-      KEYCODE_E(52, 64),
-      /**
-       * <code>KEYCODE_F = 65;</code>
-       */
-      KEYCODE_F(53, 65),
-      /**
-       * <code>KEYCODE_G = 66;</code>
-       */
-      KEYCODE_G(54, 66),
-      /**
-       * <code>KEYCODE_H = 67;</code>
-       */
-      KEYCODE_H(55, 67),
-      /**
-       * <code>KEYCODE_I = 68;</code>
-       */
-      KEYCODE_I(56, 68),
-      /**
-       * <code>KEYCODE_J = 69;</code>
-       */
-      KEYCODE_J(57, 69),
-      /**
-       * <code>KEYCODE_K = 70;</code>
-       */
-      KEYCODE_K(58, 70),
-      /**
-       * <code>KEYCODE_L = 71;</code>
-       */
-      KEYCODE_L(59, 71),
-      /**
-       * <code>KEYCODE_M = 72;</code>
-       */
-      KEYCODE_M(60, 72),
-      /**
-       * <code>KEYCODE_N = 73;</code>
-       */
-      KEYCODE_N(61, 73),
-      /**
-       * <code>KEYCODE_O = 74;</code>
-       */
-      KEYCODE_O(62, 74),
-      /**
-       * <code>KEYCODE_P = 75;</code>
-       */
-      KEYCODE_P(63, 75),
-      /**
-       * <code>KEYCODE_Q = 76;</code>
-       */
-      KEYCODE_Q(64, 76),
-      /**
-       * <code>KEYCODE_R = 77;</code>
-       */
-      KEYCODE_R(65, 77),
-      /**
-       * <code>KEYCODE_S = 78;</code>
-       */
-      KEYCODE_S(66, 78),
-      /**
-       * <code>KEYCODE_T = 79;</code>
-       */
-      KEYCODE_T(67, 79),
-      /**
-       * <code>KEYCODE_U = 80;</code>
-       */
-      KEYCODE_U(68, 80),
-      /**
-       * <code>KEYCODE_V = 81;</code>
-       */
-      KEYCODE_V(69, 81),
-      /**
-       * <code>KEYCODE_W = 82;</code>
-       */
-      KEYCODE_W(70, 82),
-      /**
-       * <code>KEYCODE_X = 83;</code>
-       */
-      KEYCODE_X(71, 83),
-      /**
-       * <code>KEYCODE_Y = 84;</code>
-       */
-      KEYCODE_Y(72, 84),
-      /**
-       * <code>KEYCODE_Z = 85;</code>
-       */
-      KEYCODE_Z(73, 85),
-      /**
-       * <code>KEYCODE_F1 = 86;</code>
-       */
-      KEYCODE_F1(74, 86),
-      /**
-       * <code>KEYCODE_F2 = 87;</code>
-       */
-      KEYCODE_F2(75, 87),
-      /**
-       * <code>KEYCODE_F3 = 88;</code>
-       */
-      KEYCODE_F3(76, 88),
-      /**
-       * <code>KEYCODE_F4 = 89;</code>
-       */
-      KEYCODE_F4(77, 89),
-      /**
-       * <code>KEYCODE_F5 = 90;</code>
-       */
-      KEYCODE_F5(78, 90),
-      /**
-       * <code>KEYCODE_F6 = 91;</code>
-       */
-      KEYCODE_F6(79, 91),
-      /**
-       * <code>KEYCODE_F7 = 92;</code>
-       */
-      KEYCODE_F7(80, 92),
-      /**
-       * <code>KEYCODE_F8 = 93;</code>
-       */
-      KEYCODE_F8(81, 93),
-      /**
-       * <code>KEYCODE_F9 = 94;</code>
-       */
-      KEYCODE_F9(82, 94),
-      /**
-       * <code>KEYCODE_F10 = 95;</code>
-       */
-      KEYCODE_F10(83, 95),
-      /**
-       * <code>KEYCODE_F11 = 96;</code>
-       */
-      KEYCODE_F11(84, 96),
-      /**
-       * <code>KEYCODE_F12 = 97;</code>
-       */
-      KEYCODE_F12(85, 97),
-      /**
-       * <code>KEYCODE_EQUALS = 100;</code>
+       * <code>KEYCODE_EQUALS = 600;</code>
        *
        * <pre>
        * '='
        * </pre>
        */
-      KEYCODE_EQUALS(86, 100),
+      KEYCODE_EQUALS(86, 600),
       /**
-       * <code>KEYCODE_MINUS = 101;</code>
+       * <code>KEYCODE_MINUS = 601;</code>
        *
        * <pre>
        * '+'
        * </pre>
        */
-      KEYCODE_MINUS(87, 101),
+      KEYCODE_MINUS(87, 601),
       /**
-       * <code>KEYCODE_PLUS = 102;</code>
+       * <code>KEYCODE_PLUS = 602;</code>
        *
        * <pre>
        * '-'
        * </pre>
        */
-      KEYCODE_PLUS(88, 102),
+      KEYCODE_PLUS(88, 602),
       /**
-       * <code>KEYCODE_STAR = 103;</code>
+       * <code>KEYCODE_STAR = 603;</code>
        *
        * <pre>
        * '*'
        * </pre>
        */
-      KEYCODE_STAR(89, 103),
+      KEYCODE_STAR(89, 603),
       /**
-       * <code>KEYCODE_SLASH = 104;</code>
+       * <code>KEYCODE_SLASH = 604;</code>
        *
        * <pre>
        * '/'
        * </pre>
        */
-      KEYCODE_SLASH(90, 104),
+      KEYCODE_SLASH(90, 604),
       /**
-       * <code>KEYCODE_BACKSLASH = 105;</code>
+       * <code>KEYCODE_BACKSLASH = 605;</code>
        *
        * <pre>
        * '&#92;'
        * </pre>
        */
-      KEYCODE_BACKSLASH(91, 105),
+      KEYCODE_BACKSLASH(91, 605),
       /**
-       * <code>KEYCODE_UNDERSCORE = 106;</code>
+       * <code>KEYCODE_UNDERSCORE = 606;</code>
        *
        * <pre>
        * '_'
        * </pre>
        */
-      KEYCODE_UNDERSCORE(92, 106),
+      KEYCODE_UNDERSCORE(92, 606),
       /**
-       * <code>KEYCODE_PIPE = 107;</code>
+       * <code>KEYCODE_PIPE = 607;</code>
        *
        * <pre>
        * '|'
        * </pre>
        */
-      KEYCODE_PIPE(93, 107),
+      KEYCODE_PIPE(93, 607),
       /**
-       * <code>KEYCODE_COMMA = 108;</code>
+       * <code>KEYCODE_COMMA = 608;</code>
        *
        * <pre>
        * ','
        * </pre>
        */
-      KEYCODE_COMMA(94, 108),
+      KEYCODE_COMMA(94, 608),
       /**
-       * <code>KEYCODE_PERIODE = 109;</code>
+       * <code>KEYCODE_PERIODE = 609;</code>
        *
        * <pre>
        * '.'
        * </pre>
        */
-      KEYCODE_PERIODE(95, 109),
+      KEYCODE_PERIODE(95, 609),
       /**
-       * <code>KEYCODE_COLON = 110;</code>
+       * <code>KEYCODE_COLON = 610;</code>
        *
        * <pre>
        * ':'
        * </pre>
        */
-      KEYCODE_COLON(96, 110),
+      KEYCODE_COLON(96, 610),
       /**
-       * <code>KEYCODE_SEMICOLON = 111;</code>
+       * <code>KEYCODE_SEMICOLON = 611;</code>
        *
        * <pre>
        * ';'
        * </pre>
        */
-      KEYCODE_SEMICOLON(97, 111),
+      KEYCODE_SEMICOLON(97, 611),
       /**
-       * <code>KEYCODE_AT = 112;</code>
+       * <code>KEYCODE_AT = 612;</code>
        *
        * <pre>
        * '@'
        * </pre>
        */
-      KEYCODE_AT(98, 112),
+      KEYCODE_AT(98, 612),
       /**
-       * <code>KEYCODE_APOSTROPHE = 113;</code>
+       * <code>KEYCODE_APOSTROPHE = 613;</code>
        *
        * <pre>
        * '''
        * </pre>
        */
-      KEYCODE_APOSTROPHE(99, 113),
+      KEYCODE_APOSTROPHE(99, 613),
       /**
-       * <code>KEYCODE_LEFT_PAREN = 120;</code>
+       * <code>KEYCODE_LEFT_PAREN = 650;</code>
        *
        * <pre>
        * '('
        * </pre>
        */
-      KEYCODE_LEFT_PAREN(100, 120),
+      KEYCODE_LEFT_PAREN(100, 650),
       /**
-       * <code>KEYCODE_RIGHT_PARENT = 121;</code>
+       * <code>KEYCODE_RIGHT_PARENT = 651;</code>
        *
        * <pre>
        * ')'
        * </pre>
        */
-      KEYCODE_RIGHT_PARENT(101, 121),
+      KEYCODE_RIGHT_PARENT(101, 651),
       /**
-       * <code>KEYCODE_LEFT_BRACKET = 122;</code>
+       * <code>KEYCODE_LEFT_BRACKET = 652;</code>
        *
        * <pre>
        * '['
        * </pre>
        */
-      KEYCODE_LEFT_BRACKET(102, 122),
+      KEYCODE_LEFT_BRACKET(102, 652),
       /**
-       * <code>KEYCODE_RIGHT_BRACKET = 123;</code>
+       * <code>KEYCODE_RIGHT_BRACKET = 653;</code>
        *
        * <pre>
        * ']'
        * </pre>
        */
-      KEYCODE_RIGHT_BRACKET(103, 123),
+      KEYCODE_RIGHT_BRACKET(103, 653),
       /**
-       * <code>KEYCODE_LEFT_CURLY_BRACKET = 124;</code>
+       * <code>KEYCODE_LEFT_CURLY_BRACKET = 654;</code>
        *
        * <pre>
        * '{'
        * </pre>
        */
-      KEYCODE_LEFT_CURLY_BRACKET(104, 124),
+      KEYCODE_LEFT_CURLY_BRACKET(104, 654),
       /**
-       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 125;</code>
+       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 655;</code>
        *
        * <pre>
        * '}'
        * </pre>
        */
-      KEYCODE_RIGHT_CURLY_BRACKET(105, 125),
+      KEYCODE_RIGHT_CURLY_BRACKET(105, 655),
       /**
-       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 126;</code>
+       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 656;</code>
        *
        * <pre>
        * '&lt;'
        * </pre>
        */
-      KEYCODE_LEFT_ANGLE_BRACKET(106, 126),
+      KEYCODE_LEFT_ANGLE_BRACKET(106, 656),
       /**
-       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 127;</code>
+       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 657;</code>
        *
        * <pre>
        * '&gt;'
        * </pre>
        */
-      KEYCODE_RIGHT_ANGLE_BRACKET(107, 127),
+      KEYCODE_RIGHT_ANGLE_BRACKET(107, 657),
       ;
 
       /**
@@ -973,6 +952,198 @@ public final class Message {
        */
       public static final int OPEN_CLIENT_SIDE_VALUE = 29;
       /**
+       * <code>KEYCODE_0 = 500;</code>
+       */
+      public static final int KEYCODE_0_VALUE = 500;
+      /**
+       * <code>KEYCODE_1 = 501;</code>
+       */
+      public static final int KEYCODE_1_VALUE = 501;
+      /**
+       * <code>KEYCODE_2 = 502;</code>
+       */
+      public static final int KEYCODE_2_VALUE = 502;
+      /**
+       * <code>KEYCODE_3 = 503;</code>
+       */
+      public static final int KEYCODE_3_VALUE = 503;
+      /**
+       * <code>KEYCODE_4 = 504;</code>
+       */
+      public static final int KEYCODE_4_VALUE = 504;
+      /**
+       * <code>KEYCODE_5 = 505;</code>
+       */
+      public static final int KEYCODE_5_VALUE = 505;
+      /**
+       * <code>KEYCODE_6 = 506;</code>
+       */
+      public static final int KEYCODE_6_VALUE = 506;
+      /**
+       * <code>KEYCODE_7 = 507;</code>
+       */
+      public static final int KEYCODE_7_VALUE = 507;
+      /**
+       * <code>KEYCODE_8 = 508;</code>
+       */
+      public static final int KEYCODE_8_VALUE = 508;
+      /**
+       * <code>KEYCODE_9 = 509;</code>
+       */
+      public static final int KEYCODE_9_VALUE = 509;
+      /**
+       * <code>KEYCODE_A = 510;</code>
+       */
+      public static final int KEYCODE_A_VALUE = 510;
+      /**
+       * <code>KEYCODE_B = 511;</code>
+       */
+      public static final int KEYCODE_B_VALUE = 511;
+      /**
+       * <code>KEYCODE_C = 512;</code>
+       */
+      public static final int KEYCODE_C_VALUE = 512;
+      /**
+       * <code>KEYCODE_D = 513;</code>
+       */
+      public static final int KEYCODE_D_VALUE = 513;
+      /**
+       * <code>KEYCODE_E = 514;</code>
+       */
+      public static final int KEYCODE_E_VALUE = 514;
+      /**
+       * <code>KEYCODE_F = 515;</code>
+       */
+      public static final int KEYCODE_F_VALUE = 515;
+      /**
+       * <code>KEYCODE_G = 516;</code>
+       */
+      public static final int KEYCODE_G_VALUE = 516;
+      /**
+       * <code>KEYCODE_H = 517;</code>
+       */
+      public static final int KEYCODE_H_VALUE = 517;
+      /**
+       * <code>KEYCODE_I = 518;</code>
+       */
+      public static final int KEYCODE_I_VALUE = 518;
+      /**
+       * <code>KEYCODE_J = 519;</code>
+       */
+      public static final int KEYCODE_J_VALUE = 519;
+      /**
+       * <code>KEYCODE_K = 520;</code>
+       */
+      public static final int KEYCODE_K_VALUE = 520;
+      /**
+       * <code>KEYCODE_L = 521;</code>
+       */
+      public static final int KEYCODE_L_VALUE = 521;
+      /**
+       * <code>KEYCODE_M = 522;</code>
+       */
+      public static final int KEYCODE_M_VALUE = 522;
+      /**
+       * <code>KEYCODE_N = 523;</code>
+       */
+      public static final int KEYCODE_N_VALUE = 523;
+      /**
+       * <code>KEYCODE_O = 524;</code>
+       */
+      public static final int KEYCODE_O_VALUE = 524;
+      /**
+       * <code>KEYCODE_P = 525;</code>
+       */
+      public static final int KEYCODE_P_VALUE = 525;
+      /**
+       * <code>KEYCODE_Q = 526;</code>
+       */
+      public static final int KEYCODE_Q_VALUE = 526;
+      /**
+       * <code>KEYCODE_R = 527;</code>
+       */
+      public static final int KEYCODE_R_VALUE = 527;
+      /**
+       * <code>KEYCODE_S = 528;</code>
+       */
+      public static final int KEYCODE_S_VALUE = 528;
+      /**
+       * <code>KEYCODE_T = 529;</code>
+       */
+      public static final int KEYCODE_T_VALUE = 529;
+      /**
+       * <code>KEYCODE_U = 530;</code>
+       */
+      public static final int KEYCODE_U_VALUE = 530;
+      /**
+       * <code>KEYCODE_V = 531;</code>
+       */
+      public static final int KEYCODE_V_VALUE = 531;
+      /**
+       * <code>KEYCODE_W = 532;</code>
+       */
+      public static final int KEYCODE_W_VALUE = 532;
+      /**
+       * <code>KEYCODE_X = 533;</code>
+       */
+      public static final int KEYCODE_X_VALUE = 533;
+      /**
+       * <code>KEYCODE_Y = 534;</code>
+       */
+      public static final int KEYCODE_Y_VALUE = 534;
+      /**
+       * <code>KEYCODE_Z = 535;</code>
+       */
+      public static final int KEYCODE_Z_VALUE = 535;
+      /**
+       * <code>KEYCODE_F1 = 550;</code>
+       */
+      public static final int KEYCODE_F1_VALUE = 550;
+      /**
+       * <code>KEYCODE_F2 = 551;</code>
+       */
+      public static final int KEYCODE_F2_VALUE = 551;
+      /**
+       * <code>KEYCODE_F3 = 552;</code>
+       */
+      public static final int KEYCODE_F3_VALUE = 552;
+      /**
+       * <code>KEYCODE_F4 = 553;</code>
+       */
+      public static final int KEYCODE_F4_VALUE = 553;
+      /**
+       * <code>KEYCODE_F5 = 554;</code>
+       */
+      public static final int KEYCODE_F5_VALUE = 554;
+      /**
+       * <code>KEYCODE_F6 = 555;</code>
+       */
+      public static final int KEYCODE_F6_VALUE = 555;
+      /**
+       * <code>KEYCODE_F7 = 556;</code>
+       */
+      public static final int KEYCODE_F7_VALUE = 556;
+      /**
+       * <code>KEYCODE_F8 = 557;</code>
+       */
+      public static final int KEYCODE_F8_VALUE = 557;
+      /**
+       * <code>KEYCODE_F9 = 558;</code>
+       */
+      public static final int KEYCODE_F9_VALUE = 558;
+      /**
+       * <code>KEYCODE_F10 = 559;</code>
+       */
+      public static final int KEYCODE_F10_VALUE = 559;
+      /**
+       * <code>KEYCODE_F11 = 560;</code>
+       */
+      public static final int KEYCODE_F11_VALUE = 560;
+      /**
+       * <code>KEYCODE_F12 = 561;</code>
+       */
+      public static final int KEYCODE_F12_VALUE = 561;
+      /**
        * <code>KEYCODE_CTRL = 30;</code>
        */
       public static final int KEYCODE_CTRL_VALUE = 30;
@@ -1017,373 +1188,181 @@ public final class Message {
        */
       public static final int KEYCODE_TAB_VALUE = 45;
       /**
-       * <code>KEYCODE_0 = 50;</code>
-       */
-      public static final int KEYCODE_0_VALUE = 50;
-      /**
-       * <code>KEYCODE_1 = 51;</code>
-       */
-      public static final int KEYCODE_1_VALUE = 51;
-      /**
-       * <code>KEYCODE_2 = 52;</code>
-       */
-      public static final int KEYCODE_2_VALUE = 52;
-      /**
-       * <code>KEYCODE_3 = 53;</code>
-       */
-      public static final int KEYCODE_3_VALUE = 53;
-      /**
-       * <code>KEYCODE_4 = 54;</code>
-       */
-      public static final int KEYCODE_4_VALUE = 54;
-      /**
-       * <code>KEYCODE_5 = 55;</code>
-       */
-      public static final int KEYCODE_5_VALUE = 55;
-      /**
-       * <code>KEYCODE_6 = 56;</code>
-       */
-      public static final int KEYCODE_6_VALUE = 56;
-      /**
-       * <code>KEYCODE_7 = 57;</code>
-       */
-      public static final int KEYCODE_7_VALUE = 57;
-      /**
-       * <code>KEYCODE_8 = 58;</code>
-       */
-      public static final int KEYCODE_8_VALUE = 58;
-      /**
-       * <code>KEYCODE_9 = 59;</code>
-       */
-      public static final int KEYCODE_9_VALUE = 59;
-      /**
-       * <code>KEYCODE_A = 60;</code>
-       */
-      public static final int KEYCODE_A_VALUE = 60;
-      /**
-       * <code>KEYCODE_B = 61;</code>
-       */
-      public static final int KEYCODE_B_VALUE = 61;
-      /**
-       * <code>KEYCODE_C = 62;</code>
-       */
-      public static final int KEYCODE_C_VALUE = 62;
-      /**
-       * <code>KEYCODE_D = 63;</code>
-       */
-      public static final int KEYCODE_D_VALUE = 63;
-      /**
-       * <code>KEYCODE_E = 64;</code>
-       */
-      public static final int KEYCODE_E_VALUE = 64;
-      /**
-       * <code>KEYCODE_F = 65;</code>
-       */
-      public static final int KEYCODE_F_VALUE = 65;
-      /**
-       * <code>KEYCODE_G = 66;</code>
-       */
-      public static final int KEYCODE_G_VALUE = 66;
-      /**
-       * <code>KEYCODE_H = 67;</code>
-       */
-      public static final int KEYCODE_H_VALUE = 67;
-      /**
-       * <code>KEYCODE_I = 68;</code>
-       */
-      public static final int KEYCODE_I_VALUE = 68;
-      /**
-       * <code>KEYCODE_J = 69;</code>
-       */
-      public static final int KEYCODE_J_VALUE = 69;
-      /**
-       * <code>KEYCODE_K = 70;</code>
-       */
-      public static final int KEYCODE_K_VALUE = 70;
-      /**
-       * <code>KEYCODE_L = 71;</code>
-       */
-      public static final int KEYCODE_L_VALUE = 71;
-      /**
-       * <code>KEYCODE_M = 72;</code>
-       */
-      public static final int KEYCODE_M_VALUE = 72;
-      /**
-       * <code>KEYCODE_N = 73;</code>
-       */
-      public static final int KEYCODE_N_VALUE = 73;
-      /**
-       * <code>KEYCODE_O = 74;</code>
-       */
-      public static final int KEYCODE_O_VALUE = 74;
-      /**
-       * <code>KEYCODE_P = 75;</code>
-       */
-      public static final int KEYCODE_P_VALUE = 75;
-      /**
-       * <code>KEYCODE_Q = 76;</code>
-       */
-      public static final int KEYCODE_Q_VALUE = 76;
-      /**
-       * <code>KEYCODE_R = 77;</code>
-       */
-      public static final int KEYCODE_R_VALUE = 77;
-      /**
-       * <code>KEYCODE_S = 78;</code>
-       */
-      public static final int KEYCODE_S_VALUE = 78;
-      /**
-       * <code>KEYCODE_T = 79;</code>
-       */
-      public static final int KEYCODE_T_VALUE = 79;
-      /**
-       * <code>KEYCODE_U = 80;</code>
-       */
-      public static final int KEYCODE_U_VALUE = 80;
-      /**
-       * <code>KEYCODE_V = 81;</code>
-       */
-      public static final int KEYCODE_V_VALUE = 81;
-      /**
-       * <code>KEYCODE_W = 82;</code>
-       */
-      public static final int KEYCODE_W_VALUE = 82;
-      /**
-       * <code>KEYCODE_X = 83;</code>
-       */
-      public static final int KEYCODE_X_VALUE = 83;
-      /**
-       * <code>KEYCODE_Y = 84;</code>
-       */
-      public static final int KEYCODE_Y_VALUE = 84;
-      /**
-       * <code>KEYCODE_Z = 85;</code>
-       */
-      public static final int KEYCODE_Z_VALUE = 85;
-      /**
-       * <code>KEYCODE_F1 = 86;</code>
-       */
-      public static final int KEYCODE_F1_VALUE = 86;
-      /**
-       * <code>KEYCODE_F2 = 87;</code>
-       */
-      public static final int KEYCODE_F2_VALUE = 87;
-      /**
-       * <code>KEYCODE_F3 = 88;</code>
-       */
-      public static final int KEYCODE_F3_VALUE = 88;
-      /**
-       * <code>KEYCODE_F4 = 89;</code>
-       */
-      public static final int KEYCODE_F4_VALUE = 89;
-      /**
-       * <code>KEYCODE_F5 = 90;</code>
-       */
-      public static final int KEYCODE_F5_VALUE = 90;
-      /**
-       * <code>KEYCODE_F6 = 91;</code>
-       */
-      public static final int KEYCODE_F6_VALUE = 91;
-      /**
-       * <code>KEYCODE_F7 = 92;</code>
-       */
-      public static final int KEYCODE_F7_VALUE = 92;
-      /**
-       * <code>KEYCODE_F8 = 93;</code>
-       */
-      public static final int KEYCODE_F8_VALUE = 93;
-      /**
-       * <code>KEYCODE_F9 = 94;</code>
-       */
-      public static final int KEYCODE_F9_VALUE = 94;
-      /**
-       * <code>KEYCODE_F10 = 95;</code>
-       */
-      public static final int KEYCODE_F10_VALUE = 95;
-      /**
-       * <code>KEYCODE_F11 = 96;</code>
-       */
-      public static final int KEYCODE_F11_VALUE = 96;
-      /**
-       * <code>KEYCODE_F12 = 97;</code>
-       */
-      public static final int KEYCODE_F12_VALUE = 97;
-      /**
-       * <code>KEYCODE_EQUALS = 100;</code>
+       * <code>KEYCODE_EQUALS = 600;</code>
        *
        * <pre>
        * '='
        * </pre>
        */
-      public static final int KEYCODE_EQUALS_VALUE = 100;
+      public static final int KEYCODE_EQUALS_VALUE = 600;
       /**
-       * <code>KEYCODE_MINUS = 101;</code>
+       * <code>KEYCODE_MINUS = 601;</code>
        *
        * <pre>
        * '+'
        * </pre>
        */
-      public static final int KEYCODE_MINUS_VALUE = 101;
+      public static final int KEYCODE_MINUS_VALUE = 601;
       /**
-       * <code>KEYCODE_PLUS = 102;</code>
+       * <code>KEYCODE_PLUS = 602;</code>
        *
        * <pre>
        * '-'
        * </pre>
        */
-      public static final int KEYCODE_PLUS_VALUE = 102;
+      public static final int KEYCODE_PLUS_VALUE = 602;
       /**
-       * <code>KEYCODE_STAR = 103;</code>
+       * <code>KEYCODE_STAR = 603;</code>
        *
        * <pre>
        * '*'
        * </pre>
        */
-      public static final int KEYCODE_STAR_VALUE = 103;
+      public static final int KEYCODE_STAR_VALUE = 603;
       /**
-       * <code>KEYCODE_SLASH = 104;</code>
+       * <code>KEYCODE_SLASH = 604;</code>
        *
        * <pre>
        * '/'
        * </pre>
        */
-      public static final int KEYCODE_SLASH_VALUE = 104;
+      public static final int KEYCODE_SLASH_VALUE = 604;
       /**
-       * <code>KEYCODE_BACKSLASH = 105;</code>
+       * <code>KEYCODE_BACKSLASH = 605;</code>
        *
        * <pre>
        * '&#92;'
        * </pre>
        */
-      public static final int KEYCODE_BACKSLASH_VALUE = 105;
+      public static final int KEYCODE_BACKSLASH_VALUE = 605;
       /**
-       * <code>KEYCODE_UNDERSCORE = 106;</code>
+       * <code>KEYCODE_UNDERSCORE = 606;</code>
        *
        * <pre>
        * '_'
        * </pre>
        */
-      public static final int KEYCODE_UNDERSCORE_VALUE = 106;
+      public static final int KEYCODE_UNDERSCORE_VALUE = 606;
       /**
-       * <code>KEYCODE_PIPE = 107;</code>
+       * <code>KEYCODE_PIPE = 607;</code>
        *
        * <pre>
        * '|'
        * </pre>
        */
-      public static final int KEYCODE_PIPE_VALUE = 107;
+      public static final int KEYCODE_PIPE_VALUE = 607;
       /**
-       * <code>KEYCODE_COMMA = 108;</code>
+       * <code>KEYCODE_COMMA = 608;</code>
        *
        * <pre>
        * ','
        * </pre>
        */
-      public static final int KEYCODE_COMMA_VALUE = 108;
+      public static final int KEYCODE_COMMA_VALUE = 608;
       /**
-       * <code>KEYCODE_PERIODE = 109;</code>
+       * <code>KEYCODE_PERIODE = 609;</code>
        *
        * <pre>
        * '.'
        * </pre>
        */
-      public static final int KEYCODE_PERIODE_VALUE = 109;
+      public static final int KEYCODE_PERIODE_VALUE = 609;
       /**
-       * <code>KEYCODE_COLON = 110;</code>
+       * <code>KEYCODE_COLON = 610;</code>
        *
        * <pre>
        * ':'
        * </pre>
        */
-      public static final int KEYCODE_COLON_VALUE = 110;
+      public static final int KEYCODE_COLON_VALUE = 610;
       /**
-       * <code>KEYCODE_SEMICOLON = 111;</code>
+       * <code>KEYCODE_SEMICOLON = 611;</code>
        *
        * <pre>
        * ';'
        * </pre>
        */
-      public static final int KEYCODE_SEMICOLON_VALUE = 111;
+      public static final int KEYCODE_SEMICOLON_VALUE = 611;
       /**
-       * <code>KEYCODE_AT = 112;</code>
+       * <code>KEYCODE_AT = 612;</code>
        *
        * <pre>
        * '@'
        * </pre>
        */
-      public static final int KEYCODE_AT_VALUE = 112;
+      public static final int KEYCODE_AT_VALUE = 612;
       /**
-       * <code>KEYCODE_APOSTROPHE = 113;</code>
+       * <code>KEYCODE_APOSTROPHE = 613;</code>
        *
        * <pre>
        * '''
        * </pre>
        */
-      public static final int KEYCODE_APOSTROPHE_VALUE = 113;
+      public static final int KEYCODE_APOSTROPHE_VALUE = 613;
       /**
-       * <code>KEYCODE_LEFT_PAREN = 120;</code>
+       * <code>KEYCODE_LEFT_PAREN = 650;</code>
        *
        * <pre>
        * '('
        * </pre>
        */
-      public static final int KEYCODE_LEFT_PAREN_VALUE = 120;
+      public static final int KEYCODE_LEFT_PAREN_VALUE = 650;
       /**
-       * <code>KEYCODE_RIGHT_PARENT = 121;</code>
+       * <code>KEYCODE_RIGHT_PARENT = 651;</code>
        *
        * <pre>
        * ')'
        * </pre>
        */
-      public static final int KEYCODE_RIGHT_PARENT_VALUE = 121;
+      public static final int KEYCODE_RIGHT_PARENT_VALUE = 651;
       /**
-       * <code>KEYCODE_LEFT_BRACKET = 122;</code>
+       * <code>KEYCODE_LEFT_BRACKET = 652;</code>
        *
        * <pre>
        * '['
        * </pre>
        */
-      public static final int KEYCODE_LEFT_BRACKET_VALUE = 122;
+      public static final int KEYCODE_LEFT_BRACKET_VALUE = 652;
       /**
-       * <code>KEYCODE_RIGHT_BRACKET = 123;</code>
+       * <code>KEYCODE_RIGHT_BRACKET = 653;</code>
        *
        * <pre>
        * ']'
        * </pre>
        */
-      public static final int KEYCODE_RIGHT_BRACKET_VALUE = 123;
+      public static final int KEYCODE_RIGHT_BRACKET_VALUE = 653;
       /**
-       * <code>KEYCODE_LEFT_CURLY_BRACKET = 124;</code>
+       * <code>KEYCODE_LEFT_CURLY_BRACKET = 654;</code>
        *
        * <pre>
        * '{'
        * </pre>
        */
-      public static final int KEYCODE_LEFT_CURLY_BRACKET_VALUE = 124;
+      public static final int KEYCODE_LEFT_CURLY_BRACKET_VALUE = 654;
       /**
-       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 125;</code>
+       * <code>KEYCODE_RIGHT_CURLY_BRACKET = 655;</code>
        *
        * <pre>
        * '}'
        * </pre>
        */
-      public static final int KEYCODE_RIGHT_CURLY_BRACKET_VALUE = 125;
+      public static final int KEYCODE_RIGHT_CURLY_BRACKET_VALUE = 655;
       /**
-       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 126;</code>
+       * <code>KEYCODE_LEFT_ANGLE_BRACKET = 656;</code>
        *
        * <pre>
        * '&lt;'
        * </pre>
        */
-      public static final int KEYCODE_LEFT_ANGLE_BRACKET_VALUE = 126;
+      public static final int KEYCODE_LEFT_ANGLE_BRACKET_VALUE = 656;
       /**
-       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 127;</code>
+       * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 657;</code>
        *
        * <pre>
        * '&gt;'
        * </pre>
        */
-      public static final int KEYCODE_RIGHT_ANGLE_BRACKET_VALUE = 127;
+      public static final int KEYCODE_RIGHT_ANGLE_BRACKET_VALUE = 657;
 
 
       public final int getNumber() { return value; }
@@ -1417,6 +1396,54 @@ public final class Message {
           case 27: return QUERY_CHILDREN;
           case 28: return OPEN_SERVER_SIDE;
           case 29: return OPEN_CLIENT_SIDE;
+          case 500: return KEYCODE_0;
+          case 501: return KEYCODE_1;
+          case 502: return KEYCODE_2;
+          case 503: return KEYCODE_3;
+          case 504: return KEYCODE_4;
+          case 505: return KEYCODE_5;
+          case 506: return KEYCODE_6;
+          case 507: return KEYCODE_7;
+          case 508: return KEYCODE_8;
+          case 509: return KEYCODE_9;
+          case 510: return KEYCODE_A;
+          case 511: return KEYCODE_B;
+          case 512: return KEYCODE_C;
+          case 513: return KEYCODE_D;
+          case 514: return KEYCODE_E;
+          case 515: return KEYCODE_F;
+          case 516: return KEYCODE_G;
+          case 517: return KEYCODE_H;
+          case 518: return KEYCODE_I;
+          case 519: return KEYCODE_J;
+          case 520: return KEYCODE_K;
+          case 521: return KEYCODE_L;
+          case 522: return KEYCODE_M;
+          case 523: return KEYCODE_N;
+          case 524: return KEYCODE_O;
+          case 525: return KEYCODE_P;
+          case 526: return KEYCODE_Q;
+          case 527: return KEYCODE_R;
+          case 528: return KEYCODE_S;
+          case 529: return KEYCODE_T;
+          case 530: return KEYCODE_U;
+          case 531: return KEYCODE_V;
+          case 532: return KEYCODE_W;
+          case 533: return KEYCODE_X;
+          case 534: return KEYCODE_Y;
+          case 535: return KEYCODE_Z;
+          case 550: return KEYCODE_F1;
+          case 551: return KEYCODE_F2;
+          case 552: return KEYCODE_F3;
+          case 553: return KEYCODE_F4;
+          case 554: return KEYCODE_F5;
+          case 555: return KEYCODE_F6;
+          case 556: return KEYCODE_F7;
+          case 557: return KEYCODE_F8;
+          case 558: return KEYCODE_F9;
+          case 559: return KEYCODE_F10;
+          case 560: return KEYCODE_F11;
+          case 561: return KEYCODE_F12;
           case 30: return KEYCODE_CTRL;
           case 31: return KEYCODE_SHIFT;
           case 32: return KEYCODE_ALT_LEFT;
@@ -1428,76 +1455,28 @@ public final class Message {
           case 43: return KEYCODE_SPACE;
           case 44: return KEYCODE_BACKSPACE;
           case 45: return KEYCODE_TAB;
-          case 50: return KEYCODE_0;
-          case 51: return KEYCODE_1;
-          case 52: return KEYCODE_2;
-          case 53: return KEYCODE_3;
-          case 54: return KEYCODE_4;
-          case 55: return KEYCODE_5;
-          case 56: return KEYCODE_6;
-          case 57: return KEYCODE_7;
-          case 58: return KEYCODE_8;
-          case 59: return KEYCODE_9;
-          case 60: return KEYCODE_A;
-          case 61: return KEYCODE_B;
-          case 62: return KEYCODE_C;
-          case 63: return KEYCODE_D;
-          case 64: return KEYCODE_E;
-          case 65: return KEYCODE_F;
-          case 66: return KEYCODE_G;
-          case 67: return KEYCODE_H;
-          case 68: return KEYCODE_I;
-          case 69: return KEYCODE_J;
-          case 70: return KEYCODE_K;
-          case 71: return KEYCODE_L;
-          case 72: return KEYCODE_M;
-          case 73: return KEYCODE_N;
-          case 74: return KEYCODE_O;
-          case 75: return KEYCODE_P;
-          case 76: return KEYCODE_Q;
-          case 77: return KEYCODE_R;
-          case 78: return KEYCODE_S;
-          case 79: return KEYCODE_T;
-          case 80: return KEYCODE_U;
-          case 81: return KEYCODE_V;
-          case 82: return KEYCODE_W;
-          case 83: return KEYCODE_X;
-          case 84: return KEYCODE_Y;
-          case 85: return KEYCODE_Z;
-          case 86: return KEYCODE_F1;
-          case 87: return KEYCODE_F2;
-          case 88: return KEYCODE_F3;
-          case 89: return KEYCODE_F4;
-          case 90: return KEYCODE_F5;
-          case 91: return KEYCODE_F6;
-          case 92: return KEYCODE_F7;
-          case 93: return KEYCODE_F8;
-          case 94: return KEYCODE_F9;
-          case 95: return KEYCODE_F10;
-          case 96: return KEYCODE_F11;
-          case 97: return KEYCODE_F12;
-          case 100: return KEYCODE_EQUALS;
-          case 101: return KEYCODE_MINUS;
-          case 102: return KEYCODE_PLUS;
-          case 103: return KEYCODE_STAR;
-          case 104: return KEYCODE_SLASH;
-          case 105: return KEYCODE_BACKSLASH;
-          case 106: return KEYCODE_UNDERSCORE;
-          case 107: return KEYCODE_PIPE;
-          case 108: return KEYCODE_COMMA;
-          case 109: return KEYCODE_PERIODE;
-          case 110: return KEYCODE_COLON;
-          case 111: return KEYCODE_SEMICOLON;
-          case 112: return KEYCODE_AT;
-          case 113: return KEYCODE_APOSTROPHE;
-          case 120: return KEYCODE_LEFT_PAREN;
-          case 121: return KEYCODE_RIGHT_PARENT;
-          case 122: return KEYCODE_LEFT_BRACKET;
-          case 123: return KEYCODE_RIGHT_BRACKET;
-          case 124: return KEYCODE_LEFT_CURLY_BRACKET;
-          case 125: return KEYCODE_RIGHT_CURLY_BRACKET;
-          case 126: return KEYCODE_LEFT_ANGLE_BRACKET;
-          case 127: return KEYCODE_RIGHT_ANGLE_BRACKET;
+          case 600: return KEYCODE_EQUALS;
+          case 601: return KEYCODE_MINUS;
+          case 602: return KEYCODE_PLUS;
+          case 603: return KEYCODE_STAR;
+          case 604: return KEYCODE_SLASH;
+          case 605: return KEYCODE_BACKSLASH;
+          case 606: return KEYCODE_UNDERSCORE;
+          case 607: return KEYCODE_PIPE;
+          case 608: return KEYCODE_COMMA;
+          case 609: return KEYCODE_PERIODE;
+          case 610: return KEYCODE_COLON;
+          case 611: return KEYCODE_SEMICOLON;
+          case 612: return KEYCODE_AT;
+          case 613: return KEYCODE_APOSTROPHE;
+          case 650: return KEYCODE_LEFT_PAREN;
+          case 651: return KEYCODE_RIGHT_PARENT;
+          case 652: return KEYCODE_LEFT_BRACKET;
+          case 653: return KEYCODE_RIGHT_BRACKET;
+          case 654: return KEYCODE_LEFT_CURLY_BRACKET;
+          case 655: return KEYCODE_RIGHT_CURLY_BRACKET;
+          case 656: return KEYCODE_LEFT_ANGLE_BRACKET;
+          case 657: return KEYCODE_RIGHT_ANGLE_BRACKET;
           default: return null;
         }
       }
@@ -1582,33 +1561,17 @@ public final class Message {
       return code_;
     }
 
-    // required .network_io.Request.Code extraCode = 3;
-    public static final int EXTRACODE_FIELD_NUMBER = 3;
-    private org.es.uremote.exchange.Message.Request.Code extraCode_;
+    // optional string securityToken = 3;
+    public static final int SECURITYTOKEN_FIELD_NUMBER = 3;
+    private java.lang.Object securityToken_;
     /**
-     * <code>required .network_io.Request.Code extraCode = 3;</code>
+     * <code>optional string securityToken = 3;</code>
      */
-    public boolean hasExtraCode() {
+    public boolean hasSecurityToken() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required .network_io.Request.Code extraCode = 3;</code>
-     */
-    public org.es.uremote.exchange.Message.Request.Code getExtraCode() {
-      return extraCode_;
-    }
-
-    // optional string securityToken = 4;
-    public static final int SECURITYTOKEN_FIELD_NUMBER = 4;
-    private java.lang.Object securityToken_;
-    /**
-     * <code>optional string securityToken = 4;</code>
-     */
-    public boolean hasSecurityToken() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional string securityToken = 4;</code>
+     * <code>optional string securityToken = 3;</code>
      */
     public java.lang.String getSecurityToken() {
       java.lang.Object ref = securityToken_;
@@ -1625,7 +1588,7 @@ public final class Message {
       }
     }
     /**
-     * <code>optional string securityToken = 4;</code>
+     * <code>optional string securityToken = 3;</code>
      */
     public com.google.protobuf.ByteString
         getSecurityTokenBytes() {
@@ -1641,33 +1604,33 @@ public final class Message {
       }
     }
 
-    // optional int32 intExtra = 5;
-    public static final int INTEXTRA_FIELD_NUMBER = 5;
+    // optional int32 intExtra = 4;
+    public static final int INTEXTRA_FIELD_NUMBER = 4;
     private int intExtra_;
     /**
-     * <code>optional int32 intExtra = 5;</code>
+     * <code>optional int32 intExtra = 4;</code>
      */
     public boolean hasIntExtra() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int32 intExtra = 5;</code>
+     * <code>optional int32 intExtra = 4;</code>
      */
     public int getIntExtra() {
       return intExtra_;
     }
 
-    // optional string stringExtra = 6;
-    public static final int STRINGEXTRA_FIELD_NUMBER = 6;
+    // optional string stringExtra = 5;
+    public static final int STRINGEXTRA_FIELD_NUMBER = 5;
     private java.lang.Object stringExtra_;
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     public boolean hasStringExtra() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     public java.lang.String getStringExtra() {
       java.lang.Object ref = stringExtra_;
@@ -1684,7 +1647,7 @@ public final class Message {
       }
     }
     /**
-     * <code>optional string stringExtra = 6;</code>
+     * <code>optional string stringExtra = 5;</code>
      */
     public com.google.protobuf.ByteString
         getStringExtraBytes() {
@@ -1703,7 +1666,6 @@ public final class Message {
     private void initFields() {
       type_ = org.es.uremote.exchange.Message.Request.Type.SIMPLE;
       code_ = org.es.uremote.exchange.Message.Request.Code.NONE;
-      extraCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
       securityToken_ = "";
       intExtra_ = 0;
       stringExtra_ = "";
@@ -1721,10 +1683,6 @@ public final class Message {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasExtraCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -1739,16 +1697,13 @@ public final class Message {
         output.writeEnum(2, code_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeEnum(3, extraCode_.getNumber());
+        output.writeBytes(3, getSecurityTokenBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeBytes(4, getSecurityTokenBytes());
+        output.writeInt32(4, intExtra_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, intExtra_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeBytes(6, getStringExtraBytes());
+        output.writeBytes(5, getStringExtraBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1769,19 +1724,15 @@ public final class Message {
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, extraCode_.getNumber());
+          .computeBytesSize(3, getSecurityTokenBytes());
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, getSecurityTokenBytes());
+          .computeInt32Size(4, intExtra_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, intExtra_);
-      }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, getStringExtraBytes());
+          .computeBytesSize(5, getStringExtraBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1903,14 +1854,12 @@ public final class Message {
         bitField0_ = (bitField0_ & ~0x00000001);
         code_ = org.es.uremote.exchange.Message.Request.Code.NONE;
         bitField0_ = (bitField0_ & ~0x00000002);
-        extraCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
-        bitField0_ = (bitField0_ & ~0x00000004);
         securityToken_ = "";
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         intExtra_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         stringExtra_ = "";
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -1950,17 +1899,13 @@ public final class Message {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.extraCode_ = extraCode_;
+        result.securityToken_ = securityToken_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.securityToken_ = securityToken_;
+        result.intExtra_ = intExtra_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
-        }
-        result.intExtra_ = intExtra_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
         }
         result.stringExtra_ = stringExtra_;
         result.bitField0_ = to_bitField0_;
@@ -1985,11 +1930,8 @@ public final class Message {
         if (other.hasCode()) {
           setCode(other.getCode());
         }
-        if (other.hasExtraCode()) {
-          setExtraCode(other.getExtraCode());
-        }
         if (other.hasSecurityToken()) {
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000004;
           securityToken_ = other.securityToken_;
           onChanged();
         }
@@ -1997,7 +1939,7 @@ public final class Message {
           setIntExtra(other.getIntExtra());
         }
         if (other.hasStringExtra()) {
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000010;
           stringExtra_ = other.stringExtra_;
           onChanged();
         }
@@ -2011,10 +1953,6 @@ public final class Message {
           return false;
         }
         if (!hasCode()) {
-          
-          return false;
-        }
-        if (!hasExtraCode()) {
           
           return false;
         }
@@ -2112,52 +2050,16 @@ public final class Message {
         return this;
       }
 
-      // required .network_io.Request.Code extraCode = 3;
-      private org.es.uremote.exchange.Message.Request.Code extraCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
+      // optional string securityToken = 3;
+      private java.lang.Object securityToken_ = "";
       /**
-       * <code>required .network_io.Request.Code extraCode = 3;</code>
+       * <code>optional string securityToken = 3;</code>
        */
-      public boolean hasExtraCode() {
+      public boolean hasSecurityToken() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required .network_io.Request.Code extraCode = 3;</code>
-       */
-      public org.es.uremote.exchange.Message.Request.Code getExtraCode() {
-        return extraCode_;
-      }
-      /**
-       * <code>required .network_io.Request.Code extraCode = 3;</code>
-       */
-      public Builder setExtraCode(org.es.uremote.exchange.Message.Request.Code value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000004;
-        extraCode_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required .network_io.Request.Code extraCode = 3;</code>
-       */
-      public Builder clearExtraCode() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        extraCode_ = org.es.uremote.exchange.Message.Request.Code.NONE;
-        onChanged();
-        return this;
-      }
-
-      // optional string securityToken = 4;
-      private java.lang.Object securityToken_ = "";
-      /**
-       * <code>optional string securityToken = 4;</code>
-       */
-      public boolean hasSecurityToken() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
-      /**
-       * <code>optional string securityToken = 4;</code>
+       * <code>optional string securityToken = 3;</code>
        */
       public java.lang.String getSecurityToken() {
         java.lang.Object ref = securityToken_;
@@ -2171,7 +2073,7 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string securityToken = 4;</code>
+       * <code>optional string securityToken = 3;</code>
        */
       public com.google.protobuf.ByteString
           getSecurityTokenBytes() {
@@ -2187,84 +2089,84 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string securityToken = 4;</code>
+       * <code>optional string securityToken = 3;</code>
        */
       public Builder setSecurityToken(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000004;
         securityToken_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string securityToken = 4;</code>
+       * <code>optional string securityToken = 3;</code>
        */
       public Builder clearSecurityToken() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000004);
         securityToken_ = getDefaultInstance().getSecurityToken();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string securityToken = 4;</code>
+       * <code>optional string securityToken = 3;</code>
        */
       public Builder setSecurityTokenBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000008;
+  bitField0_ |= 0x00000004;
         securityToken_ = value;
         onChanged();
         return this;
       }
 
-      // optional int32 intExtra = 5;
+      // optional int32 intExtra = 4;
       private int intExtra_ ;
       /**
-       * <code>optional int32 intExtra = 5;</code>
+       * <code>optional int32 intExtra = 4;</code>
        */
       public boolean hasIntExtra() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int32 intExtra = 5;</code>
+       * <code>optional int32 intExtra = 4;</code>
        */
       public int getIntExtra() {
         return intExtra_;
       }
       /**
-       * <code>optional int32 intExtra = 5;</code>
+       * <code>optional int32 intExtra = 4;</code>
        */
       public Builder setIntExtra(int value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000008;
         intExtra_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 intExtra = 5;</code>
+       * <code>optional int32 intExtra = 4;</code>
        */
       public Builder clearIntExtra() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000008);
         intExtra_ = 0;
         onChanged();
         return this;
       }
 
-      // optional string stringExtra = 6;
+      // optional string stringExtra = 5;
       private java.lang.Object stringExtra_ = "";
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public boolean hasStringExtra() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public java.lang.String getStringExtra() {
         java.lang.Object ref = stringExtra_;
@@ -2278,7 +2180,7 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public com.google.protobuf.ByteString
           getStringExtraBytes() {
@@ -2294,36 +2196,36 @@ public final class Message {
         }
       }
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public Builder setStringExtra(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
+  bitField0_ |= 0x00000010;
         stringExtra_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public Builder clearStringExtra() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000010);
         stringExtra_ = getDefaultInstance().getStringExtra();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string stringExtra = 6;</code>
+       * <code>optional string stringExtra = 5;</code>
        */
       public Builder setStringExtraBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000020;
+  bitField0_ |= 0x00000010;
         stringExtra_ = value;
         onChanged();
         return this;
@@ -2383,13 +2285,13 @@ public final class Message {
      */
     boolean getIsDirectory();
 
-    // required int32 size = 4;
+    // required uint32 size = 4;
     /**
-     * <code>required int32 size = 4;</code>
+     * <code>required uint32 size = 4;</code>
      */
     boolean hasSize();
     /**
-     * <code>required int32 size = 4;</code>
+     * <code>required uint32 size = 4;</code>
      */
     int getSize();
 
@@ -2486,7 +2388,7 @@ public final class Message {
             }
             case 32: {
               bitField0_ |= 0x00000008;
-              size_ = input.readInt32();
+              size_ = input.readUInt32();
               break;
             }
             case 42: {
@@ -2642,17 +2544,17 @@ public final class Message {
       return isDirectory_;
     }
 
-    // required int32 size = 4;
+    // required uint32 size = 4;
     public static final int SIZE_FIELD_NUMBER = 4;
     private int size_;
     /**
-     * <code>required int32 size = 4;</code>
+     * <code>required uint32 size = 4;</code>
      */
     public boolean hasSize() {
       return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required int32 size = 4;</code>
+     * <code>required uint32 size = 4;</code>
      */
     public int getSize() {
       return size_;
@@ -2745,7 +2647,7 @@ public final class Message {
         output.writeBool(3, isDirectory_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, size_);
+        output.writeUInt32(4, size_);
       }
       for (int i = 0; i < child_.size(); i++) {
         output.writeMessage(5, child_.get(i));
@@ -2773,7 +2675,7 @@ public final class Message {
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, size_);
+          .computeUInt32Size(4, size_);
       }
       for (int i = 0; i < child_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
@@ -3251,22 +3153,22 @@ public final class Message {
         return this;
       }
 
-      // required int32 size = 4;
+      // required uint32 size = 4;
       private int size_ ;
       /**
-       * <code>required int32 size = 4;</code>
+       * <code>required uint32 size = 4;</code>
        */
       public boolean hasSize() {
         return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required int32 size = 4;</code>
+       * <code>required uint32 size = 4;</code>
        */
       public int getSize() {
         return size_;
       }
       /**
-       * <code>required int32 size = 4;</code>
+       * <code>required uint32 size = 4;</code>
        */
       public Builder setSize(int value) {
         bitField0_ |= 0x00000008;
@@ -3275,7 +3177,7 @@ public final class Message {
         return this;
       }
       /**
-       * <code>required int32 size = 4;</code>
+       * <code>required uint32 size = 4;</code>
        */
       public Builder clearSize() {
         bitField0_ = (bitField0_ & ~0x00000008);
@@ -4699,72 +4601,73 @@ public final class Message {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\rmessage.proto\022\nnetwork_io\"\344\020\n\007Request\022" +
+      "\n\rmessage.proto\022\nnetwork_io\"\375\020\n\007Request\022" +
       "&\n\004type\030\001 \002(\0162\030.network_io.Request.Type\022" +
       "&\n\004code\030\002 \002(\0162\030.network_io.Request.Code\022" +
-      "+\n\textraCode\030\003 \002(\0162\030.network_io.Request." +
-      "Code\022\025\n\rsecurityToken\030\004 \001(\t\022\020\n\010intExtra\030" +
-      "\005 \001(\005\022\023\n\013stringExtra\030\006 \001(\t\"K\n\004Type\022\n\n\006SI" +
-      "MPLE\020\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI" +
-      "\020\003\022\n\n\006VOLUME\020\004\022\007\n\003APP\020\005\"\320\016\n\004Code\022\010\n\004NONE" +
-      "\020\000\022\n\n\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OF" +
-      "F\020\004\022\010\n\004PING\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007",
-      "\022\014\n\010SHUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOC" +
-      "K\020\n\022\010\n\004MUTE\020\013\022\007\n\003SAY\020\014\022\013\n\007DPAD_UP\020\r\022\r\n\tD" +
-      "PAD_DOWN\020\016\022\r\n\tDPAD_LEFT\020\017\022\016\n\nDPAD_RIGHT\020" +
-      "\020\022\024\n\020MEDIA_PLAY_PAUSE\020\024\022\016\n\nMEDIA_STOP\020\025\022" +
-      "\022\n\016MEDIA_PREVIOUS\020\026\022\016\n\nMEDIA_NEXT\020\027\022\014\n\010M" +
-      "EDIA_FF\020\030\022\020\n\014MEDIA_REWIND\020\031\022\017\n\013QUERY_ROO" +
-      "TS\020\032\022\022\n\016QUERY_CHILDREN\020\033\022\024\n\020OPEN_SERVER_" +
-      "SIDE\020\034\022\024\n\020OPEN_CLIENT_SIDE\020\035\022\020\n\014KEYCODE_" +
-      "CTRL\020\036\022\021\n\rKEYCODE_SHIFT\020\037\022\024\n\020KEYCODE_ALT" +
-      "_LEFT\020 \022\025\n\021KEYCODE_ALT_RIGHT\020!\022\023\n\017KEYCOD",
-      "E_WINDOWS\020\"\022\021\n\rKEYCODE_ENTER\020(\022\022\n\016KEYCOD" +
-      "E_ESCAPE\020)\022\022\n\016KEYCODE_DELETE\020*\022\021\n\rKEYCOD" +
-      "E_SPACE\020+\022\025\n\021KEYCODE_BACKSPACE\020,\022\017\n\013KEYC" +
-      "ODE_TAB\020-\022\r\n\tKEYCODE_0\0202\022\r\n\tKEYCODE_1\0203\022" +
-      "\r\n\tKEYCODE_2\0204\022\r\n\tKEYCODE_3\0205\022\r\n\tKEYCODE" +
-      "_4\0206\022\r\n\tKEYCODE_5\0207\022\r\n\tKEYCODE_6\0208\022\r\n\tKE" +
-      "YCODE_7\0209\022\r\n\tKEYCODE_8\020:\022\r\n\tKEYCODE_9\020;\022" +
-      "\r\n\tKEYCODE_A\020<\022\r\n\tKEYCODE_B\020=\022\r\n\tKEYCODE" +
-      "_C\020>\022\r\n\tKEYCODE_D\020?\022\r\n\tKEYCODE_E\020@\022\r\n\tKE" +
-      "YCODE_F\020A\022\r\n\tKEYCODE_G\020B\022\r\n\tKEYCODE_H\020C\022",
-      "\r\n\tKEYCODE_I\020D\022\r\n\tKEYCODE_J\020E\022\r\n\tKEYCODE" +
-      "_K\020F\022\r\n\tKEYCODE_L\020G\022\r\n\tKEYCODE_M\020H\022\r\n\tKE" +
-      "YCODE_N\020I\022\r\n\tKEYCODE_O\020J\022\r\n\tKEYCODE_P\020K\022" +
-      "\r\n\tKEYCODE_Q\020L\022\r\n\tKEYCODE_R\020M\022\r\n\tKEYCODE" +
-      "_S\020N\022\r\n\tKEYCODE_T\020O\022\r\n\tKEYCODE_U\020P\022\r\n\tKE" +
-      "YCODE_V\020Q\022\r\n\tKEYCODE_W\020R\022\r\n\tKEYCODE_X\020S\022" +
-      "\r\n\tKEYCODE_Y\020T\022\r\n\tKEYCODE_Z\020U\022\016\n\nKEYCODE" +
-      "_F1\020V\022\016\n\nKEYCODE_F2\020W\022\016\n\nKEYCODE_F3\020X\022\016\n" +
-      "\nKEYCODE_F4\020Y\022\016\n\nKEYCODE_F5\020Z\022\016\n\nKEYCODE" +
-      "_F6\020[\022\016\n\nKEYCODE_F7\020\\\022\016\n\nKEYCODE_F8\020]\022\016\n",
-      "\nKEYCODE_F9\020^\022\017\n\013KEYCODE_F10\020_\022\017\n\013KEYCOD" +
-      "E_F11\020`\022\017\n\013KEYCODE_F12\020a\022\022\n\016KEYCODE_EQUA" +
-      "LS\020d\022\021\n\rKEYCODE_MINUS\020e\022\020\n\014KEYCODE_PLUS\020" +
-      "f\022\020\n\014KEYCODE_STAR\020g\022\021\n\rKEYCODE_SLASH\020h\022\025" +
-      "\n\021KEYCODE_BACKSLASH\020i\022\026\n\022KEYCODE_UNDERSC" +
-      "ORE\020j\022\020\n\014KEYCODE_PIPE\020k\022\021\n\rKEYCODE_COMMA" +
-      "\020l\022\023\n\017KEYCODE_PERIODE\020m\022\021\n\rKEYCODE_COLON" +
-      "\020n\022\025\n\021KEYCODE_SEMICOLON\020o\022\016\n\nKEYCODE_AT\020" +
-      "p\022\026\n\022KEYCODE_APOSTROPHE\020q\022\026\n\022KEYCODE_LEF" +
-      "T_PAREN\020x\022\030\n\024KEYCODE_RIGHT_PARENT\020y\022\030\n\024K",
-      "EYCODE_LEFT_BRACKET\020z\022\031\n\025KEYCODE_RIGHT_B" +
-      "RACKET\020{\022\036\n\032KEYCODE_LEFT_CURLY_BRACKET\020|" +
-      "\022\037\n\033KEYCODE_RIGHT_CURLY_BRACKET\020}\022\036\n\032KEY" +
-      "CODE_LEFT_ANGLE_BRACKET\020~\022\037\n\033KEYCODE_RIG" +
-      "HT_ANGLE_BRACKET\020\177\"~\n\010FileInfo\022\030\n\020absolu" +
-      "teFilePath\030\001 \002(\t\022\020\n\010filename\030\002 \002(\t\022\023\n\013is" +
-      "Directory\030\003 \002(\010\022\014\n\004size\030\004 \002(\005\022#\n\005child\030\005" +
-      " \003(\0132\024.network_io.FileInfo\"\232\002\n\010Response\022" +
-      "-\n\013requestType\030\001 \002(\0162\030.network_io.Reques" +
-      "t.Type\022-\n\013requestCode\030\002 \002(\0162\030.network_io",
-      ".Request.Code\022=\n\nreturnCode\030\003 \002(\0162\037.netw" +
-      "ork_io.Response.ReturnCode:\010RC_ERROR\022\017\n\007" +
-      "message\030\004 \002(\t\022\020\n\010intValue\030\005 \001(\005\022\"\n\004file\030" +
-      "\006 \001(\0132\024.network_io.FileInfo\"*\n\nReturnCod" +
-      "e\022\016\n\nRC_SUCCESS\020\000\022\014\n\010RC_ERROR\020\001B\"\n\027org.e" +
-      "s.uremote.exchangeB\007Message"
+      "\025\n\rsecurityToken\030\003 \001(\t\022\020\n\010intExtra\030\004 \001(\005" +
+      "\022\023\n\013stringExtra\030\005 \001(\t\"K\n\004Type\022\n\n\006SIMPLE\020" +
+      "\000\022\014\n\010EXPLORER\020\001\022\014\n\010KEYBOARD\020\002\022\006\n\002AI\020\003\022\n\n" +
+      "\006VOLUME\020\004\022\007\n\003APP\020\005\"\226\017\n\004Code\022\010\n\004NONE\020\000\022\n\n" +
+      "\006DEFINE\020\001\022\n\n\006STATUS\020\002\022\006\n\002ON\020\003\022\007\n\003OFF\020\004\022\010" +
+      "\n\004PING\020\005\022\010\n\004TEST\020\006\022\017\n\013KILL_SERVER\020\007\022\014\n\010S" +
+      "HUTDOWN\020\010\022\021\n\rSWITCH_WINDOW\020\t\022\010\n\004LOCK\020\n\022\010",
+      "\n\004MUTE\020\013\022\007\n\003SAY\020\014\022\013\n\007DPAD_UP\020\r\022\r\n\tDPAD_D" +
+      "OWN\020\016\022\r\n\tDPAD_LEFT\020\017\022\016\n\nDPAD_RIGHT\020\020\022\024\n\020" +
+      "MEDIA_PLAY_PAUSE\020\024\022\016\n\nMEDIA_STOP\020\025\022\022\n\016ME" +
+      "DIA_PREVIOUS\020\026\022\016\n\nMEDIA_NEXT\020\027\022\014\n\010MEDIA_" +
+      "FF\020\030\022\020\n\014MEDIA_REWIND\020\031\022\017\n\013QUERY_ROOTS\020\032\022" +
+      "\022\n\016QUERY_CHILDREN\020\033\022\024\n\020OPEN_SERVER_SIDE\020" +
+      "\034\022\024\n\020OPEN_CLIENT_SIDE\020\035\022\016\n\tKEYCODE_0\020\364\003\022" +
+      "\016\n\tKEYCODE_1\020\365\003\022\016\n\tKEYCODE_2\020\366\003\022\016\n\tKEYCO" +
+      "DE_3\020\367\003\022\016\n\tKEYCODE_4\020\370\003\022\016\n\tKEYCODE_5\020\371\003\022" +
+      "\016\n\tKEYCODE_6\020\372\003\022\016\n\tKEYCODE_7\020\373\003\022\016\n\tKEYCO",
+      "DE_8\020\374\003\022\016\n\tKEYCODE_9\020\375\003\022\016\n\tKEYCODE_A\020\376\003\022" +
+      "\016\n\tKEYCODE_B\020\377\003\022\016\n\tKEYCODE_C\020\200\004\022\016\n\tKEYCO" +
+      "DE_D\020\201\004\022\016\n\tKEYCODE_E\020\202\004\022\016\n\tKEYCODE_F\020\203\004\022" +
+      "\016\n\tKEYCODE_G\020\204\004\022\016\n\tKEYCODE_H\020\205\004\022\016\n\tKEYCO" +
+      "DE_I\020\206\004\022\016\n\tKEYCODE_J\020\207\004\022\016\n\tKEYCODE_K\020\210\004\022" +
+      "\016\n\tKEYCODE_L\020\211\004\022\016\n\tKEYCODE_M\020\212\004\022\016\n\tKEYCO" +
+      "DE_N\020\213\004\022\016\n\tKEYCODE_O\020\214\004\022\016\n\tKEYCODE_P\020\215\004\022" +
+      "\016\n\tKEYCODE_Q\020\216\004\022\016\n\tKEYCODE_R\020\217\004\022\016\n\tKEYCO" +
+      "DE_S\020\220\004\022\016\n\tKEYCODE_T\020\221\004\022\016\n\tKEYCODE_U\020\222\004\022" +
+      "\016\n\tKEYCODE_V\020\223\004\022\016\n\tKEYCODE_W\020\224\004\022\016\n\tKEYCO",
+      "DE_X\020\225\004\022\016\n\tKEYCODE_Y\020\226\004\022\016\n\tKEYCODE_Z\020\227\004\022" +
+      "\017\n\nKEYCODE_F1\020\246\004\022\017\n\nKEYCODE_F2\020\247\004\022\017\n\nKEY" +
+      "CODE_F3\020\250\004\022\017\n\nKEYCODE_F4\020\251\004\022\017\n\nKEYCODE_F" +
+      "5\020\252\004\022\017\n\nKEYCODE_F6\020\253\004\022\017\n\nKEYCODE_F7\020\254\004\022\017" +
+      "\n\nKEYCODE_F8\020\255\004\022\017\n\nKEYCODE_F9\020\256\004\022\020\n\013KEYC" +
+      "ODE_F10\020\257\004\022\020\n\013KEYCODE_F11\020\260\004\022\020\n\013KEYCODE_" +
+      "F12\020\261\004\022\020\n\014KEYCODE_CTRL\020\036\022\021\n\rKEYCODE_SHIF" +
+      "T\020\037\022\024\n\020KEYCODE_ALT_LEFT\020 \022\025\n\021KEYCODE_ALT" +
+      "_RIGHT\020!\022\023\n\017KEYCODE_WINDOWS\020\"\022\021\n\rKEYCODE" +
+      "_ENTER\020(\022\022\n\016KEYCODE_ESCAPE\020)\022\022\n\016KEYCODE_",
+      "DELETE\020*\022\021\n\rKEYCODE_SPACE\020+\022\025\n\021KEYCODE_B" +
+      "ACKSPACE\020,\022\017\n\013KEYCODE_TAB\020-\022\023\n\016KEYCODE_E" +
+      "QUALS\020\330\004\022\022\n\rKEYCODE_MINUS\020\331\004\022\021\n\014KEYCODE_" +
+      "PLUS\020\332\004\022\021\n\014KEYCODE_STAR\020\333\004\022\022\n\rKEYCODE_SL" +
+      "ASH\020\334\004\022\026\n\021KEYCODE_BACKSLASH\020\335\004\022\027\n\022KEYCOD" +
+      "E_UNDERSCORE\020\336\004\022\021\n\014KEYCODE_PIPE\020\337\004\022\022\n\rKE" +
+      "YCODE_COMMA\020\340\004\022\024\n\017KEYCODE_PERIODE\020\341\004\022\022\n\r" +
+      "KEYCODE_COLON\020\342\004\022\026\n\021KEYCODE_SEMICOLON\020\343\004" +
+      "\022\017\n\nKEYCODE_AT\020\344\004\022\027\n\022KEYCODE_APOSTROPHE\020" +
+      "\345\004\022\027\n\022KEYCODE_LEFT_PAREN\020\212\005\022\031\n\024KEYCODE_R",
+      "IGHT_PARENT\020\213\005\022\031\n\024KEYCODE_LEFT_BRACKET\020\214" +
+      "\005\022\032\n\025KEYCODE_RIGHT_BRACKET\020\215\005\022\037\n\032KEYCODE" +
+      "_LEFT_CURLY_BRACKET\020\216\005\022 \n\033KEYCODE_RIGHT_" +
+      "CURLY_BRACKET\020\217\005\022\037\n\032KEYCODE_LEFT_ANGLE_B" +
+      "RACKET\020\220\005\022 \n\033KEYCODE_RIGHT_ANGLE_BRACKET" +
+      "\020\221\005\"~\n\010FileInfo\022\030\n\020absoluteFilePath\030\001 \002(" +
+      "\t\022\020\n\010filename\030\002 \002(\t\022\023\n\013isDirectory\030\003 \002(\010" +
+      "\022\014\n\004size\030\004 \002(\r\022#\n\005child\030\005 \003(\0132\024.network_" +
+      "io.FileInfo\"\232\002\n\010Response\022-\n\013requestType\030" +
+      "\001 \002(\0162\030.network_io.Request.Type\022-\n\013reque",
+      "stCode\030\002 \002(\0162\030.network_io.Request.Code\022=" +
+      "\n\nreturnCode\030\003 \002(\0162\037.network_io.Response" +
+      ".ReturnCode:\010RC_ERROR\022\017\n\007message\030\004 \002(\t\022\020" +
+      "\n\010intValue\030\005 \001(\005\022\"\n\004file\030\006 \001(\0132\024.network" +
+      "_io.FileInfo\"*\n\nReturnCode\022\016\n\nRC_SUCCESS" +
+      "\020\000\022\014\n\010RC_ERROR\020\001B\"\n\027org.es.uremote.excha" +
+      "ngeB\007Message"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4776,7 +4679,7 @@ public final class Message {
           internal_static_network_io_Request_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_network_io_Request_descriptor,
-              new java.lang.String[] { "Type", "Code", "ExtraCode", "SecurityToken", "IntExtra", "StringExtra", });
+              new java.lang.String[] { "Type", "Code", "SecurityToken", "IntExtra", "StringExtra", });
           internal_static_network_io_FileInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_network_io_FileInfo_fieldAccessorTable = new

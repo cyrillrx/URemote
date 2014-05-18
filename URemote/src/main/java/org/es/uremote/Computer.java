@@ -36,7 +36,6 @@ import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
 import org.es.uremote.exchange.Message.Response.ReturnCode;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
@@ -137,7 +136,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
      * <li>Send ping message to the server.</li>
      * <li>Update server info TextView.</li>
      * </ul>
-     *
      */
     protected void initDevice() {
 
@@ -163,7 +161,6 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
 
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener(this);
-        keyboardListener.setHapticFeedbackView(mKeyboardView);
         keyboardListener.setToastSender(this);
 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
@@ -175,6 +172,8 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         mExtendedKeyboardView.setKeyboard(extendedKeyboard);
         mExtendedKeyboardView.setPreviewEnabled(false);
         mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
+
+        keyboardListener.setKeyboardView(mKeyboardView);
     }
 
     @Override
@@ -346,7 +345,9 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
             return;
         }
 
-        final Request request = MessageUtils.buildRequest(serverSetting.getSecurityToken(), requestType, requestCode);
+        final Request request = Request.newBuilder()
+                .setSecurityToken(serverSetting.getSecurityToken())
+                .setType(requestType).setCode(requestCode).build();
 
         if (request == null) {
             sendToast(R.string.msg_null_request);

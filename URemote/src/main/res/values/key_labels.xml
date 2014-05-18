@@ -73,12 +73,34 @@
 	<string translatable="false" name="kb_ctrl">Ctrl</string>
 	<string translatable="false" name="kb_alt">Alt</string>
 	<string translatable="false" name="kb_shift">Shift</string>
-	<string translatable="false" name="kb_windows">Windows</string>
+	<string translatable="false" name="kb_windows">Win</string>
 	<string translatable="false" name="kb_enter">Enter</string>
-	<string translatable="false" name="kb_space">[ _____ ]</string>
+    <string translatable="false" name="kb_tab">Tab</string>
+    <string translatable="false" name="kb_space">[ _____ ]</string>
 	<string translatable="false" name="kb_backspace">Backspace</string>
 	<string translatable="false" name="kb_escape">Esc</string>
 	<string translatable="false" name="kb_alt_f4">Alt + F4</string>
 	<string translatable="false" name="kb_ctrl_enter">Ctrl + Enter</string>
+
+
+    <!-- Special F1 - F12 keys (based on android.view.KeyEvent) -->
+
+    <string translatable="false" name="kb_F1">F1</string>
+    <string translatable="false" name="kb_F2">F2</string>
+    <string translatable="false" name="kb_F3">F3</string>
+    <string translatable="false" name="kb_F4">F4</string>
+    <string translatable="false" name="kb_F5">F5</string>
+    <string translatable="false" name="kb_F6">F6</string>
+    <string translatable="false" name="kb_F7">F7</string>
+    <string translatable="false" name="kb_F8">F8</string>
+    <string translatable="false" name="kb_F9">F9</string>
+    <string translatable="false" name="kb_F10">F10</string>
+    <string translatable="false" name="kb_F11">F11</string>
+    <string translatable="false" name="kb_F13">F12</string>
+
+    <string translatable="false" name="kb_slash">/</string>
+    <string translatable="false" name="kb_backslash">\</string>
+    <string translatable="false" name="kb_period">.</string>
+    <string translatable="false" name="kb_semicolon">;</string>
 
 </resources>

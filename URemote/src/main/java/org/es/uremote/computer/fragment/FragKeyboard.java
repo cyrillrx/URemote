@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ToggleButton;
 
 import org.es.uremote.R;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -28,7 +27,12 @@ import static org.es.uremote.exchange.Message.Request.Type.KEYBOARD;
  */
 public class FragKeyboard extends Fragment implements OnClickListener {
 
-    private static final String TAG = "FragKeyboard";
+    private static final int FLAG_NONE = 0b00000;
+    private static final int FLAG_CTRL = 0b00001;
+    private static final int FLAG_SHIFT = 0b00010;
+    private static final int FLAG_ALT_LEFT = 0b00100;
+    private static final int FLAG_ALT_RIGHT = 0b01000;
+    private static final int FLAG_WINDOWS = 0b10000;
 
     private RequestSender mRequestSender;
 
@@ -134,7 +138,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
     public void onClick(View view) {
         view.performHapticFeedback(VIRTUAL_KEY);
 
-        final Code extraCode = getExtraCode(view);
+        final int extraCode = getExtraCode();
 
         switch (view.getId()) {
 
@@ -187,7 +191,7 @@ public class FragKeyboard extends Fragment implements OnClickListener {
                 break;
 
             case R.id.kbAltF4:
-                sendRequest(KEYBOARD, Code.KEYCODE_F4, Code.KEYCODE_ALT_LEFT);
+                sendRequest(KEYBOARD, Code.KEYCODE_F4, FLAG_ALT_LEFT);
                 break;
 
             case R.id.kb0:
@@ -307,17 +311,16 @@ public class FragKeyboard extends Fragment implements OnClickListener {
         }
     }
 
-    private Code getExtraCode(View view) {
-        if (mTbControl.isChecked()) {
-            return Code.KEYCODE_CTRL;
-        } else if (mTbAlt.isChecked()) {
-            return Code.KEYCODE_ALT_LEFT;
-        } else if (mTbShift.isChecked()) {
-            return Code.KEYCODE_SHIFT;
-        } else if (mTbWindows.isChecked()) {
-            return Code.KEYCODE_WINDOWS;
-        }
-        return Code.NONE;
+    private int getExtraCode() {
+
+        int modifierFlag = FLAG_NONE;
+
+        modifierFlag += mTbControl.isChecked() ? FLAG_CTRL : FLAG_NONE;
+        modifierFlag += mTbShift.isChecked() ? FLAG_SHIFT : FLAG_NONE;
+        modifierFlag += mTbAlt.isChecked() ? FLAG_ALT_LEFT : FLAG_NONE;
+        modifierFlag += mTbWindows.isChecked() ? FLAG_WINDOWS : FLAG_NONE;
+
+        return modifierFlag;
     }
 
     ////////////////////////////////////////////////////////////////////
@@ -327,23 +330,38 @@ public class FragKeyboard extends Fragment implements OnClickListener {
     /**
      * Initializes the message handler then send the request.
      *
-     * @param type      The request type.
-     * @param code      The request code.
-     * @param extraCode The request extra code.
+     * @param type The request type.
+     * @param code The request code.
+     * @param intExtra The request extra code.
      */
-    public void sendRequest(final Type type, final Code code, final Code extraCode) {
-        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), type, code, extraCode));
+    private void sendRequest(final Type type, final Code code, final int intExtra) {
+        mRequestSender.sendRequest(
+                Message.Request.newBuilder()
+                        .setSecurityToken(mRequestSender.getSecurityToken())
+                        .setType(type)
+                        .setCode(code)
+                        .setIntExtra(intExtra)
+                        .build()
+        );
     }
 
     /**
      * Initializes the message handler then send the request.
      *
-     * @param type        The request type.
-     * @param code        The request code.
-     * @param extraCode   The request extra code.
-     * @param stringParam A string parameter.
+     * @param type The request type.
+     * @param code The request code.
+     * @param intExtra The request extra code.
+     * @param stringExtra A string parameter.
      */
-    public void sendRequest(final Type type, final Code code, final Code extraCode, final String stringParam) {
-        mRequestSender.sendRequest(MessageUtils.buildRequest(mRequestSender.getSecurityToken(), type, code, extraCode, stringParam));
+    private void sendRequest(final Type type, final Code code, final int intExtra, final String stringExtra) {
+        mRequestSender.sendRequest(
+                Message.Request.newBuilder()
+                        .setSecurityToken(mRequestSender.getSecurityToken())
+                        .setType(type)
+                        .setCode(code)
+                        .setIntExtra(intExtra)
+                        .setStringExtra(stringExtra)
+                        .build()
+        );
     }
 }
