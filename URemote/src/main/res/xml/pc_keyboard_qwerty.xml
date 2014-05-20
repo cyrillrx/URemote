@@ -38,6 +38,7 @@
                 android:keyLabel="@string/kb_0" />
         <Key
                 android:codes="@integer/code_backspace"
+                android:isRepeatable="true"
                 android:keyEdgeFlags="right"
                 android:keyLabel="@string/kb_backspace" />
     </Row>
