@@ -28,7 +28,6 @@ import org.es.uremote.computer.KeyboardListener;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.computer.fragment.FragAdmin;
 import org.es.uremote.computer.fragment.FragDashboard;
-import org.es.uremote.computer.fragment.FragKeyboard;
 import org.es.uremote.computer.fragment.RemoteExplorerFragment;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
@@ -61,21 +60,19 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
 
     private static final String TAG = "Computer Activity";
     private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
-    private static final int PAGES_COUNT = 4;
+    private static final int PAGES_COUNT = 3;
     private static final int PAGE_EXPLORER = 2;
 
     private FragAdmin mFragAdmin;
     private FragDashboard mFragDashboard;
     private RemoteExplorerFragment mExplorerFragment;
-    private FragKeyboard mFragKeyboard;
 
     private TextView mTvServerState;
     private ProgressBar mPbConnection;
 
-    private static Toast mToast = null;
+    private Toast mToast = null;
 
     private ServerSetting mSelectedDevice = null;
-
     private KeyboardView mKeyboardView = null;
     private KeyboardView mExtendedKeyboardView = null;
 
@@ -108,15 +105,11 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         if (mExplorerFragment == null) {
             mExplorerFragment = new RemoteExplorerFragment();
         }
-        if (mFragKeyboard == null) {
-            mFragKeyboard = new FragKeyboard();
-        }
 
         List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
         fragments.add(mFragAdmin);
         fragments.add(mFragDashboard);
         fragments.add(mExplorerFragment);
-        fragments.add(mFragKeyboard);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
         ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
