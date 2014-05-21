@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.es.uremote.computer.KeyboardListener;
+import org.es.uremote.computer.ServerEditActivity;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.computer.fragment.FragAdmin;
 import org.es.uremote.computer.fragment.FragDashboard;
@@ -51,6 +52,7 @@ import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
+import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
@@ -177,6 +179,46 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         super.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.server, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                final Intent homeIntent = new Intent(getApplicationContext(), Home.class);
+                homeIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+                return true;
+
+            case R.id.server_config:
+
+                //                final Intent intent = new Intent(getApplicationContext(), ServerEditActivity.class);
+                //                intent.putExtra(EXTRA_SERVER_DATA, mSelectedDevice);
+                //                intent.setAction(ACTION_EDIT);
+                //                startActivityForResult(intent, RC_EDIT_SERVER);
+                return true;
+
+            case R.id.server_keyboard:
+
+                // Toggle custom keyboard visibility
+                if (isCustomKeyboardVisible()) {
+                    hideCustomKeyboard();
+                } else {
+                    showCustomKeyboard();
+                }
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     /**
      * Handle volume physical buttons.
      */
@@ -198,51 +240,12 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
                 return true;
             }
             if (pageId == PAGE_EXPLORER && mExplorerFragment.canNavigateUp()) {
+                mExplorerFragment.navigateUp();
                 return true;
             }
         }
         Log.warning(TAG, "#onKeyDown - Key " + KeyEvent.keyCodeToString(keyCode) + " not handle for page " + pageId);
         return super.onKeyDown(keyCode, event);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.server, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case android.R.id.home:
-                Intent intent = new Intent(getApplicationContext(), Home.class);
-                intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                return true;
-
-            case R.id.server_keyboard:
-
-                // Toggle custom keyboard visibility
-                if (isCustomKeyboardVisible()) {
-                    hideCustomKeyboard();
-                } else {
-                    showCustomKeyboard();
-                }
-                return true;
-
-            case R.id.server_settings:
-                startActivity(new Intent(getApplicationContext(), AppSettings.class));
-                return true;
-
-            case R.id.server_list:
-                startActivity(new Intent(getApplicationContext(), ServerListActivity.class).setAction(ACTION_EDIT));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 
     //

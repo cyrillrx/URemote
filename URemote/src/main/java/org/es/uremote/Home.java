@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,6 +25,8 @@ import org.es.uremote.objects.ActionItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Intent.ACTION_EDIT;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.utils.IntentKeys.ACTION_SELECT;
@@ -41,11 +46,11 @@ public class Home extends ListActivity implements OnItemClickListener {
     private static final int RC_ENABLE_WIFI   = 2;
 
     private static final int ACTION_COMPUTER = 0;
-    private static final int ACTION_NAO      = 1;
-    private static final int ACTION_LIGHTS   = 2;
-    private static final int ACTION_TV       = 3;
-    private static final int ACTION_ROBOTS   = 4;
-    private static final int ACTION_HIFI     = 5;
+    private static final int ACTION_LIGHTS   = 1;
+    private static final int ACTION_TV       = 2;
+    private static final int ACTION_ROBOTS   = 3;
+    private static final int ACTION_HIFI     = 4;
+    private static final int ACTION_NAO      = 5;
 
     private List<ActionItem> mActionList;
 
@@ -65,17 +70,45 @@ public class Home extends ListActivity implements OnItemClickListener {
         getListView().setOnItemClickListener(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.about:
+                startActivity(new Intent(getApplicationContext(), AppSettings.class));
+                return true;
+
+            case R.id.server_list:
+                startActivity(new Intent(getApplicationContext(), ServerListActivity.class).setAction(ACTION_EDIT));
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void initActionList() {
         if (mActionList != null) {
             return;
         }
         mActionList = new ArrayList<>(6);
         mActionList.add(ACTION_COMPUTER, new ActionItem(getString(R.string.title_computer), R.drawable.home_computer));
-        mActionList.add(ACTION_NAO, new ActionItem(getString(R.string.title_nao), R.drawable.home_nao));
         mActionList.add(ACTION_LIGHTS, new ActionItem(getString(R.string.title_lights), R.drawable.home_light));
         mActionList.add(ACTION_TV, new ActionItem(getString(R.string.title_tv), R.drawable.home_tv));
         mActionList.add(ACTION_ROBOTS, new ActionItem(getString(R.string.title_robots), R.drawable.home_robot));
-        mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
+
+        if (BuildConfig.DEBUG) {
+            mActionList.add(ACTION_HIFI, new ActionItem(getString(R.string.title_hifi), R.drawable.home_hifi));
+            mActionList.add(ACTION_NAO, new ActionItem(getString(R.string.title_nao), R.drawable.home_nao));
+        }
     }
 
     @Override
@@ -88,25 +121,25 @@ public class Home extends ListActivity implements OnItemClickListener {
                 startActivityForResult(new Intent(getApplicationContext(), ServerListActivity.class).setAction(ACTION_SELECT), RC_SELECT_SERVER);
                 break;
 
-            case ACTION_NAO:
-                startNaoActivity();
-                break;
-
             case ACTION_LIGHTS:
                 Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
-                break;
-
-            case ACTION_ROBOTS:
-                startRobotControl();
                 break;
 
             case ACTION_TV:
                 startActivity(new Intent(getApplicationContext(), TvDialer.class));
                 break;
 
+            case ACTION_ROBOTS:
+                startRobotControl();
+                break;
+
             case ACTION_HIFI:
                 Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), HexHome.class));
+                break;
+
+            case ACTION_NAO:
+                startActivity(new Intent(getApplicationContext(), Nao.class));
                 break;
 
             default:
@@ -148,10 +181,6 @@ public class Home extends ListActivity implements OnItemClickListener {
         } else {
             startActivity(new Intent(getApplicationContext(), RobotControl.class));
         }
-    }
-
-    private void startNaoActivity() {
-        startActivity(new Intent(getApplicationContext(), Nao.class));
     }
 
     @Override

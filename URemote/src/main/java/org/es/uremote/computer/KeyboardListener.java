@@ -5,6 +5,7 @@ import android.inputmethodservice.KeyboardView;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
+import org.es.uremote.BuildConfig;
 import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.utils.ToastSender;
@@ -104,7 +105,10 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             } else if (code == KeyEvent.KEYCODE_WINDOW) {
                 mModifierFlag += key.on ? FLAG_WINDOWS : FLAG_NONE;
             }
-            sendToast(Integer.toBinaryString(mModifierFlag));
+
+            if (BuildConfig.DEBUG) {
+                sendToast(Integer.toBinaryString(mModifierFlag));
+            }
         }
     }
 

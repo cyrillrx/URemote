@@ -25,11 +25,11 @@
     <string name="title_show_nao">Voir mon Nao</string>
 
     <!-- Menu -->
-    <string name="menu_server_list">Gérer des serveurs</string>
-    <string name="menu_settings">Configuration</string>
-    <string name="menu_refresh">Rafraichir</string>
+    <string name="menu_server_list">Gérer les serveurs</string>
+    <string name="menu_about">A propos de @string/app_name</string>
     <string name="menu_delete">Supprimer</string>
     <string name="menu_keyboard">Clavier virtuel</string>
+    <string name="menu_server_config">Configurer le serveur</string>
 
     <!-- Directions -->
     <string name="left">Gauche</string>

@@ -1,9 +1,6 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<header
-			android:fragment="org.es.uremote.AppSettings$PrefServer"
-			android:title="@string/title_server_settings" />
-	<header
 			android:summary="@string/author_summary"
 			android:title="@string/author" />
 	<header

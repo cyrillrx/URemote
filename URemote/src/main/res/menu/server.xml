@@ -2,24 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/server_list"
-        android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_server_list" />
-    <item
-        android:id="@+id/server_keyboard"
-        android:icon="@drawable/ic_menu_keyboard"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_keyboard" />
+            android:id="@+id/server_keyboard"
+            android:icon="@drawable/ic_menu_keyboard"
+            android:showAsAction="ifRoom"
+            android:title="@string/menu_keyboard" />
 
     <item
-        android:id="@+id/server_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom"
-        android:title="@string/menu_settings" />
-    <item
-        android:id="@+id/server_refresh"
-        android:icon="@android:drawable/ic_menu_rotate"
-        android:showAsAction="never"
-        android:title="@string/menu_refresh" />
+            android:id="@+id/server_config"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:showAsAction="ifRoom"
+            android:title="@string/menu_server_config" />
 </menu>
