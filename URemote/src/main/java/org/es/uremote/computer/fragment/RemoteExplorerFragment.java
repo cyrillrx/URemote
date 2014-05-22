@@ -2,6 +2,11 @@ package org.es.uremote.computer.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.es.uremote.Computer;
 import org.es.uremote.R;
@@ -30,6 +35,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     private TaskCallbacks mCallbacks;
     private ToastSender mToastSender;
 
+    private TextView mTvEmpty;
+    private ImageButton mBtnRefresh;
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -54,6 +62,23 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
         super.onDetach();
         mCallbacks = null;
         mToastSender = null;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+
+        mTvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
+        mBtnRefresh = (ImageButton) view.findViewById(R.id.btnRefresh);
+        mBtnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO refresh
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -147,13 +172,20 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
                 return;
             }
 
+            // Display the message if any
             if (!response.getMessage().isEmpty()) {
                 mToastSender.sendToast(response.getMessage());
             }
 
+            // Update view in case of empty list (error or empty directory)
             if (RC_ERROR.equals(response.getReturnCode())) {
+                mTvEmpty.setText(R.string.request_error);
+                mBtnRefresh.setVisibility(View.VISIBLE);
                 return;
+
             }
+            mTvEmpty.setText(R.string.filemanager_empty_directory);
+            mBtnRefresh.setVisibility(View.INVISIBLE);
             updateView(response.getFile());
         }
     }

@@ -33,5 +33,6 @@
 	<string name="server_loaded">Configuration chargée avec succès</string>
 	<string name="error_while_loading_servers">Erreur lors du chargement des serveurs.</string>
 	<string name="build_request_error">Erreur, impossible de construire la requête.</string>
+    <string name="request_error">La requête n\'a pas abouti. (Vérifiez le réseau, le serveur ou la configuration).</string>
 
 </resources>

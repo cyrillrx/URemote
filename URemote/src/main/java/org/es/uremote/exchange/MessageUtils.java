@@ -37,6 +37,7 @@ public class MessageUtils {
         String errorMessage = "";
 
         if (device == null) {
+            // TODO : to strings.xml
             errorMessage = "Connected device is null. Nowhere to send data";
 
         } else {
@@ -46,9 +47,11 @@ public class MessageUtils {
                 if (socket != null && socket.isConnected()) {
                     return MessageUtils.sendRequest(socket, request);
                 }
+                // TODO : to strings.xml
                 errorMessage = "Socket null or not connected";
 
             } catch (SocketTimeoutException e) {
+                // TODO : to strings.xml
                 errorMessage = "Can't reach remote device (bad config or server down).";
                 Log.warning(TAG, "Can't reach remote device (" + e.getMessage() + ")");
 

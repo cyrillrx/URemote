@@ -27,9 +27,12 @@
     <!-- Menu -->
     <string name="menu_server_list">Gérer les serveurs</string>
     <string name="menu_about">A propos…</string>
-    <string name="menu_delete">Supprimer</string>
     <string name="menu_keyboard">Clavier virtuel</string>
     <string name="menu_server_config">Configurer le serveur</string>
+
+    <!-- Actions -->
+    <string name="refresh">Rafraîchir</string>
+    <string name="delete">Supprimer</string>
 
     <!-- Préférences -->
     <string name="developer">Développeur</string>

@@ -27,9 +27,12 @@
     <!-- Menu -->
     <string name="menu_server_list">Manage servers</string>
     <string name="menu_about">About…</string>
-    <string name="menu_delete">Delete</string>
     <string name="menu_keyboard">Virtual keyboard</string>
     <string name="menu_server_config">Server config</string>
+
+    <!-- Actions -->
+    <string name="refresh">Refresh</string>
+    <string name="delete">Delete</string>
 
     <!-- Preference names -->
     <string name="developer">Developer</string>

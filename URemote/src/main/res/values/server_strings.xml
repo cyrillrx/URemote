@@ -32,7 +32,7 @@
 	<string name="server_loaded">Server settings successfully loaded.</string>
 	<string name="error_while_loading_servers">Error while loading servers.</string>
 	<string name="build_request_error">Error, couldn\'t build the request.</string>
-
+	<string name="request_error">Can\'t reach remote device (check network, server state or device configuration).</string>
 
     <!-- Not translatable -->
 
