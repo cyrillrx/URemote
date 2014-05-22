@@ -22,10 +22,6 @@
 	<string name="connection_timeout">Connection timeout</string>
 	<string name="read_timeout">Read timeout</string>
 	<string name="mac_address">Mac address</string>
-	<string name="author">Application Developer</string>
-	<string name="author_summary">Cyril Leroux</string>
-	<string name="website">Developer website</string>
-	<string name="website_address">http://www.essaion-soft.com</string>
 
 	<!-- Messages -->
 	<string name="no_server_configured">No server configured.</string>

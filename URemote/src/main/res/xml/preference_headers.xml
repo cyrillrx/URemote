@@ -1,14 +1,15 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<header
-			android:summary="@string/author_summary"
-			android:title="@string/author" />
-	<header
-			android:summary="@string/website_address"
-			android:title="@string/website">
-		<intent
-				android:action="android.intent.action.VIEW"
-				android:data="@string/website_address" />
-	</header>
+    <header
+        android:summary="@string/developer_name"
+        android:title="@string/developer" />
+    <header
+        android:summary="@string/website_address"
+        android:title="@string/website">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="@string/website_address" />
+    </header>
+    <header android:title="@string/app_version_title" />
 
 </preference-headers>

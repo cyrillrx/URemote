@@ -1,7 +1,11 @@
 package org.es.uremote;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -28,8 +32,23 @@ public class AppSettings extends PreferenceActivity {
     }
 
     @Override
-    public void onBuildHeaders(List<Header> target) {
-        loadHeadersFromResource(R.xml.preference_headers, target);
+    public void onBuildHeaders(List<Header> headers) {
+        loadHeadersFromResource(R.xml.preference_headers, headers);
+        for (Header header : headers) {
+            if (header.titleRes == R.string.app_version_title) {
+                final String buildType = getString(R.string.build_type);
+                StringBuilder versionName = new StringBuilder();
+                versionName.append("v");
+                try {
+                    versionName.append(getPackageManager().getPackageInfo(getPackageName(), 0).versionName);
+                } catch (PackageManager.NameNotFoundException e) { }
+                if (!buildType.isEmpty()) {
+                    versionName.append(" ").append(buildType);
+                }
+                header.summary = versionName;
+                break;
+            }
+        }
     }
 
     @Override

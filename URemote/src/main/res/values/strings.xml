@@ -26,10 +26,15 @@
 
     <!-- Menu -->
     <string name="menu_server_list">Manage servers</string>
-    <string name="menu_about">About @string/app_name</string>
+    <string name="menu_about">About…</string>
     <string name="menu_delete">Delete</string>
     <string name="menu_keyboard">Virtual keyboard</string>
     <string name="menu_server_config">Server config</string>
+
+    <!-- Preference names -->
+    <string name="developer">Developer</string>
+    <string name="website">Developer website</string>
+    <string name="app_version_title">App version</string>
 
     <!-- Directions -->
     <string name="left">Left</string>
