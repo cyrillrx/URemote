@@ -25,8 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.es.uremote.computer.KeyboardListener;
-import org.es.uremote.computer.ServerEditActivity;
-import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.computer.fragment.FragAdmin;
 import org.es.uremote.computer.fragment.FragDashboard;
 import org.es.uremote.computer.fragment.RemoteExplorerFragment;
@@ -46,13 +44,11 @@ import org.es.utils.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static org.es.uremote.utils.Constants.STATE_CONNECTING;
 import static org.es.uremote.utils.Constants.STATE_KO;
 import static org.es.uremote.utils.Constants.STATE_OK;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
-import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**
  * @author Cyril Leroux
@@ -158,12 +154,12 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         final KeyboardListener keyboardListener = new KeyboardListener(this);
         keyboardListener.setToastSender(this);
 
-        final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_qwerty);
+        final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_qwerty);
         mKeyboardView.setKeyboard(keyboard);
         mKeyboardView.setPreviewEnabled(false);
         mKeyboardView.setOnKeyboardActionListener(keyboardListener);
 
-        final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.pc_keyboard_extended);
+        final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_extended);
         mExtendedKeyboardView.setKeyboard(extendedKeyboard);
         mExtendedKeyboardView.setPreviewEnabled(false);
         mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
