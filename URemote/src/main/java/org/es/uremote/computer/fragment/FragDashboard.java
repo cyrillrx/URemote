@@ -20,7 +20,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import org.es.uremote.AppLauncherActivity;
-import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
@@ -62,6 +61,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     private static final int DURATION = 500;
 
     private TaskCallbacks mCallbacks;
+    private RequestSender mRequestSender;
 
     private ObjectAnimator mFadeIn;
     private ObjectAnimator mFadeOut;
@@ -74,6 +74,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (TaskCallbacks) activity;
+        mRequestSender = (RequestSender) activity;
     }
 
     @Override
@@ -92,6 +93,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
+        mRequestSender = null;
     }
 
     @Override
@@ -223,8 +225,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      * The next message replace the previous one.
      *
      * @param message The message to display.
-     * @param x The x position to display it.
-     * @param y The y position to display it.
+     * @param x       The x position to display it.
+     * @param y       The y position to display it.
      */
     private void showVolumeToast(final String message, final int x, final int y) {
         mTvVolume.setText(message);
@@ -257,7 +259,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      *
      * @param requestType The request type.
      * @param requestCode The request code.
-     * @param intExtra An integer parameter.
+     * @param intExtra    An integer parameter.
      */
     private void sendRequest(Type requestType, Code requestCode, int intExtra) {
         sendRequest(Request.newBuilder()
@@ -302,17 +304,10 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     }
 
     @Override
-    public ServerSetting getDevice() {
-        return ((ComputerActivity) mCallbacks).getDevice();
-    }
+    public ServerSetting getDevice() { return mRequestSender.getDevice(); }
 
-    public String getSecurityToken() {
-        ServerSetting settings = getDevice();
-        if (settings != null) {
-            return settings.getSecurityToken();
-        }
-        return "";
-    }
+    @Override
+    public String getSecurityToken() { return mRequestSender.getSecurityToken(); }
 
     /**
      * Class that handle asynchronous requests sent to a remote server.

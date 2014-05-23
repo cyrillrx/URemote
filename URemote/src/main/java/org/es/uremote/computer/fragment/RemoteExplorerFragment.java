@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.device.ServerSetting;
@@ -33,6 +32,7 @@ import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 public class RemoteExplorerFragment extends AbstractExplorerFragment implements RequestSender {
 
     private TaskCallbacks mCallbacks;
+    private RequestSender mRequestSender;
     private ToastSender mToastSender;
 
     private TextView mTvEmpty;
@@ -42,6 +42,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (TaskCallbacks) activity;
+        mRequestSender = (RequestSender) activity;
         mToastSender = (ToastSender) activity;
     }
 
@@ -61,6 +62,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     public void onDetach() {
         super.onDetach();
         mCallbacks = null;
+        mRequestSender = null;
         mToastSender = null;
     }
 
@@ -141,17 +143,10 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     }
 
     @Override
-    public ServerSetting getDevice() {
-        return ((ComputerActivity) mCallbacks).getDevice();
-    }
+    public ServerSetting getDevice() { return mRequestSender.getDevice(); }
 
-    public String getSecurityToken() {
-        final ServerSetting settings = getDevice();
-        if (settings != null) {
-            return settings.getSecurityToken();
-        }
-        return null;
-    }
+    @Override
+    public String getSecurityToken() { return mRequestSender.getSecurityToken(); }
 
     /**
      * Class that handle asynchronous requests sent to a remote server.

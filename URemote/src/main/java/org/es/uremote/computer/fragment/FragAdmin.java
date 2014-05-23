@@ -41,12 +41,14 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
     private TaskCallbacks mCallbacks;
     private RequestSender mRequestSender;
+    private ToastSender mToastSender;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         mCallbacks = (TaskCallbacks) activity;
         mRequestSender = (RequestSender) activity;
+        mToastSender = (ToastSender) activity;
     }
 
     @Override
@@ -66,6 +68,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
         super.onDetach();
         mCallbacks = null;
         mRequestSender = null;
+        mToastSender = null;
     }
 
     @Override
@@ -136,7 +139,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
             host = wifi ? settings.getBroadcast() : settings.getRemoteHost();
             macAddress = settings.getMacAddress();
         }
-        new WakeOnLan((ToastSender) mCallbacks).execute(host, macAddress);
+        new WakeOnLan(mToastSender).execute(host, macAddress);
 
         // TODO : if server, run. else error toast
     }

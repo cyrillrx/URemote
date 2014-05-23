@@ -45,7 +45,7 @@ public class MessageUtils {
             try {
                 socket = connectToRemoteSocket(device);
                 if (socket != null && socket.isConnected()) {
-                    return MessageUtils.sendRequest(socket, request);
+                    return sendRequest(socket, request);
                 }
                 // TODO : to strings.xml
                 errorMessage = "Socket null or not connected";
