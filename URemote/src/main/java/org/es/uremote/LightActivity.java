@@ -10,7 +10,7 @@ import android.os.Bundle;
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class Lights extends Activity {
+public class LightActivity extends Activity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

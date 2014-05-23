@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import org.es.uremote.Computer;
+import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
 import org.es.uremote.device.ServerSetting;
@@ -158,7 +158,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
                 break;
 
             case ACTION_START_ACTIVITY:
-                Intent startActivityIntent = new Intent(context, Computer.class);
+                Intent startActivityIntent = new Intent(context, ComputerActivity.class);
                 startActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(startActivityIntent);
                 break;

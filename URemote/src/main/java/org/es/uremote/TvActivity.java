@@ -11,7 +11,7 @@ import android.view.View.OnClickListener;
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class TvDialer extends Activity implements OnClickListener {
+public class TvActivity extends Activity implements OnClickListener {
 
 	/** Called when the activity is first created. */
 	@Override

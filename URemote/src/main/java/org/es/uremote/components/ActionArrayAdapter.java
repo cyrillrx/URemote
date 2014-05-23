@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Adapter used to display an action list.
- * Used for {@link org.es.uremote.Home} activity.
+ * Used for {@link org.es.uremote.HomeActivity} activity.
  *
  * @author Cyril Leroux
  * Created on 05/11/12.

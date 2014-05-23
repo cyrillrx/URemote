@@ -19,7 +19,7 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 /**
  * Created by Cyril Leroux on 08/11/13.
  */
-public class Nao extends ListActivity implements OnItemClickListener {
+public class NaoActivity extends ListActivity implements OnItemClickListener {
 
     private static final int ACTION_APP      = 0;
     private static final int ACTION_STORE    = 1;

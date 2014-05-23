@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.es.uremote.Computer;
+import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.device.ServerSetting;
@@ -142,7 +142,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
     @Override
     public ServerSetting getDevice() {
-        return ((Computer) mCallbacks).getDevice();
+        return ((ComputerActivity) mCallbacks).getDevice();
     }
 
     public String getSecurityToken() {

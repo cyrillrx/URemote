@@ -16,10 +16,10 @@
             android:theme="@style/AppTheme">
 
         <activity
-                android:name=".Home"
+                android:name=".HomeActivity"
                 android:label="@string/app_name"
-                android:theme="@android:style/Theme.Holo"
-                android:screenOrientation="fullSensor">
+                android:screenOrientation="fullSensor"
+                android:theme="@android:style/Theme.Holo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +30,7 @@
         <!-- Computer related activities -->
 
         <activity
-                android:name=".Computer"
+                android:name=".ComputerActivity"
                 android:label="@string/title_computer"
                 android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
@@ -46,25 +46,25 @@
         <!-- Others activities -->
 
         <activity
-                android:name=".AppSettings"
-                android:label="@string/title_preferences" />
+                android:name=".SettingsActivity"
+                android:label="@string/title_settings" />
         <activity
-                android:name=".Nao"
+                android:name=".NaoActivity"
                 android:label="@string/title_nao" />
         <activity
                 android:name=".nao.OpenGLActivity"
                 android:label="@string/title_nao" />
         <activity
-                android:name=".Lights"
+                android:name=".LightActivity"
                 android:label="@string/title_lights" />
         <activity
-                android:name=".RobotControl"
+                android:name=".RobotActivity"
                 android:label="@string/title_robots" />
         <activity
-                android:name=".TvDialer"
+                android:name=".TvActivity"
                 android:label="@string/title_tv" />
         <activity
-                android:name=".HexHome"
+                android:name=".HexHomeActivity"
                 android:label="@string/app_name"
                 android:theme="@android:style/Theme.Holo" />
 

@@ -54,7 +54,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 10/05/12.
  */
-public class Computer extends FragmentActivity implements TaskCallbacks, ToastSender, RequestSender {
+public class ComputerActivity extends FragmentActivity implements TaskCallbacks, ToastSender, RequestSender {
 
     private static final String TAG = "Computer Activity";
     private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
@@ -187,7 +187,7 @@ public class Computer extends FragmentActivity implements TaskCallbacks, ToastSe
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                final Intent homeIntent = new Intent(getApplicationContext(), Home.class);
+                final Intent homeIntent = new Intent(getApplicationContext(), HomeActivity.class);
                 homeIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(homeIntent);
                 return true;

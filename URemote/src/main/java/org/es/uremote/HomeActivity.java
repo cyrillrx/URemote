@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Intent.ACTION_EDIT;
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static android.widget.Toast.LENGTH_SHORT;
 import static org.es.uremote.utils.IntentKeys.ACTION_SELECT;
@@ -38,7 +37,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 11/09/10.
  */
-public class Home extends ListActivity implements OnItemClickListener {
+public class HomeActivity extends ListActivity implements OnItemClickListener {
 
     // The request codes of ActivityForResults
     private static final int RC_SELECT_SERVER = 0;
@@ -83,7 +82,7 @@ public class Home extends ListActivity implements OnItemClickListener {
         switch (item.getItemId()) {
 
             case R.id.about:
-                startActivity(new Intent(getApplicationContext(), AppSettings.class));
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 return true;
 
             case R.id.server_list:
@@ -122,11 +121,11 @@ public class Home extends ListActivity implements OnItemClickListener {
                 break;
 
             case ACTION_LIGHTS:
-                Toast.makeText(Home.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
                 break;
 
             case ACTION_TV:
-                startActivity(new Intent(getApplicationContext(), TvDialer.class));
+                startActivity(new Intent(getApplicationContext(), TvActivity.class));
                 break;
 
             case ACTION_ROBOTS:
@@ -134,12 +133,12 @@ public class Home extends ListActivity implements OnItemClickListener {
                 break;
 
             case ACTION_HIFI:
-                Toast.makeText(Home.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getApplicationContext(), HexHome.class));
+                Toast.makeText(HomeActivity.this, getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(), HexHomeActivity.class));
                 break;
 
             case ACTION_NAO:
-                startActivity(new Intent(getApplicationContext(), Nao.class));
+                startActivity(new Intent(getApplicationContext(), NaoActivity.class));
                 break;
 
             default:
@@ -152,11 +151,11 @@ public class Home extends ListActivity implements OnItemClickListener {
         final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (!wifiMgr.isWifiEnabled()) {
             //Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-            Toast.makeText(Home.this, "Wifi is not enable. You are using 3G remote control.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(HomeActivity.this, "Wifi is not enable. You are using 3G remote control.", Toast.LENGTH_SHORT).show();
             //startActivityForResult(enableIntent, RC_ENABLE_WIFI);
         } else {
 
-            final Intent computerIntent = new Intent(getApplicationContext(), Computer.class);
+            final Intent computerIntent = new Intent(getApplicationContext(), ComputerActivity.class);
             computerIntent.putExtra(EXTRA_SERVER_DATA, server);
             startActivity(computerIntent);
         }
@@ -179,7 +178,7 @@ public class Home extends ListActivity implements OnItemClickListener {
             Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableIntent, RC_ENABLE_BT);
         } else {
-            startActivity(new Intent(getApplicationContext(), RobotControl.class));
+            startActivity(new Intent(getApplicationContext(), RobotActivity.class));
         }
     }
 
@@ -203,14 +202,14 @@ public class Home extends ListActivity implements OnItemClickListener {
             case RC_ENABLE_BT:
                 if (resultCode == Activity.RESULT_OK) {
                     // Start robot control activity if bluetooth is enable
-                    startActivity(new Intent(getApplicationContext(), RobotControl.class));
+                    startActivity(new Intent(getApplicationContext(), RobotActivity.class));
                 }
                 break;
 
             // Return from wifi activation
             case RC_ENABLE_WIFI:
                 // Start computer control activity
-                startActivity(new Intent(getApplicationContext(), Computer.class));
+                startActivity(new Intent(getApplicationContext(), ComputerActivity.class));
                 break;
         }
     }

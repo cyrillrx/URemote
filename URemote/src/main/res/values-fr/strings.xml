@@ -5,7 +5,6 @@
     <string name="widget_dpad">D-pad</string>
 
     <!-- Activités -->
-    <string name="title_preferences">Préférences</string>
     <string name="title_tv">Contrôle de la TV</string>
     <string name="title_robots">Robots</string>
     <string name="title_lights">Lumières</string>
@@ -26,7 +25,6 @@
 
     <!-- Menu -->
     <string name="menu_server_list">Gérer les serveurs</string>
-    <string name="menu_about">A propos…</string>
     <string name="menu_keyboard">Clavier virtuel</string>
     <string name="menu_server_config">Configurer le serveur</string>
 
@@ -35,6 +33,7 @@
     <string name="delete">Supprimer</string>
 
     <!-- Préférences -->
+    <string name="about">A propos</string>
     <string name="developer">Développeur</string>
     <string name="website">Site web du développeur</string>
     <string name="app_version_title">Version de l\'appli</string>

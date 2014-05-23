@@ -9,6 +9,9 @@
     <string name="developer_name">Cyril Leroux</string>
     <string name="website_address">http://www.essaion-soft.com</string>
 
+    <!-- Preference -->
+    <string name="app_version_key">app_version_id</string>
+
 	<!-- Dashboard -->
 	<string name="cmd_wake_on_lan">Wake</string>
 	<string name="cmd_shutdown">Shutdown</string>

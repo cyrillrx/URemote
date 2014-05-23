@@ -20,14 +20,13 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import org.es.uremote.AppLauncherActivity;
-import org.es.uremote.Computer;
+import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.device.ServerSetting;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.AppItem;
@@ -304,7 +303,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
     @Override
     public ServerSetting getDevice() {
-        return ((Computer) mCallbacks).getDevice();
+        return ((ComputerActivity) mCallbacks).getDevice();
     }
 
     public String getSecurityToken() {

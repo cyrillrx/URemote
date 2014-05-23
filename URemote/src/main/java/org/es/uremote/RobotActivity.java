@@ -16,7 +16,7 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  * @author Cyril Leroux
  * Created before first commit (08/04/12).
  */
-public class RobotControl extends Activity implements OnClickListener {
+public class RobotActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class RobotControl extends Activity implements OnClickListener {
 	}
 
 	private void fireToast(String message) {
-		Toast.makeText(RobotControl.this, message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(RobotActivity.this, message, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override

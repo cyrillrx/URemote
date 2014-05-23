@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import org.es.uremote.BuildConfig;
-import org.es.uremote.Computer;
+import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.components.ServerArrayAdapter;
 import org.es.uremote.computer.dao.ServerSettingDao;
@@ -143,7 +143,7 @@ public class ServerListActivity extends ListActivity {
         switch (item.getItemId()) {
 
             case android.R.id.home:
-                Intent intent = new Intent(getApplicationContext(), Computer.class);
+                Intent intent = new Intent(getApplicationContext(), ComputerActivity.class);
                 intent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 return true;
