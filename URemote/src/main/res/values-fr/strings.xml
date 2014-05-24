@@ -30,6 +30,7 @@
 
     <!-- Actions -->
     <string name="refresh">Rafraîchir</string>
+    <string name="retry">réessayer</string>
     <string name="delete">Supprimer</string>
 
     <!-- Préférences -->

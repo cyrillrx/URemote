@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="action_title_font">Roboto-Light.ttf</string>
+    <string name="text_font">Roboto-Light.ttf</string>
+    <string name="action_title_font">Roboto-Light.ttf</string>
     <string name="volume_toast_font">Roboto-Thin.ttf</string>
 </resources>

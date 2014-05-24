@@ -1,16 +1,20 @@
 package org.es.uremote.computer.fragment;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
+import org.es.uremote.components.ExplorerArrayAdapter;
 import org.es.uremote.device.ServerSetting;
+import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
@@ -19,6 +23,8 @@ import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.uremote.utils.ToastSender;
+
+import java.util.List;
 
 import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
 
@@ -36,7 +42,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     private ToastSender mToastSender;
 
     private TextView mTvEmpty;
-    private ImageButton mBtnRefresh;
+    private View mViewFailure;
 
     @Override
     public void onAttach(Activity activity) {
@@ -71,16 +77,29 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
+        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.action_title_font));
+
+        ((TextView) view.findViewById(R.id.tvPath)).setTypeface(typeface);
+        ((TextView) view.findViewById(R.id.tvFailure1)).setTypeface(typeface);
+        ((TextView) view.findViewById(R.id.tvFailure2)).setTypeface(typeface);
+
         mTvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
-        mBtnRefresh = (ImageButton) view.findViewById(R.id.btnRefresh);
-        mBtnRefresh.setOnClickListener(new View.OnClickListener() {
+        mTvEmpty.setTypeface(typeface);
+        mViewFailure = view.findViewById(R.id.failure);
+        view.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO refresh
+                // TODO retry
             }
         });
 
         return view;
+    }
+
+    @Override
+    protected ExplorerArrayAdapter newExplorerAdapter(List<Message.FileInfo> files) {
+        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.action_title_font));
+        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files, typeface);
     }
 
     @Override
@@ -174,13 +193,14 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
             // Update view in case of empty list (error or empty directory)
             if (RC_ERROR.equals(response.getReturnCode())) {
-                mTvEmpty.setText(R.string.request_error);
-                mBtnRefresh.setVisibility(View.VISIBLE);
+                mTvEmpty.setVisibility(View.GONE);
+                mViewFailure.setVisibility(View.VISIBLE);
                 return;
-
             }
-            mTvEmpty.setText(R.string.filemanager_empty_directory);
-            mBtnRefresh.setVisibility(View.INVISIBLE);
+
+            mViewFailure.setVisibility(View.GONE);
+            mTvEmpty.setVisibility(View.VISIBLE);
+
             updateView(response.getFile());
         }
     }

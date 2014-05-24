@@ -5,6 +5,7 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -132,14 +133,23 @@ public abstract class AbstractExplorerFragment extends ListFragment {
         files.addAll(dirContent.getChildList());
 
         if (getListAdapter() == null) {
-            final ExplorerArrayAdapter adapter = new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
+            final ExplorerArrayAdapter adapter = newExplorerAdapter(files);
             setListAdapter(adapter);
         } else {
-            ((ExplorerArrayAdapter) getListAdapter()).clear();
-            ((ExplorerArrayAdapter) getListAdapter()).addAll(files);
+            getListAdapter().clear();
+            getListAdapter().addAll(files);
         }
 
         mTvPath.setText(dirContent.getAbsoluteFilePath());
+    }
+
+    protected ExplorerArrayAdapter newExplorerAdapter(List<FileInfo> files) {
+        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
+    }
+
+    @Override
+    public ExplorerArrayAdapter getListAdapter() {
+        return (ExplorerArrayAdapter) super.getListAdapter();
     }
 
     /**
