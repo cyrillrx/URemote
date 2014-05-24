@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +68,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
 
     private TextView mTvServerState;
     private ProgressBar mPbConnection;
+    private ImageView mProgressSignal;
 
     private Toast mToast = null;
 
@@ -79,17 +81,25 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
 
+        // ActionBar configuration
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setCustomView(R.layout.computer_actionbar);
+            mProgressSignal = (ImageView) actionBar.getCustomView().findViewById(R.id.signalIndicator);
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            // Enable Home as Up
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         mTvServerState = (TextView) findViewById(R.id.tvServerState);
         mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
         initDevice();
         initKeyboard();
 
-        // ActionBar configuration
-        ActionBar actionBar = getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        // Enable Home as Up
-        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         // Fragment to use in each tab
         // If the Fragment is non-null, then it is currently being
@@ -389,6 +399,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
         mTvServerState.setText(messageResId);
         mPbConnection.setVisibility(visibility);
+        mProgressSignal.setVisibility(visibility);
     }
 
     private String getServerString(ServerSetting serverSetting) {
