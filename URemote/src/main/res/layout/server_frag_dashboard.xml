@@ -1,193 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-	<LinearLayout
-            android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:gravity="center"
-			android:padding="15dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="15dp">
 
-		<!-- First line of controls -->
+        <!-- First line of controls -->
 
-		<LinearLayout
-                android:orientation="horizontal"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-			<Button
-					android:id="@+id/cmdTest"
-					style="@style/command_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:drawableTop="@drawable/test"
-					android:text="@string/cmd_test" />
+            <Button
+                android:id="@+id/cmdTest"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/test"
+                android:text="@string/cmd_test" />
 
-			<Button
-					android:id="@+id/cmdGomStretch"
-					style="@style/command_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:drawableTop="@drawable/fullscreen"
-					android:text="@string/cmd_gom_stretch" />
+            <Button
+                android:id="@+id/cmdGomStretch"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/fullscreen"
+                android:text="@string/cmd_gom_stretch" />
 
-			<Button
-					android:id="@+id/cmdSwitch"
-					style="@style/command_button"
-					android:layout_width="0dp"
-					android:layout_weight="1"
-					android:drawableTop="@drawable/switch_window"
-					android:text="@string/cmd_switch_window" />
-		</LinearLayout>
+            <Button
+                android:id="@+id/cmdSwitch"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/switch_window"
+                android:text="@string/cmd_switch_window" />
+        </LinearLayout>
 
-		<Space
-                android:layout_width="match_parent"
-				android:layout_height="0px"
-				android:layout_weight="1" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_weight="1" />
 
-		<!-- Directional keys -->
+        <!-- Directional keys -->
 
-		<GridLayout
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-                android:columnCount="3"
-                android:rowCount="3">
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="3">
 
             <!-- DPad row 1 -->
 
             <Space />
 
             <ImageButton
-						android:id="@+id/kbUp"
-						android:layout_width="@dimen/media_button_width"
-						android:layout_height="@dimen/media_button_height"
-						android:contentDescription="@string/up"
-						android:src="@android:drawable/arrow_up_float" />
+                android:id="@+id/kbUp"
+                style="@style/d_pad_button"
+                android:background="@drawable/arrow_up"
+                android:contentDescription="@string/up" />
 
             <Space />
 
             <!-- DPad row 2 -->
 
             <ImageButton
-                    android:id="@+id/kbLeft"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/left"
-                    android:src="@android:drawable/arrow_up_float" />
+                android:id="@+id/kbLeft"
+                style="@style/d_pad_button"
+                android:background="@drawable/arrow_up"
+                android:contentDescription="@string/left"
+                android:rotation="270" />
 
             <Button
-                    android:id="@+id/kbOk"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:text="@android:string/ok" />
+                android:id="@+id/kbOk"
+                style="@style/holo_blue_btn"
+                android:layout_width="@dimen/media_button_width"
+                android:layout_height="@dimen/media_button_height"
+                android:layout_margin="5dp"
+                android:text="@android:string/ok" />
 
             <ImageButton
-                    android:id="@+id/kbRight"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/right"
-                    android:src="@android:drawable/arrow_up_float" />
+                android:id="@+id/kbRight"
+                style="@style/d_pad_button"
+                android:background="@drawable/arrow_up"
+                android:contentDescription="@string/right"
+                android:rotation="90" />
 
 
             <!-- DPad row 3 -->
 
             <Space />
+
             <ImageButton
-                    android:id="@+id/kbDown"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/down"
-                    android:src="@android:drawable/arrow_up_float" />
+                android:id="@+id/kbDown"
+                android:layout_width="@dimen/media_button_width"
+                android:layout_height="@dimen/media_button_height"
+                android:layout_margin="5dp"
+                android:background="@drawable/arrow_up"
+                android:contentDescription="@string/down"
+                android:rotation="180" />
+
             <Space />
 
         </GridLayout>
 
         <Space
-                android:layout_width="wrap_content"
-                android:layout_height="0px"
-                android:layout_weight="1" />
+            android:layout_width="wrap_content"
+            android:layout_height="0px"
+            android:layout_weight="1" />
 
         <!-- Media controls -->
 
         <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:columnCount="5"
-                android:rowCount="1">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="5"
+            android:rowCount="1">
 
             <ImageButton
-                    android:id="@+id/cmdPrevious"
-                    style="@style/media_button"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/cmd_preview"
-                    android:src="@drawable/media_previous" />
+                android:id="@+id/cmdPrevious"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_preview"
+                android:src="@drawable/media_previous" />
 
             <ImageButton
-                    android:id="@+id/cmdPlayPause"
-                    style="@style/media_button"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/cmd_play_pause"
-                    android:src="@drawable/media_play" />
+                android:id="@+id/cmdPlayPause"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_play_pause"
+                android:src="@drawable/media_play" />
 
             <ImageButton
-                    android:id="@+id/cmdStop"
-                    style="@style/media_button"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/cmd_stop"
-                    android:src="@drawable/media_stop" />
+                android:id="@+id/cmdStop"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_stop"
+                android:src="@drawable/media_stop" />
 
             <ImageButton
-                    android:id="@+id/cmdNext"
-                    style="@style/media_button"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/cmd_next"
-                    android:src="@drawable/media_next" />
+                android:id="@+id/cmdNext"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_next"
+                android:src="@drawable/media_next" />
 
             <ImageButton
-                    android:id="@+id/cmdMute"
-                    style="@style/media_button"
-                    android:layout_width="@dimen/media_button_width"
-                    android:layout_height="@dimen/media_button_height"
-                    android:contentDescription="@string/cmd_mute"
-                    android:src="@drawable/volume_on" />
+                android:id="@+id/cmdMute"
+                style="@style/media_button"
+                android:contentDescription="@string/cmd_mute"
+                android:src="@drawable/volume_on" />
 
-		</GridLayout>
+        </GridLayout>
 
-		<Space
-                android:layout_width="wrap_content"
-				android:layout_height="0px"
-				android:layout_weight="1" />
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="0px"
+            android:layout_weight="1" />
 
-		<SeekBar
-				android:id="@+id/sbVolume"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:max="100" />
+        <SeekBar
+            android:id="@+id/sbVolume"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="100" />
 
 
         <Button
-                android:id="@+id/btnAppLauncher"
-                style="@style/command_button"
-                android:drawableTop="@drawable/app_launcher"
-                android:text="@string/btn_app_launcher" />
-	</LinearLayout>
+            android:id="@+id/btnAppLauncher"
+            style="@style/command_button"
+            android:drawableTop="@drawable/app_launcher"
+            android:text="@string/btn_app_launcher" />
+    </LinearLayout>
 
-	<TextView
-			android:id="@+id/toastText"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:alpha="0"
-			android:text="@string/progress"
-			android:textColor="@android:color/holo_blue_bright"
-			android:textSize="90sp"
-			android:textStyle="bold"
-			android:visibility="gone" />
+    <TextView
+        android:id="@+id/toastText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:alpha="0"
+        android:text="@string/progress"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="90sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </FrameLayout>
