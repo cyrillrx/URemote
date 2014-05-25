@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.components.ExplorerArrayAdapter;
@@ -192,7 +193,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
             }
 
             // Display the message if any
-            if (!response.getMessage().isEmpty()) {
+            if (!response.getMessage().isEmpty() && BuildConfig.DEBUG) {
                 mToastSender.sendToast(response.getMessage());
             }
 
