@@ -37,9 +37,9 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     private static final String DEFAULT_DIRECTORY_PATH  = "default_path";
 
     private TextView mTvPath;
-
     private String mRoot = null;
 
+    protected String mPath = null;
     protected FileInfo mCurrentFileInfo = null;
 
     @Override
@@ -75,11 +75,8 @@ public abstract class AbstractExplorerFragment extends ListFragment {
                 mRoot = path;
             }
 
-            if (path != null) {
-                navigateTo(path);
-            } else {
-                navigateTo(DEFAULT_DIRECTORY_PATH);
-            }
+            mPath = (path == null) ? DEFAULT_DIRECTORY_PATH : path;
+            navigateTo(mPath);
 
         } else {
             updateView(dirContent);
@@ -187,7 +184,6 @@ public abstract class AbstractExplorerFragment extends ListFragment {
         return mCurrentFileInfo != null &&
                 mCurrentFileInfo.getAbsoluteFilePath().contains(File.separator) &&
                 !mCurrentFileInfo.getAbsoluteFilePath().equals(mRoot);
-
     }
 
     /**

@@ -3,6 +3,7 @@ package org.es.uremote.computer.fragment;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,10 +87,14 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
         mTvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
         mTvEmpty.setTypeface(typeface);
         mViewFailure = view.findViewById(R.id.failure);
-        view.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
+
+        final Button retryBtn = (Button) view.findViewById(R.id.btnRetry);
+        retryBtn.setTypeface(typeface);
+        retryBtn.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO retry
+                v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                navigateTo(mPath);
             }
         });
 

@@ -27,7 +27,8 @@
             android:gravity="center"
             android:text="@string/filemanager_empty_directory"
             android:textColor="@android:color/secondary_text_light_nodisable"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="gone" />
 
         <LinearLayout
             android:id="@+id/failure"
@@ -49,9 +50,8 @@
             <Button
                 android:id="@+id/btnRetry"
                 style="@style/holo_blue_btn"
-
-                android:minWidth="250dp"
                 android:layout_gravity="center"
+                android:minWidth="150dp"
                 android:text="@string/retry" />
 
             <TextView
@@ -65,7 +65,6 @@
                 android:text="@string/request_error"
                 android:textSize="18sp" />
         </LinearLayout>
-
 
     </FrameLayout>
 
