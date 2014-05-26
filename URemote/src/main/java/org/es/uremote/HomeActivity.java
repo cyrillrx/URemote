@@ -3,10 +3,12 @@ package org.es.uremote;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+
 import org.es.uremote.components.ActionArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.ServerSetting;
@@ -164,14 +167,14 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
     private void startRobotControl() {
 
         BluetoothAdapter bluetoothAdapter = null;
-
-        // TODO update for backward compatibility
-        //if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        //} else {
-        //	BluetoothManager manager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
-        //	bluetoothAdapter = manager.getAdapter();
-        //}
+        // When running on JELLY_BEAN_MR1 and below
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        } else {
+            // When running on JELLY_BEAN_MR2 and higher
+            final BluetoothManager manager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
+            bluetoothAdapter = manager.getAdapter();
+        }
 
         // If Bluetooth is disabled, ask for activation
         if (!bluetoothAdapter.isEnabled()) {
