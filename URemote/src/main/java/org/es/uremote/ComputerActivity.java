@@ -59,6 +59,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
 
     private static final String TAG = "Computer Activity";
     private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
+    private static final String KEYBOARD_VISIBLE = "KEYBOARD_VISIBLE";
     private static final int PAGES_COUNT = 3;
     private static final int PAGE_EXPLORER = 2;
 
@@ -99,8 +100,6 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         initDevice();
         initKeyboard();
 
-
-
         // Fragment to use in each tab
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
@@ -127,6 +126,11 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
             final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
             if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
                 actionBar.setSelectedNavigationItem(newTabIndex);
+            }
+
+            // Update custom keyboard visibility
+            if (savedInstanceState.getBoolean(KEYBOARD_VISIBLE, false)) {
+                showCustomKeyboard();
             }
         }
     }
@@ -182,6 +186,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
 
         int tabIndex = getActionBar().getSelectedNavigationIndex();
         outState.putInt(SELECTED_TAB_INDEX, tabIndex);
+        outState.putBoolean(KEYBOARD_VISIBLE, isCustomKeyboardVisible());
         super.onSaveInstanceState(outState);
     }
 
