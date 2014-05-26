@@ -73,7 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:background="@android:color/background_light"
+        android:background="@null"
         android:ellipsize="start"
         android:singleLine="true"
         android:textColor="@android:color/holo_blue_light"
