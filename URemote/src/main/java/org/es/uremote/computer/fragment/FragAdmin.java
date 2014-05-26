@@ -170,6 +170,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
      * @param request The request to send.
      */
     private  void confirmRequest(final Request request) {
+        // TODO add int param for message resource.
         int resId = (KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
         new AlertDialog.Builder(getActivity())

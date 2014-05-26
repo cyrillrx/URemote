@@ -67,8 +67,8 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 
 		holder.ivThumbnail.setImageDrawable(new ConnectedDeviceDrawable(server));
 		holder.tvName.setText(server.getName());
-		holder.tvLocalhost.setText(server.getFullLocal());
-		holder.tvRemoteHost.setText(server.getFullRemote());
+		holder.tvLocalhost.setText(server.toStringLocal());
+		holder.tvRemoteHost.setText(server.toStringRemote());
 		holder.tvMacAddress.setText(server.getMacAddress());
 
 		return convertView;

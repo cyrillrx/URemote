@@ -10,7 +10,7 @@ import android.text.TextUtils;
  * Parcelable class that holds server connection settings.
  *
  * @author Cyril Leroux
- * Created on 19/05/13.
+ *         Created on 19/05/13.
  */
 // TODO rename class to match ConnectedDevice pattern
 public class ServerSetting extends ConnectedDevice implements Parcelable {
@@ -61,17 +61,17 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
             final String securityToken,
 			final ConnectionType connectionType) {
 
-		mName				= name;
-		mLocalHost			= localHost;
-		mLocalPort			= localPort;
-		mBroadcast			= broadcastIp;
-		mRemoteHost			= remoteHost;
-		mRemotePort			= remotePort;
-		mMacAddress			= macAddress;
-		mConnectionTimeout	= connectionTimeout;
-		mReadTimeout		= readTimeout;
+		mName               = name;
+		mLocalHost          = localHost;
+		mLocalPort          = localPort;
+		mBroadcast          = broadcastIp;
+		mRemoteHost         = remoteHost;
+		mRemotePort         = remotePort;
+		mMacAddress         = macAddress;
+		mConnectionTimeout  = connectionTimeout;
+		mReadTimeout        = readTimeout;
         mSecurityToken      = securityToken;
-		mConnectionType		= connectionType;
+		mConnectionType     = connectionType;
 	}
 
 	/** @param src */
@@ -95,17 +95,17 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 	 * @param server The server updated data.
 	 */
 	public void update(final ServerSetting server) {
-		mName				= server.getName();
-		mLocalHost			= server.getLocalHost();
-		mLocalPort			= server.getLocalPort();
-		mBroadcast			= server.getBroadcast();
-		mRemoteHost			= server.getRemoteHost();
-		mRemotePort			= server.getRemotePort();
-		mMacAddress			= server.getMacAddress();
-		mConnectionTimeout	= server.getConnectionTimeout();
-		mReadTimeout		= server.getReadTimeout();
+		mName               = server.getName();
+		mLocalHost          = server.getLocalHost();
+		mLocalPort          = server.getLocalPort();
+		mBroadcast          = server.getBroadcast();
+		mRemoteHost         = server.getRemoteHost();
+		mRemotePort         = server.getRemotePort();
+		mMacAddress         = server.getMacAddress();
+		mConnectionTimeout  = server.getConnectionTimeout();
+		mReadTimeout        = server.getReadTimeout();
         mSecurityToken      = server.getSecurityToken();
-		mConnectionType		= server.getConnectionType();
+		mConnectionType     = server.getConnectionType();
 	}
 
 	@Override
@@ -138,74 +138,65 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 		return wifiMgr.isWifiEnabled();
 	}
 
-	/** @return Concatenation of host and port of the local server. */
-	public String getFullLocal() {
-		return mLocalHost + ":" + mLocalPort;
-	}
+    @Override
+    public String toString() {
+        return (mConnectionType == ConnectionType.LOCAL) ? toStringLocal() : toStringRemote();
+    }
 
-	/** @return Concatenation of host and port of the remote server. */
-	public String getFullRemote() {
-		return mRemoteHost + ":" + mRemotePort;
-	}
+    /** @return Concatenation of host and port of the local server. */
+    public String toStringLocal() {
+        return mLocalHost + ":" + mLocalPort;
+    }
 
-	/** @return The ip address of the local server. */
-	public String getLocalHost() {
-		return mLocalHost;
-	}
+    /** @return Concatenation of host and port of the remote server. */
+    public String toStringRemote() {
+        return mRemoteHost + ":" + mRemotePort;
+    }
 
-	/** @return The port of the local server. */
-	public int getLocalPort() {
-		return mLocalPort;
-	}
+    /** @return The ip address of the local server. */
+    public String getLocalHost() { return mLocalHost; }
 
-	/** @return The broadcast address. */
-	public String getBroadcast() {
-		return mBroadcast;
-	}
+    /** @return The port of the local server. */
+    public int getLocalPort() { return mLocalPort; }
 
-	/** @return The ip address of the remote server. */
-	public String getRemoteHost() {
-		return mRemoteHost;
-	}
+    /** @return The broadcast address. */
+    public String getBroadcast() { return mBroadcast; }
 
-	/** @return The port of the remote server. */
-	public int getRemotePort() {
-		return mRemotePort;
-	}
+    /** @return The ip address of the remote server. */
+    public String getRemoteHost() { return mRemoteHost; }
 
-	/** @return The mac address of the server. */
-	public String getMacAddress() {
-		return mMacAddress;
-	}
+    /** @return The port of the remote server. */
+    public int getRemotePort() { return mRemotePort; }
 
-	/** @return The type of connection (remote or local). */
-	public ConnectionType getConnectionType() {
-		return mConnectionType;
-	}
+    /** @return The mac address of the server. */
+    public String getMacAddress() { return mMacAddress; }
 
-	/** The type of connection. */
-	public static enum ConnectionType {
-		/** The server IS in the same network than the device. It must be accessed locally. */
-		LOCAL,
-		/** The server IS NOT in the same network than the device. It must be accessed remotely. */
-		REMOTE
-	}
+    /** @return The type of connection (remote or local). */
+    public ConnectionType getConnectionType() { return mConnectionType; }
 
-	/**
-	 * @return An instance of ServerSetting.Builder.
-	 */
-	public static Builder newBuilder() {
-		return new Builder();
-	}
+    /**
+     * The type of connection.
+     */
+    public static enum ConnectionType {
+        /** The server IS in the same network than the device. It must be accessed locally. */
+        LOCAL,
+        /** The server IS NOT in the same network than the device. It must be accessed remotely. */
+        REMOTE
+    }
 
-	/**
-	 * Class that holds server connection data.
-	 *
-	 * @author Cyril Leroux
-	 * Created on 03/06/13.
-	 */
+    /** @return An instance of ServerSetting.Builder. */
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    /**
+     * Class that holds server connection data.
+     *
+     * @author Cyril Leroux
+     *         Created on 03/06/13.
+     */
     // TODO Move a part of the builder in ConnectedDevice class
-	public static class Builder {
+    public static class Builder {
 
 		private static String DEFAULT_NAME              = "";
 		private static String DEFAULT_LOCAL_HOST        = "";
@@ -227,16 +218,14 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 		private int mRemotePort		= DEFAULT_REMOTE_PORT;
 		private String mMacAddress	= DEFAULT_MAC_ADDRESS;
 		private ConnectionType mConnectionType	= DEFAULT_CONNECTION;
-		/** If the connection with the remote server is not established within this timeout, it is dismissed. */
-		private int mConnectionTimeout	= DEFAULT_CONNECTION_TIMEOUT;
-		private int mReadTimeout		= DEFAULT_READ_TIMEOUT;
-		private String mSecurityToken   = DEFAULT_SECURITY_TOKEN;
+        /** If the connection with the remote server is not established within this timeout, it is dismissed. */
+        private int mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
+        private int mReadTimeout = DEFAULT_READ_TIMEOUT;
+        private String mSecurityToken = DEFAULT_SECURITY_TOKEN;
 
-		private Builder() { }
+        private Builder() { }
 
-		/**
-		 * Reset builder
-		 */
+        /** Reset builder */
 		public void clear() {
 			mName       = DEFAULT_NAME;
 			mLocalHost  = DEFAULT_LOCAL_HOST;
@@ -249,84 +238,117 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 			mConnectionTimeout  = DEFAULT_CONNECTION_TIMEOUT;
 			mReadTimeout        = DEFAULT_READ_TIMEOUT;
             mSecurityToken      = DEFAULT_SECURITY_TOKEN;
-		}
-		/**
-		 * @return A fully loaded {@link ServerSetting} object.
-		 *
-		 * @throws Exception if the builder has not all the data to build the object.
-		 */
-		public ServerSetting build() throws Exception {
+        }
 
-			boolean error = false;
+        /**
+         * @return A fully loaded {@link ServerSetting} object.
+         * @throws Exception if the builder has not all the data to build the object.
+         */
+        public ServerSetting build() throws Exception {
 
-			StringBuilder sb = new StringBuilder();
+            boolean error = false;
 
-			if (TextUtils.isEmpty(mName)) {
-				error = true;
-				sb.append("- Name is null or empty.\n");
-			}
+            StringBuilder sb = new StringBuilder();
 
-			if (TextUtils.isEmpty(mLocalHost)) {
-				error = true;
-				sb.append("- Localhost is empty.\n");
-			}
+            if (TextUtils.isEmpty(mName)) {
+                error = true;
+                sb.append("- Name is null or empty.\n");
+            }
 
-			if (mLocalPort == 0) {
-				error = true;
-				sb.append("- Local port is 0.\n");
-			}
+            if (TextUtils.isEmpty(mLocalHost)) {
+                error = true;
+                sb.append("- Localhost is empty.\n");
+            }
 
-			if (TextUtils.isEmpty(mBroadcast)) {
-				error = true;
-				sb.append("- Broadcast is empty.\n");
-			}
+            if (mLocalPort == 0) {
+                error = true;
+                sb.append("- Local port is 0.\n");
+            }
 
-			if (TextUtils.isEmpty(mRemoteHost)) {
-				error = true;
-				sb.append("- Remote host is empty.\n");
-			}
+            if (TextUtils.isEmpty(mBroadcast)) {
+                error = true;
+                sb.append("- Broadcast is empty.\n");
+            }
 
-			if (mRemotePort == 0) {
-				error = true;
-				sb.append("- Remote port is 0.\n");
-			}
+            if (TextUtils.isEmpty(mRemoteHost)) {
+                error = true;
+                sb.append("- Remote host is empty.\n");
+            }
 
-			if (TextUtils.isEmpty(mMacAddress)) {
-				error = true;
-				sb.append("- Mac address is empty.\n");
-			}
+            if (mRemotePort == 0) {
+                error = true;
+                sb.append("- Remote port is 0.\n");
+            }
 
-			if (error) {
-				throw new Exception("ServerSetting #build() - Can not build the Server :\n" + sb.toString());
-			}
+            if (TextUtils.isEmpty(mMacAddress)) {
+                error = true;
+                sb.append("- Mac address is empty.\n");
+            }
 
-			return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
-		}
+            if (error) {
+                throw new Exception("ServerSetting #build() - Can not build the Server :\n" + sb.toString());
+            }
 
-		public Builder setConnectionType(ConnectionType type) { mConnectionType = type; return this; }
+            return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
+        }
 
-		public Builder setName(final String name) { mName = name; return this; }
+        public Builder setConnectionType(ConnectionType type) {
+            mConnectionType = type;
+            return this;
+        }
 
-		public Builder setLocalHost(final String ipAddress) { mLocalHost = ipAddress; return this; }
+        public Builder setName(final String name) {
+            mName = name;
+            return this;
+        }
 
-		public Builder setLocalPort(final int port) { mLocalPort = port; return this; }
+        public Builder setLocalHost(final String ipAddress) {
+            mLocalHost = ipAddress;
+            return this;
+        }
 
-		public Builder setBroadcast(final String broadcastAddress) { mBroadcast = broadcastAddress; return this; }
+        public Builder setLocalPort(final int port) {
+            mLocalPort = port;
+            return this;
+        }
 
-		public Builder setRemoteHost(final String ipAddress) { mRemoteHost = ipAddress; return this; }
+        public Builder setBroadcast(final String broadcastAddress) {
+            mBroadcast = broadcastAddress;
+            return this;
+        }
 
-		public Builder setRemotePort(final int port) { mRemotePort = port; return this; }
+        public Builder setRemoteHost(final String ipAddress) {
+            mRemoteHost = ipAddress;
+            return this;
+        }
 
-		public Builder setMacAddress(final String macAddress) { mMacAddress = macAddress; return this; }
+        public Builder setRemotePort(final int port) {
+            mRemotePort = port;
+            return this;
+        }
 
-		/**
-		 * If the connection with the remote server is not established
-		 * within this timeout, it is dismissed.
-		 */
-		public Builder setConnectionTimeout(final int timeout) { mConnectionTimeout = timeout; return this; }
+        public Builder setMacAddress(final String macAddress) {
+            mMacAddress = macAddress;
+            return this;
+        }
 
-		public Builder setReadTimeout(final int timeout) { mReadTimeout = timeout; return this; }
+        /**
+         * If the connection with the remote server is not established
+         * within this timeout, it is dismissed.
+         */
+        public Builder setConnectionTimeout(final int timeout) {
+            mConnectionTimeout = timeout;
+            return this;
+        }
 
-		public Builder setSecurityToken(final String securityToken) { mSecurityToken = securityToken; return this; }
-	}
+        public Builder setReadTimeout(final int timeout) {
+            mReadTimeout = timeout;
+            return this;
+        }
+
+        public Builder setSecurityToken(final String securityToken) {
+            mSecurityToken = securityToken;
+            return this;
+        }
+    }
 }

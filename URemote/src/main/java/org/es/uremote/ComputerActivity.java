@@ -155,7 +155,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         }
 
         sendAsyncRequest(Type.SIMPLE, Code.PING);
-        tvServerInfo.setText(getServerString(mSelectedDevice));
+        tvServerInfo.setText(mSelectedDevice.toString());
     }
 
     /** Initializes custom keyboard elements. */
@@ -407,18 +407,6 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         mProgressSignal.setVisibility(visibility);
     }
 
-    private String getServerString(ServerSetting serverSetting) {
-        if (serverSetting == null) {
-            return getString(R.string.no_server_configured);
-        }
-
-        // TODO : Implement toString() in ConnectedDevice or ServerSetting.
-        if (serverSetting.isLocal(getApplicationContext())) {
-            return serverSetting.getFullLocal();
-        }
-        return serverSetting.getFullRemote();
-    }
-
     //
     // Request sender
     //
@@ -450,27 +438,6 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         } else {
             sendToast(R.string.msg_no_more_permit);
         }
-    }
-
-    /**
-     * Ask for the user to confirm before sending a request to the server.
-     *
-     * @param request The request to send.
-     */
-    public void confirmRequest(final Request request) {
-        // TODO : clean or implement an RequestSender method.
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_menu_more)
-                .setMessage(R.string.confirm_command)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Send the request if the user confirms it
-                        sendRequest(request);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, null)
-                .show();
     }
 
     //

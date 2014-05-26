@@ -26,16 +26,16 @@ public class RobotActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_robot);
 
 		// Set up a click listener for each button
-		((ImageButton) findViewById(R.id.robotControlLeft)).setOnClickListener(this);
-		((ImageButton) findViewById(R.id.robotControlUp)).setOnClickListener(this);
-		((ImageButton) findViewById(R.id.robotControlRight)).setOnClickListener(this);
-		((ImageButton) findViewById(R.id.robotControlDown)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl1)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl2)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl3)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl4)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl5)).setOnClickListener(this);
-		((Button) findViewById(R.id.robotControl6)).setOnClickListener(this);
+		findViewById(R.id.robotControlLeft).setOnClickListener(this);
+		findViewById(R.id.robotControlUp).setOnClickListener(this);
+		findViewById(R.id.robotControlRight).setOnClickListener(this);
+		findViewById(R.id.robotControlDown).setOnClickListener(this);
+		findViewById(R.id.robotControl1).setOnClickListener(this);
+		findViewById(R.id.robotControl2).setOnClickListener(this);
+		findViewById(R.id.robotControl3).setOnClickListener(this);
+		findViewById(R.id.robotControl4).setOnClickListener(this);
+		findViewById(R.id.robotControl5).setOnClickListener(this);
+		findViewById(R.id.robotControl6).setOnClickListener(this);
 	}
 
 	private void fireToast(String message) {

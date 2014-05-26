@@ -12,6 +12,11 @@ public class ConnectedDevice {
     protected int mReadTimeout;
     protected String mSecurityToken;
 
+    @Override
+    public String toString() {
+        return mName;
+    }
+
     /** @return The device id. */
     public String getId() { return mId; }
 
