@@ -46,6 +46,7 @@
     <string name="down">Bas</string>
 
     <!-- Autre -->
+    <string name="msg_wifi_disabled">Wifi désactivé. Utilisation des réseaux mobiles.</string>
     <string name="msg_light_control_not_available">Le contrôle des éclairages n\'est pas encore disponible</string>
     <string name="msg_hifi_control_not_available">Le contrôle des la chaine Hifi n\'est pas encore disponible</string>
     <string name="msg_command_succeeded">Commande effectuée</string>

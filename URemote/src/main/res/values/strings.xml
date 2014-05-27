@@ -46,6 +46,7 @@
     <string name="down">Down</string>
 
     <!-- Other -->
+    <string name="msg_wifi_disabled">Wifi disabled. You are using mobile networks.</string>
     <string name="msg_light_control_not_available">Lights control is not available yet</string>
     <string name="msg_hifi_control_not_available">Hifi control is not available yet</string>
     <string name="msg_command_succeeded">Command succeeded</string>

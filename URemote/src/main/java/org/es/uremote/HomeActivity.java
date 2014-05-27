@@ -150,18 +150,18 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
     }
 
     private void startComputerRemote(final NetworkDevice device) {
+        // TODO Handle airplane mode
+//        final ConnectivityManager connectivityMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
         // If Wifi is disabled, ask for activation
         final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (!wifiMgr.isWifiEnabled()) {
-            //Intent enableIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
-            Toast.makeText(HomeActivity.this, "Wifi is not enable. You are using 3G remote control.", Toast.LENGTH_SHORT).show();
-            //startActivityForResult(enableIntent, RC_ENABLE_WIFI);
-        } else {
-
-            final Intent computerIntent = new Intent(getApplicationContext(), ComputerActivity.class);
-            computerIntent.putExtra(EXTRA_SERVER_DATA, device);
-            startActivity(computerIntent);
+            Toast.makeText(HomeActivity.this, R.string.msg_wifi_disabled, Toast.LENGTH_SHORT).show();
         }
+
+        final Intent computerIntent = new Intent(getApplicationContext(), ComputerActivity.class);
+        computerIntent.putExtra(EXTRA_SERVER_DATA, device);
+        startActivity(computerIntent);
     }
 
     private void startRobotControl() {
