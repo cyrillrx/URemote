@@ -9,7 +9,7 @@ import android.widget.ListView;
 
 import org.es.uremote.components.ServerArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_CONFIGURE;
@@ -55,15 +55,15 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
         Log.warning(TAG, "onListItemClick");
 
         if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) &&  mWidgetId != INVALID_APPWIDGET_ID) {
-            final ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
+            final NetworkDevice device = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
             final Intent widgetIntent = new Intent();
             widgetIntent.putExtra(EXTRA_SERVER_ID, position);
-//            widgetIntent.putExtra(EXTRA_SERVER_DATA, server);
+//            widgetIntent.putExtra(EXTRA_SERVER_DATA, device);
             widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);
             setResult(RESULT_OK, widgetIntent);
 
-            updateWidget(mWidgetId, server, position);
+            updateWidget(mWidgetId, device, position);
             finish();
         }
     }
@@ -77,12 +77,12 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
      *
      * @param widgetId The widget id used to update the widget.
      */
-    protected void updateWidget(int widgetId, final ServerSetting server, int serverId) {
-        Log.warning(TAG, "updateWidget - id : " + widgetId + " - serverId : " + serverId);
+    protected void updateWidget(int widgetId, final NetworkDevice device, int deviceId) {
+        Log.warning(TAG, "updateWidget - id : " + widgetId + " - deviceId : " + deviceId);
 
         final Context context = getApplicationContext();
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-        MediaWidgetProvider.updateWidget(context, appWidgetManager, widgetId, server, serverId);
+        MediaWidgetProvider.updateWidget(context, appWidgetManager, widgetId, device, deviceId);
     }
 
 }

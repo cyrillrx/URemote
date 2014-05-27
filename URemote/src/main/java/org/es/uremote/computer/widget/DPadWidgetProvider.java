@@ -14,7 +14,7 @@ import android.widget.Toast;
 import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
@@ -61,14 +61,14 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, ServerSetting server, int serverId) {
+    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, NetworkDevice device, int deviceId) {
 
-        Log.warning(TAG, "updateWidget serverId : " + serverId);
+        Log.warning(TAG, "updateWidget deviceId : " + deviceId);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_dpad);
 
-        if (server != null) {
-            final Drawable drawable = new ConnectedDeviceDrawable(server);
+        if (device != null) {
+            final Drawable drawable = new ConnectedDeviceDrawable(device);
             final Bitmap bmp = GraphicUtil.drawableToBitmap(drawable);
             remoteViews.setImageViewBitmap(R.id.thumbnail, bmp);
         }
@@ -115,46 +115,41 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
-        // TODO clean
-        //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-        final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-        final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
+        final int deviceId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+        final NetworkDevice device = ServerSettingDao.loadServer(context, deviceId);
 
-        Log.warning(TAG, "onReceive serverId : " + serverId);
+        Log.warning(TAG, "onReceive deviceId : " + deviceId);
 
         switch (action) {
             case ACTION_APPWIDGET_UPDATE:
 
-                final int serverId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-                Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE serverId : " + serverId2);
-                // TODO clean
-                //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-                //                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                final int deviceId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+                Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE deviceId : " + deviceId2);
                 break;
 
             case ACTION_OK:
                 Toast.makeText(context, "OK", LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.KEYCODE_ENTER);
+                sendAsyncRequest(device, context, Type.KEYBOARD, Code.KEYCODE_ENTER);
                 break;
 
             case ACTION_LEFT:
                 Toast.makeText(context, Code.DPAD_LEFT.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_LEFT);
+                sendAsyncRequest(device, context, Type.KEYBOARD, Code.DPAD_LEFT);
                 break;
 
             case ACTION_RIGHT:
                 Toast.makeText(context, Code.DPAD_RIGHT.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_RIGHT);
+                sendAsyncRequest(device, context, Type.KEYBOARD, Code.DPAD_RIGHT);
                 break;
 
             case ACTION_UP:
                 Toast.makeText(context, Code.DPAD_UP.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_UP);
+                sendAsyncRequest(device, context, Type.KEYBOARD, Code.DPAD_UP);
                 break;
 
             case ACTION_DOWN:
                 Toast.makeText(context, Code.DPAD_DOWN.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, Type.KEYBOARD, Code.DPAD_DOWN);
+                sendAsyncRequest(device, context, Type.KEYBOARD, Code.DPAD_DOWN);
                 break;
 
             case ACTION_START_ACTIVITY:
@@ -168,20 +163,20 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     /**
      * Initializes the message handler then send the request.
      *
-     * @param server The server to control.
+     * @param device The device to control.
      * @param context The application context.
      * @param requestType The request type.
      * @param requestCode The request code.
      */
-    public static void sendAsyncRequest(ServerSetting server, Context context, Type requestType, Code requestCode) {
+    public static void sendAsyncRequest(NetworkDevice device, Context context, Type requestType, Code requestCode) {
 
-        if (server == null) {
+        if (device == null) {
             Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
             return;
         }
 
         final Request request = Request.newBuilder()
-                .setSecurityToken(server.getSecurityToken())
+                .setSecurityToken(device.getSecurityToken())
                 .setType(requestType)
                 .setCode(requestCode)
                 .build();
@@ -192,7 +187,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(server, null).execute(request);
+            new AsyncMessageMgr(device, null).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }

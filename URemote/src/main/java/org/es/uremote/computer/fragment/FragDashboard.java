@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import org.es.uremote.AppLauncherActivity;
 import org.es.uremote.R;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
@@ -43,7 +43,7 @@ import static org.es.uremote.exchange.Message.Request.Type.KEYBOARD;
 import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
 
 /**
- * Class to connect and send commands to a remote server through AsyncTask.
+ * Class to connect and send commands to a remote device through AsyncTask.
  *
  * @author Cyril Leroux
  *         Created on 21/04/12.
@@ -304,13 +304,13 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     }
 
     @Override
-    public ServerSetting getDevice() { return mRequestSender.getDevice(); }
+    public NetworkDevice getDevice() { return mRequestSender.getDevice(); }
 
     @Override
     public String getSecurityToken() { return mRequestSender.getSecurityToken(); }
 
     /**
-     * Class that handle asynchronous requests sent to a remote server.
+     * Class that handle asynchronous requests sent to a remote device.
      * Specialize for Dashboard.
      *
      * @author Cyril Leroux

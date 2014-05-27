@@ -14,7 +14,7 @@ import android.widget.Toast;
 import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
@@ -67,7 +67,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, ServerSetting server, int serverId) {
+    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, NetworkDevice server, int serverId) {
 
         Log.warning(TAG, "updateWidget serverId : " + serverId);
 
@@ -127,7 +127,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
         //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
         final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-        final ServerSetting server = ServerSettingDao.loadServer(context, serverId);
+        final NetworkDevice server = ServerSettingDao.loadServer(context, serverId);
 
         Log.warning(TAG, "onReceive serverId : " + serverId);
 
@@ -177,7 +177,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
      * @param requestType The request type.
      * @param requestCode The request code.
      */
-    public void sendAsyncRequest(ServerSetting server, Context context, Type requestType, Code requestCode) {
+    public void sendAsyncRequest(NetworkDevice server, Context context, Type requestType, Code requestCode) {
 
         if (server == null) {
             Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();

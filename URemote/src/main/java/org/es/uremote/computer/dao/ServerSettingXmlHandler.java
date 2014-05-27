@@ -1,7 +1,7 @@
 package org.es.uremote.computer.dao;
 
-import org.es.uremote.device.ServerSetting;
-import org.es.uremote.device.ServerSetting.ConnectionType;
+import org.es.uremote.device.NetworkDevice;
+import org.es.uremote.device.NetworkDevice.ConnectionType;
 import org.es.utils.Log;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -38,8 +38,8 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 	private boolean mLoaded			= false;
 	private String mCurrentValue;
 
-	private ServerSetting.Builder mBuilder;
-	private List<ServerSetting> mServers;
+	private NetworkDevice.Builder mBuilder;
+	private List<NetworkDevice> mServers;
 
 	/** Called tag opening (<tag>). */
 	@Override
@@ -52,7 +52,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		} else if (localName.equals(TAG_SERVER)) {
 			if (mBuilder == null) {
-				mBuilder = ServerSetting.newBuilder();
+				mBuilder = NetworkDevice.newBuilder();
 			} else {
 				mBuilder.clear();
 			}
@@ -119,8 +119,8 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 		mCurrentElement = false;
 	}
 
-	/** @return A list of {@link org.es.uremote.device.ServerSetting}. */
-	public List<ServerSetting> getServers() {
+	/** @return A list of {@link org.es.uremote.device.NetworkDevice}. */
+	public List<NetworkDevice> getServers() {
 		if (mLoaded) {
 			return mServers;
 		}

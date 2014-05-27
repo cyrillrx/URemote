@@ -14,10 +14,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import org.es.uremote.R;
-import org.es.uremote.device.ServerSetting;
-import org.es.uremote.exchange.Message;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.WakeOnLan;
 import org.es.uremote.utils.TaskCallbacks;
@@ -32,7 +30,7 @@ import static org.es.uremote.exchange.Message.Request.Type.AI;
 import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
 
 /**
- * Class to connect and send commands to a remote server through AsyncTask.
+ * Class to connect and send commands to a remote device through AsyncTask.
  *
  * @author Cyril Leroux
  *         Created on 22/05/12.
@@ -132,16 +130,16 @@ public class FragAdmin extends Fragment implements OnClickListener {
         final String defaultHost = getString(defaultHostResId);
         final String defaultMacAddress = getString(R.string.default_mac_address);
 
-        final ServerSetting settings = mRequestSender.getDevice();
+        final NetworkDevice device = mRequestSender.getDevice();
         String host = defaultHost;
         String macAddress = defaultMacAddress;
-        if (settings != null) {
-            host = wifi ? settings.getBroadcast() : settings.getRemoteHost();
-            macAddress = settings.getMacAddress();
+        if (device != null) {
+            host = wifi ? device.getBroadcast() : device.getRemoteHost();
+            macAddress = device.getMacAddress();
         }
         new WakeOnLan(mToastSender).execute(host, macAddress);
 
-        // TODO : if server, run. else error toast
+        // TODO : if device, run. else error toast
     }
 
     ////////////////////////////////////////////////////////////////////
@@ -165,7 +163,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
     }
 
     /**
-     * Ask for the user to confirm before sending a request to the server.
+     * Ask for the user to confirm before sending a request to the device.
      *
      * @param request The request to send.
      */

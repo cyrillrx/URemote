@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.es.uremote.BuildConfig;
 import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.components.ExplorerArrayAdapter;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
@@ -168,7 +167,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     }
 
     @Override
-    public ServerSetting getDevice() { return mRequestSender.getDevice(); }
+    public NetworkDevice getDevice() { return mRequestSender.getDevice(); }
 
     @Override
     public String getSecurityToken() { return mRequestSender.getSecurityToken(); }

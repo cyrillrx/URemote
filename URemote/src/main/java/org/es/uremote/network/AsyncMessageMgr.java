@@ -2,19 +2,13 @@ package org.es.uremote.network;
 
 import android.os.AsyncTask;
 
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.Message.Response.ReturnCode;
 import org.es.uremote.exchange.MessageUtils;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketTimeoutException;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -28,14 +22,14 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
     protected static Semaphore sSemaphore = new Semaphore(2, true);
     private static final String TAG = "AsyncMessageMgr";
 
-    protected final ServerSetting mRemoteDevice;
+    protected final NetworkDevice mRemoteDevice;
     private final TaskCallbacks mTaskCallbacks;
 
     /**
      * @param device The device towards which to send the request.
      * @param taskCallbacks An object to call back during the task lifecycle
      */
-    public AsyncMessageMgr(ServerSetting device, TaskCallbacks taskCallbacks) {
+    public AsyncMessageMgr(NetworkDevice device, TaskCallbacks taskCallbacks) {
         mRemoteDevice = device;
         mTaskCallbacks = taskCallbacks;
     }

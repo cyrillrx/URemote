@@ -6,7 +6,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 
 import org.es.exception.AccessStorageOnMainThreadException;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.utils.PrefKeys;
 import org.es.utils.Log;
 import org.es.utils.XmlWriter;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import javax.xml.parsers.SAXParserFactory;
 
-import static org.es.uremote.device.ServerSetting.FILENAME;
+import static org.es.uremote.device.NetworkDevice.FILENAME;
 
 /**
  * @author Cyril Leroux
@@ -53,7 +53,7 @@ public class ServerSettingDao {
 	 * @param confFile
 	 * @return true if save succeeded, false otherwise.
 	 */
-	public static boolean saveToFile(List<ServerSetting> servers, File confFile) {
+	public static boolean saveToFile(List<NetworkDevice> servers, File confFile) {
 
 		if (Looper.myLooper() == Looper.getMainLooper()) {
 			throw new AccessStorageOnMainThreadException("ServerSettingDao #saveToFile");
@@ -70,7 +70,7 @@ public class ServerSettingDao {
 
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
-			for (ServerSetting server : servers) {
+			for (NetworkDevice server : servers) {
 
 				xmlWriter.startTag(null, TAG_SERVER);
 
@@ -106,7 +106,7 @@ public class ServerSettingDao {
 	 * @param servers The list to fill with loaded data.
 	 * @return true if load succeeded, false otherwise.
 	 */
-	public static boolean loadFromFile(File configFile, List<ServerSetting> servers) {
+	public static boolean loadFromFile(File configFile, List<NetworkDevice> servers) {
 
 //		if (Looper.myLooper() == Looper.getMainLooper()) {
 //			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
@@ -139,10 +139,10 @@ public class ServerSettingDao {
      * @param context The application context.
      * @return The server list or null if an error occurred.
      */
-    public static List<ServerSetting> loadList(Context context) {
+    public static List<NetworkDevice> loadList(Context context) {
 
         final File confFile = new File(context.getExternalFilesDir(null), FILENAME);
-        final List<ServerSetting> servers = new ArrayList<>();
+        final List<NetworkDevice> servers = new ArrayList<>();
         if (loadFromFile(confFile, servers)) {
             return servers;
         }
@@ -155,9 +155,9 @@ public class ServerSettingDao {
      * @param context The application context.
      * @return The selected server.
      */
-    public static ServerSetting loadServer(Context context, int serverId) {
+    public static NetworkDevice loadServer(Context context, int serverId) {
 
-        final List<ServerSetting> servers = loadList(context);
+        final List<NetworkDevice> servers = loadList(context);
 
         try {
             return servers.get(serverId);
@@ -172,9 +172,9 @@ public class ServerSettingDao {
      * @param context The application context.
      * @return The selected server.
      */
-    public static ServerSetting loadSelected(Context context) {
+    public static NetworkDevice loadSelected(Context context) {
 
-        final List<ServerSetting> servers = loadList(context);
+        final List<NetworkDevice> servers = loadList(context);
 
         // Get the properties values
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);

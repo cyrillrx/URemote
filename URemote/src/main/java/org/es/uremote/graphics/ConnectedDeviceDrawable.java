@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 
 import org.es.graphics.Hexagon;
 import org.es.uremote.device.ConnectedDevice;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 
 import java.util.Random;
 
@@ -141,8 +141,8 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     protected String getSubscript(final ConnectedDevice device) {
 
-        if (device instanceof ServerSetting) {
-            String ip = ((ServerSetting) device).getLocalHost();
+        if (device instanceof NetworkDevice) {
+            String ip = ((NetworkDevice) device).getLocalHost();
             final int pos = ip.lastIndexOf('.');
             return ip.substring(pos+1);
         }

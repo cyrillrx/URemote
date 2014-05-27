@@ -1,6 +1,6 @@
 package org.es.uremote.exchange;
 
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 
 /**
@@ -19,7 +19,7 @@ public interface RequestSender {
 	public void sendRequest(Request request);
 
     /** @return The current server configuration. */
-    public ServerSetting getDevice();
+    public NetworkDevice getDevice();
 
     /** @return The security token. */
     public String getSecurityToken();

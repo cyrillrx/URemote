@@ -1,6 +1,8 @@
 package org.es.uremote.exchange;
 
-import org.es.uremote.device.ServerSetting;
+import com.google.protobuf.InvalidProtocolBufferException;
+
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Response;
 import org.es.utils.Log;
@@ -28,11 +30,11 @@ public class MessageUtils {
      *
      * @param request Client request.
      * @param device The device towards which to send the request.
-     * @return The server reply.
+     * @return The device reply.
      *
      * @throws IOException exception.
      */
-    public static Response sendRequest(final Request request, final ServerSetting device) {
+    public static Response sendRequest(final Request request, final NetworkDevice device) {
 
         String errorMessage = "";
 
@@ -55,8 +57,13 @@ public class MessageUtils {
                 errorMessage = "Can't reach remote device (bad config or server down).";
                 Log.warning(TAG, "Can't reach remote device (" + e.getMessage() + ")");
 
+            } catch (InvalidProtocolBufferException e) {
+                errorMessage = "Protocol Buffers exception. Check the log.";
+                Log.error(TAG, "Protocol Buffers exception", e);
+
             } catch (Exception e) {
-                errorMessage = "Exception - " + e.getMessage();
+                errorMessage = "Unknown exception - " + e;
+                Log.error(TAG, "Unknown exception", e);
 
             } finally {
                 closeSocket(socket);
@@ -72,33 +79,33 @@ public class MessageUtils {
     }
 
     /**
-     * Creates the socket, connects it to the server then returns it.
+     * Creates the socket, connects it to the device then returns it.
      *
-     * @param server The object that holds server connection settings.
+     * @param device The object that holds device connection settings.
      * @return The socket on which to send the message.
      *
      * @throws IOException exception
      */
-    private static Socket connectToRemoteSocket(ServerSetting server) throws IOException {
+    private static Socket connectToRemoteSocket(NetworkDevice device) throws IOException {
 
-        final String host = server.getLocalHost();
-        final int port = server.getLocalPort();
+        final String host = device.getLocalHost();
+        final int port = device.getLocalPort();
         final SocketAddress socketAddress = new InetSocketAddress(host, port);
 
         Socket socket = new Socket();
-        socket.setSoTimeout(server.getReadTimeout());
-        socket.connect(socketAddress, server.getConnectionTimeout());
+        socket.setSoTimeout(device.getReadTimeout());
+        socket.connect(socketAddress, device.getConnectionTimeout());
 
         return socket;
     }
 
     /**
      * This function must be called from a background thread.
-     * Send a message through a Socket to a server and get the reply.
+     * Send a message through a Socket to a device and get the reply.
      *
      * @param socket The socket on which to send the message.
      * @param request Client request.
-     * @return The server reply.
+     * @return The device reply.
      *
      * @throws IOException exception.
      */
