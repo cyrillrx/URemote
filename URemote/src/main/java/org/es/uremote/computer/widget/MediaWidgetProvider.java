@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.NetworkDeviceDao;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
@@ -67,14 +67,14 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
     }
 
-    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, NetworkDevice server, int serverId) {
+    public static void updateWidget(Context context, AppWidgetManager appWidgetManager, int widgetId, NetworkDevice device, int deviceId) {
 
-        Log.warning(TAG, "updateWidget serverId : " + serverId);
+        Log.warning(TAG, "updateWidget deviceId : " + deviceId);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget_media);
 
-        if (server != null) {
-            final Drawable drawable = new ConnectedDeviceDrawable(server);
+        if (device != null) {
+            final Drawable drawable = new ConnectedDeviceDrawable(device);
             final Bitmap bmp = GraphicUtil.drawableToBitmap(drawable);
             remoteViews.setImageViewBitmap(R.id.thumbnail, bmp);
         }
@@ -88,29 +88,29 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
         final Intent previousIntent = new Intent(context, MediaWidgetProvider.class);
         previousIntent.setAction(ACTION_MEDIA_PREVIOUS);
-        previousIntent.putExtra(EXTRA_SERVER_ID, serverId);
-        previousIntent.putExtra(EXTRA_SERVER_DATA, server);
+        previousIntent.putExtra(EXTRA_SERVER_ID, deviceId);
+        previousIntent.putExtra(EXTRA_SERVER_DATA, device);
         PendingIntent previousPendingIntent = PendingIntent.getBroadcast(context, widgetId, previousIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.cmdPrevious, previousPendingIntent);
 
         final Intent playPauseIntent = new Intent(context, MediaWidgetProvider.class);
         playPauseIntent.setAction(ACTION_MEDIA_PLAY_PAUSE);
-        playPauseIntent.putExtra(EXTRA_SERVER_ID, serverId);
-        playPauseIntent.putExtra(EXTRA_SERVER_DATA, server);
+        playPauseIntent.putExtra(EXTRA_SERVER_ID, deviceId);
+        playPauseIntent.putExtra(EXTRA_SERVER_DATA, device);
         PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(context, widgetId, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.cmdPlayPause, playPausePendingIntent);
 
         final Intent stopIntent = new Intent(context, MediaWidgetProvider.class);
         stopIntent.setAction(ACTION_MEDIA_STOP);
-        stopIntent.putExtra(EXTRA_SERVER_ID, serverId);
-        stopIntent.putExtra(EXTRA_SERVER_DATA, server);
+        stopIntent.putExtra(EXTRA_SERVER_ID, deviceId);
+        stopIntent.putExtra(EXTRA_SERVER_DATA, device);
         PendingIntent stopPendingIntent = PendingIntent.getBroadcast(context, widgetId, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.cmdStop, stopPendingIntent);
 
         final Intent nextIntent = new Intent(context, MediaWidgetProvider.class);
         nextIntent.setAction(ACTION_MEDIA_NEXT);
-        nextIntent.putExtra(EXTRA_SERVER_ID, serverId);
-        nextIntent.putExtra(EXTRA_SERVER_DATA, server);
+        nextIntent.putExtra(EXTRA_SERVER_ID, deviceId);
+        nextIntent.putExtra(EXTRA_SERVER_DATA, device);
         PendingIntent nextPendingIntent = PendingIntent.getBroadcast(context, widgetId, nextIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
 
@@ -125,20 +125,20 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         final String action = intent.getAction();
         Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
-        //        final ServerSetting server = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-        final int serverId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-        final NetworkDevice server = ServerSettingDao.loadServer(context, serverId);
+        //        final ServerSetting device = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+        final int deviceId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+        final NetworkDevice device = NetworkDeviceDao.loadDevice(context, deviceId);
 
-        Log.warning(TAG, "onReceive serverId : " + serverId);
+        Log.warning(TAG, "onReceive deviceId : " + deviceId);
 
         switch (action) {
             case ACTION_APPWIDGET_UPDATE:
 
-                final int serverId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-                Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE serverId : " + serverId2);
+                final int deviceId2 = intent.getIntExtra(EXTRA_SERVER_ID, -1);
+                Log.warning(TAG, "onReceive ACTION_APPWIDGET_UPDATE deviceId : " + deviceId2);
 
                 //            mServer = intent.getParcelableExtra(EXTRA_SERVER_DATA);
-                //                ServerSetting server2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
+                //                ServerSetting device2 = intent.getParcelableExtra(EXTRA_SERVER_DATA);
                 break;
 
             case ACTION_START_ACTIVITY:
@@ -149,22 +149,22 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
             case ACTION_MEDIA_PREVIOUS:
                 Toast.makeText(context, MEDIA_PREVIOUS.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, KEYBOARD, MEDIA_PREVIOUS);
+                sendAsyncRequest(device, context, KEYBOARD, MEDIA_PREVIOUS);
                 break;
 
             case ACTION_MEDIA_PLAY_PAUSE:
                 Toast.makeText(context, MEDIA_PLAY_PAUSE.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, KEYBOARD, MEDIA_PLAY_PAUSE);
+                sendAsyncRequest(device, context, KEYBOARD, MEDIA_PLAY_PAUSE);
                 break;
 
             case ACTION_MEDIA_STOP:
                 Toast.makeText(context, MEDIA_STOP.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, KEYBOARD, MEDIA_STOP);
+                sendAsyncRequest(device, context, KEYBOARD, MEDIA_STOP);
                 break;
 
             case ACTION_MEDIA_NEXT:
                 Toast.makeText(context, MEDIA_NEXT.name(), LENGTH_SHORT).show();
-                sendAsyncRequest(server, context, KEYBOARD, MEDIA_NEXT);
+                sendAsyncRequest(device, context, KEYBOARD, MEDIA_NEXT);
                 break;
         }
     }
@@ -172,20 +172,20 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     /**
      * Initializes the message handler then send the request.
      *
-     * @param server The server to control.
+     * @param device The device to control.
      * @param context The application context.
      * @param requestType The request type.
      * @param requestCode The request code.
      */
-    public void sendAsyncRequest(NetworkDevice server, Context context, Type requestType, Code requestCode) {
+    public void sendAsyncRequest(NetworkDevice device, Context context, Type requestType, Code requestCode) {
 
-        if (server == null) {
+        if (device == null) {
             Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
             return;
         }
 
         final Request request = Request.newBuilder()
-                .setSecurityToken(server.getSecurityToken())
+                .setSecurityToken(device.getSecurityToken())
                 .setType(requestType)
                 .setCode(requestCode)
                 .build();
@@ -196,7 +196,7 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         }
 
         if (AsyncMessageMgr.availablePermits() > 0) {
-            new AsyncMessageMgr(server, null).execute(request);
+            new AsyncMessageMgr(device, null).execute(request);
         } else {
             Toast.makeText(context, R.string.msg_no_more_permit, LENGTH_SHORT).show();
         }

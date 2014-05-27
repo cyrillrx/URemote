@@ -28,7 +28,7 @@ import static org.es.uremote.device.NetworkDevice.FILENAME;
  * @author Cyril Leroux
  *         Created on 10/08/13.
  */
-public class ServerSettingDao {
+public class NetworkDeviceDao {
 
 	public static final String TAG_ROOT				= "servers";
 	public static final String TAG_SERVER			= "server";
@@ -49,17 +49,17 @@ public class ServerSettingDao {
 	/**
 	 * Save the object attributes into a XML file.
 	 *
-	 * @param servers
+	 * @param devices
 	 * @param confFile
 	 * @return true if save succeeded, false otherwise.
 	 */
-	public static boolean saveToFile(List<NetworkDevice> servers, File confFile) {
+	public static boolean saveToFile(List<NetworkDevice> devices, File confFile) {
 
 		if (Looper.myLooper() == Looper.getMainLooper()) {
 			throw new AccessStorageOnMainThreadException("ServerSettingDao #saveToFile");
 		}
 
-		if (servers == null || servers.isEmpty()) {
+		if (devices == null || devices.isEmpty()) {
 			return false;
 		}
 
@@ -70,21 +70,21 @@ public class ServerSettingDao {
 
 			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
-			for (NetworkDevice server : servers) {
+			for (NetworkDevice device : devices) {
 
 				xmlWriter.startTag(null, TAG_SERVER);
 
-				xmlWriter.addChild(TAG_NAME,                server.getName(), null);
-				xmlWriter.addChild(TAG_LOCAL_HOST,          server.getLocalHost(), null);
-				xmlWriter.addChild(TAG_LOCAL_PORT,          server.getLocalPort(), null);
-				xmlWriter.addChild(TAG_BROADCAST,           server.getBroadcast(), null);
-				xmlWriter.addChild(TAG_REMOTE_HOST,         server.getRemoteHost(), null);
-				xmlWriter.addChild(TAG_REMOTE_PORT,         server.getRemotePort(), null);
-				xmlWriter.addChild(TAG_MAC_ADDRESS,         server.getMacAddress(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,  server.getConnectionTimeout(), null);
-				xmlWriter.addChild(TAG_READ_TIMEOUT,        server.getReadTimeout(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TYPE,     server.getConnectionType().toString(), null);
-				xmlWriter.addChild(TAG_SECURITY_TOKEN,      server.getSecurityToken(), null);
+				xmlWriter.addChild(TAG_NAME,                device.getName(), null);
+				xmlWriter.addChild(TAG_LOCAL_HOST,          device.getLocalHost(), null);
+				xmlWriter.addChild(TAG_LOCAL_PORT,          device.getLocalPort(), null);
+				xmlWriter.addChild(TAG_BROADCAST,           device.getBroadcast(), null);
+				xmlWriter.addChild(TAG_REMOTE_HOST,         device.getRemoteHost(), null);
+				xmlWriter.addChild(TAG_REMOTE_PORT,         device.getRemotePort(), null);
+				xmlWriter.addChild(TAG_MAC_ADDRESS,         device.getMacAddress(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,  device.getConnectionTimeout(), null);
+				xmlWriter.addChild(TAG_READ_TIMEOUT,        device.getReadTimeout(), null);
+				xmlWriter.addChild(TAG_CONNECTION_TYPE,     device.getConnectionType().toString(), null);
+				xmlWriter.addChild(TAG_SECURITY_TOKEN,      device.getSecurityToken(), null);
 
 				xmlWriter.endTag(null, TAG_SERVER);
 			}
@@ -99,14 +99,14 @@ public class ServerSettingDao {
 	}
 
 	/**
-	 * Load the server settings from an XML file into the server list.
-     * Use this function to update an existing server list.
+	 * Load the device settings from an XML file into the device list.
+     * Use this function to update an existing device list.
 	 *
 	 * @param configFile The file to read.
-	 * @param servers The list to fill with loaded data.
+	 * @param devices The list to fill with loaded data.
 	 * @return true if load succeeded, false otherwise.
 	 */
-	public static boolean loadFromFile(File configFile, List<NetworkDevice> servers) {
+	public static boolean loadFromFile(File configFile, List<NetworkDevice> devices) {
 
 //		if (Looper.myLooper() == Looper.getMainLooper()) {
 //			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
@@ -117,7 +117,7 @@ public class ServerSettingDao {
 			return false;
 		}
 
-		ServerSettingXmlHandler xmlHandler = new ServerSettingXmlHandler();
+		NetworkDeviceXmlHandler xmlHandler = new NetworkDeviceXmlHandler();
 		try {
 			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
 			XMLReader reader = parserFactory.newSAXParser().getXMLReader();
@@ -129,58 +129,58 @@ public class ServerSettingDao {
 			return false;
 		}
 
-		return servers.addAll(xmlHandler.getServers());
+		return devices.addAll(xmlHandler.getDevices());
 	}
 
     /**
-     * Load the server list from the default XML file and returns it.
-     * Use this function to load the list of servers.
+     * Load the device list from the default XML file and returns it.
+     * Use this function to load the list of devices.
      *
      * @param context The application context.
-     * @return The server list or null if an error occurred.
+     * @return The device list or null if an error occurred.
      */
     public static List<NetworkDevice> loadList(Context context) {
 
         final File confFile = new File(context.getExternalFilesDir(null), FILENAME);
-        final List<NetworkDevice> servers = new ArrayList<>();
-        if (loadFromFile(confFile, servers)) {
-            return servers;
+        final List<NetworkDevice> devices = new ArrayList<>();
+        if (loadFromFile(confFile, devices)) {
+            return devices;
         }
         return null;
     }
 
     /**
-     * Load the selected server.
+     * Load the selected device.
      *
      * @param context The application context.
-     * @return The selected server.
+     * @return The selected device.
      */
-    public static NetworkDevice loadServer(Context context, int serverId) {
+    public static NetworkDevice loadDevice(Context context, int deviceId) {
 
-        final List<NetworkDevice> servers = loadList(context);
+        final List<NetworkDevice> devices = loadList(context);
 
         try {
-            return servers.get(serverId);
+            return devices.get(deviceId);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             return null;
         }
     }
 
     /**
-     * Load the selected server.
+     * Load the selected device.
      *
      * @param context The application context.
-     * @return The selected server.
+     * @return The selected device.
      */
     public static NetworkDevice loadSelected(Context context) {
 
-        final List<NetworkDevice> servers = loadList(context);
+        final List<NetworkDevice> devices = loadList(context);
 
         // Get the properties values
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        final int serverId = pref.getInt(PrefKeys.KEY_SERVER_ID, PrefKeys.DEFAULT_SERVER_ID);
+        final int deviceId = pref.getInt(PrefKeys.KEY_SERVER_ID, PrefKeys.DEFAULT_SERVER_ID);
         try {
-            return servers.get(serverId);
+            return devices.get(deviceId);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             return null;
         }

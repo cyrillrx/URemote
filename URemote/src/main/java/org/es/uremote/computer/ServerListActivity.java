@@ -16,7 +16,7 @@ import org.es.uremote.BuildConfig;
 import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.components.ServerArrayAdapter;
-import org.es.uremote.computer.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.NetworkDeviceDao;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
@@ -253,7 +253,7 @@ public class ServerListActivity extends ListActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return ServerSettingDao.loadFromFile(mSourceFile, mDestination);
+            return NetworkDeviceDao.loadFromFile(mSourceFile, mDestination);
         }
 
         @Override
@@ -284,7 +284,7 @@ public class ServerListActivity extends ListActivity {
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return ServerSettingDao.saveToFile(mSource, mTargetFile);
+            return NetworkDeviceDao.saveToFile(mSource, mTargetFile);
         }
 
         @Override

@@ -10,27 +10,27 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_BROADCAST;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_CONNECTION_TIMEOUT;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_CONNECTION_TYPE;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_LOCAL_HOST;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_LOCAL_PORT;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_MAC_ADDRESS;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_NAME;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_READ_TIMEOUT;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_HOST;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_REMOTE_PORT;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_ROOT;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SECURITY_TOKEN;
-import static org.es.uremote.computer.dao.ServerSettingDao.TAG_SERVER;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_BROADCAST;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_CONNECTION_TIMEOUT;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_CONNECTION_TYPE;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_LOCAL_HOST;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_LOCAL_PORT;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_MAC_ADDRESS;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_NAME;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_READ_TIMEOUT;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_REMOTE_HOST;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_REMOTE_PORT;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_ROOT;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_SECURITY_TOKEN;
+import static org.es.uremote.computer.dao.NetworkDeviceDao.TAG_SERVER;
 
 /**
- * This component allow to parse a XML file that contains server connection information.
+ * This component allow to parse a XML file that contains device connection information.
  *
  * @author Cyril Leroux
  * Created on 22/05/13.
  */
-public class ServerSettingXmlHandler extends DefaultHandler {
+public class NetworkDeviceXmlHandler extends DefaultHandler {
 
 	private static final String TAG = "ServerSettingXmlHandler";
 
@@ -39,7 +39,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 	private String mCurrentValue;
 
 	private NetworkDevice.Builder mBuilder;
-	private List<NetworkDevice> mServers;
+	private List<NetworkDevice> mDevices;
 
 	/** Called tag opening (<tag>). */
 	@Override
@@ -48,7 +48,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		if (localName.equals(TAG_ROOT)) {
 			mLoaded = false;
-			mServers = new ArrayList<>();
+			mDevices = new ArrayList<>();
 
 		} else if (localName.equals(TAG_SERVER)) {
 			if (mBuilder == null) {
@@ -99,7 +99,7 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 
 		} else if (localName.equals(TAG_SERVER)) {
 			try {
-				mServers.add(mBuilder.build());
+				mDevices.add(mBuilder.build());
 			} catch (Exception e) {
 				Log.error(TAG, "#endElement", e);
 			}
@@ -120,9 +120,9 @@ public class ServerSettingXmlHandler extends DefaultHandler {
 	}
 
 	/** @return A list of {@link org.es.uremote.device.NetworkDevice}. */
-	public List<NetworkDevice> getServers() {
+	public List<NetworkDevice> getDevices() {
 		if (mLoaded) {
-			return mServers;
+			return mDevices;
 		}
 		return new ArrayList<>();
 	}

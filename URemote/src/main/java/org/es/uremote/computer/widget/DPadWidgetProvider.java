@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
-import org.es.uremote.computer.dao.ServerSettingDao;
+import org.es.uremote.computer.dao.NetworkDeviceDao;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
@@ -116,7 +116,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
         Log.warning(TAG, "onReceive Action : " + intent.getAction());
 
         final int deviceId = intent.getIntExtra(EXTRA_SERVER_ID, -1);
-        final NetworkDevice device = ServerSettingDao.loadServer(context, deviceId);
+        final NetworkDevice device = NetworkDeviceDao.loadDevice(context, deviceId);
 
         Log.warning(TAG, "onReceive deviceId : " + deviceId);
 
