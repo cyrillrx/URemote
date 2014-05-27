@@ -17,7 +17,7 @@ import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.components.ServerArrayAdapter;
 import org.es.uremote.computer.dao.ServerSettingDao;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.Log;
 
@@ -28,7 +28,7 @@ import java.util.List;
 import static android.content.Intent.ACTION_DELETE;
 import static android.content.Intent.ACTION_EDIT;
 import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
-import static org.es.uremote.device.ServerSetting.FILENAME;
+import static org.es.uremote.device.NetworkDevice.FILENAME;
 import static org.es.uremote.utils.IntentKeys.ACTION_ADD;
 import static org.es.uremote.utils.IntentKeys.ACTION_LOAD;
 import static org.es.uremote.utils.IntentKeys.ACTION_SAVE;
@@ -51,7 +51,7 @@ public class ServerListActivity extends ListActivity {
     private static final int RC_LOAD_SERVER = 2;
 
     protected String mAction;
-    private List<ServerSetting> mServers = new ArrayList<>();
+    private List<NetworkDevice> mDevices = new ArrayList<>();
     private File mConfFile = null;
 
     @Override
@@ -66,7 +66,7 @@ public class ServerListActivity extends ListActivity {
 
         mConfFile = new File(getExternalFilesDir(null), FILENAME);
         if (mConfFile.exists()) {
-            asyncLoadServers(mConfFile, mServers);
+            asyncLoadServers(mConfFile, mDevices);
         }
 
         // Handle "Add server" button
@@ -81,33 +81,33 @@ public class ServerListActivity extends ListActivity {
     }
 
     /**
-     * Load the server list from the specified file.
+     * Load the device list from the specified file.
      *
      * @param configFile
-     * @param servers
+     * @param devices
      */
-    private void asyncLoadServers(File configFile, List<ServerSetting> servers) {
-        (new AsyncLoadServer(configFile, servers)).execute();
+    private void asyncLoadServers(File configFile, List<NetworkDevice> devices) {
+        (new AsyncLoadServer(configFile, devices)).execute();
     }
 
     /**
-     * Save the server list in the specified file.
+     * Save the device list in the specified file.
      *
-     * @param servers
+     * @param devices
      * @param configFile
      */
-    private void asyncSaveServers(List<ServerSetting> servers, File configFile) {
-        (new AsyncSaveServer(servers, configFile)).execute();
+    private void asyncSaveServers(List<NetworkDevice> devices, File configFile) {
+        (new AsyncSaveServer(devices, configFile)).execute();
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        final ServerSetting server = ((ServerArrayAdapter) getListAdapter()).getItem(position);
+        final NetworkDevice device = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
         final Intent intent = new Intent();
-        intent.putExtra(EXTRA_SERVER_DATA, server);
+        intent.putExtra(EXTRA_SERVER_DATA, device);
         intent.putExtra(EXTRA_SERVER_ID, position);
 
         if (ACTION_SELECT.equals(mAction)) {
@@ -121,13 +121,13 @@ public class ServerListActivity extends ListActivity {
         }
     }
 
-    private void updateView(final List<ServerSetting> servers) {
+    private void updateView(final List<NetworkDevice> devices) {
 
         if (getListAdapter() == null) {
-            ServerArrayAdapter adapter = new ServerArrayAdapter(getApplicationContext(), servers);
+            ServerArrayAdapter adapter = new ServerArrayAdapter(getApplicationContext(), devices);
             setListAdapter(adapter);
         } else {
-            asyncSaveServers(servers, mConfFile);
+            asyncSaveServers(devices, mConfFile);
         }
     }
 
@@ -178,77 +178,77 @@ public class ServerListActivity extends ListActivity {
             return;
         }
 
-        final ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
+        final NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
 
         switch (requestCode) {
 
             case RC_ADD_SERVER:
-                if (server != null) {
-                    addServer(server);
+                if (device != null) {
+                    addServer(device);
                 }
                 break;
 
             case RC_EDIT_SERVER:
                 final String action = data.getStringExtra(EXTRA_SERVER_ACTION);
-                final int serverId = data.getIntExtra(EXTRA_SERVER_ID, -1);
+                final int deviceId = data.getIntExtra(EXTRA_SERVER_ID, -1);
 
                 if (ACTION_DELETE.equals(action)) {
-                    deleteServer(serverId);
-                } else if (ACTION_SAVE.equals(action) && server != null) {
-                    updateServer(serverId, server);
+                    deleteServer(deviceId);
+                } else if (ACTION_SAVE.equals(action) && device != null) {
+                    updateServer(deviceId, device);
                 }
                 break;
 
             case RC_LOAD_SERVER:
                 final String filePath = data.getStringExtra(EXTRA_SERVER_CONF_FILE);
-                asyncLoadServers(new File(filePath), mServers);
+                asyncLoadServers(new File(filePath), mDevices);
                 break;
         }
     }
 
     /**
-     * Add the server to the list.
+     * Add the device to the list.
      *
-     * @param server
+     * @param device
      */
-    private void addServer(ServerSetting server) {
-        mServers.add(server);
-        asyncSaveServers(mServers, mConfFile);
-        updateView(mServers);
+    private void addServer(NetworkDevice device) {
+        mDevices.add(device);
+        asyncSaveServers(mDevices, mConfFile);
+        updateView(mDevices);
     }
 
     /**
-     * Edit the selected server.
+     * Edit the selected device.
      *
-     * @param serverId
+     * @param deviceId
      * @param newData
      */
-    private void updateServer(int serverId, ServerSetting newData) {
-        mServers.get(serverId).update(newData);
-        asyncSaveServers(mServers, mConfFile);
-        updateView(mServers);
+    private void updateServer(int deviceId, NetworkDevice newData) {
+        mDevices.get(deviceId).update(newData);
+        asyncSaveServers(mDevices, mConfFile);
+        updateView(mDevices);
     }
 
     /**
-     * Delete the selected server from the list.
+     * Delete the selected device from the list.
      *
-     * @param serverId
+     * @param deviceId
      */
-    private void deleteServer(int serverId) {
-        mServers.remove(serverId);
-        asyncSaveServers(mServers, mConfFile);
-        updateView(mServers);
+    private void deleteServer(int deviceId) {
+        mDevices.remove(deviceId);
+        asyncSaveServers(mDevices, mConfFile);
+        updateView(mDevices);
     }
 
-    /** Load the servers from a list of {@link File} objects. */
+    /** Load the devices from a list of {@link File} objects. */
     private class AsyncLoadServer extends AsyncTask<Void, Void, Boolean> {
 
         final File mSourceFile;
-        final List<ServerSetting> mDestination;
+        final List<NetworkDevice> mDestination;
 
-        private AsyncLoadServer(File configFile, List<ServerSetting> servers) {
+        private AsyncLoadServer(File configFile, List<NetworkDevice> devices) {
             mSourceFile = configFile;
-            mDestination = servers;
+            mDestination = devices;
         }
 
         @Override
@@ -271,14 +271,14 @@ public class ServerListActivity extends ListActivity {
         }
     }
 
-    /** Save the servers to a {@link File} . */
+    /** Save the devices to a {@link File} . */
     private class AsyncSaveServer extends AsyncTask<Void, Void, Boolean> {
 
-        final List<ServerSetting> mSource;
+        final List<NetworkDevice> mSource;
         final File mTargetFile;
 
-        private AsyncSaveServer(List<ServerSetting> servers, File targetFile) {
-            mSource = servers;
+        private AsyncSaveServer(List<NetworkDevice> devices, File targetFile) {
+            mSource = devices;
             mTargetFile = targetFile;
         }
 

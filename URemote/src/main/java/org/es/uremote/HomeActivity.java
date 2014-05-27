@@ -22,7 +22,7 @@ import com.crashlytics.android.Crashlytics;
 
 import org.es.uremote.components.ActionArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.ArrayList;
@@ -149,7 +149,7 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
         }
     }
 
-    private void startComputerRemote(final ServerSetting server) {
+    private void startComputerRemote(final NetworkDevice device) {
         // If Wifi is disabled, ask for activation
         final WifiManager wifiMgr = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (!wifiMgr.isWifiEnabled()) {
@@ -159,7 +159,7 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
         } else {
 
             final Intent computerIntent = new Intent(getApplicationContext(), ComputerActivity.class);
-            computerIntent.putExtra(EXTRA_SERVER_DATA, server);
+            computerIntent.putExtra(EXTRA_SERVER_DATA, device);
             startActivity(computerIntent);
         }
     }
@@ -192,12 +192,12 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
 
             case RC_SELECT_SERVER:
                 if (resultCode == Activity.RESULT_OK) {
-                    final ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
-                    if (server == null) {
+                    final NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
+                    if (device == null) {
                         Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
                         return;
                     }
-                    startComputerRemote(server);
+                    startComputerRemote(device);
                 }
                 break;
 

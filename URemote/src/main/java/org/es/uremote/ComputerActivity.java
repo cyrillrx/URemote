@@ -2,9 +2,7 @@ package org.es.uremote;
 
 import android.animation.ObjectAnimator;
 import android.app.ActionBar;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
@@ -29,7 +27,7 @@ import org.es.uremote.computer.KeyboardListener;
 import org.es.uremote.computer.fragment.FragAdmin;
 import org.es.uremote.computer.fragment.FragDashboard;
 import org.es.uremote.computer.fragment.RemoteExplorerFragment;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
@@ -73,7 +71,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
 
     private Toast mToast = null;
 
-    private ServerSetting mSelectedDevice = null;
+    private NetworkDevice mSelectedDevice = null;
     private KeyboardView mKeyboardView = null;
     private KeyboardView mExtendedKeyboardView = null;
 
@@ -345,15 +343,15 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
      */
     public void sendAsyncRequest(Type requestType, Code requestCode) {
 
-        final ServerSetting serverSetting = getDevice();
+        final NetworkDevice networkDevice = getDevice();
 
-        if (serverSetting == null) {
+        if (networkDevice == null) {
             sendToast(R.string.no_server_configured);
             return;
         }
 
         final Request request = Request.newBuilder()
-                .setSecurityToken(serverSetting.getSecurityToken())
+                .setSecurityToken(networkDevice.getSecurityToken())
                 .setType(requestType).setCode(requestCode).build();
 
         if (request == null) {
@@ -412,15 +410,15 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     //
 
     @Override
-    public ServerSetting getDevice() {
+    public NetworkDevice getDevice() {
         return mSelectedDevice;
     }
 
     @Override
     public String getSecurityToken() {
-        ServerSetting settings = getDevice();
-        if (settings != null) {
-            return settings.getSecurityToken();
+        final NetworkDevice device = getDevice();
+        if (device != null) {
+            return device.getSecurityToken();
         }
 
         return getString(R.string.default_security_token);

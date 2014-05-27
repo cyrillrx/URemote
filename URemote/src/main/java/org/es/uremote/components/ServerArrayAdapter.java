@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.es.uremote.R;
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
  * @author Cyril Leroux
  * Created on 22/05/13.
  */
-public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
+public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
 
 	private final LayoutInflater mInflater;
 
@@ -28,10 +28,10 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 	 * Default constructor
 	 *
 	 * @param context The application context.
-	 * @param servers The list of {@link org.es.uremote.device.ServerSetting} to display.
+	 * @param devices The list of {@link org.es.uremote.device.NetworkDevice} to display.
 	 */
-	public ServerArrayAdapter(Context context, List<ServerSetting> servers) {
-		super(context, 0, servers);
+	public ServerArrayAdapter(Context context, List<NetworkDevice> devices) {
+		super(context, 0, devices);
 		mInflater = LayoutInflater.from(context);
 	}
 
@@ -63,13 +63,13 @@ public class ServerArrayAdapter extends ArrayAdapter<ServerSetting> {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		final ServerSetting server = getItem(position);
+		final NetworkDevice device = getItem(position);
 
-		holder.ivThumbnail.setImageDrawable(new ConnectedDeviceDrawable(server));
-		holder.tvName.setText(server.getName());
-		holder.tvLocalhost.setText(server.toStringLocal());
-		holder.tvRemoteHost.setText(server.toStringRemote());
-		holder.tvMacAddress.setText(server.getMacAddress());
+		holder.ivThumbnail.setImageDrawable(new ConnectedDeviceDrawable(device));
+		holder.tvName.setText(device.getName());
+		holder.tvLocalhost.setText(device.toStringLocal());
+		holder.tvRemoteHost.setText(device.toStringRemote());
+		holder.tvMacAddress.setText(device.getMacAddress());
 
 		return convertView;
 	}

@@ -11,8 +11,8 @@ import android.widget.Toast;
 
 import org.es.security.Md5;
 import org.es.uremote.R;
-import org.es.uremote.device.ServerSetting;
-import org.es.uremote.device.ServerSetting.ConnectionType;
+import org.es.uremote.device.NetworkDevice;
+import org.es.uremote.device.NetworkDevice.ConnectionType;
 import org.es.utils.Log;
 
 import static android.content.Intent.ACTION_DELETE;
@@ -100,16 +100,16 @@ public class ServerEditActivity extends Activity {
     }
 
     private void loadServer(Intent data) {
-        ServerSetting server = data.getParcelableExtra(EXTRA_SERVER_DATA);
-        if (server == null) {
+        NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
+        if (device == null) {
             finishActivity(Activity.RESULT_CANCELED);
         }
 
-        loadSimpleData(server);
-        splitLocalHost(server);
-        splitBroadcast(server);
-        splitRemoteHost(server);
-        splitMacAddress(server);
+        loadSimpleData(device);
+        splitLocalHost(device);
+        splitBroadcast(device);
+        splitRemoteHost(device);
+        splitMacAddress(device);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class ServerEditActivity extends Activity {
                 finish();
 
             case R.id.done:
-                ServerSetting.Builder builder = ServerSetting.newBuilder()
+                NetworkDevice.Builder builder = NetworkDevice.newBuilder()
                         .setName(getName())
                         .setLocalHost(getLocalHost())
                         .setLocalPort(getLocalPort())
@@ -163,45 +163,45 @@ public class ServerEditActivity extends Activity {
         }
     }
 
-    private void loadSimpleData(final ServerSetting server) {
-        mServerName.setText(server.getName().trim());
+    private void loadSimpleData(final NetworkDevice device) {
+        mServerName.setText(device.getName().trim());
 
-        mConnectionTimeout.setText(String.valueOf(server.getConnectionTimeout()));
-        mReadTimeout.setText(String.valueOf(server.getReadTimeout()));
+        mConnectionTimeout.setText(String.valueOf(device.getConnectionTimeout()));
+        mReadTimeout.setText(String.valueOf(device.getReadTimeout()));
     }
 
-    private void splitLocalHost(final ServerSetting server) {
-        String parts[] = server.getLocalHost().split("\\.");
+    private void splitLocalHost(final NetworkDevice device) {
+        String parts[] = device.getLocalHost().split("\\.");
         mLocalHost1.setText(parts[0]);
         mLocalHost2.setText(parts[1]);
         mLocalHost3.setText(parts[2]);
         mLocalHost4.setText(parts[3]);
 
-        mLocalPort.setText(String.valueOf(server.getLocalPort()));
+        mLocalPort.setText(String.valueOf(device.getLocalPort()));
     }
 
-    private void splitBroadcast(final ServerSetting server) {
-        String parts[] = server.getBroadcast().split("\\.");
+    private void splitBroadcast(final NetworkDevice device) {
+        String parts[] = device.getBroadcast().split("\\.");
         mBroadcast1.setText(parts[0]);
         mBroadcast2.setText(parts[1]);
         mBroadcast3.setText(parts[2]);
         mBroadcast4.setText(parts[3]);
 
-        mLocalPort.setText(String.valueOf(server.getLocalPort()));
+        mLocalPort.setText(String.valueOf(device.getLocalPort()));
     }
 
-    private void splitRemoteHost(final ServerSetting server) {
-        String parts[] = server.getRemoteHost().split("\\.");
+    private void splitRemoteHost(final NetworkDevice device) {
+        String parts[] = device.getRemoteHost().split("\\.");
         mRemoteHost1.setText(parts[0]);
         mRemoteHost2.setText(parts[1]);
         mRemoteHost3.setText(parts[2]);
         mRemoteHost4.setText(parts[3]);
 
-        mRemotePort.setText(String.valueOf(server.getRemotePort()));
+        mRemotePort.setText(String.valueOf(device.getRemotePort()));
     }
 
-    private void splitMacAddress(final ServerSetting server) {
-        String parts[] = server.getMacAddress().split("-");
+    private void splitMacAddress(final NetworkDevice device) {
+        String parts[] = device.getMacAddress().split("-");
         mMacAddress1.setText(parts[0]);
         mMacAddress2.setText(parts[1]);
         mMacAddress3.setText(parts[2]);

@@ -4,7 +4,7 @@ import android.test.InstrumentationTestCase;
 
 import junit.framework.Assert;
 
-import org.es.uremote.device.ServerSetting;
+import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.utils.Log;
 
@@ -18,13 +18,13 @@ public class TestRequestSender extends InstrumentationTestCase {
     private static final String TAG = "TestRequestSender";
     private static final String SECURITY_TOKEN = "123";
 
-    ServerSetting mDevice;
+    NetworkDevice mDevice;
 
 //    @Before
     @Override
     protected void setUp() throws Exception {
 
-        mDevice = ServerSetting.newBuilder()
+        mDevice = NetworkDevice.newBuilder()
                 .setName("TestDevice")
                 .setLocalHost("localhost")
                 .setLocalPort(10000)
@@ -35,7 +35,7 @@ public class TestRequestSender extends InstrumentationTestCase {
                 .setConnectionTimeout(500)
                 .setReadTimeout(500)
                 .setSecurityToken(SECURITY_TOKEN)
-                .setConnectionType(ServerSetting.ConnectionType.LOCAL)
+                .setConnectionType(NetworkDevice.ConnectionType.LOCAL)
                 .build();
     }
 

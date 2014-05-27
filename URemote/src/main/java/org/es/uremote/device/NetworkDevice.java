@@ -7,26 +7,25 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 /**
- * Parcelable class that holds server connection settings.
+ * Parcelable class that holds network device data (ip, mac address, etc.).
  *
  * @author Cyril Leroux
  *         Created on 19/05/13.
  */
-// TODO rename class to match ConnectedDevice pattern
-public class ServerSetting extends ConnectedDevice implements Parcelable {
+public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
 	public static final String FILENAME = "serverConfig.xml";
 
 	/** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
-	public static final Parcelable.Creator<ServerSetting> CREATOR = new Parcelable.Creator<ServerSetting>() {
+	public static final Parcelable.Creator<NetworkDevice> CREATOR = new Parcelable.Creator<NetworkDevice>() {
 		@Override
-		public ServerSetting createFromParcel(Parcel src) {
-			return new ServerSetting(src);
+		public NetworkDevice createFromParcel(Parcel src) {
+			return new NetworkDevice(src);
 		}
 
 		@Override
-		public ServerSetting[] newArray(int size) {
-			return new ServerSetting[size];
+		public NetworkDevice[] newArray(int size) {
+			return new NetworkDevice[size];
 		}
 	};
 
@@ -53,13 +52,13 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
      * @param securityToken
      * @param connectionType
 	 */
-	private ServerSetting(
-			final String name, final String localHost, final int localPort,
-			final String broadcastIp, final String remoteHost, final int remotePort,
-			final String macAddress,
-			final int connectionTimeout, final int readTimeout,
+	private NetworkDevice(
+            final String name, final String localHost, final int localPort,
+            final String broadcastIp, final String remoteHost, final int remotePort,
+            final String macAddress,
+            final int connectionTimeout, final int readTimeout,
             final String securityToken,
-			final ConnectionType connectionType) {
+            final ConnectionType connectionType) {
 
 		mName               = name;
 		mLocalHost          = localHost;
@@ -75,7 +74,7 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 	}
 
 	/** @param src */
-	public ServerSetting(final Parcel src) {
+	public NetworkDevice(final Parcel src) {
 		mName               = src.readString();
 		mLocalHost          = src.readString();
 		mLocalPort          = src.readInt();
@@ -94,7 +93,7 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
 	 *
 	 * @param server The server updated data.
 	 */
-	public void update(final ServerSetting server) {
+	public void update(final NetworkDevice server) {
 		mName               = server.getName();
 		mLocalHost          = server.getLocalHost();
 		mLocalPort          = server.getLocalPort();
@@ -241,10 +240,10 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
         }
 
         /**
-         * @return A fully loaded {@link ServerSetting} object.
+         * @return A fully loaded {@link NetworkDevice} object.
          * @throws Exception if the builder has not all the data to build the object.
          */
-        public ServerSetting build() throws Exception {
+        public NetworkDevice build() throws Exception {
 
             boolean error = false;
 
@@ -289,7 +288,7 @@ public class ServerSetting extends ConnectedDevice implements Parcelable {
                 throw new Exception("ServerSetting #build() - Can not build the Server :\n" + sb.toString());
             }
 
-            return new ServerSetting(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
+            return new NetworkDevice(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
         }
 
         public Builder setConnectionType(ConnectionType type) {
