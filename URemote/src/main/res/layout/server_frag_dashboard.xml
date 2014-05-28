@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="@">
+        android:padding="@dimen/viewpager_padding">
 
         <!-- First line of controls -->
 

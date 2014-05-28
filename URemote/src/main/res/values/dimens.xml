@@ -4,6 +4,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <dimen name="viewpager_padding">16dp</dimen>
+
     <dimen name="media_button_width">60dp</dimen>
     <dimen name="media_button_height">60dp</dimen>
 
