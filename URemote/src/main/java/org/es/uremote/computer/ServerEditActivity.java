@@ -3,10 +3,13 @@ package org.es.uremote.computer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.es.security.Md5;
@@ -26,7 +29,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  * @author Cyril Leroux
  *         Created on 07/06/13.
  */
-public class ServerEditActivity extends Activity {
+public class ServerEditActivity extends Activity implements TextWatcher {
 
     private static final String TAG = "EditServer";
 
@@ -94,22 +97,23 @@ public class ServerEditActivity extends Activity {
         mReadTimeout = (EditText) findViewById(R.id.read_timeout);
         mSecurityToken = (EditText) findViewById(R.id.security_token);
 
+        mMacAddress1.addTextChangedListener(this);
+        mMacAddress2.addTextChangedListener(this);
+        mMacAddress3.addTextChangedListener(this);
+        mMacAddress4.addTextChangedListener(this);
+        mMacAddress5.addTextChangedListener(this);
+        mMacAddress6.addTextChangedListener(this);
+        mConnectionTimeout.addTextChangedListener(this);
+        mReadTimeout.addTextChangedListener(this);
+
         if (ACTION_EDIT.equals(getIntent().getAction())) {
             loadServer(getIntent());
         }
     }
 
-    private void loadServer(Intent data) {
-        NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
-        if (device == null) {
-            finishActivity(Activity.RESULT_CANCELED);
-        }
-
-        loadSimpleData(device);
-        splitLocalHost(device);
-        splitBroadcast(device);
-        splitRemoteHost(device);
-        splitMacAddress(device);
+    @Override
+    public void onBackPressed() {
+        save();
     }
 
     @Override
@@ -131,36 +135,81 @@ public class ServerEditActivity extends Activity {
                 finish();
 
             case R.id.done:
-                NetworkDevice.Builder builder = NetworkDevice.newBuilder()
-                        .setName(getName())
-                        .setLocalHost(getLocalHost())
-                        .setLocalPort(getLocalPort())
-                        .setBroadcast(getBroadcast())
-                        .setRemoteHost(getRemoteHost())
-                        .setRemotePort(getRemotePort())
-                        .setMacAddress(getMacAddress())
-                        .setConnectionTimeout(getConnectionTimeout())
-                        .setReadTimeout(getReadTimeout())
-                        .setSecurityToken(getSecurityToken())
-                        .setConnectionType(getConnectionType());
-
-                try {
-                    Intent saveIntent = new Intent();
-                    saveIntent.putExtra(EXTRA_SERVER_ACTION, ACTION_SAVE);
-                    saveIntent.putExtra(EXTRA_SERVER_DATA, builder.build());
-                    saveIntent.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
-                    setResult(RESULT_OK, saveIntent);
-                    finish();
-
-                } catch (Exception e) {
-                    Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
-                    Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
-                }
+                save();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void loadServer(Intent data) {
+        NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
+        if (device == null) {
+            finishActivity(Activity.RESULT_CANCELED);
+        }
+
+        loadSimpleData(device);
+        splitLocalHost(device);
+        splitBroadcast(device);
+        splitRemoteHost(device);
+        splitMacAddress(device);
+    }
+
+    private void save() {
+        NetworkDevice.Builder builder = NetworkDevice.newBuilder()
+                .setName(getName())
+                .setLocalHost(getLocalHost())
+                .setLocalPort(getLocalPort())
+                .setBroadcast(getBroadcast())
+                .setRemoteHost(getRemoteHost())
+                .setRemotePort(getRemotePort())
+                .setMacAddress(getMacAddress())
+                .setConnectionTimeout(getConnectionTimeout())
+                .setReadTimeout(getReadTimeout())
+                .setSecurityToken(getSecurityToken())
+                .setConnectionType(getConnectionType());
+
+        try {
+            Intent saveIntent = new Intent();
+            saveIntent.putExtra(EXTRA_SERVER_ACTION, ACTION_SAVE);
+            saveIntent.putExtra(EXTRA_SERVER_DATA, builder.build());
+            saveIntent.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
+            setResult(RESULT_OK, saveIntent);
+            finish();
+            Toast.makeText(getApplicationContext(), R.string.server_saved, Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
+            Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String extractString(final TextView textView) {
+
+        final Editable editable = textView.getEditableText();
+        if (editable != null) {
+            return editable.toString();
+        }
+        return null;
+    }
+
+    private void clearTextView(final TextView textView) {
+        final Editable editable = textView.getEditableText();
+        if (editable != null) {
+            editable.clear();
+        }
+    }
+
+    private String joinParts(char separator, TextView... textViews) {
+
+        StringBuilder sb = new StringBuilder();
+        for (TextView textView : textViews) {
+            sb.append(extractString(textView));
+            sb.append(separator);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
     }
 
     private void loadSimpleData(final NetworkDevice device) {
@@ -211,90 +260,98 @@ public class ServerEditActivity extends Activity {
     }
 
     private String getName() {
-        return mServerName.getEditableText().toString();
+        return extractString(mServerName);
     }
 
     private String getLocalHost() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(mLocalHost1.getEditableText().toString());
-        sb.append(".");
-        sb.append(mLocalHost2.getEditableText().toString());
-        sb.append(".");
-        sb.append(mLocalHost3.getEditableText().toString());
-        sb.append(".");
-        sb.append(mLocalHost4.getEditableText().toString());
-        return sb.toString();
+        return joinParts('.', mLocalHost1, mLocalHost2, mLocalHost3, mLocalHost4);
     }
 
     private String getBroadcast() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(mBroadcast1.getEditableText().toString());
-        sb.append(".");
-        sb.append(mBroadcast2.getEditableText().toString());
-        sb.append(".");
-        sb.append(mBroadcast3.getEditableText().toString());
-        sb.append(".");
-        sb.append(mBroadcast4.getEditableText().toString());
-        return sb.toString();
+        return joinParts('.', mBroadcast1, mBroadcast2, mBroadcast3, mBroadcast4);
     }
 
     private int getLocalPort() {
-        return Integer.valueOf(mLocalPort.getEditableText().toString());
+        return Integer.valueOf(extractString(mLocalPort));
     }
 
     private String getRemoteHost() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(mRemoteHost1.getEditableText().toString());
-        sb.append(".");
-        sb.append(mRemoteHost2.getEditableText().toString());
-        sb.append(".");
-        sb.append(mRemoteHost3.getEditableText().toString());
-        sb.append(".");
-        sb.append(mRemoteHost4.getEditableText().toString());
-        return sb.toString();
+        return joinParts('.', mRemoteHost1, mRemoteHost2, mRemoteHost3, mRemoteHost4);
     }
 
     private int getRemotePort() {
-        return Integer.valueOf(mRemotePort.getEditableText().toString());
+        return Integer.valueOf(extractString(mRemotePort));
     }
 
     private String getMacAddress() {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(mMacAddress1.getEditableText().toString());
-        sb.append("-");
-        sb.append(mMacAddress2.getEditableText().toString());
-        sb.append("-");
-        sb.append(mMacAddress3.getEditableText().toString());
-        sb.append("-");
-        sb.append(mMacAddress4.getEditableText().toString());
-        sb.append("-");
-        sb.append(mMacAddress5.getEditableText().toString());
-        sb.append("-");
-        sb.append(mMacAddress6.getEditableText().toString());
-        return sb.toString();
+        return joinParts('-',
+                mMacAddress1, mMacAddress2, mMacAddress3,
+                mMacAddress4, mMacAddress5, mMacAddress6);
     }
 
     private int getConnectionTimeout() {
-        return Integer.valueOf(mConnectionTimeout.getEditableText().toString());
+        return Integer.valueOf(extractString(mConnectionTimeout));
     }
 
     private int getReadTimeout() {
-        return Integer.valueOf(mReadTimeout.getEditableText().toString());
+        return Integer.valueOf(extractString(mReadTimeout));
     }
 
     /**
      * @return The encoded (MD5) security token.
      */
     private String getSecurityToken() {
-        return Md5.encode(mSecurityToken.getEditableText().toString());
+        return Md5.encode(extractString(mSecurityToken));
     }
 
     private ConnectionType getConnectionType() {
         // TODO load from IHM
         return ConnectionType.LOCAL;
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (editable.length() != 2) {
+            return;
+        }
+        if (editable == mMacAddress1.getEditableText()) {
+            clearTextView(mMacAddress2);
+            mMacAddress2.requestFocus();
+
+        } else if (editable == mMacAddress2.getEditableText()) {
+            clearTextView(mMacAddress3);
+            mMacAddress3.requestFocus();
+
+        } else if (editable == mMacAddress3.getEditableText()) {
+            clearTextView(mMacAddress4);
+            mMacAddress4.requestFocus();
+
+        } else if (editable == mMacAddress4.getEditableText()) {
+            clearTextView(mMacAddress5);
+            mMacAddress5.requestFocus();
+
+        } else if (editable == mMacAddress5.getEditableText()) {
+            clearTextView(mMacAddress6);
+            mMacAddress6.requestFocus();
+
+        } else if (editable == mMacAddress6.getEditableText()) {
+            mConnectionTimeout.requestFocus();
+
+        } else if (editable == mConnectionTimeout.getEditableText()) {
+            mReadTimeout.requestFocus();
+
+        } else if (editable == mReadTimeout.getEditableText()) {
+            mSecurityToken.requestFocus();
+        }
     }
 }
