@@ -133,6 +133,11 @@ public class ServerEditActivity extends Activity implements TextWatcher {
                 deleteIntent.putExtra(EXTRA_SERVER_ID, getIntent().getIntExtra(EXTRA_SERVER_ID, -1));
                 setResult(RESULT_OK, deleteIntent);
                 finish();
+                return true;
+
+            case R.id.cancel:
+                finish();
+                return true;
 
             case R.id.done:
                 save();
@@ -185,6 +190,11 @@ public class ServerEditActivity extends Activity implements TextWatcher {
         }
     }
 
+    /**
+     * Null safe method to extract the text from a TextView.
+     * @param textView
+     * @return The nested text.
+     */
     private String extractString(final TextView textView) {
 
         final Editable editable = textView.getEditableText();
@@ -194,6 +204,10 @@ public class ServerEditActivity extends Activity implements TextWatcher {
         return null;
     }
 
+    /**
+     * Null safe method to clear the tex of a TextView.
+     * @param textView The TextView to clear.
+     */
     private void clearTextView(final TextView textView) {
         final Editable editable = textView.getEditableText();
         if (editable != null) {
@@ -201,6 +215,13 @@ public class ServerEditActivity extends Activity implements TextWatcher {
         }
     }
 
+    /**
+     * Null safe method that joins TextViews nested text with a separator.
+     * Convenience method to build ip and mac addresses.
+     * @param separator
+     * @param textViews
+     * @return
+     */
     private String joinParts(char separator, TextView... textViews) {
 
         StringBuilder sb = new StringBuilder();
@@ -214,7 +235,6 @@ public class ServerEditActivity extends Activity implements TextWatcher {
 
     private void loadSimpleData(final NetworkDevice device) {
         mServerName.setText(device.getName().trim());
-
         mConnectionTimeout.setText(String.valueOf(device.getConnectionTimeout()));
         mReadTimeout.setText(String.valueOf(device.getReadTimeout()));
     }
