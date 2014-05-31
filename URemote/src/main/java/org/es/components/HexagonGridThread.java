@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
 import org.es.graphics.Hexagon;
@@ -23,7 +25,6 @@ public class HexagonGridThread extends DrawingThread {
 
     private Hexagon[] mHexagon = new Hexagon[4];
     private boolean mIsTouched = false;
-
 
     public HexagonGridThread(SurfaceHolder surfaceHolder, Context context) {
         super(surfaceHolder, context);
@@ -48,32 +49,29 @@ public class HexagonGridThread extends DrawingThread {
 
         boolean updated = false;
 
-        while (!mEventQueue.isEmpty()) {
-            processEvent(mEventQueue.poll());
+        while (hasNext()) {
+            processEvent(pollInputEvent());
         }
 
         return updated;
     }
 
     @Override
-    protected void processEvent(UserEvent event) {
+    protected void processEvent(MotionEvent event) {
 
-        final int keyCode = event.getKeyCode();
-        final int action = event.getAction();
+        final int action = event.getActionMasked();
 
-        if (keyCode == UserEvent.KEYCODE_TOUCH) {
-            if (action == UserEvent.ACTION_UP) {
-                mIsTouched = false;
-            } else {
-                mIsTouched = mHexagon[0].pointInHexagon(event.getX(), event.getY());
-            }
-        }
+        mIsTouched = (action == MotionEvent.ACTION_DOWN) && mHexagon[0].pointInHexagon(event.getX(), event.getY()) ||
+                (action == MotionEvent.ACTION_MOVE) && mIsTouched && mHexagon[0].pointInHexagon(event.getX(), event.getY());
     }
+
+    @Override
+    protected void processEvent(KeyEvent event) { }
 
     @Override
     protected void doDraw(Canvas canvas) {
 
-        final float centerX = canvas.getWidth()  / 2;
+        final float centerX = canvas.getWidth() / 2;
         final float centerY = canvas.getHeight() / 2;
 
         // Draw the hexagons

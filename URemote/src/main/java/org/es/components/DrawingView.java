@@ -7,9 +7,10 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 /**
- * Parent class for drawing views
- * <p/>
- * Created by Cyril on 22/09/13.
+ * Parent class for drawing views.
+ *
+ * @author Cyril Leroux
+ *         Created on 22/09/13.
  */
 public abstract class DrawingView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -20,7 +21,7 @@ public abstract class DrawingView extends SurfaceView implements SurfaceHolder.C
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        SurfaceHolder holder = getHolder();
+        final SurfaceHolder holder = getHolder();
         holder.addCallback(this);
 
         mThread = createDrawingThread(holder, context);
@@ -68,7 +69,11 @@ public abstract class DrawingView extends SurfaceView implements SurfaceHolder.C
         }
     }
 
-    protected float getCenterX() { return (float) getWidth() / 2f; }
+    protected float getCenterX() {
+        return (float) getWidth() / 2f;
+    }
 
-    protected float getCenterY() { return (float) getHeight() / 2f; }
+    protected float getCenterY() {
+        return (float) getHeight() / 2f;
+    }
 }
