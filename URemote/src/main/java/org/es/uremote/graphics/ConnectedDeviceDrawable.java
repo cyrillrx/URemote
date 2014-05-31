@@ -48,7 +48,6 @@ public class ConnectedDeviceDrawable extends Drawable {
         mPaint = new Paint();
         mPaint.setARGB(255, 70, 200, 200);
         mPaint.setAntiAlias(true);
-//        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mPaint.setStrokeWidth(STROKE_WIDTH);
 
         // Text : first letter of the device name
@@ -58,17 +57,12 @@ public class ConnectedDeviceDrawable extends Drawable {
 
         // Text bounds
         mTextBounds = new Rect();
-//        mPaint.setTextSize(TEXT_SIZE);
-//        mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
 
         // Subscript bounds
         mSubscriptBounds = new Rect();
-//        mPaint.setTextSize(SUBSCRIPT_SIZE);
-//        mPaint.getTextBounds(mSubscript, 0, mSubscript.length(), mSubscriptBounds);
 
         // Superscript bounds
         mSuperscriptBounds = new Rect();
-//        mPaint.getTextBounds(mSuperscript, 0, mSuperscript.length(), mSuperscriptBounds);
     }
 
     @Override
@@ -115,24 +109,18 @@ public class ConnectedDeviceDrawable extends Drawable {
         final float innerHexagonSide = canvas.getHeight() * INNER_HEXAGON_SIDE_COEF;
         Hexagon innerHex = new Hexagon(innerHexagonSide);
         innerHex.moveCenterTo(centerX, centerY);
-        Random rand = new Random();
-        innerHex.drawSides(canvas, mPaint, new int[]{rand.nextInt(5), rand.nextInt(5)});
+        final Random rand = new Random();
+        innerHex.drawSides(canvas, mPaint, rand.nextInt(5), rand.nextInt(5));
     }
 
     @Override
-    public void setAlpha(int alpha) {
-        mPaint.setAlpha(alpha);
-    }
+    public void setAlpha(int alpha) { mPaint.setAlpha(alpha); }
 
     @Override
-    public void setColorFilter(ColorFilter cf) {
-        mPaint.setColorFilter(cf);
-    }
+    public void setColorFilter(ColorFilter cf) { mPaint.setColorFilter(cf); }
 
     @Override
-    public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;
-    }
+    public int getOpacity() { return PixelFormat.TRANSLUCENT; }
 
 
     protected String getText(final ConnectedDevice device) {
@@ -150,7 +138,5 @@ public class ConnectedDeviceDrawable extends Drawable {
         return "";
     }
 
-    protected String getSuperscript(final ConnectedDevice device) {
-        return "";
-    }
+    protected String getSuperscript(final ConnectedDevice device) { return ""; }
 }

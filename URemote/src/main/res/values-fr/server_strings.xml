@@ -25,7 +25,7 @@
 	<string name="mac_address">Adresse Mac</string>
 
 	<!-- Messages -->
-	<string name="no_server_configured">Aucun server configuré</string>
+	<string name="no_device_configured">Aucun server configuré</string>
 	<string name="select_server">Sélectionner un serveur</string>
 	<string name="server_loading">Chargement du serveur…</string>
 	<string name="server_saved">Configuration sauvegardée</string>

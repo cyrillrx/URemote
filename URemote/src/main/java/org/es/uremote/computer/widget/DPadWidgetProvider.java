@@ -171,7 +171,7 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     public static void sendAsyncRequest(NetworkDevice device, Context context, Type requestType, Code requestCode) {
 
         if (device == null) {
-            Toast.makeText(context, R.string.no_server_configured, LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.no_device_configured, LENGTH_SHORT).show();
             return;
         }
 

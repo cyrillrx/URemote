@@ -24,7 +24,7 @@
 	<string name="mac_address">Mac address</string>
 
 	<!-- Messages -->
-	<string name="no_server_configured">No server configured.</string>
+	<string name="no_device_configured">No device configured.</string>
 	<string name="select_server">Select a server</string>
 	<string name="server_loading">Loading server…</string>
 	<string name="server_saved">Server settings saved.</string>

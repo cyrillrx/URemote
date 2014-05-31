@@ -149,7 +149,7 @@ public class Hexagon extends Polygon {
      * @param paint The paint that holds the style and color to draw.
      * @param ids Ids of the sides to draw (value range is 0 to 5).
      */
-    public void drawSides(Canvas canvas, Paint paint, int[] ids) {
+    public void drawSides(Canvas canvas, Paint paint, int... ids) {
 
         PointF[] coordinates = getCoordinates();
         final int count = coordinates.length;

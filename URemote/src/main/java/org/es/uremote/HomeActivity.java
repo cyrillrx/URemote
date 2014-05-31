@@ -194,7 +194,7 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
                 if (resultCode == Activity.RESULT_OK) {
                     final NetworkDevice device = data.getParcelableExtra(EXTRA_SERVER_DATA);
                     if (device == null) {
-                        Toast.makeText(getApplicationContext(), R.string.no_server_configured, LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.no_device_configured, LENGTH_SHORT).show();
                         return;
                     }
                     startComputerRemote(device);

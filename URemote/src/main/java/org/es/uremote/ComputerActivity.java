@@ -19,7 +19,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +26,7 @@ import org.es.uremote.computer.KeyboardListener;
 import org.es.uremote.computer.fragment.FragAdmin;
 import org.es.uremote.computer.fragment.FragDashboard;
 import org.es.uremote.computer.fragment.RemoteExplorerFragment;
+import org.es.uremote.device.ConnectedDevice;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
@@ -34,6 +34,7 @@ import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
 import org.es.uremote.exchange.Message.Response.ReturnCode;
 import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
@@ -66,36 +67,37 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     private RemoteExplorerFragment mExplorerFragment;
 
     private TextView mTvServerState;
-    private ProgressBar mPbConnection;
     private ImageView mProgressSignal;
 
-    private Toast mToast = null;
+    private Toast mToast;
 
-    private NetworkDevice mSelectedDevice = null;
-    private KeyboardView mKeyboardView = null;
-    private KeyboardView mExtendedKeyboardView = null;
+    private NetworkDevice mSelectedDevice;
+    private KeyboardView mKeyboardView;
+    private KeyboardView mExtendedKeyboardView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
 
+        mSelectedDevice = initDevice();
+        final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice);
+
         // ActionBar configuration
-        ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
+            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setCustomView(R.layout.computer_actionbar);
-            mProgressSignal = (ImageView) actionBar.getCustomView().findViewById(R.id.signalIndicator);
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
 
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-            // Enable Home as Up
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            ((ImageView) actionBar.getCustomView().findViewById(R.id.deviceIcon)).setImageDrawable(deviceIcon);
+            mProgressSignal = (ImageView) actionBar.getCustomView().findViewById(R.id.signalIndicator);
+
         }
 
         mTvServerState = (TextView) findViewById(R.id.tvServerState);
-        mPbConnection = (ProgressBar) findViewById(R.id.pbConnection);
 
-        initDevice();
         initKeyboard();
 
         // Fragment to use in each tab
@@ -116,12 +118,13 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         fragments.add(mFragDashboard);
         fragments.add(mExplorerFragment);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
-        ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
+        viewPager.setOffscreenPageLimit(PAGES_COUNT);
+        final ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
 
         if (savedInstanceState != null) {
-            final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 1);
+            final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 0);
             if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
                 actionBar.setSelectedNavigationItem(newTabIndex);
             }
@@ -140,20 +143,21 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
      * <li>Update server info TextView.</li>
      * </ul>
      */
-    protected void initDevice() {
+    protected NetworkDevice initDevice() {
 
         // Server info default value.
         final TextView tvServerInfo = (TextView) findViewById(R.id.tvServerInfos);
-        tvServerInfo.setText(R.string.no_server_configured);
+        tvServerInfo.setText(R.string.no_device_configured);
 
-        mSelectedDevice = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
+        final NetworkDevice device = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
         // Quit the activity if the device is not set
-        if (mSelectedDevice == null) {
+        if (device == null) {
             finish();
         }
 
         sendAsyncRequest(Type.SIMPLE, Code.PING);
-        tvServerInfo.setText(mSelectedDevice.toString());
+        tvServerInfo.setText(device.toString());
+        return device;
     }
 
     /** Initializes custom keyboard elements. */
@@ -261,16 +265,12 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     // Custom keyboard methods
     //
 
-    /**
-     * @return true if at least one of the custom keyboards is visible.
-     */
+    /** @return true if at least one of the custom keyboards is visible. */
     private boolean isCustomKeyboardVisible() {
         return mKeyboardView.getVisibility() == View.VISIBLE || mExtendedKeyboardView.getVisibility() == View.VISIBLE;
     }
 
-    /**
-     * Show the custom keyboard.
-     */
+    /** Show the custom keyboard. */
     private void showCustomKeyboard() {
 
         ObjectAnimator.ofFloat(mKeyboardView, "translationY", 100f, 0f).setDuration(150).start();
@@ -284,9 +284,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         mExtendedKeyboardView.setEnabled(true);
     }
 
-    /**
-     * Hide the custom keyboard.
-     */
+    /** Hide the custom keyboard. */
     private void hideCustomKeyboard() {
 
         mKeyboardView.setVisibility(View.GONE);
@@ -318,7 +316,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         private final List<Fragment> mFragments;
 
         /**
-         * @param fm The fragment manager
+         * @param fm        The fragment manager
          * @param fragments The fragments list.
          */
         public ComputerPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
@@ -343,15 +341,15 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
      */
     public void sendAsyncRequest(Type requestType, Code requestCode) {
 
-        final NetworkDevice networkDevice = getDevice();
+        final ConnectedDevice device = getDevice();
 
-        if (networkDevice == null) {
-            sendToast(R.string.no_server_configured);
+        if (device == null) {
+            sendToast(R.string.no_device_configured);
             return;
         }
 
         final Request request = Request.newBuilder()
-                .setSecurityToken(networkDevice.getSecurityToken())
+                .setSecurityToken(device.getSecurityToken())
                 .setType(requestType).setCode(requestCode).build();
 
         if (request == null) {
@@ -366,11 +364,11 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
      * Update the connection state of the UI
      *
      * @param state The state of the connection :
-     * <ul>
-     * <li>{@link Constants#STATE_OK}</li>
-     * <li>{@link Constants#STATE_KO}</li>
-     * <li>{@link Constants#STATE_CONNECTING}</li>
-     * </ul>
+     *              <ul>
+     *              <li>{@link Constants#STATE_OK}</li>
+     *              <li>{@link Constants#STATE_KO}</li>
+     *              <li>{@link Constants#STATE_CONNECTING}</li>
+     *              </ul>
      */
     public void updateConnectionState(int state) {
         int drawableResId;
@@ -401,7 +399,6 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         imgLeft.setBounds(0, 0, 24, 24);
         mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
         mTvServerState.setText(messageResId);
-        mPbConnection.setVisibility(visibility);
         mProgressSignal.setVisibility(visibility);
     }
 
@@ -410,13 +407,11 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     //
 
     @Override
-    public NetworkDevice getDevice() {
-        return mSelectedDevice;
-    }
+    public NetworkDevice getDevice() { return mSelectedDevice; }
 
     @Override
     public String getSecurityToken() {
-        final NetworkDevice device = getDevice();
+        final ConnectedDevice device = getDevice();
         if (device != null) {
             return device.getSecurityToken();
         }

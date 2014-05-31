@@ -29,7 +29,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  * @author Cyril Leroux
  *         Created on 07/06/13.
  */
-public class ServerEditActivity extends Activity implements TextWatcher {
+public class ServerEditActivity extends Activity {
 
     private static final String TAG = "EditServer";
 
@@ -97,14 +97,27 @@ public class ServerEditActivity extends Activity implements TextWatcher {
         mReadTimeout = (EditText) findViewById(R.id.read_timeout);
         mSecurityToken = (EditText) findViewById(R.id.security_token);
 
-        mMacAddress1.addTextChangedListener(this);
-        mMacAddress2.addTextChangedListener(this);
-        mMacAddress3.addTextChangedListener(this);
-        mMacAddress4.addTextChangedListener(this);
-        mMacAddress5.addTextChangedListener(this);
-        mMacAddress6.addTextChangedListener(this);
-        mConnectionTimeout.addTextChangedListener(this);
-        mReadTimeout.addTextChangedListener(this);
+        mMacAddress1.addTextChangedListener(mMacAddressWatcher);
+        mMacAddress2.addTextChangedListener(mMacAddressWatcher);
+        mMacAddress3.addTextChangedListener(mMacAddressWatcher);
+        mMacAddress4.addTextChangedListener(mMacAddressWatcher);
+        mMacAddress5.addTextChangedListener(mMacAddressWatcher);
+        mMacAddress6.addTextChangedListener(mMacAddressWatcher);
+
+        mLocalHost1.addTextChangedListener(mIpAddressWatcher);
+        mLocalHost2.addTextChangedListener(mIpAddressWatcher);
+        mLocalHost3.addTextChangedListener(mIpAddressWatcher);
+        mLocalHost4.addTextChangedListener(mIpAddressWatcher);
+
+        mBroadcast1.addTextChangedListener(mIpAddressWatcher);
+        mBroadcast2.addTextChangedListener(mIpAddressWatcher);
+        mBroadcast3.addTextChangedListener(mIpAddressWatcher);
+        mBroadcast4.addTextChangedListener(mIpAddressWatcher);
+
+        mRemoteHost1.addTextChangedListener(mIpAddressWatcher);
+        mRemoteHost2.addTextChangedListener(mIpAddressWatcher);
+        mRemoteHost3.addTextChangedListener(mIpAddressWatcher);
+        mRemoteHost4.addTextChangedListener(mIpAddressWatcher);
 
         if (ACTION_EDIT.equals(getIntent().getAction())) {
             loadServer(getIntent());
@@ -192,6 +205,7 @@ public class ServerEditActivity extends Activity implements TextWatcher {
 
     /**
      * Null safe method to extract the text from a TextView.
+     *
      * @param textView
      * @return The nested text.
      */
@@ -206,6 +220,7 @@ public class ServerEditActivity extends Activity implements TextWatcher {
 
     /**
      * Null safe method to clear the tex of a TextView.
+     *
      * @param textView The TextView to clear.
      */
     private void clearTextView(final TextView textView) {
@@ -218,6 +233,7 @@ public class ServerEditActivity extends Activity implements TextWatcher {
     /**
      * Null safe method that joins TextViews nested text with a separator.
      * Convenience method to build ip and mac addresses.
+     *
      * @param separator
      * @param textViews
      * @return
@@ -329,49 +345,112 @@ public class ServerEditActivity extends Activity implements TextWatcher {
         return ConnectionType.LOCAL;
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    private final TextWatcher mMacAddressWatcher = new TextWatcher() {
+        
+        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        
+        @Override
+        public void afterTextChanged(Editable editable) {
 
-    }
+            if (editable.length() != 2) {
+                return;
+            }
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Local host
 
-    }
+            if (editable == mMacAddress1.getEditableText()) {
+                clearTextView(mMacAddress2);
+                mMacAddress2.requestFocus();
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (editable.length() != 2) {
-            return;
+            } else if (editable == mMacAddress2.getEditableText()) {
+                clearTextView(mMacAddress3);
+                mMacAddress3.requestFocus();
+
+            } else if (editable == mMacAddress3.getEditableText()) {
+                clearTextView(mMacAddress4);
+                mMacAddress4.requestFocus();
+
+            } else if (editable == mMacAddress4.getEditableText()) {
+                clearTextView(mMacAddress5);
+                mMacAddress5.requestFocus();
+
+            } else if (editable == mMacAddress5.getEditableText()) {
+                clearTextView(mMacAddress6);
+                mMacAddress6.requestFocus();
+
+            } else if (editable == mMacAddress6.getEditableText()) {
+                mConnectionTimeout.requestFocus();
+            }
         }
-        if (editable == mMacAddress1.getEditableText()) {
-            clearTextView(mMacAddress2);
-            mMacAddress2.requestFocus();
+    };
+    
+    private final TextWatcher mIpAddressWatcher = new TextWatcher() {
 
-        } else if (editable == mMacAddress2.getEditableText()) {
-            clearTextView(mMacAddress3);
-            mMacAddress3.requestFocus();
+        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+        @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
-        } else if (editable == mMacAddress3.getEditableText()) {
-            clearTextView(mMacAddress4);
-            mMacAddress4.requestFocus();
+        @Override
+        public void afterTextChanged(Editable editable) {
 
-        } else if (editable == mMacAddress4.getEditableText()) {
-            clearTextView(mMacAddress5);
-            mMacAddress5.requestFocus();
+            if (editable.length() != 3) {
+                return;
+            }
 
-        } else if (editable == mMacAddress5.getEditableText()) {
-            clearTextView(mMacAddress6);
-            mMacAddress6.requestFocus();
+            // Local host
 
-        } else if (editable == mMacAddress6.getEditableText()) {
-            mConnectionTimeout.requestFocus();
+            if (editable == mLocalHost1.getEditableText()) {
+                clearTextView(mLocalHost2);
+                mLocalHost2.requestFocus();
 
-        } else if (editable == mConnectionTimeout.getEditableText()) {
-            mReadTimeout.requestFocus();
+            } else if (editable == mLocalHost2.getEditableText()) {
+                clearTextView(mLocalHost3);
+                mLocalHost3.requestFocus();
 
-        } else if (editable == mReadTimeout.getEditableText()) {
-            mSecurityToken.requestFocus();
+            } else if (editable == mLocalHost3.getEditableText()) {
+                clearTextView(mLocalHost4);
+                mLocalHost4.requestFocus();
+
+            } else if (editable == mLocalHost4.getEditableText()) {
+                clearTextView(mLocalPort);
+                mLocalPort.requestFocus();
+
+                // Broadcast address
+
+            } else if (editable == mBroadcast1.getEditableText()) {
+                clearTextView(mBroadcast2);
+                mBroadcast2.requestFocus();
+
+            } else if (editable == mBroadcast2.getEditableText()) {
+                clearTextView(mBroadcast3);
+                mBroadcast3.requestFocus();
+
+            } else if (editable == mBroadcast3.getEditableText()) {
+                clearTextView(mBroadcast4);
+                mBroadcast4.requestFocus();
+
+            } else if (editable == mBroadcast4.getEditableText()) {
+                clearTextView(mRemoteHost1);
+                mRemoteHost1.requestFocus();
+
+                // Remote host
+
+            } else if (editable == mRemoteHost1.getEditableText()) {
+                clearTextView(mRemoteHost2);
+                mRemoteHost2.requestFocus();
+
+            } else if (editable == mRemoteHost2.getEditableText()) {
+                clearTextView(mRemoteHost3);
+                mRemoteHost3.requestFocus();
+
+            } else if (editable == mRemoteHost3.getEditableText()) {
+                clearTextView(mRemoteHost4);
+                mRemoteHost4.requestFocus();
+
+            } else if (editable == mRemoteHost4.getEditableText()) {
+                clearTextView(mRemotePort);
+                mRemotePort.requestFocus();
+            }
         }
-    }
+    };
 }
