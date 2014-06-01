@@ -1,67 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			 android:layout_width="match_parent"
-			 android:layout_height="match_parent"
-			 android:gravity="center">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
 
-	<Space
-			android:layout_height="0px"
-			android:layout_weight="1" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
-	<TableRow
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-		<Button
-				android:id="@+id/cmdWakeOnLan"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/wol"
-				android:text="@string/cmd_wake_on_lan" />
+            <Button
+                android:id="@+id/cmdWakeOnLan"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/wol"
+                android:text="@string/cmd_wake_on_lan" />
 
-		<Button
-				android:id="@+id/cmdShutdown"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/shutdown"
-				android:text="@string/cmd_shutdown" />
-	</TableRow>
+            <Button
+                android:id="@+id/cmdShutdown"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/shutdown"
+                android:text="@string/cmd_shutdown" />
+        </TableRow>
 
-	<TableRow
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-		<Button
-				android:id="@+id/cmdKillServer"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/force_quit"
-				android:text="@string/cmd_kill_server" />
+            <Button
+                android:id="@+id/cmdKillServer"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/force_quit"
+                android:text="@string/cmd_kill_server" />
 
-		<Button
-				android:id="@+id/cmdAiMute"
-				style="@style/command_button"
-				android:layout_width="0dp"
-				android:layout_weight="1"
-				android:drawableTop="@drawable/ai_mute"
-				android:text="@string/cmd_ai_mute" />
-	</TableRow>
+            <Button
+                android:id="@+id/cmdAiMute"
+                style="@style/command_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/ai_mute"
+                android:text="@string/cmd_ai_mute" />
+        </TableRow>
 
-	<Button
-			android:id="@+id/cmdLock"
-			style="@style/command_button"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:drawableTop="@drawable/lock"
-			android:text="@string/cmd_lock" />
+        <Button
+            android:id="@+id/cmdLock"
+            style="@style/command_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:drawableTop="@drawable/lock"
+            android:text="@string/cmd_lock" />
 
-	<Space
-			android:layout_height="0px"
-			android:layout_weight="1" />
+    </TableLayout>
 
-</TableLayout>
+    <LinearLayout
+        android:id="@+id/consoleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="@android:color/background_dark"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Console"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="25sp" />
+
+        <View
+            android:layout_width="150dp"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvConsole"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:maxLines="4"
+            android:singleLine="false"
+            android:text="klsdjflskdjflm, sdfjlksdf, sdlfkjsldfkj,\n sdlfkjslkdfj, slkdfjlskjdflskdjf,\n sldfkjslkfj, sdlfkjslkfj, sdflkjsdflkj"
+            android:textColor="@android:color/darker_gray" />
+    </LinearLayout>
+
+</LinearLayout>
