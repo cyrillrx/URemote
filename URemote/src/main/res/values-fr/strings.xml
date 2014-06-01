@@ -57,8 +57,6 @@
     <string name="msg_null_request">La requête est null</string>
     <string name="confirm_kill_server">Voulez-vous vraiment tuer le serveur ?</string>
     <string name="confirm_command">Confirmez la commande ?</string>
-    <string name="action_image_description">Icône de l\'action</string>
-    <string name="server_image_description">Icône du serveur</string>
     <string name="filemanager_image_description">Image représentant le fichier ou le répertoire</string>
     <string name="filemanager_empty_directory">Ce répertoire ne contient aucun fichier.</string>
     <string name="power">Démarrer</string>
@@ -67,5 +65,9 @@
     <string name="progress">0%</string>
     <string name="no_content">Aucun élément à afficher</string>
     <string name="new_server">Nouveau serveur…</string>
+
+    <string name="action_image_description">Icône de l\'action</string>
+    <string name="device_image_description">Icône du serveur</string>
+    <string name="signal_indicator_image_description">Indicateur de signal</string>
 
 </resources>

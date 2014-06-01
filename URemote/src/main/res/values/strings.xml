@@ -57,8 +57,6 @@
     <string name="msg_no_path_defined">Can\'t browse the files. No path has been defined.</string>
     <string name="confirm_kill_server">You are about to kill the server. Would you like to continue?</string>
     <string name="confirm_command">Confirm the command?</string>
-    <string name="action_image_description">Action icon</string>
-    <string name="server_image_description">Server icon</string>
     <string name="filemanager_image_description">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
     <string name="power">Power</string>
@@ -67,5 +65,9 @@
     <string name="progress">0%</string>
     <string name="no_content">No item to display</string>
     <string name="new_server">New server…</string>
+
+    <string name="action_image_description">Action icon</string>
+    <string name="device_image_description">Device icon</string>
+    <string name="signal_indicator_image_description">Signal indicator</string>
 
 </resources>

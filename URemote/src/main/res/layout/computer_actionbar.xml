@@ -11,16 +11,24 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_gravity="left|center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:adjustViewBounds="true"
-        android:visibility="visible" />
+        android:contentDescription="@string/device_image_description" />
 
-    <ImageView
-        android:id="@+id/signalIndicator"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:src="@drawable/progress_signal"
-        android:visibility="invisible" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/signalIndicator"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/signal_indicator_image_description"
+            android:src="@drawable/progress_signal" />
+    </LinearLayout>
 
 </LinearLayout>

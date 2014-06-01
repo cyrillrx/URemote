@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -373,25 +375,26 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     public void updateConnectionState(int state) {
         int drawableResId;
         int messageResId;
-        int visibility;
 
         switch (state) {
             case STATE_OK:
                 drawableResId = android.R.drawable.presence_online;
                 messageResId = R.string.msg_command_succeeded;
-                visibility = View.INVISIBLE;
                 break;
 
             case STATE_CONNECTING:
                 drawableResId = android.R.drawable.presence_away;
                 messageResId = R.string.msg_command_running;
-                visibility = View.VISIBLE;
+                AnimationDrawable animation = (AnimationDrawable) mProgressSignal.getDrawable();
+                if (animation != null) {
+                    animation.stop();
+                    animation.start();
+                }
                 break;
 
             default: // KO
                 drawableResId = android.R.drawable.presence_offline;
                 messageResId = R.string.msg_command_failed;
-                visibility = View.INVISIBLE;
                 break;
         }
 
@@ -399,7 +402,6 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         imgLeft.setBounds(0, 0, 24, 24);
         mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
         mTvServerState.setText(messageResId);
-        mProgressSignal.setVisibility(visibility);
     }
 
     //
