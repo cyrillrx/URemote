@@ -4,7 +4,7 @@ buildscript {
         maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.11.+'
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
 
     }
@@ -20,7 +20,7 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1'
 
     defaultConfig {
         minSdkVersion 17
@@ -58,7 +58,7 @@ android {
 
     buildTypes {
         debug {
-            packageNameSuffix ".debug"
+            applicationIdSuffix ".debug"
 
             jniDebugBuild true
             debuggable true
