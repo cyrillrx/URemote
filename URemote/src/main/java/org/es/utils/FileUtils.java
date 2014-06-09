@@ -45,17 +45,15 @@ public class FileUtils {
 	 * @param filename The filename to test.
 	 * @return True if the file is a video file.
 	 */
-	public static boolean isAVideo(final String filename) {
-		if (filename == null) {
-			return false;
-		}
-		if (	filename.endsWith(".avi") ||
+	public static boolean isVideo(final String filename) {
+
+		return filename != null && (
+                filename.endsWith(".avi") ||
 				filename.endsWith(".mp4") ||
+				filename.endsWith(".mkv") ||
 				filename.endsWith(".flv") ||
-				filename.endsWith(".mov")) {
-			return true;
-		}
-		return false;
+				filename.endsWith(".mov")
+        );
 	}
 
 	/**

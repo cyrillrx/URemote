@@ -82,7 +82,7 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
         int iconRes;
         if (file.getIsDirectory()) {
             iconRes = R.drawable.filemanager_folder;
-        } else if (FileUtils.isAVideo(file.getFilename())) {
+        } else if (FileUtils.isVideo(file.getFilename())) {
             iconRes = R.drawable.filemanager_video;
         } else {
             iconRes = R.drawable.filemanager_blank;
