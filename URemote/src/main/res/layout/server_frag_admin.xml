@@ -59,8 +59,8 @@
             style="@style/command_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:drawableTop="@drawable/lock"
+            android:padding="10dp"
             android:text="@string/cmd_lock" />
 
     </TableLayout>
@@ -69,17 +69,18 @@
         android:id="@+id/consoleLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp"
         android:background="@android:color/background_dark"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
+            android:id="@+id/tvConsoleTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:text="Console"
+            android:text="@string/title_console"
             android:textColor="@android:color/darker_gray"
-            android:textSize="25sp" />
+            android:textSize="30sp" />
 
         <View
             android:layout_width="150dp"
@@ -91,12 +92,13 @@
         <TextView
             android:id="@+id/tvConsole"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@null"
-            android:maxLines="4"
+            android:gravity="bottom"
+            android:maxLines="5"
             android:singleLine="false"
-            android:text="klsdjflskdjflm, sdfjlksdf, sdlfkjsldfkj,\n sdlfkjslkdfj, slkdfjlskjdflskdjf,\n sldfkjslkfj, sdlfkjslkfj, sdflkjsdflkj"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/darker_gray"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

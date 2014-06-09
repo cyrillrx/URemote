@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,13 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.WakeOnLan;
-import org.es.uremote.utils.TaskCallbacks;
 import org.es.uremote.utils.ToastSender;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
@@ -37,14 +38,13 @@ import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
  */
 public class FragAdmin extends Fragment implements OnClickListener {
 
-    private TaskCallbacks mCallbacks;
     private RequestSender mRequestSender;
     private ToastSender mToastSender;
+    private TextView mTvConsole;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallbacks = (TaskCallbacks) activity;
         mRequestSender = (RequestSender) activity;
         mToastSender = (ToastSender) activity;
     }
@@ -64,7 +64,6 @@ public class FragAdmin extends Fragment implements OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
         mRequestSender = null;
         mToastSender = null;
     }
@@ -87,6 +86,12 @@ public class FragAdmin extends Fragment implements OnClickListener {
         view.findViewById(R.id.cmdKillServer).setOnClickListener(this);
         view.findViewById(R.id.cmdLock).setOnClickListener(this);
 
+        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.text_font));
+
+        ((TextView) view.findViewById(R.id.tvConsoleTitle)).setTypeface(typeface);
+        mTvConsole = (TextView) view.findViewById(R.id.tvConsole);
+        mTvConsole.setTypeface(typeface);
+
         return view;
     }
 
@@ -106,6 +111,8 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
             case R.id.cmdAiMute:
                 mRequestSender.sendRequest(buildRequest(AI, MUTE));
+                // TODO factorize log code
+                mTvConsole.append("Sending request - Type:" + AI.name() + " Code: " + MUTE.name() + System.getProperty("line.separator"));
                 break;
 
             case R.id.cmdKillServer:
@@ -139,6 +146,10 @@ public class FragAdmin extends Fragment implements OnClickListener {
         }
         new WakeOnLan(mToastSender).execute(host, macAddress);
 
+        // TODO factorize log code
+        final String message = "ip : " + host + ", mac : " + macAddress + System.getProperty("line.separator");
+        mTvConsole.append("Sending WOL - " + message);
+
         // TODO : if device, run. else error toast
     }
 
@@ -147,7 +158,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
     ////////////////////////////////////////////////////////////////////
 
     private Request buildRequest(final Request.Type requestType, final Request.Code requestCode) {
-         return Request.newBuilder()
+        return Request.newBuilder()
                 .setSecurityToken(mRequestSender.getSecurityToken())
                 .setType(requestType)
                 .setCode(requestCode)
@@ -167,7 +178,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
      *
      * @param request The request to send.
      */
-    private  void confirmRequest(final Request request) {
+    private void confirmRequest(final Request request) {
         // TODO add int param for message resource.
         int resId = (KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
@@ -179,6 +190,8 @@ public class FragAdmin extends Fragment implements OnClickListener {
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the request if the user confirms it
                         mRequestSender.sendRequest(request);
+                        // TODO factorize log code
+                        mTvConsole.append("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name() + System.getProperty("line.separator"));
                     }
                 })
 

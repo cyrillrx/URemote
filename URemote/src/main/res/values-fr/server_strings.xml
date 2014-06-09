@@ -11,6 +11,7 @@
 	<string name="title_remote">Accès distant</string>
 	<string name="title_security">Sécurité</string>
 	<string name="title_other">Autre</string>
+    <string name="title_console">Console</string>
 
 	<!-- Preference names -->
 	<string name="selected_server">Serveur cible</string>

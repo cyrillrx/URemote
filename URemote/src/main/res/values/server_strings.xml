@@ -11,6 +11,7 @@
 	<string name="title_remote">Remote access</string>
 	<string name="title_security">Security</string>
 	<string name="title_other">Other</string>
+	<string name="title_console">Console</string>
 
 	<!-- Preference names -->
 	<string name="local_ip_address">Local ip address</string>

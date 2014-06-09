@@ -429,6 +429,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
     @Override
     public void sendRequest(Request request) {
         if (AsyncMessageMgr.availablePermits() > 0) {
+            // Todo log
             new AsyncMessageMgr(getDevice(), this).execute(request);
         } else {
             sendToast(R.string.msg_no_more_permit);
