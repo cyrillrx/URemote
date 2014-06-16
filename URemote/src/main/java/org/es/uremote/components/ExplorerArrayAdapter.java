@@ -1,7 +1,6 @@
 package org.es.uremote.components;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +23,6 @@ import java.util.List;
 public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
 
     private final LayoutInflater mInflater;
-    private Typeface mTypeface;
-
-
-    /**
-     * Default constructor
-     *
-     * @param context  the application context.
-     * @param entries  the files to display
-     * @param typeface The Typeface to set.
-     */
-    public ExplorerArrayAdapter(Context context, final List<FileInfo> entries, final Typeface typeface) {
-        super(context, 0, entries);
-        mInflater = LayoutInflater.from(context);
-        mTypeface = typeface;
-    }
 
     /**
      * Default constructor
@@ -47,7 +31,8 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
      * @param entries the files to display
      */
     public ExplorerArrayAdapter(Context context, final List<FileInfo> entries) {
-        this(context, entries, null);
+        super(context, 0, entries);
+        mInflater = LayoutInflater.from(context);
     }
 
     /** Template for list items. */
@@ -68,10 +53,6 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);
             holder.tvSize = (TextView) convertView.findViewById(R.id.tvSize);
-            if (mTypeface != null) {
-                holder.tvName.setTypeface(mTypeface);
-                holder.tvSize.setTypeface(mTypeface);
-            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

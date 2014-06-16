@@ -65,40 +65,9 @@
 
     </TableLayout>
 
-    <LinearLayout
-        android:id="@+id/consoleLayout"
+    <org.es.common.view.Console
+        android:id="@+id/console"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/background_dark"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <TextView
-            android:id="@+id/tvConsoleTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:text="@string/title_console"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="30sp" />
-
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="2dp"
-            android:background="@android:color/darker_gray" />
-
-        <TextView
-            android:id="@+id/tvConsole"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:gravity="bottom"
-            android:maxLines="5"
-            android:singleLine="false"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="12sp" />
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

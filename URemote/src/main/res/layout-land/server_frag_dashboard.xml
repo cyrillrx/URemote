@@ -73,6 +73,7 @@
 
     <TextView
         android:id="@+id/toastText"
+        style="@style/VolumeToastFont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

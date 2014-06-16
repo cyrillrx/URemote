@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.es.common.view.Console;
 import org.es.uremote.R;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.exchange.Message.Request;
@@ -40,7 +40,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
     private RequestSender mRequestSender;
     private ToastSender mToastSender;
-    private TextView mTvConsole;
+    private Console mConsole;
 
     @Override
     public void onAttach(Activity activity) {
@@ -86,11 +86,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
         view.findViewById(R.id.cmdKillServer).setOnClickListener(this);
         view.findViewById(R.id.cmdLock).setOnClickListener(this);
 
-        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.text_font));
-
-        ((TextView) view.findViewById(R.id.tvConsoleTitle)).setTypeface(typeface);
-        mTvConsole = (TextView) view.findViewById(R.id.tvConsole);
-        mTvConsole.setTypeface(typeface);
+        mConsole = (Console) view.findViewById(R.id.console);
 
         return view;
     }
@@ -112,7 +108,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
             case R.id.cmdAiMute:
                 mRequestSender.sendRequest(buildRequest(AI, MUTE));
                 // TODO factorize log code
-                mTvConsole.append("Sending request - Type:" + AI.name() + " Code: " + MUTE.name() + System.getProperty("line.separator"));
+                mConsole.addLine("Sending request - Type:" + AI.name() + " Code: " + MUTE.name() + System.getProperty("line.separator"));
                 break;
 
             case R.id.cmdKillServer:
@@ -148,7 +144,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
         // TODO factorize log code
         final String message = "ip : " + host + ", mac : " + macAddress + System.getProperty("line.separator");
-        mTvConsole.append("Sending WOL - " + message);
+        mConsole.addLine("Sending WOL - " + message);
 
         // TODO : if device, run. else error toast
     }
@@ -191,7 +187,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
                         // Send the request if the user confirms it
                         mRequestSender.sendRequest(request);
                         // TODO factorize log code
-                        mTvConsole.append("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name() + System.getProperty("line.separator"));
+                        mConsole.addLine("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name() + System.getProperty("line.separator"));
                     }
                 })
 

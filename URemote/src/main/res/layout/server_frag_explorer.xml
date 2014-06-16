@@ -21,6 +21,7 @@
 
         <TextView
             android:id="@+id/tvEmpty"
+            style="@style/RobotoFont"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
@@ -38,7 +39,7 @@
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/tvFailure1"
+                style="@style/RobotoFont"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -55,7 +56,7 @@
                 android:text="@string/retry" />
 
             <TextView
-                android:id="@+id/tvFailure2"
+                style="@style/RobotoFont"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -70,6 +71,7 @@
 
     <TextView
         android:id="@+id/tvPath"
+        style="@style/RobotoFont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

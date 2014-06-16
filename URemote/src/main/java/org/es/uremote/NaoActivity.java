@@ -39,7 +39,7 @@ public class NaoActivity extends ListActivity implements OnItemClickListener {
 
         final int colorRes1 = getResources().getColor(android.R.color.secondary_text_light);
         final int colorRes2 = getResources().getColor(android.R.color.secondary_text_light);
-        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList, colorRes1, colorRes2, null);
+        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList, colorRes1, colorRes2);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }

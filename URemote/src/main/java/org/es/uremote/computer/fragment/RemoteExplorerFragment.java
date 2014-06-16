@@ -1,13 +1,11 @@
 package org.es.uremote.computer.fragment;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import org.es.uremote.BuildConfig;
@@ -78,19 +76,10 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.action_title_font));
-
-        ((TextView) view.findViewById(R.id.tvPath)).setTypeface(typeface);
-        ((TextView) view.findViewById(R.id.tvFailure1)).setTypeface(typeface);
-        ((TextView) view.findViewById(R.id.tvFailure2)).setTypeface(typeface);
-
         mTvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
-        mTvEmpty.setTypeface(typeface);
         mViewFailure = view.findViewById(R.id.failure);
 
-        final Button retryBtn = (Button) view.findViewById(R.id.btnRetry);
-        retryBtn.setTypeface(typeface);
-        retryBtn.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
@@ -103,8 +92,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
     @Override
     protected ExplorerArrayAdapter newExplorerAdapter(List<Message.FileInfo> files) {
-        final Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), getString(R.string.action_title_font));
-        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files, typeface);
+        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
     }
 
     @Override

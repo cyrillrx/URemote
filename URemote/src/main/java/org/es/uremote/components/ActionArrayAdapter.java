@@ -24,7 +24,6 @@ import java.util.List;
 public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 
 	private final LayoutInflater mInflater;
-	private final Typeface mTypeface;
 	private final int mTitleColorRes;
 	private final int mSummaryColorRes;
 
@@ -35,19 +34,8 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
      * @param actions The action list.
      */
     public ActionArrayAdapter(final Context context, final List<ActionItem> actions) {
-        this(context, actions, -1, -1, null);
+        this(context, actions, -1, -1);
     }
-
-	/**
-	 * Constructor with typeface.
-	 *
-	 * @param context The application context.
-	 * @param actions The action list.
-	 * @param typeface The type face to use.
-	 */
-	public ActionArrayAdapter(final Context context, final List<ActionItem> actions, Typeface typeface) {
-        this(context, actions, -1, -1, typeface);
-	}
 
     /**
      * Constructor with typeface and color.
@@ -56,12 +44,10 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
      * @param actions The action list.
      * @param titleColor Color apply to the action title.
      * @param summaryColor Color to apply to the action summary.
-     * @param typeface The type face to use.
      */
-    public ActionArrayAdapter(final Context context, final List<ActionItem> actions, final int titleColor, final int summaryColor, final Typeface typeface) {
+    public ActionArrayAdapter(final Context context, final List<ActionItem> actions, final int titleColor, final int summaryColor) {
         super(context, 0, actions);
         mInflater        = LayoutInflater.from(context);
-        mTypeface        = typeface;
         mTitleColorRes   = titleColor;
         mSummaryColorRes = summaryColor;
     }
@@ -97,11 +83,6 @@ public class ActionArrayAdapter extends ArrayAdapter<ActionItem> {
 
 		holder.tvActionTitle.setText(action.getTitle());
         holder.tvActionSummary.setText(action.getSummary());
-
-        if (mTypeface != null) {
-            holder.tvActionTitle.setTypeface(mTypeface);
-            holder.tvActionSummary.setTypeface(mTypeface);
-        }
 
         if (mTitleColorRes != -1) {
             holder.tvActionTitle.setTextColor(mTitleColorRes);

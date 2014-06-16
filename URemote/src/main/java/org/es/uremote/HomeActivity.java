@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,15 +43,15 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
 
     // The request codes of ActivityForResults
     private static final int RC_SELECT_SERVER = 0;
-    private static final int RC_ENABLE_BT     = 1;
-    private static final int RC_ENABLE_WIFI   = 2;
+    private static final int RC_ENABLE_BT = 1;
+    private static final int RC_ENABLE_WIFI = 2;
 
     private static final int ACTION_COMPUTER = 0;
-    private static final int ACTION_LIGHTS   = 1;
-    private static final int ACTION_TV       = 2;
-    private static final int ACTION_ROBOTS   = 3;
-    private static final int ACTION_HIFI     = 4;
-    private static final int ACTION_NAO      = 5;
+    private static final int ACTION_LIGHTS = 1;
+    private static final int ACTION_TV = 2;
+    private static final int ACTION_ROBOTS = 3;
+    private static final int ACTION_HIFI = 4;
+    private static final int ACTION_NAO = 5;
 
     private List<ActionItem> mActionList;
 
@@ -64,10 +63,9 @@ public class HomeActivity extends ListActivity implements OnItemClickListener {
 
         setContentView(R.layout.activity_home);
 
-        final Typeface typeface = Typeface.createFromAsset(getAssets(), getString(R.string.action_title_font));
         initActionList();
 
-        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList, typeface);
+        final ActionArrayAdapter adapter = new ActionArrayAdapter(getApplicationContext(), mActionList);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
