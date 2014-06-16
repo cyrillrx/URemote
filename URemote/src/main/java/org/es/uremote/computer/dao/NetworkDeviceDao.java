@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 
-import org.es.exception.AccessStorageOnMainThreadException;
+import org.es.common.exception.AccessStorageOnMainThreadException;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.utils.PrefKeys;
 import org.es.utils.Log;

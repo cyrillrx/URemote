@@ -3,7 +3,7 @@ package org.es.uremote;
 import android.app.Activity;
 import android.os.Bundle;
 
-import org.es.components.HexagonGridView;
+import org.es.component.HexagonGridView;
 import org.es.uremote.objects.ActionItem;
 
 import java.util.List;

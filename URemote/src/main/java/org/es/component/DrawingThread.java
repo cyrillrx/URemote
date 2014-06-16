@@ -1,4 +1,4 @@
-package org.es.components;
+package org.es.component;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -7,7 +7,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
-import org.es.graphics.Hexagon;
+import org.es.common.graphic.Hexagon;
 import org.es.uremote.device.ConnectedDevice;
 import org.es.uremote.device.NetworkDevice;
 

@@ -1,4 +1,4 @@
-package org.es.components;
+package org.es.component;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
-import org.es.graphics.Hexagon;
+import org.es.common.graphic.Hexagon;
 
 /**
  * Created by Cyril on 22/09/13.

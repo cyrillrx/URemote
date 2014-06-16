@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.es.security.Md5;
+import org.es.common.security.Md5;
 import org.es.uremote.R;
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.device.NetworkDevice.ConnectionType;

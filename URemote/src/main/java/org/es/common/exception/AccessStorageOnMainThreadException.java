@@ -1,4 +1,4 @@
-package org.es.exception;
+package org.es.common.exception;
 
 /**
  * @author Cyril Leroux
