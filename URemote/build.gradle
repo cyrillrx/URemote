@@ -29,12 +29,10 @@ android {
         versionName "0.1.4"
 
         applicationVariants.all { variant ->
-
-            def file = variant.outputFile
-            def date = (new Date()).format('yyyy-MM-dd')
-
-            variant.outputFile = new File(file.parent,
-                    date + "_" + project.name + "-v" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk")
+            File file = variant.outputFile;
+            String date = (new Date()).format('yyyy-MM-dd');
+            String filename = date + "_" + project.name + "-v" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
+            variant.outputFile = new File(file.getParent(), filename);
         }
     }
 
@@ -46,13 +44,13 @@ android {
         release {
             storeFile rootProject.file('../keystore/release.keystore')
 
-            def propsFile = rootProject.file('../keystore/keystore.properties')
-            def props = new Properties()
-            props.load(new FileInputStream(propsFile))
+            File propertiesFile = rootProject.file('../keystore/keystore.properties')
+            Properties properties = new Properties();
+            properties.load(new FileInputStream(propertiesFile));
 
-            storePassword props['storePassword']
-            keyAlias props['keyAlias']
-            keyPassword props['keyPassword']
+            storePassword properties['storePassword']
+            keyAlias properties['keyAlias']
+            keyPassword properties['keyPassword']
         }
     }
 
