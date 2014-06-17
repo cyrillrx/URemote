@@ -108,7 +108,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
             case R.id.cmdAiMute:
                 mRequestSender.sendRequest(buildRequest(AI, MUTE));
                 // TODO factorize log code
-                mConsole.addLine("Sending request - Type:" + AI.name() + " Code: " + MUTE.name() + System.getProperty("line.separator"));
+                mConsole.addLine("Sending request - Type:" + AI.name() + " Code: " + MUTE.name());
                 break;
 
             case R.id.cmdKillServer:
@@ -143,7 +143,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
         new WakeOnLan(mToastSender).execute(host, macAddress);
 
         // TODO factorize log code
-        final String message = "ip : " + host + ", mac : " + macAddress + System.getProperty("line.separator");
+        final String message = "ip : " + host + ", mac : " + macAddress;
         mConsole.addLine("Sending WOL - " + message);
 
         // TODO : if device, run. else error toast
@@ -187,7 +187,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
                         // Send the request if the user confirms it
                         mRequestSender.sendRequest(request);
                         // TODO factorize log code
-                        mConsole.addLine("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name() + System.getProperty("line.separator"));
+                        mConsole.addLine("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name());
                     }
                 })
 

@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/tvConsoleTitle"
+        style="@style/RobotoFont"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        style="@style/RobotoFont"
         android:text="@string/title_console"
         android:textColor="@android:color/darker_gray"
         android:textSize="30sp" />
@@ -29,5 +29,15 @@
         android:layout_height="match_parent"
         android:gravity="top|left"
         android:orientation="vertical"
-        android:padding="10dp" />
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tvConsoleLine"
+            style="@style/RobotoFont"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_console" />
+    </LinearLayout>
 </LinearLayout>
