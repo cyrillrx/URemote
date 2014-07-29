@@ -4,13 +4,12 @@ buildscript {
         maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.11.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
         classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
-
     }
 }
 
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 apply plugin: 'crashlytics'
 
 repositories {
@@ -19,12 +18,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1'
+    compileSdkVersion 20
+    buildToolsVersion '20'
 
     defaultConfig {
         minSdkVersion 17
-        targetSdkVersion 19
+        targetSdkVersion 20
         versionCode 1
         versionName "0.1.4"
 
@@ -76,6 +75,7 @@ android {
 }
 
 dependencies {
+    compile project(':volley')
     compile 'com.google.android:support-v4:r7'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
     compile 'com.crashlytics.android:crashlytics:1.+'
