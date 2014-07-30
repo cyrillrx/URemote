@@ -18,20 +18,24 @@ repositories {
 }
 
 android {
-    compileSdkVersion 20
-    buildToolsVersion '20'
+    compileSdkVersion project.COMPILE_SDK_VERSION as int
+    buildToolsVersion project.BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 20
+        applicationId "org.es.uremote"
+        minSdkVersion project.MIN_SDK_VERSION as int
+        targetSdkVersion project.TARGET_SDK_VERSION as int
         versionCode 1
-        versionName "0.1.4"
+        versionName '0.1.4'
 
+        // For each application variants (release, debug, etc.)
         applicationVariants.all { variant ->
-            File file = variant.outputFile;
-            String date = (new Date()).format('yyyy-MM-dd');
-            String filename = date + "_" + project.name + "-v" + defaultConfig.versionName + "-" + variant.buildType.name + ".apk";
-            variant.outputFile = new File(file.getParent(), filename);
+
+            // Create custom apk names
+            File file = variant.outputFile
+            String date = (new Date()).format('yyyy-MM-dd')
+            String filename = date + "_" + project.name + "-v" + variant.versionName + "-" + variant.buildType.name + ".apk"
+            variant.outputFile = new File(file.parent, filename)
         }
     }
 
@@ -69,8 +73,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
