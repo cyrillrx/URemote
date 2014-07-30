@@ -21,20 +21,21 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_CODE;
 import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
 
 // TODO Make AppLauncherActivity layout dynamic => take an app list as data intent
+
 /**
  * This Activity displays a list of applications that you can launch on the remote server.
  *
  * @author Cyril Leroux
- * Created before first commit (08/04/12).
+ *         Created before first commit (08/04/12).
  */
 public class AppLauncherActivity extends Activity implements OnClickListener {
 
     private ArrayList<AppItem> mApplications;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 
         GridLayout gridLayout = new GridLayout(this);
         GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
@@ -70,7 +71,7 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
         gridLayout.addView(ibStop);
 
         setContentView(gridLayout, layoutParams);
-	}
+    }
 
     private void populateAppGridLayout(final GridLayout gridLayout, ArrayList<AppItem> apps) {
         if (apps == null) { return; }
@@ -78,7 +79,7 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
         final ViewGroup.LayoutParams btnLayout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         for (AppItem app : apps) {
-            ImageButton imageButton = new ImageButton(this);
+            final ImageButton imageButton = new ImageButton(this);
             imageButton.setLayoutParams(btnLayout);
             imageButton.setBackground(null);
             imageButton.setPadding(15, 15, 15, 15);
@@ -90,8 +91,8 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
         }
     }
 
-	@Override
-	public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
         final int id = v.getId();
 
@@ -102,32 +103,32 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
 //            }
 //        }
 
-		switch (id) {
-			case R.id.btnAppGomPlayer:
-				returnAppMessage(Type.APP, Code.ON);
-				break;
+        switch (id) {
+            case R.id.btnAppGomPlayer:
+                returnAppMessage(Type.APP, Code.ON);
+                break;
 
-			case R.id.btnKillGomPlayer:
-				returnAppMessage(Type.APP, Code.OFF);
-				break;
+            case R.id.btnKillGomPlayer:
+                returnAppMessage(Type.APP, Code.OFF);
+                break;
 
-			default:
-				break;
-		}
-	}
+            default:
+                break;
+        }
+    }
 
-	@Override
-	public void onBackPressed() {
-		super.onBackPressed();
-		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
-	}
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
+    }
 
-	private void returnAppMessage(Type type, Code code) {
-		Intent data = new Intent();
-		data.putExtra(REQUEST_TYPE, type.getNumber());
-		data.putExtra(REQUEST_CODE, code.getNumber());
-		setResult(RESULT_OK, data);
-		finish();
-		overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
-	}
+    private void returnAppMessage(Type type, Code code) {
+        final Intent data = new Intent();
+        data.putExtra(REQUEST_TYPE, type.getNumber());
+        data.putExtra(REQUEST_CODE, code.getNumber());
+        setResult(RESULT_OK, data);
+        finish();
+        overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
+    }
 }
