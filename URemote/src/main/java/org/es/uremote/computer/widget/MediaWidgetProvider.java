@@ -39,7 +39,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class MediaWidgetProvider extends AppWidgetProvider {
 
-    private static final String TAG = "MediaWidgetProvider";
+    private static final String TAG = MediaWidgetProvider.class.getSimpleName();
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
     private static final String ACTION_MEDIA_PREVIOUS = "ACTION_MEDIA_PREVIOUS";
@@ -172,8 +172,8 @@ public class MediaWidgetProvider extends AppWidgetProvider {
     /**
      * Initializes the message handler then send the request.
      *
-     * @param device The device to control.
-     * @param context The application context.
+     * @param device      The device to control.
+     * @param context     The application context.
      * @param requestType The request type.
      * @param requestCode The request code.
      */

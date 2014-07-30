@@ -31,7 +31,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class ServerEditActivity extends Activity {
 
-    private static final String TAG = "EditServer";
+    private static final String TAG = ServerEditActivity.class.getSimpleName();
 
     private EditText mServerName;
     private EditText mLocalHost1;
@@ -346,10 +346,13 @@ public class ServerEditActivity extends Activity {
     }
 
     private final TextWatcher mMacAddressWatcher = new TextWatcher() {
-        
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-        @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
-        
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
         @Override
         public void afterTextChanged(Editable editable) {
 
@@ -384,11 +387,14 @@ public class ServerEditActivity extends Activity {
             }
         }
     };
-    
+
     private final TextWatcher mIpAddressWatcher = new TextWatcher() {
 
-        @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-        @Override public void onTextChanged(CharSequence s, int start, int before, int count) { }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) { }
 
         @Override
         public void afterTextChanged(Editable editable) {

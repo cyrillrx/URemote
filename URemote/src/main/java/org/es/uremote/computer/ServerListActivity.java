@@ -44,7 +44,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class ServerListActivity extends ListActivity {
 
-    private static final String TAG = "ServerListActivity";
+    private static final String TAG = ServerListActivity.class.getSimpleName();
 
     private static final int RC_ADD_SERVER = 0;
     private static final int RC_EDIT_SERVER = 1;

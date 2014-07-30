@@ -18,9 +18,9 @@ import java.util.Random;
  */
 public class ConnectedDeviceDrawable extends Drawable {
 
-    /** The paint's text coefficient. Used to deduce text size from the canvas.*/
+    /** The paint's text coefficient. Used to deduce text size from the canvas. */
     private static final float TEXT_SIZE_COEF = 0.42f;
-    /** The paint's subscript and superscript coefficient. Used to deduce text size from the canvas.*/
+    /** The paint's subscript and superscript coefficient. Used to deduce text size from the canvas. */
     private static final float SUBSCRIPT_SIZE_COEF = 0.1f;
     /** Coefficient to compute the outer hexagon side from canvas size. */
     private static final float OUTER_HEXAGON_SIDE_COEF = 0.42f;
@@ -51,9 +51,9 @@ public class ConnectedDeviceDrawable extends Drawable {
         mPaint.setStrokeWidth(STROKE_WIDTH);
 
         // Text : first letter of the device name
-        mText           = getText(device);
-        mSubscript      = getSubscript(device);
-        mSuperscript    = getSuperscript(device);
+        mText = getText(device);
+        mSubscript = getSubscript(device);
+        mSuperscript = getSuperscript(device);
 
         // Text bounds
         mTextBounds = new Rect();
@@ -68,16 +68,16 @@ public class ConnectedDeviceDrawable extends Drawable {
     @Override
     public void draw(Canvas canvas) {
 
-        final float centerX = canvas.getWidth()  / 2f;
+        final float centerX = canvas.getWidth() / 2f;
         final float centerY = canvas.getHeight() / 2f;
 
-        final float textSize        = canvas.getHeight() * TEXT_SIZE_COEF;
-        final float subscriptSize   = canvas.getHeight() * SUBSCRIPT_SIZE_COEF;
+        final float textSize = canvas.getHeight() * TEXT_SIZE_COEF;
+        final float subscriptSize = canvas.getHeight() * SUBSCRIPT_SIZE_COEF;
 
         // Draw the text
         mPaint.setTextSize(textSize);
         mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
-        final float textOriginX = centerX - mTextBounds.width()  / 2f - Math.max(mSubscriptBounds.width(), mSuperscriptBounds.width()) / 2f;
+        final float textOriginX = centerX - mTextBounds.width() / 2f - Math.max(mSubscriptBounds.width(), mSuperscriptBounds.width()) / 2f;
         final float textOriginY = centerY + mTextBounds.height() / 2f;
         canvas.drawText(mText, textOriginX, textOriginY, mPaint);
 
@@ -132,7 +132,7 @@ public class ConnectedDeviceDrawable extends Drawable {
         if (device instanceof NetworkDevice) {
             String ip = ((NetworkDevice) device).getLocalHost();
             final int pos = ip.lastIndexOf('.');
-            return ip.substring(pos+1);
+            return ip.substring(pos + 1);
         }
 
         return "";

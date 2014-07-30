@@ -33,7 +33,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class DPadWidgetProvider extends AppWidgetProvider {
 
-    private static final String TAG = "DPadWidgetProvider";
+    private static final String TAG = DPadWidgetProvider.class.getSimpleName();
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
     private static final String ACTION_OK = "ACTION_OK";
@@ -163,8 +163,8 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     /**
      * Initializes the message handler then send the request.
      *
-     * @param device The device to control.
-     * @param context The application context.
+     * @param device      The device to control.
+     * @param context     The application context.
      * @param requestType The request type.
      * @param requestCode The request code.
      */

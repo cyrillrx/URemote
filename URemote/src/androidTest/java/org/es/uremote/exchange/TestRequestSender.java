@@ -15,7 +15,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class TestRequestSender extends InstrumentationTestCase {
 
-    private static final String TAG = "TestRequestSender";
+    private static final String TAG = TestRequestSender.class.getSimpleName();
     private static final String SECURITY_TOKEN = "123";
 
     NetworkDevice mDevice;

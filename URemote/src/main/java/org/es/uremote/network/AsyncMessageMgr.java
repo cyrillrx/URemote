@@ -19,14 +19,15 @@ import java.util.concurrent.Semaphore;
  */
 public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
+    private static final String TAG = AsyncMessageMgr.class.getSimpleName();
+
     protected static Semaphore sSemaphore = new Semaphore(2, true);
-    private static final String TAG = "AsyncMessageMgr";
 
     protected final NetworkDevice mRemoteDevice;
     private final TaskCallbacks mTaskCallbacks;
 
     /**
-     * @param device The device towards which to send the request.
+     * @param device        The device towards which to send the request.
      * @param taskCallbacks An object to call back during the task lifecycle
      */
     public AsyncMessageMgr(NetworkDevice device, TaskCallbacks taskCallbacks) {

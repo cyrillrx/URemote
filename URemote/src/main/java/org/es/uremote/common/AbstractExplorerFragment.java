@@ -5,7 +5,6 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,11 +29,11 @@ import java.util.List;
  */
 public abstract class AbstractExplorerFragment extends ListFragment {
 
-    private static final String TAG = "AbstractExplorerFragment";
+    private static final String TAG = AbstractExplorerFragment.class.getSimpleName();
 
     private static final String PREVIOUS_DIRECTORY_PATH = "..";
-    private static final String KEY_DIRECTORY_CONTENT   = "DIRECTORY_CONTENT";
-    private static final String DEFAULT_DIRECTORY_PATH  = "default_path";
+    private static final String KEY_DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
+    private static final String DEFAULT_DIRECTORY_PATH = "default_path";
 
     private TextView mTvPath;
     private String mRoot = null;

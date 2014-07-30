@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +57,8 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  */
 public class ComputerActivity extends FragmentActivity implements TaskCallbacks, ToastSender, RequestSender {
 
-    private static final String TAG = "Computer Activity";
+    private static final String TAG = ComputerActivity.class.getSimpleName();
+
     private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
     private static final String KEYBOARD_VISIBLE = "KEYBOARD_VISIBLE";
     private static final int PAGES_COUNT = 3;

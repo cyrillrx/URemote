@@ -22,16 +22,15 @@ import java.net.SocketTimeoutException;
  */
 public class MessageUtils {
 
-    private static final String TAG = "MessageUtils";
+    private static final String TAG = MessageUtils.class.getSimpleName();
 
     /**
      * This function must be called from a background thread.
      * Send a request to a device and wait for a reply.
      *
      * @param request Client request.
-     * @param device The device towards which to send the request.
+     * @param device  The device towards which to send the request.
      * @return The device reply.
-     *
      * @throws IOException exception.
      */
     public static Response sendRequest(final Request request, final NetworkDevice device) {
@@ -83,7 +82,6 @@ public class MessageUtils {
      *
      * @param device The object that holds device connection settings.
      * @return The socket on which to send the message.
-     *
      * @throws IOException exception
      */
     private static Socket connectToRemoteSocket(NetworkDevice device) throws IOException {
@@ -103,10 +101,9 @@ public class MessageUtils {
      * This function must be called from a background thread.
      * Send a message through a Socket to a device and get the reply.
      *
-     * @param socket The socket on which to send the message.
+     * @param socket  The socket on which to send the message.
      * @param request Client request.
      * @return The device reply.
-     *
      * @throws IOException exception.
      */
     private static Response sendRequest(Socket socket, Request request) throws IOException {

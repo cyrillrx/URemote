@@ -7,7 +7,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -50,7 +49,7 @@ import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
  */
 public class FragDashboard extends Fragment implements OnClickListener, OnSeekBarChangeListener, RequestSender {
 
-    private static final String TAG = "FragDashboard";
+    private static final String TAG = FragDashboard.class.getSimpleName();
 
     /**
      * ActivityForResults request codes

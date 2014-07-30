@@ -22,7 +22,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  */
 public class MediaWidgetConfigureActivity extends ServerListActivity {
 
-    private static final String TAG = "MediaWidgetConfigureActivity";
+    private static final String TAG = MediaWidgetConfigureActivity.class.getSimpleName();
 
     private int mWidgetId;
 
@@ -54,7 +54,7 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
         super.onListItemClick(l, v, position, id);
         Log.warning(TAG, "onListItemClick");
 
-        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) &&  mWidgetId != INVALID_APPWIDGET_ID) {
+        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) && mWidgetId != INVALID_APPWIDGET_ID) {
             final NetworkDevice device = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
             final Intent widgetIntent = new Intent();

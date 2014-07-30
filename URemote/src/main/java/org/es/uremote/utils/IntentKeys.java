@@ -17,17 +17,17 @@ public class IntentKeys {
     public static final String DIRECTORY_PATH = "directory_path";
 
     /** Device Address key. */
-    public static final String EXTRA_DEVICE_ADDRESS   = "device_address";
-    public static final String EXTRA_SERVER_DATA      = "server_data";
-    public static final String EXTRA_SERVER_ACTION    = "server_action";
-    public static final String EXTRA_SERVER_ID        = "server_id";
+    public static final String EXTRA_DEVICE_ADDRESS = "device_address";
+    public static final String EXTRA_SERVER_DATA = "server_data";
+    public static final String EXTRA_SERVER_ACTION = "server_action";
+    public static final String EXTRA_SERVER_ID = "server_id";
     public static final String EXTRA_SERVER_CONF_FILE = "server_conf_file";
     public static final String EXTRA_APPLICATION_LIST = "application_list";
 
     public static final String ACTION_SELECT = "android.intent.action.SELECT";
-    public static final String ACTION_ADD    = "android.intent.action.ADD";
-    public static final String ACTION_SAVE   = "android.intent.action.SAVE";
-    public static final String ACTION_LOAD   = "android.intent.action.LOAD";
+    public static final String ACTION_ADD = "android.intent.action.ADD";
+    public static final String ACTION_SAVE = "android.intent.action.SAVE";
+    public static final String ACTION_LOAD = "android.intent.action.LOAD";
 
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";

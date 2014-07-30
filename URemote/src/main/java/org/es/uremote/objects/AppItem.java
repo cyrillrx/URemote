@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Simple parcelable object that represents an application.
+ * Simple parcelable object that represents a remote application.
  *
  * @author Cyril Leroux
- * Created before first commit (08/04/12).
+ *         Created before first commit (08/04/12).
  */
 public class AppItem implements Parcelable {
 
@@ -41,7 +41,7 @@ public class AppItem implements Parcelable {
         mImageResource = resId;
     }
 
-    /** @param src */
+    /** @param src  */
     public AppItem(final Parcel src) {
         mLabel = src.readString();
         mPath = src.readString();

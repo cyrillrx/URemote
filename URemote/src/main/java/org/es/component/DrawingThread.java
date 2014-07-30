@@ -19,7 +19,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public abstract class DrawingThread extends Thread {
 
-    private static final String TAG = "DrawingThread";
+    private static final String TAG = DrawingThread.class.getSimpleName();
 
     private final SurfaceHolder mSurfaceHolder;
     private final Resources mResources;

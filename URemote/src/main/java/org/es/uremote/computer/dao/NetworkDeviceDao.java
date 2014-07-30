@@ -30,107 +30,107 @@ import static org.es.uremote.device.NetworkDevice.FILENAME;
  */
 public class NetworkDeviceDao {
 
-	public static final String TAG_ROOT				= "servers";
-	public static final String TAG_SERVER			= "server";
-	public static final String TAG_NAME				= "name";
-	public static final String TAG_LOCAL_HOST		= "local_ip_address";
-	public static final String TAG_LOCAL_PORT		= "local_port";
-	public static final String TAG_BROADCAST		= "broadcast_address";
-	public static final String TAG_REMOTE_HOST		= "remote_ip_address";
-	public static final String TAG_REMOTE_PORT		= "remote_port";
-	public static final String TAG_MAC_ADDRESS		= "mac_address";
-	public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
-	public static final String TAG_READ_TIMEOUT		= "read_timeout";
-    public static final String TAG_SECURITY_TOKEN   = "security_token";
-    public static final String TAG_CONNECTION_TYPE	= "connection_type";
+    public static final String TAG_ROOT = "servers";
+    public static final String TAG_SERVER = "server";
+    public static final String TAG_NAME = "name";
+    public static final String TAG_LOCAL_HOST = "local_ip_address";
+    public static final String TAG_LOCAL_PORT = "local_port";
+    public static final String TAG_BROADCAST = "broadcast_address";
+    public static final String TAG_REMOTE_HOST = "remote_ip_address";
+    public static final String TAG_REMOTE_PORT = "remote_port";
+    public static final String TAG_MAC_ADDRESS = "mac_address";
+    public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
+    public static final String TAG_READ_TIMEOUT = "read_timeout";
+    public static final String TAG_SECURITY_TOKEN = "security_token";
+    public static final String TAG_CONNECTION_TYPE = "connection_type";
 
-	private static final String TAG = "ServerSettingDao";
+    private static final String TAG = NetworkDeviceDao.class.getSimpleName();
 
-	/**
-	 * Save the object attributes into a XML file.
-	 *
-	 * @param devices
-	 * @param confFile
-	 * @return true if save succeeded, false otherwise.
-	 */
-	public static boolean saveToFile(List<NetworkDevice> devices, File confFile) {
+    /**
+     * Save the object attributes into a XML file.
+     *
+     * @param devices
+     * @param confFile
+     * @return true if save succeeded, false otherwise.
+     */
+    public static boolean saveToFile(List<NetworkDevice> devices, File confFile) {
 
-		if (Looper.myLooper() == Looper.getMainLooper()) {
-			throw new AccessStorageOnMainThreadException("ServerSettingDao #saveToFile");
-		}
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            throw new AccessStorageOnMainThreadException("ServerSettingDao #saveToFile");
+        }
 
-		if (devices == null || devices.isEmpty()) {
-			return false;
-		}
+        if (devices == null || devices.isEmpty()) {
+            return false;
+        }
 
-		try {
-			Log.debug(TAG, confFile.getPath());
+        try {
+            Log.debug(TAG, confFile.getPath());
 
-			FileOutputStream fos = new FileOutputStream(confFile);
+            FileOutputStream fos = new FileOutputStream(confFile);
 
-			XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
+            XmlWriter xmlWriter = new XmlWriter(fos, TAG_ROOT);
 
-			for (NetworkDevice device : devices) {
+            for (NetworkDevice device : devices) {
 
-				xmlWriter.startTag(null, TAG_SERVER);
+                xmlWriter.startTag(null, TAG_SERVER);
 
-				xmlWriter.addChild(TAG_NAME,                device.getName(), null);
-				xmlWriter.addChild(TAG_LOCAL_HOST,          device.getLocalHost(), null);
-				xmlWriter.addChild(TAG_LOCAL_PORT,          device.getLocalPort(), null);
-				xmlWriter.addChild(TAG_BROADCAST,           device.getBroadcast(), null);
-				xmlWriter.addChild(TAG_REMOTE_HOST,         device.getRemoteHost(), null);
-				xmlWriter.addChild(TAG_REMOTE_PORT,         device.getRemotePort(), null);
-				xmlWriter.addChild(TAG_MAC_ADDRESS,         device.getMacAddress(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TIMEOUT,  device.getConnectionTimeout(), null);
-				xmlWriter.addChild(TAG_READ_TIMEOUT,        device.getReadTimeout(), null);
-				xmlWriter.addChild(TAG_CONNECTION_TYPE,     device.getConnectionType().toString(), null);
-				xmlWriter.addChild(TAG_SECURITY_TOKEN,      device.getSecurityToken(), null);
+                xmlWriter.addChild(TAG_NAME, device.getName(), null);
+                xmlWriter.addChild(TAG_LOCAL_HOST, device.getLocalHost(), null);
+                xmlWriter.addChild(TAG_LOCAL_PORT, device.getLocalPort(), null);
+                xmlWriter.addChild(TAG_BROADCAST, device.getBroadcast(), null);
+                xmlWriter.addChild(TAG_REMOTE_HOST, device.getRemoteHost(), null);
+                xmlWriter.addChild(TAG_REMOTE_PORT, device.getRemotePort(), null);
+                xmlWriter.addChild(TAG_MAC_ADDRESS, device.getMacAddress(), null);
+                xmlWriter.addChild(TAG_CONNECTION_TIMEOUT, device.getConnectionTimeout(), null);
+                xmlWriter.addChild(TAG_READ_TIMEOUT, device.getReadTimeout(), null);
+                xmlWriter.addChild(TAG_CONNECTION_TYPE, device.getConnectionType().toString(), null);
+                xmlWriter.addChild(TAG_SECURITY_TOKEN, device.getSecurityToken(), null);
 
-				xmlWriter.endTag(null, TAG_SERVER);
-			}
+                xmlWriter.endTag(null, TAG_SERVER);
+            }
 
-			xmlWriter.closeAndSave();
+            xmlWriter.closeAndSave();
 
-		} catch (IOException e) {
-			Log.error(TAG, "#saveToFile - Servers have not been saved.", e);
-			return false;
-		}
-		return true;
-	}
+        } catch (IOException e) {
+            Log.error(TAG, "#saveToFile - Servers have not been saved.", e);
+            return false;
+        }
+        return true;
+    }
 
-	/**
-	 * Load the device settings from an XML file into the device list.
+    /**
+     * Load the device settings from an XML file into the device list.
      * Use this function to update an existing device list.
-	 *
-	 * @param configFile The file to read.
-	 * @param devices The list to fill with loaded data.
-	 * @return true if load succeeded, false otherwise.
-	 */
-	public static boolean loadFromFile(File configFile, List<NetworkDevice> devices) {
+     *
+     * @param configFile The file to read.
+     * @param devices    The list to fill with loaded data.
+     * @return true if load succeeded, false otherwise.
+     */
+    public static boolean loadFromFile(File configFile, List<NetworkDevice> devices) {
 
 //		if (Looper.myLooper() == Looper.getMainLooper()) {
 //			throw new AccessStorageOnMainThreadException("ServerSettingDao #loadFromFile");
 //		}
 
-		if (!configFile.exists()) {
-			Log.warning(TAG, "#loadFromFile - File is null or does not exist");
-			return false;
-		}
+        if (!configFile.exists()) {
+            Log.warning(TAG, "#loadFromFile - File is null or does not exist");
+            return false;
+        }
 
-		NetworkDeviceXmlHandler xmlHandler = new NetworkDeviceXmlHandler();
-		try {
-			SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-			XMLReader reader = parserFactory.newSAXParser().getXMLReader();
-			reader.setContentHandler(xmlHandler);
-			reader.parse(new InputSource(new FileInputStream(configFile)));
+        NetworkDeviceXmlHandler xmlHandler = new NetworkDeviceXmlHandler();
+        try {
+            SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+            XMLReader reader = parserFactory.newSAXParser().getXMLReader();
+            reader.setContentHandler(xmlHandler);
+            reader.parse(new InputSource(new FileInputStream(configFile)));
 
-		} catch (Exception e) {
-			Log.error(TAG, "#loadFromFile - Error occurred while parsing Server settings (file " + configFile + ")", e);
-			return false;
-		}
+        } catch (Exception e) {
+            Log.error(TAG, "#loadFromFile - Error occurred while parsing Server settings (file " + configFile + ")", e);
+            return false;
+        }
 
-		return devices.addAll(xmlHandler.getDevices());
-	}
+        return devices.addAll(xmlHandler.getDevices());
+    }
 
     /**
      * Load the device list from the default XML file and returns it.

@@ -21,7 +21,7 @@ import java.util.Set;
  */
 public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
-    private static final String TAG = "org.es.uremote.computer.KeyboardListener";
+    private static final String TAG = KeyboardListener.class.getSimpleName();
 
     private static final int FLAG_NONE = 0b00000;
     private static final int FLAG_CTRL = 0b00001;

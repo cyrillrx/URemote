@@ -44,7 +44,7 @@ public class DPadWidgetConfigureActivity extends ServerListActivity {
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) &&  mWidgetId != INVALID_APPWIDGET_ID) {
+        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) && mWidgetId != INVALID_APPWIDGET_ID) {
             final NetworkDevice device = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
             final Intent widgetIntent = new Intent();
