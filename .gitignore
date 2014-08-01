@@ -1,3 +1,4 @@
+# MacOS garbage
 .DS_Store
 
 # built application files
@@ -39,3 +40,8 @@ proguard/
 
 # Gradle
 .gradle
+
+# Crashlytics
+crashlytics.properties
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
