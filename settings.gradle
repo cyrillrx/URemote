@@ -1,2 +1,3 @@
 include ':URemote'
 include ':volley'
+project(':volley').projectDir = new File('libraries/volley')
