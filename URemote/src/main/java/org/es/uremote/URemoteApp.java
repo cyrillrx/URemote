@@ -14,12 +14,17 @@ import org.es.common.volley.LruBitmapCache;
  * @author Cyril Leroux
  *         Created 23/07/2014.
  */
-public class URemote extends Application {
+public class URemoteApp extends Application {
 
-    private static final String TAG = URemote.class.getSimpleName();
+    private static final String TAG = URemoteApp.class.getSimpleName();
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
@@ -36,7 +41,7 @@ public class URemote extends Application {
         return this.mImageLoader;
     }
 
-    public <T> void addToRequestQueue(Request<T> req, String tag) {
+    public <Response> void addToRequestQueue(Request<Response> req, String tag) {
         // set the default tag if tag is empty
         req.setTag(TextUtils.isEmpty(tag) ? TAG : tag);
         getRequestQueue().add(req);

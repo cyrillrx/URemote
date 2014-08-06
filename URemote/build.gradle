@@ -18,13 +18,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion project.COMPILE_SDK_VERSION as int
-    buildToolsVersion project.BUILD_TOOLS_VERSION
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
         applicationId "org.es.uremote"
-        minSdkVersion project.MIN_SDK_VERSION as int
-        targetSdkVersion project.TARGET_SDK_VERSION as int
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
         versionCode 1
         versionName '0.1.4'
 
@@ -73,14 +73,14 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 }
 
 dependencies {
     compile project(':volley')
-    compile 'com.google.android:support-v4:r7'
+    compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
     compile 'com.crashlytics.android:crashlytics:1.+'
 }
