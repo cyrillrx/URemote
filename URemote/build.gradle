@@ -1,11 +1,9 @@
 buildscript {
     repositories {
-        mavenCentral()
         maven { url 'http://download.crashlytics.com/maven' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.11.4'
     }
 }
 
@@ -79,8 +77,8 @@ android {
 }
 
 dependencies {
-    compile project(':volley')
+    compile project(':libraries:volley')
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
-    compile 'com.crashlytics.android:crashlytics:1.+'
+    compile 'com.crashlytics.android:crashlytics:1.1.11'
 }
