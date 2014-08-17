@@ -67,6 +67,9 @@ android {
             jniDebugBuild false
             debuggable false
             signingConfig signingConfigs.release
+
+            betaDistributionEmailsFilePath = 'beta_distribution_emails.txt'
+            betaDistributionReleaseNotesFilePath = 'release_notes.txt'
         }
     }
 
