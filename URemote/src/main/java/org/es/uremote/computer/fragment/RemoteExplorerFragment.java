@@ -18,7 +18,7 @@ import org.es.uremote.exchange.Message.Request;
 import org.es.uremote.exchange.Message.Request.Code;
 import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.request.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.uremote.utils.ToastSender;

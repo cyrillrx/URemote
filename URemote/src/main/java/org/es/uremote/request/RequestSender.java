@@ -1,7 +1,7 @@
-package org.es.uremote.exchange;
+package org.es.uremote.request;
 
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request;
+import org.es.uremote.request.protobuf.RemoteCommand;
 
 /**
  * Interface to send a request.
@@ -16,7 +16,7 @@ public interface RequestSender {
      *
      * @param request The request to send.
      */
-    public void sendRequest(Request request);
+    public void sendRequest(RemoteCommand.Request request);
 
     /** @return The current server configuration. */
     public NetworkDevice getDevice();

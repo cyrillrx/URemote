@@ -16,18 +16,14 @@ import android.view.ViewGroup;
 import org.es.common.view.Console;
 import org.es.uremote.R;
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.WakeOnLan;
+import org.es.uremote.request.RequestSender;
+import org.es.uremote.request.protobuf.RemoteCommand.Request;
 import org.es.uremote.utils.ToastSender;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.exchange.Message.Request.Code.KILL_SERVER;
-import static org.es.uremote.exchange.Message.Request.Code.LOCK;
-import static org.es.uremote.exchange.Message.Request.Code.MUTE;
-import static org.es.uremote.exchange.Message.Request.Code.SHUTDOWN;
-import static org.es.uremote.exchange.Message.Request.Type.AI;
-import static org.es.uremote.exchange.Message.Request.Type.SIMPLE;
+import static org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
+import static org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
 
 /**
  * Class to connect and send commands to a remote device through AsyncTask.
@@ -101,21 +97,21 @@ public class FragAdmin extends Fragment implements OnClickListener {
                 break;
 
             case R.id.cmdShutdown:
-                confirmRequest(buildRequest(SIMPLE, SHUTDOWN));
+                confirmRequest(buildRequest(Type.SIMPLE, Code.SHUTDOWN));
                 break;
 
             case R.id.cmdAiMute:
-                mRequestSender.sendRequest(buildRequest(AI, MUTE));
+                mRequestSender.sendRequest(buildRequest(Type.AI, Code.MUTE));
                 // TODO factorize log code
-                mConsole.addLine("Sending request - Type:" + AI.name() + " Code: " + MUTE.name());
+                mConsole.addLine("Sending request - Type:" + Type.AI.name() + " Code: " + Code.MUTE.name());
                 break;
 
             case R.id.cmdKillServer:
-                confirmRequest(buildRequest(SIMPLE, KILL_SERVER));
+                confirmRequest(buildRequest(Type.SIMPLE, Code.KILL_SERVER));
                 break;
 
             case R.id.cmdLock:
-                confirmRequest(SIMPLE, LOCK);
+                confirmRequest(Type.SIMPLE, Code.LOCK);
                 break;
 
             default:
@@ -175,7 +171,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
      */
     private void confirmRequest(final Request request) {
         // TODO add int param for message resource.
-        int resId = (KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
+        int resId = (Code.KILL_SERVER.equals(request.getCode())) ? R.string.confirm_kill_server : R.string.confirm_command;
 
         new AlertDialog.Builder(getActivity())
                 .setIcon(android.R.drawable.ic_menu_more)

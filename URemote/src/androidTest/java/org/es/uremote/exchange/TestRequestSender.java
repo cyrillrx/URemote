@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.request.MessageUtils;
 import org.es.utils.Log;
 
 import java.util.concurrent.ExecutionException;

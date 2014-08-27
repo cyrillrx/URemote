@@ -1,7 +1,7 @@
 package org.es.uremote.common;
 
 import org.es.uremote.computer.LoadServerActivity;
-import org.es.uremote.exchange.FileInfoFactory;
+import org.es.uremote.request.FileInfoFactory;
 
 import static org.es.uremote.exchange.Message.FileInfo;
 

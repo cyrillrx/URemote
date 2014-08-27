@@ -24,9 +24,10 @@ public class AppItem implements Parcelable {
         }
     };
 
-    private String mLabel;
-    private String mPath;
-    private int mImageResource;
+    private final String mLabel;
+    private final String mPath;
+    private final int mImageResource;
+    private final int mAction;
 
     /**
      * Constructor with parameters
@@ -35,10 +36,11 @@ public class AppItem implements Parcelable {
      * @param path
      * @param resId
      */
-    public AppItem(final String label, final String path, final int resId) {
+    public AppItem(final String label, final String path, final int resId, int action) {
         mLabel = label;
         mPath = path;
         mImageResource = resId;
+        mAction = action;
     }
 
     /** @param src  */
@@ -46,6 +48,7 @@ public class AppItem implements Parcelable {
         mLabel = src.readString();
         mPath = src.readString();
         mImageResource = src.readInt();
+        mAction = src.readInt();
     }
 
     @Override
@@ -56,17 +59,14 @@ public class AppItem implements Parcelable {
         destination.writeString(mLabel);
         destination.writeString(mPath);
         destination.writeInt(mImageResource);
+        destination.writeInt(mAction);
     }
 
     public int getImageResource() { return mImageResource; }
 
-    public void setImageResource(int imageResource) { mImageResource = imageResource; }
-
     public String getLabel() { return mLabel; }
-
-    public void setLabel(String label) { mLabel = label; }
 
     public String getPath() { return mPath; }
 
-    public void setPath(final String path) { mPath = path; }
+    public int getAction() { return mAction; }
 }

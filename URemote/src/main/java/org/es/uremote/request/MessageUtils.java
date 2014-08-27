@@ -1,10 +1,10 @@
-package org.es.uremote.exchange;
+package org.es.uremote.request;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.request.protobuf.RemoteCommand.Request;
+import org.es.uremote.request.protobuf.RemoteCommand.Response;
 import org.es.utils.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -114,7 +114,6 @@ public class MessageUtils {
         //create BAOS for protobuf
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        //mClientDetails is a protobuf message object, dump it to the BAOS
         request.writeDelimitedTo(baos);
 
         socket.getOutputStream().write(baos.toByteArray());

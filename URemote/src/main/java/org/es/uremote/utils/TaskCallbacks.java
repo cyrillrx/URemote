@@ -1,6 +1,6 @@
 package org.es.uremote.utils;
 
-import org.es.uremote.exchange.Message.Response;
+import org.es.uremote.request.protobuf.RemoteCommand.Response;
 
 /**
  * Callback interface through which the fragment will report the

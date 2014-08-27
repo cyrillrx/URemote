@@ -3,9 +3,9 @@ package org.es.uremote.network;
 import android.os.AsyncTask;
 
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.MessageUtils;
+import org.es.uremote.request.MessageUtils;
+import org.es.uremote.request.protobuf.RemoteCommand.Request;
+import org.es.uremote.request.protobuf.RemoteCommand.Response;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 

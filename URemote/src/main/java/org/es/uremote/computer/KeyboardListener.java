@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 
 import org.es.uremote.BuildConfig;
 import org.es.uremote.exchange.Message;
-import org.es.uremote.exchange.RequestSender;
+import org.es.uremote.request.RequestSender;
 import org.es.uremote.utils.ToastSender;
 import org.es.utils.Log;
 

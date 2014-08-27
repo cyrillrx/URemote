@@ -1,4 +1,4 @@
-package org.es.uremote.exchange;
+package org.es.uremote.request;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 

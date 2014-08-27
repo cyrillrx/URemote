@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
-import org.es.uremote.exchange.Message.Request.Code;
-import org.es.uremote.exchange.Message.Request.Type;
 import org.es.uremote.objects.AppItem;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import static org.es.uremote.utils.IntentKeys.EXTRA_APPLICATION_LIST;
 import static org.es.uremote.utils.IntentKeys.REQUEST_CODE;
@@ -28,9 +28,7 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
  * @author Cyril Leroux
  *         Created before first commit (08/04/12).
  */
-public class AppLauncherActivity extends Activity implements OnClickListener {
-
-    private ArrayList<AppItem> mApplications;
+public class AppLauncherActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,35 +43,14 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
         gridLayout.setRowCount(5);
         gridLayout.setOrientation(GridLayout.HORIZONTAL);
 
-        mApplications = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
-
-        populateAppGridLayout(gridLayout, mApplications);
-
-        final ViewGroup.LayoutParams btnLayout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        ImageButton ibStart = new ImageButton(this);
-        ibStart.setLayoutParams(btnLayout);
-        ibStart.setBackground(null);
-        ibStart.setPadding(15, 15, 15, 15);
-        ibStart.setContentDescription(getString(R.string.cmd_gom_start));
-        ibStart.setImageResource(R.drawable.app_gom_player);
-        ibStart.setId(R.id.btnAppGomPlayer);
-        ibStart.setOnClickListener(this);
-        gridLayout.addView(ibStart);
-
-        ImageButton ibStop = new ImageButton(this);
-        ibStop.setLayoutParams(btnLayout);
-        ibStop.setBackground(null);
-        ibStop.setPadding(15, 15, 15, 15);
-        ibStop.setContentDescription(getString(R.string.cmd_gom_start));
-        ibStop.setImageResource(R.drawable.app_gom_player);
-        ibStop.setId(R.id.btnKillGomPlayer);
-        ibStop.setOnClickListener(this);
-        gridLayout.addView(ibStop);
+        List<AppItem> appItems = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
+        
+        populateAppGridLayout(gridLayout, appItems);
 
         setContentView(gridLayout, layoutParams);
     }
 
-    private void populateAppGridLayout(final GridLayout gridLayout, ArrayList<AppItem> apps) {
+    private void populateAppGridLayout(final GridLayout gridLayout, List<AppItem> apps) {
         if (apps == null) { return; }
 
         final ViewGroup.LayoutParams btnLayout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -85,35 +62,14 @@ public class AppLauncherActivity extends Activity implements OnClickListener {
             imageButton.setPadding(15, 15, 15, 15);
             imageButton.setContentDescription(app.getLabel());
             imageButton.setImageResource(app.getImageResource());
-            imageButton.setOnClickListener(this);
-            imageButton.setId(((Object) app).hashCode()); // TODO How to define id
+            imageButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // TODO Do something => missing Type and code
+                    returnAppMessage(Type.APP, Code.valueOf(app.getAction()));
+                }
+            });
             gridLayout.addView(imageButton);
-        }
-    }
-
-    @Override
-    public void onClick(View v) {
-
-        final int id = v.getId();
-
-        // TODO How to catch the right id
-//        for (AppItem app : mApplications) {
-//            if (id == ((Object)app).hashCode()) {
-//                // Do something => missing Type and code
-//            }
-//        }
-
-        switch (id) {
-            case R.id.btnAppGomPlayer:
-                returnAppMessage(Type.APP, Code.ON);
-                break;
-
-            case R.id.btnKillGomPlayer:
-                returnAppMessage(Type.APP, Code.OFF);
-                break;
-
-            default:
-                break;
         }
     }
 

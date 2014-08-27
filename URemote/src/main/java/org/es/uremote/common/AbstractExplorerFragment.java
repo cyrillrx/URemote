@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import org.es.uremote.R;
 import org.es.uremote.components.ExplorerArrayAdapter;
-import org.es.uremote.exchange.FileInfoFactory;
+import org.es.uremote.request.FileInfoFactory;
 import org.es.uremote.exchange.Message.FileInfo;
 import org.es.uremote.utils.IntentKeys;
 import org.es.utils.FileUtils;

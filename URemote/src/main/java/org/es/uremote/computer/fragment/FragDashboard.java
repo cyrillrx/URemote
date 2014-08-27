@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,25 +22,18 @@ import android.widget.TextView;
 import org.es.uremote.AppLauncherActivity;
 import org.es.uremote.R;
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.Message.Request.Code;
-import org.es.uremote.exchange.Message.Request.Type;
-import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.exchange.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.objects.AppItem;
+import org.es.uremote.request.RequestSender;
+import org.es.uremote.request.protobuf.RemoteCommand.Request;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
+import org.es.uremote.request.protobuf.RemoteCommand.Response;
 import org.es.uremote.utils.IntentKeys;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.utils.Log;
 
 import java.util.ArrayList;
-
-import static android.app.Activity.RESULT_OK;
-import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
-import static org.es.uremote.exchange.Message.Request.Code.DEFINE;
-import static org.es.uremote.exchange.Message.Request.Code.MUTE;
-import static org.es.uremote.exchange.Message.Request.Type.KEYBOARD;
-import static org.es.uremote.exchange.Message.Request.Type.VOLUME;
 
 /**
  * Class to connect and send commands to a remote device through AsyncTask.
@@ -136,28 +130,28 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
     @Override
     public void onClick(View _view) {
-        _view.performHapticFeedback(VIRTUAL_KEY);
+        _view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
 
         switch (_view.getId()) {
 
             case R.id.kbLeft:
-                sendRequest(KEYBOARD, Code.DPAD_LEFT);
+                sendRequest(Type.KEYBOARD, Code.DPAD_LEFT);
                 break;
 
             case R.id.kbRight:
-                sendRequest(KEYBOARD, Code.DPAD_RIGHT);
+                sendRequest(Type.KEYBOARD, Code.DPAD_RIGHT);
                 break;
 
             case R.id.kbUp:
-                sendRequest(KEYBOARD, Code.DPAD_UP);
+                sendRequest(Type.KEYBOARD, Code.DPAD_UP);
                 break;
 
             case R.id.kbDown:
-                sendRequest(KEYBOARD, Code.DPAD_DOWN);
+                sendRequest(Type.KEYBOARD, Code.DPAD_DOWN);
                 break;
 
             case R.id.kbOk:
-                sendRequest(KEYBOARD, Code.KEYCODE_ENTER);
+                sendRequest(Type.KEYBOARD, Code.KEYCODE_ENTER);
                 break;
 
             case R.id.cmdTest:
@@ -171,8 +165,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
             case R.id.btnAppLauncher:
                 final Intent appLauncherIntent = new Intent(getActivity().getApplicationContext(), AppLauncherActivity.class);
                 ArrayList<AppItem> applicationList = new ArrayList<>();
-                applicationList.add(new AppItem(getString(R.string.cmd_gom_start), "", R.drawable.app_gom_player));
-                applicationList.add(new AppItem(getString(R.string.cmd_gom_kill), "", R.drawable.app_gom_player));
+                applicationList.add(new AppItem(getString(R.string.cmd_gom_start), "", R.drawable.app_gom_player, Code.ON.getNumber()));
+                applicationList.add(new AppItem(getString(R.string.cmd_gom_kill), "", R.drawable.app_gom_player, Code.OFF.getNumber()));
                 appLauncherIntent.putParcelableArrayListExtra(IntentKeys.EXTRA_APPLICATION_LIST, applicationList);
                 startActivityForResult(appLauncherIntent, RC_APP_LAUNCHER);
                 break;
@@ -182,23 +176,23 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
                 break;
 
             case R.id.cmdPrevious:
-                sendRequest(KEYBOARD, Code.MEDIA_PREVIOUS);
+                sendRequest(Type.KEYBOARD, Code.MEDIA_PREVIOUS);
                 break;
 
             case R.id.cmdPlayPause:
-                sendRequest(KEYBOARD, Code.MEDIA_PLAY_PAUSE);
+                sendRequest(Type.KEYBOARD, Code.MEDIA_PLAY_PAUSE);
                 break;
 
             case R.id.cmdStop:
-                sendRequest(KEYBOARD, Code.MEDIA_STOP);
+                sendRequest(Type.KEYBOARD, Code.MEDIA_STOP);
                 break;
 
             case R.id.cmdNext:
-                sendRequest(KEYBOARD, Code.MEDIA_NEXT);
+                sendRequest(Type.KEYBOARD, Code.MEDIA_NEXT);
                 break;
 
             case R.id.cmdMute:
-                sendRequest(VOLUME, Code.MUTE);
+                sendRequest(Type.VOLUME, Code.MUTE);
                 break;
 
             default:
@@ -208,7 +202,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RC_APP_LAUNCHER && resultCode == RESULT_OK) {
+        if (requestCode == RC_APP_LAUNCHER && resultCode == Activity.RESULT_OK) {
             final Type type = Type.valueOf(data.getIntExtra(IntentKeys.REQUEST_TYPE, -1));
             final Code code = Code.valueOf(data.getIntExtra(IntentKeys.REQUEST_CODE, -1));
 
@@ -237,7 +231,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
             return;
         }
         final int volume = seekBar.getProgress();
-        sendRequest(VOLUME, Code.DEFINE, volume);
+        sendRequest(Type.VOLUME, Code.DEFINE, volume);
     }
 
     @Override
@@ -293,7 +287,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         if (DashboardMessageMgr.availablePermits() > 0) {
             new DashboardMessageMgr().execute(request);
         } else {
-            final boolean defineVolume = VOLUME.equals(request.getType()) && DEFINE.equals(request.getCode());
+            final boolean defineVolume = Type.VOLUME.equals(request.getType()) && Code.DEFINE.equals(request.getCode());
             if (!defineVolume) {
                 final String message = "#sendRequest - " + getString(R.string.msg_no_more_permit) + "\n" + request.toString();
                 Log.warning(TAG, message);
@@ -330,8 +324,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
             final Type type = response.getRequestType();
             final Code code = response.getRequestCode();
 
-            boolean usingVolumeSeekbar = VOLUME.equals(type) && DEFINE.equals(code);
-            if (!usingVolumeSeekbar) {
+            boolean usingVolumeSeekBar = Type.VOLUME.equals(type) && Code.DEFINE.equals(code);
+            if (!usingVolumeSeekBar) {
                 // TODO specify when to display a message => Wrap Request
                 //sendToastToUI(message);
             } else {
@@ -345,7 +339,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
             }
 
             // Handle UI mute icon
-            if (VOLUME.equals(type) && MUTE.equals(code)) {
+            if (Type.VOLUME.equals(type) && Code.MUTE.equals(code)) {
                 if (response.getIntValue() == 0) { // Mute
                     mIbMute.setImageResource(R.drawable.volume_muted);
                 } else if (response.getIntValue() == 1) { // Volume On
