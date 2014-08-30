@@ -13,19 +13,19 @@ import org.es.uremote.R;
 import org.es.uremote.common.AbstractExplorerFragment;
 import org.es.uremote.components.ExplorerArrayAdapter;
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message;
-import org.es.uremote.exchange.Message.Request;
-import org.es.uremote.exchange.Message.Request.Code;
-import org.es.uremote.exchange.Message.Request.Type;
-import org.es.uremote.exchange.Message.Response;
-import org.es.uremote.request.RequestSender;
 import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.request.RequestSender;
+import org.es.uremote.request.protobuf.RemoteCommand;
+import org.es.uremote.request.protobuf.RemoteCommand.Request;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
+import org.es.uremote.request.protobuf.RemoteCommand.Response;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.uremote.utils.ToastSender;
 
 import java.util.List;
 
-import static org.es.uremote.exchange.Message.Response.ReturnCode.RC_ERROR;
+import static org.es.uremote.request.protobuf.RemoteCommand.Response.ReturnCode.RC_ERROR;
 
 /**
  * Remote file explorer fragment.
@@ -91,7 +91,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     }
 
     @Override
-    protected ExplorerArrayAdapter newExplorerAdapter(List<Message.FileInfo> files) {
+    protected ExplorerArrayAdapter newExplorerAdapter(List<RemoteCommand.FileInfo> files) {
         return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
     }
 

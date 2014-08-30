@@ -7,7 +7,7 @@ import org.es.utils.Log;
 
 import java.io.File;
 
-import static org.es.uremote.exchange.Message.FileInfo;
+import org.es.uremote.request.protobuf.RemoteCommand.FileInfo;
 
 /**
  * Creates FileInfo objects from various entries.

@@ -6,7 +6,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
 import org.es.uremote.BuildConfig;
-import org.es.uremote.exchange.Message;
+import org.es.uremote.request.protobuf.RemoteCommand;
 import org.es.uremote.request.RequestSender;
 import org.es.uremote.utils.ToastSender;
 import org.es.utils.Log;
@@ -112,10 +112,10 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         }
     }
 
-    private void sendRequest(final Message.Request.Code primaryCode) {
-        mRequestSender.sendRequest(Message.Request.newBuilder()
+    private void sendRequest(final RemoteCommand.Request.Code primaryCode) {
+        mRequestSender.sendRequest(RemoteCommand.Request.newBuilder()
                 .setSecurityToken(mRequestSender.getSecurityToken())
-                .setType(Message.Request.Type.KEYBOARD)
+                .setType(RemoteCommand.Request.Type.KEYBOARD)
                 .setCode(primaryCode)
                 .setIntExtra(mModifierFlag)
                 .build());
@@ -173,45 +173,45 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
             case KeyEvent.KEYCODE_ENTER:
             case KeyEvent.KEYCODE_DPAD_CENTER:
-                sendRequest(Message.Request.Code.KEYCODE_ENTER);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_ENTER);
                 return true;
 
             case KeyEvent.KEYCODE_TAB:
-                sendRequest(Message.Request.Code.KEYCODE_TAB);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_TAB);
                 return true;
 
             case KeyEvent.KEYCODE_SPACE:
-                sendRequest(Message.Request.Code.KEYCODE_SPACE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_SPACE);
                 return true;
 
             case KeyEvent.KEYCODE_DEL:
-                sendRequest(Message.Request.Code.KEYCODE_BACKSPACE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_BACKSPACE);
                 return true;
 
             case KeyEvent.KEYCODE_FORWARD_DEL:
-                sendRequest(Message.Request.Code.KEYCODE_DELETE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_DELETE);
                 return true;
 
             case KeyEvent.KEYCODE_ESCAPE:
-                sendRequest(Message.Request.Code.KEYCODE_ESCAPE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_ESCAPE);
                 return true;
 
             // D-pad keys
 
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                sendRequest(Message.Request.Code.DPAD_LEFT);
+                sendRequest(RemoteCommand.Request.Code.DPAD_LEFT);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_UP:
-                sendRequest(Message.Request.Code.DPAD_UP);
+                sendRequest(RemoteCommand.Request.Code.DPAD_UP);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                sendRequest(Message.Request.Code.DPAD_RIGHT);
+                sendRequest(RemoteCommand.Request.Code.DPAD_RIGHT);
                 return true;
 
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                sendRequest(Message.Request.Code.DPAD_DOWN);
+                sendRequest(RemoteCommand.Request.Code.DPAD_DOWN);
                 return true;
 
             // Combination
@@ -226,43 +226,43 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             // Number keys
 
             case KeyEvent.KEYCODE_0:
-                sendRequest(Message.Request.Code.KEYCODE_0);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_0);
                 return true;
 
             case KeyEvent.KEYCODE_1:
-                sendRequest(Message.Request.Code.KEYCODE_1);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_1);
                 return true;
 
             case KeyEvent.KEYCODE_2:
-                sendRequest(Message.Request.Code.KEYCODE_2);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_2);
                 return true;
 
             case KeyEvent.KEYCODE_3:
-                sendRequest(Message.Request.Code.KEYCODE_3);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_3);
                 return true;
 
             case KeyEvent.KEYCODE_4:
-                sendRequest(Message.Request.Code.KEYCODE_4);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_4);
                 return true;
 
             case KeyEvent.KEYCODE_5:
-                sendRequest(Message.Request.Code.KEYCODE_5);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_5);
                 return true;
 
             case KeyEvent.KEYCODE_6:
-                sendRequest(Message.Request.Code.KEYCODE_6);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_6);
                 return true;
 
             case KeyEvent.KEYCODE_7:
-                sendRequest(Message.Request.Code.KEYCODE_7);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_7);
                 return true;
 
             case KeyEvent.KEYCODE_8:
-                sendRequest(Message.Request.Code.KEYCODE_8);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_8);
                 return true;
 
             case KeyEvent.KEYCODE_9:
-                sendRequest(Message.Request.Code.KEYCODE_9);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_9);
                 return true;
 
             //
@@ -270,107 +270,107 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_A:
-                sendRequest(Message.Request.Code.KEYCODE_A);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_A);
                 return true;
 
             case KeyEvent.KEYCODE_B:
-                sendRequest(Message.Request.Code.KEYCODE_B);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_B);
                 return true;
 
             case KeyEvent.KEYCODE_C:
-                sendRequest(Message.Request.Code.KEYCODE_C);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_C);
                 return true;
 
             case KeyEvent.KEYCODE_D:
-                sendRequest(Message.Request.Code.KEYCODE_D);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_D);
                 return true;
 
             case KeyEvent.KEYCODE_E:
-                sendRequest(Message.Request.Code.KEYCODE_E);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_E);
                 return true;
 
             case KeyEvent.KEYCODE_F:
-                sendRequest(Message.Request.Code.KEYCODE_F);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F);
                 return true;
 
             case KeyEvent.KEYCODE_G:
-                sendRequest(Message.Request.Code.KEYCODE_G);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_G);
                 return true;
 
             case KeyEvent.KEYCODE_H:
-                sendRequest(Message.Request.Code.KEYCODE_H);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_H);
                 return true;
 
             case KeyEvent.KEYCODE_I:
-                sendRequest(Message.Request.Code.KEYCODE_I);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_I);
                 return true;
 
             case KeyEvent.KEYCODE_J:
-                sendRequest(Message.Request.Code.KEYCODE_J);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_J);
                 return true;
 
             case KeyEvent.KEYCODE_K:
-                sendRequest(Message.Request.Code.KEYCODE_K);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_K);
                 return true;
 
             case KeyEvent.KEYCODE_L:
-                sendRequest(Message.Request.Code.KEYCODE_L);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_L);
                 return true;
 
             case KeyEvent.KEYCODE_M:
-                sendRequest(Message.Request.Code.KEYCODE_M);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_M);
                 return true;
 
             case KeyEvent.KEYCODE_N:
-                sendRequest(Message.Request.Code.KEYCODE_N);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_N);
                 return true;
 
             case KeyEvent.KEYCODE_O:
-                sendRequest(Message.Request.Code.KEYCODE_O);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_O);
                 return true;
 
             case KeyEvent.KEYCODE_P:
-                sendRequest(Message.Request.Code.KEYCODE_P);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_P);
                 return true;
 
             case KeyEvent.KEYCODE_Q:
-                sendRequest(Message.Request.Code.KEYCODE_Q);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_Q);
                 return true;
 
             case KeyEvent.KEYCODE_R:
-                sendRequest(Message.Request.Code.KEYCODE_R);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_R);
                 return true;
 
             case KeyEvent.KEYCODE_S:
-                sendRequest(Message.Request.Code.KEYCODE_S);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_S);
                 return true;
 
             case KeyEvent.KEYCODE_T:
-                sendRequest(Message.Request.Code.KEYCODE_T);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_T);
                 return true;
 
             case KeyEvent.KEYCODE_U:
-                sendRequest(Message.Request.Code.KEYCODE_U);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_U);
                 return true;
 
             case KeyEvent.KEYCODE_V:
-                sendRequest(Message.Request.Code.KEYCODE_V);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_V);
                 return true;
 
             case KeyEvent.KEYCODE_W:
-                sendRequest(Message.Request.Code.KEYCODE_W);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_W);
                 return true;
 
             case KeyEvent.KEYCODE_X:
-                sendRequest(Message.Request.Code.KEYCODE_X);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_X);
                 return true;
 
             case KeyEvent.KEYCODE_Y:
-                sendRequest(Message.Request.Code.KEYCODE_Y);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_Y);
                 return true;
 
             case KeyEvent.KEYCODE_Z:
-                sendRequest(Message.Request.Code.KEYCODE_Z);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_Z);
                 return true;
 
             //
@@ -378,51 +378,51 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_F1:
-                sendRequest(Message.Request.Code.KEYCODE_F1);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F1);
                 return true;
 
             case KeyEvent.KEYCODE_F2:
-                sendRequest(Message.Request.Code.KEYCODE_F2);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F2);
                 return true;
 
             case KeyEvent.KEYCODE_F3:
-                sendRequest(Message.Request.Code.KEYCODE_F3);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F3);
                 return true;
 
             case KeyEvent.KEYCODE_F4:
-                sendRequest(Message.Request.Code.KEYCODE_F4);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F4);
                 return true;
 
             case KeyEvent.KEYCODE_F5:
-                sendRequest(Message.Request.Code.KEYCODE_F5);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F5);
                 return true;
 
             case KeyEvent.KEYCODE_F6:
-                sendRequest(Message.Request.Code.KEYCODE_F6);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F6);
                 return true;
 
             case KeyEvent.KEYCODE_F7:
-                sendRequest(Message.Request.Code.KEYCODE_F7);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F7);
                 return true;
 
             case KeyEvent.KEYCODE_F8:
-                sendRequest(Message.Request.Code.KEYCODE_F8);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F8);
                 return true;
 
             case KeyEvent.KEYCODE_F9:
-                sendRequest(Message.Request.Code.KEYCODE_F9);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F9);
                 return true;
 
             case KeyEvent.KEYCODE_F10:
-                sendRequest(Message.Request.Code.KEYCODE_F10);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F10);
                 return true;
 
             case KeyEvent.KEYCODE_F11:
-                sendRequest(Message.Request.Code.KEYCODE_F11);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F11);
                 return true;
 
             case KeyEvent.KEYCODE_F12:
-                sendRequest(Message.Request.Code.KEYCODE_F12);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_F12);
                 return true;
 
             //
@@ -433,62 +433,62 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_EQUALS:
-                sendRequest(Message.Request.Code.KEYCODE_EQUALS);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_EQUALS);
                 return true;
 
             case KeyEvent.KEYCODE_MINUS:
-                sendRequest(Message.Request.Code.KEYCODE_MINUS);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_MINUS);
                 return true;
 
             case KeyEvent.KEYCODE_PLUS:
-                sendRequest(Message.Request.Code.KEYCODE_PLUS);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_PLUS);
                 return true;
 
             case KeyEvent.KEYCODE_STAR:
-                sendRequest(Message.Request.Code.KEYCODE_STAR);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_STAR);
                 return true;
 
             case KeyEvent.KEYCODE_SLASH:
-                sendRequest(Message.Request.Code.KEYCODE_SLASH);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_SLASH);
                 return true;
 
             case KeyEvent.KEYCODE_BACKSLASH:
-                sendRequest(Message.Request.Code.KEYCODE_BACKSLASH);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_BACKSLASH);
                 return true;
 
             // TODO : map underscore '_'
             //            case KeyEvent.KEYCODE_UNDERSCORE:
-            //                sendRequest(Message.Request.Code.KEYCODE_UNDERSCORE);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_UNDERSCORE);
             //                return true;
 
             // TODO : map pipe '|'
             //            case KeyEvent.KEYCODE_PIPE:
-            //                sendRequest(Message.Request.Code.KEYCODE_PIPE);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_PIPE);
             //                return true;
 
             case KeyEvent.KEYCODE_COMMA:
-                sendRequest(Message.Request.Code.KEYCODE_COMMA);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_COMMA);
                 return true;
 
             case KeyEvent.KEYCODE_PERIOD:
-                sendRequest(Message.Request.Code.KEYCODE_PERIODE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_PERIODE);
                 return true;
 
             // TODO : map colon ':'
             //            case KeyEvent.KEYCODE_COLON:
-            //                sendRequest(Message.Request.Code.KEYCODE_COLON);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_COLON);
             //                return true;
 
             case KeyEvent.KEYCODE_SEMICOLON:
-                sendRequest(Message.Request.Code.KEYCODE_SEMICOLON);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_SEMICOLON);
                 return true;
 
             case KeyEvent.KEYCODE_AT:
-                sendRequest(Message.Request.Code.KEYCODE_AT);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_AT);
                 return true;
 
             case KeyEvent.KEYCODE_APOSTROPHE:
-                sendRequest(Message.Request.Code.KEYCODE_APOSTROPHE);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_APOSTROPHE);
                 return true;
 
 
@@ -498,37 +498,37 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             //
 
             case KeyEvent.KEYCODE_NUMPAD_LEFT_PAREN:
-                sendRequest(Message.Request.Code.KEYCODE_LEFT_PAREN);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_LEFT_PAREN);
                 return true;
 
             case KeyEvent.KEYCODE_NUMPAD_RIGHT_PAREN:
-                sendRequest(Message.Request.Code.KEYCODE_RIGHT_PARENT);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_RIGHT_PARENT);
                 return true;
 
             case KeyEvent.KEYCODE_LEFT_BRACKET:
-                sendRequest(Message.Request.Code.KEYCODE_LEFT_BRACKET);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_LEFT_BRACKET);
                 return true;
 
             case KeyEvent.KEYCODE_RIGHT_BRACKET:
-                sendRequest(Message.Request.Code.KEYCODE_RIGHT_BRACKET);
+                sendRequest(RemoteCommand.Request.Code.KEYCODE_RIGHT_BRACKET);
                 return true;
 
             // TODO : map curly brackets '{' and '}'
             //            case KeyEvent.KEYCODE_LEFT_CURLY_BRACKET:
-            //                sendRequest(Message.Request.Code.KEYCODE_LEFT_CURLY_BRACKET);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_LEFT_CURLY_BRACKET);
             //                return true;
             //
             //            case KeyEvent.KEYCODE_RIGHT_CURLY_BRACKET:
-            //                sendRequest(Message.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_RIGHT_CURLY_BRACKET);
             //                return true;
 
             // TODO : map curly brackets '<' and '>'
             //            case KeyEvent.KEYCODE_LEFT_ANGLE_BRACKET:
-            //                sendRequest(Message.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_LEFT_ANGLE_BRACKET);
             //                return true;
             //
             //            case KeyEvent.KEYCODE_RIGHT_ANGLE_BRACKET:
-            //                sendRequest(Message.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET);
+            //                sendRequest(RemoteCommand.Request.Code.KEYCODE_RIGHT_ANGLE_BRACKET);
             //                return true;
 
             default:

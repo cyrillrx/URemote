@@ -44,7 +44,7 @@ public class AppLauncherActivity extends Activity {
         gridLayout.setOrientation(GridLayout.HORIZONTAL);
 
         List<AppItem> appItems = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
-        
+
         populateAppGridLayout(gridLayout, appItems);
 
         setContentView(gridLayout, layoutParams);
@@ -55,7 +55,7 @@ public class AppLauncherActivity extends Activity {
 
         final ViewGroup.LayoutParams btnLayout = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        for (AppItem app : apps) {
+        for (final AppItem app : apps) {
             final ImageButton imageButton = new ImageButton(this);
             imageButton.setLayoutParams(btnLayout);
             imageButton.setBackground(null);

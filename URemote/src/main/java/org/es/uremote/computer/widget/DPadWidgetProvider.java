@@ -15,8 +15,8 @@ import org.es.uremote.ComputerActivity;
 import org.es.uremote.R;
 import org.es.uremote.computer.dao.NetworkDeviceDao;
 import org.es.uremote.device.NetworkDevice;
-import org.es.uremote.exchange.Message.Request.Code;
-import org.es.uremote.exchange.Message.Request.Type;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
+import org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
 import org.es.uremote.graphics.ConnectedDeviceDrawable;
 import org.es.uremote.graphics.GraphicUtil;
 import org.es.uremote.network.AsyncMessageMgr;
@@ -24,7 +24,7 @@ import org.es.utils.Log;
 
 import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_UPDATE;
 import static android.widget.Toast.LENGTH_SHORT;
-import static org.es.uremote.exchange.Message.Request;
+import static org.es.uremote.request.protobuf.RemoteCommand.Request;
 import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 /**

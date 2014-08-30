@@ -3,7 +3,7 @@ package org.es.uremote.common;
 import org.es.uremote.computer.LoadServerActivity;
 import org.es.uremote.request.FileInfoFactory;
 
-import static org.es.uremote.exchange.Message.FileInfo;
+import static org.es.uremote.request.protobuf.RemoteCommand.FileInfo;
 
 /**
  * Local file explorer fragment.
