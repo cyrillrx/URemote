@@ -11,7 +11,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'crashlytics'
 
 repositories {
-    mavenCentral()
     maven { url 'http://download.crashlytics.com/maven' }
 }
 
@@ -19,22 +18,24 @@ android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
+    // customize apk output names
+    // For each application variant (release, debug, etc.)
+    applicationVariants.all { variant ->
+        def outputs = variant.getOutputs()
+        outputs.each { output ->
+            File originalFile = output.outputFile
+            String date = (new Date()).format('yyyy-MM-dd')
+            String newFilename = date + '_' + originalFile.getName()
+            output.outputFile = new File(originalFile.parent, newFilename)
+        }
+    }
+
     defaultConfig {
-        applicationId "org.es.uremote"
+        applicationId project.GROUP + ".uremote"
         minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
         targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
         versionCode 1
-        versionName '0.1.4'
-
-        // For each application variants (release, debug, etc.)
-        applicationVariants.all { variant ->
-
-            // Create custom apk names
-            File file = variant.outputFile
-            String date = (new Date()).format('yyyy-MM-dd')
-            String filename = date + "_" + project.name + "-v" + variant.versionName + "-" + variant.buildType.name + ".apk"
-            variant.outputFile = new File(file.parent, filename)
-        }
+        versionName "0.1.4"
     }
 
     signingConfigs {
@@ -68,8 +69,8 @@ android {
             debuggable false
             signingConfig signingConfigs.release
 
-            betaDistributionEmailsFilePath = 'beta_distribution_emails.txt'
-            betaDistributionReleaseNotesFilePath = 'release_notes.txt'
+            ext.betaDistributionEmailsFilePath = 'beta_distribution_emails.txt'
+            ext.betaDistributionReleaseNotesFilePath = 'release_notes.txt'
         }
     }
 
