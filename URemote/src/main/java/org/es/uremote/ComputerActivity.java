@@ -1,7 +1,6 @@
 package org.es.uremote;
 
 import android.animation.ObjectAnimator;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
@@ -10,10 +9,11 @@ import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,14 +29,14 @@ import org.es.uremote.computer.fragment.FragDashboard;
 import org.es.uremote.computer.fragment.RemoteExplorerFragment;
 import org.es.uremote.device.ConnectedDevice;
 import org.es.uremote.device.NetworkDevice;
+import org.es.uremote.graphics.ConnectedDeviceDrawable;
+import org.es.uremote.network.AsyncMessageMgr;
+import org.es.uremote.request.RequestSender;
 import org.es.uremote.request.protobuf.RemoteCommand.Request;
 import org.es.uremote.request.protobuf.RemoteCommand.Request.Code;
 import org.es.uremote.request.protobuf.RemoteCommand.Request.Type;
 import org.es.uremote.request.protobuf.RemoteCommand.Response;
 import org.es.uremote.request.protobuf.RemoteCommand.Response.ReturnCode;
-import org.es.uremote.request.RequestSender;
-import org.es.uremote.graphics.ConnectedDeviceDrawable;
-import org.es.uremote.network.AsyncMessageMgr;
 import org.es.uremote.utils.Constants;
 import org.es.uremote.utils.TaskCallbacks;
 import org.es.uremote.utils.ToastSender;
@@ -55,7 +55,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 10/05/12.
  */
-public class ComputerActivity extends FragmentActivity implements TaskCallbacks, ToastSender, RequestSender {
+public class ComputerActivity extends ActionBarActivity implements TaskCallbacks, ToastSender, RequestSender {
 
     private static final String TAG = ComputerActivity.class.getSimpleName();
 
@@ -86,7 +86,7 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
         final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice);
 
         // ActionBar configuration
-        final ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -352,7 +352,9 @@ public class ComputerActivity extends FragmentActivity implements TaskCallbacks,
 
         final Request request = Request.newBuilder()
                 .setSecurityToken(device.getSecurityToken())
-                .setType(requestType).setCode(requestCode).build();
+                .setType(requestType)
+                .setCode(requestCode)
+                .build();
 
         if (request == null) {
             sendToast(R.string.msg_null_request);

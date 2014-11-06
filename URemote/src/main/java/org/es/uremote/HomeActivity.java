@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 
+import org.es.common.ActionBarListActivity;
 import org.es.uremote.components.ActionArrayAdapter;
 import org.es.uremote.computer.ServerListActivity;
 import org.es.uremote.device.NetworkDevice;
@@ -39,7 +40,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 11/09/10.
  */
-public class HomeActivity extends ListActivity implements OnItemClickListener {
+public class HomeActivity extends ActionBarListActivity implements OnItemClickListener {
 
     // The request codes of ActivityForResults
     private static final int RC_SELECT_SERVER = 0;

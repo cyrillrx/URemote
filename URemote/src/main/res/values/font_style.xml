@@ -9,8 +9,8 @@
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
-    <style name="RobotoFont" parent="@RobotoLight" />
-    <style name="ActionTitleFont" parent="@RobotoLight" />
-    <style name="VolumeToastFont" parent="@RobotoThin" />
+    <style name="RobotoFont" parent="RobotoLight" />
+    <style name="ActionTitleFont" parent="RobotoLight" />
+    <style name="VolumeToastFont" parent="RobotoThin" />
 
 </resources>

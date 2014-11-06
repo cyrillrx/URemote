@@ -1,7 +1,7 @@
 package org.es.uremote;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
 import org.es.component.HexagonGridView;
 import org.es.uremote.objects.ActionItem;
@@ -13,7 +13,7 @@ import java.util.List;
  * <p/>
  * Created by Cyril Leroux on 05/12/13.
  */
-public class HexHomeActivity extends Activity {
+public class HexHomeActivity extends ActionBarActivity {
 
     private static final int ACTION_COMPUTER = 0;
     private static final int ACTION_NAO = 1;

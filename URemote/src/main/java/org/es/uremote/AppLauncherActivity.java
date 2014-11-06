@@ -1,9 +1,9 @@
 package org.es.uremote;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -28,7 +28,7 @@ import static org.es.uremote.utils.IntentKeys.REQUEST_TYPE;
  * @author Cyril Leroux
  *         Created before first commit (08/04/12).
  */
-public class AppLauncherActivity extends Activity {
+public class AppLauncherActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

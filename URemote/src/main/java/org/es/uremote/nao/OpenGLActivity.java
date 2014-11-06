@@ -1,15 +1,15 @@
 package org.es.uremote.nao;
 
-import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MotionEvent;
 import android.view.View;
 
 /**
  * Created by Cyril on 23/11/13.
  */
-public class OpenGLActivity extends Activity implements View.OnTouchListener {
+public class OpenGLActivity extends ActionBarActivity implements View.OnTouchListener {
 
     private GLSurfaceView mGLView;
     private OpenGLRenderer mRenderer;
@@ -47,7 +47,7 @@ public class OpenGLActivity extends Activity implements View.OnTouchListener {
                 mLastValueX = event.getX();
                 mLastValueY = event.getY();
 
-                mRenderer.rotateXYZ(offsetY/2, offsetX/2, 0.0f);
+                mRenderer.rotateXYZ(offsetY / 2, offsetX / 2, 0.0f);
                 return true;
 
             default:

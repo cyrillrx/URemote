@@ -14,6 +14,7 @@
 	<string name="title_console">Console</string>
 
 	<!-- Preference names -->
+    <string name="selected_server">Target server</string>
 	<string name="local_ip_address">Local ip address</string>
 	<string name="local_port">Local listening port</string>
 	<string name="broadcast_address">Broadcast ip address</string>

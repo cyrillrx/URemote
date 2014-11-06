@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <color name="primary">#fffc410a</color>
-    <color name="primary_dark">#fffc410a</color>
-    <color name="accent">#fffc410a</color>
+
+    <color name="primary">#ff000000</color>
+    <color name="primary_dark">#ff000000</color>
+    <color name="accent">#ff46c8c8</color>
+    <color name="blue_btn">@android:color/holo_blue_light</color>
+
 </resources>

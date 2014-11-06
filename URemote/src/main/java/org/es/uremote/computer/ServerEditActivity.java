@@ -3,6 +3,7 @@ package org.es.uremote.computer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -29,7 +30,7 @@ import static org.es.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
  * @author Cyril Leroux
  *         Created on 07/06/13.
  */
-public class ServerEditActivity extends Activity {
+public class ServerEditActivity extends ActionBarActivity {
 
     private static final String TAG = ServerEditActivity.class.getSimpleName();
 

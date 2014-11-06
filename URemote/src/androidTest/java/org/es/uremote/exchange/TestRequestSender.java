@@ -6,7 +6,7 @@ import junit.framework.Assert;
 
 import org.es.uremote.device.NetworkDevice;
 import org.es.uremote.network.AsyncMessageMgr;
-import org.es.uremote.request.MessageUtils;
+import org.es.uremote.request.protobuf.RemoteCommand;
 import org.es.utils.Log;
 
 import java.util.concurrent.ExecutionException;
@@ -21,7 +21,7 @@ public class TestRequestSender extends InstrumentationTestCase {
 
     NetworkDevice mDevice;
 
-//    @Before
+    //    @Before
     @Override
     protected void setUp() throws Exception {
 
@@ -40,13 +40,14 @@ public class TestRequestSender extends InstrumentationTestCase {
                 .build();
     }
 
-//    @Test
+    //    @Test
     public void testRequest() {
-        sendRequest(getKeyboardRequest(Message.Request.Code.DEFINE, Message.Request.Code.NONE, "A"));
-    }
-
-    private Message.Request getKeyboardRequest(Message.Request.Code primaryCode, Message.Request.Code extraCode, String extraString) {
-        return MessageUtils.buildRequest(SECURITY_TOKEN, Message.Request.Type.KEYBOARD, primaryCode, extraCode, extraString);
+        sendRequest(RemoteCommand.Request.newBuilder()
+                .setSecurityToken(SECURITY_TOKEN)
+                .setType(RemoteCommand.Request.Type.KEYBOARD)
+                .setCode(RemoteCommand.Request.Code.DEFINE)
+                .setStringExtra("A")
+                .build());
     }
 
     /**
@@ -54,7 +55,7 @@ public class TestRequestSender extends InstrumentationTestCase {
      *
      * @param request The request to send.
      */
-    public void sendRequest(Message.Request request) {
+    public void sendRequest(RemoteCommand.Request request) {
 
         if (AsyncMessageMgr.availablePermits() > 0) {
             AsyncMessageMgr task = new AsyncMessageMgr(mDevice, null);
@@ -76,11 +77,12 @@ public class TestRequestSender extends InstrumentationTestCase {
 
     /**
      * Checks the response validity.
+     *
      * @param response
      */
-    private static void checkResponse(Message.Response response) {
+    private static void checkResponse(RemoteCommand.Response response) {
 
-        if (Message.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
+        if (RemoteCommand.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
             Log.error(TAG, "#onPostExecute - response : " + response);
         } else {
             Log.info(TAG, "#onPostExecute - response : " + response);
@@ -88,7 +90,7 @@ public class TestRequestSender extends InstrumentationTestCase {
 
         Assert.assertEquals(
                 "Request failed : " + response.getMessage(),
-                Message.Response.ReturnCode.RC_SUCCESS,
+                RemoteCommand.Response.ReturnCode.RC_SUCCESS,
                 response.getReturnCode());
 
     }
