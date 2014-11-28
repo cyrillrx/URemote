@@ -29,10 +29,9 @@ public class FileInfoFactory {
 
         try {
             return FileInfo.parseFrom(directoryContent);
-        } catch (InvalidProtocolBufferException e) {
+        } catch (Exception e) {
             Log.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
         }
-
         return null;
     }
 

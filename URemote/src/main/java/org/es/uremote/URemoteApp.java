@@ -1,6 +1,7 @@
 package org.es.uremote;
 
 import android.app.Application;
+import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
@@ -17,6 +18,7 @@ import org.es.common.volley.LruBitmapCache;
 public class URemoteApp extends Application {
 
     private static final String TAG = URemoteApp.class.getSimpleName();
+    public static final int COLOR_DEFAULT = Color.argb(255, 70, 200, 200);
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;

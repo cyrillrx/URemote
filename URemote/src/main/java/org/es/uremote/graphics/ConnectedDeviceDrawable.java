@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 
 import org.es.common.graphic.Hexagon;
+import org.es.uremote.URemoteApp;
 import org.es.uremote.device.ConnectedDevice;
 import org.es.uremote.device.NetworkDevice;
 
@@ -43,10 +44,14 @@ public class ConnectedDeviceDrawable extends Drawable {
     private final Rect mSuperscriptBounds;
 
     public ConnectedDeviceDrawable(final ConnectedDevice device) {
+        this(device, Integer.MIN_VALUE);
+    }
+
+    public ConnectedDeviceDrawable(final ConnectedDevice device, final int color) {
 
         // Paint
         mPaint = new Paint();
-        mPaint.setARGB(255, 70, 200, 200);
+        mPaint.setColor((color != Integer.MIN_VALUE ? color : URemoteApp.COLOR_DEFAULT));
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(STROKE_WIDTH);
 

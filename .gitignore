@@ -1,6 +1,9 @@
 # MacOS garbage
 .DS_Store
 
+# temp files
+*~*
+
 # built application files
 *.keystroke
 *.apk

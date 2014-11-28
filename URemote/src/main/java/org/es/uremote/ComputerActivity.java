@@ -3,6 +3,7 @@ package org.es.uremote;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
@@ -59,9 +60,10 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
 
     private static final String TAG = ComputerActivity.class.getSimpleName();
 
-    private static final String SELECTED_TAB_INDEX = "SELECTED_TAB_INDEX";
+    private static final String SELECTED_PAGE_ID = "SELECTED_PAGE_ID";
     private static final String KEYBOARD_VISIBLE = "KEYBOARD_VISIBLE";
     private static final int PAGES_COUNT = 3;
+    private static final int DEFAULT_PAGE = 1;
     private static final int PAGE_EXPLORER = 2;
 
     private FragAdmin mFragAdmin;
@@ -70,6 +72,7 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
 
     private TextView mTvServerState;
     private ImageView mProgressSignal;
+    private ViewPager mViewPager;
 
     private Toast mToast;
 
@@ -83,18 +86,18 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
         setContentView(R.layout.activity_computer);
 
         mSelectedDevice = initDevice();
-        final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice);
+        final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice, Color.WHITE);
 
         // ActionBar configuration
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setCustomView(R.layout.computer_actionbar);
             actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
 
-            ((ImageView) actionBar.getCustomView().findViewById(R.id.deviceIcon)).setImageDrawable(deviceIcon);
-            mProgressSignal = (ImageView) actionBar.getCustomView().findViewById(R.id.signalIndicator);
+            View customView = actionBar.getCustomView();
+            ((ImageView) customView.findViewById(R.id.deviceIcon)).setImageDrawable(deviceIcon);
+            mProgressSignal = (ImageView) customView.findViewById(R.id.signalIndicator);
 
         }
 
@@ -120,22 +123,30 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
         fragments.add(mFragDashboard);
         fragments.add(mExplorerFragment);
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.vpMain);
-        viewPager.setOffscreenPageLimit(PAGES_COUNT);
+        mViewPager = (ViewPager) findViewById(R.id.vpMain);
+        mViewPager.setOffscreenPageLimit(PAGES_COUNT);
         final ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
-        viewPager.setAdapter(pagerAdapter);
+        mViewPager.setAdapter(pagerAdapter);
 
         if (savedInstanceState != null) {
-            final int newTabIndex = savedInstanceState.getInt(SELECTED_TAB_INDEX, 0);
-            if (newTabIndex != actionBar.getSelectedNavigationIndex()) {
-                actionBar.setSelectedNavigationItem(newTabIndex);
+            final int savedPageId = savedInstanceState.getInt(SELECTED_PAGE_ID, DEFAULT_PAGE);
+            if (savedPageId != mViewPager.getCurrentItem()) {
+                mViewPager.setCurrentItem(savedPageId);
             }
 
             // Update custom keyboard visibility
             if (savedInstanceState.getBoolean(KEYBOARD_VISIBLE, false)) {
                 showCustomKeyboard();
             }
-        }
+        } else { mViewPager.setCurrentItem(DEFAULT_PAGE); }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        int pageId = mViewPager.getCurrentItem();
+        outState.putInt(SELECTED_PAGE_ID, pageId);
+        outState.putBoolean(KEYBOARD_VISIBLE, isCustomKeyboardVisible());
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -155,6 +166,7 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
         // Quit the activity if the device is not set
         if (device == null) {
             finish();
+            return null;
         }
 
         sendAsyncRequest(Type.SIMPLE, Code.PING);
@@ -183,15 +195,6 @@ public class ComputerActivity extends ActionBarActivity implements TaskCallbacks
         mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
 
         keyboardListener.setKeyboardView(mKeyboardView);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-
-        int tabIndex = getActionBar().getSelectedNavigationIndex();
-        outState.putInt(SELECTED_TAB_INDEX, tabIndex);
-        outState.putBoolean(KEYBOARD_VISIBLE, isCustomKeyboardVisible());
-        super.onSaveInstanceState(outState);
     }
 
     @Override
