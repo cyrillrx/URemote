@@ -6,8 +6,8 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
 import org.es.uremote.BuildConfig;
-import org.es.uremote.request.protobuf.RemoteCommand;
 import org.es.uremote.request.RequestSender;
+import org.es.uremote.request.protobuf.RemoteCommand;
 import org.es.uremote.utils.ToastSender;
 import org.es.utils.Log;
 

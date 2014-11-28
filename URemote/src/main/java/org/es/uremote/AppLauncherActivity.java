@@ -48,6 +48,8 @@ public class AppLauncherActivity extends ActionBarActivity {
         populateAppGridLayout(gridLayout, appItems);
 
         setContentView(gridLayout, layoutParams);
+
+        getSupportActionBar().hide();
     }
 
     private void populateAppGridLayout(final GridLayout gridLayout, List<AppItem> apps) {

@@ -60,8 +60,8 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
     }
 
     public void rotateXYZ(float x, float y, float z) {
-       mCubeRotationX += x;
-       mCubeRotationY += y;
-       mCubeRotationZ += z;
+        mCubeRotationX += x;
+        mCubeRotationY += y;
+        mCubeRotationZ += z;
     }
 }

@@ -23,7 +23,7 @@ public abstract class Polygon {
      * Draw the polygon at its current position.
      *
      * @param canvas The canvas in which to draw.
-     * @param paint The paint that holds the style and color to draw.
+     * @param paint  The paint that holds the style and color to draw.
      */
     public void draw(Canvas canvas, Paint paint) {
 

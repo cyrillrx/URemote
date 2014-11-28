@@ -21,8 +21,8 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  */
 public class NaoActivity extends ListActivity implements OnItemClickListener {
 
-    private static final int ACTION_APP      = 0;
-    private static final int ACTION_STORE    = 1;
+    private static final int ACTION_APP = 0;
+    private static final int ACTION_STORE = 1;
     private static final int ACTION_SHOW_NAO = 2;
 
     /** ActivityForResults request code */
@@ -49,8 +49,8 @@ public class NaoActivity extends ListActivity implements OnItemClickListener {
             return;
         }
         mActionList = new ArrayList<>(2);
-        mActionList.add(ACTION_APP,      new ActionItem(getString(R.string.title_app_list),  R.drawable.home_nao));
-        mActionList.add(ACTION_STORE,    new ActionItem(getString(R.string.title_app_store), R.drawable.nao_app_store));
+        mActionList.add(ACTION_APP, new ActionItem(getString(R.string.title_app_list), R.drawable.home_nao));
+        mActionList.add(ACTION_STORE, new ActionItem(getString(R.string.title_app_store), R.drawable.nao_app_store));
         mActionList.add(ACTION_SHOW_NAO, new ActionItem(getString(R.string.title_show_nao), R.drawable.home_nao));
     }
 

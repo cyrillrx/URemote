@@ -6,29 +6,29 @@ import android.graphics.PointF;
 
 /**
  * The hexagon can be either FLAT or POINTY
- *
- *    FLAT
- *   0 __ 1
+ * <p/>
+ * FLAT
+ * 0 __ 1
  * 5 /    \ 2
- *   \ __ /
- *   4    3
- *
- *   POINTY
- *        0
- *        ^
- *  5  /     \ 1
- *    |       |
- *  4  \     / 2
- *
- *       3
- *
+ * \ __ /
+ * 4    3
+ * <p/>
+ * POINTY
+ * 0
+ * ^
+ * 5  /     \ 1
+ * |       |
+ * 4  \     / 2
+ * <p/>
+ * 3
+ * <p/>
  * Created by Cyril on 01/12/13.
  */
 public class Hexagon extends Polygon {
 
     public static class Orientation {
-        public static final int POINTY  = 0;
-        public static final int FLAT    = 1;
+        public static final int POINTY = 0;
+        public static final int FLAT = 1;
     }
 
     private final float mSide;
@@ -51,6 +51,7 @@ public class Hexagon extends Polygon {
 
     /**
      * Constructor that creates a pointy hexagon.
+     *
      * @param side
      */
     public Hexagon(final float side) {
@@ -89,6 +90,7 @@ public class Hexagon extends Polygon {
     /**
      * Move the origin point of the hexagon to the given position.
      * The origin depends on the mOrientation attribute of the object.
+     *
      * @param posX The abscissa of the new position.
      * @param posY The ordinate of the new position.
      */
@@ -98,6 +100,7 @@ public class Hexagon extends Polygon {
 
     /**
      * Move the center point of the hexagon to the given position.
+     *
      * @param centerX The abscissa of the new center.
      * @param centerY The ordinate of the new center.
      */
@@ -126,7 +129,7 @@ public class Hexagon extends Polygon {
             coordinates[0] = mPosition;
             coordinates[1] = new PointF(mPosition.x + r, mPosition.y + h);
             coordinates[2] = new PointF(mPosition.x + r, mPosition.y + h + mSide);
-            coordinates[3] = new PointF(mPosition.x,     mPosition.y + h + mSide + h);
+            coordinates[3] = new PointF(mPosition.x, mPosition.y + h + mSide + h);
             coordinates[4] = new PointF(mPosition.x - r, mPosition.y + h + mSide);
             coordinates[5] = new PointF(mPosition.x - r, mPosition.y + h);
         }
@@ -134,11 +137,11 @@ public class Hexagon extends Polygon {
         return coordinates;
     }
 
-    protected float getLeft()   { return getCoordinates()[5].x; }
+    protected float getLeft() { return getCoordinates()[5].x; }
 
-    protected float getTop()    { return getCoordinates()[0].y; }
+    protected float getTop() { return getCoordinates()[0].y; }
 
-    protected float getRight()  { return getCoordinates()[2].x; }
+    protected float getRight() { return getCoordinates()[2].x; }
 
     protected float getBottom() { return getCoordinates()[3].y; }
 
@@ -146,8 +149,8 @@ public class Hexagon extends Polygon {
      * Draw only specific sides of the hexagon at the given position.
      *
      * @param canvas The canvas in which to draw.
-     * @param paint The paint that holds the style and color to draw.
-     * @param ids Ids of the sides to draw (value range is 0 to 5).
+     * @param paint  The paint that holds the style and color to draw.
+     * @param ids    Ids of the sides to draw (value range is 0 to 5).
      */
     public void drawSides(Canvas canvas, Paint paint, int... ids) {
 

@@ -1,13 +1,10 @@
 package org.es.uremote.request;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
+import org.es.uremote.request.protobuf.RemoteCommand.FileInfo;
 import org.es.utils.FileUtils;
 import org.es.utils.Log;
 
 import java.io.File;
-
-import org.es.uremote.request.protobuf.RemoteCommand.FileInfo;
 
 /**
  * Creates FileInfo objects from various entries.

@@ -29,6 +29,4 @@
         <item name="android:layout_margin">5dp</item>
     </style>
 
-    <style name="PopupTheme" parent="android:Theme.Holo.Light.Dialog.MinWidth" />
-
 </resources>

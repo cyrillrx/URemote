@@ -17,10 +17,10 @@ public class IpV4 {
 //    }
 
     public IpV4(final int part1, final int part2, final int part3, final int part4, final int port) {
-        mParts[0]   = part1;
-        mParts[1]   = part2;
-        mParts[2]   = part3;
-        mParts[3]   = part4;
+        mParts[0] = part1;
+        mParts[1] = part2;
+        mParts[2] = part3;
+        mParts[3] = part4;
         mPort = port;
     }
 
