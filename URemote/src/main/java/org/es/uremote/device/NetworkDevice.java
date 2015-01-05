@@ -285,7 +285,7 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
             }
 
             if (error) {
-                throw new Exception("ServerSetting #build() - Can not build the Server :\n" + sb.toString());
+                throw new Exception("Server creation has failed:\n" + sb.toString());
             }
 
             return new NetworkDevice(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);

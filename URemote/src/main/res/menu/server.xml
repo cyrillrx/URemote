@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-            android:id="@+id/server_keyboard"
-            android:icon="@drawable/ic_menu_keyboard"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_keyboard" />
+        android:id="@+id/server_keyboard"
+        android:icon="@drawable/ic_menu_keyboard"
+        android:title="@string/menu_keyboard"
+        app:showAsAction="ifRoom" />
 
     <item
-            android:id="@+id/server_config"
-            android:icon="@android:drawable/ic_menu_manage"
-            android:showAsAction="ifRoom"
-            android:title="@string/menu_server_config" />
+        android:id="@+id/server_config"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="@string/menu_server_config"
+        app:showAsAction="ifRoom" />
 </menu>

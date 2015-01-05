@@ -8,8 +8,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.crashlytics.android.Crashlytics;
 
 import org.es.common.volley.LruBitmapCache;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * @author Cyril Leroux
@@ -26,6 +29,7 @@ public class URemoteApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
     }
 
     public RequestQueue getRequestQueue() {
@@ -36,11 +40,10 @@ public class URemoteApp extends Application {
     }
 
     public ImageLoader getImageLoader() {
-        getRequestQueue();
         if (mImageLoader == null) {
-            mImageLoader = new ImageLoader(this.mRequestQueue, new LruBitmapCache());
+            mImageLoader = new ImageLoader(getRequestQueue(), new LruBitmapCache());
         }
-        return this.mImageLoader;
+        return mImageLoader;
     }
 
     public <Response> void addToRequestQueue(Request<Response> req, String tag) {

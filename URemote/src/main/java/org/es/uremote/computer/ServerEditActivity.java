@@ -200,7 +200,7 @@ public class ServerEditActivity extends ActionBarActivity {
 
         } catch (Exception e) {
             Log.error(TAG, "#onOptionsItemSelected - Server creation has failed.", e);
-            Toast.makeText(getApplicationContext(), "Server creation has failed.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

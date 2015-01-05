@@ -1,18 +1,19 @@
 buildscript {
     repositories {
-        maven { url 'http://download.crashlytics.com/maven' }
+        maven { url 'https://maven.fabric.io/public' }
     }
+
     dependencies {
-        classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.14.4'
+        classpath 'io.fabric.tools:gradle:1.14.4'
     }
 }
-
 apply plugin: 'com.android.application'
-apply plugin: 'crashlytics'
+apply plugin: 'io.fabric'
 
 repositories {
-    maven { url 'http://download.crashlytics.com/maven' }
+    maven { url 'https://maven.fabric.io/public' }
 }
+
 
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
@@ -82,8 +83,12 @@ android {
 
 dependencies {
     compile project(':libraries:volley')
-    compile 'com.android.support:support-v4:21.0.2'
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.google.protobuf:protobuf-java:2.5.0'
-    compile 'com.crashlytics.android:crashlytics:1.1.13'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.0@aar') {
+        transitive = true;
+    }
 }
