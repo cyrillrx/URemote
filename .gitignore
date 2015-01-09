@@ -48,3 +48,4 @@ proguard/
 crashlytics.properties
 crashlytics-build.properties
 com_crashlytics_export_strings.xml
+beta_distribution_emails.txt
