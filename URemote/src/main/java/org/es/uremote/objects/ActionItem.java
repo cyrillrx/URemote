@@ -10,6 +10,17 @@ package org.es.uremote.objects;
  */
 public class ActionItem {
 
+    public static final int ACTION_COMPUTER = 0;
+    public static final int ACTION_LIGHTS = 1;
+    public static final int ACTION_TV = 2;
+    public static final int ACTION_ROBOTS = 3;
+    public static final int ACTION_HIFI = 4;
+
+    public static final int ACTION_APP = 10;
+    public static final int ACTION_STORE = 11;
+    public static final int ACTION_SHOW_NAO = 12;
+
+    private final int mId;
     private final String mTitle;
     private final String mSummary;
     private final int mImageRes;
@@ -21,7 +32,8 @@ public class ActionItem {
      * @param summary       The action summary.
      * @param imageResource The resource id of the thumbnail image.
      */
-    public ActionItem(final String title, final String summary, final int imageResource) {
+    public ActionItem(int id, final String title, final String summary, final int imageResource) {
+        mId = id;
         mTitle = title;
         mSummary = summary;
         mImageRes = imageResource;
@@ -33,11 +45,14 @@ public class ActionItem {
      * @param title         The action title.
      * @param imageResource The resource id of the thumbnail image.
      */
-    public ActionItem(final String title, final int imageResource) {
+    public ActionItem(int id, final String title, final int imageResource) {
+        mId = id;
         mTitle = title;
         mSummary = "";
         mImageRes = imageResource;
     }
+
+    public int getId() { return mId; }
 
     /** @return the mTitle */
     public String getTitle() {

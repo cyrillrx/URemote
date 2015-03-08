@@ -82,11 +82,14 @@ android {
 }
 
 dependencies {
-    compile project(':libraries:volley')
-    compile 'com.android.support:support-v4:21.0.3'
+    // Google Support libraries
     compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
+
+    // External libraries
     compile 'com.google.protobuf:protobuf-java:2.5.0'
-    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.2.0@aar') {
         transitive = true;

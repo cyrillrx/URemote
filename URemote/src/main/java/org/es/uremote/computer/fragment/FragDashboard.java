@@ -242,9 +242,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     public void onStopTrackingTouch(SeekBar seekBar) {
     }
 
-    ////////////////////////////////////////////////////////////////////
-    // *********************** Message Sender *********************** //
-    ////////////////////////////////////////////////////////////////////
+    //
+    // Message Sender
+    //
 
     /**
      * Initializes the message handler then send the request.

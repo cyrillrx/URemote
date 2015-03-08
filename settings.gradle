@@ -3,5 +3,3 @@
 include ':URemote'
 
 // Git sub modules
-
-include ':libraries:volley'

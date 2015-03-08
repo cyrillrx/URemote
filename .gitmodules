@@ -1,3 +1,0 @@
-[submodule "libraries/volley"]
-	path = libraries/volley
-	url = git@github.com:Elasticboy/android_volley.git

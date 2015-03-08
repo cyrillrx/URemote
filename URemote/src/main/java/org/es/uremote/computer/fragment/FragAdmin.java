@@ -144,9 +144,9 @@ public class FragAdmin extends Fragment implements OnClickListener {
         // TODO : if device, run. else error toast
     }
 
-    ////////////////////////////////////////////////////////////////////
-    // *********************** Message Sender *********************** //
-    ////////////////////////////////////////////////////////////////////
+    //
+    // Message Sender
+    //
 
     private Request buildRequest(final Request.Type requestType, final Request.Code requestCode) {
         return Request.newBuilder()

@@ -136,9 +136,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
         }
     }
 
-    ////////////////////////////////////////////////////////////////////
-    // *********************** Message Sender *********************** //
-    ////////////////////////////////////////////////////////////////////
+    //
+    // Message Sender
+    //
 
     /**
      * Initializes the message handler then send the request.
