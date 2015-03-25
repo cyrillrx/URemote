@@ -1,4 +1,14 @@
-v0.7.0
- Implementeed material design
+TODO v0.7.2
+- Complete network discovery
 
-v0.6
+v0.7.1
+- Updated target API to 22
+- Updated Fabric to 1.16.0
+- Updated Support library to v22.0.0
+- Updated protobuf version to 3.0.0-alpha-2
+- Full package refactoring
+
+v0.7.0
+ Implemented material design
+
+v0.6.0

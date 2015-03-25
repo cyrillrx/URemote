@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.14.4'
+        classpath 'io.fabric.tools:gradle:1.16.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -36,7 +36,7 @@ android {
         minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
         targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
         versionCode 1
-        versionName "0.7.0"
+        versionName "0.7.1"
     }
 
     signingConfigs {
@@ -82,16 +82,16 @@ android {
 }
 
 dependencies {
+
     // Google Support libraries
-    compile 'com.android.support:appcompat-v7:21.0.3'
-    compile 'com.android.support:cardview-v7:21.0.3'
-    compile 'com.android.support:recyclerview-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.0.0'
+    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.android.support:recyclerview-v7:22.0.0'
 
     // External libraries
-    compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'com.google.protobuf:protobuf-java:3.0.0-alpha-2'
+
 //    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.2.0@aar') {
-        transitive = true;
-    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') { transitive = true; }
 }
