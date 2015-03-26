@@ -1,7 +1,7 @@
 package com.cyrilleroux.uremote.common;
 
-import com.cyrilleroux.uremote.computer.LoadServerActivity;
 import com.cyrilleroux.uremote.request.FileInfoFactory;
+import com.cyrilleroux.uremote.ui.computer.LoadServerActivity;
 
 import static com.cyrilleroux.uremote.request.protobuf.RemoteCommand.FileInfo;
 

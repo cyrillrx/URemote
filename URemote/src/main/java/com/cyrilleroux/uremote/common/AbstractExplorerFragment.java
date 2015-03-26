@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyrilleroux.android.toolbox.Logger;
+import com.cyrilleroux.android.utils.FileUtils;
 import com.cyrilleroux.uremote.R;
-import com.cyrilleroux.uremote.components.ExplorerArrayAdapter;
+import com.cyrilleroux.uremote.common.adapter.ExplorerArrayAdapter;
 import com.cyrilleroux.uremote.request.FileInfoFactory;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.FileInfo;
 import com.cyrilleroux.uremote.utils.IntentKeys;
-import com.cyrilleroux.utils.FileUtils;
-import com.cyrilleroux.utils.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
         mCurrentFileInfo = dirContent;
 
         if (dirContent.getChildCount() == 0) {
-            Log.warning(TAG, "#updateView - No file in the directory.");
+            Logger.warning(TAG, "#updateView - No file in the directory.");
             return;
         }
 

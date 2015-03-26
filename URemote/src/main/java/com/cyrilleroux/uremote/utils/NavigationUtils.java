@@ -9,19 +9,19 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.widget.Toast;
 
-import com.cyrilleroux.uremote.ComputerActivity;
-import com.cyrilleroux.uremote.HexHomeActivity;
 import com.cyrilleroux.uremote.R;
-import com.cyrilleroux.uremote.RobotActivity;
-import com.cyrilleroux.uremote.TvActivity;
-import com.cyrilleroux.uremote.computer.ServerListActivity;
-import com.cyrilleroux.uremote.device.NetworkDevice;
+import com.cyrilleroux.uremote.common.device.NetworkDevice;
+import com.cyrilleroux.uremote.ui.ComputerActivity;
+import com.cyrilleroux.uremote.ui.HexHomeActivity;
+import com.cyrilleroux.uremote.ui.RobotActivity;
+import com.cyrilleroux.uremote.ui.TvActivity;
+import com.cyrilleroux.uremote.ui.computer.ServerListActivity;
 
 import static com.cyrilleroux.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
 
 /**
  * @author Cyril Leroux
- *         Created 08/03/2015.
+ *         Created on 08/03/2015.
  */
 public class NavigationUtils {
 

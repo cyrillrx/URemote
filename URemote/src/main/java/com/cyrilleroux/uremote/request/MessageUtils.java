@@ -1,9 +1,9 @@
 package com.cyrilleroux.uremote.request;
 
-import com.cyrilleroux.uremote.device.NetworkDevice;
+import com.cyrilleroux.android.toolbox.Logger;
+import com.cyrilleroux.uremote.common.device.NetworkDevice;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.Request;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.Response;
-import com.cyrilleroux.utils.Log;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import java.io.ByteArrayOutputStream;
@@ -53,15 +53,15 @@ public class MessageUtils {
             } catch (SocketTimeoutException e) {
                 // TODO : to strings.xml
                 errorMessage = "Can't reach remote device (bad config or server down).";
-                Log.warning(TAG, "Can't reach remote device (" + e.getMessage() + ")");
+                Logger.warning(TAG, "Can't reach remote device (" + e.getMessage() + ")");
 
             } catch (InvalidProtocolBufferException e) {
                 errorMessage = "Protocol Buffers exception. Check the log.";
-                Log.error(TAG, "Protocol Buffers exception", e);
+                Logger.error(TAG, "Protocol Buffers exception", e);
 
             } catch (Exception e) {
                 errorMessage = "Unknown exception - " + e;
-                Log.error(TAG, "Unknown exception", e);
+                Logger.error(TAG, "Unknown exception", e);
 
             } finally {
                 closeSocket(socket);
@@ -127,24 +127,24 @@ public class MessageUtils {
      */
     private static void closeSocket(Socket socket) {
         if (socket == null) {
-            Log.warning(TAG, "#closeSocketIO - Socket is null.");
+            Logger.warning(TAG, "#closeSocketIO - Socket is null.");
             return;
         }
 
         try {
             socket.shutdownInput();
         } catch (IOException e) {
-            Log.warning(TAG, "#closeSocketIO - On socket.shutdownInput() : " + e);
+            Logger.warning(TAG, "#closeSocketIO - On socket.shutdownInput() : " + e);
         }
         try {
             socket.shutdownOutput();
         } catch (IOException e) {
-            Log.warning(TAG, "#closeSocketIO - On socket.shutdownOutput() : " + e);
+            Logger.warning(TAG, "#closeSocketIO - On socket.shutdownOutput() : " + e);
         }
         try {
             socket.close();
         } catch (IOException e) {
-            Log.warning(TAG, "#closeSocketIO - On socket.close() : " + e);
+            Logger.warning(TAG, "#closeSocketIO - On socket.close() : " + e);
         }
     }
 }

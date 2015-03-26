@@ -3,7 +3,8 @@ package com.cyrilleroux.uremote.network;
 import android.text.TextUtils;
 
 /**
- * Created by Cyril on 03/11/13.
+ * @author Cyril Leroux
+ *         Created on 03/11/13.
  */
 public class IpV4 {
 

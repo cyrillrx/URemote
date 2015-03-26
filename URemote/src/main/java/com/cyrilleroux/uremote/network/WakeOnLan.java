@@ -2,8 +2,8 @@ package com.cyrilleroux.uremote.network;
 
 import android.os.AsyncTask;
 
+import com.cyrilleroux.android.toolbox.Logger;
 import com.cyrilleroux.uremote.utils.ToastSender;
-import com.cyrilleroux.utils.Log;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -50,7 +50,7 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
             return "ip.isEmpty() || mac.isEmpty()";
         }
 
-        Log.info(TAG, "ip : " + broadcastIp + ", mac : " + macAddress);
+        Logger.info(TAG, "ip : " + broadcastIp + ", mac : " + macAddress);
 
         String result = "ip : " + broadcastIp + ", mac : " + macAddress + "\r\n";
 
@@ -72,12 +72,12 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
             socket.send(packet);
             socket.close();
 
-            Log.debug(TAG, "Wake-on-LAN packet sent.");
+            Logger.debug(TAG, "Wake-on-LAN packet sent.");
 
             result += "Wake-on-LAN packet sent.";
 
         } catch (Exception e) {
-            Log.error(TAG, "Failed to send Wake-on-LAN packet: " + e);
+            Logger.error(TAG, "Failed to send Wake-on-LAN packet: " + e);
             result += "Failed to send Wake-on-LAN packet: " + e;
         }
         return result;

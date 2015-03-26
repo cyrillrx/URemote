@@ -1,6 +1,6 @@
 package com.cyrilleroux.uremote.request;
 
-import com.cyrilleroux.uremote.device.NetworkDevice;
+import com.cyrilleroux.uremote.common.device.NetworkDevice;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand;
 
 /**

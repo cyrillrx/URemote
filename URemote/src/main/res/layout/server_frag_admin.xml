@@ -65,7 +65,7 @@
 
     </TableLayout>
 
-    <com.cyrilleroux.common.view.Console
+    <com.cyrilleroux.android.component.Console
         android:id="@+id/console"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

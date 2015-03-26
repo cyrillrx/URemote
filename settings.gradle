@@ -3,3 +3,6 @@
 include ':URemote'
 
 // Git sub modules
+
+include ':lrx_remote'
+project(':lrx_remote').projectDir = new File('libraries/lrx_lib/Remote')

@@ -21,8 +21,9 @@ import android.graphics.PointF;
  * 4  \     / 2
  * <p/>
  * 3
- * <p/>
- * Created by Cyril on 01/12/13.
+ *
+ * @author Cyril Leroux
+ *         Created on 01/12/13.
  */
 public class Hexagon extends Polygon {
 

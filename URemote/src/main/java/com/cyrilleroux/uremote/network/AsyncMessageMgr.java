@@ -2,12 +2,12 @@ package com.cyrilleroux.uremote.network;
 
 import android.os.AsyncTask;
 
-import com.cyrilleroux.uremote.device.NetworkDevice;
+import com.cyrilleroux.android.toolbox.Logger;
+import com.cyrilleroux.uremote.common.device.NetworkDevice;
 import com.cyrilleroux.uremote.request.MessageUtils;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.Request;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.Response;
 import com.cyrilleroux.uremote.utils.TaskCallbacks;
-import com.cyrilleroux.utils.Log;
 
 import java.util.concurrent.Semaphore;
 
@@ -39,9 +39,9 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
     protected void onPreExecute() {
         try {
             sSemaphore.acquire();
-            Log.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left.");
+            Logger.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left.");
         } catch (InterruptedException e) {
-            Log.error(TAG, "#onPreExecute - Semaphore acquire error.");
+            Logger.error(TAG, "#onPreExecute - Semaphore acquire error.");
         }
 
         if (mTaskCallbacks != null) {
@@ -65,17 +65,17 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
     @Override
     protected void onPostExecute(Response response) {
         sSemaphore.release();
-        Log.info(TAG, "Semaphore release");
+        Logger.info(TAG, "Semaphore release");
 
         if (response == null) {
-            Log.error(TAG, "#onPostExecute - Response is null.");
+            Logger.error(TAG, "#onPostExecute - Response is null.");
             return;
         }
 
         if (!response.getMessage().isEmpty()) {
-            Log.info(TAG, "#onPostExecute - message : " + response.getMessage());
+            Logger.info(TAG, "#onPostExecute - message : " + response.getMessage());
         } else {
-            Log.info(TAG, "#onPostExecute - empty message.");
+            Logger.info(TAG, "#onPostExecute - empty message.");
         }
 
         if (mTaskCallbacks != null) {

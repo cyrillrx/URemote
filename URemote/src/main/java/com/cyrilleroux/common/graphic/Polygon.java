@@ -5,7 +5,8 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 
 /**
- * Created by Cyril Leroux on 16/12/13.
+ * @author Cyril Leroux
+ *         Created on 16/12/13.
  */
 public abstract class Polygon {
 

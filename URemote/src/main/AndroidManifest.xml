@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".ui.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="fullSensor"
             android:theme="@style/AppTheme.Dark">
@@ -31,44 +31,44 @@
         <!-- Computer related activities -->
 
         <activity
-            android:name=".ComputerActivity"
+            android:name=".ui.ComputerActivity"
             android:label="@string/title_computer"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".computer.ServerListActivity"
+            android:name=".ui.computer.ServerListActivity"
             android:theme="@style/PopupTheme" />
-        <activity android:name=".computer.ServerEditActivity" />
-        <activity android:name=".computer.LoadServerActivity" />
+        <activity android:name=".ui.computer.ServerEditActivity" />
+        <activity android:name=".ui.computer.LoadServerActivity" />
         <activity
-            android:name=".AppLauncherActivity"
+            android:name=".ui.AppLauncherActivity"
             android:label="@string/title_application_launcher"
             android:theme="@style/PopupTheme" />
 
         <!-- Others activities -->
 
         <activity
-            android:name=".SettingsActivity"
+            android:name=".ui.SettingsActivity"
             android:label="@string/title_settings" />
         <activity
-            android:name=".nao.OpenGLActivity"
+            android:name=".ui.nao.OpenGLActivity"
             android:label="@string/title_nao" />
         <activity
-            android:name=".LightActivity"
+            android:name=".ui.LightActivity"
             android:label="@string/title_lights" />
         <activity
-            android:name=".RobotActivity"
+            android:name=".ui.RobotActivity"
             android:label="@string/title_robots" />
         <activity
-            android:name=".TvActivity"
+            android:name=".ui.TvActivity"
             android:label="@string/title_tv" />
         <activity
-            android:name=".HexHomeActivity"
+            android:name=".ui.HexHomeActivity"
             android:label="@string/app_name" />
 
         <!-- Widgets configuration Activities -->
 
         <activity
-            android:name=".computer.widget.MediaWidgetConfigureActivity"
+            android:name=".widget.MediaWidgetConfigureActivity"
             android:theme="@style/PopupTheme">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -76,7 +76,7 @@
         </activity>
 
         <activity
-            android:name=".computer.widget.DPadWidgetConfigureActivity"
+            android:name=".widget.DPadWidgetConfigureActivity"
             android:theme="@style/PopupTheme">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -86,7 +86,7 @@
         <!-- Widgets Providers -->
 
         <receiver
-            android:name=".computer.widget.MediaWidgetProvider"
+            android:name=".widget.MediaWidgetProvider"
             android:icon="@drawable/ic_launcher"
             android:label="@string/widget_media_controller">
             <intent-filter>
@@ -98,7 +98,7 @@
         </receiver>
 
         <receiver
-            android:name=".computer.widget.DPadWidgetProvider"
+            android:name=".widget.DPadWidgetProvider"
             android:icon="@drawable/ic_launcher"
             android:label="@string/widget_dpad">
             <intent-filter>

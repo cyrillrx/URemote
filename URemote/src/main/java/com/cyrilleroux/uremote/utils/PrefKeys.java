@@ -1,7 +1,8 @@
 package com.cyrilleroux.uremote.utils;
 
 /**
- * Created by Cyril Leroux on 22/08/13.
+ * @author Cyril Leroux
+ *         Created on 22/08/13.
  */
 public class PrefKeys {
 

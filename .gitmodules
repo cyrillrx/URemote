@@ -1,0 +1,3 @@
+[submodule "libraries/lrx_lib"]
+	path = libraries/lrx_lib
+	url = git@github.com:cyrillrx/android_libraries.git

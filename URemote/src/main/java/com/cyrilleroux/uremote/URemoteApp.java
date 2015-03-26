@@ -9,7 +9,7 @@ import io.fabric.sdk.android.Fabric;
 
 /**
  * @author Cyril Leroux
- *         Created 23/07/2014.
+ *         Created on 23/07/2014.
  */
 public class URemoteApp extends Application {
 

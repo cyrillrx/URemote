@@ -2,10 +2,10 @@ package com.cyrilleroux.uremote.exchange;
 
 import android.test.InstrumentationTestCase;
 
-import com.cyrilleroux.uremote.device.NetworkDevice;
+import com.cyrilleroux.uremote.common.device.NetworkDevice;
 import com.cyrilleroux.uremote.network.AsyncMessageMgr;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand;
-import com.cyrilleroux.utils.Log;
+import com.cyrilleroux.android.toolbox.Logger;
 
 import junit.framework.Assert;
 
@@ -61,7 +61,7 @@ public class TestRequestSender extends InstrumentationTestCase {
         if (AsyncMessageMgr.availablePermits() > 0) {
             AsyncMessageMgr task = new AsyncMessageMgr(mDevice, null);
             task.execute(request);
-            Log.info(TAG, "#sendRequest - Command sent.");
+            Logger.info(TAG, "#sendRequest - Command sent.");
 
             try {
                 checkResponse(task.get());
@@ -84,9 +84,9 @@ public class TestRequestSender extends InstrumentationTestCase {
     private static void checkResponse(RemoteCommand.Response response) {
 
         if (RemoteCommand.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
-            Log.error(TAG, "#onPostExecute - response : " + response);
+            Logger.error(TAG, "#onPostExecute - response : " + response);
         } else {
-            Log.info(TAG, "#onPostExecute - response : " + response);
+            Logger.info(TAG, "#onPostExecute - response : " + response);
         }
 
         Assert.assertEquals(

@@ -1,8 +1,8 @@
 package com.cyrilleroux.uremote.request;
 
+import com.cyrilleroux.android.toolbox.Logger;
+import com.cyrilleroux.android.utils.FileUtils;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand.FileInfo;
-import com.cyrilleroux.utils.FileUtils;
-import com.cyrilleroux.utils.Log;
 
 import java.io.File;
 
@@ -27,7 +27,7 @@ public class FileInfoFactory {
         try {
             return FileInfo.parseFrom(directoryContent);
         } catch (Exception e) {
-            Log.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
+            Logger.error(TAG, "#onActivityCreated - Error occurred while parsing directory content.", e);
         }
         return null;
     }
