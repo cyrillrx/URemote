@@ -4,5 +4,8 @@ include ':URemote'
 
 // Git sub modules
 
+include ':lrx_core'
+project(':lrx_core').projectDir = new File('libraries/lrx_lib/Core')
+
 include ':lrx_remote'
 project(':lrx_remote').projectDir = new File('libraries/lrx_lib/Remote')

@@ -6,6 +6,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.cyrilleroux.android.toolbox.Logger;
+
 /**
  * Parcelable class that holds network device data (ip, mac address, etc.).
  *
@@ -14,6 +16,7 @@ import android.text.TextUtils;
  */
 public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
+    private static final String TAG = NetworkDevice.class.getSimpleName();
     public static final String FILENAME = "serverConfig.xml";
 
     /** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
@@ -143,17 +146,15 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     }
 
     /** @return Concatenation of host and port of the local server. */
-    public String toStringLocal() {
-        return mLocalHost + ":" + mLocalPort;
-    }
+    public String toStringLocal() { return mLocalHost + ":" + mLocalPort; }
 
     /** @return Concatenation of host and port of the remote server. */
-    public String toStringRemote() {
-        return mRemoteHost + ":" + mRemotePort;
-    }
+    public String toStringRemote() { return mRemoteHost + ":" + mRemotePort; }
 
     /** @return The ip address of the local server. */
     public String getLocalHost() { return mLocalHost; }
+
+    public void setLocalHost(String localHost) { mLocalHost = localHost; }
 
     /** @return The port of the local server. */
     public int getLocalPort() { return mLocalPort; }
@@ -176,7 +177,7 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     /**
      * The type of connection.
      */
-    public static enum ConnectionType {
+    public enum ConnectionType {
         /** The server IS in the same network than the device. It must be accessed locally. */
         LOCAL,
         /** The server IS NOT in the same network than the device. It must be accessed remotely. */
@@ -184,9 +185,7 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     }
 
     /** @return An instance of ServerSetting.Builder. */
-    public static Builder newBuilder() {
-        return new Builder();
-    }
+    public static Builder newBuilder() { return new Builder(); }
 
     /**
      * Class that holds server connection data.
@@ -199,10 +198,9 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
         private static String DEFAULT_NAME = "";
         private static String DEFAULT_LOCAL_HOST = "";
-        private static int DEFAULT_LOCAL_PORT = 0000;
+        private static int DEFAULT_PORT = 0;
         private static String DEFAULT_BROADCAST = "";
         private static String DEFAULT_REMOTE_HOST = "";
-        private static int DEFAULT_REMOTE_PORT = 0000;
         private static String DEFAULT_MAC_ADDRESS = "";
         private static ConnectionType DEFAULT_CONNECTION = ConnectionType.LOCAL;
         private static int DEFAULT_CONNECTION_TIMEOUT = 500;
@@ -211,10 +209,10 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
         private String mName = DEFAULT_NAME;
         private String mLocalHost = DEFAULT_LOCAL_HOST;
-        private int mLocalPort = DEFAULT_LOCAL_PORT;
+        private int mLocalPort = DEFAULT_PORT;
         private String mBroadcast = DEFAULT_BROADCAST;
         private String mRemoteHost = DEFAULT_REMOTE_HOST;
-        private int mRemotePort = DEFAULT_REMOTE_PORT;
+        private int mRemotePort = DEFAULT_PORT;
         private String mMacAddress = DEFAULT_MAC_ADDRESS;
         private ConnectionType mConnectionType = DEFAULT_CONNECTION;
         /** If the connection with the remote server is not established within this timeout, it is dismissed. */
@@ -228,10 +226,10 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
         public void clear() {
             mName = DEFAULT_NAME;
             mLocalHost = DEFAULT_LOCAL_HOST;
-            mLocalPort = DEFAULT_LOCAL_PORT;
+            mLocalPort = DEFAULT_PORT;
             mBroadcast = DEFAULT_BROADCAST;
             mRemoteHost = DEFAULT_REMOTE_HOST;
-            mRemotePort = DEFAULT_REMOTE_PORT;
+            mRemotePort = DEFAULT_PORT;
             mMacAddress = DEFAULT_MAC_ADDRESS;
             mConnectionType = DEFAULT_CONNECTION;
             mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
@@ -246,6 +244,7 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
         public NetworkDevice build() throws Exception {
 
             boolean error = false;
+            boolean warning = false;
 
             StringBuilder sb = new StringBuilder();
 
@@ -265,27 +264,33 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
             }
 
             if (TextUtils.isEmpty(mBroadcast)) {
-                error = true;
+                warning = true;
                 sb.append("- Broadcast is empty.\n");
             }
 
             if (TextUtils.isEmpty(mRemoteHost)) {
-                error = true;
+                warning = true;
                 sb.append("- Remote host is empty.\n");
             }
 
             if (mRemotePort == 0) {
-                error = true;
+                warning = true;
                 sb.append("- Remote port is 0.\n");
             }
 
             if (TextUtils.isEmpty(mMacAddress)) {
-                error = true;
+                warning = true;
                 sb.append("- Mac address is empty.\n");
             }
 
             if (error) {
                 throw new Exception("Server creation has failed:\n" + sb.toString());
+            }
+
+            if (warning) {
+                Logger.warning(TAG, "Server creation succeeded with warnings:\n" + sb.toString());
+            } else {
+                Logger.warning(TAG, "Server creation succeeded.");
             }
 
             return new NetworkDevice(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);

@@ -24,13 +24,12 @@ public class MessageUtils {
     private static final String TAG = MessageUtils.class.getSimpleName();
 
     /**
-     * This function must be called from a background thread.
-     * Send a request to a device and wait for a reply.
+     * Sends a request to a device and wait for a reply.<br />
+     * This function MUST be called from a background thread.
      *
      * @param request Client request.
      * @param device  The device towards which to send the request.
      * @return The device reply.
-     * @throws IOException exception.
      */
     public static Response sendRequest(final Request request, final NetworkDevice device) {
 
@@ -97,8 +96,8 @@ public class MessageUtils {
     }
 
     /**
-     * This function must be called from a background thread.
-     * Send a message through a Socket to a device and get the reply.
+     * Send a message through a Socket to a device and get the reply.<br />
+     * This function MUST be called from a background thread.
      *
      * @param socket  The socket on which to send the message.
      * @param request Client request.
@@ -126,6 +125,7 @@ public class MessageUtils {
      * Closes socket IOs then close the socket.
      */
     private static void closeSocket(Socket socket) {
+
         if (socket == null) {
             Logger.warning(TAG, "#closeSocketIO - Socket is null.");
             return;
@@ -136,11 +136,13 @@ public class MessageUtils {
         } catch (IOException e) {
             Logger.warning(TAG, "#closeSocketIO - On socket.shutdownInput() : " + e);
         }
+
         try {
             socket.shutdownOutput();
         } catch (IOException e) {
             Logger.warning(TAG, "#closeSocketIO - On socket.shutdownOutput() : " + e);
         }
+
         try {
             socket.close();
         } catch (IOException e) {

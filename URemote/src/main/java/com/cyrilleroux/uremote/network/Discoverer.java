@@ -1,14 +1,17 @@
 package com.cyrilleroux.uremote.network;
 
-import android.os.AsyncTask;
-import android.util.Log;
-
+import com.cyrilleroux.android.toolbox.Logger;
 import com.cyrilleroux.uremote.common.device.NetworkDevice;
+import com.cyrilleroux.uremote.request.MessageUtils;
 import com.cyrilleroux.uremote.request.protobuf.RemoteCommand;
-import com.cyrilleroux.uremote.utils.TaskCallbacks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * @author Cyril Leroux
@@ -16,9 +19,34 @@ import java.util.List;
  */
 public class Discoverer {
 
+    private static final String TAG = Discoverer.class.getSimpleName();
+
+    public static class DiscoverTask implements Callable<NetworkDevice> {
+
+        final RemoteCommand.Request mRequest;
+        final NetworkDevice mDevice;
+
+        public DiscoverTask(RemoteCommand.Request request, final NetworkDevice device) {
+            mRequest = request;
+            mDevice = device;
+        }
+
+        @Override
+        public NetworkDevice call() throws Exception {
+
+            final RemoteCommand.Response response = MessageUtils.sendRequest(mRequest, mDevice);
+            if (RemoteCommand.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
+                Logger.error(TAG, "Not responding. " + mDevice);
+                return null;
+            }
+
+            Logger.info(TAG, "Device found : " + mDevice);
+            return mDevice;
+        }
+    }
 
     public static void discoverDevices() {
-
+        // TODO replace hardcoded subnet and port
         discover("192.168.1.", 9002);
     }
 
@@ -27,42 +55,22 @@ public class Discoverer {
      *
      * @return The list of fond devices.
      */
-    private static List<String> discover(String subnet, int port) {
+    private static List<NetworkDevice> discover(String subnet, int port) {
 
-        List<String> foundDevices = new ArrayList<>();
+        Logger.info(TAG, "Send ping to subnet: " + subnet);
 
-        for (int i = 1; i < 256; i++) {
-            String host = subnet + i;
-            if (sendPing(host, port)) {
-                foundDevices.add(host);
-            }
-        }
-
-        return foundDevices;
-    }
-
-    private static boolean sendPing(final String host, int port) {
-
-        Log.w("HomeActivity", "send ping to " + host);
-
-        NetworkDevice server;
+        final NetworkDevice device;
         try {
-            server = NetworkDevice.newBuilder()
+            device = NetworkDevice.newBuilder()
                     .setName("unknown")
-                    .setLocalHost(host)
+                    .setLocalHost(subnet)
                     .setLocalPort(port)
-                    .setBroadcast(host)
-                    .setRemoteHost(host)
-                    .setRemotePort(port)
-                    .setMacAddress("--")
-                    .setConnectionTimeout(500)
-                    .setReadTimeout(500)
                     .setSecurityToken("1234")
                     .setConnectionType(NetworkDevice.ConnectionType.LOCAL)
                     .build();
         } catch (Exception e) {
-            Log.e("HomeActivity", e.getMessage(), e);
-            return false;
+            Logger.error(TAG, "Unable to start the search.", e);
+            return new ArrayList<>();
         }
 
         final RemoteCommand.Request request = RemoteCommand.Request.newBuilder()
@@ -71,33 +79,34 @@ public class Discoverer {
                 .setCode(RemoteCommand.Request.Code.PING)
                 .build();
 
-        new AsyncMessageMgr(server, new TaskCallbacks() {
-            @Override
-            public void onPreExecute() {
-                Log.w("HomeActivity", "onPreExecute " + host);
+        final List<Future<NetworkDevice>> futures = new ArrayList<>();
+
+        ExecutorService executor = Executors.newFixedThreadPool(4);
+
+        // TODO clone the device for each task.
+        // TODO define a range of possible ip addresses
+        for (int i = 1; i < 256; i++) {
+            String host = subnet + i;
+            device.setLocalHost(host);
+            DiscoverTask task = new DiscoverTask(request, device);
+            futures.add(executor.submit(task));
+        }
+        // This will make the executor accept no new threads
+        // and finish all existing threads in the queue
+        executor.shutdown();
+
+        final List<NetworkDevice> foundDevices = new ArrayList<>();
+        // now retrieve the result
+        for (Future<NetworkDevice> future : futures) {
+            try {
+                final NetworkDevice foundDevice = future.get();
+                Logger.info(TAG, "Device found !" + foundDevice);
+                foundDevices.add(foundDevice);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
+        }
 
-            @Override
-            public void onProgressUpdate(int percent) {
-
-            }
-
-            @Override
-            public void onPostExecute(RemoteCommand.Response response) {
-                if (RemoteCommand.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
-                    // todo
-//                    Toast.makeText(getApplicationContext(), host + " OK ", LENGTH_SHORT).show();
-                    Log.w("HomeActivity", "host " + host + " request OK");
-                } else {
-                    Log.e("HomeActivity", "host " + host + " request KO");
-                }
-            }
-
-            @Override
-            public void onCancelled(RemoteCommand.Response response) {
-
-            }
-        }).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, request);
-        return true;
+        return foundDevices;
     }
 }
