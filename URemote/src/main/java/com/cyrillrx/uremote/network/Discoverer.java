@@ -56,7 +56,7 @@ public class Discoverer {
      *
      * @return The list of fond devices.
      */
-    private static List<NetworkDevice> discover(String subnet, int port) {
+    public static List<NetworkDevice> discover(String subnet, int port) {
 
         Logger.info(TAG, "Send ping to subnet: " + subnet);
 
