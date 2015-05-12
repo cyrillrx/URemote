@@ -1,7 +1,7 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
     <header
-        android:fragment="com.cyrilleroux.uremote.ui.preference.AboutFragment"
+        android:fragment="com.cyrillrx.uremote.ui.preference.AboutFragment"
         android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/about" />
 

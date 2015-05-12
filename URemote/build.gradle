@@ -7,13 +7,14 @@ buildscript {
         classpath 'io.fabric.tools:gradle:1.16.0'
     }
 }
+
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    maven { url 'http://dl.bintray.com/cyrillrx/maven' }
 }
-
 
 android {
     compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
@@ -84,17 +85,16 @@ android {
 dependencies {
 
     // Local libs
-    compile project(':lrx_core')
 
     // Google Support libraries
-    compile 'com.android.support:appcompat-v7:22.0.0'
-    compile 'com.android.support:cardview-v7:22.0.0'
-    compile 'com.android.support:recyclerview-v7:22.0.0'
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:cardview-v7:22.1.1'
+    compile 'com.android.support:recyclerview-v7:22.1.1'
 
     // External libraries
+    compile 'com.cyrillrx.android:core:0.1.4'
+    compile 'com.cyrillrx.android:remote:0.0.2'
     compile 'com.google.protobuf:protobuf-java:3.0.0-alpha-2'
-
-//    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.2.2@aar') { transitive = true; }
 }

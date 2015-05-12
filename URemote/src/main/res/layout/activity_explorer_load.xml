@@ -2,5 +2,5 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
 		  android:layout_width="match_parent"
 		  android:layout_height="match_parent"
-		  android:name="com.cyrilleroux.uremote.common.LocalExplorerFragment"
+		  android:name="com.cyrillrx.uremote.common.LocalExplorerFragment"
 		  android:id="@+id/local_explorer_fragment" />
