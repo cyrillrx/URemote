@@ -1,6 +1,6 @@
 package com.cyrillrx.uremote.ui.computer.dao;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.common.device.NetworkDevice.ConnectionType;
 
@@ -36,11 +36,11 @@ public class NetworkDeviceXmlHandler extends DefaultHandler {
     private static final String TAG = NetworkDeviceXmlHandler.class.getSimpleName();
 
     private boolean mCurrentElement = false;
-    private boolean mLoaded = false;
+    private boolean mLoaded         = false;
     private String mCurrentValue;
 
     private NetworkDevice.Builder mBuilder;
-    private List<NetworkDevice> mDevices;
+    private List<NetworkDevice>   mDevices;
 
     /** Called tag opening (<tag>). */
     @Override

@@ -9,8 +9,8 @@ public class ConnectedDevice {
     protected String mId;
     protected String mName;
     /** If the connection with the remote server is not established within this timeout, it is dismiss. */
-    protected int mConnectionTimeout;
-    protected int mReadTimeout;
+    protected int    mConnectionTimeout;
+    protected int    mReadTimeout;
     protected String mSecurityToken;
 
     @Override

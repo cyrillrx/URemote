@@ -9,7 +9,7 @@ package com.cyrillrx.uremote.common.device;
 public class BluetoothDevice extends ConnectedDevice {
 
     /** Device paired */
-    public static final String TYPE_PAIRED = "paired";
+    public static final String TYPE_PAIRED     = "paired";
     /** Device discovered */
     public static final String TYPE_DISCOVERED = "discovered";
 

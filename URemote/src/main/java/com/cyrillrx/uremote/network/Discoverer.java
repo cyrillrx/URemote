@@ -1,6 +1,6 @@
 package com.cyrillrx.uremote.network;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.request.MessageUtils;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;
@@ -24,7 +24,7 @@ public class Discoverer {
     public static class DiscoverTask implements Callable<NetworkDevice> {
 
         final RemoteCommand.Request mRequest;
-        final NetworkDevice mDevice;
+        final NetworkDevice         mDevice;
 
         public DiscoverTask(RemoteCommand.Request request, final NetworkDevice device) {
             mRequest = request;
@@ -46,9 +46,23 @@ public class Discoverer {
     }
 
     public static void discoverDevices() {
-        NetUtils.getLocalIpAddress();
-        // TODO replace hardcoded subnet and port
-        discover("192.168.1.", 9002);
+
+        ExecutorService executor = null;
+        try {
+            executor = Executors.newSingleThreadExecutor();
+            executor.submit(new Runnable() {
+                @Override
+                public void run() {
+                    NetUtils.getLocalIpAddress();
+                    // TODO replace hardcoded subnet and port
+                    discover("192.168.1.", 9002);
+                }
+            });
+        } finally {
+            if (executor != null) {
+                executor.shutdown();
+            }
+        }
     }
 
     /**
@@ -60,20 +74,7 @@ public class Discoverer {
 
         Logger.info(TAG, "Send ping to subnet: " + subnet);
 
-        final NetworkDevice device;
-        try {
-            device = NetworkDevice.newBuilder()
-                    .setName("unknown")
-                    .setLocalHost(subnet)
-                    .setLocalPort(port)
-                    .setSecurityToken("1234")
-                    .setConnectionType(NetworkDevice.ConnectionType.LOCAL)
-                    .build();
-        } catch (Exception e) {
-            Logger.error(TAG, "Unable to start the search.", e);
-            return new ArrayList<>();
-        }
-
+        // TODO remove hard coded security token
         final RemoteCommand.Request request = RemoteCommand.Request.newBuilder()
                 .setSecurityToken("1234")
                 .setType(RemoteCommand.Request.Type.SIMPLE)
@@ -82,26 +83,31 @@ public class Discoverer {
 
         final List<Future<NetworkDevice>> futures = new ArrayList<>();
 
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = null;
+        try {
+            executor = Executors.newFixedThreadPool(4);
 
-        // TODO clone the device for each task.
-        // TODO define a range of possible ip addresses
-        for (int i = 1; i < 256; i++) {
-            String host = subnet + i;
-            device.setLocalHost(host);
-            DiscoverTask task = new DiscoverTask(request, device);
-            futures.add(executor.submit(task));
+            // TODO clone the device for each task.
+            // TODO define a range of possible ip addresses
+            for (int i = 1; i < 256; i++) {
+                String host = subnet + i;
+                DiscoverTask task = new DiscoverTask(request, buildDevice(host, port));
+                futures.add(executor.submit(task));
+            }
+
+        } finally {
+            // This will make the executor accept no new threads
+            // and finish all existing threads in the queue
+            assert executor != null;
+            executor.shutdown();
         }
-        // This will make the executor accept no new threads
-        // and finish all existing threads in the queue
-        executor.shutdown();
 
         final List<NetworkDevice> foundDevices = new ArrayList<>();
         // now retrieve the result
         for (Future<NetworkDevice> future : futures) {
             try {
                 final NetworkDevice foundDevice = future.get();
-                Logger.info(TAG, "Device found !" + foundDevice);
+                Logger.info(TAG, "Device found ! " + foundDevice);
                 foundDevices.add(foundDevice);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
@@ -109,5 +115,23 @@ public class Discoverer {
         }
 
         return foundDevices;
+    }
+
+    public static NetworkDevice buildDevice(String host, int port) {
+
+        // TODO remove hard coded security token
+        try {
+            return NetworkDevice.newBuilder()
+                    .setName("unknown")
+                    .setLocalHost(host)
+                    .setLocalPort(port)
+                    .setSecurityToken("1234")
+                    .setConnectionType(NetworkDevice.ConnectionType.LOCAL)
+                    .build();
+
+        } catch (Exception e) {
+            Logger.error(TAG, "Unable to build the device.", e);
+            return null;
+        }
     }
 }

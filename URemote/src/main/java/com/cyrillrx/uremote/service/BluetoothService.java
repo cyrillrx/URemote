@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,44 +39,44 @@ public class BluetoothService {
 
     // Constants that indicate the current connection state
     /** Doing nothing. */
-    public static final int STATE_NONE = 0;
+    public static final int    STATE_NONE  = 0;
     /** Doing nothing. */
     public static final String ACTION_NONE = "None";
 
     /** Listening for incoming connections. */
-    public static final int STATE_LISTEN = 1;
+    public static final int    STATE_LISTEN  = 1;
     /** Listening for incoming connections. */
     public static final String ACTION_LISTEN = "Listening";
 
     /** Initiating an outgoing connection. */
-    public static final int STATE_CONNECTING = 2;
+    public static final int    STATE_CONNECTING  = 2;
     /** Initiating an outgoing connection. */
     public static final String ACTION_CONNECTING = "Connecting";
 
     /** Connected to remote device. */
-    public static final int STATE_CONNECTED = 3;
+    public static final int    STATE_CONNECTED  = 3;
     /** Connected to remote device. */
     public static final String ACTION_CONNECTED = "Connected";
 
     // Name for the SDP record when creating server socket
-    private static final String TAG = BluetoothService.class.getSimpleName();
-    private static final String NAME_SECURE = "BluetoothConnectorSecure";
-    private static final String NAME_INSECURE = "BluetoothConnectorInsecure";
-    private static final String SOCKET_TYPE_SECURE = "Secure";
+    private static final String TAG                  = BluetoothService.class.getSimpleName();
+    private static final String NAME_SECURE          = "BluetoothConnectorSecure";
+    private static final String NAME_INSECURE        = "BluetoothConnectorInsecure";
+    private static final String SOCKET_TYPE_SECURE   = "Secure";
     private static final String SOCKET_TYPE_INSECURE = "Insecure";
 
     // Unique UUID for this application
-    private static final UUID MY_UUID_SECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private static final UUID MY_UUID_SECURE   = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private static final UUID MY_UUID_INSECURE = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     // Member fields
     private final BluetoothAdapter mAdapter;
-    private final Handler mHandler;
-    private AcceptThread mSecureAcceptThread;
-    private AcceptThread mInsecureAcceptThread;
-    private ConnectThread mConnectThread;
-    private ConnectedThread mConnectedThread;
-    private int mState;
+    private final Handler          mHandler;
+    private       AcceptThread     mSecureAcceptThread;
+    private       AcceptThread     mInsecureAcceptThread;
+    private       ConnectThread    mConnectThread;
+    private       ConnectedThread  mConnectedThread;
+    private       int              mState;
 
     public BluetoothService() {
         this(null);
@@ -323,7 +323,7 @@ public class BluetoothService {
      */
     private class AcceptThread extends Thread {
         private final BluetoothServerSocket mmServerSocket;
-        private final String mSocketType;
+        private final String                mSocketType;
 
         public AcceptThread(boolean secure) {
             Logger.debug(TAG, "AcceptThread constructor");
@@ -411,7 +411,7 @@ public class BluetoothService {
     private class ConnectThread extends Thread {
         private final BluetoothSocket mmSocket;
         private final BluetoothDevice mmDevice;
-        private final String mSocketType;
+        private final String          mSocketType;
 
         public ConnectThread(BluetoothDevice device, boolean secure) {
             Logger.debug(TAG, "ConnectThread constructor");
@@ -482,8 +482,8 @@ public class BluetoothService {
      */
     private class ConnectedThread extends Thread {
         private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
+        private final InputStream     mmInStream;
+        private final OutputStream    mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket, String socketType) {
             Logger.debug(TAG, "ConnectedThread constructor");

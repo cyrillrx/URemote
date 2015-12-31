@@ -20,9 +20,9 @@ import java.util.Random;
  */
 public class Console extends LinearLayout {
 
-    private final static int MAX_LINES = 5;
-    private final static int REMOVE_LINE_DURATION = 200;
-    private final static int LETTER_FIXED_DELAY = 10;
+    private final static int MAX_LINES             = 5;
+    private final static int REMOVE_LINE_DURATION  = 200;
+    private final static int LETTER_FIXED_DELAY    = 10;
     private final static int LETTER_VARIABLE_DELAY = 40;
 
     private LinearLayout mConsoleContent;

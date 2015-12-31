@@ -2,7 +2,7 @@ package com.cyrillrx.uremote.network;
 
 import android.os.AsyncTask;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.utils.ToastSender;
 
 import java.net.DatagramPacket;
@@ -17,8 +17,8 @@ import java.net.InetAddress;
  */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
 
-    private static final String TAG = WakeOnLan.class.getSimpleName();
-    private static final int PORT = 9;
+    private static final String TAG  = WakeOnLan.class.getSimpleName();
+    private static final int    PORT = 9;
 
     private final ToastSender mHolder;
 

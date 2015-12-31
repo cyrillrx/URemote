@@ -1,12 +1,11 @@
 package com.cyrillrx.uremote.network;
 
-import com.cyrillrx.android.toolbox.Logger;
-
-import org.apache.http.conn.util.InetAddressUtils;
+import com.cyrillrx.android.logger.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -141,17 +140,17 @@ public class NetUtils {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface intf : interfaces) {
-                List<InetAddress> addrs = Collections.list(intf.getInetAddresses());
-                for (InetAddress addr : addrs) {
-                    if (!addr.isLoopbackAddress()) {
-                        String sAddr = addr.getHostAddress().toUpperCase();
-                        boolean isIPv4 = InetAddressUtils.isIPv4Address(sAddr);
+                List<InetAddress> inetAddresses = Collections.list(intf.getInetAddresses());
+                for (InetAddress inetAddress : inetAddresses) {
+                    if (!inetAddress.isLoopbackAddress()) {
+                        String ipAddress = inetAddress.getHostAddress().toUpperCase();
+                        boolean isIPv4 = inetAddress instanceof Inet4Address;
                         if (useIPv4) {
-                            if (isIPv4) { return sAddr; }
+                            if (isIPv4) { return ipAddress; }
                         } else {
                             if (!isIPv4) {
-                                int delim = sAddr.indexOf('%'); // drop ip6 port suffix
-                                return delim < 0 ? sAddr : sAddr.substring(0, delim);
+                                int delim = ipAddress.indexOf('%'); // drop ip6 port suffix
+                                return delim < 0 ? ipAddress : ipAddress.substring(0, delim);
                             }
                         }
                     }

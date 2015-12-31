@@ -5,7 +5,7 @@ import android.test.InstrumentationTestCase;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.network.AsyncMessageMgr;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 
 import junit.framework.Assert;
 

@@ -1,6 +1,5 @@
 package com.cyrillrx.uremote.common.model;
 
-
 /**
  * Simple object that hold an action.
  * Used in Home Activity
@@ -11,19 +10,19 @@ package com.cyrillrx.uremote.common.model;
 public class ActionItem {
 
     public static final int ACTION_COMPUTER = 0;
-    public static final int ACTION_LIGHTS = 1;
-    public static final int ACTION_TV = 2;
-    public static final int ACTION_ROBOTS = 3;
-    public static final int ACTION_HIFI = 4;
+    public static final int ACTION_LIGHTS   = 1;
+    public static final int ACTION_TV       = 2;
+    public static final int ACTION_ROBOTS   = 3;
+    public static final int ACTION_HIFI     = 4;
 
-    public static final int ACTION_APP = 10;
-    public static final int ACTION_STORE = 11;
+    public static final int ACTION_APP      = 10;
+    public static final int ACTION_STORE    = 11;
     public static final int ACTION_SHOW_NAO = 12;
 
-    private final int mId;
+    private final int    mId;
     private final String mTitle;
     private final String mSummary;
-    private final int mImageRes;
+    private final int    mImageRes;
 
     /**
      * Default constructor

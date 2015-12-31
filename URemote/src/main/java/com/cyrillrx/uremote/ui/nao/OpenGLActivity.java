@@ -12,7 +12,7 @@ import android.view.View;
  */
 public class OpenGLActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    private GLSurfaceView mGLView;
+    private GLSurfaceView  mGLView;
     private OpenGLRenderer mRenderer;
 
     private float mLastValueX = Float.MIN_VALUE;

@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.ConnectedDevice;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
@@ -63,23 +63,23 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
     private static final String SELECTED_PAGE_ID = "SELECTED_PAGE_ID";
     private static final String KEYBOARD_VISIBLE = "KEYBOARD_VISIBLE";
-    private static final int PAGES_COUNT = 3;
-    private static final int DEFAULT_PAGE = 1;
-    private static final int PAGE_EXPLORER = 2;
+    private static final int    PAGES_COUNT      = 3;
+    private static final int    DEFAULT_PAGE     = 1;
+    private static final int    PAGE_EXPLORER    = 2;
 
-    private FragAdmin mFragAdmin;
-    private FragDashboard mFragDashboard;
+    private FragAdmin              mFragAdmin;
+    private FragDashboard          mFragDashboard;
     private RemoteExplorerFragment mExplorerFragment;
 
-    private TextView mTvServerState;
+    private TextView  mTvServerState;
     private ImageView mProgressSignal;
     private ViewPager mViewPager;
 
     private Toast mToast;
 
     private NetworkDevice mSelectedDevice;
-    private KeyboardView mKeyboardView;
-    private KeyboardView mExtendedKeyboardView;
+    private KeyboardView  mKeyboardView;
+    private KeyboardView  mExtendedKeyboardView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

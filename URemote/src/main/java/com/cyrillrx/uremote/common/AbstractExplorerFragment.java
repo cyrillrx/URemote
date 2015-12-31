@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.android.utils.FileUtils;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.adapter.ExplorerArrayAdapter;
@@ -32,13 +32,13 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     private static final String TAG = AbstractExplorerFragment.class.getSimpleName();
 
     private static final String PREVIOUS_DIRECTORY_PATH = "..";
-    private static final String KEY_DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
-    private static final String DEFAULT_DIRECTORY_PATH = "default_path";
+    private static final String KEY_DIRECTORY_CONTENT   = "DIRECTORY_CONTENT";
+    private static final String DEFAULT_DIRECTORY_PATH  = "default_path";
 
     private TextView mTvPath;
     private String mRoot = null;
 
-    protected String mPath = null;
+    protected String   mPath            = null;
     protected FileInfo mCurrentFileInfo = null;
 
     @Override

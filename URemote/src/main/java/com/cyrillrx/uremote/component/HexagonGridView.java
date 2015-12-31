@@ -22,7 +22,6 @@ public class HexagonGridView extends DrawingView {
         return new HexagonGridThread(holder, context);
     }
 
-
     @Override
     public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
         mThread.addInputEvent(event);

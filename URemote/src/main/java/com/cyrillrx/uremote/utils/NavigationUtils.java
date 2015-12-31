@@ -27,9 +27,9 @@ public class NavigationUtils {
 
     // The request codes of ActivityForResults
     public static final int RC_SELECT_SERVER = 0;
-    public static final int RC_ENABLE_BT = 1;
-    public static final int RC_ENABLE_WIFI = 2;
-    public static final int RC_APP_LAUNCHER = 3;
+    public static final int RC_ENABLE_BT     = 1;
+    public static final int RC_ENABLE_WIFI   = 2;
+    public static final int RC_APP_LAUNCHER  = 3;
 
     public static void startServerList(final Activity activity) {
         final Intent intent = new Intent(activity.getApplicationContext(), ServerListActivity.class);
@@ -81,6 +81,5 @@ public class NavigationUtils {
     public static void startHexActivity(Activity activity) {
         activity.startActivity(new Intent(activity.getApplicationContext(), HexHomeActivity.class));
     }
-
 
 }

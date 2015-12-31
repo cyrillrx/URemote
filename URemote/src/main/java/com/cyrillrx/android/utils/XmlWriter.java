@@ -2,7 +2,7 @@ package com.cyrillrx.android.utils;
 
 import android.util.Xml;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 
 import org.xmlpull.v1.XmlSerializer;
 
@@ -17,14 +17,14 @@ import java.io.IOException;
  *         Created on 04/06/13.
  */
 public class XmlWriter {
-    private static final String TAG = "XmlWriter";
-    private static final String ENCODING = "UTF-8";
-    private static final String NAMESPACE = null;
+    private static final String TAG            = "XmlWriter";
+    private static final String ENCODING       = "UTF-8";
+    private static final String NAMESPACE      = null;
     private static final String FEATURE_INDENT = "http://xmlpull.org/v1/doc/features.html#indent-output";
 
-    private final String mRootTag;
+    private final String           mRootTag;
     private final FileOutputStream mFileOutputStream;
-    private final XmlSerializer mSerializer;
+    private final XmlSerializer    mSerializer;
 
     /**
      * Constructor.

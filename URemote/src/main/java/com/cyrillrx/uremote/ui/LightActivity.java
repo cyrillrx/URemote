@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.cyrillrx.uremote.R;
 
-
 /**
  * Activity that allow to control lights.
  *

@@ -21,9 +21,9 @@ import java.util.Random;
 public class ConnectedDeviceDrawable extends Drawable {
 
     /** The paint's text coefficient. Used to deduce text size from the canvas. */
-    private static final float TEXT_SIZE_COEF = 0.42f;
+    private static final float TEXT_SIZE_COEF          = 0.42f;
     /** The paint's subscript and superscript coefficient. Used to deduce text size from the canvas. */
-    private static final float SUBSCRIPT_SIZE_COEF = 0.1f;
+    private static final float SUBSCRIPT_SIZE_COEF     = 0.1f;
     /** Coefficient to compute the outer hexagon side from canvas size. */
     private static final float OUTER_HEXAGON_SIDE_COEF = 0.42f;
     /** Coefficient to compute the inner hexagon side from canvas size. */
@@ -31,18 +31,18 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     private static final float SUBSCRIPT_PADDING = 1f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
-    private static final float STROKE_WIDTH = 2.5f;
+    private static final float STROKE_WIDTH      = 2.5f;
 
     private final Paint mPaint;
 
     private final String mText;
-    private final Rect mTextBounds;
+    private final Rect   mTextBounds;
 
     private final String mSubscript;
-    private final Rect mSubscriptBounds;
+    private final Rect   mSubscriptBounds;
 
     private final String mSuperscript;
-    private final Rect mSuperscriptBounds;
+    private final Rect   mSuperscriptBounds;
 
     public ConnectedDeviceDrawable(final ConnectedDevice device) {
         this(device, Integer.MIN_VALUE);
@@ -127,7 +127,6 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     @Override
     public int getOpacity() { return PixelFormat.TRANSLUCENT; }
-
 
     protected String getText(final ConnectedDevice device) {
         return device.getName().substring(0, 1);

@@ -2,7 +2,7 @@ package com.cyrillrx.uremote.network;
 
 import android.os.AsyncTask;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.request.MessageUtils;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request;
@@ -24,7 +24,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
     protected static Semaphore sSemaphore = new Semaphore(2, true);
 
     protected final NetworkDevice mRemoteDevice;
-    private final TaskCallbacks mTaskCallbacks;
+    private final   TaskCallbacks mTaskCallbacks;
 
     /**
      * @param device        The device towards which to send the request.

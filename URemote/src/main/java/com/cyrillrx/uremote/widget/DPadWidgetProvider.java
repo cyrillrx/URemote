@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.component.ConnectedDeviceDrawable;
@@ -27,6 +27,9 @@ import static android.widget.Toast.LENGTH_SHORT;
 import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request;
 import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
+//
+//import com.cyrillrx.android.logger.Logger;
+
 /**
  * @author Cyril Leroux.
  *         Created on 18/01/14.
@@ -36,11 +39,11 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     private static final String TAG = DPadWidgetProvider.class.getSimpleName();
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
-    private static final String ACTION_OK = "ACTION_OK";
-    private static final String ACTION_LEFT = "ACTION_LEFT";
-    private static final String ACTION_RIGHT = "ACTION_RIGHT";
-    private static final String ACTION_UP = "ACTION_UP";
-    private static final String ACTION_DOWN = "ACTION_DOWN";
+    private static final String ACTION_OK             = "ACTION_OK";
+    private static final String ACTION_LEFT           = "ACTION_LEFT";
+    private static final String ACTION_RIGHT          = "ACTION_RIGHT";
+    private static final String ACTION_UP             = "ACTION_UP";
+    private static final String ACTION_DOWN           = "ACTION_DOWN";
 
     @Override
     public void onEnabled(Context context) {

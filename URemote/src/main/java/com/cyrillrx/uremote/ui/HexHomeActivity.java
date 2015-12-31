@@ -17,11 +17,11 @@ import java.util.List;
 public class HexHomeActivity extends AppCompatActivity {
 
     private static final int ACTION_COMPUTER = 0;
-    private static final int ACTION_NAO = 1;
-    private static final int ACTION_LIGHTS = 2;
-    private static final int ACTION_TV = 3;
-    private static final int ACTION_ROBOTS = 4;
-    private static final int ACTION_HIFI = 5;
+    private static final int ACTION_NAO      = 1;
+    private static final int ACTION_LIGHTS   = 2;
+    private static final int ACTION_TV       = 3;
+    private static final int ACTION_ROBOTS   = 4;
+    private static final int ACTION_HIFI     = 5;
 
     private List<ActionItem> mActionList;
 

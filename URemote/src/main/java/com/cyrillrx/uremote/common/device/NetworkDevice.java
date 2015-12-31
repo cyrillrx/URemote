@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 
 /**
  * Parcelable class that holds network device data (ip, mac address, etc.).
@@ -16,8 +16,8 @@ import com.cyrillrx.android.toolbox.Logger;
  */
 public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
-    private static final String TAG = NetworkDevice.class.getSimpleName();
-    public static final String FILENAME = "serverConfig.xml";
+    private static final String TAG      = NetworkDevice.class.getSimpleName();
+    public static final  String FILENAME = "serverConfig.xml";
 
     /** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
     public static final Parcelable.Creator<NetworkDevice> CREATOR = new Parcelable.Creator<NetworkDevice>() {
@@ -32,12 +32,12 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
         }
     };
 
-    private String mLocalHost;
-    private int mLocalPort;
-    private String mBroadcast;
-    private String mRemoteHost;
-    private int mRemotePort;
-    private String mMacAddress;
+    private String         mLocalHost;
+    private int            mLocalPort;
+    private String         mBroadcast;
+    private String         mRemoteHost;
+    private int            mRemotePort;
+    private String         mMacAddress;
     private ConnectionType mConnectionType;
 
     /**
@@ -196,29 +196,29 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     // TODO Move a part of the builder in ConnectedDevice class
     public static class Builder {
 
-        private static String DEFAULT_NAME = "";
-        private static String DEFAULT_LOCAL_HOST = "";
-        private static int DEFAULT_PORT = 0;
-        private static String DEFAULT_BROADCAST = "";
-        private static String DEFAULT_REMOTE_HOST = "";
-        private static String DEFAULT_MAC_ADDRESS = "";
-        private static ConnectionType DEFAULT_CONNECTION = ConnectionType.LOCAL;
-        private static int DEFAULT_CONNECTION_TIMEOUT = 500;
-        private static int DEFAULT_READ_TIMEOUT = 500;
-        private static String DEFAULT_SECURITY_TOKEN = "";
+        private static String         DEFAULT_NAME               = "";
+        private static String         DEFAULT_LOCAL_HOST         = "";
+        private static int            DEFAULT_PORT               = 0;
+        private static String         DEFAULT_BROADCAST          = "";
+        private static String         DEFAULT_REMOTE_HOST        = "";
+        private static String         DEFAULT_MAC_ADDRESS        = "";
+        private static ConnectionType DEFAULT_CONNECTION         = ConnectionType.LOCAL;
+        private static int            DEFAULT_CONNECTION_TIMEOUT = 500;
+        private static int            DEFAULT_READ_TIMEOUT       = 500;
+        private static String         DEFAULT_SECURITY_TOKEN     = "";
 
-        private String mName = DEFAULT_NAME;
-        private String mLocalHost = DEFAULT_LOCAL_HOST;
-        private int mLocalPort = DEFAULT_PORT;
-        private String mBroadcast = DEFAULT_BROADCAST;
-        private String mRemoteHost = DEFAULT_REMOTE_HOST;
-        private int mRemotePort = DEFAULT_PORT;
-        private String mMacAddress = DEFAULT_MAC_ADDRESS;
-        private ConnectionType mConnectionType = DEFAULT_CONNECTION;
+        private String         mName              = DEFAULT_NAME;
+        private String         mLocalHost         = DEFAULT_LOCAL_HOST;
+        private int            mLocalPort         = DEFAULT_PORT;
+        private String         mBroadcast         = DEFAULT_BROADCAST;
+        private String         mRemoteHost        = DEFAULT_REMOTE_HOST;
+        private int            mRemotePort        = DEFAULT_PORT;
+        private String         mMacAddress        = DEFAULT_MAC_ADDRESS;
+        private ConnectionType mConnectionType    = DEFAULT_CONNECTION;
         /** If the connection with the remote server is not established within this timeout, it is dismissed. */
-        private int mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
-        private int mReadTimeout = DEFAULT_READ_TIMEOUT;
-        private String mSecurityToken = DEFAULT_SECURITY_TOKEN;
+        private int            mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
+        private int            mReadTimeout       = DEFAULT_READ_TIMEOUT;
+        private String         mSecurityToken     = DEFAULT_SECURITY_TOKEN;
 
         private Builder() { }
 

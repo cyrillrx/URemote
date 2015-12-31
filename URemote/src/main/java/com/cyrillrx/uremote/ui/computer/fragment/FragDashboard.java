@@ -1,6 +1,5 @@
 package com.cyrillrx.uremote.ui.computer.fragment;
 
-
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ObjectAnimator;
@@ -19,7 +18,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.common.model.AppItem;
@@ -50,7 +49,7 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      */
     private static final int RC_APP_LAUNCHER = 0;
 
-    private static final int DELAY = 500;
+    private static final int DELAY    = 500;
     private static final int DURATION = 500;
 
     private TaskCallbacks mCallbacks;
@@ -59,9 +58,9 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     private ObjectAnimator mFadeIn;
     private ObjectAnimator mFadeOut;
 
-    private TextView mTvVolume;
+    private TextView    mTvVolume;
     private ImageButton mIbMute;
-    private SeekBar mSbVolume;
+    private SeekBar     mSbVolume;
 
     @Override
     public void onAttach(Activity activity) {

@@ -26,8 +26,8 @@ public class AppItem implements Parcelable {
 
     private final String mLabel;
     private final String mPath;
-    private final int mImageResource;
-    private final int mAction;
+    private final int    mImageResource;
+    private final int    mAction;
 
     /**
      * Constructor with parameters

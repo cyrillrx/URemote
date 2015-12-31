@@ -1,6 +1,5 @@
 package com.cyrillrx.uremote.ui.computer.fragment;
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,8 +33,8 @@ import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Type;
 public class FragAdmin extends Fragment implements OnClickListener {
 
     private RequestSender mRequestSender;
-    private ToastSender mToastSender;
-    private Console mConsole;
+    private ToastSender   mToastSender;
+    private Console       mConsole;
 
     @Override
     public void onAttach(Activity activity) {

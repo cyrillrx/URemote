@@ -22,15 +22,15 @@ public abstract class DrawingThread extends Thread {
     private static final String TAG = DrawingThread.class.getSimpleName();
 
     private final SurfaceHolder mSurfaceHolder;
-    private final Resources mResources;
+    private final Resources     mResources;
     private ConcurrentLinkedQueue<InputEvent> mEventQueue = new ConcurrentLinkedQueue<>();
 
     /** Number of frame we wish to draw per second. */
-    private int mFrameRate = 20;
+    private int     mFrameRate     = 20;
     /** The time a frame is suppose to stay on screen in milliseconds. */
-    private int mFrameDuration = 1000 / mFrameRate;
+    private int     mFrameDuration = 1000 / mFrameRate;
     /** Indicate whether the thread is suppose to draw or not. */
-    private boolean mRunning = true;
+    private boolean mRunning       = true;
 
     public DrawingThread(SurfaceHolder surfaceHolder, Context context) {
         mSurfaceHolder = surfaceHolder;

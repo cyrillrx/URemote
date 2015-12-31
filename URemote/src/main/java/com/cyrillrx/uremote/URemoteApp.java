@@ -4,6 +4,10 @@ import android.app.Application;
 import android.graphics.Color;
 
 import com.crashlytics.android.Crashlytics;
+import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.android.logger.Severity;
+import com.cyrillrx.android.logger.extension.CrashlyticsLogger;
+import com.cyrillrx.android.logger.extension.LogCat;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -21,7 +25,16 @@ public class URemoteApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         Fabric.with(this, new Crashlytics());
+        initLogger();
+    }
+
+    private void initLogger() {
+        boolean isDebug = BuildConfig.DEBUG;
+        Logger.initialize(isDebug ? this : null);
+        Logger.addChild(new LogCat(isDebug ? Severity.VERBOSE : Severity.WARN));
+        Logger.addChild(new CrashlyticsLogger(Severity.WARN));
     }
 
 //    public BlockingQueue getRequestQueue() {

@@ -3,7 +3,7 @@ package com.cyrillrx.android.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

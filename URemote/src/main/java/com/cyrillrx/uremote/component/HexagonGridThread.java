@@ -19,13 +19,13 @@ public class HexagonGridThread extends DrawingThread {
     /** Coefficient to compute the hexagon side. */
     private static final float HEXAGON_SIDE_COEF = 0.2f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
-    private static final int STROKE_WIDTH = 3;
+    private static final int   STROKE_WIDTH      = 3;
 
     private final Paint mPaint;
     private final Paint mPaintOnTouch;
 
-    private Hexagon[] mHexagon = new Hexagon[4];
-    private boolean mIsTouched = false;
+    private Hexagon[] mHexagon   = new Hexagon[4];
+    private boolean   mIsTouched = false;
 
     public HexagonGridThread(SurfaceHolder surfaceHolder, Context context) {
         super(surfaceHolder, context);

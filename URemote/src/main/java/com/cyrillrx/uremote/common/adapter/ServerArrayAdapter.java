@@ -38,10 +38,10 @@ public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
     /** Template for the list items. */
     public static class ViewHolder {
         ImageView ivThumbnail;
-        TextView tvName;
-        TextView tvLocalhost;
-        TextView tvRemoteHost;
-        TextView tvMacAddress;
+        TextView  tvName;
+        TextView  tvLocalhost;
+        TextView  tvRemoteHost;
+        TextView  tvMacAddress;
     }
 
     @Override

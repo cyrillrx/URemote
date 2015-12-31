@@ -31,14 +31,14 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  */
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder> {
 
-    private Activity mActivity;
+    private Activity         mActivity;
     private List<ActionItem> mActionList;
 
     /** The view holder is the template for the items of the list. */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView icon;
-        TextView tvTitle;
-        TextView tvSummary;
+        TextView  tvTitle;
+        TextView  tvSummary;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -89,7 +89,6 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
                 break;
 
             case ActionItem.ACTION_LIGHTS:
-                Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
                 Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
                 Discoverer.discoverDevices();
                 break;

@@ -38,10 +38,10 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
     private TaskCallbacks mCallbacks;
     private RequestSender mRequestSender;
-    private ToastSender mToastSender;
+    private ToastSender   mToastSender;
 
     private TextView mTvEmpty;
-    private View mViewFailure;
+    private View     mViewFailure;
 
     @Override
     public void onAttach(Activity activity) {

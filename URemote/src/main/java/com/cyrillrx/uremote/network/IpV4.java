@@ -9,7 +9,7 @@ import android.text.TextUtils;
 public class IpV4 {
 
     private static final CharSequence SEPARATOR = ".";
-    private Integer[] mParts = new Integer[4];
+    private              Integer[]    mParts    = new Integer[4];
     private int mPort;
 
 //    public IpV4(final String host, final int port) {

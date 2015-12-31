@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.adapter.ServerArrayAdapter;
@@ -46,13 +46,13 @@ public class ServerListActivity extends ListActivity {
 
     private static final String TAG = ServerListActivity.class.getSimpleName();
 
-    private static final int RC_ADD_SERVER = 0;
+    private static final int RC_ADD_SERVER  = 0;
     private static final int RC_EDIT_SERVER = 1;
     private static final int RC_LOAD_SERVER = 2;
 
     protected String mAction;
-    private List<NetworkDevice> mDevices = new ArrayList<>();
-    private File mConfFile = null;
+    private List<NetworkDevice> mDevices  = new ArrayList<>();
+    private File                mConfFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,7 +243,7 @@ public class ServerListActivity extends ListActivity {
     /** Load the devices from a list of {@link File} objects. */
     private class AsyncLoadServer extends AsyncTask<Void, Void, Boolean> {
 
-        final File mSourceFile;
+        final File                mSourceFile;
         final List<NetworkDevice> mDestination;
 
         private AsyncLoadServer(File configFile, List<NetworkDevice> devices) {
@@ -275,7 +275,7 @@ public class ServerListActivity extends ListActivity {
     private class AsyncSaveServer extends AsyncTask<Void, Void, Boolean> {
 
         final List<NetworkDevice> mSource;
-        final File mTargetFile;
+        final File                mTargetFile;
 
         private AsyncSaveServer(List<NetworkDevice> devices, File targetFile) {
             mSource = devices;

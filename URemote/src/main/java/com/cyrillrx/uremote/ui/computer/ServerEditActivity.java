@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.common.security.Md5;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.NetworkDevice;

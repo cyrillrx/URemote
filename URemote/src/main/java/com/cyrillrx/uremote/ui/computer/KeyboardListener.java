@@ -5,7 +5,7 @@ import android.inputmethodservice.KeyboardView;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
-import com.cyrillrx.android.toolbox.Logger;
+import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.request.RequestSender;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;
@@ -23,18 +23,18 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private static final String TAG = KeyboardListener.class.getSimpleName();
 
-    private static final int FLAG_NONE = 0b00000;
-    private static final int FLAG_CTRL = 0b00001;
-    private static final int FLAG_SHIFT = 0b00010;
-    private static final int FLAG_ALT_LEFT = 0b00100;
+    private static final int FLAG_NONE      = 0b00000;
+    private static final int FLAG_CTRL      = 0b00001;
+    private static final int FLAG_SHIFT     = 0b00010;
+    private static final int FLAG_ALT_LEFT  = 0b00100;
     private static final int FLAG_ALT_RIGHT = 0b01000;
-    private static final int FLAG_WINDOWS = 0b10000;
+    private static final int FLAG_WINDOWS   = 0b10000;
 
-    private final RequestSender mRequestSender;
-    private KeyboardView mKeyboardView;
-    private ToastSender mToastSender;
-    private Set<Keyboard.Key> mModifierKeys;
-    private int mModifierFlag;
+    private final RequestSender     mRequestSender;
+    private       KeyboardView      mKeyboardView;
+    private       ToastSender       mToastSender;
+    private       Set<Keyboard.Key> mModifierKeys;
+    private       int               mModifierFlag;
 
     public KeyboardListener(final RequestSender requestSender) {
         mRequestSender = requestSender;
@@ -490,7 +490,6 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
             case KeyEvent.KEYCODE_APOSTROPHE:
                 sendRequest(RemoteCommand.Request.Code.KEYCODE_APOSTROPHE);
                 return true;
-
 
             //
             // Parent and bracket keys

@@ -38,8 +38,8 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
     /** Template for list items. */
     public static class ViewHolder {
         ImageView ivIcon;
-        TextView tvName;
-        TextView tvSize;
+        TextView  tvName;
+        TextView  tvSize;
     }
 
     @Override
