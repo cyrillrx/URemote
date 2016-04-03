@@ -11,7 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.component.ConnectedDeviceDrawable;
@@ -28,7 +28,7 @@ import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request;
 import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_ID;
 
 //
-//import com.cyrillrx.android.logger.Logger;
+//import com.cyrillrx.logger.Logger;
 
 /**
  * @author Cyril Leroux.

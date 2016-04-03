@@ -4,10 +4,11 @@ import android.app.Application;
 import android.graphics.Color;
 
 import com.crashlytics.android.Crashlytics;
-import com.cyrillrx.android.logger.Logger;
-import com.cyrillrx.android.logger.Severity;
-import com.cyrillrx.android.logger.extension.CrashlyticsLogger;
-import com.cyrillrx.android.logger.extension.LogCat;
+import com.cyrillrx.logger.Logger;
+import com.cyrillrx.logger.Severity;
+import com.cyrillrx.logger.extension.CrashlyticsLogger;
+import com.cyrillrx.logger.extension.LogCat;
+import com.cyrillrx.notifier.Toaster;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -32,7 +33,8 @@ public class URemoteApp extends Application {
 
     private void initLogger() {
         boolean isDebug = BuildConfig.DEBUG;
-        Logger.initialize(isDebug ? this : null);
+        Toaster.initialize(this, isDebug);
+        Logger.initialize();
         Logger.addChild(new LogCat(isDebug ? Severity.VERBOSE : Severity.WARN));
         Logger.addChild(new CrashlyticsLogger(Severity.WARN));
     }

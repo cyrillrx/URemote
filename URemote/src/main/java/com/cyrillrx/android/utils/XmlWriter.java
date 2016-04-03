@@ -2,7 +2,7 @@ package com.cyrillrx.android.utils;
 
 import android.util.Xml;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 
 import org.xmlpull.v1.XmlSerializer;
 

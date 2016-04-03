@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.adapter.ServerArrayAdapter;

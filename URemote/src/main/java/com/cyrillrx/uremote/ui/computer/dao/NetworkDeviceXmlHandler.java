@@ -1,6 +1,6 @@
 package com.cyrillrx.uremote.ui.computer.dao;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.common.device.NetworkDevice.ConnectionType;
 

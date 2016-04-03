@@ -1,6 +1,6 @@
 package com.cyrillrx.uremote.network;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

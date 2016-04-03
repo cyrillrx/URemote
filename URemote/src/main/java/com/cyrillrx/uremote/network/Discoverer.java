@@ -1,6 +1,6 @@
 package com.cyrillrx.uremote.network;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.request.MessageUtils;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;

@@ -1,7 +1,7 @@
 package com.cyrillrx.uremote.request;
 
-import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.android.utils.FileUtils;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.FileInfo;
 
 import java.io.File;

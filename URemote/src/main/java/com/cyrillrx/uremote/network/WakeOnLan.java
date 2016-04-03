@@ -2,7 +2,7 @@ package com.cyrillrx.uremote.network;
 
 import android.os.AsyncTask;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.utils.ToastSender;
 
 import java.net.DatagramPacket;

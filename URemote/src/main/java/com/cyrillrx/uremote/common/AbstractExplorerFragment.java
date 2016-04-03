@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.android.utils.FileUtils;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.adapter.ExplorerArrayAdapter;
 import com.cyrillrx.uremote.request.FileInfoFactory;

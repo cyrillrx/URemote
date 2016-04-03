@@ -5,7 +5,7 @@ import android.inputmethodservice.KeyboardView;
 import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
-import com.cyrillrx.android.logger.Logger;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.request.RequestSender;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;

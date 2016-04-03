@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 
-import com.cyrillrx.android.logger.Logger;
 import com.cyrillrx.android.utils.XmlWriter;
 import com.cyrillrx.common.exception.AccessStorageOnMainThreadException;
+import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.utils.PrefKeys;
 
