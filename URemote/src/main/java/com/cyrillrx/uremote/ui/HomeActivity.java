@@ -35,6 +35,8 @@ import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  */
 public class HomeActivity extends AppCompatActivity {
 
+    private static final String TAG = HomeActivity.class.getSimpleName();
+
     private List<ActionItem> mActionList;
 
     /** Called when the activity is first created. */

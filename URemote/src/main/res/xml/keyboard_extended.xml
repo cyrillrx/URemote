@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-          android:keyHeight="@dimen/key_height"
-          android:keyWidth="25%p">
+    android:keyHeight="@dimen/key_height"
+    android:keyWidth="25%p">
 
     <Row>
         <Key
-                android:codes="@integer/code_escape"
-                android:keyEdgeFlags="left"
-                android:keyLabel="@string/kb_escape" />
+            android:codes="@integer/code_escape"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@string/kb_escape" />
         <Key
-                android:codes="@integer/code_alt_f4"
-                android:keyLabel="@string/kb_alt_f4" />
+            android:codes="@integer/code_alt_f4"
+            android:keyLabel="@string/kb_alt_f4" />
         <Key
-                android:codes="@integer/code_F4"
-                android:keyLabel="@string/kb_F4" />
+            android:codes="@integer/code_F4"
+            android:keyLabel="@string/kb_F4" />
         <Key
-                android:codes="@integer/code_escape"
-                android:keyEdgeFlags="right"
-                android:keyLabel="@string/kb_enter" />
+            android:codes="@integer/code_escape"
+            android:keyEdgeFlags="right"
+            android:keyLabel="@string/kb_enter" />
     </Row>
 
 </Keyboard>

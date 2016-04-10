@@ -1,87 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  android:layout_width="match_parent"
-			  android:layout_height="match_parent"
-			  android:layout_gravity="center"
-			  android:orientation="vertical"
-			  android:padding="15dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="15dp">
 
-	<ImageButton
-			android:id="@+id/tvPower"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="right"
-			android:background="@null"
-			android:contentDescription="@string/power"
-			android:src="@drawable/shutdown" />
+    <ImageButton
+        android:id="@+id/tvPower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@null"
+        android:contentDescription="@string/power"
+        android:src="@drawable/shutdown" />
 
-	<TableLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="center"
-			android:stretchColumns="*">
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:stretchColumns="*">
 
-		<TableRow>
+        <TableRow>
 
-			<Button
-					android:id="@+id/tvBtn1"
-					android:layout_height="70dp"
-					android:text="@string/kb_1" />
+            <Button
+                android:id="@+id/tvBtn1"
+                android:layout_height="70dp"
+                android:text="@string/kb_1" />
 
-			<Button
-					android:id="@+id/tvBtn2"
-					android:layout_height="70dp"
-					android:text="@string/kb_2" />
+            <Button
+                android:id="@+id/tvBtn2"
+                android:layout_height="70dp"
+                android:text="@string/kb_2" />
 
-			<Button
-					android:id="@+id/tvBtn3"
-					android:layout_height="70dp"
-					android:text="@string/kb_3" />
-		</TableRow>
+            <Button
+                android:id="@+id/tvBtn3"
+                android:layout_height="70dp"
+                android:text="@string/kb_3" />
+        </TableRow>
 
-		<TableRow>
+        <TableRow>
 
-			<Button
-					android:id="@+id/tvBtn4"
-					android:layout_height="70dp"
-					android:text="@string/kb_4" />
+            <Button
+                android:id="@+id/tvBtn4"
+                android:layout_height="70dp"
+                android:text="@string/kb_4" />
 
-			<Button
-					android:id="@+id/tvBtn5"
-					android:layout_height="70dp"
-					android:text="@string/kb_5" />
+            <Button
+                android:id="@+id/tvBtn5"
+                android:layout_height="70dp"
+                android:text="@string/kb_5" />
 
-			<Button
-					android:id="@+id/tvBtn6"
-					android:layout_height="70dp"
-					android:text="@string/kb_6" />
-		</TableRow>
+            <Button
+                android:id="@+id/tvBtn6"
+                android:layout_height="70dp"
+                android:text="@string/kb_6" />
+        </TableRow>
 
-		<TableRow>
+        <TableRow>
 
-			<Button
-					android:id="@+id/tvBtn7"
-					android:layout_height="70dp"
-					android:text="@string/kb_7" />
+            <Button
+                android:id="@+id/tvBtn7"
+                android:layout_height="70dp"
+                android:text="@string/kb_7" />
 
-			<Button
-					android:id="@+id/tvBtn8"
-					android:layout_height="70dp"
-					android:text="@string/kb_8" />
+            <Button
+                android:id="@+id/tvBtn8"
+                android:layout_height="70dp"
+                android:text="@string/kb_8" />
 
-			<Button
-					android:id="@+id/tvBtn9"
-					android:layout_height="70dp"
-					android:text="@string/kb_9" />
-		</TableRow>
+            <Button
+                android:id="@+id/tvBtn9"
+                android:layout_height="70dp"
+                android:text="@string/kb_9" />
+        </TableRow>
 
-		<TableRow android:gravity="center_horizontal">
+        <TableRow android:gravity="center_horizontal">
 
-			<Button
-					android:id="@+id/tvBtn0"
-					android:layout_height="70dp"
-					android:text="@string/kb_0" />
-		</TableRow>
-	</TableLayout>
+            <Button
+                android:id="@+id/tvBtn0"
+                android:layout_height="70dp"
+                android:text="@string/kb_0" />
+        </TableRow>
+    </TableLayout>
 
 </LinearLayout>

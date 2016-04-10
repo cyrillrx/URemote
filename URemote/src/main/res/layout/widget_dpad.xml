@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:background="@drawable/widget_media_shape"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:columnCount="3">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/widget_media_shape"
+    android:columnCount="3"
+    android:padding="10dp">
 
     <ImageButton
-            android:id="@+id/launchApp"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_launcher"
-            android:contentDescription="@string/app_name" />
+        android:id="@+id/launchApp"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_launcher" />
 
     <!-- DPad row 1 -->
 
     <ImageButton
-            android:id="@+id/dpadUp"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="0"
-            android:layout_column="1"
-            android:layout_gravity="fill"
-            android:contentDescription="@string/up"
-            android:src="@android:drawable/arrow_up_float" />
+        android:id="@+id/dpadUp"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="1"
+        android:layout_gravity="fill"
+        android:layout_row="0"
+        android:contentDescription="@string/up"
+        android:src="@android:drawable/arrow_up_float" />
 
     <!-- DPad row 2 -->
 
     <ImageButton
-            android:id="@+id/dpadLeft"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="1"
-            android:layout_column="0"
-            android:layout_gravity="fill"
-            android:contentDescription="@string/left"
-            android:src="@android:drawable/arrow_up_float" />
+        android:id="@+id/dpadLeft"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="0"
+        android:layout_gravity="fill"
+        android:layout_row="1"
+        android:contentDescription="@string/left"
+        android:src="@android:drawable/arrow_up_float" />
 
     <Button
-            android:id="@+id/dpadOk"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="1"
-            android:layout_column="1"
-            android:layout_gravity="fill"
-            android:text="@android:string/ok" />
+        android:id="@+id/dpadOk"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="1"
+        android:layout_gravity="fill"
+        android:layout_row="1"
+        android:text="@android:string/ok" />
 
     <ImageButton
-            android:id="@+id/dpadRight"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="1"
-            android:layout_column="2"
-            android:contentDescription="@string/right"
-            android:src="@android:drawable/arrow_up_float" />
+        android:id="@+id/dpadRight"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="2"
+        android:layout_row="1"
+        android:contentDescription="@string/right"
+        android:src="@android:drawable/arrow_up_float" />
 
     <!-- DPad row 3 -->
 
     <ImageButton
-            android:id="@+id/dpadDown"
-            android:layout_width="@dimen/media_button_width"
-            android:layout_height="@dimen/media_button_height"
-            android:layout_row="2"
-            android:layout_column="1"
-            android:contentDescription="@string/down"
-            android:src="@android:drawable/arrow_up_float" />
+        android:id="@+id/dpadDown"
+        android:layout_width="@dimen/media_button_width"
+        android:layout_height="@dimen/media_button_height"
+        android:layout_column="1"
+        android:layout_row="2"
+        android:contentDescription="@string/down"
+        android:src="@android:drawable/arrow_up_float" />
 
 
 </GridLayout>

@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-	<!-- Default values -->
-	<string name="default_server_label">Serveur</string>
-	<string name="server_name">Nom du serveur</string>
+    <!-- Default values -->
+    <string name="default_server_label">Serveur</string>
+    <string name="server_name">Nom du serveur</string>
 
-	<!-- Titles -->
-	<string name="title_server_settings">Configuration du serveur</string>
-	<string name="title_local">Accès local</string>
-	<string name="title_remote">Accès distant</string>
-	<string name="title_security">Sécurité</string>
-	<string name="title_other">Autre</string>
+    <!-- Titles -->
+    <string name="title_server_settings">Configuration du serveur</string>
+    <string name="title_local">Accès local</string>
+    <string name="title_remote">Accès distant</string>
+    <string name="title_security">Sécurité</string>
+    <string name="title_other">Autre</string>
     <string name="title_console">Console</string>
 
-	<!-- Preference names -->
-	<string name="selected_server">Serveur cible</string>
-	<string name="local_ip_address">Adresse ip locale</string>
-	<string name="local_port">Port d\'écoute local</string>
-	<string name="broadcast_address">Adresse de broadcast</string>
-	<string name="remote_ip_address">Adresse ip distante</string>
-	<string name="remote_port">Port d\'écoute distant</string>
-	<string name="security_token">Clé de sécurité</string>
-	<string name="connection_timeout">Timeout de connexion</string>
-	<string name="read_timeout">Timeout de lecture</string>
-	<string name="mac_address">Adresse Mac</string>
+    <!-- Preference names -->
+    <string name="selected_server">Serveur cible</string>
+    <string name="local_ip_address">Adresse ip locale</string>
+    <string name="local_port">Port d\'écoute local</string>
+    <string name="broadcast_address">Adresse de broadcast</string>
+    <string name="remote_ip_address">Adresse ip distante</string>
+    <string name="remote_port">Port d\'écoute distant</string>
+    <string name="security_token">Clé de sécurité</string>
+    <string name="connection_timeout">Timeout de connexion</string>
+    <string name="read_timeout">Timeout de lecture</string>
+    <string name="mac_address">Adresse Mac</string>
 
-	<!-- Messages -->
-	<string name="no_device_configured">Aucun server configuré</string>
-	<string name="select_server">Sélectionner un serveur</string>
-	<string name="server_loading">Chargement du serveur…</string>
-	<string name="server_saved">Configuration sauvegardée</string>
-	<string name="error_while_saving_servers">Erreur lors de la sauvegarde des serveur.</string>
-	<string name="server_loaded">Configuration chargée avec succès</string>
-	<string name="error_while_loading_servers">Erreur lors du chargement des serveurs.</string>
-	<string name="build_request_error">Erreur, impossible de construire la requête.</string>
+    <!-- Messages -->
+    <string name="no_device_configured">Aucun server configuré</string>
+    <string name="select_server">Sélectionner un serveur</string>
+    <string name="server_loading">Chargement du serveur…</string>
+    <string name="server_saved">Configuration sauvegardée</string>
+    <string name="error_while_saving_servers">Erreur lors de la sauvegarde des serveur.</string>
+    <string name="server_loaded">Configuration chargée avec succès</string>
+    <string name="error_while_loading_servers">Erreur lors du chargement des serveurs.</string>
+    <string name="build_request_error">Erreur, impossible de construire la requête.</string>
     <string name="request_error">La requête n\'a pas abouti. (Vérifiez le réseau, le serveur ou la configuration).</string>
 
 </resources>

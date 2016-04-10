@@ -86,6 +86,7 @@ dependencies {
 
     // External libraries
 
+    compile 'com.cyrillrx:tracker:0.4.10'
     compile 'com.cyrillrx.android:notifier:0.1.1'
     compile 'com.cyrillrx.android:core:0.3.1'
     compile 'com.cyrillrx.android:remote:0.0.2'

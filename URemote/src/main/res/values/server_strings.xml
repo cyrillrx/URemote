@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-	<!-- Default values -->
-	<string name="default_server_label">Server</string>
-	<string name="server_name">Server Name</string>
+    <!-- Default values -->
+    <string name="default_server_label">Server</string>
+    <string name="server_name">Server Name</string>
 
-	<!-- Titles -->
-	<string name="title_server_settings">Server Settings</string>
-	<string name="title_local">Local access</string>
-	<string name="title_remote">Remote access</string>
-	<string name="title_security">Security</string>
-	<string name="title_other">Other</string>
-	<string name="title_console">Console</string>
+    <!-- Titles -->
+    <string name="title_server_settings">Server Settings</string>
+    <string name="title_local">Local access</string>
+    <string name="title_remote">Remote access</string>
+    <string name="title_security">Security</string>
+    <string name="title_other">Other</string>
+    <string name="title_console">Console</string>
 
-	<!-- Preference names -->
+    <!-- Preference names -->
     <string name="selected_server">Target server</string>
-	<string name="local_ip_address">Local ip address</string>
-	<string name="local_port">Local listening port</string>
-	<string name="broadcast_address">Broadcast ip address</string>
-	<string name="remote_ip_address">Remote ip address</string>
-	<string name="remote_port">Remote listening port</string>
-	<string name="security_token">Security Token</string>
-	<string name="connection_timeout">Connection timeout</string>
-	<string name="read_timeout">Read timeout</string>
-	<string name="mac_address">Mac address</string>
+    <string name="local_ip_address">Local ip address</string>
+    <string name="local_port">Local listening port</string>
+    <string name="broadcast_address">Broadcast ip address</string>
+    <string name="remote_ip_address">Remote ip address</string>
+    <string name="remote_port">Remote listening port</string>
+    <string name="security_token">Security Token</string>
+    <string name="connection_timeout">Connection timeout</string>
+    <string name="read_timeout">Read timeout</string>
+    <string name="mac_address">Mac address</string>
 
-	<!-- Messages -->
-	<string name="no_device_configured">No device configured.</string>
-	<string name="select_server">Select a server</string>
-	<string name="server_loading">Loading server…</string>
-	<string name="server_saved">Server settings saved.</string>
-	<string name="error_while_saving_servers">Error while saving servers.</string>
-	<string name="server_loaded">Server settings successfully loaded.</string>
-	<string name="error_while_loading_servers">Error while loading servers.</string>
-	<string name="build_request_error">Error, couldn\'t build the request.</string>
-	<string name="request_error">Can\'t reach remote device (check network, server state or device configuration).</string>
+    <!-- Messages -->
+    <string name="no_device_configured">No device configured.</string>
+    <string name="select_server">Select a server</string>
+    <string name="server_loading">Loading server…</string>
+    <string name="server_saved">Server settings saved.</string>
+    <string name="error_while_saving_servers">Error while saving servers.</string>
+    <string name="server_loaded">Server settings successfully loaded.</string>
+    <string name="error_while_loading_servers">Error while loading servers.</string>
+    <string name="build_request_error">Error, couldn\'t build the request.</string>
+    <string name="request_error">Can\'t reach remote device (check network, server state or device configuration).</string>
 
     <!-- Not translatable -->
 
     <!-- Preference keys -->
-    <string translatable="false" name="key_server_id">server_id</string>
+    <string name="key_server_id" translatable="false">server_id</string>
 
     <!-- Default values -->
-    <string translatable="false" name="default_local_host">192.168.0.1</string>
-    <string translatable="false" name="default_broadcast">192.168.0.255</string>
-    <string translatable="false" name="default_remote_host">0.0.0.0</string>
-    <string translatable="false" name="default_security_token">0000</string>
-    <string translatable="false" name="default_mac_address">00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00</string>
+    <string name="default_local_host" translatable="false">192.168.0.1</string>
+    <string name="default_broadcast" translatable="false">192.168.0.255</string>
+    <string name="default_remote_host" translatable="false">0.0.0.0</string>
+    <string name="default_security_token" translatable="false">0000</string>
+    <string name="default_mac_address" translatable="false">00&#8208;00&#8208;00&#8208;00&#8208;00&#8208;00</string>
 
-    <string translatable="false" name="dot">.</string>
-    <string translatable="false" name="colon">:</string>
-    <string translatable="false" name="hyphen">-</string>
-    <string translatable="false" name="default_ip_part1">192</string>
-    <string translatable="false" name="default_ip_part2">168</string>
-    <string translatable="false" name="default_ip_part3">0</string>
-    <string translatable="false" name="default_ip_part4">0</string>
-    <string translatable="false" name="default_mac_address_part">00</string>
-    <string translatable="false" name="millisecond_unit">ms</string>
+    <string name="dot" translatable="false">.</string>
+    <string name="colon" translatable="false">:</string>
+    <string name="hyphen" translatable="false">-</string>
+    <string name="default_ip_part1" translatable="false">192</string>
+    <string name="default_ip_part2" translatable="false">168</string>
+    <string name="default_ip_part3" translatable="false">0</string>
+    <string name="default_ip_part4" translatable="false">0</string>
+    <string name="default_mac_address_part" translatable="false">00</string>
+    <string name="millisecond_unit" translatable="false">ms</string>
 
 </resources>

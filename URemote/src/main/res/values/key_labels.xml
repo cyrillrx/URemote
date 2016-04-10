@@ -1,106 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-	<!-- Numbers -->
-	<string translatable="false" name="kb_1">1</string>
-	<string translatable="false" name="kb_2">2</string>
-	<string translatable="false" name="kb_3">3</string>
-	<string translatable="false" name="kb_4">4</string>
-	<string translatable="false" name="kb_5">5</string>
-	<string translatable="false" name="kb_6">6</string>
-	<string translatable="false" name="kb_7">7</string>
-	<string translatable="false" name="kb_8">8</string>
-	<string translatable="false" name="kb_9">9</string>
-	<string translatable="false" name="kb_0">0</string>
+    <!-- Numbers -->
+    <string name="kb_1" translatable="false">1</string>
+    <string name="kb_2" translatable="false">2</string>
+    <string name="kb_3" translatable="false">3</string>
+    <string name="kb_4" translatable="false">4</string>
+    <string name="kb_5" translatable="false">5</string>
+    <string name="kb_6" translatable="false">6</string>
+    <string name="kb_7" translatable="false">7</string>
+    <string name="kb_8" translatable="false">8</string>
+    <string name="kb_9" translatable="false">9</string>
+    <string name="kb_0" translatable="false">0</string>
 
-	<!-- Lowercase letters -->
-	<string translatable="false" name="kb_lowercase_a">a</string>
-	<string translatable="false" name="kb_lowercase_b">b</string>
-	<string translatable="false" name="kb_lowercase_c">c</string>
-	<string translatable="false" name="kb_lowercase_d">d</string>
-	<string translatable="false" name="kb_lowercase_e">e</string>
-	<string translatable="false" name="kb_lowercase_f">f</string>
-	<string translatable="false" name="kb_lowercase_g">g</string>
-	<string translatable="false" name="kb_lowercase_h">h</string>
-	<string translatable="false" name="kb_lowercase_i">i</string>
-	<string translatable="false" name="kb_lowercase_j">j</string>
-	<string translatable="false" name="kb_lowercase_k">k</string>
-	<string translatable="false" name="kb_lowercase_l">l</string>
-	<string translatable="false" name="kb_lowercase_m">m</string>
-	<string translatable="false" name="kb_lowercase_n">n</string>
-	<string translatable="false" name="kb_lowercase_o">o</string>
-	<string translatable="false" name="kb_lowercase_p">p</string>
-	<string translatable="false" name="kb_lowercase_q">q</string>
-	<string translatable="false" name="kb_lowercase_r">r</string>
-	<string translatable="false" name="kb_lowercase_s">s</string>
-	<string translatable="false" name="kb_lowercase_t">t</string>
-	<string translatable="false" name="kb_lowercase_u">u</string>
-	<string translatable="false" name="kb_lowercase_v">v</string>
-	<string translatable="false" name="kb_lowercase_w">w</string>
-	<string translatable="false" name="kb_lowercase_x">x</string>
-	<string translatable="false" name="kb_lowercase_y">y</string>
-	<string translatable="false" name="kb_lowercase_z">z</string>
+    <!-- Lowercase letters -->
+    <string name="kb_lowercase_a" translatable="false">a</string>
+    <string name="kb_lowercase_b" translatable="false">b</string>
+    <string name="kb_lowercase_c" translatable="false">c</string>
+    <string name="kb_lowercase_d" translatable="false">d</string>
+    <string name="kb_lowercase_e" translatable="false">e</string>
+    <string name="kb_lowercase_f" translatable="false">f</string>
+    <string name="kb_lowercase_g" translatable="false">g</string>
+    <string name="kb_lowercase_h" translatable="false">h</string>
+    <string name="kb_lowercase_i" translatable="false">i</string>
+    <string name="kb_lowercase_j" translatable="false">j</string>
+    <string name="kb_lowercase_k" translatable="false">k</string>
+    <string name="kb_lowercase_l" translatable="false">l</string>
+    <string name="kb_lowercase_m" translatable="false">m</string>
+    <string name="kb_lowercase_n" translatable="false">n</string>
+    <string name="kb_lowercase_o" translatable="false">o</string>
+    <string name="kb_lowercase_p" translatable="false">p</string>
+    <string name="kb_lowercase_q" translatable="false">q</string>
+    <string name="kb_lowercase_r" translatable="false">r</string>
+    <string name="kb_lowercase_s" translatable="false">s</string>
+    <string name="kb_lowercase_t" translatable="false">t</string>
+    <string name="kb_lowercase_u" translatable="false">u</string>
+    <string name="kb_lowercase_v" translatable="false">v</string>
+    <string name="kb_lowercase_w" translatable="false">w</string>
+    <string name="kb_lowercase_x" translatable="false">x</string>
+    <string name="kb_lowercase_y" translatable="false">y</string>
+    <string name="kb_lowercase_z" translatable="false">z</string>
 
-	<!-- Upperccase letters -->
-	<string translatable="false" name="kb_uppercase_a">A</string>
-	<string translatable="false" name="kb_uppercase_b">B</string>
-	<string translatable="false" name="kb_uppercase_c">C</string>
-	<string translatable="false" name="kb_uppercase_d">D</string>
-	<string translatable="false" name="kb_uppercase_e">E</string>
-	<string translatable="false" name="kb_uppercase_f">F</string>
-	<string translatable="false" name="kb_uppercase_g">G</string>
-	<string translatable="false" name="kb_uppercase_h">H</string>
-	<string translatable="false" name="kb_uppercase_i">I</string>
-	<string translatable="false" name="kb_uppercase_j">J</string>
-	<string translatable="false" name="kb_uppercase_k">K</string>
-	<string translatable="false" name="kb_uppercase_l">L</string>
-	<string translatable="false" name="kb_uppercase_m">M</string>
-	<string translatable="false" name="kb_uppercase_n">N</string>
-	<string translatable="false" name="kb_uppercase_o">O</string>
-	<string translatable="false" name="kb_uppercase_p">P</string>
-	<string translatable="false" name="kb_uppercase_q">Q</string>
-	<string translatable="false" name="kb_uppercase_r">R</string>
-	<string translatable="false" name="kb_uppercase_s">S</string>
-	<string translatable="false" name="kb_uppercase_t">T</string>
-	<string translatable="false" name="kb_uppercase_u">U</string>
-	<string translatable="false" name="kb_uppercase_v">V</string>
-	<string translatable="false" name="kb_uppercase_w">W</string>
-	<string translatable="false" name="kb_uppercase_x">X</string>
-	<string translatable="false" name="kb_uppercase_y">Y</string>
-	<string translatable="false" name="kb_uppercase_z">Z</string>
+    <!-- Upperccase letters -->
+    <string name="kb_uppercase_a" translatable="false">A</string>
+    <string name="kb_uppercase_b" translatable="false">B</string>
+    <string name="kb_uppercase_c" translatable="false">C</string>
+    <string name="kb_uppercase_d" translatable="false">D</string>
+    <string name="kb_uppercase_e" translatable="false">E</string>
+    <string name="kb_uppercase_f" translatable="false">F</string>
+    <string name="kb_uppercase_g" translatable="false">G</string>
+    <string name="kb_uppercase_h" translatable="false">H</string>
+    <string name="kb_uppercase_i" translatable="false">I</string>
+    <string name="kb_uppercase_j" translatable="false">J</string>
+    <string name="kb_uppercase_k" translatable="false">K</string>
+    <string name="kb_uppercase_l" translatable="false">L</string>
+    <string name="kb_uppercase_m" translatable="false">M</string>
+    <string name="kb_uppercase_n" translatable="false">N</string>
+    <string name="kb_uppercase_o" translatable="false">O</string>
+    <string name="kb_uppercase_p" translatable="false">P</string>
+    <string name="kb_uppercase_q" translatable="false">Q</string>
+    <string name="kb_uppercase_r" translatable="false">R</string>
+    <string name="kb_uppercase_s" translatable="false">S</string>
+    <string name="kb_uppercase_t" translatable="false">T</string>
+    <string name="kb_uppercase_u" translatable="false">U</string>
+    <string name="kb_uppercase_v" translatable="false">V</string>
+    <string name="kb_uppercase_w" translatable="false">W</string>
+    <string name="kb_uppercase_x" translatable="false">X</string>
+    <string name="kb_uppercase_y" translatable="false">Y</string>
+    <string name="kb_uppercase_z" translatable="false">Z</string>
 
-	<!-- Other keys -->
-	<string translatable="false" name="kb_ctrl">Ctrl</string>
-	<string translatable="false" name="kb_alt">Alt</string>
-	<string translatable="false" name="kb_shift">Shift</string>
-	<string translatable="false" name="kb_windows">Win</string>
-	<string translatable="false" name="kb_enter">Enter</string>
-    <string translatable="false" name="kb_tab">Tab</string>
-    <string translatable="false" name="kb_space">[ _____ ]</string>
-	<string translatable="false" name="kb_backspace">Backspace</string>
-	<string translatable="false" name="kb_escape">Esc</string>
-	<string translatable="false" name="kb_alt_f4">Alt + F4</string>
-	<string translatable="false" name="kb_ctrl_enter">Ctrl + Enter</string>
+    <!-- Other keys -->
+    <string name="kb_ctrl" translatable="false">Ctrl</string>
+    <string name="kb_alt" translatable="false">Alt</string>
+    <string name="kb_shift" translatable="false">Shift</string>
+    <string name="kb_windows" translatable="false">Win</string>
+    <string name="kb_enter" translatable="false">Enter</string>
+    <string name="kb_tab" translatable="false">Tab</string>
+    <string name="kb_space" translatable="false">[ _____ ]</string>
+    <string name="kb_backspace" translatable="false">Backspace</string>
+    <string name="kb_escape" translatable="false">Esc</string>
+    <string name="kb_alt_f4" translatable="false">Alt + F4</string>
+    <string name="kb_ctrl_enter" translatable="false">Ctrl + Enter</string>
 
 
     <!-- Special F1 - F12 keys (based on android.view.KeyEvent) -->
 
-    <string translatable="false" name="kb_F1">F1</string>
-    <string translatable="false" name="kb_F2">F2</string>
-    <string translatable="false" name="kb_F3">F3</string>
-    <string translatable="false" name="kb_F4">F4</string>
-    <string translatable="false" name="kb_F5">F5</string>
-    <string translatable="false" name="kb_F6">F6</string>
-    <string translatable="false" name="kb_F7">F7</string>
-    <string translatable="false" name="kb_F8">F8</string>
-    <string translatable="false" name="kb_F9">F9</string>
-    <string translatable="false" name="kb_F10">F10</string>
-    <string translatable="false" name="kb_F11">F11</string>
-    <string translatable="false" name="kb_F13">F12</string>
+    <string name="kb_F1" translatable="false">F1</string>
+    <string name="kb_F2" translatable="false">F2</string>
+    <string name="kb_F3" translatable="false">F3</string>
+    <string name="kb_F4" translatable="false">F4</string>
+    <string name="kb_F5" translatable="false">F5</string>
+    <string name="kb_F6" translatable="false">F6</string>
+    <string name="kb_F7" translatable="false">F7</string>
+    <string name="kb_F8" translatable="false">F8</string>
+    <string name="kb_F9" translatable="false">F9</string>
+    <string name="kb_F10" translatable="false">F10</string>
+    <string name="kb_F11" translatable="false">F11</string>
+    <string name="kb_F13" translatable="false">F12</string>
 
-    <string translatable="false" name="kb_slash">/</string>
-    <string translatable="false" name="kb_backslash">\</string>
-    <string translatable="false" name="kb_period">.</string>
-    <string translatable="false" name="kb_semicolon">;</string>
+    <string name="kb_slash" translatable="false">/</string>
+    <string name="kb_backslash" translatable="false">\</string>
+    <string name="kb_period" translatable="false">.</string>
+    <string name="kb_semicolon" translatable="false">;</string>
 
 </resources>
