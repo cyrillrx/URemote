@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import com.cyrillrx.uremote.ui.computer.fragment.FragAdmin;
 import com.cyrillrx.uremote.ui.computer.fragment.FragDashboard;
 import com.cyrillrx.uremote.ui.computer.fragment.RemoteExplorerFragment;
 import com.cyrillrx.uremote.utils.Constants;
+import com.cyrillrx.uremote.utils.NavigationUtils;
 import com.cyrillrx.uremote.utils.TaskCallbacks;
 import com.cyrillrx.uremote.utils.ToastSender;
 
@@ -90,6 +92,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
         final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice, Color.WHITE);
 
         // ActionBar configuration
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -139,7 +142,9 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
             if (savedInstanceState.getBoolean(KEYBOARD_VISIBLE, false)) {
                 showCustomKeyboard();
             }
-        } else { mViewPager.setCurrentItem(DEFAULT_PAGE); }
+        } else {
+            mViewPager.setCurrentItem(DEFAULT_PAGE);
+        }
     }
 
     @Override

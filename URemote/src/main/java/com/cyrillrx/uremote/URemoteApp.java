@@ -2,6 +2,7 @@ package com.cyrillrx.uremote;
 
 import android.app.Application;
 import android.graphics.Color;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
 import com.cyrillrx.logger.Logger;
@@ -17,6 +18,10 @@ import io.fabric.sdk.android.Fabric;
  *         Created on 23/07/2014.
  */
 public class URemoteApp extends Application {
+
+    static {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
 
     //    private static final String TAG = URemoteApp.class.getSimpleName();
     public static final int COLOR_DEFAULT = Color.argb(255, 70, 200, 200);
