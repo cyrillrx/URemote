@@ -17,25 +17,20 @@ import java.net.InetAddress;
  */
 public class WakeOnLan extends AsyncTask<String, int[], String> {
 
-    private static final String TAG  = WakeOnLan.class.getSimpleName();
-    private static final int    PORT = 9;
+    private static final String TAG = WakeOnLan.class.getSimpleName();
 
-    private final ToastSender mHolder;
+    private static final int PORT = 9;
+
+    private final ToastSender holder;
 
     /** @param holder  */
-    public WakeOnLan(ToastSender holder) {
-        mHolder = holder;
-    }
+    public WakeOnLan(ToastSender holder) { this.holder = holder; }
 
     @Override
-    protected String doInBackground(String... params) {
-        return wake(params[0], params[1]);
-    }
+    protected String doInBackground(String... params) { return wake(params[0], params[1]); }
 
     @Override
-    protected void onPostExecute(String result) {
-        mHolder.sendToast(result);
-    }
+    protected void onPostExecute(String result) { holder.sendToast(result); }
 
     /**
      * Create and send a magic packet to the specified address to wake the PC.

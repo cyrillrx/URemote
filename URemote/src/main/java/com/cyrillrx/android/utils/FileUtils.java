@@ -20,7 +20,7 @@ public class FileUtils {
      */
     public static File[] listFiles(final String dirPath, final String[] extensions, final boolean listDirectories) {
 
-        FilenameFilter extensionFilter = new FilenameFilter() {
+        final FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
 

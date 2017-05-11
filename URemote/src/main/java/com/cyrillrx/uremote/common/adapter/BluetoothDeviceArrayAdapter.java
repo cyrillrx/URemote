@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
 
-    private final LayoutInflater mInflater;
+    private final LayoutInflater inflater;
 
     /**
      * Adapter constructor
@@ -30,7 +30,7 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
      */
     public BluetoothDeviceArrayAdapter(Context context, final List<BluetoothDevice> devices) {
         super(context, 0, devices);
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     /** Device information view */
@@ -42,9 +42,10 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.bt_device_item, null);
+            convertView = inflater.inflate(R.layout.bt_device_item, null);
             holder = new ViewHolder();
             holder.tvDeviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
             holder.tvDeviceAddress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);

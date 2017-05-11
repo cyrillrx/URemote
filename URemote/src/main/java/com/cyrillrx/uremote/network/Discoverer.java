@@ -23,25 +23,25 @@ public class Discoverer {
 
     public static class DiscoverTask implements Callable<NetworkDevice> {
 
-        final RemoteCommand.Request mRequest;
-        final NetworkDevice         mDevice;
+        final RemoteCommand.Request request;
+        final NetworkDevice device;
 
         public DiscoverTask(RemoteCommand.Request request, final NetworkDevice device) {
-            mRequest = request;
-            mDevice = device;
+            this.request = request;
+            this.device = device;
         }
 
         @Override
         public NetworkDevice call() throws Exception {
 
-            final RemoteCommand.Response response = MessageUtils.sendRequest(mRequest, mDevice);
+            final RemoteCommand.Response response = MessageUtils.sendRequest(request, device);
             if (RemoteCommand.Response.ReturnCode.RC_ERROR.equals(response.getReturnCode())) {
-                Logger.error(TAG, "Not responding. " + mDevice);
+                Logger.error(TAG, "Not responding. " + device);
                 return null;
             }
 
-            Logger.info(TAG, "Device found : " + mDevice);
-            return mDevice;
+            Logger.info(TAG, "Device found : " + device);
+            return device;
         }
     }
 

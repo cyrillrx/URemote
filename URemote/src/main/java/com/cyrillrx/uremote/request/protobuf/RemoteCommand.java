@@ -210,7 +210,7 @@ public final class RemoteCommand {
             /**
              * <code>SIMPLE = 0;</code>
              */
-            public static final int SIMPLE_VALUE   = 0;
+            public static final int SIMPLE_VALUE = 0;
             /**
              * <code>EXPLORER = 1;</code>
              */
@@ -222,15 +222,15 @@ public final class RemoteCommand {
             /**
              * <code>AI = 3;</code>
              */
-            public static final int AI_VALUE       = 3;
+            public static final int AI_VALUE = 3;
             /**
              * <code>VOLUME = 4;</code>
              */
-            public static final int VOLUME_VALUE   = 4;
+            public static final int VOLUME_VALUE = 4;
             /**
              * <code>APP = 5;</code>
              */
-            public static final int APP_VALUE      = 5;
+            public static final int APP_VALUE = 5;
 
             public final int getNumber() {
                 if (index == -1) {
@@ -842,347 +842,347 @@ public final class RemoteCommand {
             /**
              * <code>NONE = 0;</code>
              */
-            public static final int NONE_VALUE                        = 0;
+            public static final int NONE_VALUE = 0;
             /**
              * <code>DEFINE = 1;</code>
              */
-            public static final int DEFINE_VALUE                      = 1;
+            public static final int DEFINE_VALUE = 1;
             /**
              * <code>STATUS = 2;</code>
              */
-            public static final int STATUS_VALUE                      = 2;
+            public static final int STATUS_VALUE = 2;
             /**
              * <code>ON = 3;</code>
              */
-            public static final int ON_VALUE                          = 3;
+            public static final int ON_VALUE = 3;
             /**
              * <code>OFF = 4;</code>
              */
-            public static final int OFF_VALUE                         = 4;
+            public static final int OFF_VALUE = 4;
             /**
              * <code>PING = 5;</code>
              */
-            public static final int PING_VALUE                        = 5;
+            public static final int PING_VALUE = 5;
             /**
              * <code>TEST = 6;</code>
              */
-            public static final int TEST_VALUE                        = 6;
+            public static final int TEST_VALUE = 6;
             /**
              * <code>KILL_SERVER = 7;</code>
              */
-            public static final int KILL_SERVER_VALUE                 = 7;
+            public static final int KILL_SERVER_VALUE = 7;
             /**
              * <code>SHUTDOWN = 8;</code>
              */
-            public static final int SHUTDOWN_VALUE                    = 8;
+            public static final int SHUTDOWN_VALUE = 8;
             /**
              * <code>SWITCH_WINDOW = 9;</code>
              */
-            public static final int SWITCH_WINDOW_VALUE               = 9;
+            public static final int SWITCH_WINDOW_VALUE = 9;
             /**
              * <code>LOCK = 10;</code>
              */
-            public static final int LOCK_VALUE                        = 10;
+            public static final int LOCK_VALUE = 10;
             /**
              * <code>MUTE = 11;</code>
              */
-            public static final int MUTE_VALUE                        = 11;
+            public static final int MUTE_VALUE = 11;
             /**
              * <code>SAY = 12;</code>
              */
-            public static final int SAY_VALUE                         = 12;
+            public static final int SAY_VALUE = 12;
             /**
              * <code>DPAD_UP = 13;</code>
              */
-            public static final int DPAD_UP_VALUE                     = 13;
+            public static final int DPAD_UP_VALUE = 13;
             /**
              * <code>DPAD_DOWN = 14;</code>
              */
-            public static final int DPAD_DOWN_VALUE                   = 14;
+            public static final int DPAD_DOWN_VALUE = 14;
             /**
              * <code>DPAD_LEFT = 15;</code>
              */
-            public static final int DPAD_LEFT_VALUE                   = 15;
+            public static final int DPAD_LEFT_VALUE = 15;
             /**
              * <code>DPAD_RIGHT = 16;</code>
              */
-            public static final int DPAD_RIGHT_VALUE                  = 16;
+            public static final int DPAD_RIGHT_VALUE = 16;
             /**
              * <code>MEDIA_PLAY_PAUSE = 20;</code>
              */
-            public static final int MEDIA_PLAY_PAUSE_VALUE            = 20;
+            public static final int MEDIA_PLAY_PAUSE_VALUE = 20;
             /**
              * <code>MEDIA_STOP = 21;</code>
              */
-            public static final int MEDIA_STOP_VALUE                  = 21;
+            public static final int MEDIA_STOP_VALUE = 21;
             /**
              * <code>MEDIA_PREVIOUS = 22;</code>
              */
-            public static final int MEDIA_PREVIOUS_VALUE              = 22;
+            public static final int MEDIA_PREVIOUS_VALUE = 22;
             /**
              * <code>MEDIA_NEXT = 23;</code>
              */
-            public static final int MEDIA_NEXT_VALUE                  = 23;
+            public static final int MEDIA_NEXT_VALUE = 23;
             /**
              * <code>MEDIA_FF = 24;</code>
              */
-            public static final int MEDIA_FF_VALUE                    = 24;
+            public static final int MEDIA_FF_VALUE = 24;
             /**
              * <code>MEDIA_REWIND = 25;</code>
              */
-            public static final int MEDIA_REWIND_VALUE                = 25;
+            public static final int MEDIA_REWIND_VALUE = 25;
             /**
              * <code>QUERY_ROOTS = 26;</code>
              */
-            public static final int QUERY_ROOTS_VALUE                 = 26;
+            public static final int QUERY_ROOTS_VALUE = 26;
             /**
              * <code>QUERY_CHILDREN = 27;</code>
              */
-            public static final int QUERY_CHILDREN_VALUE              = 27;
+            public static final int QUERY_CHILDREN_VALUE = 27;
             /**
              * <code>OPEN_SERVER_SIDE = 28;</code>
              */
-            public static final int OPEN_SERVER_SIDE_VALUE            = 28;
+            public static final int OPEN_SERVER_SIDE_VALUE = 28;
             /**
              * <code>OPEN_CLIENT_SIDE = 29;</code>
              */
-            public static final int OPEN_CLIENT_SIDE_VALUE            = 29;
+            public static final int OPEN_CLIENT_SIDE_VALUE = 29;
             /**
              * <code>KEYCODE_CTRL = 30;</code>
              */
-            public static final int KEYCODE_CTRL_VALUE                = 30;
+            public static final int KEYCODE_CTRL_VALUE = 30;
             /**
              * <code>KEYCODE_SHIFT = 31;</code>
              */
-            public static final int KEYCODE_SHIFT_VALUE               = 31;
+            public static final int KEYCODE_SHIFT_VALUE = 31;
             /**
              * <code>KEYCODE_ALT_LEFT = 32;</code>
              */
-            public static final int KEYCODE_ALT_LEFT_VALUE            = 32;
+            public static final int KEYCODE_ALT_LEFT_VALUE = 32;
             /**
              * <code>KEYCODE_ALT_RIGHT = 33;</code>
              */
-            public static final int KEYCODE_ALT_RIGHT_VALUE           = 33;
+            public static final int KEYCODE_ALT_RIGHT_VALUE = 33;
             /**
              * <code>KEYCODE_WINDOWS = 34;</code>
              */
-            public static final int KEYCODE_WINDOWS_VALUE             = 34;
+            public static final int KEYCODE_WINDOWS_VALUE = 34;
             /**
              * <code>KEYCODE_ENTER = 40;</code>
              */
-            public static final int KEYCODE_ENTER_VALUE               = 40;
+            public static final int KEYCODE_ENTER_VALUE = 40;
             /**
              * <code>KEYCODE_ESCAPE = 41;</code>
              */
-            public static final int KEYCODE_ESCAPE_VALUE              = 41;
+            public static final int KEYCODE_ESCAPE_VALUE = 41;
             /**
              * <code>KEYCODE_DELETE = 42;</code>
              */
-            public static final int KEYCODE_DELETE_VALUE              = 42;
+            public static final int KEYCODE_DELETE_VALUE = 42;
             /**
              * <code>KEYCODE_SPACE = 43;</code>
              */
-            public static final int KEYCODE_SPACE_VALUE               = 43;
+            public static final int KEYCODE_SPACE_VALUE = 43;
             /**
              * <code>KEYCODE_BACKSPACE = 44;</code>
              */
-            public static final int KEYCODE_BACKSPACE_VALUE           = 44;
+            public static final int KEYCODE_BACKSPACE_VALUE = 44;
             /**
              * <code>KEYCODE_TAB = 45;</code>
              */
-            public static final int KEYCODE_TAB_VALUE                 = 45;
+            public static final int KEYCODE_TAB_VALUE = 45;
             /**
              * <code>KEYCODE_0 = 500;</code>
              */
-            public static final int KEYCODE_0_VALUE                   = 500;
+            public static final int KEYCODE_0_VALUE = 500;
             /**
              * <code>KEYCODE_1 = 501;</code>
              */
-            public static final int KEYCODE_1_VALUE                   = 501;
+            public static final int KEYCODE_1_VALUE = 501;
             /**
              * <code>KEYCODE_2 = 502;</code>
              */
-            public static final int KEYCODE_2_VALUE                   = 502;
+            public static final int KEYCODE_2_VALUE = 502;
             /**
              * <code>KEYCODE_3 = 503;</code>
              */
-            public static final int KEYCODE_3_VALUE                   = 503;
+            public static final int KEYCODE_3_VALUE = 503;
             /**
              * <code>KEYCODE_4 = 504;</code>
              */
-            public static final int KEYCODE_4_VALUE                   = 504;
+            public static final int KEYCODE_4_VALUE = 504;
             /**
              * <code>KEYCODE_5 = 505;</code>
              */
-            public static final int KEYCODE_5_VALUE                   = 505;
+            public static final int KEYCODE_5_VALUE = 505;
             /**
              * <code>KEYCODE_6 = 506;</code>
              */
-            public static final int KEYCODE_6_VALUE                   = 506;
+            public static final int KEYCODE_6_VALUE = 506;
             /**
              * <code>KEYCODE_7 = 507;</code>
              */
-            public static final int KEYCODE_7_VALUE                   = 507;
+            public static final int KEYCODE_7_VALUE = 507;
             /**
              * <code>KEYCODE_8 = 508;</code>
              */
-            public static final int KEYCODE_8_VALUE                   = 508;
+            public static final int KEYCODE_8_VALUE = 508;
             /**
              * <code>KEYCODE_9 = 509;</code>
              */
-            public static final int KEYCODE_9_VALUE                   = 509;
+            public static final int KEYCODE_9_VALUE = 509;
             /**
              * <code>KEYCODE_A = 510;</code>
              */
-            public static final int KEYCODE_A_VALUE                   = 510;
+            public static final int KEYCODE_A_VALUE = 510;
             /**
              * <code>KEYCODE_B = 511;</code>
              */
-            public static final int KEYCODE_B_VALUE                   = 511;
+            public static final int KEYCODE_B_VALUE = 511;
             /**
              * <code>KEYCODE_C = 512;</code>
              */
-            public static final int KEYCODE_C_VALUE                   = 512;
+            public static final int KEYCODE_C_VALUE = 512;
             /**
              * <code>KEYCODE_D = 513;</code>
              */
-            public static final int KEYCODE_D_VALUE                   = 513;
+            public static final int KEYCODE_D_VALUE = 513;
             /**
              * <code>KEYCODE_E = 514;</code>
              */
-            public static final int KEYCODE_E_VALUE                   = 514;
+            public static final int KEYCODE_E_VALUE = 514;
             /**
              * <code>KEYCODE_F = 515;</code>
              */
-            public static final int KEYCODE_F_VALUE                   = 515;
+            public static final int KEYCODE_F_VALUE = 515;
             /**
              * <code>KEYCODE_G = 516;</code>
              */
-            public static final int KEYCODE_G_VALUE                   = 516;
+            public static final int KEYCODE_G_VALUE = 516;
             /**
              * <code>KEYCODE_H = 517;</code>
              */
-            public static final int KEYCODE_H_VALUE                   = 517;
+            public static final int KEYCODE_H_VALUE = 517;
             /**
              * <code>KEYCODE_I = 518;</code>
              */
-            public static final int KEYCODE_I_VALUE                   = 518;
+            public static final int KEYCODE_I_VALUE = 518;
             /**
              * <code>KEYCODE_J = 519;</code>
              */
-            public static final int KEYCODE_J_VALUE                   = 519;
+            public static final int KEYCODE_J_VALUE = 519;
             /**
              * <code>KEYCODE_K = 520;</code>
              */
-            public static final int KEYCODE_K_VALUE                   = 520;
+            public static final int KEYCODE_K_VALUE = 520;
             /**
              * <code>KEYCODE_L = 521;</code>
              */
-            public static final int KEYCODE_L_VALUE                   = 521;
+            public static final int KEYCODE_L_VALUE = 521;
             /**
              * <code>KEYCODE_M = 522;</code>
              */
-            public static final int KEYCODE_M_VALUE                   = 522;
+            public static final int KEYCODE_M_VALUE = 522;
             /**
              * <code>KEYCODE_N = 523;</code>
              */
-            public static final int KEYCODE_N_VALUE                   = 523;
+            public static final int KEYCODE_N_VALUE = 523;
             /**
              * <code>KEYCODE_O = 524;</code>
              */
-            public static final int KEYCODE_O_VALUE                   = 524;
+            public static final int KEYCODE_O_VALUE = 524;
             /**
              * <code>KEYCODE_P = 525;</code>
              */
-            public static final int KEYCODE_P_VALUE                   = 525;
+            public static final int KEYCODE_P_VALUE = 525;
             /**
              * <code>KEYCODE_Q = 526;</code>
              */
-            public static final int KEYCODE_Q_VALUE                   = 526;
+            public static final int KEYCODE_Q_VALUE = 526;
             /**
              * <code>KEYCODE_R = 527;</code>
              */
-            public static final int KEYCODE_R_VALUE                   = 527;
+            public static final int KEYCODE_R_VALUE = 527;
             /**
              * <code>KEYCODE_S = 528;</code>
              */
-            public static final int KEYCODE_S_VALUE                   = 528;
+            public static final int KEYCODE_S_VALUE = 528;
             /**
              * <code>KEYCODE_T = 529;</code>
              */
-            public static final int KEYCODE_T_VALUE                   = 529;
+            public static final int KEYCODE_T_VALUE = 529;
             /**
              * <code>KEYCODE_U = 530;</code>
              */
-            public static final int KEYCODE_U_VALUE                   = 530;
+            public static final int KEYCODE_U_VALUE = 530;
             /**
              * <code>KEYCODE_V = 531;</code>
              */
-            public static final int KEYCODE_V_VALUE                   = 531;
+            public static final int KEYCODE_V_VALUE = 531;
             /**
              * <code>KEYCODE_W = 532;</code>
              */
-            public static final int KEYCODE_W_VALUE                   = 532;
+            public static final int KEYCODE_W_VALUE = 532;
             /**
              * <code>KEYCODE_X = 533;</code>
              */
-            public static final int KEYCODE_X_VALUE                   = 533;
+            public static final int KEYCODE_X_VALUE = 533;
             /**
              * <code>KEYCODE_Y = 534;</code>
              */
-            public static final int KEYCODE_Y_VALUE                   = 534;
+            public static final int KEYCODE_Y_VALUE = 534;
             /**
              * <code>KEYCODE_Z = 535;</code>
              */
-            public static final int KEYCODE_Z_VALUE                   = 535;
+            public static final int KEYCODE_Z_VALUE = 535;
             /**
              * <code>KEYCODE_F1 = 550;</code>
              */
-            public static final int KEYCODE_F1_VALUE                  = 550;
+            public static final int KEYCODE_F1_VALUE = 550;
             /**
              * <code>KEYCODE_F2 = 551;</code>
              */
-            public static final int KEYCODE_F2_VALUE                  = 551;
+            public static final int KEYCODE_F2_VALUE = 551;
             /**
              * <code>KEYCODE_F3 = 552;</code>
              */
-            public static final int KEYCODE_F3_VALUE                  = 552;
+            public static final int KEYCODE_F3_VALUE = 552;
             /**
              * <code>KEYCODE_F4 = 553;</code>
              */
-            public static final int KEYCODE_F4_VALUE                  = 553;
+            public static final int KEYCODE_F4_VALUE = 553;
             /**
              * <code>KEYCODE_F5 = 554;</code>
              */
-            public static final int KEYCODE_F5_VALUE                  = 554;
+            public static final int KEYCODE_F5_VALUE = 554;
             /**
              * <code>KEYCODE_F6 = 555;</code>
              */
-            public static final int KEYCODE_F6_VALUE                  = 555;
+            public static final int KEYCODE_F6_VALUE = 555;
             /**
              * <code>KEYCODE_F7 = 556;</code>
              */
-            public static final int KEYCODE_F7_VALUE                  = 556;
+            public static final int KEYCODE_F7_VALUE = 556;
             /**
              * <code>KEYCODE_F8 = 557;</code>
              */
-            public static final int KEYCODE_F8_VALUE                  = 557;
+            public static final int KEYCODE_F8_VALUE = 557;
             /**
              * <code>KEYCODE_F9 = 558;</code>
              */
-            public static final int KEYCODE_F9_VALUE                  = 558;
+            public static final int KEYCODE_F9_VALUE = 558;
             /**
              * <code>KEYCODE_F10 = 559;</code>
              */
-            public static final int KEYCODE_F10_VALUE                 = 559;
+            public static final int KEYCODE_F10_VALUE = 559;
             /**
              * <code>KEYCODE_F11 = 560;</code>
              */
-            public static final int KEYCODE_F11_VALUE                 = 560;
+            public static final int KEYCODE_F11_VALUE = 560;
             /**
              * <code>KEYCODE_F12 = 561;</code>
              */
-            public static final int KEYCODE_F12_VALUE                 = 561;
+            public static final int KEYCODE_F12_VALUE = 561;
             /**
              * <code>KEYCODE_EQUALS = 600;</code>
              * <p/>
@@ -1190,7 +1190,7 @@ public final class RemoteCommand {
              * '='
              * </pre>
              */
-            public static final int KEYCODE_EQUALS_VALUE              = 600;
+            public static final int KEYCODE_EQUALS_VALUE = 600;
             /**
              * <code>KEYCODE_MINUS = 601;</code>
              * <p/>
@@ -1198,7 +1198,7 @@ public final class RemoteCommand {
              * '-'
              * </pre>
              */
-            public static final int KEYCODE_MINUS_VALUE               = 601;
+            public static final int KEYCODE_MINUS_VALUE = 601;
             /**
              * <code>KEYCODE_PLUS = 602;</code>
              * <p/>
@@ -1206,7 +1206,7 @@ public final class RemoteCommand {
              * '+'
              * </pre>
              */
-            public static final int KEYCODE_PLUS_VALUE                = 602;
+            public static final int KEYCODE_PLUS_VALUE = 602;
             /**
              * <code>KEYCODE_STAR = 603;</code>
              * <p/>
@@ -1214,7 +1214,7 @@ public final class RemoteCommand {
              * '*'
              * </pre>
              */
-            public static final int KEYCODE_STAR_VALUE                = 603;
+            public static final int KEYCODE_STAR_VALUE = 603;
             /**
              * <code>KEYCODE_SLASH = 604;</code>
              * <p/>
@@ -1222,7 +1222,7 @@ public final class RemoteCommand {
              * '/'
              * </pre>
              */
-            public static final int KEYCODE_SLASH_VALUE               = 604;
+            public static final int KEYCODE_SLASH_VALUE = 604;
             /**
              * <code>KEYCODE_BACKSLASH = 605;</code>
              * <p/>
@@ -1230,7 +1230,7 @@ public final class RemoteCommand {
              * '&#92;'
              * </pre>
              */
-            public static final int KEYCODE_BACKSLASH_VALUE           = 605;
+            public static final int KEYCODE_BACKSLASH_VALUE = 605;
             /**
              * <code>KEYCODE_UNDERSCORE = 606;</code>
              * <p/>
@@ -1238,7 +1238,7 @@ public final class RemoteCommand {
              * '_'
              * </pre>
              */
-            public static final int KEYCODE_UNDERSCORE_VALUE          = 606;
+            public static final int KEYCODE_UNDERSCORE_VALUE = 606;
             /**
              * <code>KEYCODE_PIPE = 607;</code>
              * <p/>
@@ -1246,7 +1246,7 @@ public final class RemoteCommand {
              * '|'
              * </pre>
              */
-            public static final int KEYCODE_PIPE_VALUE                = 607;
+            public static final int KEYCODE_PIPE_VALUE = 607;
             /**
              * <code>KEYCODE_COMMA = 608;</code>
              * <p/>
@@ -1254,7 +1254,7 @@ public final class RemoteCommand {
              * ','
              * </pre>
              */
-            public static final int KEYCODE_COMMA_VALUE               = 608;
+            public static final int KEYCODE_COMMA_VALUE = 608;
             /**
              * <code>KEYCODE_PERIODE = 609;</code>
              * <p/>
@@ -1262,7 +1262,7 @@ public final class RemoteCommand {
              * '.'
              * </pre>
              */
-            public static final int KEYCODE_PERIODE_VALUE             = 609;
+            public static final int KEYCODE_PERIODE_VALUE = 609;
             /**
              * <code>KEYCODE_COLON = 610;</code>
              * <p/>
@@ -1270,7 +1270,7 @@ public final class RemoteCommand {
              * ':'
              * </pre>
              */
-            public static final int KEYCODE_COLON_VALUE               = 610;
+            public static final int KEYCODE_COLON_VALUE = 610;
             /**
              * <code>KEYCODE_SEMICOLON = 611;</code>
              * <p/>
@@ -1278,7 +1278,7 @@ public final class RemoteCommand {
              * ';'
              * </pre>
              */
-            public static final int KEYCODE_SEMICOLON_VALUE           = 611;
+            public static final int KEYCODE_SEMICOLON_VALUE = 611;
             /**
              * <code>KEYCODE_AT = 612;</code>
              * <p/>
@@ -1286,7 +1286,7 @@ public final class RemoteCommand {
              * '&#64;'
              * </pre>
              */
-            public static final int KEYCODE_AT_VALUE                  = 612;
+            public static final int KEYCODE_AT_VALUE = 612;
             /**
              * <code>KEYCODE_APOSTROPHE = 613;</code>
              * <p/>
@@ -1294,7 +1294,7 @@ public final class RemoteCommand {
              * '''
              * </pre>
              */
-            public static final int KEYCODE_APOSTROPHE_VALUE          = 613;
+            public static final int KEYCODE_APOSTROPHE_VALUE = 613;
             /**
              * <code>KEYCODE_LEFT_PAREN = 650;</code>
              * <p/>
@@ -1302,7 +1302,7 @@ public final class RemoteCommand {
              * '('
              * </pre>
              */
-            public static final int KEYCODE_LEFT_PAREN_VALUE          = 650;
+            public static final int KEYCODE_LEFT_PAREN_VALUE = 650;
             /**
              * <code>KEYCODE_RIGHT_PARENT = 651;</code>
              * <p/>
@@ -1310,7 +1310,7 @@ public final class RemoteCommand {
              * ')'
              * </pre>
              */
-            public static final int KEYCODE_RIGHT_PARENT_VALUE        = 651;
+            public static final int KEYCODE_RIGHT_PARENT_VALUE = 651;
             /**
              * <code>KEYCODE_LEFT_BRACKET = 652;</code>
              * <p/>
@@ -1318,7 +1318,7 @@ public final class RemoteCommand {
              * '['
              * </pre>
              */
-            public static final int KEYCODE_LEFT_BRACKET_VALUE        = 652;
+            public static final int KEYCODE_LEFT_BRACKET_VALUE = 652;
             /**
              * <code>KEYCODE_RIGHT_BRACKET = 653;</code>
              * <p/>
@@ -1326,7 +1326,7 @@ public final class RemoteCommand {
              * ']'
              * </pre>
              */
-            public static final int KEYCODE_RIGHT_BRACKET_VALUE       = 653;
+            public static final int KEYCODE_RIGHT_BRACKET_VALUE = 653;
             /**
              * <code>KEYCODE_LEFT_CURLY_BRACKET = 654;</code>
              * <p/>
@@ -1334,7 +1334,7 @@ public final class RemoteCommand {
              * '{'
              * </pre>
              */
-            public static final int KEYCODE_LEFT_CURLY_BRACKET_VALUE  = 654;
+            public static final int KEYCODE_LEFT_CURLY_BRACKET_VALUE = 654;
             /**
              * <code>KEYCODE_RIGHT_CURLY_BRACKET = 655;</code>
              * <p/>
@@ -1350,7 +1350,7 @@ public final class RemoteCommand {
              * '&lt;'
              * </pre>
              */
-            public static final int KEYCODE_LEFT_ANGLE_BRACKET_VALUE  = 656;
+            public static final int KEYCODE_LEFT_ANGLE_BRACKET_VALUE = 656;
             /**
              * <code>KEYCODE_RIGHT_ANGLE_BRACKET = 657;</code>
              * <p/>
@@ -3701,7 +3701,7 @@ public final class RemoteCommand {
             /**
              * <code>RC_ERROR = 1;</code>
              */
-            public static final int RC_ERROR_VALUE   = 1;
+            public static final int RC_ERROR_VALUE = 1;
 
             public final int getNumber() {
                 if (index == -1) {

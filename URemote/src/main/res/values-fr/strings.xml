@@ -18,6 +18,7 @@
     <string name="title_admin">Admin</string>
     <string name="title_server_select">Se connecter à</string>
     <string name="title_server_edit">Serveur à éditer</string>
+    <string name="title_explorer">Explorer</string>
 
     <!-- Activité Nao -->
     <string name="title_app_list">Applications</string>

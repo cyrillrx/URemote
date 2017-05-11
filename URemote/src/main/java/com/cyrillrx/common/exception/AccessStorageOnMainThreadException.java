@@ -11,7 +11,5 @@ public class AccessStorageOnMainThreadException extends RuntimeException {
     /**
      * @param source A String that identify the source of the error (class, method, etc.)
      */
-    public AccessStorageOnMainThreadException(String source) {
-        super(source + DEFAULT_MESSAGE);
-    }
+    public AccessStorageOnMainThreadException(String source) { super(source + DEFAULT_MESSAGE); }
 }

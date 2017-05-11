@@ -36,15 +36,15 @@ public class AppLauncherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.launcher_in, R.anim.launcher_out);
 
-        GridLayout gridLayout = new GridLayout(this);
-        GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
+        final GridLayout gridLayout = new GridLayout(this);
+        final GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams();
         gridLayout.setAlignmentMode(GridLayout.ALIGN_BOUNDS);
         gridLayout.setBackgroundColor(Color.TRANSPARENT);
         gridLayout.setColumnCount(3);
         gridLayout.setRowCount(5);
         gridLayout.setOrientation(GridLayout.HORIZONTAL);
 
-        List<AppItem> appItems = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
+        final List<AppItem> appItems = getIntent().getParcelableArrayListExtra(EXTRA_APPLICATION_LIST);
 
         populateAppGridLayout(gridLayout, appItems);
 

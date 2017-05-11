@@ -35,27 +35,27 @@ public class NetworkDeviceXmlHandler extends DefaultHandler {
 
     private static final String TAG = NetworkDeviceXmlHandler.class.getSimpleName();
 
-    private boolean mCurrentElement = false;
-    private boolean mLoaded         = false;
-    private String mCurrentValue;
+    private boolean currentElement = false;
+    private boolean loaded = false;
+    private String currentValue;
 
-    private NetworkDevice.Builder mBuilder;
-    private List<NetworkDevice>   mDevices;
+    private NetworkDevice.Builder builder;
+    private List<NetworkDevice> devices;
 
     /** Called tag opening (<tag>). */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        mCurrentElement = true;
+        currentElement = true;
 
         if (localName.equals(TAG_ROOT)) {
-            mLoaded = false;
-            mDevices = new ArrayList<>();
+            loaded = false;
+            devices = new ArrayList<>();
 
         } else if (localName.equals(TAG_SERVER)) {
-            if (mBuilder == null) {
-                mBuilder = NetworkDevice.newBuilder();
+            if (builder == null) {
+                builder = NetworkDevice.newBuilder();
             } else {
-                mBuilder.clear();
+                builder.clear();
             }
         }
     }
@@ -63,67 +63,67 @@ public class NetworkDeviceXmlHandler extends DefaultHandler {
     /** Called at tag closure (</tag>) to get the value of the parsed element. */
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        mCurrentElement = false;
+        currentElement = false;
 
         if (localName.equals(TAG_NAME)) {
-            mBuilder.setName(mCurrentValue);
+            builder.setName(currentValue);
 
         } else if (localName.equals(TAG_LOCAL_HOST)) {
-            mBuilder.setLocalHost(mCurrentValue);
+            builder.setLocalHost(currentValue);
 
         } else if (localName.equals(TAG_LOCAL_PORT)) {
-            mBuilder.setLocalPort(Integer.parseInt(mCurrentValue));
+            builder.setLocalPort(Integer.parseInt(currentValue));
 
         } else if (localName.equals(TAG_BROADCAST)) {
-            mBuilder.setBroadcast(mCurrentValue);
+            builder.setBroadcast(currentValue);
 
         } else if (localName.equals(TAG_REMOTE_HOST)) {
-            mBuilder.setRemoteHost(mCurrentValue);
+            builder.setRemoteHost(currentValue);
 
         } else if (localName.equals(TAG_REMOTE_PORT)) {
-            mBuilder.setRemotePort(Integer.parseInt(mCurrentValue));
+            builder.setRemotePort(Integer.parseInt(currentValue));
 
         } else if (localName.equals(TAG_MAC_ADDRESS)) {
-            mBuilder.setMacAddress(mCurrentValue);
+            builder.setMacAddress(currentValue);
 
         } else if (localName.equals(TAG_CONNECTION_TIMEOUT)) {
-            mBuilder.setConnectionTimeout(Integer.parseInt(mCurrentValue));
+            builder.setConnectionTimeout(Integer.parseInt(currentValue));
 
         } else if (localName.equals(TAG_READ_TIMEOUT)) {
-            mBuilder.setReadTimeout(Integer.parseInt(mCurrentValue));
+            builder.setReadTimeout(Integer.parseInt(currentValue));
 
         } else if (localName.equals(TAG_SECURITY_TOKEN)) {
-            mBuilder.setSecurityToken(mCurrentValue);
+            builder.setSecurityToken(currentValue);
 
         } else if (localName.equals(TAG_CONNECTION_TYPE)) {
-            mBuilder.setConnectionType(ConnectionType.valueOf(mCurrentValue));
+            builder.setConnectionType(ConnectionType.valueOf(currentValue));
 
         } else if (localName.equals(TAG_SERVER)) {
             try {
-                mDevices.add(mBuilder.build());
+                devices.add(builder.build());
             } catch (Exception e) {
                 Logger.error(TAG, "#endElement", e);
             }
 
         } else if (localName.equals(TAG_ROOT)) {
-            mLoaded = true;
+            loaded = true;
         }
     }
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        if (!mCurrentElement) {
+        if (!currentElement) {
             return;
         }
 
-        mCurrentValue = new String(ch, start, length);
-        mCurrentElement = false;
+        currentValue = new String(ch, start, length);
+        currentElement = false;
     }
 
     /** @return A list of {@link com.cyrillrx.uremote.common.device.NetworkDevice}. */
     public List<NetworkDevice> getDevices() {
-        if (mLoaded) {
-            return mDevices;
+        if (loaded) {
+            return devices;
         }
         return new ArrayList<>();
     }

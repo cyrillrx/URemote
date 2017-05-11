@@ -21,9 +21,9 @@ import java.util.Random;
 public class ConnectedDeviceDrawable extends Drawable {
 
     /** The paint's text coefficient. Used to deduce text size from the canvas. */
-    private static final float TEXT_SIZE_COEF          = 0.42f;
+    private static final float TEXT_SIZE_COEF = 0.42f;
     /** The paint's subscript and superscript coefficient. Used to deduce text size from the canvas. */
-    private static final float SUBSCRIPT_SIZE_COEF     = 0.1f;
+    private static final float SUBSCRIPT_SIZE_COEF = 0.1f;
     /** Coefficient to compute the outer hexagon side from canvas size. */
     private static final float OUTER_HEXAGON_SIDE_COEF = 0.42f;
     /** Coefficient to compute the inner hexagon side from canvas size. */
@@ -31,18 +31,18 @@ public class ConnectedDeviceDrawable extends Drawable {
 
     private static final float SUBSCRIPT_PADDING = 1f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
-    private static final float STROKE_WIDTH      = 2.5f;
+    private static final float STROKE_WIDTH = 2.5f;
 
-    private final Paint mPaint;
+    private final Paint paint;
 
-    private final String mText;
-    private final Rect   mTextBounds;
+    private final String text;
+    private final Rect textBounds;
 
-    private final String mSubscript;
-    private final Rect   mSubscriptBounds;
+    private final String subscript;
+    private final Rect subscriptBounds;
 
-    private final String mSuperscript;
-    private final Rect   mSuperscriptBounds;
+    private final String superscript;
+    private final Rect superscriptBounds;
 
     public ConnectedDeviceDrawable(final ConnectedDevice device) {
         this(device, Integer.MIN_VALUE);
@@ -51,24 +51,24 @@ public class ConnectedDeviceDrawable extends Drawable {
     public ConnectedDeviceDrawable(final ConnectedDevice device, final int color) {
 
         // Paint
-        mPaint = new Paint();
-        mPaint.setColor((color != Integer.MIN_VALUE ? color : URemoteApp.COLOR_DEFAULT));
-        mPaint.setAntiAlias(true);
-        mPaint.setStrokeWidth(STROKE_WIDTH);
+        paint = new Paint();
+        paint.setColor((color != Integer.MIN_VALUE ? color : URemoteApp.COLOR_DEFAULT));
+        paint.setAntiAlias(true);
+        paint.setStrokeWidth(STROKE_WIDTH);
 
         // Text : first letter of the device name
-        mText = getText(device);
-        mSubscript = getSubscript(device);
-        mSuperscript = getSuperscript(device);
+        text = getText(device);
+        subscript = getSubscript(device);
+        superscript = getSuperscript(device);
 
         // Text bounds
-        mTextBounds = new Rect();
+        textBounds = new Rect();
 
         // Subscript bounds
-        mSubscriptBounds = new Rect();
+        subscriptBounds = new Rect();
 
         // Superscript bounds
-        mSuperscriptBounds = new Rect();
+        superscriptBounds = new Rect();
     }
 
     @Override
@@ -81,49 +81,49 @@ public class ConnectedDeviceDrawable extends Drawable {
         final float subscriptSize = canvas.getHeight() * SUBSCRIPT_SIZE_COEF;
 
         // Draw the text
-        mPaint.setTextSize(textSize);
-        mPaint.getTextBounds(mText, 0, mText.length(), mTextBounds);
-        final float textOriginX = centerX - mTextBounds.width() / 2f - Math.max(mSubscriptBounds.width(), mSuperscriptBounds.width()) / 2f;
-        final float textOriginY = centerY + mTextBounds.height() / 2f;
-        canvas.drawText(mText, textOriginX, textOriginY, mPaint);
+        paint.setTextSize(textSize);
+        paint.getTextBounds(text, 0, text.length(), textBounds);
+        final float textOriginX = centerX - textBounds.width() / 2f - Math.max(subscriptBounds.width(), superscriptBounds.width()) / 2f;
+        final float textOriginY = centerY + textBounds.height() / 2f;
+        canvas.drawText(text, textOriginX, textOriginY, paint);
 
         // Draw subscript
-        if (!mSubscript.isEmpty()) {
-            mPaint.setTextSize(subscriptSize);
-            mPaint.getTextBounds(mSubscript, 0, mSubscript.length(), mSubscriptBounds);
-            final float subscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
+        if (!subscript.isEmpty()) {
+            paint.setTextSize(subscriptSize);
+            paint.getTextBounds(subscript, 0, subscript.length(), subscriptBounds);
+            final float subscriptOriginX = textOriginX + textBounds.width() + SUBSCRIPT_PADDING;
             final float subscriptOriginY = textOriginY + subscriptSize / 2f;
-            canvas.drawText(mSubscript, subscriptOriginX, subscriptOriginY, mPaint);
+            canvas.drawText(subscript, subscriptOriginX, subscriptOriginY, paint);
         }
 
         // Draw superscript
-        if (!mSuperscript.isEmpty()) {
-            mPaint.setTextSize(subscriptSize);
-            mPaint.getTextBounds(mSuperscript, 0, mSuperscript.length(), mSuperscriptBounds);
-            final float superscriptOriginX = textOriginX + mTextBounds.width() + SUBSCRIPT_PADDING;
-            final float superscriptOriginY = textOriginY - mTextBounds.height() / 2f;
-            canvas.drawText(mSuperscript, superscriptOriginX, superscriptOriginY, mPaint);
+        if (!superscript.isEmpty()) {
+            paint.setTextSize(subscriptSize);
+            paint.getTextBounds(superscript, 0, superscript.length(), superscriptBounds);
+            final float superscriptOriginX = textOriginX + textBounds.width() + SUBSCRIPT_PADDING;
+            final float superscriptOriginY = textOriginY - textBounds.height() / 2f;
+            canvas.drawText(superscript, superscriptOriginX, superscriptOriginY, paint);
         }
 
         // Draw the outer hexagon
         final float outerHexagonSide = canvas.getHeight() * OUTER_HEXAGON_SIDE_COEF;
         Hexagon outerHex = new Hexagon(outerHexagonSide);
         outerHex.moveCenterTo(centerX, centerY);
-        outerHex.draw(canvas, mPaint);
+        outerHex.draw(canvas, paint);
 
         // Draw two random sides of the inner hexagon
         final float innerHexagonSide = canvas.getHeight() * INNER_HEXAGON_SIDE_COEF;
         Hexagon innerHex = new Hexagon(innerHexagonSide);
         innerHex.moveCenterTo(centerX, centerY);
         final Random rand = new Random();
-        innerHex.drawSides(canvas, mPaint, rand.nextInt(5), rand.nextInt(5));
+        innerHex.drawSides(canvas, paint, rand.nextInt(5), rand.nextInt(5));
     }
 
     @Override
-    public void setAlpha(int alpha) { mPaint.setAlpha(alpha); }
+    public void setAlpha(int alpha) { paint.setAlpha(alpha); }
 
     @Override
-    public void setColorFilter(ColorFilter cf) { mPaint.setColorFilter(cf); }
+    public void setColorFilter(ColorFilter cf) { paint.setColorFilter(cf); }
 
     @Override
     public int getOpacity() { return PixelFormat.TRANSLUCENT; }

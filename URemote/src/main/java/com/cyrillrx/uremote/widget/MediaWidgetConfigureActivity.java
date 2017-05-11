@@ -24,14 +24,14 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
 
     private static final String TAG = MediaWidgetConfigureActivity.class.getSimpleName();
 
-    private int mWidgetId;
+    private int widgetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Logger.warning(TAG, "onCreate");
 
-        mWidgetId = initAppWidgetId(getIntent().getExtras());
+        widgetId = initAppWidgetId(getIntent().getExtras());
         setResult(RESULT_CANCELED);
     }
 
@@ -54,16 +54,16 @@ public class MediaWidgetConfigureActivity extends ServerListActivity {
         super.onListItemClick(l, v, position, id);
         Logger.warning(TAG, "onListItemClick");
 
-        if (ACTION_APPWIDGET_CONFIGURE.equals(mAction) && mWidgetId != INVALID_APPWIDGET_ID) {
+        if (ACTION_APPWIDGET_CONFIGURE.equals(action) && widgetId != INVALID_APPWIDGET_ID) {
             final NetworkDevice device = ((ServerArrayAdapter) getListAdapter()).getItem(position);
 
             final Intent widgetIntent = new Intent();
             widgetIntent.putExtra(EXTRA_SERVER_ID, position);
 //            widgetIntent.putExtra(EXTRA_SERVER_DATA, device);
-            widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mWidgetId);
+            widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
             setResult(RESULT_OK, widgetIntent);
 
-            updateWidget(mWidgetId, device, position);
+            updateWidget(widgetId, device, position);
             finish();
         }
     }

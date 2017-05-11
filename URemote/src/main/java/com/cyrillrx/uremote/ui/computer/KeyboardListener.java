@@ -23,33 +23,33 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private static final String TAG = KeyboardListener.class.getSimpleName();
 
-    private static final int FLAG_NONE      = 0b00000;
-    private static final int FLAG_CTRL      = 0b00001;
-    private static final int FLAG_SHIFT     = 0b00010;
-    private static final int FLAG_ALT_LEFT  = 0b00100;
+    private static final int FLAG_NONE = 0b00000;
+    private static final int FLAG_CTRL = 0b00001;
+    private static final int FLAG_SHIFT = 0b00010;
+    private static final int FLAG_ALT_LEFT = 0b00100;
     private static final int FLAG_ALT_RIGHT = 0b01000;
-    private static final int FLAG_WINDOWS   = 0b10000;
+    private static final int FLAG_WINDOWS = 0b10000;
 
-    private final RequestSender     mRequestSender;
-    private       KeyboardView      mKeyboardView;
-    private       ToastSender       mToastSender;
-    private       Set<Keyboard.Key> mModifierKeys;
-    private       int               mModifierFlag;
+    private final RequestSender requestSender;
+    private KeyboardView keyboardView;
+    private ToastSender toastSender;
+    private Set<Keyboard.Key> modifierKeys;
+    private int modifierFlag;
 
     public KeyboardListener(final RequestSender requestSender) {
-        mRequestSender = requestSender;
-        mModifierKeys = new HashSet<>();
-        mModifierFlag = FLAG_NONE;
+        this.requestSender = requestSender;
+        modifierKeys = new HashSet<>();
+        modifierFlag = FLAG_NONE;
     }
 
-    public void setToastSender(final ToastSender toastSender) { mToastSender = toastSender; }
+    public void setToastSender(final ToastSender toastSender) { this.toastSender = toastSender; }
 
     private void sendToast(final String message) {
-        if (mToastSender == null) {
-            Logger.warning(TAG, "#sendToast - mToastSender is null. Can't send toast.");
+        if (toastSender == null) {
+            Logger.warning(TAG, "#sendToast - toastSender is null. Can't send toast.");
             return;
         }
-        mToastSender.sendToast(message);
+        toastSender.sendToast(message);
     }
 
     /**
@@ -60,13 +60,13 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
      * @param view The keyboard view.
      */
     public void setKeyboardView(final KeyboardView view) {
-        mKeyboardView = view;
-        mModifierKeys.clear();
+        keyboardView = view;
+        modifierKeys.clear();
 
         final List<Keyboard.Key> keys = view.getKeyboard().getKeys();
         for (Keyboard.Key key : keys) {
             if (key.modifier) {
-                mModifierKeys.add(key);
+                modifierKeys.add(key);
             }
         }
     }
@@ -75,49 +75,49 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
      * Performs haptic feedback using the view specified through {@link #setKeyboardView(android.inputmethodservice.KeyboardView)}.
      */
     private void performHapticFeedback() {
-        if (mKeyboardView == null) {
-            Logger.warning(TAG, "#performHapticFeedback - mKeyboardView is null. Can't perform haptic feedback.");
+        if (keyboardView == null) {
+            Logger.warning(TAG, "#performHapticFeedback - keyboardView is null. Can't perform haptic feedback.");
             return;
         }
-        mKeyboardView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
+        keyboardView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
     }
 
     private void updateModifierKeys() {
 
-        mModifierFlag = FLAG_NONE;
+        modifierFlag = FLAG_NONE;
 
-        for (Keyboard.Key key : mModifierKeys) {
+        for (Keyboard.Key key : modifierKeys) {
 
             final int code = key.codes[0];
 
             if (code == KeyEvent.KEYCODE_CTRL_LEFT || code == KeyEvent.KEYCODE_CTRL_RIGHT) {
-                mModifierFlag += key.on ? FLAG_CTRL : FLAG_NONE;
+                modifierFlag += key.on ? FLAG_CTRL : FLAG_NONE;
 
             } else if (code == KeyEvent.KEYCODE_SHIFT_LEFT || code == KeyEvent.KEYCODE_SHIFT_RIGHT) {
-                mModifierFlag += key.on ? FLAG_SHIFT : FLAG_NONE;
+                modifierFlag += key.on ? FLAG_SHIFT : FLAG_NONE;
 
             } else if (code == KeyEvent.KEYCODE_ALT_LEFT) {
-                mModifierFlag += key.on ? FLAG_ALT_LEFT : FLAG_NONE;
+                modifierFlag += key.on ? FLAG_ALT_LEFT : FLAG_NONE;
 
             } else if (code == KeyEvent.KEYCODE_ALT_RIGHT) {
-                mModifierFlag += key.on ? FLAG_ALT_RIGHT : FLAG_NONE;
+                modifierFlag += key.on ? FLAG_ALT_RIGHT : FLAG_NONE;
 
             } else if (code == KeyEvent.KEYCODE_WINDOW) {
-                mModifierFlag += key.on ? FLAG_WINDOWS : FLAG_NONE;
+                modifierFlag += key.on ? FLAG_WINDOWS : FLAG_NONE;
             }
 
             if (BuildConfig.DEBUG) {
-                sendToast(Integer.toBinaryString(mModifierFlag));
+                sendToast(Integer.toBinaryString(modifierFlag));
             }
         }
     }
 
     private void sendRequest(final RemoteCommand.Request.Code primaryCode) {
-        mRequestSender.sendRequest(RemoteCommand.Request.newBuilder()
-                .setSecurityToken(mRequestSender.getSecurityToken())
+        requestSender.sendRequest(RemoteCommand.Request.newBuilder()
+                .setSecurityToken(requestSender.getSecurityToken())
                 .setType(RemoteCommand.Request.Type.KEYBOARD)
                 .setCode(primaryCode)
-                .setIntExtra(mModifierFlag)
+                .setIntExtra(modifierFlag)
                 .build());
     }
 

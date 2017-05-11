@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
 
-    private final LayoutInflater mInflater;
+    private final LayoutInflater inflater;
 
     /**
      * Default constructor
@@ -32,14 +32,14 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
      */
     public ExplorerArrayAdapter(Context context, final List<FileInfo> entries) {
         super(context, 0, entries);
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     /** Template for list items. */
     public static class ViewHolder {
         ImageView ivIcon;
-        TextView  tvName;
-        TextView  tvSize;
+        TextView tvName;
+        TextView tvSize;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class ExplorerArrayAdapter extends ArrayAdapter<FileInfo> {
         final ViewHolder holder;
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.explorer_item, null);
+            convertView = inflater.inflate(R.layout.explorer_item, null);
             holder = new ViewHolder();
             holder.ivIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
             holder.tvName = (TextView) convertView.findViewById(R.id.tvName);

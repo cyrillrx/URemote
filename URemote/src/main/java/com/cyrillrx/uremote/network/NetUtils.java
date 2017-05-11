@@ -104,7 +104,7 @@ public class NetUtils {
      * @param interfaceName eth0, wlan0 or NULL=use first interface
      * @return mac address or empty string
      */
-    public static String getMACAddress(String interfaceName) {
+    public static String getMacAddress(String interfaceName) {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface intf : interfaces) {
@@ -136,7 +136,7 @@ public class NetUtils {
      * @param useIPv4 true=return ipv4, false=return ipv6
      * @return address or empty string
      */
-    public static String getIPAddress(boolean useIPv4) {
+    public static String getIpAddress(boolean useIPv4) {
         try {
             List<NetworkInterface> interfaces = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface intf : interfaces) {

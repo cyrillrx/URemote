@@ -12,17 +12,13 @@ import android.widget.SeekBar;
  */
 public class VerticalSeekBar extends SeekBar {
 
-    public VerticalSeekBar(Context context) {
-        super(context);
-    }
+    public VerticalSeekBar(Context context) { super(context); }
 
     public VerticalSeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public VerticalSeekBar(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+    public VerticalSeekBar(Context context, AttributeSet attrs) { super(context, attrs); }
 
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(h, w, oldh, oldw);

@@ -12,9 +12,9 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class Cube {
 
-    private FloatBuffer mVertexBuffer;
-    private FloatBuffer mColorBuffer;
-    private ByteBuffer  mIndexBuffer;
+    private FloatBuffer vertexBuffer;
+    private FloatBuffer colorBuffer;
+    private ByteBuffer indexBuffer;
 
     private static final float vertices[] = {
             -1.0f, -1.0f, -1.0f,
@@ -51,31 +51,31 @@ public class Cube {
 
         ByteBuffer byteBuf = ByteBuffer.allocateDirect(vertices.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
-        mVertexBuffer = byteBuf.asFloatBuffer();
-        mVertexBuffer.put(vertices);
-        mVertexBuffer.position(0);
+        vertexBuffer = byteBuf.asFloatBuffer();
+        vertexBuffer.put(vertices);
+        vertexBuffer.position(0);
 
         byteBuf = ByteBuffer.allocateDirect(colors.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
-        mColorBuffer = byteBuf.asFloatBuffer();
-        mColorBuffer.put(colors);
-        mColorBuffer.position(0);
+        colorBuffer = byteBuf.asFloatBuffer();
+        colorBuffer.put(colors);
+        colorBuffer.position(0);
 
-        mIndexBuffer = ByteBuffer.allocateDirect(indices.length);
-        mIndexBuffer.put(indices);
-        mIndexBuffer.position(0);
+        indexBuffer = ByteBuffer.allocateDirect(indices.length);
+        indexBuffer.put(indices);
+        indexBuffer.position(0);
     }
 
     public void draw(GL10 gl) {
 
         gl.glFrontFace(GL10.GL_CW);
-        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
-        gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
+        gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
+        gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
 
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
 
-        gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
+        gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, indexBuffer);
 
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_COLOR_ARRAY);

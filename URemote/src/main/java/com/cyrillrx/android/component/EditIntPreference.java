@@ -12,28 +12,22 @@ import android.util.AttributeSet;
  */
 public class EditIntPreference extends EditTextPreference {
 
-    private int mInteger;
+    private int integer;
 
     public EditIntPreference(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
-    public EditIntPreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+    public EditIntPreference(Context context, AttributeSet attrs) { super(context, attrs); }
 
-    public EditIntPreference(Context context) {
-        super(context);
-    }
+    public EditIntPreference(Context context) { super(context); }
 
     /**
      * Gets the integer from the {@link android.content.SharedPreferences}.
      *
      * @return The current preference value.
      */
-    public int getInt() {
-        return mInteger;
-    }
+    public int getInt() { return integer; }
 
     /**
      * Saves the integer to the {@link android.content.SharedPreferences}.
@@ -44,7 +38,7 @@ public class EditIntPreference extends EditTextPreference {
 
         final boolean wasBlocking = shouldDisableDependents();
 
-        mInteger = integer;
+        this.integer = integer;
 
         persistInt(integer);
 
@@ -59,27 +53,23 @@ public class EditIntPreference extends EditTextPreference {
      *
      * @return The current preference value.
      */
-    public String getText() {
-        return String.valueOf(getInt());
-    }
+    public String getText() { return String.valueOf(getInt()); }
 
     /**
      * Saves the text to the {@link android.content.SharedPreferences}.
      *
      * @param text The text to save.
      */
-    public void setText(String text) {
-        setInt(Integer.valueOf(text));
-    }
+    public void setText(String text) { setInt(Integer.valueOf(text)); }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setInt(restoreValue ? getPersistedInt(mInteger) : Integer.valueOf((String) defaultValue));
+        setInt(restoreValue ? getPersistedInt(integer) : Integer.valueOf((String) defaultValue));
     }
 
     @Override
     public boolean shouldDisableDependents() {
-        return mInteger == Integer.MIN_VALUE || super.shouldDisableDependents();
+        return integer == Integer.MIN_VALUE || super.shouldDisableDependents();
     }
 
     @Override
@@ -126,9 +116,7 @@ public class EditIntPreference extends EditTextPreference {
             integer = source.readInt();
         }
 
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
+        public SavedState(Parcelable superState) { super(superState); }
 
         @Override
         public void writeToParcel(Parcel destination, int flags) {

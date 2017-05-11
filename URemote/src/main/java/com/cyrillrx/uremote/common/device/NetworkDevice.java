@@ -16,79 +16,42 @@ import com.cyrillrx.logger.Logger;
  */
 public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
-    private static final String TAG      = NetworkDevice.class.getSimpleName();
-    public static final  String FILENAME = "serverConfig.xml";
+    private static final String TAG = NetworkDevice.class.getSimpleName();
+
+    public static final String FILENAME = "serverConfig.xml";
 
     /** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
     public static final Parcelable.Creator<NetworkDevice> CREATOR = new Parcelable.Creator<NetworkDevice>() {
         @Override
-        public NetworkDevice createFromParcel(Parcel src) {
-            return new NetworkDevice(src);
-        }
+        public NetworkDevice createFromParcel(Parcel src) { return new NetworkDevice(src); }
 
         @Override
-        public NetworkDevice[] newArray(int size) {
-            return new NetworkDevice[size];
-        }
+        public NetworkDevice[] newArray(int size) { return new NetworkDevice[size]; }
     };
 
-    private String         mLocalHost;
-    private int            mLocalPort;
-    private String         mBroadcast;
-    private String         mRemoteHost;
-    private int            mRemotePort;
-    private String         mMacAddress;
-    private ConnectionType mConnectionType;
+    private String localHost;
+    private int localPort;
+    private String broadcast;
+    private String remoteHost;
+    private int remotePort;
+    private String macAddress;
+    private ConnectionType connectionType;
 
-    /**
-     * Constructor with parameters
-     *
-     * @param name
-     * @param localHost
-     * @param localPort
-     * @param broadcastIp
-     * @param remoteHost
-     * @param remotePort
-     * @param macAddress
-     * @param connectionTimeout
-     * @param readTimeout
-     * @param securityToken
-     * @param connectionType
-     */
-    private NetworkDevice(
-            final String name, final String localHost, final int localPort,
-            final String broadcastIp, final String remoteHost, final int remotePort,
-            final String macAddress,
-            final int connectionTimeout, final int readTimeout,
-            final String securityToken,
-            final ConnectionType connectionType) {
-
-        mName = name;
-        mLocalHost = localHost;
-        mLocalPort = localPort;
-        mBroadcast = broadcastIp;
-        mRemoteHost = remoteHost;
-        mRemotePort = remotePort;
-        mMacAddress = macAddress;
-        mConnectionTimeout = connectionTimeout;
-        mReadTimeout = readTimeout;
-        mSecurityToken = securityToken;
-        mConnectionType = connectionType;
-    }
+    private NetworkDevice() { }
 
     /** @param src  */
     public NetworkDevice(final Parcel src) {
-        mName = src.readString();
-        mLocalHost = src.readString();
-        mLocalPort = src.readInt();
-        mBroadcast = src.readString();
-        mRemoteHost = src.readString();
-        mRemotePort = src.readInt();
-        mMacAddress = src.readString();
-        mConnectionTimeout = src.readInt();
-        mReadTimeout = src.readInt();
-        mSecurityToken = src.readString();
-        mConnectionType = ConnectionType.valueOf(src.readString());
+        name = src.readString();
+        localHost = src.readString();
+        localPort = src.readInt();
+        broadcast = src.readString();
+        remoteHost = src.readString();
+        remotePort = src.readInt();
+        macAddress = src.readString();
+        connectionTimeout = src.readInt();
+        readTimeout = src.readInt();
+        securityToken = src.readString();
+        connectionType = ConnectionType.valueOf(src.readString());
     }
 
     /**
@@ -97,17 +60,17 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
      * @param server The server updated data.
      */
     public void update(final NetworkDevice server) {
-        mName = server.getName();
-        mLocalHost = server.getLocalHost();
-        mLocalPort = server.getLocalPort();
-        mBroadcast = server.getBroadcast();
-        mRemoteHost = server.getRemoteHost();
-        mRemotePort = server.getRemotePort();
-        mMacAddress = server.getMacAddress();
-        mConnectionTimeout = server.getConnectionTimeout();
-        mReadTimeout = server.getReadTimeout();
-        mSecurityToken = server.getSecurityToken();
-        mConnectionType = server.getConnectionType();
+        name = server.getName();
+        localHost = server.getLocalHost();
+        localPort = server.getLocalPort();
+        broadcast = server.getBroadcast();
+        remoteHost = server.getRemoteHost();
+        remotePort = server.getRemotePort();
+        macAddress = server.getMacAddress();
+        connectionTimeout = server.getConnectionTimeout();
+        readTimeout = server.getReadTimeout();
+        securityToken = server.getSecurityToken();
+        connectionType = server.getConnectionType();
     }
 
     @Override
@@ -117,17 +80,17 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
-        destination.writeString(mName);
-        destination.writeString(mLocalHost);
-        destination.writeInt(mLocalPort);
-        destination.writeString(mBroadcast);
-        destination.writeString(mRemoteHost);
-        destination.writeInt(mRemotePort);
-        destination.writeString(mMacAddress);
-        destination.writeInt(mConnectionTimeout);
-        destination.writeInt(mReadTimeout);
-        destination.writeString(mSecurityToken);
-        destination.writeString(mConnectionType.toString());
+        destination.writeString(name);
+        destination.writeString(localHost);
+        destination.writeInt(localPort);
+        destination.writeString(broadcast);
+        destination.writeString(remoteHost);
+        destination.writeInt(remotePort);
+        destination.writeString(macAddress);
+        destination.writeInt(connectionTimeout);
+        destination.writeInt(readTimeout);
+        destination.writeString(securityToken);
+        destination.writeString(connectionType.toString());
     }
 
     /**
@@ -142,37 +105,37 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
     @Override
     public String toString() {
-        return (mConnectionType == ConnectionType.LOCAL) ? toStringLocal() : toStringRemote();
+        return (connectionType == ConnectionType.LOCAL) ? toStringLocal() : toStringRemote();
     }
 
     /** @return Concatenation of host and port of the local server. */
-    public String toStringLocal() { return mLocalHost + ":" + mLocalPort; }
+    public String toStringLocal() { return localHost + ":" + localPort; }
 
     /** @return Concatenation of host and port of the remote server. */
-    public String toStringRemote() { return mRemoteHost + ":" + mRemotePort; }
+    public String toStringRemote() { return remoteHost + ":" + remotePort; }
 
     /** @return The ip address of the local server. */
-    public String getLocalHost() { return mLocalHost; }
+    public String getLocalHost() { return localHost; }
 
-    public void setLocalHost(String localHost) { mLocalHost = localHost; }
+    public void setLocalHost(String localHost) { this.localHost = localHost; }
 
     /** @return The port of the local server. */
-    public int getLocalPort() { return mLocalPort; }
+    public int getLocalPort() { return localPort; }
 
     /** @return The broadcast address. */
-    public String getBroadcast() { return mBroadcast; }
+    public String getBroadcast() { return broadcast; }
 
     /** @return The ip address of the remote server. */
-    public String getRemoteHost() { return mRemoteHost; }
+    public String getRemoteHost() { return remoteHost; }
 
     /** @return The port of the remote server. */
-    public int getRemotePort() { return mRemotePort; }
+    public int getRemotePort() { return remotePort; }
 
     /** @return The mac address of the server. */
-    public String getMacAddress() { return mMacAddress; }
+    public String getMacAddress() { return macAddress; }
 
     /** @return The type of connection (remote or local). */
-    public ConnectionType getConnectionType() { return mConnectionType; }
+    public ConnectionType getConnectionType() { return connectionType; }
 
     /**
      * The type of connection.
@@ -196,45 +159,37 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     // TODO Move a part of the builder in ConnectedDevice class
     public static class Builder {
 
-        private static String         DEFAULT_NAME               = "";
-        private static String         DEFAULT_LOCAL_HOST         = "";
-        private static int            DEFAULT_PORT               = 0;
-        private static String         DEFAULT_BROADCAST          = "";
-        private static String         DEFAULT_REMOTE_HOST        = "";
-        private static String         DEFAULT_MAC_ADDRESS        = "";
-        private static ConnectionType DEFAULT_CONNECTION         = ConnectionType.LOCAL;
-        private static int            DEFAULT_CONNECTION_TIMEOUT = 500;
-        private static int            DEFAULT_READ_TIMEOUT       = 500;
-        private static String         DEFAULT_SECURITY_TOKEN     = "";
+        private static String DEFAULT_NAME = "";
+        private static String DEFAULT_LOCAL_HOST = "";
+        private static int DEFAULT_PORT = 0;
+        private static String DEFAULT_BROADCAST = "";
+        private static String DEFAULT_REMOTE_HOST = "";
+        private static String DEFAULT_MAC_ADDRESS = "";
+        private static ConnectionType DEFAULT_CONNECTION = ConnectionType.LOCAL;
+        private static int DEFAULT_CONNECTION_TIMEOUT = 500;
+        private static int DEFAULT_READ_TIMEOUT = 500;
+        private static String DEFAULT_SECURITY_TOKEN = "";
 
-        private String         mName              = DEFAULT_NAME;
-        private String         mLocalHost         = DEFAULT_LOCAL_HOST;
-        private int            mLocalPort         = DEFAULT_PORT;
-        private String         mBroadcast         = DEFAULT_BROADCAST;
-        private String         mRemoteHost        = DEFAULT_REMOTE_HOST;
-        private int            mRemotePort        = DEFAULT_PORT;
-        private String         mMacAddress        = DEFAULT_MAC_ADDRESS;
-        private ConnectionType mConnectionType    = DEFAULT_CONNECTION;
-        /** If the connection with the remote server is not established within this timeout, it is dismissed. */
-        private int            mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
-        private int            mReadTimeout       = DEFAULT_READ_TIMEOUT;
-        private String         mSecurityToken     = DEFAULT_SECURITY_TOKEN;
+        NetworkDevice device;
 
-        private Builder() { }
+        private Builder() {
+            device = new NetworkDevice();
+            clear();
+        }
 
         /** Reset builder */
         public void clear() {
-            mName = DEFAULT_NAME;
-            mLocalHost = DEFAULT_LOCAL_HOST;
-            mLocalPort = DEFAULT_PORT;
-            mBroadcast = DEFAULT_BROADCAST;
-            mRemoteHost = DEFAULT_REMOTE_HOST;
-            mRemotePort = DEFAULT_PORT;
-            mMacAddress = DEFAULT_MAC_ADDRESS;
-            mConnectionType = DEFAULT_CONNECTION;
-            mConnectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
-            mReadTimeout = DEFAULT_READ_TIMEOUT;
-            mSecurityToken = DEFAULT_SECURITY_TOKEN;
+            device.name = DEFAULT_NAME;
+            device.localHost = DEFAULT_LOCAL_HOST;
+            device.localPort = DEFAULT_PORT;
+            device.broadcast = DEFAULT_BROADCAST;
+            device.remoteHost = DEFAULT_REMOTE_HOST;
+            device.remotePort = DEFAULT_PORT;
+            device.macAddress = DEFAULT_MAC_ADDRESS;
+            device.connectionType = DEFAULT_CONNECTION;
+            device.connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
+            device.readTimeout = DEFAULT_READ_TIMEOUT;
+            device.securityToken = DEFAULT_SECURITY_TOKEN;
         }
 
         /**
@@ -248,37 +203,37 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
 
             StringBuilder sb = new StringBuilder();
 
-            if (TextUtils.isEmpty(mName)) {
+            if (TextUtils.isEmpty(device.name)) {
                 error = true;
                 sb.append("- Name is null or empty.\n");
             }
 
-            if (TextUtils.isEmpty(mLocalHost)) {
+            if (TextUtils.isEmpty(device.localHost)) {
                 error = true;
                 sb.append("- Localhost is empty.\n");
             }
 
-            if (mLocalPort == 0) {
+            if (device.localPort == 0) {
                 error = true;
                 sb.append("- Local port is 0.\n");
             }
 
-            if (TextUtils.isEmpty(mBroadcast)) {
+            if (TextUtils.isEmpty(device.broadcast)) {
                 warning = true;
                 sb.append("- Broadcast is empty.\n");
             }
 
-            if (TextUtils.isEmpty(mRemoteHost)) {
+            if (TextUtils.isEmpty(device.remoteHost)) {
                 warning = true;
                 sb.append("- Remote host is empty.\n");
             }
 
-            if (mRemotePort == 0) {
+            if (device.remotePort == 0) {
                 warning = true;
                 sb.append("- Remote port is 0.\n");
             }
 
-            if (TextUtils.isEmpty(mMacAddress)) {
+            if (TextUtils.isEmpty(device.macAddress)) {
                 warning = true;
                 sb.append("- Mac address is empty.\n");
             }
@@ -293,46 +248,46 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
                 Logger.warning(TAG, "Server creation succeeded.");
             }
 
-            return new NetworkDevice(mName, mLocalHost, mLocalPort, mBroadcast, mRemoteHost, mRemotePort, mMacAddress, mConnectionTimeout, mReadTimeout, mSecurityToken, mConnectionType);
+            return device;
         }
 
         public Builder setConnectionType(ConnectionType type) {
-            mConnectionType = type;
+            device.connectionType = type;
             return this;
         }
 
         public Builder setName(final String name) {
-            mName = name;
+            device.name = name;
             return this;
         }
 
         public Builder setLocalHost(final String ipAddress) {
-            mLocalHost = ipAddress;
+            device.localHost = ipAddress;
             return this;
         }
 
         public Builder setLocalPort(final int port) {
-            mLocalPort = port;
+            device.localPort = port;
             return this;
         }
 
         public Builder setBroadcast(final String broadcastAddress) {
-            mBroadcast = broadcastAddress;
+            device.broadcast = broadcastAddress;
             return this;
         }
 
         public Builder setRemoteHost(final String ipAddress) {
-            mRemoteHost = ipAddress;
+            device.remoteHost = ipAddress;
             return this;
         }
 
         public Builder setRemotePort(final int port) {
-            mRemotePort = port;
+            device.remotePort = port;
             return this;
         }
 
         public Builder setMacAddress(final String macAddress) {
-            mMacAddress = macAddress;
+            device.macAddress = macAddress;
             return this;
         }
 
@@ -341,17 +296,17 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
          * within this timeout, it is dismissed.
          */
         public Builder setConnectionTimeout(final int timeout) {
-            mConnectionTimeout = timeout;
+            device.connectionTimeout = timeout;
             return this;
         }
 
         public Builder setReadTimeout(final int timeout) {
-            mReadTimeout = timeout;
+            device.readTimeout = timeout;
             return this;
         }
 
         public Builder setSecurityToken(final String securityToken) {
-            mSecurityToken = securityToken;
+            device.securityToken = securityToken;
             return this;
         }
     }

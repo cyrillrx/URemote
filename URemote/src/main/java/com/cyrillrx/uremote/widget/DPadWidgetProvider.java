@@ -39,16 +39,14 @@ public class DPadWidgetProvider extends AppWidgetProvider {
     private static final String TAG = DPadWidgetProvider.class.getSimpleName();
 
     private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
-    private static final String ACTION_OK             = "ACTION_OK";
-    private static final String ACTION_LEFT           = "ACTION_LEFT";
-    private static final String ACTION_RIGHT          = "ACTION_RIGHT";
-    private static final String ACTION_UP             = "ACTION_UP";
-    private static final String ACTION_DOWN           = "ACTION_DOWN";
+    private static final String ACTION_OK = "ACTION_OK";
+    private static final String ACTION_LEFT = "ACTION_LEFT";
+    private static final String ACTION_RIGHT = "ACTION_RIGHT";
+    private static final String ACTION_UP = "ACTION_UP";
+    private static final String ACTION_DOWN = "ACTION_DOWN";
 
     @Override
-    public void onEnabled(Context context) {
-        super.onEnabled(context);
-    }
+    public void onEnabled(Context context) { super.onEnabled(context); }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {

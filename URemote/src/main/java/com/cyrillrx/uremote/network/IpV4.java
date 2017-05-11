@@ -9,25 +9,24 @@ import android.text.TextUtils;
 public class IpV4 {
 
     private static final CharSequence SEPARATOR = ".";
-    private              Integer[]    mParts    = new Integer[4];
-    private int mPort;
+
+    private Integer[] parts = new Integer[4];
+    private int port;
 
 //    public IpV4(final String host, final int port) {
 //        //mHost = host;
-//        mPort = port;
+//        port = port;
 //    }
 
     public IpV4(final int part1, final int part2, final int part3, final int part4, final int port) {
-        mParts[0] = part1;
-        mParts[1] = part2;
-        mParts[2] = part3;
-        mParts[3] = part4;
-        mPort = port;
+        parts[0] = part1;
+        parts[1] = part2;
+        parts[2] = part3;
+        parts[3] = part4;
+        this.port = port;
     }
 
-    public String getHost() {
-        return TextUtils.join(SEPARATOR, mParts);
-    }
+    public String getHost() { return TextUtils.join(SEPARATOR, parts); }
 
-    public int getPort() { return mPort; }
+    public int getPort() { return port; }
 }

@@ -34,91 +34,91 @@ public class ServerEditActivity extends AppCompatActivity {
 
     private static final String TAG = ServerEditActivity.class.getSimpleName();
 
-    private EditText mServerName;
-    private EditText mLocalHost1;
-    private EditText mLocalHost2;
-    private EditText mLocalHost3;
-    private EditText mLocalHost4;
-    private EditText mLocalPort;
+    private EditText serverName;
+    private EditText localHost1;
+    private EditText localHost2;
+    private EditText localHost3;
+    private EditText localHost4;
+    private EditText localPort;
 
-    private EditText mBroadcast1;
-    private EditText mBroadcast2;
-    private EditText mBroadcast3;
-    private EditText mBroadcast4;
+    private EditText broadcast1;
+    private EditText broadcast2;
+    private EditText broadcast3;
+    private EditText broadcast4;
 
-    private EditText mRemoteHost1;
-    private EditText mRemoteHost2;
-    private EditText mRemoteHost3;
-    private EditText mRemoteHost4;
-    private EditText mRemotePort;
+    private EditText remoteHost1;
+    private EditText remoteHost2;
+    private EditText remoteHost3;
+    private EditText remoteHost4;
+    private EditText remotePort;
 
-    private EditText mMacAddress1;
-    private EditText mMacAddress2;
-    private EditText mMacAddress3;
-    private EditText mMacAddress4;
-    private EditText mMacAddress5;
-    private EditText mMacAddress6;
+    private EditText macAddress1;
+    private EditText macAddress2;
+    private EditText macAddress3;
+    private EditText macAddress4;
+    private EditText macAddress5;
+    private EditText macAddress6;
 
-    private EditText mConnectionTimeout;
-    private EditText mReadTimeout;
-    private EditText mSecurityToken;
+    private EditText connectionTimeout;
+    private EditText readTimeout;
+    private EditText securityToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_edit);
 
-        mServerName = (EditText) findViewById(R.id.server_name);
+        serverName = (EditText) findViewById(R.id.server_name);
 
-        mLocalHost1 = (EditText) findViewById(R.id.local_host1);
-        mLocalHost2 = (EditText) findViewById(R.id.local_host2);
-        mLocalHost3 = (EditText) findViewById(R.id.local_host3);
-        mLocalHost4 = (EditText) findViewById(R.id.local_host4);
-        mLocalPort = (EditText) findViewById(R.id.local_port);
+        localHost1 = (EditText) findViewById(R.id.local_host1);
+        localHost2 = (EditText) findViewById(R.id.local_host2);
+        localHost3 = (EditText) findViewById(R.id.local_host3);
+        localHost4 = (EditText) findViewById(R.id.local_host4);
+        localPort = (EditText) findViewById(R.id.local_port);
 
-        mBroadcast1 = (EditText) findViewById(R.id.broadcast1);
-        mBroadcast2 = (EditText) findViewById(R.id.broadcast2);
-        mBroadcast3 = (EditText) findViewById(R.id.broadcast3);
-        mBroadcast4 = (EditText) findViewById(R.id.broadcast4);
+        broadcast1 = (EditText) findViewById(R.id.broadcast1);
+        broadcast2 = (EditText) findViewById(R.id.broadcast2);
+        broadcast3 = (EditText) findViewById(R.id.broadcast3);
+        broadcast4 = (EditText) findViewById(R.id.broadcast4);
 
-        mRemoteHost1 = (EditText) findViewById(R.id.remote_host1);
-        mRemoteHost2 = (EditText) findViewById(R.id.remote_host2);
-        mRemoteHost3 = (EditText) findViewById(R.id.remote_host3);
-        mRemoteHost4 = (EditText) findViewById(R.id.remote_host4);
-        mRemotePort = (EditText) findViewById(R.id.remote_port);
+        remoteHost1 = (EditText) findViewById(R.id.remote_host1);
+        remoteHost2 = (EditText) findViewById(R.id.remote_host2);
+        remoteHost3 = (EditText) findViewById(R.id.remote_host3);
+        remoteHost4 = (EditText) findViewById(R.id.remote_host4);
+        remotePort = (EditText) findViewById(R.id.remote_port);
 
-        mMacAddress1 = (EditText) findViewById(R.id.mac_address1);
-        mMacAddress2 = (EditText) findViewById(R.id.mac_address2);
-        mMacAddress3 = (EditText) findViewById(R.id.mac_address3);
-        mMacAddress4 = (EditText) findViewById(R.id.mac_address4);
-        mMacAddress5 = (EditText) findViewById(R.id.mac_address5);
-        mMacAddress6 = (EditText) findViewById(R.id.mac_address6);
+        macAddress1 = (EditText) findViewById(R.id.mac_address1);
+        macAddress2 = (EditText) findViewById(R.id.mac_address2);
+        macAddress3 = (EditText) findViewById(R.id.mac_address3);
+        macAddress4 = (EditText) findViewById(R.id.mac_address4);
+        macAddress5 = (EditText) findViewById(R.id.mac_address5);
+        macAddress6 = (EditText) findViewById(R.id.mac_address6);
 
-        mConnectionTimeout = (EditText) findViewById(R.id.connection_timeout);
-        mReadTimeout = (EditText) findViewById(R.id.read_timeout);
-        mSecurityToken = (EditText) findViewById(R.id.security_token);
+        connectionTimeout = (EditText) findViewById(R.id.connection_timeout);
+        readTimeout = (EditText) findViewById(R.id.read_timeout);
+        securityToken = (EditText) findViewById(R.id.security_token);
 
-        mMacAddress1.addTextChangedListener(mMacAddressWatcher);
-        mMacAddress2.addTextChangedListener(mMacAddressWatcher);
-        mMacAddress3.addTextChangedListener(mMacAddressWatcher);
-        mMacAddress4.addTextChangedListener(mMacAddressWatcher);
-        mMacAddress5.addTextChangedListener(mMacAddressWatcher);
-        mMacAddress6.addTextChangedListener(mMacAddressWatcher);
+        macAddress1.addTextChangedListener(macAddressWatcher);
+        macAddress2.addTextChangedListener(macAddressWatcher);
+        macAddress3.addTextChangedListener(macAddressWatcher);
+        macAddress4.addTextChangedListener(macAddressWatcher);
+        macAddress5.addTextChangedListener(macAddressWatcher);
+        macAddress6.addTextChangedListener(macAddressWatcher);
 
-        mLocalHost1.addTextChangedListener(mIpAddressWatcher);
-        mLocalHost2.addTextChangedListener(mIpAddressWatcher);
-        mLocalHost3.addTextChangedListener(mIpAddressWatcher);
-        mLocalHost4.addTextChangedListener(mIpAddressWatcher);
+        localHost1.addTextChangedListener(ipAddressWatcher);
+        localHost2.addTextChangedListener(ipAddressWatcher);
+        localHost3.addTextChangedListener(ipAddressWatcher);
+        localHost4.addTextChangedListener(ipAddressWatcher);
 
-        mBroadcast1.addTextChangedListener(mIpAddressWatcher);
-        mBroadcast2.addTextChangedListener(mIpAddressWatcher);
-        mBroadcast3.addTextChangedListener(mIpAddressWatcher);
-        mBroadcast4.addTextChangedListener(mIpAddressWatcher);
+        broadcast1.addTextChangedListener(ipAddressWatcher);
+        broadcast2.addTextChangedListener(ipAddressWatcher);
+        broadcast3.addTextChangedListener(ipAddressWatcher);
+        broadcast4.addTextChangedListener(ipAddressWatcher);
 
-        mRemoteHost1.addTextChangedListener(mIpAddressWatcher);
-        mRemoteHost2.addTextChangedListener(mIpAddressWatcher);
-        mRemoteHost3.addTextChangedListener(mIpAddressWatcher);
-        mRemoteHost4.addTextChangedListener(mIpAddressWatcher);
+        remoteHost1.addTextChangedListener(ipAddressWatcher);
+        remoteHost2.addTextChangedListener(ipAddressWatcher);
+        remoteHost3.addTextChangedListener(ipAddressWatcher);
+        remoteHost4.addTextChangedListener(ipAddressWatcher);
 
         if (ACTION_EDIT.equals(getIntent().getAction())) {
             loadServer(getIntent());
@@ -251,102 +251,92 @@ public class ServerEditActivity extends AppCompatActivity {
     }
 
     private void loadSimpleData(final NetworkDevice device) {
-        mServerName.setText(device.getName().trim());
-        mConnectionTimeout.setText(String.valueOf(device.getConnectionTimeout()));
-        mReadTimeout.setText(String.valueOf(device.getReadTimeout()));
+        serverName.setText(device.getName().trim());
+        connectionTimeout.setText(String.valueOf(device.getConnectionTimeout()));
+        readTimeout.setText(String.valueOf(device.getReadTimeout()));
     }
 
     private void splitLocalHost(final NetworkDevice device) {
         String parts[] = device.getLocalHost().split("\\.");
-        mLocalHost1.setText(parts[0]);
-        mLocalHost2.setText(parts[1]);
-        mLocalHost3.setText(parts[2]);
-        mLocalHost4.setText(parts[3]);
+        localHost1.setText(parts[0]);
+        localHost2.setText(parts[1]);
+        localHost3.setText(parts[2]);
+        localHost4.setText(parts[3]);
 
-        mLocalPort.setText(String.valueOf(device.getLocalPort()));
+        localPort.setText(String.valueOf(device.getLocalPort()));
     }
 
     private void splitBroadcast(final NetworkDevice device) {
         String parts[] = device.getBroadcast().split("\\.");
-        mBroadcast1.setText(parts[0]);
-        mBroadcast2.setText(parts[1]);
-        mBroadcast3.setText(parts[2]);
-        mBroadcast4.setText(parts[3]);
+        broadcast1.setText(parts[0]);
+        broadcast2.setText(parts[1]);
+        broadcast3.setText(parts[2]);
+        broadcast4.setText(parts[3]);
 
-        mLocalPort.setText(String.valueOf(device.getLocalPort()));
+        localPort.setText(String.valueOf(device.getLocalPort()));
     }
 
     private void splitRemoteHost(final NetworkDevice device) {
         String parts[] = device.getRemoteHost().split("\\.");
-        mRemoteHost1.setText(parts[0]);
-        mRemoteHost2.setText(parts[1]);
-        mRemoteHost3.setText(parts[2]);
-        mRemoteHost4.setText(parts[3]);
+        remoteHost1.setText(parts[0]);
+        remoteHost2.setText(parts[1]);
+        remoteHost3.setText(parts[2]);
+        remoteHost4.setText(parts[3]);
 
-        mRemotePort.setText(String.valueOf(device.getRemotePort()));
+        remotePort.setText(String.valueOf(device.getRemotePort()));
     }
 
     private void splitMacAddress(final NetworkDevice device) {
         String parts[] = device.getMacAddress().split("-");
-        mMacAddress1.setText(parts[0]);
-        mMacAddress2.setText(parts[1]);
-        mMacAddress3.setText(parts[2]);
-        mMacAddress4.setText(parts[3]);
-        mMacAddress5.setText(parts[4]);
-        mMacAddress6.setText(parts[5]);
+        macAddress1.setText(parts[0]);
+        macAddress2.setText(parts[1]);
+        macAddress3.setText(parts[2]);
+        macAddress4.setText(parts[3]);
+        macAddress5.setText(parts[4]);
+        macAddress6.setText(parts[5]);
     }
 
-    private String getName() {
-        return extractString(mServerName);
-    }
+    private String getName() { return extractString(serverName); }
 
     private String getLocalHost() {
-        return joinParts('.', mLocalHost1, mLocalHost2, mLocalHost3, mLocalHost4);
+        return joinParts('.', localHost1, localHost2, localHost3, localHost4);
     }
 
     private String getBroadcast() {
-        return joinParts('.', mBroadcast1, mBroadcast2, mBroadcast3, mBroadcast4);
+        return joinParts('.', broadcast1, broadcast2, broadcast3, broadcast4);
     }
 
-    private int getLocalPort() {
-        return Integer.valueOf(extractString(mLocalPort));
-    }
+    private int getLocalPort() { return Integer.valueOf(extractString(localPort)); }
 
     private String getRemoteHost() {
-        return joinParts('.', mRemoteHost1, mRemoteHost2, mRemoteHost3, mRemoteHost4);
+        return joinParts('.', remoteHost1, remoteHost2, remoteHost3, remoteHost4);
     }
 
-    private int getRemotePort() {
-        return Integer.valueOf(extractString(mRemotePort));
-    }
+    private int getRemotePort() { return Integer.valueOf(extractString(remotePort)); }
 
     private String getMacAddress() {
         return joinParts('-',
-                mMacAddress1, mMacAddress2, mMacAddress3,
-                mMacAddress4, mMacAddress5, mMacAddress6);
+                macAddress1, macAddress2, macAddress3,
+                macAddress4, macAddress5, macAddress6);
     }
 
     private int getConnectionTimeout() {
-        return Integer.valueOf(extractString(mConnectionTimeout));
+        return Integer.valueOf(extractString(connectionTimeout));
     }
 
-    private int getReadTimeout() {
-        return Integer.valueOf(extractString(mReadTimeout));
-    }
+    private int getReadTimeout() { return Integer.valueOf(extractString(readTimeout)); }
 
     /**
      * @return The encoded (MD5) security token.
      */
-    private String getSecurityToken() {
-        return Md5.encode(extractString(mSecurityToken));
-    }
+    private String getSecurityToken() { return Md5.encode(extractString(securityToken)); }
 
     private ConnectionType getConnectionType() {
         // TODO load from IHM
         return ConnectionType.LOCAL;
     }
 
-    private final TextWatcher mMacAddressWatcher = new TextWatcher() {
+    private final TextWatcher macAddressWatcher = new TextWatcher() {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -363,33 +353,33 @@ public class ServerEditActivity extends AppCompatActivity {
 
             // Local host
 
-            if (editable == mMacAddress1.getEditableText()) {
-                clearTextView(mMacAddress2);
-                mMacAddress2.requestFocus();
+            if (editable == macAddress1.getEditableText()) {
+                clearTextView(macAddress2);
+                macAddress2.requestFocus();
 
-            } else if (editable == mMacAddress2.getEditableText()) {
-                clearTextView(mMacAddress3);
-                mMacAddress3.requestFocus();
+            } else if (editable == macAddress2.getEditableText()) {
+                clearTextView(macAddress3);
+                macAddress3.requestFocus();
 
-            } else if (editable == mMacAddress3.getEditableText()) {
-                clearTextView(mMacAddress4);
-                mMacAddress4.requestFocus();
+            } else if (editable == macAddress3.getEditableText()) {
+                clearTextView(macAddress4);
+                macAddress4.requestFocus();
 
-            } else if (editable == mMacAddress4.getEditableText()) {
-                clearTextView(mMacAddress5);
-                mMacAddress5.requestFocus();
+            } else if (editable == macAddress4.getEditableText()) {
+                clearTextView(macAddress5);
+                macAddress5.requestFocus();
 
-            } else if (editable == mMacAddress5.getEditableText()) {
-                clearTextView(mMacAddress6);
-                mMacAddress6.requestFocus();
+            } else if (editable == macAddress5.getEditableText()) {
+                clearTextView(macAddress6);
+                macAddress6.requestFocus();
 
-            } else if (editable == mMacAddress6.getEditableText()) {
-                mConnectionTimeout.requestFocus();
+            } else if (editable == macAddress6.getEditableText()) {
+                connectionTimeout.requestFocus();
             }
         }
     };
 
-    private final TextWatcher mIpAddressWatcher = new TextWatcher() {
+    private final TextWatcher ipAddressWatcher = new TextWatcher() {
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -406,57 +396,57 @@ public class ServerEditActivity extends AppCompatActivity {
 
             // Local host
 
-            if (editable == mLocalHost1.getEditableText()) {
-                clearTextView(mLocalHost2);
-                mLocalHost2.requestFocus();
+            if (editable == localHost1.getEditableText()) {
+                clearTextView(localHost2);
+                localHost2.requestFocus();
 
-            } else if (editable == mLocalHost2.getEditableText()) {
-                clearTextView(mLocalHost3);
-                mLocalHost3.requestFocus();
+            } else if (editable == localHost2.getEditableText()) {
+                clearTextView(localHost3);
+                localHost3.requestFocus();
 
-            } else if (editable == mLocalHost3.getEditableText()) {
-                clearTextView(mLocalHost4);
-                mLocalHost4.requestFocus();
+            } else if (editable == localHost3.getEditableText()) {
+                clearTextView(localHost4);
+                localHost4.requestFocus();
 
-            } else if (editable == mLocalHost4.getEditableText()) {
-                clearTextView(mLocalPort);
-                mLocalPort.requestFocus();
+            } else if (editable == localHost4.getEditableText()) {
+                clearTextView(localPort);
+                localPort.requestFocus();
 
                 // Broadcast address
 
-            } else if (editable == mBroadcast1.getEditableText()) {
-                clearTextView(mBroadcast2);
-                mBroadcast2.requestFocus();
+            } else if (editable == broadcast1.getEditableText()) {
+                clearTextView(broadcast2);
+                broadcast2.requestFocus();
 
-            } else if (editable == mBroadcast2.getEditableText()) {
-                clearTextView(mBroadcast3);
-                mBroadcast3.requestFocus();
+            } else if (editable == broadcast2.getEditableText()) {
+                clearTextView(broadcast3);
+                broadcast3.requestFocus();
 
-            } else if (editable == mBroadcast3.getEditableText()) {
-                clearTextView(mBroadcast4);
-                mBroadcast4.requestFocus();
+            } else if (editable == broadcast3.getEditableText()) {
+                clearTextView(broadcast4);
+                broadcast4.requestFocus();
 
-            } else if (editable == mBroadcast4.getEditableText()) {
-                clearTextView(mRemoteHost1);
-                mRemoteHost1.requestFocus();
+            } else if (editable == broadcast4.getEditableText()) {
+                clearTextView(remoteHost1);
+                remoteHost1.requestFocus();
 
                 // Remote host
 
-            } else if (editable == mRemoteHost1.getEditableText()) {
-                clearTextView(mRemoteHost2);
-                mRemoteHost2.requestFocus();
+            } else if (editable == remoteHost1.getEditableText()) {
+                clearTextView(remoteHost2);
+                remoteHost2.requestFocus();
 
-            } else if (editable == mRemoteHost2.getEditableText()) {
-                clearTextView(mRemoteHost3);
-                mRemoteHost3.requestFocus();
+            } else if (editable == remoteHost2.getEditableText()) {
+                clearTextView(remoteHost3);
+                remoteHost3.requestFocus();
 
-            } else if (editable == mRemoteHost3.getEditableText()) {
-                clearTextView(mRemoteHost4);
-                mRemoteHost4.requestFocus();
+            } else if (editable == remoteHost3.getEditableText()) {
+                clearTextView(remoteHost4);
+                remoteHost4.requestFocus();
 
-            } else if (editable == mRemoteHost4.getEditableText()) {
-                clearTextView(mRemotePort);
-                mRemotePort.requestFocus();
+            } else if (editable == remoteHost4.getEditableText()) {
+                clearTextView(remotePort);
+                remotePort.requestFocus();
             }
         }
     };

@@ -36,19 +36,19 @@ import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Response.Retur
  */
 public class RemoteExplorerFragment extends AbstractExplorerFragment implements RequestSender {
 
-    private TaskCallbacks mCallbacks;
-    private RequestSender mRequestSender;
-    private ToastSender   mToastSender;
+    private TaskCallbacks callbacks;
+    private RequestSender requestSender;
+    private ToastSender toastSender;
 
-    private TextView mTvEmpty;
-    private View     mViewFailure;
+    private TextView tvEmpty;
+    private View viewFailure;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallbacks = (TaskCallbacks) activity;
-        mRequestSender = (RequestSender) activity;
-        mToastSender = (ToastSender) activity;
+        callbacks = (TaskCallbacks) activity;
+        requestSender = (RequestSender) activity;
+        toastSender = (ToastSender) activity;
     }
 
     @Override
@@ -66,9 +66,9 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
-        mRequestSender = null;
-        mToastSender = null;
+        callbacks = null;
+        requestSender = null;
+        toastSender = null;
     }
 
     @Override
@@ -76,14 +76,14 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
-        mTvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
-        mViewFailure = view.findViewById(R.id.failure);
+        tvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
+        viewFailure = view.findViewById(R.id.failure);
 
         view.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                navigateTo(mPath);
+                navigateTo(path);
             }
         });
 
@@ -112,7 +112,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
                     .build());
 
         } catch (Exception e) {
-            mToastSender.sendToast(R.string.build_request_error);
+            toastSender.sendToast(R.string.build_request_error);
         }
     }
 
@@ -132,7 +132,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
                     .setStringExtra(dirPath)
                     .build());
         } else {
-            mToastSender.sendToast(R.string.msg_no_path_defined);
+            toastSender.sendToast(R.string.msg_no_path_defined);
         }
     }
 
@@ -150,15 +150,15 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
         if (ExplorerMessageMgr.availablePermits() > 0) {
             new ExplorerMessageMgr().execute(request);
         } else {
-            mToastSender.sendToast(R.string.msg_no_more_permit);
+            toastSender.sendToast(R.string.msg_no_more_permit);
         }
     }
 
     @Override
-    public NetworkDevice getDevice() { return mRequestSender.getDevice(); }
+    public NetworkDevice getDevice() { return requestSender.getDevice(); }
 
     @Override
-    public String getSecurityToken() { return mRequestSender.getSecurityToken(); }
+    public String getSecurityToken() { return requestSender.getSecurityToken(); }
 
     /**
      * Class that handle asynchronous requests sent to a remote server.
@@ -167,9 +167,7 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
      */
     private class ExplorerMessageMgr extends AsyncMessageMgr {
 
-        public ExplorerMessageMgr() {
-            super(getDevice(), mCallbacks);
-        }
+        public ExplorerMessageMgr() { super(getDevice(), callbacks); }
 
         @Override
         protected void onPostExecute(Response response) {
@@ -181,18 +179,18 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
 
             // Display the message if any
             if (!response.getMessage().isEmpty() && BuildConfig.DEBUG) {
-                mToastSender.sendToast(response.getMessage());
+                toastSender.sendToast(response.getMessage());
             }
 
             // Update view in case of empty list (error or empty directory)
             if (RC_ERROR.equals(response.getReturnCode())) {
-                mTvEmpty.setVisibility(View.GONE);
-                mViewFailure.setVisibility(View.VISIBLE);
+                tvEmpty.setVisibility(View.GONE);
+                viewFailure.setVisibility(View.VISIBLE);
                 return;
             }
 
-            mViewFailure.setVisibility(View.GONE);
-            mTvEmpty.setVisibility(View.VISIBLE);
+            viewFailure.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
 
             updateView(response.getFile());
         }

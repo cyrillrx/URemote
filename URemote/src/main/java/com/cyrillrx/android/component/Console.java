@@ -20,15 +20,15 @@ import java.util.Random;
  */
 public class Console extends LinearLayout {
 
-    private final static int MAX_LINES             = 5;
-    private final static int REMOVE_LINE_DURATION  = 200;
-    private final static int LETTER_FIXED_DELAY    = 10;
+    private final static int MAX_LINES = 5;
+    private final static int REMOVE_LINE_DURATION = 200;
+    private final static int LETTER_FIXED_DELAY = 10;
     private final static int LETTER_VARIABLE_DELAY = 40;
 
-    private LinearLayout mConsoleContent;
-    private List<TextView> mLines = new ArrayList<>();
+    private LinearLayout consoleContent;
+    private List<TextView> lines = new ArrayList<>();
 
-    private TextView mConsoleLineModel;
+    private TextView consoleLineModel;
 
     public Console(Context context) {
         super(context);
@@ -49,10 +49,10 @@ public class Console extends LinearLayout {
     private void initViews(final Context context) {
 
         inflate(context, R.layout.console, this);
-        mConsoleLineModel = (TextView) findViewById(R.id.tvConsoleLine);
-        mConsoleContent = (LinearLayout) findViewById(R.id.consoleContent);
+        consoleLineModel = (TextView) findViewById(R.id.tvConsoleLine);
+        consoleContent = (LinearLayout) findViewById(R.id.consoleContent);
         // Remove the model from the view
-        mConsoleContent.removeAllViews();
+        consoleContent.removeAllViews();
     }
 
     private static TextView createTextView(Context context, TextView model) {
@@ -81,7 +81,7 @@ public class Console extends LinearLayout {
             return;
         }
 
-        final TextView textView = createTextView(context, mConsoleLineModel);
+        final TextView textView = createTextView(context, consoleLineModel);
 
         (new AsyncTask<String, String, Void>() {
 
@@ -111,9 +111,9 @@ public class Console extends LinearLayout {
             @Override
             protected void onProgressUpdate(String... values) {
                 if (firstLetter) {
-                    mLines.add(textView);
-                    mConsoleContent.addView(textView);
-                    if (mLines.size() > MAX_LINES) {
+                    lines.add(textView);
+                    consoleContent.addView(textView);
+                    if (lines.size() > MAX_LINES) {
                         removeLine();
                     }
                     firstLetter = false;
@@ -129,12 +129,12 @@ public class Console extends LinearLayout {
      */
     private void removeLine() {
         final int lineId = 0;
-        final TextView lineToRemove = mLines.get(lineId);
+        final TextView lineToRemove = lines.get(lineId);
 
         // Translate all lines
         final int startValue = 0;
         final int endValue = startValue - lineToRemove.getHeight();
-        for (TextView line : mLines) {
+        for (TextView line : lines) {
             ObjectAnimator
                     .ofInt(line, "translationY", startValue, endValue)
                     .setDuration(REMOVE_LINE_DURATION)
@@ -153,8 +153,8 @@ public class Console extends LinearLayout {
             @Override
             public void onAnimationEnd(Animator animator) {
                 lineToRemove.setVisibility(GONE);
-                mLines.remove(lineId);
-                mConsoleContent.removeView(lineToRemove);
+                lines.remove(lineId);
+                consoleContent.removeView(lineToRemove);
             }
 
             @Override

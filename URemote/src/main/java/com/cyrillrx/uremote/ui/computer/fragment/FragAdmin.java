@@ -32,15 +32,15 @@ import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Type;
  */
 public class FragAdmin extends Fragment implements OnClickListener {
 
-    private RequestSender mRequestSender;
-    private ToastSender   mToastSender;
-    private Console       mConsole;
+    private RequestSender requestSender;
+    private ToastSender toastSender;
+    private Console console;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mRequestSender = (RequestSender) activity;
-        mToastSender = (ToastSender) activity;
+        requestSender = (RequestSender) activity;
+        toastSender = (ToastSender) activity;
     }
 
     @Override
@@ -58,8 +58,8 @@ public class FragAdmin extends Fragment implements OnClickListener {
     @Override
     public void onDetach() {
         super.onDetach();
-        mRequestSender = null;
-        mToastSender = null;
+        requestSender = null;
+        toastSender = null;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
         view.findViewById(R.id.cmdKillServer).setOnClickListener(this);
         view.findViewById(R.id.cmdLock).setOnClickListener(this);
 
-        mConsole = (Console) view.findViewById(R.id.console);
+        console = (Console) view.findViewById(R.id.console);
 
         return view;
     }
@@ -100,9 +100,9 @@ public class FragAdmin extends Fragment implements OnClickListener {
                 break;
 
             case R.id.cmdAiMute:
-                mRequestSender.sendRequest(buildRequest(Type.AI, Code.MUTE));
+                requestSender.sendRequest(buildRequest(Type.AI, Code.MUTE));
                 // TODO factorize log code
-                mConsole.addLine("Sending request - Type:" + Type.AI.name() + " Code: " + Code.MUTE.name());
+                console.addLine("Sending request - Type:" + Type.AI.name() + " Code: " + Code.MUTE.name());
                 break;
 
             case R.id.cmdKillServer:
@@ -127,18 +127,18 @@ public class FragAdmin extends Fragment implements OnClickListener {
         final String defaultHost = getString(defaultHostResId);
         final String defaultMacAddress = getString(R.string.default_mac_address);
 
-        final NetworkDevice device = mRequestSender.getDevice();
+        final NetworkDevice device = requestSender.getDevice();
         String host = defaultHost;
         String macAddress = defaultMacAddress;
         if (device != null) {
             host = wifi ? device.getBroadcast() : device.getRemoteHost();
             macAddress = device.getMacAddress();
         }
-        new WakeOnLan(mToastSender).execute(host, macAddress);
+        new WakeOnLan(toastSender).execute(host, macAddress);
 
         // TODO factorize log code
         final String message = "ip : " + host + ", mac : " + macAddress;
-        mConsole.addLine("Sending WOL - " + message);
+        console.addLine("Sending WOL - " + message);
 
         // TODO : if device, run. else error toast
     }
@@ -149,7 +149,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
     private Request buildRequest(final Request.Type requestType, final Request.Code requestCode) {
         return Request.newBuilder()
-                .setSecurityToken(mRequestSender.getSecurityToken())
+                .setSecurityToken(requestSender.getSecurityToken())
                 .setType(requestType)
                 .setCode(requestCode)
                 .build();
@@ -157,7 +157,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
 
     private void confirmRequest(final Request.Type requestType, final Request.Code requestCode) {
         confirmRequest(Request.newBuilder()
-                .setSecurityToken(mRequestSender.getSecurityToken())
+                .setSecurityToken(requestSender.getSecurityToken())
                 .setType(requestType)
                 .setCode(requestCode)
                 .build());
@@ -179,9 +179,9 @@ public class FragAdmin extends Fragment implements OnClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // Send the request if the user confirms it
-                        mRequestSender.sendRequest(request);
+                        requestSender.sendRequest(request);
                         // TODO factorize log code
-                        mConsole.addLine("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name());
+                        console.addLine("Sending request - Type:" + request.getType().name() + " Code: " + request.getCode().name());
                     }
                 })
 

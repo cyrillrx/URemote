@@ -6,5 +6,5 @@ package com.cyrillrx.uremote.network;
  */
 public class MacAddress {
 
-    private String[] mParts = new String[6];
+    private String[] parts = new String[6];
 }

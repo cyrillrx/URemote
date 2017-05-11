@@ -21,38 +21,38 @@ public abstract class DrawingThread extends Thread {
 
     private static final String TAG = DrawingThread.class.getSimpleName();
 
-    private final SurfaceHolder mSurfaceHolder;
-    private final Resources     mResources;
-    private ConcurrentLinkedQueue<InputEvent> mEventQueue = new ConcurrentLinkedQueue<>();
+    private final SurfaceHolder surfaceHolder;
+    private final Resources resources;
+    private ConcurrentLinkedQueue<InputEvent> eventQueue = new ConcurrentLinkedQueue<>();
 
     /** Number of frame we wish to draw per second. */
-    private int     mFrameRate     = 20;
+    private int frameRate = 20;
     /** The time a frame is suppose to stay on screen in milliseconds. */
-    private int     mFrameDuration = 1000 / mFrameRate;
+    private int frameDuration = 1000 / frameRate;
     /** Indicate whether the thread is suppose to draw or not. */
-    private boolean mRunning       = true;
+    private boolean running = true;
 
     public DrawingThread(SurfaceHolder surfaceHolder, Context context) {
-        mSurfaceHolder = surfaceHolder;
-        mResources = context.getResources();
+        this.surfaceHolder = surfaceHolder;
+        resources = context.getResources();
     }
 
     @Override
     public void run() {
 
-        while (mRunning) {
+        while (running) {
             long start = System.currentTimeMillis();
 
             update();
             draw();
 
-            final long waitingTimeMillis = mFrameDuration - (System.currentTimeMillis() - start);
+            final long waitingTimeMillis = frameDuration - (System.currentTimeMillis() - start);
             if (waitingTimeMillis > 0) {
                 try {
                     sleep(waitingTimeMillis);
                 } catch (InterruptedException e) {
                     Log.e(TAG, "DrawingThread - Crash on run()", e);
-                    mRunning = false;
+                    running = false;
                 }
             } else {
                 // We are running late !
@@ -62,8 +62,8 @@ public abstract class DrawingThread extends Thread {
     }
 
     public void setFrameRate(int framePerSecond) {
-        mFrameRate = framePerSecond;
-        mFrameDuration = 1000 / mFrameRate;
+        frameRate = framePerSecond;
+        frameDuration = 1000 / frameRate;
     }
 
     /**
@@ -72,13 +72,13 @@ public abstract class DrawingThread extends Thread {
      * @param running true to run, false to shut down
      */
     public void setRunning(boolean running) {
-        mRunning = running;
+        this.running = running;
     }
 
     /** Callback invoked when the surface dimensions change. */
     public void setSurfaceSize(int width, int height) {
         // synchronized to make sure these all change atomically
-        synchronized (mSurfaceHolder) {
+        synchronized (surfaceHolder) {
             updateSurfaceSize(width, height);
         }
     }
@@ -111,30 +111,30 @@ public abstract class DrawingThread extends Thread {
 
     /** Add a motionEvent that will be processed in {@link #update()}. */
     public boolean addInputEvent(InputEvent event) {
-        return mEventQueue.add(event);
+        return eventQueue.add(event);
     }
 
     /** @return true if the event queue is not empty. */
     protected boolean hasNext() {
-        return !mEventQueue.isEmpty();
+        return !eventQueue.isEmpty();
     }
 
     /** Poll the next motionEvent to process. */
     protected InputEvent pollInputEvent() {
-        return mEventQueue.poll();
+        return eventQueue.poll();
     }
 
     /** Draw the new frame. */
     private void draw() {
         Canvas canvas = null;
         try {
-            canvas = mSurfaceHolder.lockCanvas(null);
+            canvas = surfaceHolder.lockCanvas(null);
             if (canvas != null) {
                 doDraw(canvas);
             }
         } finally {
             if (canvas != null) {
-                mSurfaceHolder.unlockCanvasAndPost(canvas);
+                surfaceHolder.unlockCanvasAndPost(canvas);
             }
         }
     }
@@ -145,7 +145,5 @@ public abstract class DrawingThread extends Thread {
      */
     protected abstract void doDraw(Canvas canvas);
 
-    protected Resources getResources() {
-        return mResources;
-    }
+    protected Resources getResources() { return resources; }
 }

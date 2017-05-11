@@ -46,27 +46,27 @@ public class ServerListActivity extends ListActivity {
 
     private static final String TAG = ServerListActivity.class.getSimpleName();
 
-    private static final int RC_ADD_SERVER  = 0;
+    private static final int RC_ADD_SERVER = 0;
     private static final int RC_EDIT_SERVER = 1;
     private static final int RC_LOAD_SERVER = 2;
 
-    protected String mAction;
-    private List<NetworkDevice> mDevices  = new ArrayList<>();
-    private File                mConfFile = null;
+    protected String action;
+    private List<NetworkDevice> devices = new ArrayList<>();
+    private File confFile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_list);
 
-        mAction = getIntent().getAction();
-        if (mAction == null) { mAction = ACTION_SELECT; }
+        action = getIntent().getAction();
+        if (action == null) { action = ACTION_SELECT; }
 
-        setTitle(ACTION_EDIT.equals(mAction) ? R.string.title_server_edit : R.string.title_server_select);
+        setTitle(ACTION_EDIT.equals(action) ? R.string.title_server_edit : R.string.title_server_select);
 
-        mConfFile = new File(getExternalFilesDir(null), FILENAME);
-        if (mConfFile.exists()) {
-            asyncLoadServers(mConfFile, mDevices);
+        confFile = new File(getExternalFilesDir(null), FILENAME);
+        if (confFile.exists()) {
+            asyncLoadServers(confFile, devices);
         }
 
         // Handle "Add server" button
@@ -110,11 +110,11 @@ public class ServerListActivity extends ListActivity {
         intent.putExtra(EXTRA_SERVER_DATA, device);
         intent.putExtra(EXTRA_SERVER_ID, position);
 
-        if (ACTION_SELECT.equals(mAction)) {
+        if (ACTION_SELECT.equals(action)) {
             setResult(RESULT_OK, intent);
             finish();
 
-        } else if (ACTION_EDIT.equals(mAction)) {
+        } else if (ACTION_EDIT.equals(action)) {
             intent.setClass(getApplicationContext(), ServerEditActivity.class);
             intent.setAction(ACTION_EDIT);
             startActivityForResult(intent, RC_EDIT_SERVER);
@@ -127,7 +127,7 @@ public class ServerListActivity extends ListActivity {
             ServerArrayAdapter adapter = new ServerArrayAdapter(getApplicationContext(), devices);
             setListAdapter(adapter);
         } else {
-            asyncSaveServers(devices, mConfFile);
+            asyncSaveServers(devices, confFile);
         }
     }
 
@@ -201,7 +201,7 @@ public class ServerListActivity extends ListActivity {
 
             case RC_LOAD_SERVER:
                 final String filePath = data.getStringExtra(EXTRA_SERVER_CONF_FILE);
-                asyncLoadServers(new File(filePath), mDevices);
+                asyncLoadServers(new File(filePath), devices);
                 break;
         }
     }
@@ -212,9 +212,9 @@ public class ServerListActivity extends ListActivity {
      * @param device
      */
     private void addServer(NetworkDevice device) {
-        mDevices.add(device);
-        asyncSaveServers(mDevices, mConfFile);
-        updateView(mDevices);
+        devices.add(device);
+        asyncSaveServers(devices, confFile);
+        updateView(devices);
     }
 
     /**
@@ -224,9 +224,9 @@ public class ServerListActivity extends ListActivity {
      * @param newData
      */
     private void updateServer(int deviceId, NetworkDevice newData) {
-        mDevices.get(deviceId).update(newData);
-        asyncSaveServers(mDevices, mConfFile);
-        updateView(mDevices);
+        devices.get(deviceId).update(newData);
+        asyncSaveServers(devices, confFile);
+        updateView(devices);
     }
 
     /**
@@ -235,31 +235,31 @@ public class ServerListActivity extends ListActivity {
      * @param deviceId
      */
     private void deleteServer(int deviceId) {
-        mDevices.remove(deviceId);
-        asyncSaveServers(mDevices, mConfFile);
-        updateView(mDevices);
+        devices.remove(deviceId);
+        asyncSaveServers(devices, confFile);
+        updateView(devices);
     }
 
     /** Load the devices from a list of {@link File} objects. */
     private class AsyncLoadServer extends AsyncTask<Void, Void, Boolean> {
 
-        final File                mSourceFile;
-        final List<NetworkDevice> mDestination;
+        final File sourceFile;
+        final List<NetworkDevice> destination;
 
         private AsyncLoadServer(File configFile, List<NetworkDevice> devices) {
-            mSourceFile = configFile;
-            mDestination = devices;
+            sourceFile = configFile;
+            destination = devices;
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return NetworkDeviceDao.loadFromFile(mSourceFile, mDestination);
+            return NetworkDeviceDao.loadFromFile(sourceFile, destination);
         }
 
         @Override
         protected void onPostExecute(Boolean loaded) {
 
-            updateView(mDestination);
+            updateView(destination);
 
             if (loaded) {
                 if (BuildConfig.DEBUG) {
@@ -274,17 +274,17 @@ public class ServerListActivity extends ListActivity {
     /** Save the devices to a {@link File} . */
     private class AsyncSaveServer extends AsyncTask<Void, Void, Boolean> {
 
-        final List<NetworkDevice> mSource;
-        final File                mTargetFile;
+        final List<NetworkDevice> source;
+        final File targetFile;
 
         private AsyncSaveServer(List<NetworkDevice> devices, File targetFile) {
-            mSource = devices;
-            mTargetFile = targetFile;
+            source = devices;
+            this.targetFile = targetFile;
         }
 
         @Override
         protected Boolean doInBackground(Void... voids) {
-            return NetworkDeviceDao.saveToFile(mSource, mTargetFile);
+            return NetworkDeviceDao.saveToFile(source, targetFile);
         }
 
         @Override

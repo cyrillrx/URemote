@@ -30,7 +30,7 @@ public class ConnectionUtils {
      * @param connectivityMgr Object that contains connections data.
      * @return true if the device is connected to the Internet through WIFI. false otherwise.
      */
-    public static boolean isConnectedThroughWifi(ConnectivityManager connectivityMgr) {
+    public static boolean isWifiConnected(ConnectivityManager connectivityMgr) {
         boolean isConnectedToWifi = connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
         return isConnectedToWifi;
     }
@@ -44,7 +44,7 @@ public class ConnectionUtils {
     public static boolean isConnectedToInternet(ConnectivityManager connectivityMgr) {
 
         boolean isMobileConnected = connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).isConnected();
-        boolean isWifiConnected = isConnectedThroughWifi(connectivityMgr);
+        boolean isWifiConnected = isWifiConnected(connectivityMgr);
 
         if (isMobileConnected || isWifiConnected) {
             return true;

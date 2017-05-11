@@ -35,9 +35,7 @@ import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  */
 public class HomeActivity extends AppCompatActivity {
 
-    private static final String TAG = HomeActivity.class.getSimpleName();
-
-    private List<ActionItem> mActionList;
+    private List<ActionItem> actionList;
 
     /** Called when the activity is first created. */
     @Override
@@ -51,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         recyclerView.setHasFixedSize(true);
-        final ActionAdapter adapter = new ActionAdapter(this, mActionList);
+        final ActionAdapter adapter = new ActionAdapter(this, actionList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -83,20 +81,21 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initActionList() {
-        if (mActionList != null) {
-            return;
-        }
-        mActionList = new ArrayList<>();
-        mActionList.add(new ActionItem(ActionItem.ACTION_COMPUTER, getString(R.string.title_computer), R.drawable.home_computer));
-        mActionList.add(new ActionItem(ActionItem.ACTION_LIGHTS, getString(R.string.title_lights), R.drawable.home_light));
-        mActionList.add(new ActionItem(ActionItem.ACTION_TV, getString(R.string.title_tv), R.drawable.home_tv));
-        mActionList.add(new ActionItem(ActionItem.ACTION_ROBOTS, getString(R.string.title_robots), R.drawable.home_robot));
+
+        if (actionList != null) { return; }
+
+        actionList = new ArrayList<>();
+        actionList.add(new ActionItem(ActionItem.ACTION_COMPUTER, getString(R.string.title_computer), R.drawable.home_computer));
+        actionList.add(new ActionItem(ActionItem.ACTION_LIGHTS, getString(R.string.title_lights), R.drawable.home_light));
+        actionList.add(new ActionItem(ActionItem.ACTION_TV, getString(R.string.title_tv), R.drawable.home_tv));
+        actionList.add(new ActionItem(ActionItem.ACTION_ROBOTS, getString(R.string.title_robots), R.drawable.home_robot));
+        actionList.add(new ActionItem(ActionItem.ACTION_EXPLORER, getString(R.string.title_explorer), R.drawable.filemanager_folder));
 
         if (BuildConfig.DEBUG) {
-            mActionList.add(new ActionItem(ActionItem.ACTION_HIFI, getString(R.string.title_hifi), R.drawable.home_hifi));
-            mActionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.home_nao));
-            mActionList.add(new ActionItem(ActionItem.ACTION_STORE, getString(R.string.title_app_store), R.drawable.nao_app_store));
-            mActionList.add(new ActionItem(ActionItem.ACTION_SHOW_NAO, getString(R.string.title_show_nao), R.drawable.home_nao));
+            actionList.add(new ActionItem(ActionItem.ACTION_HIFI, getString(R.string.title_hifi), R.drawable.home_hifi));
+            actionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.home_nao));
+            actionList.add(new ActionItem(ActionItem.ACTION_STORE, getString(R.string.title_app_store), R.drawable.nao_app_store));
+            actionList.add(new ActionItem(ActionItem.ACTION_SHOW_NAO, getString(R.string.title_show_nao), R.drawable.home_nao));
         }
     }
 

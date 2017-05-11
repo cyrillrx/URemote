@@ -21,37 +21,37 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
 
     private static final String TAG = AsyncMessageMgr.class.getSimpleName();
 
-    protected static Semaphore sSemaphore = new Semaphore(2, true);
+    protected static Semaphore semaphore = new Semaphore(2, true);
 
-    protected final NetworkDevice mRemoteDevice;
-    private final   TaskCallbacks mTaskCallbacks;
+    protected final NetworkDevice remoteDevice;
+    private final TaskCallbacks taskCallbacks;
 
     /**
      * @param device        The device towards which to send the request.
      * @param taskCallbacks An object to call back during the task lifecycle
      */
     public AsyncMessageMgr(NetworkDevice device, TaskCallbacks taskCallbacks) {
-        mRemoteDevice = device;
-        mTaskCallbacks = taskCallbacks;
+        remoteDevice = device;
+        this.taskCallbacks = taskCallbacks;
     }
 
     @Override
     protected void onPreExecute() {
         try {
-            sSemaphore.acquire();
-            Logger.info(TAG, "#onPreExecute - Semaphore acquire. " + sSemaphore.availablePermits() + " left.");
+            semaphore.acquire();
+            Logger.info(TAG, "#onPreExecute - Semaphore acquire. " + semaphore.availablePermits() + " left.");
         } catch (InterruptedException e) {
             Logger.error(TAG, "#onPreExecute - Semaphore acquire error.");
         }
 
-        if (mTaskCallbacks != null) {
-            mTaskCallbacks.onPreExecute();
+        if (taskCallbacks != null) {
+            taskCallbacks.onPreExecute();
         }
     }
 
     @Override
     protected Response doInBackground(Request... requests) {
-        return MessageUtils.sendRequest(requests[0], mRemoteDevice);
+        return MessageUtils.sendRequest(requests[0], remoteDevice);
     }
 
     /**
@@ -64,7 +64,7 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
      */
     @Override
     protected void onPostExecute(Response response) {
-        sSemaphore.release();
+        semaphore.release();
         Logger.info(TAG, "Semaphore release");
 
         if (response == null) {
@@ -78,29 +78,27 @@ public class AsyncMessageMgr extends AsyncTask<Request, int[], Response> {
             Logger.info(TAG, "#onPostExecute - empty message.");
         }
 
-        if (mTaskCallbacks != null) {
-            mTaskCallbacks.onPostExecute(response);
+        if (taskCallbacks != null) {
+            taskCallbacks.onPostExecute(response);
         }
     }
 
     @Override
     protected void onProgressUpdate(int[]... values) {
-        if (mTaskCallbacks != null) {
-            mTaskCallbacks.onProgressUpdate(values[0][0]);
+        if (taskCallbacks != null) {
+            taskCallbacks.onProgressUpdate(values[0][0]);
         }
     }
 
     @Override
     protected void onCancelled(Response response) {
-        if (mTaskCallbacks != null) {
-            mTaskCallbacks.onCancelled(response);
+        if (taskCallbacks != null) {
+            taskCallbacks.onCancelled(response);
         }
     }
 
     /**
      * @return The count of available permits.
      */
-    public static int availablePermits() {
-        return sSemaphore.availablePermits();
-    }
+    public static int availablePermits() { return semaphore.availablePermits(); }
 }

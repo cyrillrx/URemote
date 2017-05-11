@@ -41,11 +41,11 @@ public class MediaWidgetProvider extends AppWidgetProvider {
 
     private static final String TAG = MediaWidgetProvider.class.getSimpleName();
 
-    private static final String ACTION_START_ACTIVITY   = "ACTION_START_ACTIVITY";
-    private static final String ACTION_MEDIA_PREVIOUS   = "ACTION_MEDIA_PREVIOUS";
+    private static final String ACTION_START_ACTIVITY = "ACTION_START_ACTIVITY";
+    private static final String ACTION_MEDIA_PREVIOUS = "ACTION_MEDIA_PREVIOUS";
     private static final String ACTION_MEDIA_PLAY_PAUSE = "ACTION_MEDIA_PLAY_PAUSE";
-    private static final String ACTION_MEDIA_STOP       = "ACTION_MEDIA_STOP";
-    private static final String ACTION_MEDIA_NEXT       = "ACTION_MEDIA_NEXT";
+    private static final String ACTION_MEDIA_STOP = "ACTION_MEDIA_STOP";
+    private static final String ACTION_MEDIA_NEXT = "ACTION_MEDIA_NEXT";
 
     @Override
     public void onEnabled(Context context) {
@@ -115,7 +115,6 @@ public class MediaWidgetProvider extends AppWidgetProvider {
         remoteViews.setOnClickPendingIntent(R.id.cmdNext, nextPendingIntent);
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews);
-        ;
     }
 
     @Override

@@ -19,27 +19,27 @@ public class HexagonGridThread extends DrawingThread {
     /** Coefficient to compute the hexagon side. */
     private static final float HEXAGON_SIDE_COEF = 0.2f;
     /** The paint's stroke width, used whenever the paint's style is Stroke or StrokeAndFill. */
-    private static final int   STROKE_WIDTH      = 3;
+    private static final int STROKE_WIDTH = 3;
 
-    private final Paint mPaint;
-    private final Paint mPaintOnTouch;
+    private final Paint paint;
+    private final Paint paintOnTouch;
 
-    private Hexagon[] mHexagon   = new Hexagon[4];
-    private boolean   mIsTouched = false;
+    private Hexagon[] hexagon = new Hexagon[4];
+    private boolean isTouched = false;
 
     public HexagonGridThread(SurfaceHolder surfaceHolder, Context context) {
         super(surfaceHolder, context);
 
         // Paint
-        mPaint = new Paint();
-        mPaint.setARGB(255, 70, 200, 200);
-        mPaint.setAntiAlias(true);
-        mPaint.setTypeface(Typeface.DEFAULT_BOLD);
-        mPaint.setStrokeWidth(STROKE_WIDTH);
+        paint = new Paint();
+        paint.setARGB(255, 70, 200, 200);
+        paint.setAntiAlias(true);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setStrokeWidth(STROKE_WIDTH);
 
         // Paint
-        mPaintOnTouch = new Paint(mPaint);
-        mPaintOnTouch.setARGB(255, 255, 255, 255);
+        paintOnTouch = new Paint(paint);
+        paintOnTouch.setARGB(255, 255, 255, 255);
     }
 
     @Override
@@ -62,8 +62,8 @@ public class HexagonGridThread extends DrawingThread {
 
         final int action = event.getActionMasked();
 
-        mIsTouched = (action == MotionEvent.ACTION_DOWN) && mHexagon[0].pointInHexagon(event.getX(), event.getY()) ||
-                (action == MotionEvent.ACTION_MOVE) && mIsTouched && mHexagon[0].pointInHexagon(event.getX(), event.getY());
+        isTouched = (action == MotionEvent.ACTION_DOWN) && hexagon[0].pointInHexagon(event.getX(), event.getY()) ||
+                (action == MotionEvent.ACTION_MOVE) && isTouched && hexagon[0].pointInHexagon(event.getX(), event.getY());
     }
 
     @Override
@@ -78,19 +78,19 @@ public class HexagonGridThread extends DrawingThread {
         // Draw the hexagons
         final float hexagonSide = canvas.getWidth() * HEXAGON_SIDE_COEF;
 
-        if (mHexagon[0] == null) {
-            mHexagon[0] = new Hexagon(hexagonSide);
+        if (hexagon[0] == null) {
+            hexagon[0] = new Hexagon(hexagonSide);
         }
-        mHexagon[0].moveTo(centerX, centerY - mHexagon[0].getHeight() - hexagonSide / 2);
-        mHexagon[0].draw(canvas, mPaint);
+        hexagon[0].moveTo(centerX, centerY - hexagon[0].getHeight() - hexagonSide / 2);
+        hexagon[0].draw(canvas, paint);
 
-        mHexagon[0].moveCenterTo(centerX - mHexagon[0].getWidth() / 2, centerY);
-        mHexagon[0].draw(canvas, mPaint);
+        hexagon[0].moveCenterTo(centerX - hexagon[0].getWidth() / 2, centerY);
+        hexagon[0].draw(canvas, paint);
 
-        mHexagon[0].moveCenterTo(centerX + mHexagon[0].getWidth() / 2, centerY);
-        mHexagon[0].draw(canvas, mPaint);
+        hexagon[0].moveCenterTo(centerX + hexagon[0].getWidth() / 2, centerY);
+        hexagon[0].draw(canvas, paint);
 
-        mHexagon[0].moveTo(centerX, centerY + hexagonSide / 2);
-        mHexagon[0].draw(canvas, mIsTouched ? mPaintOnTouch : mPaint);
+        hexagon[0].moveTo(centerX, centerY + hexagonSide / 2);
+        hexagon[0].draw(canvas, isTouched ? paintOnTouch : paint);
     }
 }

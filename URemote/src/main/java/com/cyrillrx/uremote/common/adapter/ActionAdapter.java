@@ -2,6 +2,7 @@ package com.cyrillrx.uremote.common.adapter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +16,15 @@ import com.cyrillrx.uremote.common.model.ActionItem;
 import com.cyrillrx.uremote.network.Discoverer;
 import com.cyrillrx.uremote.ui.AppLauncherActivity;
 import com.cyrillrx.uremote.ui.HomeActivity;
+import com.cyrillrx.uremote.ui.computer.LoadServerActivity;
 import com.cyrillrx.uremote.ui.nao.OpenGLActivity;
+import com.cyrillrx.uremote.utils.IntentKeys;
 import com.cyrillrx.uremote.utils.NavigationUtils;
 
 import java.util.List;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
+import static com.cyrillrx.uremote.utils.IntentKeys.ACTION_LOAD;
 
 /**
  * Adapter used to display an action list.
@@ -31,14 +35,14 @@ import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
  */
 public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder> {
 
-    private Activity         mActivity;
-    private List<ActionItem> mActionList;
+    private Activity activity;
+    private List<ActionItem> actionList;
 
     /** The view holder is the template for the items of the list. */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView icon;
-        TextView  tvTitle;
-        TextView  tvSummary;
+        TextView tvTitle;
+        TextView tvSummary;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -50,8 +54,8 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
     }
 
     public ActionAdapter(Activity activity, List<ActionItem> actionList) {
-        mActivity = activity;
-        mActionList = actionList;
+        this.activity = activity;
+        this.actionList = actionList;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-        final ActionItem action = mActionList.get(position);
+        final ActionItem action = actionList.get(position);
 
         holder.icon.setImageResource(action.getImageResource());
         holder.tvTitle.setText(action.getTitle());
@@ -78,43 +82,50 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
     }
 
     @Override
-    public int getItemCount() { return mActionList.size(); }
+    public int getItemCount() { return actionList.size(); }
 
     private void onItemClick(int actionId) {
 
         switch (actionId) {
 
             case ActionItem.ACTION_COMPUTER:
-                NavigationUtils.startServerList(mActivity);
+                NavigationUtils.startServerList(activity);
+                break;
+
+            case ActionItem.ACTION_EXPLORER:
+                final Intent loadIntent = new Intent(activity, LoadServerActivity.class);
+                loadIntent.setAction(ACTION_LOAD);
+                loadIntent.putExtra(IntentKeys.DIRECTORY_PATH, Environment.getExternalStorageDirectory().getPath());
+                activity.startActivity(loadIntent);
                 break;
 
             case ActionItem.ACTION_LIGHTS:
-                Toast.makeText(mActivity.getApplicationContext(), mActivity.getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity.getApplicationContext(), activity.getString(R.string.msg_light_control_not_available), Toast.LENGTH_SHORT).show();
                 Discoverer.discoverDevices();
                 break;
 
             case ActionItem.ACTION_TV:
-                NavigationUtils.startTvRemote(mActivity);
+                NavigationUtils.startTvRemote(activity);
                 break;
 
             case ActionItem.ACTION_ROBOTS:
-                NavigationUtils.startRobotControl(mActivity);
+                NavigationUtils.startRobotControl(activity);
                 break;
 
             case ActionItem.ACTION_HIFI:
-                Toast.makeText(mActivity, mActivity.getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
-                NavigationUtils.startHexActivity(mActivity);
+                Toast.makeText(activity, activity.getString(R.string.msg_hifi_control_not_available), Toast.LENGTH_SHORT).show();
+                NavigationUtils.startHexActivity(activity);
                 break;
 
             case ActionItem.ACTION_APP:
-                mActivity.startActivityForResult(new Intent(mActivity.getApplicationContext(), AppLauncherActivity.class), NavigationUtils.RC_APP_LAUNCHER);
+                activity.startActivityForResult(new Intent(activity.getApplicationContext(), AppLauncherActivity.class), NavigationUtils.RC_APP_LAUNCHER);
                 break;
 
             case ActionItem.ACTION_STORE:
                 break;
 
             case ActionItem.ACTION_SHOW_NAO:
-                mActivity.startActivity(new Intent(mActivity.getApplicationContext(), OpenGLActivity.class));
+                activity.startActivity(new Intent(activity.getApplicationContext(), OpenGLActivity.class));
                 break;
 
             default:

@@ -40,12 +40,12 @@ public class FileInfoFactory {
      */
     public static FileInfo createFromLocalPath(final String dirPath, final String[] extensions, final boolean listDirectories) {
 
-        File[] files = FileUtils.listFiles(dirPath, extensions, listDirectories);
+        final File[] files = FileUtils.listFiles(dirPath, extensions, listDirectories);
 
-        FileInfo.Builder dirBuilder = FileInfo.newBuilder();
+        final FileInfo.Builder dirBuilder = FileInfo.newBuilder();
         dirBuilder.setAbsoluteFilePath(dirPath);
 
-        FileInfo.Builder fileBuilder = FileInfo.newBuilder();
+        final FileInfo.Builder fileBuilder = FileInfo.newBuilder();
         for (File file : files) {
             dirBuilder.addChild(populateFileBuilder(fileBuilder, file));
         }

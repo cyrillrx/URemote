@@ -24,13 +24,13 @@ public class HexagonGridView extends DrawingView {
 
     @Override
     public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
-        mThread.addInputEvent(event);
+        thread.addInputEvent(event);
         return true;
     }
 
     @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-        mThread.addInputEvent(event);
+        thread.addInputEvent(event);
         return true;
     }
 
@@ -42,15 +42,15 @@ public class HexagonGridView extends DrawingView {
 //        switch (action) {
 //
 //            case MotionEvent.ACTION_MOVE:
-//                mThread.addUserEvent(new UserEvent(UserEvent.ACTION_MOVE, event.getX(), event.getY()));
+//                thread.addUserEvent(new UserEvent(UserEvent.ACTION_MOVE, event.getX(), event.getY()));
 //                return true;
 //
 //            case MotionEvent.ACTION_DOWN:
-//                mThread.addUserEvent(new UserEvent(UserEvent.ACTION_DOWN, event.getX(), event.getY()));
+//                thread.addUserEvent(new UserEvent(UserEvent.ACTION_DOWN, event.getX(), event.getY()));
 //                return true;
 //
 //            case MotionEvent.ACTION_UP:
-//                mThread.addUserEvent(new UserEvent(UserEvent.ACTION_UP, event.getX(), event.getY()));
+//                thread.addUserEvent(new UserEvent(UserEvent.ACTION_UP, event.getX(), event.getY()));
 //                return true;
 //        }
 //
@@ -64,27 +64,27 @@ public class HexagonGridView extends DrawingView {
 //        final int keyCode = event.getKeyCode();
 //
 //        if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_LEFT, UserEvent.ACTION_DOWN));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_LEFT, UserEvent.ACTION_DOWN));
 //            return true;
 //
 //        } else if (action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_LEFT, UserEvent.ACTION_UP));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_LEFT, UserEvent.ACTION_UP));
 //            return true;
 //
 //        } else if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_DOWN));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_DOWN));
 //            return true;
 //
 //        } else if (action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_UP));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_UP));
 //            return true;
 //
 //        } else if (action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_DOWN));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_DOWN));
 //            return true;
 //
 //        } else if (action == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-//            mThread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_UP));
+//            thread.addUserEvent(new UserEvent(UserEvent.KEYCODE_RIGHT, UserEvent.ACTION_UP));
 //            return true;
 //        }
 //

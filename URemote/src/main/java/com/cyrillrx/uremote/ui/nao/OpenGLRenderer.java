@@ -12,10 +12,11 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class OpenGLRenderer implements GLSurfaceView.Renderer {
 
-    private Cube mCube = new Cube();
-    private float mCubeRotationX;
-    private float mCubeRotationY;
-    private float mCubeRotationZ;
+    private Cube cube = new Cube();
+
+    private float cubeRotationX;
+    private float cubeRotationY;
+    private float cubeRotationZ;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -36,15 +37,15 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         gl.glLoadIdentity();
 
         gl.glTranslatef(0.0f, 0.0f, -10.0f);
-        gl.glRotatef(mCubeRotationX, 1.0f, 0.0f, 0.0f);
-        gl.glRotatef(mCubeRotationY, 0.0f, 1.0f, 0.0f);
-        gl.glRotatef(mCubeRotationZ, 0.0f, 0.0f, 1.0f);
+        gl.glRotatef(cubeRotationX, 1.0f, 0.0f, 0.0f);
+        gl.glRotatef(cubeRotationY, 0.0f, 1.0f, 0.0f);
+        gl.glRotatef(cubeRotationZ, 0.0f, 0.0f, 1.0f);
 
-        mCube.draw(gl);
+        cube.draw(gl);
 
         gl.glLoadIdentity();
 
-        //mCubeRotationX -= 0.30f;
+        //cubeRotationX -= 0.30f;
     }
 
     @Override
@@ -61,8 +62,8 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
     }
 
     public void rotateXYZ(float x, float y, float z) {
-        mCubeRotationX += x;
-        mCubeRotationY += y;
-        mCubeRotationZ += z;
+        cubeRotationX += x;
+        cubeRotationY += y;
+        cubeRotationZ += z;
     }
 }

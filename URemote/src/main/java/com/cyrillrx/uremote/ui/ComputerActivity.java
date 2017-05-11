@@ -42,7 +42,6 @@ import com.cyrillrx.uremote.ui.computer.fragment.FragAdmin;
 import com.cyrillrx.uremote.ui.computer.fragment.FragDashboard;
 import com.cyrillrx.uremote.ui.computer.fragment.RemoteExplorerFragment;
 import com.cyrillrx.uremote.utils.Constants;
-import com.cyrillrx.uremote.utils.NavigationUtils;
 import com.cyrillrx.uremote.utils.TaskCallbacks;
 import com.cyrillrx.uremote.utils.ToastSender;
 
@@ -65,31 +64,31 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
     private static final String SELECTED_PAGE_ID = "SELECTED_PAGE_ID";
     private static final String KEYBOARD_VISIBLE = "KEYBOARD_VISIBLE";
-    private static final int    PAGES_COUNT      = 3;
-    private static final int    DEFAULT_PAGE     = 1;
-    private static final int    PAGE_EXPLORER    = 2;
+    private static final int PAGES_COUNT = 3;
+    private static final int DEFAULT_PAGE = 1;
+    private static final int PAGE_EXPLORER = 2;
 
-    private FragAdmin              mFragAdmin;
-    private FragDashboard          mFragDashboard;
-    private RemoteExplorerFragment mExplorerFragment;
+    private FragAdmin fragAdmin;
+    private FragDashboard fragDashboard;
+    private RemoteExplorerFragment explorerFragment;
 
-    private TextView  mTvServerState;
-    private ImageView mProgressSignal;
-    private ViewPager mViewPager;
+    private TextView tvServerState;
+    private ImageView progressSignal;
+    private ViewPager viewPager;
 
-    private Toast mToast;
+    private Toast toast;
 
-    private NetworkDevice mSelectedDevice;
-    private KeyboardView  mKeyboardView;
-    private KeyboardView  mExtendedKeyboardView;
+    private NetworkDevice selectedDevice;
+    private KeyboardView keyboardView;
+    private KeyboardView extendedKeyboardView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_computer);
 
-        mSelectedDevice = initDevice();
-        final Drawable deviceIcon = new ConnectedDeviceDrawable(mSelectedDevice, Color.WHITE);
+        selectedDevice = initDevice();
+        final Drawable deviceIcon = new ConnectedDeviceDrawable(selectedDevice, Color.WHITE);
 
         // ActionBar configuration
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
@@ -101,41 +100,41 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
             View customView = actionBar.getCustomView();
             ((ImageView) customView.findViewById(R.id.deviceIcon)).setImageDrawable(deviceIcon);
-            mProgressSignal = (ImageView) customView.findViewById(R.id.signalIndicator);
+            progressSignal = (ImageView) customView.findViewById(R.id.signalIndicator);
 
         }
 
-        mTvServerState = (TextView) findViewById(R.id.tvServerState);
+        tvServerState = (TextView) findViewById(R.id.tvServerState);
 
         initKeyboard();
 
         // Fragment to use in each tab
         // If the Fragment is non-null, then it is currently being
         // retained across a configuration change.
-        if (mFragAdmin == null) {
-            mFragAdmin = new FragAdmin();
+        if (fragAdmin == null) {
+            fragAdmin = new FragAdmin();
         }
-        if (mFragDashboard == null) {
-            mFragDashboard = new FragDashboard();
+        if (fragDashboard == null) {
+            fragDashboard = new FragDashboard();
         }
-        if (mExplorerFragment == null) {
-            mExplorerFragment = new RemoteExplorerFragment();
+        if (explorerFragment == null) {
+            explorerFragment = new RemoteExplorerFragment();
         }
 
         List<Fragment> fragments = new ArrayList<>(PAGES_COUNT);
-        fragments.add(mFragAdmin);
-        fragments.add(mFragDashboard);
-        fragments.add(mExplorerFragment);
+        fragments.add(fragAdmin);
+        fragments.add(fragDashboard);
+        fragments.add(explorerFragment);
 
-        mViewPager = (ViewPager) findViewById(R.id.vpMain);
-        mViewPager.setOffscreenPageLimit(PAGES_COUNT);
+        viewPager = (ViewPager) findViewById(R.id.vpMain);
+        viewPager.setOffscreenPageLimit(PAGES_COUNT);
         final ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
-        mViewPager.setAdapter(pagerAdapter);
+        viewPager.setAdapter(pagerAdapter);
 
         if (savedInstanceState != null) {
             final int savedPageId = savedInstanceState.getInt(SELECTED_PAGE_ID, DEFAULT_PAGE);
-            if (savedPageId != mViewPager.getCurrentItem()) {
-                mViewPager.setCurrentItem(savedPageId);
+            if (savedPageId != viewPager.getCurrentItem()) {
+                viewPager.setCurrentItem(savedPageId);
             }
 
             // Update custom keyboard visibility
@@ -143,13 +142,13 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
                 showCustomKeyboard();
             }
         } else {
-            mViewPager.setCurrentItem(DEFAULT_PAGE);
+            viewPager.setCurrentItem(DEFAULT_PAGE);
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        int pageId = mViewPager.getCurrentItem();
+        int pageId = viewPager.getCurrentItem();
         outState.putInt(SELECTED_PAGE_ID, pageId);
         outState.putBoolean(KEYBOARD_VISIBLE, isCustomKeyboardVisible());
         super.onSaveInstanceState(outState);
@@ -183,24 +182,24 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
     /** Initializes custom keyboard elements. */
     private void initKeyboard() {
 
-        mKeyboardView = (KeyboardView) findViewById(R.id.keyboardView);
-        mExtendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
+        keyboardView = (KeyboardView) findViewById(R.id.keyboardView);
+        extendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
 
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener(this);
         keyboardListener.setToastSender(this);
 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_qwerty);
-        mKeyboardView.setKeyboard(keyboard);
-        mKeyboardView.setPreviewEnabled(false);
-        mKeyboardView.setOnKeyboardActionListener(keyboardListener);
+        keyboardView.setKeyboard(keyboard);
+        keyboardView.setPreviewEnabled(false);
+        keyboardView.setOnKeyboardActionListener(keyboardListener);
 
         final Keyboard extendedKeyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_extended);
-        mExtendedKeyboardView.setKeyboard(extendedKeyboard);
-        mExtendedKeyboardView.setPreviewEnabled(false);
-        mExtendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
+        extendedKeyboardView.setKeyboard(extendedKeyboard);
+        extendedKeyboardView.setPreviewEnabled(false);
+        extendedKeyboardView.setOnKeyboardActionListener(keyboardListener);
 
-        keyboardListener.setKeyboardView(mKeyboardView);
+        keyboardListener.setKeyboardView(keyboardView);
     }
 
     @Override
@@ -223,7 +222,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
             case R.id.server_config:
 
                 //                final Intent intent = new Intent(getApplicationContext(), ServerEditActivity.class);
-                //                intent.putExtra(EXTRA_SERVER_DATA, mSelectedDevice);
+                //                intent.putExtra(EXTRA_SERVER_DATA, selectedDevice);
                 //                intent.setAction(ACTION_EDIT);
                 //                startActivityForResult(intent, RC_EDIT_SERVER);
                 return true;
@@ -263,8 +262,8 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
                 hideCustomKeyboard();
                 return true;
             }
-            if (pageId == PAGE_EXPLORER && mExplorerFragment.canNavigateUp()) {
-                mExplorerFragment.navigateUp();
+            if (pageId == PAGE_EXPLORER && explorerFragment.canNavigateUp()) {
+                explorerFragment.navigateUp();
                 return true;
             }
         }
@@ -278,31 +277,31 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
     /** @return true if at least one of the custom keyboards is visible. */
     private boolean isCustomKeyboardVisible() {
-        return mKeyboardView.getVisibility() == View.VISIBLE || mExtendedKeyboardView.getVisibility() == View.VISIBLE;
+        return keyboardView.getVisibility() == View.VISIBLE || extendedKeyboardView.getVisibility() == View.VISIBLE;
     }
 
     /** Show the custom keyboard. */
     private void showCustomKeyboard() {
 
-        ObjectAnimator.ofFloat(mKeyboardView, "translationY", 100f, 0f).setDuration(150).start();
-        ObjectAnimator.ofFloat(mKeyboardView, "alpha", 0f, 1f).setDuration(150).start();
-        mKeyboardView.setVisibility(View.VISIBLE);
-        mKeyboardView.setEnabled(true);
+        ObjectAnimator.ofFloat(keyboardView, "translationY", 100f, 0f).setDuration(150).start();
+        ObjectAnimator.ofFloat(keyboardView, "alpha", 0f, 1f).setDuration(150).start();
+        keyboardView.setVisibility(View.VISIBLE);
+        keyboardView.setEnabled(true);
 
-        ObjectAnimator.ofFloat(mExtendedKeyboardView, "translationY", -100f, 0f).setDuration(150).start();
-        ObjectAnimator.ofFloat(mExtendedKeyboardView, "alpha", 0f, 1f).setDuration(150).start();
-        mExtendedKeyboardView.setVisibility(View.VISIBLE);
-        mExtendedKeyboardView.setEnabled(true);
+        ObjectAnimator.ofFloat(extendedKeyboardView, "translationY", -100f, 0f).setDuration(150).start();
+        ObjectAnimator.ofFloat(extendedKeyboardView, "alpha", 0f, 1f).setDuration(150).start();
+        extendedKeyboardView.setVisibility(View.VISIBLE);
+        extendedKeyboardView.setEnabled(true);
     }
 
     /** Hide the custom keyboard. */
     private void hideCustomKeyboard() {
 
-        mKeyboardView.setVisibility(View.GONE);
-        mKeyboardView.setEnabled(false);
+        keyboardView.setVisibility(View.GONE);
+        keyboardView.setEnabled(false);
 
-        mExtendedKeyboardView.setVisibility(View.GONE);
-        mExtendedKeyboardView.setEnabled(false);
+        extendedKeyboardView.setVisibility(View.GONE);
+        extendedKeyboardView.setEnabled(false);
     }
 
     @Override
@@ -310,11 +309,11 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
         final Context context = getApplicationContext();
         if (context == null) { return; }
 
-        if (mToast == null) {
-            mToast = Toast.makeText(context, "", Toast.LENGTH_LONG);
+        if (toast == null) {
+            toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
         }
-        mToast.setText(message);
-        mToast.show();
+        toast.setText(message);
+        toast.show();
     }
 
     @Override
@@ -396,7 +395,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
             case STATE_CONNECTING:
                 drawableResId = android.R.drawable.presence_away;
                 messageResId = R.string.msg_command_running;
-                AnimationDrawable animation = (AnimationDrawable) mProgressSignal.getDrawable();
+                AnimationDrawable animation = (AnimationDrawable) progressSignal.getDrawable();
                 if (animation != null) {
                     animation.stop();
                     animation.start();
@@ -411,8 +410,8 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
         final Drawable imgLeft = getResources().getDrawable(drawableResId);
         imgLeft.setBounds(0, 0, 24, 24);
-        mTvServerState.setCompoundDrawables(imgLeft, null, null, null);
-        mTvServerState.setText(messageResId);
+        tvServerState.setCompoundDrawables(imgLeft, null, null, null);
+        tvServerState.setText(messageResId);
     }
 
     //
@@ -420,7 +419,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
     //
 
     @Override
-    public NetworkDevice getDevice() { return mSelectedDevice; }
+    public NetworkDevice getDevice() { return selectedDevice; }
 
     @Override
     public String getSecurityToken() {

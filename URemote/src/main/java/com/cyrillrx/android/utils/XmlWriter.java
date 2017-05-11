@@ -17,14 +17,16 @@ import java.io.IOException;
  *         Created on 04/06/13.
  */
 public class XmlWriter {
-    private static final String TAG            = "XmlWriter";
-    private static final String ENCODING       = "UTF-8";
-    private static final String NAMESPACE      = null;
+
+    private static final String TAG = XmlWriter.class.getSimpleName();
+
+    private static final String ENCODING = "UTF-8";
+    private static final String NAMESPACE = null;
     private static final String FEATURE_INDENT = "http://xmlpull.org/v1/doc/features.html#indent-output";
 
-    private final String           mRootTag;
-    private final FileOutputStream mFileOutputStream;
-    private final XmlSerializer    mSerializer;
+    private final String rootTag;
+    private final FileOutputStream fileOutputStream;
+    private final XmlSerializer serializer;
 
     /**
      * Constructor.
@@ -36,24 +38,24 @@ public class XmlWriter {
      */
     public XmlWriter(FileOutputStream fos, String rootTag) throws IOException {
 
-        mRootTag = rootTag;
+        this.rootTag = rootTag;
 
-        mFileOutputStream = fos;
+        fileOutputStream = fos;
 
-        mSerializer = Xml.newSerializer();
-        mSerializer.setOutput(mFileOutputStream, ENCODING);
-        mSerializer.startDocument(ENCODING, true);
-        mSerializer.setFeature(FEATURE_INDENT, true);
-        mSerializer.startTag(null, rootTag);
+        serializer = Xml.newSerializer();
+        serializer.setOutput(fileOutputStream, ENCODING);
+        serializer.startDocument(ENCODING, true);
+        serializer.setFeature(FEATURE_INDENT, true);
+        serializer.startTag(null, rootTag);
     }
 
     /** Close and save the file. */
     public void closeAndSave() {
         try {
-            mSerializer.endTag(NAMESPACE, mRootTag);
-            mSerializer.endDocument();
-            mSerializer.flush();
-            mFileOutputStream.close();
+            serializer.endTag(NAMESPACE, rootTag);
+            serializer.endDocument();
+            serializer.flush();
+            fileOutputStream.close();
         } catch (Exception e) {
             Logger.error(TAG, "Error in closeAndSave method");
         }
@@ -69,16 +71,16 @@ public class XmlWriter {
      */
     public void addChild(String tag, String text, String[] attribute) {
         try {
-            mSerializer.startTag(null, tag); // Open tag
+            serializer.startTag(null, tag); // Open tag
             if (attribute != null) {
-                mSerializer.attribute(null, attribute[0], attribute[1]);
+                serializer.attribute(null, attribute[0], attribute[1]);
             }
 
             if (text != null) {
-                mSerializer.text(text);
+                serializer.text(text);
             }
 
-            mSerializer.endTag(null, tag); // Close tag
+            serializer.endTag(null, tag); // Close tag
         } catch (Exception e) {
             Logger.error(TAG, "Error in addChild method");
         }
@@ -105,7 +107,7 @@ public class XmlWriter {
      */
     public void startTag(String namespace, String tag) {
         try {
-            mSerializer.startTag(null, tag); // Open tag
+            serializer.startTag(null, tag); // Open tag
         } catch (Exception e) {
             Logger.error(TAG, "Error in addChild method");
         }
@@ -119,7 +121,7 @@ public class XmlWriter {
      */
     public void endTag(String namespace, String tag) {
         try {
-            mSerializer.endTag(null, tag); // Close the tag
+            serializer.endTag(null, tag); // Close the tag
         } catch (Exception e) {
             Logger.error(TAG, "Error in addChild method");
         }

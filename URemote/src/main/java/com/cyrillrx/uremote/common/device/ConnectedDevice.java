@@ -6,38 +6,28 @@ package com.cyrillrx.uremote.common.device;
  */
 public class ConnectedDevice {
 
-    protected String mId;
-    protected String mName;
+    protected String id;
+    protected String name;
     /** If the connection with the remote server is not established within this timeout, it is dismiss. */
-    protected int    mConnectionTimeout;
-    protected int    mReadTimeout;
-    protected String mSecurityToken;
+    protected int connectionTimeout;
+    protected int readTimeout;
+    protected String securityToken;
 
     @Override
-    public String toString() {
-        return mName;
-    }
+    public String toString() { return name; }
 
     /** @return The device id. */
-    public String getId() { return mId; }
+    public String getId() { return id; }
 
     /** @return The device name. */
-    public String getName() {
-        return mName;
-    }
+    public String getName() { return name; }
 
     /** @return Timeout connection in milliseconds. */
-    public int getConnectionTimeout() {
-        return mConnectionTimeout;
-    }
+    public int getConnectionTimeout() { return connectionTimeout; }
 
     /** @return Read timeout in milliseconds. */
-    public int getReadTimeout() {
-        return mReadTimeout;
-    }
+    public int getReadTimeout() { return readTimeout; }
 
     /** @return The security token that will be use to authenticate the user. */
-    public String getSecurityToken() {
-        return mSecurityToken;
-    }
+    public String getSecurityToken() { return securityToken; }
 }

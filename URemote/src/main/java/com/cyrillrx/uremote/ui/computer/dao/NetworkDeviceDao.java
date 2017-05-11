@@ -31,19 +31,19 @@ import static com.cyrillrx.uremote.common.device.NetworkDevice.FILENAME;
  */
 public class NetworkDeviceDao {
 
-    public static final String TAG_ROOT               = "servers";
-    public static final String TAG_SERVER             = "server";
-    public static final String TAG_NAME               = "name";
-    public static final String TAG_LOCAL_HOST         = "local_ip_address";
-    public static final String TAG_LOCAL_PORT         = "local_port";
-    public static final String TAG_BROADCAST          = "broadcast_address";
-    public static final String TAG_REMOTE_HOST        = "remote_ip_address";
-    public static final String TAG_REMOTE_PORT        = "remote_port";
-    public static final String TAG_MAC_ADDRESS        = "mac_address";
+    public static final String TAG_ROOT = "servers";
+    public static final String TAG_SERVER = "server";
+    public static final String TAG_NAME = "name";
+    public static final String TAG_LOCAL_HOST = "local_ip_address";
+    public static final String TAG_LOCAL_PORT = "local_port";
+    public static final String TAG_BROADCAST = "broadcast_address";
+    public static final String TAG_REMOTE_HOST = "remote_ip_address";
+    public static final String TAG_REMOTE_PORT = "remote_port";
+    public static final String TAG_MAC_ADDRESS = "mac_address";
     public static final String TAG_CONNECTION_TIMEOUT = "connection_timeout";
-    public static final String TAG_READ_TIMEOUT       = "read_timeout";
-    public static final String TAG_SECURITY_TOKEN     = "security_token";
-    public static final String TAG_CONNECTION_TYPE    = "connection_type";
+    public static final String TAG_READ_TIMEOUT = "read_timeout";
+    public static final String TAG_SECURITY_TOKEN = "security_token";
+    public static final String TAG_CONNECTION_TYPE = "connection_type";
 
     private static final String TAG = NetworkDeviceDao.class.getSimpleName();
 

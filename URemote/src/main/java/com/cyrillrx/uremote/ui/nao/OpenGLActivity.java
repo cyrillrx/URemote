@@ -12,22 +12,22 @@ import android.view.View;
  */
 public class OpenGLActivity extends AppCompatActivity implements View.OnTouchListener {
 
-    private GLSurfaceView  mGLView;
-    private OpenGLRenderer mRenderer;
+    private GLSurfaceView gLView;
+    private OpenGLRenderer renderer;
 
-    private float mLastValueX = Float.MIN_VALUE;
-    private float mLastValueY = Float.MIN_VALUE;
+    private float lastValueX = Float.MIN_VALUE;
+    private float lastValueY = Float.MIN_VALUE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //
-        mGLView = new GLSurfaceView(this);
-        mRenderer = new OpenGLRenderer();
-        mGLView.setRenderer(mRenderer);
-        mGLView.setOnTouchListener(this);
-        setContentView(mGLView);
+        gLView = new GLSurfaceView(this);
+        renderer = new OpenGLRenderer();
+        gLView.setRenderer(renderer);
+        gLView.setOnTouchListener(this);
+        setContentView(gLView);
     }
 
     @Override
@@ -41,19 +41,19 @@ public class OpenGLActivity extends AppCompatActivity implements View.OnTouchLis
                 float offsetX = 0.0f;
                 float offsetY = 0.0f;
 
-                if (mLastValueX != Float.MIN_VALUE && mLastValueY != Float.MIN_VALUE) {
-                    offsetX = event.getX() - mLastValueX;
-                    offsetY = event.getY() - mLastValueY;
+                if (lastValueX != Float.MIN_VALUE && lastValueY != Float.MIN_VALUE) {
+                    offsetX = event.getX() - lastValueX;
+                    offsetY = event.getY() - lastValueY;
                 }
-                mLastValueX = event.getX();
-                mLastValueY = event.getY();
+                lastValueX = event.getX();
+                lastValueY = event.getY();
 
-                mRenderer.rotateXYZ(offsetY / 2, offsetX / 2, 0.0f);
+                renderer.rotateXYZ(offsetY / 2, offsetX / 2, 0.0f);
                 return true;
 
             default:
-                mLastValueX = Float.MIN_VALUE;
-                mLastValueY = Float.MIN_VALUE;
+                lastValueX = Float.MIN_VALUE;
+                lastValueY = Float.MIN_VALUE;
                 return true;
         }
     }
@@ -61,12 +61,12 @@ public class OpenGLActivity extends AppCompatActivity implements View.OnTouchLis
     @Override
     protected void onPause() {
         super.onPause();
-        mGLView.onPause();
+        gLView.onPause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mGLView.onResume();
+        gLView.onResume();
     }
 }

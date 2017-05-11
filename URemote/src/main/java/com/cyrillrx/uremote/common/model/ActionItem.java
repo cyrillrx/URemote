@@ -10,19 +10,20 @@ package com.cyrillrx.uremote.common.model;
 public class ActionItem {
 
     public static final int ACTION_COMPUTER = 0;
-    public static final int ACTION_LIGHTS   = 1;
-    public static final int ACTION_TV       = 2;
-    public static final int ACTION_ROBOTS   = 3;
-    public static final int ACTION_HIFI     = 4;
+    public static final int ACTION_LIGHTS = 1;
+    public static final int ACTION_TV = 2;
+    public static final int ACTION_ROBOTS = 3;
+    public static final int ACTION_HIFI = 4;
+    public static final int ACTION_EXPLORER = 5;
 
-    public static final int ACTION_APP      = 10;
-    public static final int ACTION_STORE    = 11;
+    public static final int ACTION_APP = 10;
+    public static final int ACTION_STORE = 11;
     public static final int ACTION_SHOW_NAO = 12;
 
-    private final int    mId;
-    private final String mTitle;
-    private final String mSummary;
-    private final int    mImageRes;
+    private final int id;
+    private final String title;
+    private final String summary;
+    private final int imageRes;
 
     /**
      * Default constructor
@@ -32,10 +33,10 @@ public class ActionItem {
      * @param imageResource The resource id of the thumbnail image.
      */
     public ActionItem(int id, final String title, final String summary, final int imageResource) {
-        mId = id;
-        mTitle = title;
-        mSummary = summary;
-        mImageRes = imageResource;
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        imageRes = imageResource;
     }
 
     /**
@@ -45,26 +46,20 @@ public class ActionItem {
      * @param imageResource The resource id of the thumbnail image.
      */
     public ActionItem(int id, final String title, final int imageResource) {
-        mId = id;
-        mTitle = title;
-        mSummary = "";
-        mImageRes = imageResource;
+        this.id = id;
+        this.title = title;
+        summary = "";
+        imageRes = imageResource;
     }
 
-    public int getId() { return mId; }
+    public int getId() { return id; }
 
-    /** @return the mTitle */
-    public String getTitle() {
-        return mTitle;
-    }
+    /** @return the title */
+    public String getTitle() { return title; }
 
-    /** @return the mSummary */
-    public String getSummary() {
-        return mSummary;
-    }
+    /** @return the summary */
+    public String getSummary() { return summary; }
 
     /** @return the mImageResource */
-    public int getImageResource() {
-        return mImageRes;
-    }
+    public int getImageResource() { return imageRes; }
 }

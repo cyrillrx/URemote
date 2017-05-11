@@ -49,24 +49,24 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      */
     private static final int RC_APP_LAUNCHER = 0;
 
-    private static final int DELAY    = 500;
+    private static final int DELAY = 500;
     private static final int DURATION = 500;
 
-    private TaskCallbacks mCallbacks;
-    private RequestSender mRequestSender;
+    private TaskCallbacks callbacks;
+    private RequestSender requestSender;
 
-    private ObjectAnimator mFadeIn;
-    private ObjectAnimator mFadeOut;
+    private ObjectAnimator fadeIn;
+    private ObjectAnimator fadeOut;
 
-    private TextView    mTvVolume;
-    private ImageButton mIbMute;
-    private SeekBar     mSbVolume;
+    private TextView tvVolume;
+    private ImageButton ibMute;
+    private SeekBar sbVolume;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        mCallbacks = (TaskCallbacks) activity;
-        mRequestSender = (RequestSender) activity;
+        callbacks = (TaskCallbacks) activity;
+        requestSender = (RequestSender) activity;
     }
 
     @Override
@@ -84,8 +84,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     @Override
     public void onDetach() {
         super.onDetach();
-        mCallbacks = null;
-        mRequestSender = null;
+        callbacks = null;
+        requestSender = null;
     }
 
     @Override
@@ -116,13 +116,13 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         view.findViewById(R.id.cmdStop).setOnClickListener(this);
         view.findViewById(R.id.cmdNext).setOnClickListener(this);
 
-        mTvVolume = (TextView) view.findViewById(R.id.toastText);
+        tvVolume = (TextView) view.findViewById(R.id.toastText);
 
-        mIbMute = (ImageButton) view.findViewById(R.id.cmdMute);
-        mIbMute.setOnClickListener(this);
+        ibMute = (ImageButton) view.findViewById(R.id.cmdMute);
+        ibMute.setOnClickListener(this);
 
-        mSbVolume = ((SeekBar) view.findViewById(R.id.sbVolume));
-        mSbVolume.setOnSeekBarChangeListener(this);
+        sbVolume = ((SeekBar) view.findViewById(R.id.sbVolume));
+        sbVolume.setOnSeekBarChangeListener(this);
 
         return view;
     }
@@ -220,8 +220,8 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      * @param y       The y position to display it.
      */
     private void showVolumeToast(final String message, final int x, final int y) {
-        mTvVolume.setText(message);
-        fadeIn(mTvVolume);
+        tvVolume.setText(message);
+        fadeIn(tvVolume);
     }
 
     @Override
@@ -295,10 +295,10 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     }
 
     @Override
-    public NetworkDevice getDevice() { return mRequestSender.getDevice(); }
+    public NetworkDevice getDevice() { return requestSender.getDevice(); }
 
     @Override
-    public String getSecurityToken() { return mRequestSender.getSecurityToken(); }
+    public String getSecurityToken() { return requestSender.getSecurityToken(); }
 
     /**
      * Class that handle asynchronous requests sent to a remote device.
@@ -308,14 +308,12 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      */
     private class DashboardMessageMgr extends AsyncMessageMgr {
 
-        public DashboardMessageMgr() {
-            super(getDevice(), mCallbacks);
-        }
+        public DashboardMessageMgr() { super(getDevice(), callbacks); }
 
         @Override
         protected void onPostExecute(Response response) {
             super.onPostExecute(response);
-            mCallbacks.onPostExecute(response);
+            callbacks.onPostExecute(response);
 
             final String message = response.getMessage();
             Logger.debug(TAG, "#onPostExecute - Sending response : " + message);
@@ -331,18 +329,18 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
                 final int volume = response.getIntValue();
 
                 Rect hitRect = new Rect();
-                mSbVolume.getDrawingRect(hitRect);
-                final int x = mSbVolume.getLeft() + (int) ((float) volume / (float) mSbVolume.getMax() * mSbVolume.getWidth());
-                final int y = mSbVolume.getTop();
+                sbVolume.getDrawingRect(hitRect);
+                final int x = sbVolume.getLeft() + (int) ((float) volume / (float) sbVolume.getMax() * sbVolume.getWidth());
+                final int y = sbVolume.getTop();
                 showVolumeToast(volume + "%", x, y);
             }
 
             // Handle UI mute icon
             if (Type.VOLUME.equals(type) && Code.MUTE.equals(code)) {
                 if (response.getIntValue() == 0) { // Mute
-                    mIbMute.setImageResource(R.drawable.volume_muted);
+                    ibMute.setImageResource(R.drawable.volume_muted);
                 } else if (response.getIntValue() == 1) { // Volume On
-                    mIbMute.setImageResource(R.drawable.volume_on);
+                    ibMute.setImageResource(R.drawable.volume_on);
                 }
             }
         }
@@ -355,16 +353,16 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         initFadeIn(view);
         initFadeOut(view);
 
-        if (mFadeOut.isStarted()) {
-            mFadeOut.cancel();
+        if (fadeOut.isStarted()) {
+            fadeOut.cancel();
         }
 
-        if (mFadeIn.isStarted()) {
+        if (fadeIn.isStarted()) {
             return;
         }
 
         if (view.getAlpha() != 1.0 || view.getVisibility() != View.VISIBLE) {
-            mFadeIn.start();
+            fadeIn.start();
             return;
         }
         fadeOut(view);
@@ -374,30 +372,30 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
      * Launch a fade out animation.
      */
     private void fadeOut(View view) {
-        if (mFadeOut.isStarted() && !mFadeOut.isRunning()) {
-            mFadeOut.setStartDelay(DELAY);
+        if (fadeOut.isStarted() && !fadeOut.isRunning()) {
+            fadeOut.setStartDelay(DELAY);
         } else {
             initFadeOut(view);
-            mFadeOut.start();
+            fadeOut.start();
         }
     }
 
     private void initFadeIn(View view) {
-        if (mFadeIn != null) {
+        if (fadeIn != null) {
             return;
         }
-        mFadeIn = ObjectAnimator.ofFloat(view, "alpha", 1f).setDuration(DURATION);
-        mFadeIn.setStartDelay(0);
+        fadeIn = ObjectAnimator.ofFloat(view, "alpha", 1f).setDuration(DURATION);
+        fadeIn.setStartDelay(0);
 
-        mFadeIn.addListener(new AnimatorListener() {
+        fadeIn.addListener(new AnimatorListener() {
 
-            private final View mView = mTvVolume;
+            private final View view = tvVolume;
 
             @Override
             public void onAnimationStart(Animator animation) {
-                // TODO Replace mView by the view in parameter
-                if (mView.getVisibility() != View.VISIBLE) {
-                    mView.setVisibility(View.VISIBLE);
+                // TODO Replace view by the view in parameter
+                if (view.getVisibility() != View.VISIBLE) {
+                    view.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -407,10 +405,10 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                // TODO Replace mView by the view in parameter
-                final float alpha = mView.getAlpha();
+                // TODO Replace view by the view in parameter
+                final float alpha = view.getAlpha();
                 if (alpha == 1.0) {
-                    fadeOut(mView);
+                    fadeOut(view);
                 }
             }
 
@@ -421,15 +419,15 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
     }
 
     private void initFadeOut(View view) {
-        if (mFadeOut != null) {
+        if (fadeOut != null) {
             return;
         }
-        mFadeOut = ObjectAnimator.ofFloat(view, "alpha", 0f).setDuration(DURATION);
-        mFadeOut.setStartDelay(DELAY);
+        fadeOut = ObjectAnimator.ofFloat(view, "alpha", 0f).setDuration(DURATION);
+        fadeOut.setStartDelay(DELAY);
 
-        mFadeOut.addListener(new AnimatorListener() {
+        fadeOut.addListener(new AnimatorListener() {
 
-            private final View mView = mTvVolume;
+            private final View view = tvVolume;
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -441,15 +439,15 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                // TODO Replace mView by the view in parameter
-                final float alpha = mView.getAlpha();
+                // TODO Replace view by the view in parameter
+                final float alpha = view.getAlpha();
 
                 if (alpha == 0.0) {
-                    // TODO Replace mView by the view in parameter
-                    if (mView.getVisibility() == View.VISIBLE) {
-                        mView.setVisibility(View.GONE);
-                        mFadeIn = null;
-                        mFadeOut = null;
+                    // TODO Replace view by the view in parameter
+                    if (view.getVisibility() == View.VISIBLE) {
+                        view.setVisibility(View.GONE);
+                        fadeIn = null;
+                        fadeOut = null;
                     }
                 }
             }

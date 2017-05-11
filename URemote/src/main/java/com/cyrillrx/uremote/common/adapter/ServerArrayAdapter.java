@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
 
-    private final LayoutInflater mInflater;
+    private final LayoutInflater inflater;
 
     /**
      * Default constructor
@@ -32,16 +32,16 @@ public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
      */
     public ServerArrayAdapter(Context context, List<NetworkDevice> devices) {
         super(context, 0, devices);
-        mInflater = LayoutInflater.from(context);
+        inflater = LayoutInflater.from(context);
     }
 
     /** Template for the list items. */
     public static class ViewHolder {
         ImageView ivThumbnail;
-        TextView  tvName;
-        TextView  tvLocalhost;
-        TextView  tvRemoteHost;
-        TextView  tvMacAddress;
+        TextView tvName;
+        TextView tvLocalhost;
+        TextView tvRemoteHost;
+        TextView tvMacAddress;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.server_item, null);
+            convertView = inflater.inflate(R.layout.server_item, null);
             holder = new ViewHolder();
             holder.ivThumbnail = (ImageView) convertView.findViewById(R.id.thumbnail);
             holder.tvName = (TextView) convertView.findViewById(R.id.server_name);

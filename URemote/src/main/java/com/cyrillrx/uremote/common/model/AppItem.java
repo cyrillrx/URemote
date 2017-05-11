@@ -14,20 +14,16 @@ public class AppItem implements Parcelable {
     /** CREATOR is a required attribute to create an instance of a class that implements Parcelable */
     public static final Parcelable.Creator<AppItem> CREATOR = new Parcelable.Creator<AppItem>() {
         @Override
-        public AppItem createFromParcel(Parcel src) {
-            return new AppItem(src);
-        }
+        public AppItem createFromParcel(Parcel src) { return new AppItem(src); }
 
         @Override
-        public AppItem[] newArray(int size) {
-            return new AppItem[size];
-        }
+        public AppItem[] newArray(int size) { return new AppItem[size]; }
     };
 
-    private final String mLabel;
-    private final String mPath;
-    private final int    mImageResource;
-    private final int    mAction;
+    private final String label;
+    private final String path;
+    private final int imageResource;
+    private final int action;
 
     /**
      * Constructor with parameters
@@ -37,18 +33,18 @@ public class AppItem implements Parcelable {
      * @param resId
      */
     public AppItem(final String label, final String path, final int resId, int action) {
-        mLabel = label;
-        mPath = path;
-        mImageResource = resId;
-        mAction = action;
+        this.label = label;
+        this.path = path;
+        imageResource = resId;
+        this.action = action;
     }
 
     /** @param src  */
     public AppItem(final Parcel src) {
-        mLabel = src.readString();
-        mPath = src.readString();
-        mImageResource = src.readInt();
-        mAction = src.readInt();
+        label = src.readString();
+        path = src.readString();
+        imageResource = src.readInt();
+        action = src.readInt();
     }
 
     @Override
@@ -56,17 +52,17 @@ public class AppItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {
-        destination.writeString(mLabel);
-        destination.writeString(mPath);
-        destination.writeInt(mImageResource);
-        destination.writeInt(mAction);
+        destination.writeString(label);
+        destination.writeString(path);
+        destination.writeInt(imageResource);
+        destination.writeInt(action);
     }
 
-    public int getImageResource() { return mImageResource; }
+    public int getImageResource() { return imageResource; }
 
-    public String getLabel() { return mLabel; }
+    public String getLabel() { return label; }
 
-    public String getPath() { return mPath; }
+    public String getPath() { return path; }
 
-    public int getAction() { return mAction; }
+    public int getAction() { return action; }
 }

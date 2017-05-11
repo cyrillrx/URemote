@@ -29,12 +29,12 @@ public class Hexagon extends Polygon {
 
     public static class Orientation {
         public static final int POINTY = 0;
-        public static final int FLAT   = 1;
+        public static final int FLAT = 1;
     }
 
-    private final float  mSide;
+    private final float mSide;
     private final PointF mPosition;
-    private final int    mOrientation;
+    private final int mOrientation;
 
     private final float h;
     private final float r;
