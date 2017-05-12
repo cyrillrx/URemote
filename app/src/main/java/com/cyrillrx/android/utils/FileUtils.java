@@ -20,6 +20,12 @@ public class FileUtils {
      */
     public static File[] listFiles(final String dirPath, final String[] extensions, final boolean listDirectories) {
 
+        final File root = new File(dirPath);
+
+        if (extensions == null) {
+            return root.listFiles();
+        }
+
         final FilenameFilter extensionFilter = new FilenameFilter() {
             @Override
             public boolean accept(File dir, String filename) {
@@ -38,7 +44,6 @@ public class FileUtils {
             }
         };
 
-        File root = new File(dirPath);
         return root.listFiles(extensionFilter);
     }
 

@@ -42,9 +42,6 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     protected FileInfo currentFileInfo = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
