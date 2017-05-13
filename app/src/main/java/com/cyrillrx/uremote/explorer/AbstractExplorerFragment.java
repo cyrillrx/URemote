@@ -1,24 +1,24 @@
-package com.cyrillrx.uremote.common;
+package com.cyrillrx.uremote.explorer;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.cyrillrx.android.binding.RequestLifecycle;
+import com.cyrillrx.android.toolbox.OnDataClickListener;
 import com.cyrillrx.android.utils.FileUtils;
-import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.R;
-import com.cyrillrx.uremote.common.adapter.ExplorerArrayAdapter;
 import com.cyrillrx.uremote.request.FileInfoFactory;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.FileInfo;
 import com.cyrillrx.uremote.utils.IntentKeys;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * File explorer fragment.<br />
@@ -27,7 +27,8 @@ import java.util.List;
  * @author Cyril Leroux
  *         Created on 29/08/13.
  */
-public abstract class AbstractExplorerFragment extends ListFragment {
+public abstract class AbstractExplorerFragment extends Fragment
+        implements RequestLifecycle {
 
     private static final String TAG = AbstractExplorerFragment.class.getSimpleName();
 
@@ -35,24 +36,49 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     private static final String KEY_DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
     private static final String DEFAULT_DIRECTORY_PATH = "default_path";
 
-    private TextView tvPath;
-    private String root;
+    protected TextView tvPath;
+    protected TextView tvEmpty;
+    protected View errorLayout;
 
+    protected RecyclerView recyclerView;
+    protected ExplorerAdapter adapter;
+
+    protected String root;
     protected String path;
+
     protected FileInfo currentFileInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
 
         final View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
-        tvPath = (TextView) view.findViewById(R.id.tvPath);
+        initView(view);
         return view;
+    }
+
+    protected void initView(View root) {
+
+        tvPath = (TextView) root.findViewById(R.id.tv_path);
+        tvEmpty = (TextView) root.findViewById(R.id.tv_empty);
+
+        errorLayout = root.findViewById(R.id.error_layout);
+
+        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+
+        root.findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                retry();
+            }
+        });
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        setupRecycler();
 
         FileInfo dirContent = null;
 
@@ -62,7 +88,7 @@ public abstract class AbstractExplorerFragment extends ListFragment {
             dirContent = FileInfoFactory.createFromByteArray(dirContentAsByteArray);
         }
 
-        // Get the directory content or update the one that already exist.
+        // Get the directory content or update the one that already exists.
         if (dirContent == null) {
             final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
             if (root == null) {
@@ -85,25 +111,67 @@ public abstract class AbstractExplorerFragment extends ListFragment {
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        final FileInfo file = currentFileInfo.getChild(position);
-        final String filename = file.getFilename();
-        final String fullPath = currentFileInfo.getAbsoluteFilePath() + File.separator + filename;
+    protected void setupRecycler() {
 
-        if (file.getIsDirectory()) {
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
 
-            if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
-                navigateUp();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-            } else {
-                onDirectoryClick(fullPath);
+        final OnDataClickListener<FileInfo> clickListener = new OnDataClickListener<FileInfo>() {
+            @Override
+            public void onDataClick(FileInfo file) {
+                final String filename = file.getFilename();
+                final String fullPath = currentFileInfo.getAbsoluteFilePath() + File.separator + filename;
+
+                if (file.getIsDirectory()) {
+
+                    if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
+                        navigateUp();
+                    } else {
+                        onDirectoryClick(fullPath);
+                    }
+
+                } else {
+                    onFileClick(fullPath);
+                }
             }
+        };
+        adapter = new ExplorerAdapter(clickListener);
+        recyclerView.setAdapter(adapter);
+    }
 
-        } else {
-            onFileClick(fullPath);
+    @Override
+    public void onStartLoading() {
+        if (adapter.getItemCount() == 0) {
+            recyclerView.setVisibility(View.GONE);
+//            loader.setVisibility(View.VISIBLE);
         }
+        tvEmpty.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onStopLoading() {
+//        loader.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.GONE);
+
+        if (adapter.getItemCount() > 0) {
+            recyclerView.setVisibility(View.VISIBLE);
+            tvEmpty.setVisibility(View.GONE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            tvEmpty.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onRequestFailure() {
+        recyclerView.setVisibility(View.GONE);
+//        loader.setVisibility(View.GONE);
+        tvEmpty.setVisibility(View.GONE);
+        errorLayout.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -115,33 +183,12 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
         currentFileInfo = dirContent;
 
-        final List<FileInfo> files = new ArrayList<>();
-
-        if (dirContent.getChildCount() == 0) {
-            Logger.warning(TAG, "#updateView - No file in the directory.");
-        } else {
-            files.addAll(dirContent.getChildList());
-        }
-
-        if (getListAdapter() == null) {
-            final ExplorerArrayAdapter adapter = newExplorerAdapter(files);
-            setListAdapter(adapter);
-        } else {
-            getListAdapter().clear();
-            getListAdapter().addAll(files);
-        }
+        adapter.bind(dirContent);
 
         tvPath.setText(dirContent.getAbsoluteFilePath());
     }
 
-    protected ExplorerArrayAdapter newExplorerAdapter(List<FileInfo> files) {
-        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
-    }
-
-    @Override
-    public ExplorerArrayAdapter getListAdapter() {
-        return (ExplorerArrayAdapter) super.getListAdapter();
-    }
+    protected abstract void retry();
 
     /**
      * Lists the content of the passed directory.<br />

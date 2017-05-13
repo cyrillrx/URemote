@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <fragment android:id="@+id/local_explorer_fragment"
-    android:name="com.cyrillrx.uremote.common.LocalExplorerFragment"
+    android:name="com.cyrillrx.uremote.explorer.LocalExplorerFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />

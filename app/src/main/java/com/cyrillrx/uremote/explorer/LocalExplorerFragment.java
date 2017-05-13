@@ -1,4 +1,4 @@
-package com.cyrillrx.uremote.common;
+package com.cyrillrx.uremote.explorer;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -48,6 +48,9 @@ public class LocalExplorerFragment extends AbstractExplorerFragment {
 
         super.onActivityCreated(savedInstanceState);
     }
+
+    @Override
+    protected void retry() { }
 
     @Override
     protected void navigateTo(String dirPath) {

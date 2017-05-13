@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 
 import com.cyrillrx.logger.Logger;
 import com.cyrillrx.uremote.R;
-import com.cyrillrx.uremote.common.LocalExplorerFragment;
+import com.cyrillrx.uremote.explorer.LocalExplorerFragment;
 
 import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_CONF_FILE;
 

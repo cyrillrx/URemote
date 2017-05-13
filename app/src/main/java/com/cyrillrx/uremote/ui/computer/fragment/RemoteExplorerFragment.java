@@ -2,28 +2,20 @@ package com.cyrillrx.uremote.ui.computer.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.HapticFeedbackConstants;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.R;
-import com.cyrillrx.uremote.common.AbstractExplorerFragment;
-import com.cyrillrx.uremote.common.adapter.ExplorerArrayAdapter;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
+import com.cyrillrx.uremote.explorer.AbstractExplorerFragment;
 import com.cyrillrx.uremote.network.AsyncMessageMgr;
 import com.cyrillrx.uremote.request.RequestSender;
-import com.cyrillrx.uremote.request.protobuf.RemoteCommand;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Code;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Type;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Response;
 import com.cyrillrx.uremote.utils.TaskCallbacks;
 import com.cyrillrx.uremote.utils.ToastSender;
-
-import java.util.List;
 
 import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Response.ReturnCode.RC_ERROR;
 
@@ -39,9 +31,6 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     private TaskCallbacks callbacks;
     private RequestSender requestSender;
     private ToastSender toastSender;
-
-    private TextView tvEmpty;
-    private View viewFailure;
 
     @Override
     public void onAttach(Activity activity) {
@@ -72,33 +61,10 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-
-        tvEmpty = (TextView) view.findViewById(R.id.tvEmpty);
-        viewFailure = view.findViewById(R.id.failure);
-
-        view.findViewById(R.id.btnRetry).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                navigateTo(path);
-            }
-        });
-
-        return view;
-    }
+    protected void retry() { navigateTo(path); }
 
     @Override
-    protected ExplorerArrayAdapter newExplorerAdapter(List<RemoteCommand.FileInfo> files) {
-        return new ExplorerArrayAdapter(getActivity().getApplicationContext(), files);
-    }
-
-    @Override
-    protected void onDirectoryClick(String dirPath) {
-        navigateTo(dirPath);
-    }
+    protected void onDirectoryClick(String dirPath) { navigateTo(dirPath); }
 
     @Override
     protected void onFileClick(String filename) {
@@ -185,11 +151,11 @@ public class RemoteExplorerFragment extends AbstractExplorerFragment implements 
             // Update view in case of empty list (error or empty directory)
             if (RC_ERROR.equals(response.getReturnCode())) {
                 tvEmpty.setVisibility(View.GONE);
-                viewFailure.setVisibility(View.VISIBLE);
+                errorLayout.setVisibility(View.VISIBLE);
                 return;
             }
 
-            viewFailure.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.GONE);
             tvEmpty.setVisibility(View.VISIBLE);
 
             updateView(response.getFile());

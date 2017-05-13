@@ -59,7 +59,7 @@
     <string name="msg_no_path_defined">Can\'t browse the files. No path has been defined.</string>
     <string name="confirm_kill_server">You are about to kill the server. Would you like to continue?</string>
     <string name="confirm_command">Confirm the command?</string>
-    <string name="filemanager_image_description">Image that represents the file or folder</string>
+    <string name="desc_file_icon">Image that represents the file or folder</string>
     <string name="filemanager_empty_directory">This directory is empty.</string>
     <string name="power">Power</string>
     <string name="add">Add</string>

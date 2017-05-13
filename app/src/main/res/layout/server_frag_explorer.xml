@@ -1,85 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:cacheColorHint="@android:color/transparent" />
-
-    <FrameLayout
-        android:id="@id/android:empty"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@null"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tvEmpty"
-            style="@style/text_default"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:gravity="center"
-            android:text="@string/filemanager_empty_directory"
-            android:textColor="@android:color/secondary_text_light_nodisable"
-            android:textSize="24sp"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/failure"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/text_default"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center"
-                android:text="@string/title_filemanager"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/btnRetry"
-                style="@style/holo_blue_btn"
-                android:layout_gravity="center"
-                android:minWidth="150dp"
-                android:text="@string/retry" />
-
-            <TextView
-                style="@style/text_default"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center_horizontal|bottom"
-                android:paddingBottom="10dp"
-                android:text="@string/request_error"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-    </FrameLayout>
-
     <TextView
-        android:id="@+id/tvPath"
+        android:id="@+id/tv_path"
         style="@style/text_default"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_margin="5dp"
-        android:background="@null"
         android:ellipsize="start"
-        android:singleLine="true"
+        android:maxLines="1"
         android:textColor="@color/blue_btn"
         android:textSize="16sp" />
 
-</LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_path" />
+
+    <TextView
+        android:id="@+id/tv_empty"
+        style="@style/text_default"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_path"
+        android:gravity="center"
+        android:text="@string/filemanager_empty_directory"
+        android:textColor="@android:color/secondary_text_light_nodisable"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/tv_path"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/text_default"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/title_filemanager"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_retry"
+            style="@style/holo_blue_btn"
+            android:layout_gravity="center"
+            android:minWidth="150dp"
+            android:text="@string/retry" />
+
+        <TextView
+            style="@style/text_default"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center_horizontal|bottom"
+            android:paddingBottom="10dp"
+            android:text="@string/request_error"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</RelativeLayout>

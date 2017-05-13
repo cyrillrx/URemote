@@ -4,7 +4,7 @@
 
     <!-- Default screen margins, per the Android Design guidelines. -->
 
-    <dimen name="common_margin">40dp</dimen>
+    <dimen name="spacing_common">40dp</dimen>
 
     <!-- Other -->
 
