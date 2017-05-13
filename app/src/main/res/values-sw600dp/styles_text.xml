@@ -2,6 +2,6 @@
 
 <resources>
 
-    <style name="ActionTitleFont" parent="RobotoThin" />
+    <style name="ActionTitleFont" parent="text_font_thin" />
 
 </resources>

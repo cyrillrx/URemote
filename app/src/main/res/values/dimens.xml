@@ -6,6 +6,10 @@
 
     <dimen name="text_console">6sp</dimen>
 
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_default">16sp</dimen>
+    <dimen name="text_medium">20sp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
 
     <dimen name="common_margin">16dp</dimen>

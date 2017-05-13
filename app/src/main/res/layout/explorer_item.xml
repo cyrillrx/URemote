@@ -24,23 +24,21 @@
 
         <TextView
             android:id="@+id/tvName"
-            style="@style/RobotoFont"
+            style="@style/text_default"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="start"
-            android:textColor="@android:color/holo_blue_dark"
-            android:textSize="20sp" />
+            android:textColor="@android:color/holo_blue_dark" />
 
         <TextView
             android:id="@+id/tvSize"
-            style="@style/RobotoFont"
+            style="@style/text_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="end"
-            android:textColor="@android:color/holo_blue_light"
-            android:textSize="16sp" />
+            android:textColor="@android:color/holo_blue_light" />
     </LinearLayout>
 
 </LinearLayout>
