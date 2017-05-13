@@ -36,16 +36,16 @@ public abstract class AbstractExplorerFragment extends ListFragment {
     private static final String DEFAULT_DIRECTORY_PATH = "default_path";
 
     private TextView tvPath;
-    private String root = null;
+    private String root;
 
-    protected String path = null;
-    protected FileInfo currentFileInfo = null;
+    protected String path;
+    protected FileInfo currentFileInfo;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
+        final View view = inflater.inflate(R.layout.server_frag_explorer, container, false);
         tvPath = (TextView) view.findViewById(R.id.tvPath);
         return view;
     }
@@ -115,13 +115,13 @@ public abstract class AbstractExplorerFragment extends ListFragment {
 
         currentFileInfo = dirContent;
 
+        final List<FileInfo> files = new ArrayList<>();
+
         if (dirContent.getChildCount() == 0) {
             Logger.warning(TAG, "#updateView - No file in the directory.");
-            return;
+        } else {
+            files.addAll(dirContent.getChildList());
         }
-
-        List<FileInfo> files = new ArrayList<>();
-        files.addAll(dirContent.getChildList());
 
         if (getListAdapter() == null) {
             final ExplorerArrayAdapter adapter = newExplorerAdapter(files);
