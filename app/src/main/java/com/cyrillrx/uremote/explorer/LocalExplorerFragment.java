@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.cyrillrx.android.utils.PermissionUtils;
-import com.cyrillrx.uremote.request.FileInfoFactory;
 import com.cyrillrx.uremote.ui.computer.LoadServerActivity;
 
 import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.FileInfo;
@@ -50,21 +49,22 @@ public class LocalExplorerFragment extends AbstractExplorerFragment {
     }
 
     @Override
-    protected void retry() { }
+    protected Explorer createExplorer() {
 
-    @Override
-    protected void navigateTo(String dirPath) {
-
-        final FileInfo dirContent = FileInfoFactory.createFromLocalPath(dirPath, null, true);
-        updateView(dirContent);
+        return new LocalExplorer(new Explorer.Callback() {
+            @Override
+            public void onDirectoryLoaded(FileInfo dirContent) { updateView(dirContent); }
+        });
     }
 
     @Override
-    protected void onDirectoryClick(String dirPath) { navigateTo(dirPath); }
+    protected void onDirectoryClick(String dirPath) { explorer.navigateTo(dirPath); }
 
     @Override
     protected void onFileClick(String filename) {
         // Returns the value to the parent
         ((LoadServerActivity) getActivity()).onFileClick(filename);
     }
+
+    public boolean navigateUp() { return explorer.navigateUp(); }
 }

@@ -37,8 +37,11 @@ public class URemoteApp extends Application {
     }
 
     private void initLogger() {
+
         boolean isDebug = BuildConfig.DEBUG;
+
         Toaster.initialize(this, isDebug);
+
         Logger.initialize();
         Logger.addChild(new LogCat(isDebug ? Severity.VERBOSE : Severity.WARN));
         Logger.addChild(new CrashlyticsLogger(Severity.WARN));

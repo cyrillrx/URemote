@@ -1,7 +1,6 @@
 package com.cyrillrx.uremote.ui;
 
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cyrillrx.logger.Logger;
+import com.cyrillrx.notifier.Toaster;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.common.device.ConnectedDevice;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
@@ -43,7 +43,6 @@ import com.cyrillrx.uremote.ui.computer.fragment.FragDashboard;
 import com.cyrillrx.uremote.ui.computer.fragment.RemoteExplorerFragment;
 import com.cyrillrx.uremote.utils.Constants;
 import com.cyrillrx.uremote.utils.TaskCallbacks;
-import com.cyrillrx.uremote.utils.ToastSender;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +57,7 @@ import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  * @author Cyril Leroux
  *         Created on 10/05/12.
  */
-public class ComputerActivity extends AppCompatActivity implements TaskCallbacks, ToastSender, RequestSender {
+public class ComputerActivity extends AppCompatActivity implements TaskCallbacks, RequestSender {
 
     private static final String TAG = ComputerActivity.class.getSimpleName();
 
@@ -187,7 +186,6 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener(this);
-        keyboardListener.setToastSender(this);
 
         final Keyboard keyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_qwerty);
         keyboardView.setKeyboard(keyboard);
@@ -304,23 +302,6 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
         extendedKeyboardView.setEnabled(false);
     }
 
-    @Override
-    public void sendToast(final String message) {
-        final Context context = getApplicationContext();
-        if (context == null) { return; }
-
-        if (toast == null) {
-            toast = Toast.makeText(context, "", Toast.LENGTH_LONG);
-        }
-        toast.setText(message);
-        toast.show();
-    }
-
-    @Override
-    public void sendToast(int messageResId) {
-        sendToast(getString(messageResId));
-    }
-
     private class ComputerPagerAdapter extends FragmentPagerAdapter {
 
         private final List<Fragment> mFragments;
@@ -354,7 +335,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
         final ConnectedDevice device = getDevice();
 
         if (device == null) {
-            sendToast(R.string.no_device_configured);
+            Toaster.toast(R.string.no_device_configured);
             return;
         }
 
@@ -365,7 +346,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
                 .build();
 
         if (request == null) {
-            sendToast(R.string.msg_null_request);
+            Toaster.toast(R.string.msg_null_request);
             return;
         }
 
@@ -442,7 +423,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
             // Todo log
             new AsyncMessageMgr(getDevice(), this).execute(request);
         } else {
-            sendToast(R.string.msg_no_more_permit);
+            Toaster.toast(R.string.msg_no_more_permit);
         }
     }
 
@@ -451,9 +432,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
     //
 
     @Override
-    public void onPreExecute() {
-        updateConnectionState(STATE_CONNECTING);
-    }
+    public void onPreExecute() { updateConnectionState(STATE_CONNECTING); }
 
     @Override
     public void onProgressUpdate(int percent) { }

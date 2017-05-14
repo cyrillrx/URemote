@@ -6,10 +6,10 @@ import android.view.HapticFeedbackConstants;
 import android.view.KeyEvent;
 
 import com.cyrillrx.logger.Logger;
+import com.cyrillrx.notifier.Toaster;
 import com.cyrillrx.uremote.BuildConfig;
 import com.cyrillrx.uremote.request.RequestSender;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand;
-import com.cyrillrx.uremote.utils.ToastSender;
 
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +32,6 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
 
     private final RequestSender requestSender;
     private KeyboardView keyboardView;
-    private ToastSender toastSender;
     private Set<Keyboard.Key> modifierKeys;
     private int modifierFlag;
 
@@ -42,14 +41,8 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         modifierFlag = FLAG_NONE;
     }
 
-    public void setToastSender(final ToastSender toastSender) { this.toastSender = toastSender; }
-
     private void sendToast(final String message) {
-        if (toastSender == null) {
-            Logger.warning(TAG, "#sendToast - toastSender is null. Can't send toast.");
-            return;
-        }
-        toastSender.sendToast(message);
+        Toaster.toast(message);
     }
 
     /**

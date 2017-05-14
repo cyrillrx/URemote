@@ -18,7 +18,6 @@ import com.cyrillrx.uremote.common.device.NetworkDevice;
 import com.cyrillrx.uremote.network.WakeOnLan;
 import com.cyrillrx.uremote.request.RequestSender;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request;
-import com.cyrillrx.uremote.utils.ToastSender;
 
 import static android.view.HapticFeedbackConstants.VIRTUAL_KEY;
 import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Code;
@@ -33,14 +32,12 @@ import static com.cyrillrx.uremote.request.protobuf.RemoteCommand.Request.Type;
 public class FragAdmin extends Fragment implements OnClickListener {
 
     private RequestSender requestSender;
-    private ToastSender toastSender;
     private Console console;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         requestSender = (RequestSender) activity;
-        toastSender = (ToastSender) activity;
     }
 
     @Override
@@ -59,7 +56,6 @@ public class FragAdmin extends Fragment implements OnClickListener {
     public void onDetach() {
         super.onDetach();
         requestSender = null;
-        toastSender = null;
     }
 
     @Override
@@ -134,7 +130,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
             host = wifi ? device.getBroadcast() : device.getRemoteHost();
             macAddress = device.getMacAddress();
         }
-        new WakeOnLan(toastSender).execute(host, macAddress);
+        new WakeOnLan().execute(host, macAddress);
 
         // TODO factorize log code
         final String message = "ip : " + host + ", mac : " + macAddress;

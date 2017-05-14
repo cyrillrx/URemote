@@ -3,7 +3,7 @@ package com.cyrillrx.uremote.network;
 import android.os.AsyncTask;
 
 import com.cyrillrx.logger.Logger;
-import com.cyrillrx.uremote.utils.ToastSender;
+import com.cyrillrx.notifier.Toaster;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -21,16 +21,11 @@ public class WakeOnLan extends AsyncTask<String, int[], String> {
 
     private static final int PORT = 9;
 
-    private final ToastSender holder;
-
-    /** @param holder  */
-    public WakeOnLan(ToastSender holder) { this.holder = holder; }
-
     @Override
     protected String doInBackground(String... params) { return wake(params[0], params[1]); }
 
     @Override
-    protected void onPostExecute(String result) { holder.sendToast(result); }
+    protected void onPostExecute(String result) { Toaster.toast(result); }
 
     /**
      * Create and send a magic packet to the specified address to wake the PC.

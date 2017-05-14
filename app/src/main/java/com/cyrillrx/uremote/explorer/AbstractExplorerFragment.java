@@ -1,5 +1,6 @@
 package com.cyrillrx.uremote.explorer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 
 import com.cyrillrx.android.binding.RequestLifecycle;
 import com.cyrillrx.android.toolbox.OnDataClickListener;
-import com.cyrillrx.android.utils.FileUtils;
 import com.cyrillrx.uremote.R;
 import com.cyrillrx.uremote.request.FileInfoFactory;
 import com.cyrillrx.uremote.request.protobuf.RemoteCommand.FileInfo;
@@ -30,12 +30,6 @@ import java.io.File;
 public abstract class AbstractExplorerFragment extends Fragment
         implements RequestLifecycle {
 
-    private static final String TAG = AbstractExplorerFragment.class.getSimpleName();
-
-    private static final String PREVIOUS_DIRECTORY_PATH = "..";
-    private static final String KEY_DIRECTORY_CONTENT = "DIRECTORY_CONTENT";
-    private static final String DEFAULT_DIRECTORY_PATH = "default_path";
-
     protected TextView tvPath;
     protected TextView tvEmpty;
     protected View errorLayout;
@@ -43,10 +37,9 @@ public abstract class AbstractExplorerFragment extends Fragment
     protected RecyclerView recyclerView;
     protected ExplorerAdapter adapter;
 
-    protected String root;
-    protected String path;
-
     protected FileInfo currentFileInfo;
+
+    protected Explorer explorer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,7 +62,7 @@ public abstract class AbstractExplorerFragment extends Fragment
             @Override
             public void onClick(View v) {
                 v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
-                retry();
+                explorer.reload();
             }
         });
     }
@@ -80,33 +73,30 @@ public abstract class AbstractExplorerFragment extends Fragment
 
         setupRecycler();
 
-        FileInfo dirContent = null;
+        if (explorer == null) {
+            explorer = createExplorer();
+            final Intent intent = getActivity().getIntent();
+            if (intent.hasExtra(IntentKeys.DIRECTORY_PATH)) {
+                final String root = intent.getStringExtra(IntentKeys.DIRECTORY_PATH);
+                explorer.setRoot(root);
+                return;
+            }
+        }
 
         // Restoring current directory content
-        if (savedInstanceState != null) {
-            byte[] dirContentAsByteArray = savedInstanceState.getByteArray(KEY_DIRECTORY_CONTENT);
-            dirContent = FileInfoFactory.createFromByteArray(dirContentAsByteArray);
-        }
-
-        // Get the directory content or update the one that already exists.
-        if (dirContent == null) {
-            final String path = getActivity().getIntent().getStringExtra(IntentKeys.DIRECTORY_PATH);
-            if (root == null) {
-                root = path;
-            }
-
-            this.path = (path == null) ? DEFAULT_DIRECTORY_PATH : path;
-            navigateTo(this.path);
-
-        } else {
-            updateView(dirContent);
+        if (savedInstanceState != null && savedInstanceState.containsKey(Explorer.KEY_DIRECTORY_CONTENT)) {
+            byte[] dirContentAsByteArray = savedInstanceState.getByteArray(Explorer.KEY_DIRECTORY_CONTENT);
+            final FileInfo savedDir = FileInfoFactory.createFromByteArray(dirContentAsByteArray);
+            updateView(savedDir);
         }
     }
+
+    protected abstract Explorer createExplorer();
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (currentFileInfo != null) {
-            outState.putByteArray(KEY_DIRECTORY_CONTENT, currentFileInfo.toByteArray());
+            outState.putByteArray(Explorer.KEY_DIRECTORY_CONTENT, currentFileInfo.toByteArray());
         }
         super.onSaveInstanceState(outState);
     }
@@ -126,9 +116,8 @@ public abstract class AbstractExplorerFragment extends Fragment
                 final String fullPath = currentFileInfo.getAbsoluteFilePath() + File.separator + filename;
 
                 if (file.getIsDirectory()) {
-
-                    if (PREVIOUS_DIRECTORY_PATH.equals(filename)) {
-                        navigateUp();
+                    if (Explorer.PREVIOUS_DIRECTORY_PATH.equals(filename)) {
+                        explorer.navigateUp();
                     } else {
                         onDirectoryClick(fullPath);
                     }
@@ -186,53 +175,6 @@ public abstract class AbstractExplorerFragment extends Fragment
         adapter.bind(dirContent);
 
         tvPath.setText(dirContent.getAbsoluteFilePath());
-    }
-
-    protected abstract void retry();
-
-    /**
-     * Lists the content of the passed directory.<br />
-     * Updates the view once the data have been received.
-     *
-     * @param dirPath The path of the directory to display.
-     */
-    protected abstract void navigateTo(String dirPath);
-
-    /**
-     * Navigates up if possible.<br />
-     * This method is supposed to be called from the parent Activity (most likely through the ActionBar).<br />
-     * Updates the view once the data have been received from the server.
-     *
-     * @return True if we can navigate up from the current directory. False otherwise.
-     */
-    public boolean navigateUp() {
-
-        if (canNavigateUp()) {
-            doNavigateUp();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Call by the activity that holds the fragment if the back button is override.
-     * If the function returns true, the back button is override to go up.
-     * Else, it behaves normally.
-     *
-     * @return True if we can navigate up from the current directory. False otherwise.
-     */
-    public boolean canNavigateUp() {
-        return currentFileInfo != null &&
-                currentFileInfo.getAbsoluteFilePath().contains(File.separator) &&
-                !currentFileInfo.getAbsoluteFilePath().equals(root);
-    }
-
-    /**
-     * Call navigateTo on the parent directory.
-     */
-    protected void doNavigateUp() {
-        final String parentPath = FileUtils.truncatePath(currentFileInfo.getAbsoluteFilePath());
-        navigateTo(parentPath);
     }
 
     /**
