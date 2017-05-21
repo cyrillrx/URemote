@@ -78,7 +78,7 @@ public abstract class AbstractExplorerFragment extends Fragment
             final Intent intent = getActivity().getIntent();
             if (intent.hasExtra(IntentKeys.DIRECTORY_PATH)) {
                 final String root = intent.getStringExtra(IntentKeys.DIRECTORY_PATH);
-                explorer.setRoot(root);
+                explorer.changeRoot(root);
                 return;
             }
         }
