@@ -19,7 +19,7 @@ public class ExplorerViewHolder extends RecyclerView.ViewHolder {
     private TextView tvSize;
 
     public ExplorerViewHolder(ViewGroup parent) {
-        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.explorer_item, null));
+        super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explorer, null));
 
         ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
         tvName = (TextView) itemView.findViewById(R.id.tv_name);
@@ -31,11 +31,11 @@ public class ExplorerViewHolder extends RecyclerView.ViewHolder {
 
         int iconRes;
         if (file.getIsDirectory()) {
-            iconRes = R.drawable.filemanager_folder;
+            iconRes = R.drawable.ic_file_directory;
         } else if (FileUtils.isVideo(file.getFilename())) {
-            iconRes = R.drawable.filemanager_video;
+            iconRes = R.drawable.ic_file_video;
         } else {
-            iconRes = R.drawable.filemanager_blank;
+            iconRes = R.drawable.ic_file_blank;
         }
 
         ivIcon.setImageResource(iconRes);

@@ -50,7 +50,7 @@ public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
         ViewHolder holder;
 
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.server_item, null);
+            convertView = inflater.inflate(R.layout.item_server, null);
             holder = new ViewHolder();
             holder.ivThumbnail = (ImageView) convertView.findViewById(R.id.thumbnail);
             holder.tvName = (TextView) convertView.findViewById(R.id.server_name);

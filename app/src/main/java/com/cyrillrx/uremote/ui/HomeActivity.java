@@ -87,16 +87,16 @@ public class HomeActivity extends AppCompatActivity {
         if (actionList != null) { return; }
 
         actionList = new ArrayList<>();
-        actionList.add(new ActionItem(ActionItem.ACTION_COMPUTER, getString(R.string.title_computer), R.drawable.home_computer));
-        actionList.add(new ActionItem(ActionItem.ACTION_LIGHTS, getString(R.string.title_lights), R.drawable.home_light));
-        actionList.add(new ActionItem(ActionItem.ACTION_TV, getString(R.string.title_tv), R.drawable.home_tv));
-        actionList.add(new ActionItem(ActionItem.ACTION_ROBOTS, getString(R.string.title_robots), R.drawable.home_robot));
-        actionList.add(new ActionItem(ActionItem.ACTION_EXPLORER, getString(R.string.title_explorer), R.drawable.filemanager_folder));
+        actionList.add(new ActionItem(ActionItem.ACTION_COMPUTER, getString(R.string.title_computer), R.drawable.ic_computer));
+        actionList.add(new ActionItem(ActionItem.ACTION_LIGHTS, getString(R.string.title_lights), R.drawable.ic_light_bulb));
+        actionList.add(new ActionItem(ActionItem.ACTION_TV, getString(R.string.title_tv), R.drawable.ic_tv));
+        actionList.add(new ActionItem(ActionItem.ACTION_ROBOTS, getString(R.string.title_robots), R.drawable.ic_robot));
+        actionList.add(new ActionItem(ActionItem.ACTION_EXPLORER, getString(R.string.title_explorer), R.drawable.ic_file_directory));
 
         if (BuildConfig.DEBUG) {
-            actionList.add(new ActionItem(ActionItem.ACTION_HIFI, getString(R.string.title_hifi), R.drawable.home_hifi));
-            actionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.app_launcher));
-            actionList.add(new ActionItem(ActionItem.ACTION_3D_CUBE, getString(R.string.title_3d_cube), R.drawable.home_nao));
+            actionList.add(new ActionItem(ActionItem.ACTION_HIFI, getString(R.string.title_hifi), R.drawable.ic_hifi_system));
+            actionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.ic_app_launcher));
+            actionList.add(new ActionItem(ActionItem.ACTION_3D_CUBE, getString(R.string.title_3d_cube), R.drawable.ic_3d_cube));
         }
     }
 

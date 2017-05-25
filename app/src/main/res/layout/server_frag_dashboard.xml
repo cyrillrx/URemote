@@ -71,7 +71,7 @@
             android:id="@+id/btnAppLauncher"
             style="@style/command_button"
             android:contentDescription="@string/btn_app_launcher"
-            android:src="@drawable/app_launcher" />
+            android:src="@drawable/ic_app_launcher" />
 
     </LinearLayout>
 

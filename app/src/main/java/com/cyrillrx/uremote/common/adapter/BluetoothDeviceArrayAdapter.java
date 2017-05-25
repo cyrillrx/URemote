@@ -45,7 +45,7 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
 
         ViewHolder holder;
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.bt_device_item, null);
+            convertView = inflater.inflate(R.layout.item_device_bt, null);
             holder = new ViewHolder();
             holder.tvDeviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
             holder.tvDeviceAddress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
