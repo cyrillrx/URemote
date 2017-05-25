@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,6 +35,7 @@ import static com.cyrillrx.uremote.utils.IntentKeys.EXTRA_SERVER_DATA;
  */
 public class HomeActivity extends AppCompatActivity {
 
+    private static final int COLUMN_COUNT = 2;
     private List<ActionItem> actionList;
 
     /** Called when the activity is first created. */
@@ -49,8 +50,9 @@ public class HomeActivity extends AppCompatActivity {
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         recyclerView.setHasFixedSize(true);
-        final ActionAdapter adapter = new ActionAdapter(this, actionList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        final ActionAdapter adapter = new ActionAdapter(actionList);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, COLUMN_COUNT));
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
@@ -93,9 +95,8 @@ public class HomeActivity extends AppCompatActivity {
 
         if (BuildConfig.DEBUG) {
             actionList.add(new ActionItem(ActionItem.ACTION_HIFI, getString(R.string.title_hifi), R.drawable.home_hifi));
-            actionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.home_nao));
-            actionList.add(new ActionItem(ActionItem.ACTION_STORE, getString(R.string.title_app_store), R.drawable.nao_app_store));
-            actionList.add(new ActionItem(ActionItem.ACTION_SHOW_NAO, getString(R.string.title_show_nao), R.drawable.home_nao));
+            actionList.add(new ActionItem(ActionItem.ACTION_APP, getString(R.string.title_app_list), R.drawable.app_launcher));
+            actionList.add(new ActionItem(ActionItem.ACTION_3D_CUBE, getString(R.string.title_3d_cube), R.drawable.home_nao));
         }
     }
 

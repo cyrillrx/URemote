@@ -51,7 +51,7 @@
             android:label="@string/title_settings" />
         <activity
             android:name=".ui.nao.OpenGLActivity"
-            android:label="@string/title_nao" />
+            android:label="@string/title_3d_cube" />
         <activity
             android:name=".ui.LightActivity"
             android:label="@string/title_lights" />

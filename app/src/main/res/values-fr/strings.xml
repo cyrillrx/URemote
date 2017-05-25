@@ -6,11 +6,10 @@
     <string name="widget_dpad">D-pad</string>
 
     <!-- Activités -->
-    <string name="title_tv">Contrôle de la TV</string>
+    <string name="title_tv">Télé</string>
     <string name="title_robots">Robots</string>
     <string name="title_lights">Lumières</string>
     <string name="title_hifi">Hifi</string>
-    <string name="title_nao">Nao</string>
     <string name="title_settings">Paramètres</string>
     <string name="title_computer">Ordinateur</string>
     <string name="title_application_launcher">Applications</string>
@@ -19,11 +18,8 @@
     <string name="title_server_select">Se connecter à</string>
     <string name="title_server_edit">Serveur à éditer</string>
     <string name="title_explorer">Explorer</string>
-
-    <!-- Activité Nao -->
     <string name="title_app_list">Applications</string>
-    <string name="title_app_store">Robot App Store</string>
-    <string name="title_show_nao">Voir mon Nao</string>
+    <string name="title_3d_cube">3D cube</string>
 
     <!-- Menu -->
     <string name="menu_server_list">Gérer les serveurs</string>

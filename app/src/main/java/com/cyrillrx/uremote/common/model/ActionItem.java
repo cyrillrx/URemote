@@ -17,39 +17,20 @@ public class ActionItem {
     public static final int ACTION_EXPLORER = 5;
 
     public static final int ACTION_APP = 10;
-    public static final int ACTION_STORE = 11;
-    public static final int ACTION_SHOW_NAO = 12;
+    public static final int ACTION_3D_CUBE = 11;
 
     private final int id;
     private final String title;
-    private final String summary;
     private final int imageRes;
 
     /**
-     * Default constructor
-     *
-     * @param title         The action title.
-     * @param summary       The action summary.
-     * @param imageResource The resource id of the thumbnail image.
+     * @param title    The action title.
+     * @param imageRes The resource id of the thumbnail image.
      */
-    public ActionItem(int id, final String title, final String summary, final int imageResource) {
+    public ActionItem(int id, final String title, final int imageRes) {
         this.id = id;
         this.title = title;
-        this.summary = summary;
-        imageRes = imageResource;
-    }
-
-    /**
-     * Constructor without summary
-     *
-     * @param title         The action title.
-     * @param imageResource The resource id of the thumbnail image.
-     */
-    public ActionItem(int id, final String title, final int imageResource) {
-        this.id = id;
-        this.title = title;
-        summary = "";
-        imageRes = imageResource;
+        this.imageRes = imageRes;
     }
 
     public int getId() { return id; }
@@ -57,9 +38,6 @@ public class ActionItem {
     /** @return the title */
     public String getTitle() { return title; }
 
-    /** @return the summary */
-    public String getSummary() { return summary; }
-
-    /** @return the mImageResource */
+    /** @return the image resource */
     public int getImageResource() { return imageRes; }
 }

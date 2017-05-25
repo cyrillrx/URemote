@@ -10,7 +10,6 @@
     <string name="title_robots">Robot control</string>
     <string name="title_lights">Lights</string>
     <string name="title_hifi">Hifi</string>
-    <string name="title_nao">Nao</string>
     <string name="title_settings">Settings</string>
     <string name="title_computer">Computer</string>
     <string name="title_application_launcher">Applications</string>
@@ -19,11 +18,8 @@
     <string name="title_server_select">Connect to</string>
     <string name="title_server_edit">Server to edit</string>
     <string name="title_explorer">Explorer</string>
-
-    <!-- Nao activity -->
     <string name="title_app_list">Applications</string>
-    <string name="title_app_store">Robot App Store</string>
-    <string name="title_show_nao">See my Nao</string>
+    <string name="title_3d_cube">3D cube</string>
 
     <!-- Menu -->
     <string name="menu_server_list">Manage servers</string>
