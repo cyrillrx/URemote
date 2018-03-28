@@ -31,8 +31,7 @@ public class ConnectionUtils {
      * @return true if the device is connected to the Internet through WIFI. false otherwise.
      */
     public static boolean isWifiConnected(ConnectivityManager connectivityMgr) {
-        boolean isConnectedToWifi = connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
-        return isConnectedToWifi;
+        return connectivityMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI).isConnected();
     }
 
     /**
@@ -52,15 +51,6 @@ public class ConnectionUtils {
 
         Logger.error(TAG, "No access to the world wide web");
         return false;
-    }
-
-    /**
-     * @param connectivityMgr Object that contains connections data.
-     * @param ipAddress       The IP address of the host we want to connect to.
-     * @return true if the device can access the specified host. false otherwise.
-     */
-    public static boolean canAccessHost(ConnectivityManager connectivityMgr, String ipAddress) {
-        return connectivityMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, lookupHost(ipAddress));
     }
 
     /**
