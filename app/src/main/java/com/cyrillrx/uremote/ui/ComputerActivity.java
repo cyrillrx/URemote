@@ -99,11 +99,11 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
 
             View customView = actionBar.getCustomView();
             ((ImageView) customView.findViewById(R.id.deviceIcon)).setImageDrawable(deviceIcon);
-            progressSignal = (ImageView) customView.findViewById(R.id.signalIndicator);
+            progressSignal = customView.findViewById(R.id.signalIndicator);
 
         }
 
-        tvServerState = (TextView) findViewById(R.id.tvServerState);
+        tvServerState = findViewById(R.id.tvServerState);
 
         initKeyboard();
 
@@ -125,7 +125,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
         fragments.add(fragDashboard);
         fragments.add(explorerFragment);
 
-        viewPager = (ViewPager) findViewById(R.id.vpMain);
+        viewPager = findViewById(R.id.vpMain);
         viewPager.setOffscreenPageLimit(PAGES_COUNT);
         final ComputerPagerAdapter pagerAdapter = new ComputerPagerAdapter(super.getSupportFragmentManager(), fragments);
         viewPager.setAdapter(pagerAdapter);
@@ -163,7 +163,7 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
     protected NetworkDevice initDevice() {
 
         // Server info default value.
-        final TextView tvServerInfo = (TextView) findViewById(R.id.tvServerInfos);
+        final TextView tvServerInfo = findViewById(R.id.tvServerInfos);
         tvServerInfo.setText(R.string.no_device_configured);
 
         final NetworkDevice device = getIntent().getParcelableExtra(EXTRA_SERVER_DATA);
@@ -181,8 +181,8 @@ public class ComputerActivity extends AppCompatActivity implements TaskCallbacks
     /** Initializes custom keyboard elements. */
     private void initKeyboard() {
 
-        keyboardView = (KeyboardView) findViewById(R.id.keyboardView);
-        extendedKeyboardView = (KeyboardView) findViewById(R.id.keyboardViewExtended);
+        keyboardView = findViewById(R.id.keyboardView);
+        extendedKeyboardView = findViewById(R.id.keyboardViewExtended);
 
         // Create custom keyboard
         final KeyboardListener keyboardListener = new KeyboardListener(this);

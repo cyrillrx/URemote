@@ -51,12 +51,12 @@ public abstract class AbstractExplorerFragment extends Fragment
 
     protected void initView(View root) {
 
-        tvPath = (TextView) root.findViewById(R.id.tv_path);
-        tvEmpty = (TextView) root.findViewById(R.id.tv_empty);
+        tvPath = root.findViewById(R.id.tv_path);
+        tvEmpty = root.findViewById(R.id.tv_empty);
 
         errorLayout = root.findViewById(R.id.error_layout);
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView = root.findViewById(R.id.recycler_view);
 
         root.findViewById(R.id.btn_retry).setOnClickListener(new View.OnClickListener() {
             @Override

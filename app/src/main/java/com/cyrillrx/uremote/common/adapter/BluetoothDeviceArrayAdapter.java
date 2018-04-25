@@ -1,6 +1,7 @@
 package com.cyrillrx.uremote.common.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,16 +41,17 @@ public class BluetoothDeviceArrayAdapter extends ArrayAdapter<BluetoothDevice> {
         TextView tvDeviceType;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         ViewHolder holder;
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_device_bt, null);
             holder = new ViewHolder();
-            holder.tvDeviceName = (TextView) convertView.findViewById(R.id.tvDeviceName);
-            holder.tvDeviceAddress = (TextView) convertView.findViewById(R.id.tvDeviceAddress);
-            holder.tvDeviceType = (TextView) convertView.findViewById(R.id.tvDeviceType);
+            holder.tvDeviceName = convertView.findViewById(R.id.tvDeviceName);
+            holder.tvDeviceAddress = convertView.findViewById(R.id.tvDeviceAddress);
+            holder.tvDeviceType = convertView.findViewById(R.id.tvDeviceType);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

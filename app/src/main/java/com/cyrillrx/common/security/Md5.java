@@ -18,7 +18,8 @@ public class Md5 {
      * @return The encoded string.
      */
     public static String encode(String stringToEncode) {
-        byte[] hash = null;
+
+        byte[] hash;
 
         try {
             hash = MessageDigest.getInstance("MD5").digest(stringToEncode.getBytes());

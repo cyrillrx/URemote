@@ -1,5 +1,6 @@
 package com.cyrillrx.uremote.common.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,11 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionViewHolder> {
 
     private List<ActionItem> actions;
 
-    public ActionAdapter(List<ActionItem> actions) {
-        this.actions = actions;
-    }
+    public ActionAdapter(List<ActionItem> actions) { this.actions = actions; }
 
+    @NonNull
     @Override
-    public ActionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ActionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View v = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_action, parent, false);
@@ -35,7 +35,7 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ActionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ActionViewHolder holder, int position) {
         holder.bind(actions.get(position));
     }
 

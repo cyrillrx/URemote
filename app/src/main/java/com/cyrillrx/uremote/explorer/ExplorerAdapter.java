@@ -1,5 +1,6 @@
 package com.cyrillrx.uremote.explorer;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -31,13 +32,14 @@ public class ExplorerAdapter extends RecyclerView.Adapter<ExplorerViewHolder> {
         this.clickListener = clickListener;
     }
 
+    @NonNull
     @Override
-    public ExplorerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ExplorerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ExplorerViewHolder(parent);
     }
 
     @Override
-    public void onBindViewHolder(ExplorerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExplorerViewHolder holder, int position) {
         holder.bind(items.get(position), clickListener);
     }
 

@@ -78,9 +78,7 @@ public class BluetoothService {
     private ConnectedThread connectedThread;
     private int state;
 
-    public BluetoothService() {
-        this(null);
-    }
+    public BluetoothService() { this(null); }
 
     /**
      * @param handler

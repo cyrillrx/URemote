@@ -41,9 +41,7 @@ public class KeyboardListener implements KeyboardView.OnKeyboardActionListener {
         modifierFlag = FLAG_NONE;
     }
 
-    private void sendToast(final String message) {
-        Toaster.toast(message);
-    }
+    private void sendToast(final String message) { Toaster.toast(message); }
 
     /**
      * Sets the keyboard view and caches the modifier keys of the attached keyboard.

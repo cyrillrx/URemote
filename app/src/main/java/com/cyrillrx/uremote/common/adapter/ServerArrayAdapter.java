@@ -1,6 +1,7 @@
 package com.cyrillrx.uremote.common.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,19 +45,20 @@ public class ServerArrayAdapter extends ArrayAdapter<NetworkDevice> {
         TextView tvMacAddress;
     }
 
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         ViewHolder holder;
 
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.item_server, null);
             holder = new ViewHolder();
-            holder.ivThumbnail = (ImageView) convertView.findViewById(R.id.thumbnail);
-            holder.tvName = (TextView) convertView.findViewById(R.id.server_name);
-            holder.tvLocalhost = (TextView) convertView.findViewById(R.id.local_host);
-            holder.tvRemoteHost = (TextView) convertView.findViewById(R.id.remote_host);
-            holder.tvMacAddress = (TextView) convertView.findViewById(R.id.mac_address);
+            holder.ivThumbnail = convertView.findViewById(R.id.thumbnail);
+            holder.tvName = convertView.findViewById(R.id.server_name);
+            holder.tvLocalhost = convertView.findViewById(R.id.local_host);
+            holder.tvRemoteHost = convertView.findViewById(R.id.remote_host);
+            holder.tvMacAddress = convertView.findViewById(R.id.mac_address);
             convertView.setTag(holder);
 
         } else {

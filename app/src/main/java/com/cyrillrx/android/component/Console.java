@@ -49,8 +49,8 @@ public class Console extends LinearLayout {
     private void initViews(final Context context) {
 
         inflate(context, R.layout.console, this);
-        consoleLineModel = (TextView) findViewById(R.id.tvConsoleLine);
-        consoleContent = (LinearLayout) findViewById(R.id.consoleContent);
+        consoleLineModel = findViewById(R.id.tvConsoleLine);
+        consoleContent = findViewById(R.id.consoleContent);
         // Remove the model from the view
         consoleContent.removeAllViews();
     }
@@ -83,7 +83,7 @@ public class Console extends LinearLayout {
 
         final TextView textView = createTextView(context, consoleLineModel);
 
-        (new AsyncTask<String, String, Void>() {
+        new AsyncTask<String, String, Void>() {
 
             private boolean firstLetter = true;
 
@@ -120,7 +120,7 @@ public class Console extends LinearLayout {
                 }
                 textView.append(String.valueOf(values[0]));
             }
-        }).execute(consoleLine);
+        }.execute(consoleLine);
     }
 
     /**

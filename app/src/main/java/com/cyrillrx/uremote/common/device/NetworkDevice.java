@@ -74,9 +74,7 @@ public class NetworkDevice extends ConnectedDevice implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
+    public int describeContents() { return 0; }
 
     @Override
     public void writeToParcel(Parcel destination, int flags) {

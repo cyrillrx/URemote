@@ -1,6 +1,7 @@
 package com.cyrillrx.uremote.explorer;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
 import com.cyrillrx.android.utils.PermissionUtils;
@@ -53,7 +54,7 @@ public class LocalExplorerFragment extends AbstractExplorerFragment {
 
         return new LocalExplorer(new Explorer.Callback() {
             @Override
-            public void onDirectoryLoaded(FileInfo dirContent) { updateView(dirContent); }
+            public void onDirectoryLoaded(@NonNull FileInfo dirContent) { updateView(dirContent); }
         });
     }
 

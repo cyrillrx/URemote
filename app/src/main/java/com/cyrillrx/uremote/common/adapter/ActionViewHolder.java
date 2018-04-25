@@ -24,14 +24,14 @@ import static com.cyrillrx.uremote.utils.IntentKeys.ACTION_LOAD;
 /** The view holder is the template for the items of the list. */
 public class ActionViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView icon;
-    TextView tvTitle;
+    private ImageView icon;
+    private TextView tvTitle;
 
     public ActionViewHolder(View itemView) {
         super(itemView);
 
-        icon = (ImageView) itemView.findViewById(R.id.iv_action_icon);
-        tvTitle = (TextView) itemView.findViewById(R.id.tv_action_title);
+        icon = itemView.findViewById(R.id.iv_action_icon);
+        tvTitle = itemView.findViewById(R.id.tv_action_title);
     }
 
     public void bind(final ActionItem action) {

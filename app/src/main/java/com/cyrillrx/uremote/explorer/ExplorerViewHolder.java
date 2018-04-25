@@ -21,9 +21,9 @@ public class ExplorerViewHolder extends RecyclerView.ViewHolder {
     public ExplorerViewHolder(ViewGroup parent) {
         super(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_explorer, null));
 
-        ivIcon = (ImageView) itemView.findViewById(R.id.ivIcon);
-        tvName = (TextView) itemView.findViewById(R.id.tv_name);
-        tvSize = (TextView) itemView.findViewById(R.id.tv_size);
+        ivIcon = itemView.findViewById(R.id.ivIcon);
+        tvName = itemView.findViewById(R.id.tv_name);
+        tvSize = itemView.findViewById(R.id.tv_size);
     }
 
     public void bind(final RemoteCommand.FileInfo file,

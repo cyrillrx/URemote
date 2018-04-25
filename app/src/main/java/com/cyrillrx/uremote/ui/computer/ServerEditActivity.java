@@ -68,35 +68,35 @@ public class ServerEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.server_edit);
 
-        serverName = (EditText) findViewById(R.id.server_name);
+        serverName = findViewById(R.id.server_name);
 
-        localHost1 = (EditText) findViewById(R.id.local_host1);
-        localHost2 = (EditText) findViewById(R.id.local_host2);
-        localHost3 = (EditText) findViewById(R.id.local_host3);
-        localHost4 = (EditText) findViewById(R.id.local_host4);
-        localPort = (EditText) findViewById(R.id.local_port);
+        localHost1 = findViewById(R.id.local_host1);
+        localHost2 = findViewById(R.id.local_host2);
+        localHost3 = findViewById(R.id.local_host3);
+        localHost4 = findViewById(R.id.local_host4);
+        localPort = findViewById(R.id.local_port);
 
-        broadcast1 = (EditText) findViewById(R.id.broadcast1);
-        broadcast2 = (EditText) findViewById(R.id.broadcast2);
-        broadcast3 = (EditText) findViewById(R.id.broadcast3);
-        broadcast4 = (EditText) findViewById(R.id.broadcast4);
+        broadcast1 = findViewById(R.id.broadcast1);
+        broadcast2 = findViewById(R.id.broadcast2);
+        broadcast3 = findViewById(R.id.broadcast3);
+        broadcast4 = findViewById(R.id.broadcast4);
 
-        remoteHost1 = (EditText) findViewById(R.id.remote_host1);
-        remoteHost2 = (EditText) findViewById(R.id.remote_host2);
-        remoteHost3 = (EditText) findViewById(R.id.remote_host3);
-        remoteHost4 = (EditText) findViewById(R.id.remote_host4);
-        remotePort = (EditText) findViewById(R.id.remote_port);
+        remoteHost1 = findViewById(R.id.remote_host1);
+        remoteHost2 = findViewById(R.id.remote_host2);
+        remoteHost3 = findViewById(R.id.remote_host3);
+        remoteHost4 = findViewById(R.id.remote_host4);
+        remotePort = findViewById(R.id.remote_port);
 
-        macAddress1 = (EditText) findViewById(R.id.mac_address1);
-        macAddress2 = (EditText) findViewById(R.id.mac_address2);
-        macAddress3 = (EditText) findViewById(R.id.mac_address3);
-        macAddress4 = (EditText) findViewById(R.id.mac_address4);
-        macAddress5 = (EditText) findViewById(R.id.mac_address5);
-        macAddress6 = (EditText) findViewById(R.id.mac_address6);
+        macAddress1 = findViewById(R.id.mac_address1);
+        macAddress2 = findViewById(R.id.mac_address2);
+        macAddress3 = findViewById(R.id.mac_address3);
+        macAddress4 = findViewById(R.id.mac_address4);
+        macAddress5 = findViewById(R.id.mac_address5);
+        macAddress6 = findViewById(R.id.mac_address6);
 
-        connectionTimeout = (EditText) findViewById(R.id.connection_timeout);
-        readTimeout = (EditText) findViewById(R.id.read_timeout);
-        securityToken = (EditText) findViewById(R.id.security_token);
+        connectionTimeout = findViewById(R.id.connection_timeout);
+        readTimeout = findViewById(R.id.read_timeout);
+        securityToken = findViewById(R.id.security_token);
 
         macAddress1.addTextChangedListener(macAddressWatcher);
         macAddress2.addTextChangedListener(macAddressWatcher);

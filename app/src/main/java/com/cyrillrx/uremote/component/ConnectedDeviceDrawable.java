@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 import com.cyrillrx.common.graphic.Hexagon;
 import com.cyrillrx.uremote.URemoteApp;
@@ -72,7 +73,7 @@ public class ConnectedDeviceDrawable extends Drawable {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(@NonNull Canvas canvas) {
 
         final float centerX = canvas.getWidth() / 2f;
         final float centerY = canvas.getHeight() / 2f;

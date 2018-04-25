@@ -116,12 +116,12 @@ public class FragDashboard extends Fragment implements OnClickListener, OnSeekBa
         view.findViewById(R.id.cmdStop).setOnClickListener(this);
         view.findViewById(R.id.cmdNext).setOnClickListener(this);
 
-        tvVolume = (TextView) view.findViewById(R.id.toastText);
+        tvVolume = view.findViewById(R.id.toastText);
 
-        ibMute = (ImageButton) view.findViewById(R.id.cmdMute);
+        ibMute = view.findViewById(R.id.cmdMute);
         ibMute.setOnClickListener(this);
 
-        sbVolume = ((SeekBar) view.findViewById(R.id.sbVolume));
+        sbVolume = view.findViewById(R.id.sbVolume);
         sbVolume.setOnSeekBarChangeListener(this);
 
         return view;

@@ -76,7 +76,7 @@ public class FragAdmin extends Fragment implements OnClickListener {
         view.findViewById(R.id.cmdKillServer).setOnClickListener(this);
         view.findViewById(R.id.cmdLock).setOnClickListener(this);
 
-        console = (Console) view.findViewById(R.id.console);
+        console = view.findViewById(R.id.console);
 
         return view;
     }

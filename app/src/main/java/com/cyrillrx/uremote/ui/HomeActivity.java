@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
         initActionList();
 
-        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
 
         recyclerView.setHasFixedSize(true);
         final ActionAdapter adapter = new ActionAdapter(actionList);
