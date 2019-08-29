@@ -1,8 +1,8 @@
 package com.cyrillrx.uremote.explorer;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 
 import com.cyrillrx.android.utils.PermissionUtils;
 import com.cyrillrx.uremote.ui.computer.LoadServerActivity;

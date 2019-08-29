@@ -2,7 +2,7 @@ package com.cyrillrx.uremote;
 
 import android.app.Application;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.crashlytics.android.Crashlytics;
 import com.cyrillrx.logger.Logger;
