@@ -17,7 +17,7 @@ import io.fabric.sdk.android.Fabric;
  * @author Cyril Leroux
  *         Created on 23/07/2014.
  */
-public class URemoteApp extends Application {
+public class App extends Application {
 
     static {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

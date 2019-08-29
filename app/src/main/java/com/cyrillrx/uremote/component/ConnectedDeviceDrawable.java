@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import androidx.annotation.NonNull;
 
 import com.cyrillrx.common.graphic.Hexagon;
-import com.cyrillrx.uremote.URemoteApp;
+import com.cyrillrx.uremote.App;
 import com.cyrillrx.uremote.common.device.ConnectedDevice;
 import com.cyrillrx.uremote.common.device.NetworkDevice;
 
@@ -53,7 +53,7 @@ public class ConnectedDeviceDrawable extends Drawable {
 
         // Paint
         paint = new Paint();
-        paint.setColor((color != Integer.MIN_VALUE ? color : URemoteApp.COLOR_DEFAULT));
+        paint.setColor((color != Integer.MIN_VALUE ? color : App.COLOR_DEFAULT));
         paint.setAntiAlias(true);
         paint.setStrokeWidth(STROKE_WIDTH);
 
